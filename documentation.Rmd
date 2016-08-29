@@ -1,0 +1,177 @@
+---
+title: "Documentation"
+author: "Marieke"
+date: "August 29, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Pre-processing Satellite data
+## Library path and loading librarys
+```{r}
+.libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+
+#librarys
+library(rhdf5)
+library(maptools)
+library(raster)
+library(ncdf4)
+```
+
+## Initialization 
+* define files location, load Rdata
+* projection for the save files RD-coordinates
+* extract time from names .h5 files
+```{r}
+load("/nobackup/users/dirksen/Radiation_Obs_Satellite/auxcillary_data/sun.Rdata") #created with sunriset function for Cabauw station
+data(wrld_simpl)
+files_dir<-"/nobackup/users/dirksen/Radiation_Obs_Satellite/Satellite_data/"
+
+#setwd("/nobackup/users/dirksen/Radiation_Obs_Satellite/satellite_meirink_world/") #data satellite world
+
+# initialization
+pro=CRS("+init=epsg:28992")
+
+#files
+files<-list.files(pattern=".h5",full.names = TRUE)
+
+#For data from Jan-Fokke
+#Onbewolkte dag: 18,23 juli 2014
+format<-"msg3_yyyymmdd_hhmm_00000_fl_cpp.h5"
+time<-gsub("msg3_","",files)
+time<-gsub("_00000_fl_cpp.h5","",time)
+
+##create save file for sunrise and sunset times
+t<-as.POSIXct(time,format="%Y%m%d_%H%M",tz="GMT")
+day<-as.POSIXct((as.Date(t)))
+```
+
+## Processing all the files
+* all the files between sunrise and sunset 
+* from the .nc files a raster file is created
+* saved to .ascii [NOTE: not ideal, an .nc file does have metadata]
+```{r}
+#as an example 2 files are selected
+for (i in 40:41){
+d<-day[i]
+d<-format(d,format="%Y-%m-%d")
+sun_up_down<-sun[which(format(sun$sunrise,"%Y-%m-%d")==d),]
+if  (t[i]>sun_up_down$sunrise & t[i]<sun_up_down$sunset){
+# myfile<-tempfile()
+file<-files[i]
+#print(time[i])
+
+#find the data structure and variables
+data.str<-h5ls(file)
+
+data.sds<-h5read(file,"/sds") #the data
+
+data.att<-h5readAttributes(file,"/sds") #description of the data (description, gain, intercept, no_data_value)
+print(data.att)
+
+data.sds<-data.sds*data.att$gain #note: the intergers should be multiplied with the gain! in case of sds gain=0.1
+data.sds[which(data.sds==as.numeric(data.att$no_data_value*data.att$gain))]<-NA # replace no data value with NA (this case -1)
+
+data.sds<-t(data.sds)
+
+#loading the metadata for the field
+#note: output from the h5 file is a matrix, not easy to cbind
+data.att<-h5readAttributes(file,"/lat")
+
+data.lat<-h5read(file,"/lat") #Latitude
+data.lon<-h5read(file,"/lon") #Longitude
+
+data.lat[which(data.lat==as.numeric(data.att$no_data_value))]<-NA # replace no data value with NA (this case -1)
+data.lon[which(data.lon==as.numeric(data.att$no_data_value))]<-NA # replace no data value with NA (this case -1)
+
+data.lat<-data.lat*data.att$gain #from interger to numeric
+data.lon<-data.lon*data.att$gain
+
+#create a raster file with coordinates (reference system: WGS84)
+r<-raster(data.sds,
+          xmn=min(data.lon,na.rm=T),
+          xmx=max(data.lon,na.rm=T),
+          ymn=min(data.lat,na.rm=T),
+          ymx=max(data.lat,na.rm=T),
+          crs=CRS("+init=epsg:4326"))
+          #crs=CRS("+init=epsg:4326"))
+#
+#Visualization of the raster file
+# plot.new()
+# plot(r,main=time[i],asp=1)
+# plot(wrld_simpl,add=TRUE)
+
+#Reproject and crop the raster file
+r<-projectRaster(r,crs=pro)
+
+r2<-crop(r,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
+
+#Save file as ASCII
+GRID_name<-gsub(".h5","",file)
+GRID_new<-paste0(files_dir,GRID_name)
+
+writeRaster(r2, GRID_new, format="ascii",overwrite=TRUE)
+} else
+  print("night")
+}
+
+```
+
+# Pre-processing HARM38 
+
+## Initialization
+```{r}
+setwd("/nobackup/users/dirksen/Radiation_Obs_Satellite/HARMONIE38/NC")
+files_dir<-"/nobackup/users/dirksen/Radiation_Obs_Satellite/HARMONIE38/ASCII/"
+allfiles<-list.files(pattern=".nc")
+nodatafiles<-list.files(pattern="\\_00000")
+
+ncfiles<-allfiles[!allfiles %in% nodatafiles]
+nl.grd <- read.asciigrid("/nobackup/users/dirksen/GIS/nl_clip_1km.txt")
+projection(nl.grd)<-pro
+nl.ras<-raster(nl.grd)
+```
+
+## Data Pre-processing
+* from the .nc files a raster file is created
+* saved to .ascii [NOTE: not ideal, an .nc file does have metadata]
+* data is accumulative!
+```{r}
+
+for (i in 1:2){
+ print(i)
+    # myfile<-tempfile()
+    file<-ncfiles[i]
+    ncdata<-nc_open(file)
+
+    data.lat<-ncvar_get(ncdata,'lat')
+    data.lon<-ncvar_get(ncdata,'lon')
+
+    data.aswsn<-ncvar_get(ncdata,'aswsn')
+
+    r<-raster(data.aswsn,
+              xmn=min(data.lon,na.rm=T),
+              xmx=max(data.lon,na.rm=T),
+              ymn=min(data.lat,na.rm=T),
+              ymx=max(data.lat,na.rm=T),
+              crs=CRS("+init=epsg:4326"))
+
+    #Visualization of the raster file
+    # plot.new()
+    # plot(r,main=time[i],asp=1)
+    # plot(wrld_simpl,add=TRUE)
+
+    #Reproject and crop the raster file
+    r<-projectRaster(r,crs=pro)
+    r2<-crop(r,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758)) 
+    r2.1km<-resample(r2,nl.ras)
+
+    #Save file as ASCII
+    GRID_name<-gsub(".nc","",file)
+    GRID_new<-paste0(files_dir,GRID_name)
+
+    writeRaster(r2.1km, GRID_new, format="ascii",overwrite=TRUE)
+    }
+```
