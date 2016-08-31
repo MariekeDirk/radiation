@@ -18,6 +18,7 @@ library(rhdf5)
 library(maptools)
 library(raster)
 library(ncdf4)
+library(adehabitat)
 ```
 
 ## Initialization 
@@ -140,38 +141,71 @@ nl.ras<-raster(nl.grd)
 * data is accumulative!
 ```{r}
 
-for (i in 1:2){
+for (i in 1:length(ncfiles)){
  print(i)
-    # myfile<-tempfile()
     file<-ncfiles[i]
-    ncdata<-nc_open(file)
-
-    data.lat<-ncvar_get(ncdata,'lat')
-    data.lon<-ncvar_get(ncdata,'lon')
-
-    data.aswsn<-ncvar_get(ncdata,'aswsn')
-
-    r<-raster(data.aswsn,
-              xmn=min(data.lon,na.rm=T),
-              xmx=max(data.lon,na.rm=T),
-              ymn=min(data.lat,na.rm=T),
-              ymx=max(data.lat,na.rm=T),
-              crs=CRS("+init=epsg:4326"))
-
-    #Visualization of the raster file
-    # plot.new()
-    # plot(r,main=time[i],asp=1)
-    # plot(wrld_simpl,add=TRUE)
-
+    b<-brick(file,var='aswsn')
+    r<-raster(b,layer=1)
+    projection(r)<-CRS("+init=epsg:4326")
+    
     #Reproject and crop the raster file
     r<-projectRaster(r,crs=pro)
     r2<-crop(r,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758)) 
     r2.1km<-resample(r2,nl.ras)
-
+    
     #Save file as ASCII
     GRID_name<-gsub(".nc","",file)
     GRID_new<-paste0(files_dir,GRID_name)
 
     writeRaster(r2.1km, GRID_new, format="ascii",overwrite=TRUE)
     }
+```
+
+## From accumulative data to time averaged
+* Datum is obtained from file name
+* The first 24 hours of the run are used (as the run starts at nigh there is enough spin-up time for the model)
+* Calculating time averaged values ([asc2-asc1]/[d2-d1]), where d is the time in seconds
+* Save as .rda
+```{r}
+path<-"/nobackup/users/dirksen/Radiation_Obs_Satellite/HARMONIE38/ASCII/"
+
+lst.dates<-list.files(path=path,pattern='.asc$',full.names=FALSE)
+lst<-list.files(path=path,pattern='.asc$',full.names=TRUE)
+
+#extracting the time from the file name
+runstart<-gsub("HA38_N25_","",lst.dates)
+runstart<-gsub("0000_0","",runstart)
+runstart<-gsub(".asc","",runstart)
+
+d<-as.POSIXct(runstart,format="%Y%m%d%H%M")
+#d<-sort(d)
+indices<-which(!is.na(d)) #True==NA value
+d<-d[indices]
+#we only want the files from the first 24 hours, so now select
+lst<-lst[indices]
+
+#test is equal
+print(length(d))
+print(length(lst))
+
+save.file<-"/nobackup/users/dirksen/Radiation_Obs_Satellite/HARMONIE38/rda/rdata.rda"
+
+for (i in 1:(length(d)-1)) {
+fname<-gsub("rdata",runstart[i+1],save.file)
+  
+lst.1<-lst[i]
+lst.2<-lst[i+1]
+
+lst.asc1<-import.asc(lst.1)
+lst.asc2<-import.asc(lst.2)
+d.1<-d[i]
+d.2<-d[i+1]
+
+out.2<-(lst.asc2-lst.asc1)/(as.numeric(d.2)-as.numeric(d.1))
+
+plot(out.2,main=d.2)
+
+save(out.2,d.2,file=fname)
+
+}
 ```
