@@ -12,11 +12,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 .libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
 library(rhdf5)
+library(raster)
 ```
 
 ```{r}
 #Daily mean radiation from satellite
 pathsat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/"
+loc.grid<-"/net/pc150398/nobackup/users/meirink/msg_archive/geo/meteosat9.euro4m.angles.h5"
 year.sat<-seq(from=2004,to=2016,by=1)
 Y<-year.sat[11]
 
@@ -37,6 +39,19 @@ time<-as.POSIXct(paste0(Y,"-",m,"-",d))
 
 #structure of the file
 h5ls(file)
+data.direct.irradiance<-h5read(file,"direct irradiance")
+data.diffuse.irradiance<-h5read(file,"diffuse irradiance")
+data.total.irradiance<-data.direct.irradiance+data.diffuse.irradiance
+data.total.irradiance<-t(data.total.irradiance)
+#the grid file
+h5ls(loc.grid)
+data.lat<-h5read(loc.grid,"/lat") #Latitude
+data.lon<-h5read(loc.grid,"/lon") #Longitude
 
-
+r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
+      xmn=min(data.lon,na.rm=T),
+      xmx=max(data.lon,na.rm=T),
+      ymn=min(data.lat,na.rm=T),
+      ymx=max(data.lat,na.rm=T))
+plot(r)
 ```
