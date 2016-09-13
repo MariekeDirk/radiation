@@ -53,5 +53,5 @@ r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
       xmx=max(data.lon,na.rm=T),
       ymn=min(data.lat,na.rm=T),
       ymx=max(data.lat,na.rm=T))
-plot(r)
+plot(r,main=paste("Datum=",time))
 ```
