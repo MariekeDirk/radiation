@@ -48,6 +48,9 @@ h5ls(loc.grid)
 data.lat<-h5read(loc.grid,"/lat") #Latitude
 data.lon<-h5read(loc.grid,"/lon") #Longitude
 
+data.lat[which(data.lat==-999)]<-NA # replace no data value with NA (this case -1)
+data.lon[which(data.lon==-999)]<-NA # replace no data value with NA (this case -1)
+
 r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
       xmn=min(data.lon,na.rm=T),
       xmx=max(data.lon,na.rm=T),
