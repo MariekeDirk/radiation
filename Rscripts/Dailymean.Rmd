@@ -1,0 +1,42 @@
+---
+title: "DailyMean Satellite data"
+author: "Marieke"
+date: "September, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+.libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+library(rhdf5)
+```
+
+```{r}
+#Daily mean radiation from satellite
+pathsat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/"
+year.sat<-seq(from=2004,to=2016,by=1)
+Y<-year.sat[11]
+
+pathsat.year<-paste0(pathsat,Y)
+
+#selecting a test month
+m<-"07"
+files.sat<-list.files(path=paste0(pathsat.year,"/",m))
+```
+
+```{r}
+setwd(paste0(pathsat.year,"/","07"))
+
+file<-files.sat[1]
+d<-gsub("daymean","",file)
+d<-gsub("EURO4M.hdf5","",d)
+time<-as.POSIXct(paste0(Y,"-",m,"-",d))
+
+#structure of the file
+h5ls(file)
+
+
+```
