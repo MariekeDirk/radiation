@@ -19,6 +19,7 @@ library(maptools)
 library(raster)
 library(ncdf4)
 library(adehabitat)
+library(rgdal)
 ```
 
 ## Initialization 
