@@ -11,15 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 .libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
-library(rhdf5)
-library(raster)
+library(adehabitat)
+library(automap)
+library(caret)
+library(data.table)
 library(maptools)
+library(raster)
 library(rgdal)
+library(rhdf5)
+library(SDMTools)
 data(wrld_simpl)
 ```
 
+#Color settings for plotting routine
 ```{r}
+kleur.breaks<-seq(0,500,by=10)
+kleur.cols<-terrain.colors(length(kleur.breaks-1))
+```
+
 #Daily mean radiation from satellite
+```{r}
 pathsat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/"
 loc.grid<-"/net/pc150398/nobackup/users/meirink/msg_archive/geo/meteosat9.euro4m.angles.h5"
 year.sat<-seq(from=2004,to=2016,by=1)
@@ -59,11 +70,11 @@ r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
       xmx=max(data.lon,na.rm=T),
       ymn=min(data.lat,na.rm=T),
       ymx=max(data.lat,na.rm=T))
-plot(r,main=paste("Datum=",time))
+plot(r,main=paste("Datum=",time),col=kleur.cols,breaks=kleur.breaks,legend=F)
 plot(wrld_simpl,add=TRUE)
 ```
 
-#Reprojecting raster and comparing with observations
+#Reprojecting raster and cropping
 ```{r}
 pro=CRS("+init=epsg:28992")
 
@@ -77,7 +88,97 @@ mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
 r<-projectRaster(r,crs=pro)
 r.NED<-crop(r,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
 
-plot(r.NED,main=paste("Datum=",time))
+plot(r.NED,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum=",time),legend=F)
 plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
+```
+
+#Data from observations
+```{r}
+obs<-fread("/nobackup/users/dirksen/Radiation_Obs_Satellite/Observations_data/radiation_KNMI_day.csv")
+obs$IT_DATETIME<-as.POSIXct(obs$IT_DATETIME,format="%Y%m%d_%H%M%S_000000")
+
+obs.subset<-obs[which(IT_DATETIME==time),]
+obs.subset<-na.omit(obs.subset,cols=c("DS_LAT","DS_LON"))
+
+coordinates(obs.subset)<-~DS_LON+DS_LAT
+proj4string(obs.subset)<-CRS("+init=epsg:4326")
+obs.subset<-spTransform(obs.subset,pro)
+obs.subset$REH1.Q<-obs.subset$REH1.Q24/24
+
+kleur.data<-cut(obs.subset$REH1.Q,breaks=kleur.breaks,include.lowest=TRUE,labels=FALSE)
+plot(obs.subset,bg=(kleur.cols[kleur.data]),
+     col="darkgrey",pch=21)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+plot(mymap.pro,add=TRUE)
+plot(mymap.pro_lakes,add=TRUE)
+```
+
+#Compare the two products
+```{r}
+rASC<-asc.from.raster(r.NED)
+spdf<-asc2spixdf(rASC)
+proj4string(spdf)<-pro
+
+var.Q<-subset(obs.subset,select=REH1.Q24)
+sat.var<-over(var.Q,spdf)
+
+n<-names(sat.var)
+diff<-sat.var[n]-var.Q$REH1.Q
+
+plot(r.NED,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum=",time),legend=F)
+plot(obs.subset,bg=(kleur.cols[kleur.data]),
+     col="darkgrey",pch=21,add=TRUE)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(diff[[n]],0),pos=1,cex=0.7,col="red")
+plot(mymap.pro,add=TRUE)
+plot(mymap.pro_lakes,add=TRUE)
+```
+
+#Interpolation routine
+```{r}
+# Kriging
+blocksize = 20000
+mxdkrige=Inf # maxdist Krige
+# over functions
+gridded(spdf)=FALSE;gridded(spdf)=TRUE;fullgrid(spdf) = TRUE
+slot(slot(spdf, "grid"), "cellsize") <-rep(mean(slot(slot(spdf, "grid"), "cellsize")), 2)
+  # over Distshore on Var
+  distshore.ov=over(obs.subset,spdf)
+   # Copy the values to Var )
+
+  var = obs.subset
+
+
+  var$var=distshore.ov$var
+
+  #Prepare input  
+  field = spdf
+  field@data = cbind(field@data, coordinates(field))
+  names(field@data) = c("s","x","y")
+  #field$log = log(field$s) 
+#for(fieldlog in field$s) {try(print(paste("log of", fieldlog, "=", log(fieldlog))))}
+
+#field$log=fieldlog
+  var$x = over(var,field)$x 
+  var$y = over(var,field)$y
+  var$s = over(var,field)$s
+  
+  # Remove nodata from dataframe based on missing distshore
+  var = var[!is.na(var$var),]
+ 
+  
+    ked_gau <- autoKrige(REH1.Q~var, var, spdf,maxdist=mxdkrige, block=c(blocksize,blocksize), model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))  #log(distshore)
+
+# Krige Cross validation
+ked_gau.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))
+teller <- sum(ked_gau.cv$krige.cv_output$residual^2)
+noemer <- sum((var$var-mean(var$var))^2)
+ked_gau.r2 <- 1 - teller/noemer
+ked.zscoremean <- mean(ked_gau.cv$krige.cv_output$zscore)
+ked.zscore.var <- var(ked_gau.cv$krige.cv_output$zscore)
+
+plot(ked_gau,col=kleur.cols,breaks=kleur.breaks,sp.layout=list(pts=list("sp.points",obs.subset,pch=21),mymap.pro,mymap.pro_lakes))
+
+print(head(ked_gau$krige_output))
 ```
