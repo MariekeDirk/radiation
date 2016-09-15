@@ -1,6 +1,6 @@
 ---
-title: "DailyMean Satellite data"
-author: "Marieke"
+title: "Daily Mean Radiation Products from Ground-based observations and Satellite data"
+author: "Marieke Dirksen"
 date: "September, 2016"
 output: html_document
 ---
@@ -15,6 +15,8 @@ library(adehabitat)
 library(automap)
 library(caret)
 library(data.table)
+library(doParallel)
+library(foreach)
 library(GSIF)
 library(maptools)
 library(reshape)
@@ -137,7 +139,7 @@ plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
 ```
 
-#Interpolation routine
+#Geostatistical Approach: Kriging interpolation with trend
 ```{r,message=FALSE}
 # Kriging
 blocksize = 20000
@@ -173,7 +175,7 @@ slot(slot(spdf, "grid"), "cellsize") <-rep(mean(slot(slot(spdf, "grid"), "cellsi
     ked_exp <- autoKrige(REH1.Q~var, var, spdf,maxdist=mxdkrige, block=c(blocksize,blocksize), model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))  #log(distshore)
 
 # Krige Cross validation
-ked_exp.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))
+ked_exp.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE),verbose=c(FALSE,FALSE))
 teller <- sum(ked_exp.cv$krige.cv_output$residual^2)
 noemer <- sum((var$var-mean(var$var))^2)
 ked_exp.r2 <- 1 - teller/noemer
@@ -185,17 +187,19 @@ plot(ked_exp,col=kleur.cols,breaks=kleur.breaks,sp.layout=list(pts=list("sp.poin
 print(paste("R2=",round(ked_exp.r2,2)))
 print(head(ked_exp$krige_output))
 ```
-#Caret package: testing
-```{r}
-m1.caret<-train(REH1.Q~layer,data=ov,method="glm")
 
-#2 ways of predicting
-p1.caret<-predict(m1.rpart,grid)
-p1.caret<-predict.train(m1.rpart,newdata=grid)
-```
-#Machine learning models from the GSIF package
-Note that these models require at least 50 data points for validation, as this test set is for 1 day with all KNMI observations this is not enough for a prediction. However, it is possible to make model fits. Below an example how to make ML models with GSIF. 
+#Caret: Testing Machine Learning Models
+For grid predictions with the caret package a combination of the caret::train and raster::predict functions is used. The input for the raster::predict function is either a rasterStack or rasterBrick. 
+
+* Methods for two classes can be found [here](http://topepo.github.io/caret/train-models-by-tag.html#Two_Class_Only.html).
+* Some methods of the caret package run in parallel, background information can be found [here](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf).
+* Bug in Caret "Error in e$fun(obj, substitute(ex), parent.frame(), e$data) : 
+  worker initialization failed: there is no package called ‘caret’" can be fixed like [this](http://stackoverflow.com/questions/21029019/parallel-execution-of-train-in-caret-fails-with-function-not-found)
+  
 ```{r,message=FALSE}
+#cl<-makeCluster(6)
+#registerDoParallel(cl)
+
 obs.subset.Q<-subset(obs.subset,select="REH1.Q")
 grid<-as(r.NED,"SpatialPixelsDataFrame")
 
@@ -204,6 +208,36 @@ ov<-cbind(data.frame(obs.subset.Q["REH1.Q"]),ov)
 ov<-rename(ov,c("DS_LON"="x"))
 ov<-rename(ov,c("DS_LAT"="y"))
 
+#m1.caret<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+m1.caret<-caret::train(REH1.Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+#m1.caret<-caret::train(REH1.Q~layer,data=ov,method="rlm",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+
+print(m1.caret)
+
+st<-stack(grid)
+p1.caret<-raster::predict(model=m1.caret,object=st)
+
+p1.ASC<-asc.from.raster(p1.caret)
+p1.spdf<-asc2spixdf(p1.ASC)
+proj4string(p1.spdf)<-pro
+
+p1.var<-over(var.Q,p1.spdf)
+
+n<-names(p1.var)
+p1.diff<-p1.var[n]-var.Q$REH1.Q
+
+plot(p1.caret,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum =",time,"\n","method = ",m1.caret$method),legend=F)
+plot(obs.subset,bg=(kleur.cols[kleur.data]),
+     col="darkgrey",pch=21,add=TRUE)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(p1.diff[[n]],0),pos=1,cex=0.7,col="red")
+plot(mymap.pro,add=TRUE)
+plot(mymap.pro_lakes,add=TRUE)
+```
+
+#Machine learning models from the GSIF package
+Note that these models require at least 50 data points for validation, as this test set is for 1 day with all KNMI observations this is not enough for a prediction. However, it is possible to make model fits. Below an example how to make ML models with GSIF. 
+```{r,message=FALSE}
 m1<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="GLM")
 m2<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="rpart")
 m3<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="randomForest")
