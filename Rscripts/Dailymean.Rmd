@@ -208,14 +208,27 @@ ov<-cbind(data.frame(obs.subset.Q["REH1.Q"]),ov)
 ov<-rename(ov,c("DS_LON"="x"))
 ov<-rename(ov,c("DS_LAT"="y"))
 
-#m1.caret<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
-m1.caret<-caret::train(REH1.Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
-#m1.caret<-caret::train(REH1.Q~layer,data=ov,method="rlm",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+set.seed(50)
+m1.svmRadial<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
 
-print(m1.caret)
+set.seed(50)
+m2.treebag<-caret::train(REH1.Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+
+set.seed(50)
+m3.rlm<-caret::train(REH1.Q~layer,data=ov,method="rlm",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+
+set.seed(50)
+m4.randomGLM<-caret::train(REH1.Q~layer,data=ov,method="randomGLM",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+
+set.seed(50)
+m5.cubist<-caret::train(REH1.Q~layer,data=ov,method="cubist",preProcess=c("center","scale","BoxCox"),verbose=FALSE)
+
+results<-resamples(list(svmRadial=m1.svmRadial,treebag=m2.treebag,rlm=m3.rlm,randomGLM=m4.randomGLM,cubist=m5.cubist))
+summary(results)
+bwplot(results)
 
 st<-stack(grid)
-p1.caret<-raster::predict(model=m1.caret,object=st)
+p1.caret<-raster::predict(model=m4.randomGLM,object=st)
 
 p1.ASC<-asc.from.raster(p1.caret)
 p1.spdf<-asc2spixdf(p1.ASC)
