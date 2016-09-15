@@ -9,13 +9,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r,message=FALSE}
 .libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
 library(adehabitat)
 library(automap)
 library(caret)
 library(data.table)
+library(GSIF)
 library(maptools)
+library(reshape)
 library(raster)
 library(rgdal)
 library(rhdf5)
@@ -30,7 +32,7 @@ kleur.cols<-terrain.colors(length(kleur.breaks-1))
 ```
 
 #Daily mean radiation from satellite
-```{r}
+```{r,message=FALSE}
 pathsat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/"
 loc.grid<-"/net/pc150398/nobackup/users/meirink/msg_archive/geo/meteosat9.euro4m.angles.h5"
 year.sat<-seq(from=2004,to=2016,by=1)
@@ -43,7 +45,7 @@ m<-"07"
 files.sat<-list.files(path=paste0(pathsat.year,"/",m))
 ```
 
-```{r}
+```{r,message=FALSE}
 setwd(paste0(pathsat.year,"/","07"))
 
 file<-files.sat[1]
@@ -75,7 +77,7 @@ plot(wrld_simpl,add=TRUE)
 ```
 
 #Reprojecting raster and cropping
-```{r}
+```{r,message=FALSE}
 pro=CRS("+init=epsg:28992")
 
 #Natural Earth dataset: unprojected shape files
@@ -94,7 +96,7 @@ plot(mymap.pro_lakes,add=TRUE)
 ```
 
 #Data from observations
-```{r}
+```{r,message=FALSE}
 obs<-fread("/nobackup/users/dirksen/Radiation_Obs_Satellite/Observations_data/radiation_KNMI_day.csv")
 obs$IT_DATETIME<-as.POSIXct(obs$IT_DATETIME,format="%Y%m%d_%H%M%S_000000")
 
@@ -115,12 +117,12 @@ plot(mymap.pro_lakes,add=TRUE)
 ```
 
 #Compare the two products
-```{r}
+```{r,message=FALSE}
 rASC<-asc.from.raster(r.NED)
 spdf<-asc2spixdf(rASC)
 proj4string(spdf)<-pro
 
-var.Q<-subset(obs.subset,select=REH1.Q24)
+var.Q<-subset(obs.subset,select=REH1.Q)
 sat.var<-over(var.Q,spdf)
 
 n<-names(sat.var)
@@ -136,7 +138,7 @@ plot(mymap.pro_lakes,add=TRUE)
 ```
 
 #Interpolation routine
-```{r}
+```{r,message=FALSE}
 # Kriging
 blocksize = 20000
 mxdkrige=Inf # maxdist Krige
@@ -168,17 +170,58 @@ slot(slot(spdf, "grid"), "cellsize") <-rep(mean(slot(slot(spdf, "grid"), "cellsi
   var = var[!is.na(var$var),]
  
   
-    ked_gau <- autoKrige(REH1.Q~var, var, spdf,maxdist=mxdkrige, block=c(blocksize,blocksize), model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))  #log(distshore)
+    ked_exp <- autoKrige(REH1.Q~var, var, spdf,maxdist=mxdkrige, block=c(blocksize,blocksize), model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))  #log(distshore)
 
 # Krige Cross validation
-ked_gau.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))
-teller <- sum(ked_gau.cv$krige.cv_output$residual^2)
+ked_exp.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))
+teller <- sum(ked_exp.cv$krige.cv_output$residual^2)
 noemer <- sum((var$var-mean(var$var))^2)
-ked_gau.r2 <- 1 - teller/noemer
-ked.zscoremean <- mean(ked_gau.cv$krige.cv_output$zscore)
-ked.zscore.var <- var(ked_gau.cv$krige.cv_output$zscore)
+ked_exp.r2 <- 1 - teller/noemer
+ked.zscoremean <- mean(ked_exp.cv$krige.cv_output$zscore)
+ked.zscore.var <- var(ked_exp.cv$krige.cv_output$zscore)
 
-plot(ked_gau,col=kleur.cols,breaks=kleur.breaks,sp.layout=list(pts=list("sp.points",obs.subset,pch=21),mymap.pro,mymap.pro_lakes))
+plot(ked_exp,col=kleur.cols,breaks=kleur.breaks,sp.layout=list(pts=list("sp.points",obs.subset,pch=21),mymap.pro,mymap.pro_lakes))
 
-print(head(ked_gau$krige_output))
+print(paste("R2=",round(ked_exp.r2,2)))
+print(head(ked_exp$krige_output))
 ```
+#Caret package: testing
+```{r}
+m1.caret<-train(REH1.Q~layer,data=ov,method="glm")
+
+#2 ways of predicting
+p1.caret<-predict(m1.rpart,grid)
+p1.caret<-predict.train(m1.rpart,newdata=grid)
+```
+#Machine learning models from the GSIF package
+Note that these models require at least 50 data points for validation, as this test set is for 1 day with all KNMI observations this is not enough for a prediction. However, it is possible to make model fits. Below an example how to make ML models with GSIF. 
+```{r,message=FALSE}
+obs.subset.Q<-subset(obs.subset,select="REH1.Q")
+grid<-as(r.NED,"SpatialPixelsDataFrame")
+
+ov<-over(obs.subset.Q,grid)
+ov<-cbind(data.frame(obs.subset.Q["REH1.Q"]),ov)
+ov<-rename(ov,c("DS_LON"="x"))
+ov<-rename(ov,c("DS_LAT"="y"))
+
+m1<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="GLM")
+m2<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="rpart")
+m3<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="randomForest")
+#m4<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="quantregForest")
+#m5<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="lme")
+m6<-fit.regModel(REH1.Q~layer,rmatrix=ov,grid,method="ranger")
+
+sppoints<-ov
+coordinates(sppoints)<-~x+y
+spdfpoints<-as(sppoints,"SpatialPointsDataFrame")
+proj4string(spdfpoints)<-pro
+
+
+#m7<-fit.gstatModel(spdfpoints,REH1.Q~layer,grid,family=gaussian(log)) #does not find a fit
+
+#om.rk<-predict(m7,grid) #Validation data critically small (<50) for reliable validation
+
+plot(m3)
+plot(m6)
+```
+
