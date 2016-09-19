@@ -1,5 +1,6 @@
 ---
-title: "Daily Mean Radiation Products from Ground-based observations and Satellite data"
+title: Daily Mean Radiation Products from Ground-based observations and Satellite
+  data
 author: "Marieke Dirksen"
 date: "September, 2016"
 output: html_document
@@ -49,6 +50,8 @@ kleur.cols<-terrain.colors(length(kleur.breaks-1))
 #files.sat<-list.files(path=paste0(pathsat.year,"/",m))
 ```
 
+## Surface irradiance
+Load the attributes "direct irradiance" and "diffuse irradiance" to calculate the total irradiance. 
 ```{r,message=FALSE}
 # setwd(paste0(pathsat.year,"/","07"))
 # 
@@ -59,21 +62,25 @@ kleur.cols<-terrain.colors(length(kleur.breaks-1))
 
 time<-as.POSIXct("2014-07-01")
 #structure of the file
-file<-"./Rdata/daymean01EURO4M.hdf5"
+file<-"Rdata/daymean01EURO4M.hdf5"
 
 h5ls(file)
 data.direct.irradiance<-h5read(file,"direct irradiance")
 data.diffuse.irradiance<-h5read(file,"diffuse irradiance")
 data.total.irradiance<-data.direct.irradiance+data.diffuse.irradiance
 data.total.irradiance<-t(data.total.irradiance)
-#the grid file
-loc.grid<-"./Rdata/meteosat9.euro4m.angles.h5"
+```
+
+## Satellite grid
+The satellite grid coordinates "lat" and "lon" are loaded.
+```{r,message=FALSE}
+loc.grid<-"Rdata/meteosat9.euro4m.angles.h5"
 h5ls(loc.grid)
 data.lat<-h5read(loc.grid,"/lat") #Latitude
 data.lon<-h5read(loc.grid,"/lon") #Longitude
 
-data.lat[which(data.lat==-999)]<-NA # replace no data value with NA (this case -1)
-data.lon[which(data.lon==-999)]<-NA # replace no data value with NA (this case -1)
+data.lat[which(data.lat==-999)]<-NA # replace no data value with NA (this case -999)
+data.lon[which(data.lon==-999)]<-NA # replace no data value with NA (this case -999)
 
 r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
       xmn=min(data.lon,na.rm=T),
@@ -88,10 +95,10 @@ plot(wrld_simpl,add=TRUE)
 ```{r,message=FALSE}
 pro=CRS("+init=epsg:28992")
 #Natural Earth dataset: unprojected shape files
-mymap.unpro=readOGR(dsn='./Rdata/NaturalEarthData/ne_10m_admin_0_countries',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
+mymap.unpro=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_admin_0_countries',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
 mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
 
-mymap.unpro_lakes=readOGR(dsn='./Rdata/NaturalEarthData/ne_10m_lakes',layer="ne_10m_lakes") # Read in (unprojected) map data
+mymap.unpro_lakes=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_lakes',layer="ne_10m_lakes") # Read in (unprojected) map data
 mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
 
 r<-projectRaster(r,crs=pro)
@@ -107,7 +114,7 @@ From the [KNMI daily record](http://projects.knmi.nl/klimatologie/daggegevens/in
 
 #Data from observations
 ```{r,message=FALSE}
-obs<-fread("./Rdata/radiation_KNMI_day.csv")
+obs<-fread("Rdata/radiation_KNMI_day.csv")
 obs$IT_DATETIME<-as.POSIXct(obs$IT_DATETIME,format="%Y%m%d_%H%M%S_000000")
 
 obs.subset<-obs[which(IT_DATETIME==time),]
@@ -265,6 +272,7 @@ p1.diff<-p1.var[n]-var.Q$REH1.Q
 observed<-data.frame(var.Q$REH1.Q)
 predicted<-p1.var[n]
 
+axisRange<-extendrange(c(observed,predicted))
 obs.vs.pred<-data.frame(observed,predicted)
 pred.vs.res<-data.frame(predicted,p1.diff)
 
