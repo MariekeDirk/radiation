@@ -7,10 +7,11 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
+options(defaultPackages = "/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
 ```
 
 ```{r}
-.libPaths("./library/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+
 library(adehabitat)
 library(automap)
 library(caret)
