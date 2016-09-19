@@ -7,7 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
-options(defaultPackages = "/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+#options(defaultPackages = "/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+
 ```
 
 ```{r}
@@ -59,6 +60,7 @@ kleur.cols<-terrain.colors(length(kleur.breaks-1))
 time<-as.POSIXct("2014-07-01")
 #structure of the file
 file<-"./Rdata/daymean01EURO4M.hdf5"
+
 h5ls(file)
 data.direct.irradiance<-h5read(file,"direct irradiance")
 data.diffuse.irradiance<-h5read(file,"diffuse irradiance")
