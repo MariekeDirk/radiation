@@ -1,4 +1,0 @@
-exportPattern("^[[:alpha:]]+")
-export(GetGeneList)
-export(MapMarkers)
-importFrom("utils", "download.file", "read.table", "write.table")

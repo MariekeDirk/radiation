@@ -1,9 +1,0 @@
-fastAdaboost-package	fastAdaboost
-adaboost	adaboost
-fastAdaboost	fastAdaboost
-get_tree	get_tree
-predict.adaboost	predict.adaboost
-predict.real_adaboost	predict.real_adaboost
-print.adaboost	print.adaboost
-print.real_adaboost	print.real_adaboost
-real_adaboost	real_adaboost
