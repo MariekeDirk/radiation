@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Less than or Less than and equal operators that can be...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for %&amp;lt;% {TeachingDemos}"><tr><td>%&lt;% {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Less than or Less than and equal operators that can be chained together.
+</h2>
+
+<h3>Description</h3>
+
+<p>Comparison operators that can be chained together into
+something like 0 %&lt;% x %&lt;% 1 instead of 0 &lt; x \&amp;\&amp; x &lt; 1. </p>
+
+
+<h3>Usage</h3>
+
+<pre>
+x %&lt;% y
+x %&lt;=% y
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+<p>Values to compare
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions/operators allow chained inequalities.  To specify that
+you want the values between two values (say 0 and 1) you can use <code>0
+  %&lt;% x %&lt;% 1 </code> rather than <code> 0 &lt; x \&amp;\&amp; x &lt; 1 </code>.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>A logical vector is returned that can be used for subsetting like
+<code>&lt;</code>, but the original values are included as attributes to be used
+in additional comparisons.
+</p>
+
+
+<h3>Note</h3>
+
+
+<p>This operator is not fully associative and has different precedence than
+<code>&lt;</code> and <code>&lt;=</code>, so be careful with parentheses.
+See the examples.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+x &lt;- -3:3
+
+ -2 %&lt;% x %&lt;% 2
+c( -2 %&lt;% x %&lt;% 2 )
+x[ -2 %&lt;% x %&lt;% 2 ]
+x[ -2 %&lt;=% x %&lt;=% 2 ]
+
+
+x &lt;- rnorm(100)
+y &lt;- rnorm(100)
+
+x[ -1 %&lt;% x %&lt;% 1 ]
+range( x[ -1 %&lt;% x %&lt;% 1 ] )
+
+
+cbind(x,y)[ -1 %&lt;% x %&lt;% y %&lt;% 1, ]
+cbind(x,y)[ (-1 %&lt;% x) %&lt;% (y %&lt;% 1), ]
+cbind(x,y)[ ((-1 %&lt;% x) %&lt;% y) %&lt;% 1, ]
+cbind(x,y)[ -1 %&lt;% (x %&lt;% (y %&lt;% 1)), ]
+cbind(x,y)[ -1 %&lt;% (x %&lt;% y) %&lt;% 1, ] # oops
+
+
+3 
+3 
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

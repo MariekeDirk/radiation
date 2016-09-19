@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Draw the positions and the trip on a map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tripMap {GeoLight}"><tr><td>tripMap {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Draw the positions and the trip on a map</h2>
+
+<h3>Description</h3>
+
+<p>Draw a map (from the <code>R</code> Package <code>maps</code>) with calculated positions
+connected by a line
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tripMap(crds, equinox = TRUE, map.range = c("EuroAfrica", "AustralAsia",
+  "America", "World"), legend = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>crds</code></td>
+<td>
+<p>a <code>SpatialPoints</code> or <code>matrix</code> object, containing x
+and y coordinates (in that order).</p>
+</td></tr>
+<tr valign="top"><td><code>equinox</code></td>
+<td>
+<p>logical; if <code>TRUE</code>, the equinox period(s) is shown as a
+broken blue line.</p>
+</td></tr>
+<tr valign="top"><td><code>map.range</code></td>
+<td>
+<p>some possibilities to choose defined areas (default:
+&quot;World&quot;).</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+<p><code>logical</code>; if <code>TRUE</code>, a legend will be added to the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments to be passed to methods, such as graphical parameters (see par).</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(hoopoe2)
+ hoopoe2$tFirst &lt;- as.POSIXct(hoopoe2$tFirst, tz = "GMT")
+ hoopoe2$tSecond &lt;- as.POSIXct(hoopoe2$tSecond, tz = "GMT")
+crds &lt;- coord(hoopoe2, degElevation = -6)
+tripMap(crds, xlim = c(-20,20), ylim = c(0,60), main="hoopoe2")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

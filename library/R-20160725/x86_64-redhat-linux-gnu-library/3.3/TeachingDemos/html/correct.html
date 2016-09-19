@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a visualization of the correlation using colored...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cor.rect.plot {TeachingDemos}"><tr><td>cor.rect.plot {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a visualization of the correlation using colored rectangles
+</h2>
+
+<h3>Description</h3>
+
+<p>This function creates a scatterplot of the data, then adds colored
+rectangles between the points and the mean of x and y to represent the
+idea of the correlation coefficient.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cor.rect.plot(x, y, corr = TRUE, xlab = deparse(substitute(x)),
+  ylab = deparse(substitute(y)), col = c("#ff000055", "#0000ff55"),
+  ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The <code>x</code> value or any object that can be interpreted by <code>xy.coords</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>The <code>y</code> value
+</p>
+</td></tr>
+<tr valign="top"><td><code>corr</code></td>
+<td>
+
+<p>Should the standardized axes (right and top) show the values divided
+by the standard deviation (TRUE, which shows correlation ideas) or not
+(FALSE, shows covariance idea)
+</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+
+<p>The label for the <code>x</code> axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+
+<p>The label for the <code>y</code> axis
+</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+
+<p>A vector of length 2 with the colors to use for the fill of the
+rectangles, the 1st value will be used for &quot;positive&quot; rectangles and the 2nd value will be used for the &quot;negative&quot; rectangles.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Possible further arguments, currently ignored
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This will create a scatterplot of the data, draw refrence lines at
+the mean of <code>x</code> and the mean of <code>y</code>, then draw rectangles
+from the mean point to the data points.  The right and top axes will
+show the centered (and possibly scaled if <code>corr=TRUE</code>) values.
+</p>
+<p>The idea is that the correlation/covariance is based on summing the
+area of the &quot;positive&quot; rectangles and subtracting the sum of the areas
+of the &quot;negative&quot; rectangles (then dividing by n-1).  If the positive
+and negative areas are about the same then the correlation/covariance
+is near 0, if there is more area in the positive rectangles then the
+correlation/covariance will be positive.
+</p>
+
+
+<h3>Value</h3>
+
+<p>This function returns an invisible NULL, it is run for its side effects.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/cor.html">cor</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## low correlation
+x &lt;- rnorm(25)
+y &lt;- rnorm(25)
+cor(x,y)
+cor.rect.plot(x,y)
+
+## Positive correlation
+x &lt;- rnorm(25)
+y &lt;- x + rnorm(25,3, .5)
+cor(x,y)
+cor.rect.plot(x,y)
+
+## negative correlation
+x &lt;- rnorm(25)
+y &lt;- rnorm(25,10,1.5) - x
+cor(x,y)
+cor.rect.plot(x,y)
+
+## zero correlation but a definite relationship
+x &lt;- -5:5
+y &lt;- x^2
+cor(x,y)
+cor.rect.plot(x,y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

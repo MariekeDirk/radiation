@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferInsertPixbuf</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferInsertPixbuf {RGtk2}"><tr><td>gtkTextBufferInsertPixbuf {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferInsertPixbuf</h2>
+
+<h3>Description</h3>
+
+<p>Inserts an image into the text buffer at <code>iter</code>. The image will be
+counted as one character in character counts, and when obtaining
+the buffer contents as a string, will be represented by the Unicode
+&quot;object replacement character&quot; 0xFFFC. Note that the &quot;slice&quot;
+variants for obtaining portions of the buffer as a string include
+this character for pixbufs, but the &quot;text&quot; variants do
+not. e.g. see <code><a href="gtkTextBufferGetSlice.html">gtkTextBufferGetSlice</a></code> and
+<code><a href="gtkTextBufferGetText.html">gtkTextBufferGetText</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferInsertPixbuf(object, iter, pixbuf)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">iter</code></code></td>
+<td>
+<p>location to insert the pixbuf</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">pixbuf</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

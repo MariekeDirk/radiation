@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: User Fonts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairo-user-font {RGtk2}"><tr><td>cairo-user-font {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>User Fonts</h2>
+
+<h3>Description</h3>
+
+<p>Font support with font data provided by the user</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="cairoUserFontFaceCreate.html">cairoUserFontFaceCreate</a>()</code><br />
+<code><a href="cairoUserFontFaceSetInitFunc.html">cairoUserFontFaceSetInitFunc</a>(font.face, init.func)</code><br />
+<code><a href="cairoUserFontFaceGetInitFunc.html">cairoUserFontFaceGetInitFunc</a>(font.face)</code><br />
+<code><a href="cairoUserFontFaceSetRenderGlyphFunc.html">cairoUserFontFaceSetRenderGlyphFunc</a>(font.face, render.glyph.func)</code><br />
+<code><a href="cairoUserFontFaceGetRenderGlyphFunc.html">cairoUserFontFaceGetRenderGlyphFunc</a>(font.face)</code><br />
+<code><a href="cairoUserFontFaceSetUnicodeToGlyphFunc.html">cairoUserFontFaceSetUnicodeToGlyphFunc</a>(font.face, unicode.to.glyph.func)</code><br />
+<code><a href="cairoUserFontFaceGetUnicodeToGlyphFunc.html">cairoUserFontFaceGetUnicodeToGlyphFunc</a>(font.face)</code><br />
+<code><a href="cairoUserFontFaceSetTextToGlyphsFunc.html">cairoUserFontFaceSetTextToGlyphsFunc</a>(font.face, text.to.glyphs.func)</code><br />
+<code><a href="cairoUserFontFaceGetTextToGlyphsFunc.html">cairoUserFontFaceGetTextToGlyphsFunc</a>(font.face)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The user-font feature allows the cairo user to provide drawings for glyphs
+in a font.  This is most useful in implementing fonts in non-standard
+formats, like SVG fonts and Flash fonts, but can also be used by games and
+other application to draw &quot;funky&quot; fonts.</p>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>cairo_user_scaled_font_init_func_t(scaled.font, cr, extents)</code></dt><dd>
+<p><code style="white-space: pre;">cairo_user_scaled_font_init_func_t</code> is the type of function which is
+called when a scaled-font needs to be created for a user font-face.
+</p>
+<p>The cairo context <code>cr</code> is not used by the caller, but is prepared in font
+space, similar to what the cairo contexts passed to the render_glyph
+method will look like.  The callback can use this context for extents
+computation for example.  After the callback is called, <code>cr</code> is checked
+for any error status.
+</p>
+<p>The <code>extents</code> argument is where the user font sets the font extents for
+<code>scaled.font</code>.  It is in font space, which means that for most cases its
+ascent and descent members should add to 1.0.  <code>extents</code> is preset to
+hold a value of 1.0 for ascent, height, and max_x_advance, and 0.0 for
+descent and max_y_advance members.
+</p>
+<p>The callback is optional.  If not set, default font extents as described
+in the previous paragraph will be used.
+</p>
+<p>Note that <code>scaled.font</code> is not fully initialized at this
+point and trying to use it for text operations in the callback will result
+in deadlock.  
+Since 1.8
+</p>
+
+<dl>
+<dt><code>scaled.font</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoScaledFont</a></code>]  the scaled-font being created</p>
+</dd>
+<dt><code>cr</code></dt><dd><p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context, in font space</p>
+</dd>
+<dt><code>extents</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoFontExtents</a></code>]  font extents to fill in, in font space</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="cairo-error-status.html">CairoStatus</a></code>] <code>CAIRO_STATUS_SUCCESS</code> upon success, or
+<code>CAIRO_STATUS_USER_FONT_ERROR</code> or any other error status on error.
+</p>
+</dd>
+<dt><code>cairo_user_scaled_font_render_glyph_func_t(scaled.font, glyph, cr, extents)</code></dt><dd>
+<p><code style="white-space: pre;">cairo_user_scaled_font_render_glyph_func_t</code> is the type of function which
+is called when a user scaled-font needs to render a glyph.
+</p>
+<p>The callback is mandatory, and expected to draw the glyph with code <code>glyph</code> to
+the cairo context <code>cr</code>.  <code>cr</code> is prepared such that the glyph drawing is done in
+font space.  That is, the matrix set on <code>cr</code> is the scale matrix of <code>scaled.font</code>,
+The <code>extents</code> argument is where the user font sets the font extents for
+<code>scaled.font</code>.  However, if user prefers to draw in user space, they can
+achieve that by changing the matrix on <code>cr</code>.  All cairo rendering operations
+to <code>cr</code> are permitted, however, the result is undefined if any source other
+than the default source on <code>cr</code> is used.  That means, glyph bitmaps should
+be rendered using <code><a href="cairoMask.html">cairoMask</a></code> instead of <code><a href="cairoPaint.html">cairoPaint</a></code>.
+</p>
+<p>Other non-default settings on <code>cr</code> include a font size of 1.0 (given that
+it is set up to be in font space), and font options corresponding to
+<code>scaled.font</code>.
+</p>
+<p>The <code>extents</code> argument is preset to have <code>x_bearing</code>,
+<code>width</code>, and <code>y_advance</code> of zero,
+<code>y_bearing</code> set to <code>-font_extents.ascent</code>,
+<code>height</code> to <code>font_extents.ascent+font_extents.descent</code>,
+and <code>x_advance</code> to <code>font_extents.max_x_advance</code>.
+The only field user needs to set in majority of cases is
+<code>x_advance</code>.
+If the <code>width</code> field is zero upon the callback returning
+(which is its preset value), the glyph extents are automatically computed
+based on the drawings done to <code>cr</code>.  This is in most cases exactly what the
+desired behavior is.  However, if for any reason the callback sets the
+extents, it must be ink extents, and include the extents of all drawing
+done to <code>cr</code> in the callback.  
+Since 1.8
+</p>
+
+<dl>
+<dt><code>scaled.font</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoScaledFont</a></code>]  user scaled-font</p>
+</dd>
+<dt><code>glyph</code></dt><dd><p>[unsignedlong]  glyph code to render</p>
+</dd>
+<dt><code>cr</code></dt><dd><p>[<code><a href="cairo-context.html">Cairo</a></code>]  cairo context to draw to, in font space</p>
+</dd>
+<dt><code>extents</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoTextExtents</a></code>]  glyph extents to fill in, in font space</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="cairo-error-status.html">CairoStatus</a></code>] <code>CAIRO_STATUS_SUCCESS</code> upon success, or
+<code>CAIRO_STATUS_USER_FONT_ERROR</code> or any other error status on error.
+</p>
+</dd>
+<dt><code>cairo_user_scaled_font_text_to_glyphs_func_t(scaled.font, utf8, utf8.len, glyphs, num.glyphs, clusters, num.clusters, cluster.flags)</code></dt><dd>
+<p><code style="white-space: pre;">cairo_user_scaled_font_text_to_glyphs_func_t</code> is the type of function which
+is called to convert input text to a list of glyphs.  This is used by the
+<code><a href="cairoShowText.html">cairoShowText</a></code> operation.
+</p>
+<p>Using this callback the user-font has full control on glyphs and their
+positions.  That means, it allows for features like ligatures and kerning,
+as well as complex <dfn>shaping</dfn> required for scripts like
+Arabic and Indic.
+</p>
+<p>The <code>num.glyphs</code> argument is preset to the number of glyph entries available
+in the <code>glyphs</code> buffer. If the <code>glyphs</code> buffer is <code>NULL</code>, the value of
+<code>num.glyphs</code> will be zero.  If the provided glyph list is too short for
+the conversion (or for convenience), a new glyph list may be allocated
+using <code>cairoGlyphAllocate()</code> and placed in <code>glyphs</code>.  Upon return,
+<code>num.glyphs</code> should contain the number of generated glyphs.  If the value
+<code>glyphs</code> points at has changed after the call, the caller will free the
+allocated glyph list using <code>cairoGlyphFree()</code>.
+The callback should populate the glyph indices and positions (in font space)
+assuming that the text is to be shown at the origin.
+</p>
+<p>If <code>clusters</code> is not <code>NULL</code>, <code>num.clusters</code> and <code>cluster.flags</code> are also
+non-<code>NULL</code>, and cluster mapping should be computed. The semantics of how
+cluster list allocation works is similar to the glyph list.  That is,
+if <code>clusters</code> initially points to a non-<code>NULL</code> value, that list may be used
+as a cluster buffer, and <code>num.clusters</code> points to the number of cluster
+entries available there.  If the provided cluster list is too short for
+the conversion (or for convenience), a new cluster list may be allocated
+using <code>cairoTextClusterAllocate()</code> and placed in <code>clusters</code>.  Upon return,
+<code>num.clusters</code> should contain the number of generated clusters.
+If the value <code>clusters</code> points at has changed after the call, the caller
+will free the allocated cluster list using <code>cairoTextClusterFree()</code>.
+</p>
+<p>The callback is optional.  If <code>num.glyphs</code> is negative upon
+the callback returning, the unicode_to_glyph callback
+is tried.  See <code style="white-space: pre;">cairo_user_scaled_font_unicode_to_glyph_func_t</code>.
+</p>
+<p>Note: While cairo does not impose any limitation on glyph indices,
+some applications may assume that a glyph index fits in a 16-bit
+unsigned integer.  As such, it is advised that user-fonts keep their
+glyphs in the 0 to 65535 range.  Furthermore, some applications may
+assume that glyph 0 is a special glyph-not-found glyph.  User-fonts
+are advised to use glyph 0 for such purposes and do not use that
+glyph value for other purposes.  
+Since 1.8
+</p>
+
+<dl>
+<dt><code>scaled.font</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoScaledFont</a></code>]  the scaled-font being created</p>
+</dd>
+<dt><code>utf8</code></dt><dd><p>[char]  a string of text encoded in UTF-8</p>
+</dd>
+<dt><code>utf8.len</code></dt><dd><p>[integer]  length of <code>utf8</code> in bytes</p>
+</dd>
+<dt><code>glyphs</code></dt><dd><p>[<code><a href="cairo-text.html">CairoGlyph</a></code>]  pointer to list of glyphs to fill, in font space</p>
+</dd>
+<dt><code>num.glyphs</code></dt><dd><p>[integer]  pointer to number of glyphs</p>
+</dd>
+<dt><code>clusters</code></dt><dd><p>[<code><a href="cairo-text.html">CairoTextCluster</a></code>]  pointer to list of cluster mapping information to fill, or <code>NULL</code></p>
+</dd>
+<dt><code>num.clusters</code></dt><dd><p>[integer]  pointer to number of clusters</p>
+</dd>
+<dt><code>cluster.flags</code></dt><dd><p>[<code><a href="cairo-text.html">CairoTextClusterFlags</a></code>]  pointer to location to store cluster flags corresponding to the
+output <code>clusters</code></p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="cairo-error-status.html">CairoStatus</a></code>] <code>CAIRO_STATUS_SUCCESS</code> upon success, or
+<code>CAIRO_STATUS_USER_FONT_ERROR</code> or any other error status on error.
+</p>
+</dd>
+<dt><code>cairo_user_scaled_font_unicode_to_glyph_func_t(scaled.font, unicode, glyph.index)</code></dt><dd>
+<p><code style="white-space: pre;">cairo_user_scaled_font_unicode_to_glyph_func_t</code> is the type of function which
+is called to convert an input Unicode character to a single glyph.
+This is used by the <code><a href="cairoShowText.html">cairoShowText</a></code> operation.
+</p>
+<p>This callback is used to provide the same functionality as the
+text_to_glyphs callback does (see <code style="white-space: pre;">cairo_user_scaled_font_text_to_glyphs_func_t</code>)
+but has much less control on the output,
+in exchange for increased ease of use.  The inherent assumption to using
+this callback is that each character maps to one glyph, and that the
+mapping is context independent.  It also assumes that glyphs are positioned
+according to their advance width.  These mean no ligatures, kerning, or
+complex scripts can be implemented using this callback.
+</p>
+<p>The callback is optional, and only used if text_to_glyphs callback is not
+set or fails to return glyphs.  If this callback is not set, an identity
+mapping from Unicode code-points to glyph indices is assumed.
+</p>
+<p>Note: While cairo does not impose any limitation on glyph indices,
+some applications may assume that a glyph index fits in a 16-bit
+unsigned integer.  As such, it is advised that user-fonts keep their
+glyphs in the 0 to 65535 range.  Furthermore, some applications may
+assume that glyph 0 is a special glyph-not-found glyph.  User-fonts
+are advised to use glyph 0 for such purposes and do not use that
+glyph value for other purposes.  
+Since 1.8
+</p>
+
+<dl>
+<dt><code>scaled.font</code></dt><dd><p>[<code><a href="cairo-scaled-font.html">CairoScaledFont</a></code>]  the scaled-font being created</p>
+</dd>
+<dt><code>unicode</code></dt><dd><p>[unsignedlong]  input unicode character code-point</p>
+</dd>
+<dt><code>glyph.index</code></dt><dd><p>[long]  output glyph index</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="cairo-error-status.html">CairoStatus</a></code>] <code>CAIRO_STATUS_SUCCESS</code> upon success, or
+<code>CAIRO_STATUS_USER_FONT_ERROR</code> or any other error status on error.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.cairographics.org/manual/cairo-user-font.html">http://www.cairographics.org/manual/cairo-user-font.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

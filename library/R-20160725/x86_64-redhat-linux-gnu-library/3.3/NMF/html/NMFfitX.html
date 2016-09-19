@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Factory Method for Multiple NMF Run Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFfitX {NMF}"><tr><td>NMFfitX {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Factory Method for Multiple NMF Run Objects</h2>
+
+<h3>Description</h3>
+
+<p>Factory Method for Multiple NMF Run Objects
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  NMFfitX(object, ...)
+
+  ## S4 method for signature 'list'
+NMFfitX(object, ..., .merge = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object from which is created an
+<code>NMFfitX</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments used to pass values for slots</p>
+</td></tr>
+<tr valign="top"><td><code>.merge</code></td>
+<td>
+<p>a logical that indicates if the fits should
+be aggregated, only keeping the best fit, and return an
+<code>NMFfitX1</code> object. If <code>FALSE</code>, an
+<code>NMFfitXn</code> object containing the data of all the
+fits is returned.</p>
+</td></tr>
+</table>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>NMFfitX</dt><dd><p><code>signature(object = "list")</code>: Create
+an <code>NMFfitX</code> object from a list of fits. </p>
+</dd>
+<dt>NMFfitX</dt><dd><p><code>signature(object = "NMFfit")</code>:
+Creates an <code>NMFfitX1</code> object from a single fit. This
+is used in <code><a href="nmf.html">nmf</a></code> when only the best fit is
+kept in memory or on disk. </p>
+</dd>
+<dt>NMFfitX</dt><dd><p><code>signature(object = "NMFfitX")</code>:
+Provides a way to aggregate <code>NMFfitXn</code> objects into
+an <code>NMFfitX1</code> object. </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

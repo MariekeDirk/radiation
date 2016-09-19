@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prepares the plotting of a 2D or 1D piecewise constant...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for draw.pcf {denpro}"><tr><td>draw.pcf {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Prepares the plotting of a 2D or 1D piecewise constant function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes x, y, and z arguments for a piecewise constant function,
+to be used in &quot;persp&quot; or &quot;contour&quot; functions,
+or the &quot;x&quot; and &quot;y&quot; arguments to be used in &quot;plot&quot;.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+draw.pcf(pcf, pnum = rep(32,length(pcf$N)), corona = 5, dens = FALSE, 
+minval = 0, drawkern=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pcf</code></td>
+<td>
+<p>piecewise constant function; output of &quot;pcf.kern&quot; or &quot;pcf.func&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>pnum</code></td>
+<td>
+<p>vector of 2 positive integers; dimension of the grid where the
+function will be plotted; not needed in the 1D case</p>
+</td></tr>
+<tr valign="top"><td><code>corona</code></td>
+<td>
+<p>positive integer; gives the number of zeros around the support
+of the function; the plots look better when there are a corona of zeros
+around the function</p>
+</td></tr>
+<tr valign="top"><td><code>dens</code></td>
+<td>
+<p>TRUE for densities, used in the 1D case instead of the corona</p>
+</td></tr>
+<tr valign="top"><td><code>minval</code></td>
+<td>
+<p>real number, gives the level of the basis plane of the picture,
+one takes &quot;minval&quot; typically to be the minimum value of the function
+(for densities it would be zero)</p>
+</td></tr>
+<tr valign="top"><td><code>drawkern</code></td>
+<td>
+<p>TRUE or FALSE; internal parameter; when one wants to use 
+function &quot;drawkern&quot; for calculation, then one should specify drawkern=TRUE,
+this can be used in the case that &quot;pcf&quot; is a kernel density estimate</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>in the 2D case list of vectors &quot;x&quot; and &quot;y&quot; and matrix &quot;z&quot;,
+in the 1D case list of vectors &quot;x&quot; and &quot;y&quot;
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="pcf.kern.html">pcf.kern</a></code>, 
+<code><a href="pcf.func.html">pcf.func</a></code>,
+<code><a href="../../graphics/html/persp.html">persp</a></code>,
+<code><a href="../../graphics/html/contour.html">contour</a></code>,   
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# 2D case
+dendat&lt;-sim.data(n=100,type="mulmod")
+pcf&lt;-pcf.kern(dendat,h=1,N=c(32,32))
+
+dp&lt;-draw.pcf(pcf,pnum=c(30,30))
+
+contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+
+persp(dp$x,dp$y,dp$z)
+
+# 1D case
+set.seed(1)
+dendat&lt;-matrix(rnorm(20),20)   #10*1 data-matrix
+pcf&lt;-pcf.kern(dendat,h=1,N=c(25))
+
+dp&lt;-draw.pcf(pcf)
+
+plot(dp$x,dp$y,type="l")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

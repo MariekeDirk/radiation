@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gVolumeMountFinish</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gVolumeMountFinish {RGtk2}"><tr><td>gVolumeMountFinish {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gVolumeMountFinish</h2>
+
+<h3>Description</h3>
+
+<p>Finishes mounting a volume. If any errors occured during the operation,
+<code>error</code> will be set to contain the errors and <code>FALSE</code> will be returned.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gVolumeMountFinish(object, result, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GVolume.html">GVolume</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">result</code></code></td>
+<td>
+<p>a <code><a href="GAsyncResult.html">GAsyncResult</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the mount operation succeeded, <code><a href="gVolumeGetMount.html">gVolumeGetMount</a></code> on <code>volume</code>
+is guaranteed to return the mount right after calling this
+function; there's no need to listen for the 'mount-added' signal on
+<code><a href="GVolumeMonitor.html">GVolumeMonitor</a></code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code>, <code>FALSE</code> if operation failed.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code> location to store an error, or <code>NULL</code> to ignore</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

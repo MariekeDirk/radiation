@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate P-values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Pvalue.norm.sim {TeachingDemos}"><tr><td>Pvalue.norm.sim {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Simulate P-values </h2>
+
+<h3>Description</h3>
+
+<p>Simulate and plot p-values from a normal or binomial based test under
+various conditions.  When all the assumptions are true, the p-values
+should follow an approximate uniform distribution.  These functions
+show that along with how violating the assumptions changes the
+distribution of the p-values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Pvalue.norm.sim(n = 50, mu = 0, mu0 = 0, sigma = 1, sigma0 = sigma,
+     test= c("z", "t"), alternative = c("two.sided", "less", "greater", "&lt;&gt;",
+           "!=", "&lt;", "&gt;"), alpha = 0.05, B = 10000)
+Pvalue.binom.sim(n=100, p=0.5, p0=0.5, test=c('exact','approx'),
+                            alternative=c('two.sided', 'less', 'greater',
+                            '&lt;&gt;','!=','&lt;','&gt;'),
+                            alpha=0.05, B=1000)
+run.Pvalue.norm.sim()
+run.Pvalue.binom.sim()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Sample Size for each simulated dataset</p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+<p>Simulation mean for samples</p>
+</td></tr>
+<tr valign="top"><td><code>mu0</code></td>
+<td>
+<p>Hypothesized mean for tests</p>
+</td></tr>
+<tr valign="top"><td><code>sigma</code></td>
+<td>
+<p>Simulation SD for samples</p>
+</td></tr>
+<tr valign="top"><td><code>sigma0</code></td>
+<td>
+<p>Hypothesized SD for tests, if blank or missing, use the
+sample SD in the tests</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Simulation proportion for samples</p>
+</td></tr>
+<tr valign="top"><td><code>p0</code></td>
+<td>
+<p>Hypothesized proportion for tests</p>
+</td></tr>
+<tr valign="top"><td><code>test</code></td>
+<td>
+<p>Which test to use, &quot;z&quot; or &quot;t&quot; tests for normal, &quot;exact&quot;
+(binomial) or &quot;approx&quot; (normal approximation) for binomial </p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>Direction for alternative hypothesis </p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>alpha level for test (optional) </p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+<p>Number of simulated datasets </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions generate <code>B</code> samples from either a normal or
+binomial distribution, then compute the P-values for the test of
+significance on each sample and plot the P-values.
+</p>
+<p>The <code>run.Pvalue.norm.sim</code> and <code>run.Pvalue.binom.sim</code>
+functions are GUI wrappers for the other 2 functions allowing you to
+change the parameters and click on &quot;refresh&quot; to run a new set of
+simulations.
+</p>
+<p>Using <code>NA</code> for <code>sigma0</code> will result in the sample standard
+deviations being used (leave blank in the GUI).
+</p>
+<p>When the simulation conditions and the hypothesized values match, the
+distributions of the p-values will be approximately uniform.
+Changing the parameter of interest will show the idea of power.
+Changing the other parameters can show the effects of assumptions not
+being met.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The P-values are invisibly returned.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Note: the 2-sided p-values for the binomial may not match the results
+from binom.test and prop.test.  The method used here is an
+approximation for speed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>References</h3>
+
+<p> Murdock, D, Tsai, Y, and Adcock, J (2008) _P-Values are
+Random Variables_. The American Statistician. (62) 242-245.</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../stats/html/t.test.html">t.test</a></code>, <code><a href="z.test.html">z.test</a></code>,
+<code><a href="../../stats/html/binom.test.html">binom.test</a></code>, <code><a href="../../stats/html/prop.test.html">prop.test</a></code>, <code><a href="tkexamp.html">tkexamp</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ if(interactive()) {
+  run.Pvalue.norm.sim()
+  run.Pvalue.binom.sim()
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

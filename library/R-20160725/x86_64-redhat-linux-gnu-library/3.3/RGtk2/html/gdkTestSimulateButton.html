@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkTestSimulateButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkTestSimulateButton {RGtk2}"><tr><td>gdkTestSimulateButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkTestSimulateButton</h2>
+
+<h3>Description</h3>
+
+<p>This function is intended to be used in Gtk+ test programs.
+It will warp the mouse pointer to the given (<code>x</code>,<code>y</code>) corrdinates
+within <code>window</code> and simulate a button press or release event.
+Because the mouse pointer needs to be warped to the target
+location, use of this function outside of test programs that
+run in their own virtual windowing system (e.g. Xvfb) is not
+recommended.
+Also, <code>gtkTestSimulateButton()</code> is a fairly low level function,
+for most testing purposes, <code><a href="gtkTestWidgetClick.html">gtkTestWidgetClick</a></code> is the right
+function to call which will generate a button press event followed
+by its accompanying button release event.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkTestSimulateButton(window, x, y, button, modifiers, button.pressrelease)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">window</code></code></td>
+<td>
+<p>Gdk window to simulate a button event for.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>x coordinate within <code>window</code> for the button event.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>y coordinate within <code>window</code> for the button event.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">button</code></code></td>
+<td>
+<p>Number of the pointer button for the event, usually 1, 2 or 3.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">modifiers</code></code></td>
+<td>
+<p>Keyboard modifiers the event is setup with.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">button.pressrelease</code></code></td>
+<td>
+<p>either <code>GDK_BUTTON_PRESS</code> or <code>GDK_BUTTON_RELEASE</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] wether all actions neccessary for a button event simulation were carried out successfully.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

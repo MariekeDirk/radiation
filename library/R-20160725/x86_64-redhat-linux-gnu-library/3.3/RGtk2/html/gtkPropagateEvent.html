@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkPropagateEvent</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkPropagateEvent {RGtk2}"><tr><td>gtkPropagateEvent {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkPropagateEvent</h2>
+
+<h3>Description</h3>
+
+<p>Sends an event to a widget, propagating the event to parent widgets
+if the event remains unhandled. Events received by GTK+ from GDK
+normally begin in <code><a href="gtkMainDoEvent.html">gtkMainDoEvent</a></code>. Depending on the type of
+event, existence of modal dialogs, grabs, etc., the event may be
+propagated; if so, this function is used. <code><a href="gtkPropagateEvent.html">gtkPropagateEvent</a></code>
+calls <code><a href="gtkWidgetEvent.html">gtkWidgetEvent</a></code> on each widget it decides to send the
+event to.  So <code><a href="gtkWidgetEvent.html">gtkWidgetEvent</a></code> is the lowest-level function; it
+simply emits the &quot;event&quot; and possibly an event-specific signal on a
+widget.  <code><a href="gtkPropagateEvent.html">gtkPropagateEvent</a></code> is a bit higher-level, and
+<code><a href="gtkMainDoEvent.html">gtkMainDoEvent</a></code> is the highest level.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkPropagateEvent(object, event)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">event</code></code></td>
+<td>
+<p>an event</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>All that said, you most likely don't want to use any of these
+functions; synthesizing events is rarely needed. Consider asking on
+the mailing list for better ways to achieve your goals. For
+example, use <code><a href="gdkWindowInvalidateRect.html">gdkWindowInvalidateRect</a></code> or
+<code><a href="gtkWidgetQueueDraw.html">gtkWidgetQueueDraw</a></code> instead of making up expose events.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

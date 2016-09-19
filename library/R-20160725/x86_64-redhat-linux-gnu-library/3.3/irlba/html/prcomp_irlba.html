@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Principal Components Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for prcomp_irlba {irlba}"><tr><td>prcomp_irlba {irlba}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Principal Components Analysis</h2>
+
+<h3>Description</h3>
+
+<p>Efficient computation of a truncated principal components analysis of a given data matrix
+using an implicitly restarted Lanczos method from the <code><a href="irlba.html">irlba</a></code> package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+prcomp_irlba(x, n = 3, retx = TRUE, center = TRUE, scale. = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric or complex matrix (or data frame) which provides
+the data for the principal components analysis.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>integer number of principal component vectors to return, must be less than
+<code>min(dim(x))</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>retx</code></td>
+<td>
+<p>a logical value indicating whether the rotated variables should be returned.</p>
+</td></tr>
+<tr valign="top"><td><code>center</code></td>
+<td>
+<p>a logical value indicating whether the variables should be
+shifted to be zero centered. Alternately, a centering vector of length
+equal the number of columns of <code>x</code> can be supplied.</p>
+</td></tr>
+<tr valign="top"><td><code>scale.</code></td>
+<td>
+<p>a logical value indicating whether the variables should be
+scaled to have unit variance before the analysis takes place.
+The default is <code>FALSE</code> for consistency with S, but scaling is often advisable.
+Alternatively, a vector of length equal the number of columns of <code>x</code> can be supplied.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments passed to <code><a href="irlba.html">irlba</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with class &quot;prcomp&quot; containing the following components:
+</p>
+
+<ul>
+<li><p>sdev the standard deviations of the principal components (i.e.,
+the square roots of the eigenvalues of the
+covariance/correlation matrix, though the calculation is
+actually done with the singular values of the data matrix).
+</p>
+</li>
+<li><p>rotation the matrix of variable loadings (i.e., a matrix whose columns
+contain the eigenvectors).
+</p>
+</li>
+<li> <p>x if <code>retx</code> is <code>TRUE</code> the value of the rotated data (the centred
+(and scaled if requested) data multiplied by the <code>rotation</code>
+matrix) is returned.  Hence, <code>cov(x)</code> is the diagonal matrix
+<code>diag(sdev^2)</code>.
+</p>
+</li>
+<li><p>center, scale the centering and scaling used, or <code>FALSE</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Note</h3>
+
+<p>The signs of the columns of the rotation matrix are arbitrary, and
+so may differ between different programs for PCA, and even between
+different builds of R.
+</p>
+<p>NOTE DIFFERENCES WITH THE DEFAULT <code><a href="../../stats/html/prcomp.html">prcomp</a></code> FUNCTION!
+The <code>tol</code> truncation argument found in <code>prcomp</code> is not supported.
+In place of the truncation tolerance in the original function, the
+<code>prcomp_irlba</code>  function has the argument <code>n</code> explicitly giving the
+number of principal components to return. A warning is generated if the
+argument <code>tol</code> is used, which is interpreted differently between
+the two functions.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/prcomp.html">prcomp</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+x  &lt;- matrix(rnorm(200), nrow=20)
+p1 &lt;- prcomp_irlba(x, n=3)
+summary(p1)
+
+# Compare with
+p2 &lt;- prcomp(x, tol=0.7)
+summary(p2)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>irlba</em> version 2.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

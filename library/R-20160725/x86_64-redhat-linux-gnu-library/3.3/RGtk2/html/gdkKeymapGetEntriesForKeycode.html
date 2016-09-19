@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkKeymapGetEntriesForKeycode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkKeymapGetEntriesForKeycode {RGtk2}"><tr><td>gdkKeymapGetEntriesForKeycode {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkKeymapGetEntriesForKeycode</h2>
+
+<h3>Description</h3>
+
+<p>Returns the keyvals bound to <code>hardware.keycode</code>.
+The Nth <code><a href="gdk-Keyboard-Handling.html">GdkKeymapKey</a></code> in <code>keys</code> is bound to the Nth
+keyval in <code>keyvals</code>.
+When a keycode is pressed by the user, the keyval from
+this list of entries is selected by considering the effective
+keyboard group and level. See <code><a href="gdkKeymapTranslateKeyboardState.html">gdkKeymapTranslateKeyboardState</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkKeymapGetEntriesForKeycode(object, hardware.keycode)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Keyboard-Handling.html">GdkKeymap</a></code> or <code>NULL</code> to use the default keymap</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hardware.keycode</code></code></td>
+<td>
+<p>a keycode</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if there were any entries</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keys</code></code></td>
+<td>
+<p>return location for list of <code><a href="gdk-Keyboard-Handling.html">GdkKeymapKey</a></code>, or NULL</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keyvals</code></code></td>
+<td>
+<p>return location for list of keyvals, or NULL</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.entries</code></code></td>
+<td>
+<p>length of <code>keys</code> and <code>keyvals</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

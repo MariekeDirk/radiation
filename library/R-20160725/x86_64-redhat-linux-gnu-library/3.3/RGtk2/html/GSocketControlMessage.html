@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GSocketControlMessage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GSocketControlMessage {RGtk2}"><tr><td>GSocketControlMessage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GSocketControlMessage</h2>
+
+<h3>Description</h3>
+
+<p>A GSocket control message</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gSocketControlMessageDeserialize.html">gSocketControlMessageDeserialize</a>(level, type, size, data)</code><br />
+<code><a href="gSocketControlMessageGetLevel.html">gSocketControlMessageGetLevel</a>(object)</code><br />
+<code><a href="gSocketControlMessageGetMsgType.html">gSocketControlMessageGetMsgType</a>(object)</code><br />
+<code><a href="gSocketControlMessageGetSize.html">gSocketControlMessageGetSize</a>(object)</code><br />
+<code><a href="gSocketControlMessageSerialize.html">gSocketControlMessageSerialize</a>(object, data)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GSocketControlMessage
+         +----GUnixFDMessage</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GSocketControlMessage.html">GSocketControlMessage</a></code> is a special-purpose utility message that
+can be sent to or received from a <code><a href="GSocket.html">GSocket</a></code>. These types of
+messages are often called &quot;ancillary data&quot;.
+</p>
+<p>The message can represent some sort of special instruction to or
+information from the socket or can represent a special kind of
+transfer to the peer (for example, sending a file description over
+a UNIX socket).
+</p>
+<p>These messages are sent with <code><a href="gSocketSendMessage.html">gSocketSendMessage</a></code> and received
+with <code><a href="gSocketReceiveMessage.html">gSocketReceiveMessage</a></code>.
+</p>
+<p>To extend the set of control message that can be sent, subclass this
+class and override the get_size, get_level, get_type and serialize
+methods.
+</p>
+<p>To extend the set of control messages that can be received, subclass
+this class and implement the deserialize method. Also, make sure your
+class is registered with the GType typesystem before calling
+<code><a href="gSocketReceiveMessage.html">gSocketReceiveMessage</a></code> to read such a message.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GSocketControlMessage</code></dt><dd>
+<p>Base class for socket-type specific control messages that can be sent and
+received over <code><a href="GSocket.html">GSocket</a></code>.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GSocketControlMessage.html">http://library.gnome.org/devel//gio/GSocketControlMessage.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

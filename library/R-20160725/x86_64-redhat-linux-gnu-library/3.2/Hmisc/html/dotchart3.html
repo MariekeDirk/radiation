@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Enhanced Version of dotchart Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dotchart3 {Hmisc}"><tr><td>dotchart3 {Hmisc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Enhanced Version of dotchart Function</h2>
+
+<h3>Description</h3>
+
+<p>This is an adaptation of the R dotchart function that sorts categories
+top to bottom, adds <code>auxdata</code> and <code>auxtitle</code> arguments to put
+extra information in the right margin, and adds arguments <code>cex.labels</code>,
+<code>cex.group.labels</code>, and <code>groupfont</code>.  By default, group
+headings are in a larger, bold font.
+<code>dotchart3</code> also cuts a bit of white space from the top and bottom
+of the chart.  The most significant change, however, is in how <code>x</code>
+is interpreted.  Columns of <code>x</code> no longer provide an alternate way
+to define groups.  Instead, they define superpositioned values.  This is
+useful for showing three quartiles, for example.  Going along with this
+change, <code>pch</code> can now be a vector specifying symbols to use going
+across columns of <code>x</code>.  <code>x</code> was changed in this way because to
+put multiple points on a line (e.g., quartiles) and keeping track of
+<code>par()</code> parameters when <code>dotchart2</code> was called
+with <code>add=TRUE</code> was cumbersome.  All the dotchart functions change
+the margins to account for horizontal labels.
+</p>
+<p><code>summaryD</code> creates aggregate data using <code><a href="summarize.html">summarize</a></code> and
+calls <code>dotchart3</code> with suitable arguments to summarize data by
+major and minor categories.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dotchart3(x, labels = NULL, groups = NULL, gdata = NULL,
+          cex = par("cex"), pch = 21, gpch = pch, bg = par("bg"),
+          color = par("fg"), gcolor = par("fg"), lcolor = "gray",
+          xlim = range(c(x, gdata), na.rm=TRUE), main = NULL, xlab = NULL,
+          ylab = NULL, auxdata = NULL, auxtitle = NULL, auxgdata=NULL,
+          axisat=NULL, axislabels=NULL,
+          cex.labels = cex, cex.group.labels = cex.labels * 1.25,
+          cex.auxdata=cex, groupfont = 2, ...)
+
+summaryD(formula, data=NULL, fun=mean, funm=fun,
+         groupsummary=TRUE, auxvar=NULL, auxtitle='',
+         vals=length(auxvar) &gt; 0, fmtvals=format,
+         cex.auxdata=.7, xlab=v[1], ylab=NULL,
+         gridevery=NULL, gridcol=gray(.95), sort=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric vector or matrix</p>
+</td></tr>
+<tr valign="top"><td><code>labels</code></td>
+<td>
+<p>labels for categories corresponding to rows of
+<code>x</code>.  If not specified these are taken from row names of <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>groups,gdata,cex,pch,gpch,bg,color,gcolor,lcolor,xlim,main,xlab,ylab</code></td>
+<td>
+<p>see <code><a href="../../graphics/html/dotchart.html">dotchart</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>auxdata</code></td>
+<td>
+<p>a vector of information to be put in the right margin,
+in the same order as <code>x</code>.  May be numeric, character, or a
+vector of expressions containing <code><a href="../../grDevices/html/plotmath.html">plotmath</a></code> markup</p>
+</td></tr>
+<tr valign="top"><td><code>auxtitle</code></td>
+<td>
+<p>a column heading for <code>auxdata</code></p>
+</td></tr>
+<tr valign="top"><td><code>auxgdata</code></td>
+<td>
+<p>similar to <code>auxdata</code> but corresponding to the
+<code>gdata</code> argument.  These usually represent overall sample sizes
+for each group of lines.</p>
+</td></tr>
+<tr valign="top"><td><code>axisat</code></td>
+<td>
+<p>a vector of tick mark locations to pass to <code>axis</code>.
+Useful if transforming the data axis</p>
+</td></tr>
+<tr valign="top"><td><code>axislabels</code></td>
+<td>
+<p>a vector of strings specifying axis tick mark
+labels.  Useful if transforming the data axis</p>
+</td></tr>
+<tr valign="top"><td><code>cex.labels</code></td>
+<td>
+<p><code>cex</code> for labels</p>
+</td></tr>
+<tr valign="top"><td><code>cex.group.labels</code></td>
+<td>
+<p><code>cex</code> for group labels</p>
+</td></tr>
+<tr valign="top"><td><code>cex.auxdata</code></td>
+<td>
+<p><code>cex</code> for <code>auxdata</code></p>
+</td></tr>
+<tr valign="top"><td><code>groupfont</code></td>
+<td>
+<p>font number for group headings</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments passed to some of the graphics functions,
+or to <code>dotchart3</code> from <code>summaryD</code></p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a formula with one variable on the left hand side (the
+variable to compute summary statistics on), and one or two
+variables on the right hand side.  If there are two variables,
+the first is taken as the major grouping variable.  If the left
+hand side variable is a matrix it has to be a legal R variable
+name, not an expression, and <code>fun</code> needs to be able to
+process a matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>a data frame or list used to find the variables in
+<code>formula</code>.  If omitted, the parent environment is used.</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+<p>a summarization function creating a single number from a
+vector.  Default is the mean.</p>
+</td></tr>
+<tr valign="top"><td><code>funm</code></td>
+<td>
+<p>applies if there are two right hand variables and
+<code>groupsummary=TRUE</code> and the marginal summaries over just
+the first <code>x</code> variable need to be computed differently
+than the summaries that are cross-classified by both
+variables.  <code>funm</code> defaults to <code>fun</code> and should
+have the same structure as <code>fun</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>groupsummary</code></td>
+<td>
+<p>By default, when there are two right-hand
+variables, <code>summarize(..., fun)</code> is called a second time
+without the use of the second variable, to obtain marginal
+summaries for the major grouping variable and display the
+results as a dot (and optionally in the right margin).  Set
+<code>groupsummary=FALSE</code> to suppress this information.</p>
+</td></tr>
+<tr valign="top"><td><code>auxvar</code></td>
+<td>
+<p>when <code>fun</code> returns more than one statistic and the
+user names the elements in the returned vector, you can specify
+<code>auxvar</code> as a single character string naming one of them.
+This will cause the named element to be written in the right
+margin, and that element to be deleted when plotting the statistics.</p>
+</td></tr>
+<tr valign="top"><td><code>vals</code></td>
+<td>
+<p>set to <code>TRUE</code> to show data values (dot
+locations) in the right margin.  Defaults to <code>TRUE</code> if
+<code>auxvar</code> is specified.</p>
+</td></tr>
+<tr valign="top"><td><code>fmtvals</code></td>
+<td>
+<p>an optional function to format values before putting
+them in the right margin.  Default is the <code>format</code>
+function.</p>
+</td></tr>
+<tr valign="top"><td><code>gridevery</code></td>
+<td>
+<p>specify a positive number to draw very faint vertical
+grid lines every <code>gridevery</code> <code>x</code>-axis units</p>
+</td></tr>
+<tr valign="top"><td><code>gridcol</code></td>
+<td>
+<p>color for grid lines; default is very faint gray scale</p>
+</td></tr>
+<tr valign="top"><td><code>sort</code></td>
+<td>
+<p>specify <code>sort=FALSE</code> to plot data in the original
+order, from top to bottom on the dot chart</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>the function returns invisibly</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Frank Harrell</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/dotchart.html">dotchart</a></code>,<code><a href="dotchart2.html">dotchart2</a></code>,<code><a href="summarize.html">summarize</a></code>,
+<code><a href="rlegend.html">rlegend</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(135)
+maj &lt;- factor(c(rep('North',13),rep('South',13)))
+g &lt;- paste('Category',rep(letters[1:13],2))
+n &lt;- sample(1:15000, 26, replace=TRUE)
+y1 &lt;- runif(26)
+y2 &lt;- pmax(0, y1 - runif(26, 0, .1))
+dotchart3(cbind(y1,y2), g, groups=maj, auxdata=n, auxtitle='n',
+          xlab='Y', pch=c(1,17))
+## Compare with dotchart function (no superpositioning or auxdata allowed):
+## dotchart(y1, g, groups=maj, xlab='Y')
+
+summaryD(y1 ~ maj + g, xlab='Mean')
+summaryD(y1 ~ maj + g, groupsummary=FALSE)
+summaryD(y1 ~ g, fmtvals=function(x) sprintf('%4.2f', x))
+Y &lt;- cbind(y1, y2)   # summaryD cannot handle cbind(...) ~ ...
+summaryD(Y  ~ maj + g, fun=function(y) y[1,], pch=c(1,17))
+rlegend(.1, 26, c('y1','y2'), pch=c(1,17))
+
+summaryD(y1 ~ maj, fun=function(y) c(mean(y), n=length(y)),
+         auxvar='n', auxtitle='N')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>Hmisc</em> version 3.17-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

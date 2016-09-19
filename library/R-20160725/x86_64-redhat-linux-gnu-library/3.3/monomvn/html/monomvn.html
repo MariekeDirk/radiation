@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Maximum Likelihood Estimation for Multivariate Normal Data...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for monomvn {monomvn}"><tr><td>monomvn {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Maximum Likelihood Estimation for Multivariate Normal
+Data with Monotone Missingness </h2>
+
+<h3>Description</h3>
+
+<p>Maximum likelihood estimation of the mean and covariance matrix of
+multivariate normal (MVN) distributed data with a monotone missingness pattern.
+Through the use of parsimonious/shrinkage regressions (e.g., plsr, pcr,
+ridge, lasso, etc.), where standard regressions fail,
+this function can handle an (almost) arbitrary amount of missing data
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+monomvn(y, pre = TRUE, method = c("plsr", "pcr", "lasso", "lar",
+        "forward.stagewise", "stepwise", "ridge", "factor"), p = 0.9,
+        ncomp.max = Inf, batch = TRUE, validation = c("CV", "LOO", "Cp"),
+        obs = FALSE, verb = 0, quiet = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> data <code>matrix</code>  were each row is interpreted as a
+random sample from a MVN distribution with missing
+values indicated by <code>NA</code></p>
+</td></tr>
+<tr valign="top"><td><code>pre</code></td>
+<td>
+<p> logical indicating whether pre-processing of the
+<code>y</code> is to be performed.  This sorts the columns so that the
+number of <code>NA</code>s is non-decreasing with the column index </p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p> describes the type of <em>parsimonious</em>
+(or <em>shrinkage</em>) regression to
+be performed when standard least squares regression fails.
+From the <span class="pkg">pls</span> package we have <code>"plsr"</code>
+(<a href="../../pls/html/plsr.html">plsr</a>, the default) for  partial least squares and
+<code>"pcr"</code> (<a href="../../pls/html/pcr.html">pcr</a>) for standard principal
+component regression.  From the <span class="pkg">lars</span> package (see the
+<code>"type"</code> argument to <a href="../../lars/html/lars.html">lars</a>)
+we have <code>"lasso"</code> for L1-constrained regression, <code>"lar"</code>
+for least angle regression, <code>"forward.stagewise"</code> and
+<code>"stepwise"</code> for fast implementations of classical forward
+selection of covariates.  From the <span class="pkg">MASS</span> package we have
+<code>"ridge"</code> as implemented by the <code><a href="../../MASS/html/lm.ridge.html">lm.ridge</a></code>
+function.  The <code>"factor"</code> method treats the first <code>p</code>
+columns of <code>y</code> as known factors </p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p> when performing regressions, <code>p</code> is the proportion of the
+number of columns to rows in the design matrix before an
+alternative regression <code>method</code> (those above) is performed as if
+least-squares regression has &ldquo;failed&rdquo;.  Least-squares regression is
+known to fail when the number of columns equals the number of rows,
+hence a default of <code>p = 0.9 &lt;= 1</code>. Alternatively, setting
+<code>p = 0</code> forces <code>method</code> to be used for <em>every</em> regression.
+Intermediate settings of <code>p</code> allow the user to control when
+least-squares regressions stop and the <code>method</code> ones start.
+When <code>method = "factor"</code> the <code>p</code> argument represents an
+integer (positive) number of initial columns of <code>y</code> to treat
+as known factors </p>
+</td></tr>
+<tr valign="top"><td><code>ncomp.max</code></td>
+<td>
+<p> maximal number of (principal) components to include
+in a <code>method</code>&mdash;only meaningful for the <code>"plsr"</code> or
+<code>"pcr"</code> methods.  Large settings can cause the execution to be
+slow as it drastically increases the cross-validation (CV) time</p>
+</td></tr>
+<tr valign="top"><td><code>batch</code></td>
+<td>
+<p> indicates whether the columns with equal missingness
+should be processed together using a multi-response regression.
+This is more efficient if many OLS regressions are used, but can
+lead to slightly poorer, even unstable, fits when parsimonious
+regressions are used</p>
+</td></tr>
+<tr valign="top"><td><code>validation</code></td>
+<td>
+<p> method for cross validation when applying 
+a <em>parsimonious</em> regression method.  The default setting
+of <code>"CV"</code> (randomized 10-fold cross-validation) is the faster
+method, but does not yield a deterministic result and does not apply
+for regressions on less than ten responses.
+<code>"LOO"</code> (leave-one-out cross-validation)
+is deterministic, always applicable, and applied automatically whenever 
+<code>"CV"</code> cannot be used.  When standard least squares is
+appropriate, the methods implemented the
+<span class="pkg">lars</span> package (e.g. lasso) support model choice via the
+<code>"Cp"</code> statistic, which defaults to the <code>"CV"</code> method
+when least squares fails.  This argument is ignored for the
+<code>"ridge"</code> method; see details below</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p> logical indicating whether or not to (additionally)
+compute a mean vector and covariance matrix based only on the observed
+data, without regressions.  I.e., means are calculated as averages
+of each non-<code>NA</code> entry in the columns of <code>y</code>, and entries
+<code>(a,b)</code> of the
+covariance matrix are calculated by applying <code><a href="../../stats/html/cor.html">cov</a>(ya,yb)</code>
+to the jointly non-<code>NA</code> entries of columns <code>a</code> and <code>b</code>
+of <code>y</code></p>
+</td></tr>
+<tr valign="top"><td><code>verb</code></td>
+<td>
+<p> whether or not to print progress indicators.  The default
+(<code>verb = 0</code>) keeps quiet, while any positive number causes brief
+statement about dimensions of each regression to print to
+the screen as it happens.  <code>verb = 2</code> causes each of the ML
+regression estimators to be printed along with the corresponding
+new entries of the mean and columns of the covariance matrix.
+<code>verb = 3</code> requires that the RETURN key be pressed between
+each print statement</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p> causes <code><a href="../../base/html/warning.html">warning</a></code>s about regressions to be silenced
+when <code>TRUE</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>pre = TRUE</code> then <code>monomvn</code> first re-arranges the columns
+of <code>y</code> into nondecreasing order with respect to the number of
+missing (<code>NA</code>)  entries. Then (at least) the first column should
+be completely observed.  The mean components and covariances between
+the first set of complete columns are obtained through the standard
+<code><a href="../../base/html/mean.html">mean</a></code> and <code><a href="../../stats/html/cor.html">cov</a></code> routines.
+</p>
+<p>Next each successive group of columns with the same missingness pattern
+is processed in sequence (assuming <code>batch = TRUE</code>).
+Suppose a total of <code>j</code> columns have
+been processed this way already.  Let <code>y2</code> represent the non-missing
+contingent of the next group of <code>k</code> columns of <code>y</code>
+with and identical missingness pattern, and let <code>y1</code> be the
+previously processed <code>j-1</code> columns of <code>y</code>
+containing only the rows
+corresponding to each non-<code>NA</code> entry in <code>y2</code>.  I.e.,
+<code>nrow(y1) = nrow(y2)</code>.  Note that <code>y1</code> contains no
+<code>NA</code> entries since the missing data pattern is monotone.
+The <code>k</code> next entries (indices <code>j:(j+k)</code>) of the mean vector,
+and the <code>j:(j+k)</code> rows and columns of the covariance matrix are
+obtained by multivariate regression of <code>y2</code> on <code>y1</code>.
+The regression method used (except in the case of <code>method =
+    "factor"</code> depends on the number of rows and columns
+in <code>y1</code> and on the <code>p</code> parameter.  Whenever <code>ncol(y1)
+    &lt; p*nrow(y1)</code> least-squares regression is used, otherwise
+<code>method = c("pcr", "plsr")</code>.  If ever a least-squares regression
+fails due to co-linearity then one of the other <code>method</code>s is
+tried.  The <code>"factor"</code> method always involves an OLS regression
+on (a subset of) the first <code>p</code> columns of <code>y</code>.
+</p>
+<p>All <code>method</code>s require a scheme for estimating the amount of
+variability explained by increasing the numbers of coefficients
+(or principal components) in the model.
+Towards this end, the <span class="pkg">pls</span> and <span class="pkg">lars</span> packages support
+10-fold cross validation (CV) or leave-one-out (LOO) CV estimates of
+root mean squared error.  See <span class="pkg">pls</span> and <span class="pkg">lars</span> for
+more details.  <code>monomvn</code> uses
+CV in all cases except when <code>nrow(y1) &lt;= 10</code>, in which case CV fails and
+LOO is used.  Whenever <code>nrow(y1) &lt;= 3</code> <code><a href="../../pls/html/pcr.html">pcr</a></code>
+fails,  so <code><a href="../../pls/html/plsr.html">plsr</a></code> is used instead.
+If <code>quiet = FALSE</code> then a <code><a href="../../base/html/warning.html">warning</a></code>
+is given whenever the first choice for a regression fails.
+</p>
+<p>For <span class="pkg">pls</span> methods, RMSEs are calculated for a number of
+components in <code>1:ncomp.max</code> where
+a <code>NULL</code> value for <code>ncomp.max</code> it is replaced with
+</p>
+<p><code>ncomp.max &lt;- min(ncomp.max, ncol(y2), nrow(y1)-1)</code>
+</p>
+<p>which is the max allowed by the <span class="pkg">pls</span> package.
+</p>
+<p>Simple heuristics are used to select a small number of components
+(<code>ncomp</code> for <span class="pkg">pls</span>), or number of coefficients (for
+<span class="pkg">lars</span>), which explains a large amount of the variability (RMSE).
+The <span class="pkg">lars</span> methods use a &ldquo;one-standard error rule&rdquo; outlined
+in Section 7.10, page 216 of HTF below.  The
+<span class="pkg">pls</span> package does not currently support the calculation of
+standard errors for CV estimates of RMSE, so a simple linear penalty
+for increasing <code>ncomp</code> is used instead.  The ridge constant
+(lambda) for <code><a href="../../MASS/html/lm.ridge.html">lm.ridge</a></code> is set using the
+<code><a href="../../stats/html/optimize.html">optimize</a></code> function on the <code>GCV</code> output.
+</p>
+<p>Based on the ML <code>ncol(y1)+1</code> regression coefficients (including
+intercept) obtained for each of the
+columns of <code>y2</code>, and on the corresponding <code>matrix</code> of
+residual sum of squares, and on the previous <code>j-1</code> means
+and rows/cols of the covariance matrix, the <code>j:(j+k)</code> entries and
+rows/cols can be filled in as described by Little and Rubin, section 7.4.3.
+</p>
+<p>Once every column has been processed, the entries of the mean vector, and
+rows/cols of the covariance matrix are re-arranged into their original
+order.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>monomvn</code> returns an object of class <code>"monomvn"</code>, which is a
+<code>list</code> containing a subset of the components below.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>call </code></td>
+<td>
+<p>a copy of the function call as used</p>
+</td></tr>
+<tr valign="top"><td><code>mu </code></td>
+<td>
+<p>estimated mean vector with columns corresponding to the
+columns of <code>y</code> </p>
+</td></tr>
+<tr valign="top"><td><code>S </code></td>
+<td>
+<p>estimated covariance matrix with rows and columns
+corresponding to the columns of <code>y</code> </p>
+</td></tr>
+<tr valign="top"><td><code>na </code></td>
+<td>
+<p> when <code>pre = TRUE</code> this is a vector containing number of
+<code>NA</code> entries in each column of <code>y</code></p>
+</td></tr>
+<tr valign="top"><td><code>o </code></td>
+<td>
+<p> when <code>pre = TRUE</code> this is a vector containing the
+index of each column in the sorting of the columns of <code>y</code>
+obtained by <code>o &lt;- <a href="../../base/html/order.html">order</a>(na)</code></p>
+</td></tr>
+<tr valign="top"><td><code>method </code></td>
+<td>
+<p>method of regression used on each column, or
+<code>"complete"</code> indicating that no regression was necessary</p>
+</td></tr>
+<tr valign="top"><td><code>ncomp </code></td>
+<td>
+<p>number of components in a <code><a href="../../pls/html/plsr.html">plsr</a></code> or
+<code><a href="../../pls/html/pcr.html">pcr</a></code> regression, or <code>NA</code> if such a method was
+not used.  This field is used to record <i>lambda</i>
+when <code><a href="../../MASS/html/lm.ridge.html">lm.ridge</a></code> is used </p>
+</td></tr>
+<tr valign="top"><td><code>lambda </code></td>
+<td>
+<p>if <code>method</code> is one of <code>c("lasso",
+      "forward.stagewise", "ridge")</code>, then this field records the
+<i>lambda</i> penalty parameters used</p>
+</td></tr>
+<tr valign="top"><td><code>mu.obs </code></td>
+<td>
+<p>when <code>obs = TRUE</code> this is the &ldquo;observed&rdquo;
+mean vector</p>
+</td></tr>
+<tr valign="top"><td><code>S.obs </code></td>
+<td>
+<p>when <code>obs = TRUE</code> this is the &ldquo;observed&rdquo;
+covariance matrix, as described above.  Note that <code>S.obs</code> is
+usually not positive definite </p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The CV in <span class="pkg">plsr</span> and <span class="pkg">lars</span> are random in nature, and so
+can be dependent on the random seed.  Use <code>validation=LOO</code> for
+deterministic (but slower) result.
+</p>
+<p>When using <code>method = "factor"</code> in the current version of
+the package, the factors in the first <code>p</code>
+columns of <code>y</code> must also obey the monotone pattern, and,
+have no more <code>NA</code> entries than the other columns of <code>y</code>.
+</p>
+<p>Be warned that the <span class="pkg">lars</span> implementation of
+<code>"forward.stagewise"</code> can sometimes get stuck in
+(what seems like) an infinite loop.
+This is not a bug in the <code>monomvn</code> package;
+the bug has been reported to the authors of <span class="pkg">lars</span>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert B. Gramacy <a href="mailto:rbgramacy@chicagobooth.edu">rbgramacy@chicagobooth.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>Robert B. Gramacy, Joo Hee Lee, and Ricardo Silva (2007).
+<em>On estimating covariances between many assets with histories 
+of highly variable length</em>. <br /> Preprint available on arXiv:0710.5837:
+<a href="http://arxiv.org/abs/0710.5837">http://arxiv.org/abs/0710.5837</a>
+</p>
+<p>Roderick J.A. Little and Donald B. Rubin (2002).
+<em>Statistical Analysis with Missing Data</em>, Second Edition.
+Wilely.
+</p>
+<p>Bjorn-Helge Mevik and Ron Wehrens (2007).
+<em>The <span class="pkg">pls</span> Package: Principal Component and Partial
+Least Squares Regression in R.</em> 
+Journal of Statistical Software <b>18</b>(2)
+</p>
+<p>Bradley Efron, Trevor Hastie, Ian Johnstone and Robert Tibshirani
+(2003).
+<em>Least Angle Regression (with discussion).</em>
+Annals of Statistics <b>32</b>(2); see also<br />
+<a href="http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf">http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf</a>
+</p>
+<p>Trevor Hastie, Robert Tibshirani and Jerome Friedman (2002).
+<em>Elements of Statistical Learning.</em> Springer, NY. [HTF]
+</p>
+<p>Some of the code for <code>monomvn</code>, and its subroutines, was inspired
+by code found on the world wide web, written by Daniel Heitjan.
+Search for &ldquo;fcn.q&rdquo;
+</p>
+<p><a href="http://bobby.gramacy.com/r_packages/monomvn">http://bobby.gramacy.com/r_packages/monomvn</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="bmonomvn.html">bmonomvn</a></code>, <code>em.norm</code>
+in the now defunct <code>norm</code> and <code>mvnmle</code> packages</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## standard usage, duplicating the results in
+## Little and Rubin, section 7.4.3 -- try adding 
+## verb=3 argument for a step-by-step breakdown
+data(cement.miss)
+out &lt;- monomvn(cement.miss)
+out
+out$mu
+out$S
+
+##
+## A bigger example, comparing the various methods
+##
+
+## generate N=100 samples from a 10-d random MVN
+xmuS &lt;- randmvn(100, 20)
+
+## randomly impose monotone missingness
+xmiss &lt;- rmono(xmuS$x)
+
+## plsr
+oplsr &lt;- monomvn(xmiss, obs=TRUE)
+oplsr
+Ellik.norm(oplsr$mu, oplsr$S, xmuS$mu, xmuS$S)
+
+## calculate the complete and observed RMSEs
+n &lt;- nrow(xmiss) - max(oplsr$na)
+x.c &lt;- xmiss[1:n,]
+mu.c &lt;- apply(x.c, 2, mean)
+S.c &lt;- cov(x.c)*(n-1)/n
+Ellik.norm(mu.c, S.c, xmuS$mu, xmuS$S)
+Ellik.norm(oplsr$mu.obs, oplsr$S.obs, xmuS$mu, xmuS$S)
+
+## plcr
+opcr &lt;- monomvn(xmiss, method="pcr")
+Ellik.norm(opcr$mu, opcr$S, xmuS$mu, xmuS$S)
+
+## ridge regression
+oridge &lt;- monomvn(xmiss, method="ridge")
+Ellik.norm(oridge$mu, oridge$S, xmuS$mu, xmuS$S)
+
+## lasso
+olasso &lt;- monomvn(xmiss, method="lasso")
+Ellik.norm(olasso$mu, olasso$S, xmuS$mu, xmuS$S)
+
+## lar
+olar &lt;- monomvn(xmiss, method="lar")
+Ellik.norm(olar$mu, olar$S, xmuS$mu, xmuS$S)
+
+## forward.stagewise
+ofs &lt;- monomvn(xmiss, method="forward.stagewise")
+Ellik.norm(ofs$mu, ofs$S, xmuS$mu, xmuS$S)
+
+## stepwise
+ostep &lt;- monomvn(xmiss, method="stepwise")
+Ellik.norm(ostep$mu, ostep$S, xmuS$mu, xmuS$S)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

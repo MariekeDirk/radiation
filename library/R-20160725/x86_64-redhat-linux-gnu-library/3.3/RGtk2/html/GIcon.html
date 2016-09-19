@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GIcon {RGtk2}"><tr><td>GIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GIcon</h2>
+
+<h3>Description</h3>
+
+<p>Interface for icons</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gIconHash.html">gIconHash</a>(icon)</code><br />
+<code><a href="gIconEqual.html">gIconEqual</a>(object, icon2)</code><br />
+<code><a href="gIconToString.html">gIconToString</a>(object)</code><br />
+<code><a href="gIconNewForString.html">gIconNewForString</a>(str, .errwarn = TRUE)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GIcon</pre>
+
+<h3>Implementations</h3>
+
+<p>GIcon is implemented by
+<code><a href="GEmblem.html">GEmblem</a></code>,  <code><a href="GEmblemedIcon.html">GEmblemedIcon</a></code>,  <code><a href="GFileIcon.html">GFileIcon</a></code> and  <code><a href="GThemedIcon.html">GThemedIcon</a></code>.</p>
+
+
+<h3>Interface Derivations</h3>
+
+<p>GIcon is required by
+<code><a href="GLoadableIcon.html">GLoadableIcon</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GIcon.html">GIcon</a></code> is a very minimal interface for icons. It provides functions
+for checking the equality of two icons, hashing of icons and
+serializing an icon to and from strings.
+<code><a href="GIcon.html">GIcon</a></code> does not provide the actual pixmap for the icon as this is out 
+of GIO's scope, however implementations of <code><a href="GIcon.html">GIcon</a></code> may contain the name 
+of an icon (see <code><a href="GThemedIcon.html">GThemedIcon</a></code>), or the path to an icon (see <code><a href="GLoadableIcon.html">GLoadableIcon</a></code>). 
+</p>
+<p>To obtain a hash of a <code><a href="GIcon.html">GIcon</a></code>, see <code><a href="gIconHash.html">gIconHash</a></code>.
+</p>
+<p>To check if two <code style="white-space: pre;">GIcons</code> are equal, see <code><a href="gIconEqual.html">gIconEqual</a></code>.
+</p>
+<p>For serializing a <code><a href="GIcon.html">GIcon</a></code>, use <code><a href="gIconToString.html">gIconToString</a></code> and
+<code><a href="gIconNewForString.html">gIconNewForString</a></code>.
+</p>
+<p>If your application or library provides one or more <code><a href="GIcon.html">GIcon</a></code>
+implementations you need to ensure that each <code><a href="GType.html">GType</a></code> is registered
+with the type system prior to calling <code><a href="gIconNewForString.html">gIconNewForString</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GIcon</code></dt><dd>
+<p>An abstract type that specifies an icon.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GIcon.html">http://library.gnome.org/devel//gio/GIcon.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

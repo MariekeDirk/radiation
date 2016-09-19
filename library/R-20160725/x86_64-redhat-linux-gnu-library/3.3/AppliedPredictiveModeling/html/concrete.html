@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compressive Strength of Concrete from Yeh (1998)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for concrete {AppliedPredictiveModeling}"><tr><td>concrete {AppliedPredictiveModeling}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compressive Strength of Concrete from Yeh (1998)</h2>
+
+<h3>Description</h3>
+
+<p>Yeh (1998) describes a collection of data sets from different sources that can be used for modeling the compressive strength of concrete formulations as a functions of their ingredients and age. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(concrete)</pre>
+
+
+<h3>Details</h3>
+
+<p>The data are from Yeh (1998) and taken from the UCI ML website <a href="http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength">http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength</a>.
+</p>
+<p>There are 1030 data points from the UCI website, but the paper states that approximately 1,000 samples were made, but only 727 were analyzed in the source material. It is unclear which samples were excluded.
+</p>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>concrete</code></td>
+<td>
+<p>data frame of data with predictor columns <code>Cement</code>, <code>BlastFurnaceSlag</code>, <code>FlyAsh</code>, <code>Water</code>, <code>Superplasticizer</code>, <code>CoarseAggregate</code>, <code>FineAggregate</code> and <code>Age</code> with response column <code>CompressiveStrength</code>. These are the amounts.</p>
+</td></tr>
+<tr valign="top"><td><code>mixtures</code></td>
+<td>
+<p>The same data where all the ingredients have been converted to proportions of the total amounts.</p>
+</td></tr>
+</table>
+
+
+<h3>Source</h3>
+
+<p>Yeh, I. C. (1998). Modeling of strength of high-performance concrete using artificial neural networks. <em>Cement and Concrete Research</em>, 28(12), 1797-1808. Elsevier.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(concrete)
+
+library(caret)
+
+### Split used in the book:
+set.seed(975)
+inTrain &lt;- createDataPartition(mixtures$CompressiveStrength, p = 3/4)[[1]]
+training &lt;- mixtures[ inTrain,]
+testing  &lt;- mixtures[-inTrain,]
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>AppliedPredictiveModeling</em> version 1.1-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

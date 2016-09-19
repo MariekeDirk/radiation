@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: whitening</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for whitening {plotKML}"><tr><td>whitening {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>whitening</h2>
+
+<h3>Description</h3>
+
+<p>Derives a <em>&lsquo;whitenned&rsquo;</em> color based on the Hue-Saturation-Intensity color model. This method can be used to visualize uncertainty: the original color is <em>leached</em> proportionally to the uncertainty (white color indicates maximum uncertainty).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+whitening(z, zvar, zlim = c(min(z, na.rm=TRUE), max(z, na.rm=TRUE)),  
+  elim = c(.4,1), global.var = var(z, na.rm=TRUE), col.type = "RGB")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>z</code></td>
+<td>
+<p>numeric; target variable (e.g. predicted values)</p>
+</td></tr>
+<tr valign="top"><td><code>zvar</code></td>
+<td>
+<p>numeric; prediction error (variance)</p>
+</td></tr>
+<tr valign="top"><td><code>zlim</code></td>
+<td>
+<p>upper and lower limits for target variable</p>
+</td></tr>
+<tr valign="top"><td><code>elim</code></td>
+<td>
+<p>upper and lower limits for the normalized error</p>
+</td></tr>
+<tr valign="top"><td><code>global.var</code></td>
+<td>
+<p>global variance (either estimated from the data or specified)</p>
+</td></tr>
+<tr valign="top"><td><code>col.type</code></td>
+<td>
+<p>characted; <code>"RGB"</code> or <code>"HEX"</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The HSI is a psychologically appealing color model for visualization of uncertainty: hue is used to visualize values and <em>whitening</em> (<em>paleness</em> or <em>leaching</em> percentage) is used to visualize the uncertainty, or in other words the map is incomplete in the areas of high uncertainty. Unlike standard legends for continuous variables, this legend has two axis &mdash; one for value range and one for uncertainty range (see also <code><a href="legend.whitening.html">kml_legend.whitening</a></code>).<br />
+The standard range for <code>elim</code> is 0.4 and 1.0 (maximum). This assumes that a satisfactory prediction is when the model explains more than 85% of the total variation (normalized error = 40%). Otherwise, if the value of the normalized error get above 80%, the model accounts for less than 50% of variability.<br />
+Whitening is of special interest for visualization of the prediction errors in geostatistics. Formulas to derive the whitening color are explained in <a href="http://dx.doi.org/10.1016/j.geoderma.2003.08.018">Hengl et al. (2004)</a>. </p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl and Pierre Roudier </p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Hengl, T., Heuvelink, G.M.B., Stein, A., (2004) <a href="http://dx.doi.org/10.1016/j.geoderma.2003.08.018">A generic framework for spatial prediction of soil variables based on regression-kriging</a>. Geoderma 122 (1-2): 75-93.
+</p>
+</li>
+<li><p> Hue-Saturation-Intensity color model (<a href="http://en.wikipedia.org/wiki/HSL_and_HSV">http://en.wikipedia.org/wiki/HSL_and_HSV</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="legend.whitening.html">kml_legend.whitening</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+whitening(z=15, zvar=5, zlim=c(10,20), global.var=7)
+# significant color;
+whitening(z=15, zvar=5, zlim=c(10,20), global.var=4)
+# error exceeds global.var -&gt; totally white;
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

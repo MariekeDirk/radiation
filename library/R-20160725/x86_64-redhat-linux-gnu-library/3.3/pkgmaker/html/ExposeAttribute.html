@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exposing Object Attributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ExposeAttribute {pkgmaker}"><tr><td>ExposeAttribute {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exposing Object Attributes</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>ExposeAttribute</code> creates an S3 object
+that exposes all attributes of any R object, by making
+them accessible via methods <code><a href="../../base/html/Extract.html">$</a></code> and/or
+<code><a href="../../base/html/Extract.html">$&lt;-</a></code>.
+</p>
+<p><code>attr_mode</code> and <code>attr_mode&lt;-</code> get and sets the
+access mode of <code>ExposeAttribute</code> objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ExposeAttribute(object, ..., .MODE = "rw",
+    .VALUE = FALSE)
+
+  attr_mode(x)
+
+  attr_mode(x)&lt;-value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>any R object whose attributes need to be
+exposed</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>attributes, and optionally their respective
+values or access permissions. See argument <code>value</code>
+of <code>attr_mode</code> for details on the way of specifying
+these.</p>
+</td></tr>
+<tr valign="top"><td><code>.MODE</code></td>
+<td>
+<p>access mode: </p>
+ <dl>
+<dt>&ldquo;r&rdquo;:</dt><dd>
+<p>(read-only) only method <code>$</code> is defined</p>
+</dd>
+<dt>&ldquo;w&rdquo;:</dt><dd><p> (write-only) only method <code>$&lt;-</code>
+is defined</p>
+</dd> <dt>&ldquo;rw&rdquo;:</dt><dd><p> (read-write) both
+methods <code>$</code> and <code>$&lt;-</code> are defined</p>
+</dd> </dl>
+</td></tr>
+<tr valign="top"><td><code>.VALUE</code></td>
+<td>
+<p>logical that indicates if the values of
+named arguments in <code>...</code> should be considered as
+attribute assignments, i.e. that the result object has
+these attributes set with the specified values. In this
+case all these attributes will have the access permission
+as defined by argument <code>.MODE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an <code>ExposeAttribute</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>replacement value for mode. It can be
+<code>NULL</code> to remove the ExposeAttribute wrapper, a
+single character string to define a permission for all
+atributes (e.g., <code>'rw'</code> or <code>'r'</code>), or a list
+specifying access permission for specific attributes or
+classes of attributes defined by regular expressions. For
+example, <code>list(a='r', b='w', `blabla.*`='rw')</code> set
+attribute <code>'a'</code> as read-only, attribute <code>'b'</code>
+as write-only, all attributes that start with
+<code>'blabla'</code> in read-write access.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

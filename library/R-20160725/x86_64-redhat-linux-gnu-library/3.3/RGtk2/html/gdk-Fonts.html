@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fonts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Fonts {RGtk2}"><tr><td>gdk-Fonts {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fonts</h2>
+
+<h3>Description</h3>
+
+<p>Loading and manipulating fonts</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkFontLoad.html">gdkFontLoad</a>(font.name)</code><br />
+<code><a href="gdkFontLoadForDisplay.html">gdkFontLoadForDisplay</a>(display, font.name)</code><br />
+<code><a href="gdkFontLoadForDisplay.html">gdkFontLoadForDisplay</a>(display, font.name)</code><br />
+<code><a href="gdkFontsetLoad.html">gdkFontsetLoad</a>(fontset.name)</code><br />
+<code><a href="gdkFontsetLoadForDisplay.html">gdkFontsetLoadForDisplay</a>(display, fontset.name)</code><br />
+<code><a href="gdkFontsetLoadForDisplay.html">gdkFontsetLoadForDisplay</a>(display, fontset.name)</code><br />
+<code><a href="gdkFontFromDescription.html">gdkFontFromDescription</a>(font.desc)</code><br />
+<code><a href="gdkFontFromDescriptionForDisplay.html">gdkFontFromDescriptionForDisplay</a>(display, font.desc)</code><br />
+<code><a href="gdkFontFromDescriptionForDisplay.html">gdkFontFromDescriptionForDisplay</a>(display, font.desc)</code><br />
+<code><a href="gdkFontGetDisplay.html">gdkFontGetDisplay</a>(object)</code><br />
+<code><a href="gdkFontGetDisplay.html">gdkFontGetDisplay</a>(object)</code><br />
+<code><a href="gdkFontId.html">gdkFontId</a>(object)</code><br />
+<code><a href="gdkStringExtents.html">gdkStringExtents</a>(object, string)</code><br />
+<code><a href="gdkTextExtents.html">gdkTextExtents</a>(object, string)</code><br />
+<code><a href="gdkTextExtentsWc.html">gdkTextExtentsWc</a>(object, text)</code><br />
+<code><a href="gdkStringWidth.html">gdkStringWidth</a>(object, string)</code><br />
+<code><a href="gdkTextWidth.html">gdkTextWidth</a>(object, text, text.length = -1)</code><br />
+<code><a href="gdkTextWidthWc.html">gdkTextWidthWc</a>(object, text)</code><br />
+<code><a href="gdkCharWidth.html">gdkCharWidth</a>(object, character)</code><br />
+<code><a href="gdkCharWidthWc.html">gdkCharWidthWc</a>(object, character)</code><br />
+<code><a href="gdkStringMeasure.html">gdkStringMeasure</a>(object, string)</code><br />
+<code><a href="gdkTextMeasure.html">gdkTextMeasure</a>(object, text, text.length = -1)</code><br />
+<code><a href="gdkCharMeasure.html">gdkCharMeasure</a>(object, character)</code><br />
+<code><a href="gdkStringHeight.html">gdkStringHeight</a>(object, string)</code><br />
+<code><a href="gdkTextHeight.html">gdkTextHeight</a>(object, text, text.length = -1)</code><br />
+<code><a href="gdkCharHeight.html">gdkCharHeight</a>(object, character)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="gdk-Fonts.html">GdkFont</a></code> data type represents a font for drawing on
+the screen. These functions provide support for
+loading fonts, and also for determining the dimensions
+of characters and strings when drawn with a particular
+font.
+</p>
+<p>Fonts in X are specified by a
+<dfn>X Logical Font Description</dfn>.
+The following description is considerably simplified.
+For definitive information about XLFD's see the
+X reference documentation. A X Logical Font Description (XLFD)
+consists of a sequence of fields separated (and surrounded by) '-'
+characters. For example, Adobe Helvetica Bold 12 pt, has the
+full description:
+</p>
+<pre>"-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1"
+</pre>
+<p>The fields in the XLFD are:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+Foundry </td><td style="text-align: left;"> the company or organization where the font originated. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Family </td><td style="text-align: left;"> the font family (a group of related font designs). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Weight </td><td style="text-align: left;"> A name for the font's typographic weight
+For example, 'bold' or 'medium'). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Slant </td><td style="text-align: left;"> The slant of the font. Common values are 'R' for Roman,
+'I' for italoc, and 'O' for oblique. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Set Width </td><td style="text-align: left;"> A name for the width of the font. For example,
+'normal' or 'condensed'. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Add Style </td><td style="text-align: left;"> Additional information to distinguish a font from
+other fonts of the same family. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Pixel Size </td><td style="text-align: left;"> The body size of the font in pixels. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Point Size </td><td style="text-align: left;"> The body size of the font in 10ths of a point.
+(A   <dfn>point</dfn>   is 1/72.27 inch)  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Resolution X </td><td style="text-align: left;"> The horizontal resolution that the font was designed for. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Resolution Y </td><td style="text-align: left;"> The vertical resolution that the font was designed for . </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Spacing </td><td style="text-align: left;"> The type of spacing for the font - can be 'p' for proportional,
+'m' for monospaced or 'c' for charcell. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Average Width </td><td style="text-align: left;"> The average width of a glyph in the font. For monospaced
+and charcell fonts, all glyphs in the font have this width </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Charset Registry </td><td style="text-align: left;"> The registration authority that owns the encoding for
+the font. Together with the Charset Encoding field, this
+defines the character set for the font. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Charset Encoding </td><td style="text-align: left;"> An identifier for the particular character set encoding. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>When specifying a font via a X logical Font Description,
+'*' can be used as a wildcard to match any portion of
+the XLFD. For instance, the above example could
+also be specified as
+</p>
+<pre>"-*-helvetica-bold-r-normal--*-120-*-*-*-*-iso8859-1"
+</pre>
+<p>It is generally a good idea to use wildcards for any
+portion of the XLFD that your program does not care
+about specifically, since that will improve the
+chances of finding a matching font.
+</p>
+<p>A <dfn>fontset</dfn> is a list of fonts
+that is used for drawing international text that may
+contain characters from a number of different character
+sets. It is represented by a list of XLFD's.
+</p>
+<p>The font for a given character set is determined by going
+through the list of XLFD's in order. For each one, if
+the registry and and encoding fields match the desired
+character set, then that font is used, otherwise if
+the XLFD contains wild-cards for the registry and encoding
+fields, the registry and encoding for the desired character
+set are substituted in and a lookup is done. If a match is found
+that font is used. Otherwise, processing continues
+on to the next font in the list.
+</p>
+<p>The functions for determining the metrics of a string
+come in several varieties that can take a number
+of forms of string input:
+</p>
+
+<dl>
+<dt>8-bit string</dt><dd><p>    When using functions like <code><a href="gdkStringWidth.html">gdkStringWidth</a></code> that
+take a <code style="white-space: pre;">character</code>, if the font is of type
+<code>GDK_FONT_FONT</code> and is an 8-bit font, then each
+<code style="white-space: pre;">character</code> indexes the glyphs in the font directly.
+</p>
+</dd>
+<dt>16-bit string</dt><dd><p>    For functions taking a <code style="white-space: pre;">character</code>, if the
+font is of type <code>GDK_FONT_FONT</code>, and is a 16-bit
+font, then the <code style="white-space: pre;">character</code> argument is
+interpreted as a <code style="white-space: pre;">integer</code> cast to
+a <code style="white-space: pre;">character</code> and each <code style="white-space: pre;">integer</code>
+indexes the glyphs in the font directly.
+</p>
+</dd>
+<dt>Multibyte string</dt><dd><p>    For functions taking a <code style="white-space: pre;">character</code>, if the
+font is of type <code>GDK_FONT_FONTSET</code>, then the input
+string is interpreted as a <dfn>multibyte</dfn>
+encoded according to the current locale. (A multibyte
+string is one in which each character may consist
+of one or more bytes, with different lengths for different
+characters in the string). They can be converted to and
+from wide character strings (see below) using
+<code>gdkWcstombs()</code> and <code>gdkMbstowcs()</code>.) The string will
+be rendered using one or more different fonts from
+the fontset.
+</p>
+</dd>
+<dt>Wide character string</dt><dd><p>    For a number of the text-measuring functions, GDK
+provides a variant (such as <code><a href="gdkTextWidthWc.html">gdkTextWidthWc</a></code>) which
+takes a <code style="white-space: pre;">numeric</code> instead of a
+<code style="white-space: pre;">character</code>. The input is then taken to
+be a wide character string in the encoding of the
+current locale. (A wide character string is a string
+in which each character consists of several bytes,
+and the width of each character in the string is
+constant.)
+</p>
+</dd>
+</dl>
+
+<p>GDK provides functions to determine a number of different
+measurements (metrics) for a given string. (Need diagram
+here).
+</p>
+
+<dl>
+<dt>ascent</dt><dd><p>    The vertical distance from the origin of the drawing
+opereration to the top of the drawn character.
+</p>
+</dd>
+<dt>descent</dt><dd><p>    The vertical distance from the origin of the drawing
+opereration to the bottom of the drawn character.
+</p>
+</dd>
+<dt>left bearing</dt><dd><p>    The horizontal distance from the origin of the drawing
+operation to the left-most part of the drawn character.
+</p>
+</dd>
+<dt>right bearing</dt><dd><p>    The horizontal distance from the origin of the drawing
+operation to the right-most part of the drawn character.
+</p>
+</dd>
+<dt>width bearing</dt><dd><p>    The horizontal distance from the origin of the drawing
+operation to the correct origin for drawing another
+string to follow the current one. Depending on the
+font, this could be greater than or less than the
+right bearing.
+</p>
+</dd>
+</dl>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkFont</code></dt><dd>
+<p><strong>WARNING: <code>GdkFont</code> is deprecated and should not be used in newly-written code.</strong>
+The <code>GdkFont</code> structure represents a font or fontset. It
+contains the following public fields. A new <code>GdkFont</code>
+structure is returned by <code><a href="gdkFontLoad.html">gdkFontLoad</a></code> or <code><a href="gdkFontsetLoad.html">gdkFontsetLoad</a></code>,
+and is reference counted with <code>gdkFontRef()</code> and <code>gdkFontUnref()</code>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Fonts.html">GdkFontType</a></code>] a value of type <code><a href="gdk-Fonts.html">GdkFontType</a></code> which indicates
+whether this font is a single font or a fontset.</p>
+</dd>
+<dt><code style="white-space: pre;">ascent</code></dt><dd><p>[integer] the maximum distance that the font, when drawn,
+ascends above the baseline.</p>
+</dd>
+<dt><code style="white-space: pre;">descent</code></dt><dd><p>[integer] the maximum distance that the font, when drawn,
+descends below the baseline.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkFontType</code></dt><dd>
+<p><strong>WARNING: <code>GdkFontType</code> is deprecated and should not be used in newly-written code.</strong>
+Indicates the type of a font. The possible values
+are currently:
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">font</code></dt><dd><p>the font is a single font.</p>
+</dd>
+<dt><code style="white-space: pre;">fontset</code></dt><dd><p>the font is a fontset.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Fonts.html">http://library.gnome.org/devel//gdk/gdk-Fonts.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

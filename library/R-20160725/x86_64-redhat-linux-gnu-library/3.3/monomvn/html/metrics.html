@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: RMSE, Expected Log Likelihood and KL Divergence Between Two...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for metrics {monomvn}"><tr><td>metrics {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> RMSE, Expected Log Likelihood and KL Divergence Between
+Two Multivariate Normal Distributions </h2>
+
+<h3>Description</h3>
+
+<p>These functions calculate the root-mean-squared-error,
+the expected log likelihood, and Kullback-Leibler (KL) divergence
+(a.k.a. distance), between two multivariate normal (MVN)
+distributions described by their mean vector and covariance matrix
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rmse.muS(mu1, S1, mu2, S2)
+Ellik.norm(mu1, S1, mu2, S2, quiet=FALSE)
+kl.norm(mu1, S1, mu2, S2, quiet=FALSE, symm=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mu1</code></td>
+<td>
+<p> mean vector of first (estimated) MVN </p>
+</td></tr>
+<tr valign="top"><td><code>S1</code></td>
+<td>
+<p> covariance matrix of first (estimated) MVN </p>
+</td></tr>
+<tr valign="top"><td><code>mu2</code></td>
+<td>
+<p> mean vector of second (true, baseline, or comparator) MVN </p>
+</td></tr>
+<tr valign="top"><td><code>S2</code></td>
+<td>
+<p> covariance matrix of second (true, baseline, or comparator) MVN </p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p> when <code>FALSE</code> (default) </p>
+</td></tr>
+<tr valign="top"><td><code>symm</code></td>
+<td>
+<p> when <code>TRUE</code> a symmetrized version of the
+KL divergence is used; see the note below </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The root-mean-squared-error is calculated between the entries of
+the mean vectors, and the upper-triangular part of the covariance
+matrices (including the diagonal).
+</p>
+<p>The KL divergence is given by the formula:
+</p>
+<p style="text-align: center;"><i>0.5 (log(|S1|/|S2|) + tr(inv(S1)S2) + t(mu1-m2)inv(S2)(mu1-mu2) - N)</i></p>
+
+<p>where <i>N</i> is <code>length(mu1)</code>, and must agree with
+the dimensions of the other parameters.  Note that the parameterization
+used involves swapped arguments compared to some other references,
+e.g., as provided by Wikipedia.  See note below.
+</p>
+<p>The expected log likelihood can be formulated in terms of the
+KL divergence.  That is, the expected log likelihood of data
+simulated from the normal distribution with parameters <code>mu2</code>
+and <code>S2</code> under the estimated normal with parameters
+<code>mu1</code> and <code>S1</code> is given by
+</p>
+<p style="text-align: center;"><i> -0.5 ln((2 pi e)^N |S2|) - kl.norm(mu1, S1, mu2, S2). </i></p>
+
+
+
+<h3>Value</h3>
+
+<p>In the case of the expected log likelihood the result is
+a real number.  The RMSE is a positive real number.
+The KL divergence method returns a positive
+real number depicting the <em>distance</em> between the
+two normal distributions
+</p>
+
+
+<h3>Note</h3>
+
+<p>The KL-divergence is not symmetric.  Therefore
+</p>
+<p><code>kl.norm(mu1,S1,mu2,S2) != kl.norm(mu2,S2,mu1,S1).</code>
+</p>
+<p>But a symmetric metric can be constructed from
+</p>
+<p><code>0.5 * (kl.norm(mu1,S1,mu2,S2) + kl.norm(mu2,S2,mu1,S1))</code>
+</p>
+<p>or by using <code>symm = TRUE</code>.  The arguments are reversed
+compared to some other references, like Wikipedia.  To match
+those versions use <code>kl.norm(mu2, S2, mu1, s1)</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert B. Gramacy <a href="mailto:rbgramacy@chicagobooth.edu">rbgramacy@chicagobooth.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p><a href="http://bobby.gramacy.com/r_packages/monomvn">http://bobby.gramacy.com/r_packages/monomvn</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+mu1 &lt;- rnorm(5)
+s1 &lt;- matrix(rnorm(100), ncol=5)
+S1 &lt;- t(s1) %*% s1
+
+mu2 &lt;- rnorm(5)
+s2 &lt;- matrix(rnorm(100), ncol=5)
+S2 &lt;- t(s2) %*% s2
+
+## RMSE
+rmse.muS(mu1, S1, mu2, S2)
+
+## expected log likelihood
+Ellik.norm(mu1, S1, mu2, S2)
+
+## KL is not symmetric
+kl.norm(mu1, S1, mu2, S2)
+kl.norm(mu2, S2, mu1, S1)
+
+## symmetric version
+kl.norm(mu2, S2, mu1, S1, symm=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

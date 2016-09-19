@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkAccelMapAddEntry</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkAccelMapAddEntry {RGtk2}"><tr><td>gtkAccelMapAddEntry {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkAccelMapAddEntry</h2>
+
+<h3>Description</h3>
+
+<p>Registers a new accelerator with the global accelerator map.
+This function should only be called once per <code>accel.path</code>
+with the canonical <code>accel.key</code> and <code>accel.mods</code> for this path.
+To change the accelerator during runtime programatically, use
+<code><a href="gtkAccelMapChangeEntry.html">gtkAccelMapChangeEntry</a></code>.
+The accelerator path must consist of &quot;&lt;WINDOWTYPE&gt;/Category1/Category2/.../Action&quot;,
+where &lt;WINDOWTYPE&gt; should be a unique application-specific identifier, that
+corresponds to the kind of window the accelerator is being used in, e.g. &quot;Gimp-Image&quot;,
+&quot;Abiword-Document&quot; or &quot;Gnumeric-Settings&quot;.
+The Category1/.../Action portion is most appropriately chosen by the action the
+accelerator triggers, i.e. for accelerators on menu items, choose the item's menu path,
+e.g. &quot;File/Save As&quot;, &quot;Image/View/Zoom&quot; or &quot;Edit/Select All&quot;.
+So a full valid accelerator path may look like:
+&quot;&lt;Gimp-Toolbox&gt;/File/Dialogs/Tool Options...&quot;.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkAccelMapAddEntry(accel.path, accel.key, accel.mods)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">accel.path</code></code></td>
+<td>
+<p>valid accelerator path</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.key</code></code></td>
+<td>
+<p>the accelerator key</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.mods</code></code></td>
+<td>
+<p>the accelerator modifiers</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that <code>accel.path</code> string will be stored in a <code><a href="GQuark.html">GQuark</a></code>. Therefore, if you
+pass a static string, you can save some memory by interning it first with 
+<code>gInternStaticString()</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIconSourceSetStateWildcarded</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIconSourceSetStateWildcarded {RGtk2}"><tr><td>gtkIconSourceSetStateWildcarded {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIconSourceSetStateWildcarded</h2>
+
+<h3>Description</h3>
+
+<p>If the widget state is wildcarded, this source can be used as the
+base image for an icon in any <code><a href="gtk-Standard-Enumerations.html">GtkStateType</a></code>.  If the widget state
+is not wildcarded, then the state the source applies to should be
+set with <code><a href="gtkIconSourceSetState.html">gtkIconSourceSetState</a></code> and the icon source will
+only be used with that specific state.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIconSourceSetStateWildcarded(object, setting)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSource</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">setting</code></code></td>
+<td>
+<p><code>TRUE</code> to wildcard the widget state</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code> prefers non-wildcarded sources (exact matches) over
+wildcarded sources, and will use an exact match when possible.
+<code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code> will normally transform wildcarded source images to
+produce an appropriate icon for a given state, for example
+lightening an image on prelight, but will not modify source images
+that match exactly.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

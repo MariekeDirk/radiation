@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prepare graphics device</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for preparePlot {CORElearn}"><tr><td>preparePlot {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Prepare graphics device </h2>
+
+<h3>Description</h3>
+
+<p>Based on provided <code>fileName</code> opens and sets appropriate graphical device: pdf, postscript, 
+interactive graphical window, or (only on windows) windows metafile,.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+preparePlot(fileName="Rplot",...)
+ </pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fileName</code></td>
+<td>
+<p> Name of the file to store the output to. </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Further parameters passed to device. </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function opens the graphical output device based on <code>fileName</code> extension. 
+The extensions .pdf, .ps, .jpg, .bmp, .tif, .png, .tiff or none select  <code><a href="../../grDevices/html/pdf.html">pdf</a></code>, <code><a href="../../grDevices/html/postscript.html">postscript</a></code>,
+<code><a href="../../grDevices/html/png.html">jpeg</a></code>, <code><a href="../../grDevices/html/png.html">bmp</a></code>, <code><a href="../../grDevices/html/png.html">tiff</a></code>,<code><a href="../../grDevices/html/png.html">png</a></code>, <code><a href="../../grDevices/html/dev2bitmap.html">bitmap</a></code>
+or a default (interactive) graphical device.
+</p>
+<p>On Windows also .emf extension is supported which opens <code>win.metafile</code>    
+and creates vector graphics in windows enhanced metafile format.      
+</p>
+<p>The extension .tiff opens <code><a href="../../grDevices/html/dev2bitmap.html">bitmap</a></code> device which produces bitmap via <code><a href="../../grDevices/html/postscript.html">postscript</a></code> device.
+Therefore it requires Ghostscript to be installed and on the executable path.
+</p>
+<p>Some sensible default values are passed to created devices, but further options can be
+passed via <code>...</code>.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>A plot device is opened and nothing is returned to the R interpreter.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>,
+<code><a href="plot.ordEval.html">plot.ordEval</a></code>,
+<code><a href="../../grDevices/html/pdf.html">pdf</a></code>, 
+<code><a href="../../grDevices/html/postscript.html">postscript</a></code>,
+<code><a href="../../grDevices/html/png.html">jpeg</a></code>, 
+<code><a href="../../grDevices/html/png.html">bmp</a></code>, 
+<code><a href="../../grDevices/html/png.html">tiff</a></code>,
+<code><a href="../../grDevices/html/png.html">png</a></code>,
+<code><a href="../../grDevices/html/Devices.html">Devices</a></code>    
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+   # prepare a data set
+    dat &lt;- ordDataGen(200)
+    # evaluate ordered features with ordEval
+    oe &lt;- ordEval(class ~ ., dat, ordEvalNoRandomNormalizers=200)
+    # creates a separate postscript file for each attribute with given name     
+    preparePlot("myGraph%03d.ps") 
+    plot(oe)
+    dev.off()
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

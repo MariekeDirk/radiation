@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowMove</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowMove {RGtk2}"><tr><td>gtkWindowMove {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowMove</h2>
+
+<h3>Description</h3>
+
+<p>Asks the window manager to move
+<code>window</code> to the given position.  Window managers are free to ignore
+this; most window managers ignore requests for initial window
+positions (instead using a user-defined placement algorithm) and
+honor requests after the window has already been shown.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowMove(object, x, y)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>X coordinate to move window to</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>Y coordinate to move window to</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note: the position is the position of the gravity-determined
+reference point for the window. The gravity determines two things:
+first, the location of the reference point in root window
+coordinates; and second, which point on the window is positioned at
+the reference point.
+</p>
+<p>By default the gravity is <code style="white-space: pre;">GDK_GRAVITY_NORTH_WEST</code>, so the reference
+point is simply the <code>x</code>, <code>y</code> supplied to <code><a href="gtkWindowMove.html">gtkWindowMove</a></code>. The
+top-left corner of the window decorations (aka window frame or
+border) will be placed at <code>x</code>, <code>y</code>.  Therefore, to position a window
+at the top left of the screen, you want to use the default gravity
+(which is <code style="white-space: pre;">GDK_GRAVITY_NORTH_WEST</code>) and move the window to 0,0.
+</p>
+<p>To position a window at the bottom right corner of the screen, you
+would set <code style="white-space: pre;">GDK_GRAVITY_SOUTH_EAST</code>, which means that the reference
+point is at <code>x</code> + the window width and <code>y</code> + the window height, and
+the bottom-right corner of the window border will be placed at that
+reference point. So, to place a window in the bottom right corner
+you would first set gravity to south east, then write:
+<code>gtk_window_move (window,   <a href="gdkScreenWidth.html">gdkScreenWidth</a>   - window_width,
+  <a href="gdkScreenHeight.html">gdkScreenHeight</a>   - window_height)</code> (note that this
+example does not take multi-head scenarios into account).
+</p>
+<p>The Extended Window Manager Hints specification at 
+http://www.freedesktop.org/Standards/wm-spec (<a href="http://www.freedesktop.org/Standards/wm-spec">http://www.freedesktop.org/Standards/wm-spec</a>) has a 
+nice table of gravities in the &quot;implementation notes&quot; section.
+</p>
+<p>The <code><a href="gtkWindowGetPosition.html">gtkWindowGetPosition</a></code> documentation may also be relevant.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

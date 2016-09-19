@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Types</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairo-types {RGtk2}"><tr><td>cairo-types {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Types</h2>
+
+<h3>Description</h3>
+
+<p>Generic data types</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Generic data types used in the cairo API</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">CairoUserDataKey</code></dt><dd>
+<p><code><a href="cairo-types.html">CairoUserDataKey</a></code> is used for attaching user data to cairo
+data structures.  The actual contents of the struct is never used,
+and there is no need to initialize the object; only the unique
+a <code style="white-space: pre;">cairo_data_key_t</code> object is used.  Typically, you
+would just use the a static <code style="white-space: pre;">cairo_data_key_t</code> object.  
+</p>
+<dl>
+<dt><code>unused</code></dt><dd><p>[integer]  not used; ignore.</p>
+</dd></dl>
+
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>cairo_destroy_func_t(data)</code></dt><dd>
+<p><code style="white-space: pre;">cairo_destroy_func_t</code> the type of function which is called when a
+data element is destroyed. It is passed the pointer to the data
+element and should free any memory and resources allocated for it.  
+</p>
+<dl>
+<dt><code>data</code></dt><dd><p>[R object]  The data element being destroyed.</p>
+</dd></dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.cairographics.org/manual/cairo-types.html">http://www.cairographics.org/manual/cairo-types.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

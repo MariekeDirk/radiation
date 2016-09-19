@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoFontFamilyListFaces</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoFontFamilyListFaces {RGtk2}"><tr><td>pangoFontFamilyListFaces {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoFontFamilyListFaces</h2>
+
+<h3>Description</h3>
+
+<p>Lists the different font faces that make up <code>family</code>. The faces
+in a family share a common design, but differ in slant, weight,
+width and other aspects.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoFontFamilyListFaces(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Fonts.html">PangoFontFamily</a></code>]  a <code><a href="pango-Fonts.html">PangoFontFamily</a></code></p>
+</td></tr></table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">faces</code></code></td>
+<td>
+<p>[<code><a href="pango-Fonts.html">PangoFontFace</a></code>]  location to store a list of pointers to <code><a href="pango-Fonts.html">PangoFontFace</a></code>
+objects, or <code>NULL</code>. This list should be freed with <code>gFree()</code>
+when it is no longer needed.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.faces</code></code></td>
+<td>
+<p>[integer]  location to store number of elements in <code>faces</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

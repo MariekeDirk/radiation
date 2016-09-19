@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A class for a time series of regular grids</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for RasterBrickTimeSeries-class {plotKML}"><tr><td>RasterBrickTimeSeries-class {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A class for a time series of regular grids</h2>
+
+<h3>Description</h3>
+
+<p>A class containing list of rasters, begin, end times and sample points to allow exploration of the values. Objects of this class can be directly visualized in Google Earth by using the <code><a href="plotKML.html">plotKML-method</a></code>.</p>
+
+
+<h3>Slots</h3>
+
+    
+<dl>
+<dt><code>variable</code>:</dt><dd><p>object of class <code>"character"</code>; variable name</p>
+</dd> 
+<dt><code>sampled</code>:</dt><dd><p>object of class <code>"SpatialPoints"</code>; one or more points that can be used to visualize temporal changes in the target variable</p>
+</dd>
+<dt><code>rasters</code>:</dt><dd><p>object of class <code>"RasterBrick"</code>; a time-series of raster objects</p>
+</dd>
+<dt><code>TimeSpan.begin</code>:</dt><dd><p>object of class <code>"POSIXct"</code>; begin of sampling for each raster map</p>
+</dd>
+<dt><code>TimeSpan.end</code>:</dt><dd><p>object of class <code>"POSIXct"</code>; end of sampling for each raster map</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>plotKML</dt><dd><p><code>signature(obj = "RasterBrickTimeSeries")</code>: plots time-series of rasters in Google Earth</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="RasterBrickSimulations.html">RasterBrickSimulations-class</a></code>, <code><a href="plotKML.html">plotKML-method</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

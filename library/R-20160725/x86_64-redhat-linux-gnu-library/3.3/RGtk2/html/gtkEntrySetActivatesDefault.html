@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkEntrySetActivatesDefault</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkEntrySetActivatesDefault {RGtk2}"><tr><td>gtkEntrySetActivatesDefault {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkEntrySetActivatesDefault</h2>
+
+<h3>Description</h3>
+
+<p>If <code>setting</code> is <code>TRUE</code>, pressing Enter in the <code>entry</code> will activate the default
+widget for the window containing the entry. This usually means that
+the dialog box containing the entry will be closed, since the default
+widget is usually one of the dialog buttons.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkEntrySetActivatesDefault(object, setting)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkEntry.html">GtkEntry</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">setting</code></code></td>
+<td>
+<p><code>TRUE</code> to activate window's default widget on Enter keypress</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>(For experts: if <code>setting</code> is <code>TRUE</code>, the entry calls
+<code><a href="gtkWindowActivateDefault.html">gtkWindowActivateDefault</a></code> on the window containing the entry, in
+the default handler for the <code><a href="gtkWidgetActivate.html">gtkWidgetActivate</a></code> signal.)</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

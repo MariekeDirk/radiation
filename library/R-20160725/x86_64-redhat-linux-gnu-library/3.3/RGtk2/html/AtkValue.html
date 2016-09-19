@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkValue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkValue {RGtk2}"><tr><td>AtkValue {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkValue</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface implemented by valuators and components which display or
+select a value from a bounded range of values.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkValueGetCurrentValue.html">atkValueGetCurrentValue</a>(object)</code><br />
+<code><a href="atkValueGetMaximumValue.html">atkValueGetMaximumValue</a>(object)</code><br />
+<code><a href="atkValueGetMinimumValue.html">atkValueGetMinimumValue</a>(object)</code><br />
+<code><a href="atkValueSetCurrentValue.html">atkValueSetCurrentValue</a>(object, value)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkValue</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkValue is implemented by
+<code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="AtkValue.html">AtkValue</a></code> should be implemented for components which either display a
+value from a bounded range, or which allow the user to specify a value
+from a bounded range, or both.  For instance, most sliders and range
+controls, as well as dials, should have <code><a href="AtkObject.html">AtkObject</a></code> representations which
+implement <code><a href="AtkValue.html">AtkValue</a></code> on the component's behalf.  <code style="white-space: pre;">AtKValues</code> may be
+read-only, in which case attempts to alter the value return FALSE to
+indicate failure.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkValue</code></dt><dd>
+<p>The AtkValue structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkValue.html">http://library.gnome.org/devel//atk/AtkValue.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

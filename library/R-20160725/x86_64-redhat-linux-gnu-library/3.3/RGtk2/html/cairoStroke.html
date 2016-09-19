@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoStroke</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoStroke {RGtk2}"><tr><td>cairoStroke {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoStroke</h2>
+
+<h3>Description</h3>
+
+<p>A drawing operator that strokes the current path according to the
+current line width, line join, line cap, and dash settings. After
+<code><a href="cairoStroke.html">cairoStroke</a></code>, the current path will be cleared from the cairo
+context. See <code><a href="cairoSetLineWidth.html">cairoSetLineWidth</a></code>, <code><a href="cairoSetLineJoin.html">cairoSetLineJoin</a></code>,
+<code><a href="cairoSetLineCap.html">cairoSetLineCap</a></code>, <code><a href="cairoSetDash.html">cairoSetDash</a></code>, and
+<code><a href="cairoStrokePreserve.html">cairoStrokePreserve</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoStroke(cr)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Note: Degenerate segments and sub-paths are treated specially and
+provide a useful result. These can result in two different
+situations:
+</p>
+<p>1. Zero-length &quot;on&quot; segments set in <code><a href="cairoSetDash.html">cairoSetDash</a></code>. If the cap
+style is <code>CAIRO_LINE_CAP_ROUND</code> or <code>CAIRO_LINE_CAP_SQUARE</code> then these
+segments will be drawn as circular dots or squares respectively. In
+the case of <code>CAIRO_LINE_CAP_SQUARE</code>, the orientation of the squares
+is determined by the direction of the underlying path.
+</p>
+<p>2. A sub-path created by <code><a href="cairoMoveTo.html">cairoMoveTo</a></code> followed by either a
+<code><a href="cairoClosePath.html">cairoClosePath</a></code> or one or more calls to <code><a href="cairoLineTo.html">cairoLineTo</a></code> to the
+same coordinate as the <code><a href="cairoMoveTo.html">cairoMoveTo</a></code>. If the cap style is
+<code>CAIRO_LINE_CAP_ROUND</code> then these sub-paths will be drawn as circular
+dots. Note that in the case of <code>CAIRO_LINE_CAP_SQUARE</code> a degenerate
+sub-path will not be drawn at all, (since the correct orientation
+is indeterminate).
+</p>
+<p>In no case will a cap style of <code>CAIRO_LINE_CAP_BUTT</code> cause anything
+to be drawn in the case of either degenerate segments or sub-paths.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

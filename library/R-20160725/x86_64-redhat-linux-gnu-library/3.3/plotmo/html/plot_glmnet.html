@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a glmnet model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot_glmnet {plotmo}"><tr><td>plot_glmnet {plotmo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a glmnet model</h2>
+
+<h3>Description</h3>
+
+<p>Plot the coefficient paths of a <code><a href="../../glmnet/html/glmnet.html">glmnet</a></code> model.
+</p>
+<p>An enhanced version of <code><a href="../../glmnet/html/plot.glmnet.html">plot.glmnet</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot_glmnet(x = stop("no 'x' argument"),
+           xvar = c("rlambda", "lambda", "norm", "dev"),
+           label = 10, nresponse = NA, grid.col = NA, s = NA, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>The <code>glmnet</code> model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>xvar</code></td>
+<td>
+
+<p>What gets plotted along the x axis. One of:<br />
+<b><code>"rlambda"</code></b> (default) decreasing log lambda (lambda is the glmnet penalty)<br />
+<b><code>"lambda"</code></b> log lambda<br />
+<b><code>"norm"</code></b> L1-norm of the coefficients<br />
+<b><code>"dev"</code></b> percent deviance explained<br /><br />
+The default <code>xvar</code> differs from <code>plot.glmnet</code> to allow
+<code>s</code> to be plotted when this function is invoked by
+<code><a href="plotres.html">plotres</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+
+<p>Default <code>10</code>.
+Number of variable names displayed on the right of the plot.
+One of:<br />
+<b><code>FALSE</code></b> display no variables<br />
+<b><code>TRUE</code></b> display all variables<br />
+<b><code>integer</code></b> (default) number of variables to display (default is 10)<br />
+</p>
+</td></tr>
+<tr valign="top"><td><code>nresponse</code></td>
+<td>
+
+<p>Which response to plot for multiple response models.
+</p>
+</td></tr>
+<tr valign="top"><td><code>grid.col</code></td>
+<td>
+
+<p>Default <code>NA</code>.
+Color of the optional grid, for example <code>grid.col="lightgray"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>For use by <code><a href="plotres.html">plotres</a></code>.
+The x position of the gray vertical line indicating the lambda
+<code>s</code> passed by <code>plotres</code> to <code>predict.glmnet</code> to
+calculate the residuals.
+Plotres defaults to <code>s=0</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Dot arguments are passed internally to
+<code><a href="../../graphics/html/matplot.html">matplot</a></code>.
+</p>
+<p>Use <code>col</code> to change the color of curves; for example <code>col=1:4</code>.
+The six default colors are intended to be distinguishable yet
+harmonious (to my eye at least), with adjacent colors as different as
+easily possible.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p><b>Limitations</b>
+</p>
+<p>For multiple response models use the <code>nresponse</code> argument to
+specify which response should be plotted.
+(Currently each response must be plotted one by one.)
+</p>
+<p>The <code>type.coef</code> argument of <code><a href="../../glmnet/html/plot.glmnet.html">plot.glmnet</a></code> is
+currently not supported.
+</p>
+<p>Currently <code>xvar="norm"</code> is not supported for multiple
+response models (you will get an error message).
+</p>
+<p><b>Interaction with <code>plotres</code></b>
+</p>
+<p>When invoking this function via <code><a href="plotres.html">plotres</a></code>, prefix any
+argument of <code>plotres</code> with <code>w1.</code> to tell <code>plotres</code> to
+pass the argument to this function.
+For example give <code>w1.col=1:4</code> to <code>plotres</code> (plain
+<code>col=1:4</code> in this context gets passed to the residual plots).
+</p>
+<p><b>Acknowledgments</b>
+</p>
+<p>This function is based on <code><a href="../../glmnet/html/plot.glmnet.html">plot.glmnet</a></code> in the
+<code><a href="../../glmnet/html/glmnet.html">glmnet</a></code> package authored by Jerome Friedman,
+Trevor Hastie, and Rob Tibshirani.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Chapter 6 in <a href="../doc/plotres-notes.pdf">plotres vignette</a> discusses
+this function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if (require(glmnet)) {
+    x &lt;- matrix(rnorm(100 * 10), 100, 10)   # n=100 p=10
+    y &lt;- x[,1] + x[,2] + 2 * rnorm(100)     # y depends only on x[,1] and x[,2]
+    mod &lt;- glmnet(x, y)
+
+    plot_glmnet(mod)
+
+    # plotres(mod)                          # plot the residuals
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotmo</em> version 3.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

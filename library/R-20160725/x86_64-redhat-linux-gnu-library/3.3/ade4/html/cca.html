@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Canonical Correspondence Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cca {ade4}"><tr><td>cca {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Canonical Correspondence Analysis</h2>
+
+<h3>Description</h3>
+
+<p>Performs a Canonical Correspondence Analysis.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cca(sitspe, sitenv, scannf = TRUE, nf = 2)
+## S3 method for class 'cca'
+summary(object, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sitspe</code></td>
+<td>
+<p>a data frame for correspondence analysis, typically a sites x species table</p>
+</td></tr>
+<tr valign="top"><td><code>sitenv</code></td>
+<td>
+<p>a data frame containing variables, typically a sites x environmental variables table</p>
+</td></tr>
+<tr valign="top"><td><code>scannf</code></td>
+<td>
+<p>a logical value indicating whether the eigenvalues bar plot should be displayed</p>
+</td></tr>
+<tr valign="top"><td><code>nf</code></td>
+<td>
+<p>if scannf FALSE, an integer indicating the number of kept
+axes</p>
+</td></tr>
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object of class <code>cca</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>returns an object of class <code>pcaiv</code>. See <code><a href="pcaiv.html">pcaiv</a></code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Daniel Chessel <br />
+Anne B Dufour <a href="mailto:anne-beatrice.dufour@univ-lyon1.fr">anne-beatrice.dufour@univ-lyon1.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Ter Braak, C. J. F. (1986) Canonical correspondence analysis : a new eigenvector technique for multivariate direct gradient analysis. <em>Ecology</em>, <b>67</b>, 1167&ndash;1179.<br />
+</p>
+<p>Ter Braak, C. J. F. (1987) The analysis of vegetation-environment relationships by canonical correspondence analysis. <em>Vegetatio</em>, <b>69</b>, 69&ndash;77.<br />
+</p>
+<p>Chessel, D., Lebreton J. D. and Yoccoz N. (1987) Propriétés de l'analyse canonique des correspondances. Une utilisation en hydrobiologie. <em>Revue de Statistique Appliquée</em>, <b>35</b>, 55&ndash;72.<br />
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="cca.html">cca</a></code> in the package <code>vegan</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(rpjdl)
+millog &lt;- log(rpjdl$mil + 1)
+iv1 &lt;- cca(rpjdl$fau, millog, scan = FALSE)
+
+if(adegraphicsLoaded()) {
+  G1 &lt;- plot(iv1)
+  
+  # analysis with c1 - as - li -ls
+  # projections of inertia axes on PCAIV axes
+  G2 &lt;- s.corcircle(iv1$as)
+  
+  # Species positions
+  g31 &lt;- s.label(iv1$c1, xax = 2, yax = 1, plab.cex = 0.5, xlim = c(-4, 4), plot = F)
+  # Sites positions at the weighted mean of present species
+  g32 &lt;- s.label(iv1$ls, xax = 2, yax = 1, plab.cex = 0, plot = F)
+  G3 &lt;- superpose(g31, g32, plot = T)
+  
+  # Prediction of the positions by regression on environmental variables
+  G4 &lt;- s.match(iv1$ls, iv1$li, xax = 2, yax = 1, plab.cex = 0.5)
+  
+  # analysis with fa - l1 - co -cor
+  # canonical weights giving unit variance combinations
+  G5 &lt;- s.arrow(iv1$fa)
+  
+  # sites position by environmental variables combinations
+  # position of species by averaging
+  g61 &lt;- s.label(iv1$l1, xax = 2, yax = 1, plab.cex = 0, ppoi.cex = 1.5, plot = F)
+  g62 &lt;- s.label(iv1$co, xax = 2, yax = 1, plot = F)
+  G6 &lt;- superpose(g61, g62, plot = T)
+  
+  G7 &lt;- s.distri(iv1$l1, rpjdl$fau, xax = 2, yax = 1, ellipseSize = 0, starSize = 0.33)
+  
+  # coherence between weights and correlations
+  g81 &lt;- s.corcircle(iv1$cor, xax = 2, yax = 1, plot = F)
+  g82 &lt;- s.arrow(iv1$fa, xax = 2, yax = 1, plot = F)
+  G8 &lt;- cbindADEg(g81, g82, plot = T)
+
+} else {
+  plot(iv1)
+  
+  # analysis with c1 - as - li -ls
+  # projections of inertia axes on PCAIV axes
+  s.corcircle(iv1$as)
+  
+  # Species positions
+  s.label(iv1$c1, 2, 1, clab = 0.5, xlim = c(-4, 4))
+  # Sites positions at the weighted mean of present species
+  s.label(iv1$ls, 2, 1, clab = 0, cpoi = 1, add.p = TRUE)
+  
+  # Prediction of the positions by regression on environmental variables
+  s.match(iv1$ls, iv1$li, 2, 1, clab = 0.5)
+  
+  # analysis with fa - l1 - co -cor
+  # canonical weights giving unit variance combinations
+  s.arrow(iv1$fa)
+  
+  # sites position by environmental variables combinations
+  # position of species by averaging
+  s.label(iv1$l1, 2, 1, clab = 0, cpoi = 1.5)
+  s.label(iv1$co, 2, 1, add.plot = TRUE)
+  
+  s.distri(iv1$l1, rpjdl$fau, 2, 1, cell = 0, csta = 0.33)
+  s.label(iv1$co, 2, 1, clab = 0.75, add.plot = TRUE)
+  
+  # coherence between weights and correlations
+  par(mfrow = c(1, 2))
+  s.corcircle(iv1$cor, 2, 1)
+  s.arrow(iv1$fa, 2, 1)
+  par(mfrow = c(1, 1))
+}</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

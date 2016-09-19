@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Artificial data for testing classification algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for classDataGen {CORElearn}"><tr><td>classDataGen {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Artificial data for testing classification algorithms</h2>
+
+<h3>Description</h3>
+
+<p>The generator produces classification data with 2 classes, 7 discrete and 3 numeric attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  classDataGen(noInst, t1=0.7, t2=0.9, t3=0.34, t4=0.32, 
+               p1=0.5, classNoise=0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>noInst</code></td>
+<td>
+<p>Number of instances to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>t1, t2, t3</code></td>
+<td>
+<p> Parameters, which control the hardness of the discrete attributes.</p>
+</td></tr>
+<tr valign="top"><td><code>t4</code></td>
+<td>
+<p> Parameter, which controls the hardness of the numeric attributes..</p>
+</td></tr>
+<tr valign="top"><td><code>p1</code></td>
+<td>
+<p> Probability of class 1.</p>
+</td></tr>
+<tr valign="top"><td><code>classNoise</code></td>
+<td>
+<p>Proportion of noise in the class variable for classification or virtual class variable for regression.</p>
+</td></tr>   
+</table>
+
+
+<h3>Details</h3>
+
+<p>Class probabilities are <code>p1</code> and <code>1 - p1</code>, respectively. The conditional distribution of attributes
+under each of the classes depends on parameters <code>t1, t2, t3, t4</code> from [0,1].
+Attributes a7 and x3 are irrelevant for all values of parameters.
+</p>
+<p>Examples of extreme settings of the parameters.
+</p>
+
+<ul>
+<li><p> Setting satisfying t1*t2 = t3 implies no difference between the distributions
+of individual discrete attributes among the two classes. However, if t1 &lt; 1, then
+the joint distribution of them is different for the two classes.
+</p>
+</li>
+<li><p> Setting t1 = 1 and t2 = t3 implies no difference between the joint distribution
+of the discrete attributes among the two classes.
+</p>
+</li>
+<li><p> Setting t1 = 1, t2 = 1, t3 = 0 implies disjoint supports of the distributions
+of a1, a2, a4, a5, so this allows exact classification.
+</p>
+</li>
+<li><p> Setting t4 = 1 implies no difference between the distribution of x1, x2 between
+the classes. Setting t4 = 0 allows correct classification with probability one
+only using x1 and x2.
+</p>
+</li></ul>
+
+<p>For class 1 the attributes have distributions
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+(a1, a2, a3) </td><td style="text-align: left;">  <i>D_1(t1, t2)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+a4, a5, a6   </td><td style="text-align: left;">  <i>D_2(t3)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+a7           </td><td style="text-align: left;">  irrelevant attribute, probabilities of {a,b,c,d} are (1/2, 1/6, 1/6, 1/6) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+x1, x2, x3   </td><td style="text-align: left;">  independent normal variables with mean 0 and standard  deviation 1, t4, 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+x4, x5      </td><td style="text-align: left;"> independent uniformly distributed variables on [0,1] 
+</td>
+</tr>
+
+</table>
+
+<p>For class 2 the attributes have distributions
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+a1, a2, a3   </td><td style="text-align: left;"> <i>D_2(t3)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+(a4, a5, a6) </td><td style="text-align: left;">  <i>D_1(t1, t2)</i> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+a7           </td><td style="text-align: left;"> irrelevant attribute, probabilities of {a,b,c,d} are (1/2, 1/6, 1/6, 1/6) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+x1, x2, x3   </td><td style="text-align: left;"> independent normal variables with mean 0 and st. dev. t4, 1, 1 </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+x4, x5       </td><td style="text-align: left;"> independent uniformly distributed variables on [0,1] 
+</td>
+</tr>
+
+</table>
+
+<p>x3 is irrelevant for classification, since it has the same distribution under both classes.
+</p>
+<p>Attributes in a bracket are mutually dependent. Otherwise, the attributes
+are conditionally independent for each of the two classes. This means
+that if we consider groups of the attributes such that the attributes in each
+of the two brackets form a group and each of the remaining attributes forms a
+group with one element, then for each class, we have 7 groups, which are
+conditionally independent for the given class. Note that the splitting into
+groups differs for class 1 and 2.
+</p>
+<p>Distribution <i>D_1(t1,t2)</i> consists of three dependent attributes. The
+distribution of individual attributes depends only on t1*t2. For a given t1*t2,
+the level of dependence decreases with t1 and increases with t2. There are
+two extreme settings:
+Setting t1 = 1, t2 = t1*t2 has the largest t1 and the smallest t2 and all three
+attributes are independent.
+Setting t1 = t1*t2, t2 = 1 has the smallest t1 and the largest t2 and also the
+largest dependence between attributes.
+</p>
+<p>Distribution <i>D_2(t3)</i> is equal to <i>D_1(1, t3)</i>, so it contains three independent
+attributes, whose distributions are the same as in <i>D_1(t1,t2)</i> for every
+setting satifying t1*t2 = t3.
+</p>
+<p>In other words, if t3 = t1*t2, then the distributions <i>D_1(t1, t2)</i> and <i>D_2(t3)</i>
+have the same distributions of individual attributes and may differ only
+in the dependences. There are no in <i>D_2(t3)</i> and there are some in <i>D_1(t1, t2)</i>
+if t1 &lt; 1.
+</p>
+<p><em>Hardness of the discrete part</em>
+</p>
+<p>Setting t1 = 1 and t2 = t3 implies no difference between the discrete
+attributes among the two classes.
+</p>
+<p>Setting satisfying t1*t2 = t3 implies no difference between the distributions
+of individual discrete attributes among the two classes. However, there may
+be a difference in dependences.
+</p>
+<p>Setting t1 = 1, t2 = 1, t3 = 0 implies disjoint supports of the distributions
+of a1, a2, a4, a5, so this allows exact classification.
+</p>
+<p><em>Hardness of the continuous part</em>
+</p>
+<p>Depends monotonically on t4. Setting t4 = 1 implies no difference between the
+classes. Setting t4 = 0 allows correct classification with probability one.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The method <code>classDataGen</code> returns a <code><a href="../../base/html/data.frame.html">data.frame</a></code> with <code>noInst</code> rows and 11 columns. 
+Range of values of the attributes and class are
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>a1</code></td>
+<td>
+<p> 0,1</p>
+</td></tr>
+<tr valign="top"><td><code>a2</code></td>
+<td>
+<p> 0,1</p>
+</td></tr>
+<tr valign="top"><td><code>a3</code></td>
+<td>
+<p> a,b,c,d</p>
+</td></tr>
+<tr valign="top"><td><code>a4</code></td>
+<td>
+<p> 0,1</p>
+</td></tr>
+<tr valign="top"><td><code>a5</code></td>
+<td>
+<p> 0,1</p>
+</td></tr>
+<tr valign="top"><td><code>a6</code></td>
+<td>
+<p> a,b,c,d</p>
+</td></tr>
+<tr valign="top"><td><code>a7</code></td>
+<td>
+<p> a,b,c,d</p>
+</td></tr>
+<tr valign="top"><td><code>x1</code></td>
+<td>
+<p> numeric</p>
+</td></tr>
+<tr valign="top"><td><code>x2</code></td>
+<td>
+<p> numeric</p>
+</td></tr>
+<tr valign="top"><td><code>x3</code></td>
+<td>
+<p> numeric</p>
+</td></tr>
+<tr valign="top"><td><code>class</code></td>
+<td>
+<p> 1,2 </p>
+</td></tr>
+</table>
+<p>For detailed specification of attributes (columns) see details section below.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Petr Savicky </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="regDataGen.html">regDataGen</a></code>, <code><a href="ordDataGen.html">ordDataGen</a></code>,<code><a href="CoreModel.html">CoreModel</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#prepare a classification data set
+classData &lt;-classDataGen(noInst=200)
+
+# build random forests model with certain parameters
+modelRF &lt;- CoreModel(class~., classData, model="rf",
+              selectionEstimator="MDL", minNodeWeightRF=5,
+              rfNoTrees=100, maxThreads=1)
+print(modelRF)
+destroyModels(modelRF) # clean up
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

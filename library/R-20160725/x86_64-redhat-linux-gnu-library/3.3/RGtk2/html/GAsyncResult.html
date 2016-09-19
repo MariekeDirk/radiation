@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GAsyncResult</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GAsyncResult {RGtk2}"><tr><td>GAsyncResult {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GAsyncResult</h2>
+
+<h3>Description</h3>
+
+<p>Asynchronous Function Results</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gAsyncResultGetUserData.html">gAsyncResultGetUserData</a>(object)</code><br />
+<code><a href="gAsyncResultGetSourceObject.html">gAsyncResultGetSourceObject</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GAsyncResult</pre>
+
+<h3>Implementations</h3>
+
+<p>GAsyncResult is implemented by
+<code><a href="GSimpleAsyncResult.html">GSimpleAsyncResult</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Provides a base class for implementing asynchronous function results.
+</p>
+<p>Asynchronous operations are broken up into two separate operations
+which are chained together by a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code>. To begin
+an asynchronous operation, provide a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code> to the 
+asynchronous function. This callback will be triggered when the 
+operation has completed, and will be passed a <code><a href="GAsyncResult.html">GAsyncResult</a></code> instance 
+filled with the details of the operation's success or failure, the 
+object the asynchronous function was started for and any error codes 
+returned. The asynchronous callback function is then expected to call 
+the corresponding &quot;<code>finish()</code>&quot; function with the object the function 
+was called for, and the <code><a href="GAsyncResult.html">GAsyncResult</a></code> instance, and optionally, 
+an <code>error</code> to grab any error conditions that may have occurred.
+</p>
+<p>The purpose of the &quot;<code>finish()</code>&quot; function is to take the generic 
+result of type <code><a href="GAsyncResult.html">GAsyncResult</a></code> and return the specific result
+that the operation in question yields (e.g. a <code><a href="GFileEnumerator.html">GFileEnumerator</a></code> for
+a &quot;enumerate children&quot; operation). If the result or error status
+of the operation is not needed, there is no need to call the
+&quot;<code>finish()</code>&quot; function, GIO will take care of cleaning up the
+result and error information after the <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code> 
+returns. It is also allowed to take a reference to the <code><a href="GAsyncResult.html">GAsyncResult</a></code> and
+call &quot;<code>finish()</code>&quot; later.
+</p>
+<p>Example of a typical asynchronous operation flow:
+</p>
+<pre>
+
+frobnitz_result_func &lt;- function(source_object, res, user_data)
+{
+  success &lt;- _theoretical_frobnitz_finish (source_object, res, NULL)
+
+  if (success)
+    message("Hurray!")
+  else 
+    message("Uh oh!")
+
+  ## ....
+}
+
+_theoretical_frobnitz_async (theoretical_data, 
+                             NULL, 
+                             frobnitz_result_func, 
+                             NULL)
+</pre>
+<p>The callback for an asynchronous operation is called only once, and is
+always called, even in the case of a cancelled operation. On cancellation
+the result is a <code>G_IO_ERROR_CANCELLED</code> error.
+</p>
+<p>Some ascynchronous operations are implemented using synchronous calls. These
+are run in a separate thread, if <code style="white-space: pre;">GThread</code> has been initialized, but otherwise they
+are sent to the Main Event Loop and processed in an idle function. So, if you
+truly need asynchronous operations, make sure to initialize <code style="white-space: pre;">GThread</code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GAsyncResult</code></dt><dd>
+<p>Holds results information for an asynchronous operation,
+usually passed directly to a asynchronous <code>finish()</code> operation.
+</p>
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GAsyncReadyCallback(source.object, res, user.data)</code></dt><dd>
+<p>Type definition for a function that will be called back when an asynchronous
+operation within GIO has been completed.
+</p>
+
+<dl>
+<dt><code>source.object</code></dt><dd><p>the object the asynchronous operation was started with.</p>
+</dd>
+<dt><code>res</code></dt><dd><p>a <code><a href="GAsyncResult.html">GAsyncResult</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data passed to the callback.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GAsyncResult.html">http://library.gnome.org/devel//gio/GAsyncResult.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

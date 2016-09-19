@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distribution model predictions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict {dismo}"><tr><td>predict {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distribution model predictions</h2>
+
+<h3>Description</h3>
+
+<p>Make a RasterLayer with a prediction based on a model object of class the inherits from 'DistModel', including: Bioclim, Domain, MaxEnt, Mahalanobis, and GeographicDistance. Predictions with model objects that do not inherit from DistModel can be made using the similar <code><a href="../../raster/html/predict.html">predict</a></code> function in the 'raster' package. 
+</p>
+<p>Provide a Raster* object with the independent variables. The names of the layers in the Raster* object should include those expected by the model. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>A RasterLayer or, (if <code>x</code> is a matrix), a vector. 
+</p>
+
+
+<h3>Methods</h3>
+
+
+<p><code>predict(object, x, ext=NULL, filename='', progress='text', ...)</code>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: right;">  
+  </td><td style="text-align: left;">  <code>object</code>  </td><td style="text-align: left;"> A fitted model of class Bioclim, Domain, MaxEnt, ConvexHull, or Mahalanobis (classes that inherit from DistModel)</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+  </td><td style="text-align: left;">  <code>x</code> </td><td style="text-align: left;"> A Raster* object or a data.frame</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+  </td><td style="text-align: left;">  <code>ext</code> </td><td style="text-align: left;"> An extent object to limit the prediction to a sub-region of 'x'. Or an object that can be coerced to an Extent object by extent; such as a Raster* or Spatial* object </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+  </td><td style="text-align: left;">  <code>filename</code>  </td><td style="text-align: left;"> Output filename for a new raster; if NA the result is not written to a file but returned with the RasterLayer object, in the data slot </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+  </td><td style="text-align: left;"> <code>progress</code> </td><td style="text-align: left;"> Character. Valid values are "" (no progress bar), "text" and "windows" (on that platform only) </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+  </td><td style="text-align: left;">  <code>...</code>  </td><td style="text-align: left;"> Additional model specific arguments. And additional arguments for file writing as for <a href="../../raster/html/writeRaster.html">writeRaster</a> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+</td>
+</tr>
+
+</table>
+
+<p>For <a href="maxent.html">maxent</a> models, there is an additional argument <code>'args'</code> used to pass arguments (options) to the maxent software. See the help page for <code> <a href="maxent.html">maxent</a></code> for more information.
+</p>
+<p>For <a href="bioclim.html">bioclim</a> models, there is an additional argument <code>'tails'</code> which you can use to ignore the left or right tail of the percentile distribution for a variable. If supplied, tails should be a character vector with a length equal to the number of variables used in the model. Valid values are &quot;both&quot; (the default), &quot;low&quot; and &quot;high&quot;. For example, if you have a variable x with an observed distribution between 10 and 20 and you are predicting the bioclim value for a value 25, the default result would be zero (outside of all observed values); but if you use tail='low', the high (right) tail is ignored and the value returned will be 1.
+</p>
+<p>For <a href="geoDist.html">geoDist</a> models, there is an additional argument <code>fun</code> that allows you to use your own (inverse) distance function, and argument <code>scale=1</code> that allows you to scale the values (distances smaller than this value become one, and the others are divided by this value before computing the inverse distance).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert J. Hijmans</p>
+
+
+<h3>See Also</h3>
+
+<p>For spatial predictions with GLM, GAM, BRT, randomForest, etc., see <a href="../../raster/html/predict.html">predict</a> in the Raster package.
+</p>
+<p>To fit a model that can be used with this predict method, see <code> <a href="maxent.html">maxent</a>, <a href="bioclim.html">bioclim</a>, <a href="mahal.html">mahal</a>, <a href="domain.html">domain</a>, <a href="geoDist.html">geoDist</a>, <a href="convexHull.html">convHull</a></code>
+</p>
+<p>Extent object: <code><a href="../../raster/html/extent.html">extent</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+logo &lt;- stack(system.file("external/rlogo.grd", package="raster"))
+pts &lt;- matrix(c(48, 48, 48, 53, 50, 46, 54, 70, 84, 85, 74, 84, 95, 85, 66, 
+   42, 26, 4, 19, 17, 7, 14, 26, 29, 39, 45, 51, 56, 46, 38, 31, 22, 34, 60,
+   70, 73, 63, 46, 43, 28), ncol=2)
+b &lt;- bioclim(logo, pts)
+# prediction for a sub-region
+e &lt;- extent(30,90,20,60)
+p &lt;- predict(b, logo, progress='text', ext=e)
+plot(p)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

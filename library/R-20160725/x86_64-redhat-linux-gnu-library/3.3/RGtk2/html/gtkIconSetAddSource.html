@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIconSetAddSource</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIconSetAddSource {RGtk2}"><tr><td>gtkIconSetAddSource {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIconSetAddSource</h2>
+
+<h3>Description</h3>
+
+<p>Icon sets have a list of <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSource</a></code>, which they use as base
+icons for rendering icons in different states and sizes. Icons are
+scaled, made to look insensitive, etc. in
+<code><a href="gtkIconSetRenderIcon.html">gtkIconSetRenderIcon</a></code>, but <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code> needs base images to
+work with. The base images and when to use them are described by
+a <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSource</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIconSetAddSource(object, source)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">source</code></code></td>
+<td>
+<p>a <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSource</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function copies <code>source</code>, so you can reuse the same source immediately
+without affecting the icon set.
+</p>
+<p>An example of when you'd use this function: a web browser's &quot;Back
+to Previous Page&quot; icon might point in a different direction in
+Hebrew and in English; it might look different when insensitive;
+and it might change size depending on toolbar mode (small/large
+icons). So a single icon set would contain all those variants of
+the icon, and you might add a separate source for each one.
+</p>
+<p>You should nearly always add a &quot;default&quot; icon source with all
+fields wildcarded, which will be used as a fallback if no more
+specific source matches. <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code> always prefers more specific
+icon sources to more generic icon sources. The order in which you
+add the sources to the icon set does not matter.
+<code><a href="gtkIconSetNewFromPixbuf.html">gtkIconSetNewFromPixbuf</a></code> creates a new icon set with a
+default icon source based on the given pixbuf.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

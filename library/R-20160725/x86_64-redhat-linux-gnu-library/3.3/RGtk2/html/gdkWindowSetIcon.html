@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkWindowSetIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkWindowSetIcon {RGtk2}"><tr><td>gdkWindowSetIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkWindowSetIcon</h2>
+
+<h3>Description</h3>
+
+<p>Sets the icon of <code>window</code> as a pixmap or window. If using GTK+, investigate
+<code><a href="gtkWindowSetDefaultIconList.html">gtkWindowSetDefaultIconList</a></code> first, and then <code><a href="gtkWindowSetIconList.html">gtkWindowSetIconList</a></code>
+and <code><a href="gtkWindowSetIcon.html">gtkWindowSetIcon</a></code>. If those don't meet your needs, look at
+<code><a href="gdkWindowSetIconList.html">gdkWindowSetIconList</a></code>. Only if all those are too high-level do you
+want to fall back to <code><a href="gdkWindowSetIcon.html">gdkWindowSetIcon</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkWindowSetIcon(object, icon.window, pixmap, mask)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a toplevel <code><a href="gdk-Windows.html">GdkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">icon.window</code></code></td>
+<td>
+<p>a <code><a href="gdk-Windows.html">GdkWindow</a></code> to use for the icon, or <code>NULL</code> to unset</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">pixmap</code></code></td>
+<td>
+<p>a <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code> to use as the icon, or <code>NULL</code> to unset</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">mask</code></code></td>
+<td>
+<p>a 1-bit pixmap (<code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkBitmap</a></code>) to use as mask for <code>pixmap</code>, or <code>NULL</code> to have none</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

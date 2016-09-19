@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellEditable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellEditable {RGtk2}"><tr><td>GtkCellEditable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellEditable</h2>
+
+<h3>Description</h3>
+
+<p>Interface for widgets which can are used for editing cells</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellEditableStartEditing.html">gtkCellEditableStartEditing</a>(object, event = NULL)</code><br />
+<code><a href="gtkCellEditableEditingDone.html">gtkCellEditableEditingDone</a>(object)</code><br />
+<code><a href="gtkCellEditableRemoveWidget.html">gtkCellEditableRemoveWidget</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GtkCellEditable</pre>
+
+<h3>Implementations</h3>
+
+<p>GtkCellEditable is implemented by
+<code><a href="GtkComboBox.html">GtkComboBox</a></code>,  <code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>,  <code><a href="GtkEntry.html">GtkEntry</a></code> and  <code><a href="GtkSpinButton.html">GtkSpinButton</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkCellEditable.html">GtkCellEditable</a></code> interface must be implemented for widgets
+to be usable when editing the contents of a <code><a href="GtkTreeView.html">GtkTreeView</a></code> cell.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellEditable</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>editing-done(cell.editable, user.data)</code></dt><dd>
+<p>This signal is a sign for the cell renderer to update its
+value from the <code>cell.editable</code>.
+</p>
+<p>Implementations of <code><a href="GtkCellEditable.html">GtkCellEditable</a></code> are responsible for
+emitting this signal when they are done editing, e.g.
+<code><a href="GtkEntry.html">GtkEntry</a></code> is emitting it when the user presses Enter.
+<code><a href="gtkCellEditableEditingDone.html">gtkCellEditableEditingDone</a></code> is a convenience method
+for emitting ::editing-done.
+</p>
+
+<dl>
+<dt><code>cell.editable</code></dt><dd><p>the object on which the signal was emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>remove-widget(cell.editable, user.data)</code></dt><dd>
+<p>This signal is meant to indicate that the cell is finished
+editing, and the widget may now be destroyed.
+</p>
+<p>Implementations of <code><a href="GtkCellEditable.html">GtkCellEditable</a></code> are responsible for
+emitting this signal when they are done editing. It must
+be emitted after the <code><a href="gtkCellEditableEditingDone.html">gtkCellEditableEditingDone</a></code> signal,
+to give the cell renderer a chance to update the cell's value
+before the widget is removed.
+<code><a href="gtkCellEditableRemoveWidget.html">gtkCellEditableRemoveWidget</a></code> is a convenience method
+for emitting ::remove-widget.
+</p>
+
+<dl>
+<dt><code>cell.editable</code></dt><dd><p>the object on which the signal was emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">editing-canceled</code> [logical : Read / Write]</dt><dd>
+<p>Indicates whether editing on the cell has been canceled.
+Default value: FALSE  Since 2.20
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellEditable.html">http://library.gnome.org/devel//gtk/GtkCellEditable.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

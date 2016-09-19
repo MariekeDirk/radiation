@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Amount of Evolutionary History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for EH {ade4}"><tr><td>EH {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Amount of Evolutionary History
+</h2>
+
+<h3>Description</h3>
+
+<p>computes the sum of branch lengths on an ultrametric phylogenetic tree.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+EH(phyl, select = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>phyl</code></td>
+<td>
+<p>an object of class phylog</p>
+</td></tr>
+<tr valign="top"><td><code>select</code></td>
+<td>
+<p>a vector containing the numbers of the leaves (species) which must be considered 
+in the computation of the amount of Evolutionary History. This parameter allows the calculation 
+of the amount of Evolutionary History for a subset of species. </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>returns a real value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Sandrine Pavoine <a href="mailto:pavoine@mnhn.fr">pavoine@mnhn.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Nee, S. and May, R.M. (1997) Extinction and the loss of evolutionary history. <em>Science</em>,  
+<b>278</b>, 692&ndash;694.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(carni70)
+carni70.phy &lt;- newick2phylog(carni70$tre)
+EH(carni70.phy)
+EH(carni70.phy, select = 1:15) # Felidae
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

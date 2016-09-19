@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GThemedIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GThemedIcon {RGtk2}"><tr><td>GThemedIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GThemedIcon</h2>
+
+<h3>Description</h3>
+
+<p>Icon theming support</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gThemedIconNew.html">gThemedIconNew</a>(iconname = NULL)</code><br />
+<code><a href="gThemedIconNewFromNames.html">gThemedIconNewFromNames</a>(iconnames, len)</code><br />
+<code><a href="gThemedIconNewWithDefaultFallbacks.html">gThemedIconNewWithDefaultFallbacks</a>(iconname)</code><br />
+<code><a href="gThemedIconPrependName.html">gThemedIconPrependName</a>(object, iconname)</code><br />
+<code><a href="gThemedIconAppendName.html">gThemedIconAppendName</a>(object, iconname)</code><br />
+<code><a href="gThemedIconGetNames.html">gThemedIconGetNames</a>(object)</code><br />
+<code>gThemedIcon(iconname, iconnames, len)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GThemedIcon</pre>
+
+<h3>Interfaces</h3>
+
+<p>GThemedIcon implements
+<code><a href="GIcon.html">GIcon</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GThemedIcon.html">GThemedIcon</a></code> is an implementation of <code><a href="GIcon.html">GIcon</a></code> that supports icon themes.
+<code><a href="GThemedIcon.html">GThemedIcon</a></code> contains a list of all of the icons present in an icon
+theme, so that icons can be looked up quickly. <code><a href="GThemedIcon.html">GThemedIcon</a></code> does
+not provide actual pixmaps for icons, just the icon names.
+Ideally something like <code><a href="gtkIconThemeChooseIcon.html">gtkIconThemeChooseIcon</a></code> should be used to
+resolve the list of names so that fallback icons work nicely with
+themes that inherit other themes.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GThemedIcon</code></dt><dd>
+<p>An implementation of <code><a href="GIcon.html">GIcon</a></code> for themed icons.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gThemedIcon</code> is the result of collapsing the constructors of <code>GThemedIcon</code> (<code><a href="gThemedIconNew.html">gThemedIconNew</a></code>, <code><a href="gThemedIconNewWithDefaultFallbacks.html">gThemedIconNewWithDefaultFallbacks</a></code>, <code><a href="gThemedIconNewFromNames.html">gThemedIconNewFromNames</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">name</code> [character : *                : Write / Construct Only]</dt><dd>
+<p>The icon name.
+Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">names</code> [character list : Read / Write / Construct Only]</dt><dd>
+<p>A list of icon names.
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-default-fallbacks</code> [logical : Read / Write / Construct Only]</dt><dd>
+<p>Whether to use the default fallbacks found by shortening the icon name
+at '-' characters. If the &quot;names&quot; list has more than one element,
+ignores any past the first.
+</p>
+<p>For example, if the icon name was &quot;gnome-dev-cdrom-audio&quot;, the list
+would become
+</p>
+<pre>
+c("gnome-dev-cdrom-audio", "gnome-dev-cdrom", "gnome-dev", "gnome")
+
+</pre>
+<p>Default value: FALSE
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GThemedIcon.html">http://library.gnome.org/devel//gio/GThemedIcon.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

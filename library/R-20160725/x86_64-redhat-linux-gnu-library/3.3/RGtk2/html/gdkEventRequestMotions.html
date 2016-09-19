@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkEventRequestMotions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkEventRequestMotions {RGtk2}"><tr><td>gdkEventRequestMotions {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkEventRequestMotions</h2>
+
+<h3>Description</h3>
+
+<p>Request more motion notifies if <code>event</code> is a motion notify hint event.
+This function should be used instead of <code><a href="gdkWindowGetPointer.html">gdkWindowGetPointer</a></code> to
+request further motion notifies, because it also works for extension
+events where motion notifies are provided for devices other than the
+core pointer. Coordinate extraction, processing and requesting more
+motion events from a <code>GDK_MOTION_NOTIFY</code> event usually works like this:</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkEventRequestMotions(event)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">event</code></code></td>
+<td>
+<p>a valid <code><a href="GdkEvent.html">GdkEvent</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<pre>
+# motion event handler
+{
+  x &lt;- motion_event$x
+  y &lt;- motion_event$y
+  # handle (x,y) motion here
+  motion_event$request_motions() # handles is_hint events
+}
+</pre><p>  Since 2.12</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

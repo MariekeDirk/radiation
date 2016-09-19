@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a Tree Sequence</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.tree.sequence {tree}"><tr><td>plot.tree.sequence {tree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a Tree Sequence
+</h2>
+
+<h3>Description</h3>
+
+<p>Allows the user to plot a tree sequence.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'tree.sequence'
+plot(x, ..., type = "l", ylim = range(x$dev),
+    order = c("increasing", "decreasing"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>object of class <code>tree.sequence</code>.
+This is assumed to be the result of some function that produces
+an object with the same named components (<code>size</code>,
+<code>deviance</code>, <code>k</code>) as that returned by <code><a href="prune.tree.html">prune.tree</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+<p>of <code>size</code> on the plot.  Use <code>"decreasing"</code> for
+the natural ordering of <code>k</code> and the amount of pruning.  Only
+the first character is needed.</p>
+</td></tr>
+<tr valign="top"><td><code>type, ylim, ...</code></td>
+<td>
+<p>graphical parameters.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a method for the generic function
+<code>plot()</code> for class <code>tree.sequence</code>.
+It can be invoked by calling <code>plot(x)</code> for an
+object <code>x</code> of the appropriate class, or directly by
+calling <code>plot.tree.sequence(x)</code> regardless of the
+class of the object.
+</p>
+
+
+<h3>Side Effects</h3>
+
+<p>Plots deviance or number of misclassifications (or total loss)
+versus size for a sequence of trees.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(cpus, package="MASS")
+cpus.ltr &lt;- tree(log(perf) ~ syct + mmin + mmax + cach + chmin + chmax,
+                 data = cpus)
+plot(prune.tree(cpus.ltr))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tree</em> version 1.0-37 <a href="00Index.html">Index</a>]</div>
+</body></html>

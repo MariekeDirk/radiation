@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Graphically illustrate the concept of power.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for power.examp {TeachingDemos}"><tr><td>power.examp {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Graphically illustrate the concept of power. </h2>
+
+<h3>Description</h3>
+
+<p>Create graphs of a normal test statistic under the null and
+alternative hypotheses to graphically show the idea of power.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+power.examp(n = 1, stdev = 1, diff = 1, alpha = 0.05, xmin = -2, xmax = 4)
+run.power.examp(hscale=1.5, vscale=1.5, wait=FALSE)
+run.power.examp.old()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> The sample size for the test statistic. </p>
+</td></tr>
+<tr valign="top"><td><code>stdev</code></td>
+<td>
+<p> The standard deviation of the population. </p>
+</td></tr>
+<tr valign="top"><td><code>diff</code></td>
+<td>
+<p> The true difference in means (alternate hypothesis). </p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p> The type I error rate to use for the test. </p>
+</td></tr>
+<tr valign="top"><td><code>xmin</code></td>
+<td>
+<p> The minimum x value to show on the graph. </p>
+</td></tr>
+<tr valign="top"><td><code>xmax</code></td>
+<td>
+<p> The maximum x value to show on the graph. </p>
+</td></tr>
+<tr valign="top"><td><code>hscale</code></td>
+<td>
+<p>Controls width of plot, passed to <code>tkrplot</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>vscale</code></td>
+<td>
+<p>Controls height of plot, passed to <code>tkrplot</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>wait</code></td>
+<td>
+<p>Should R wait for the window to close.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function will draw 2 graphs representing an upper-tailed test of
+hypothesis.
+</p>
+<p>The upper panel represents the test statistic under the
+null hypothesis that the true mean (or mean difference) is 0.  It then
+also shows the upper tail area equal to <code>alpha</code> and the rejection
+region for the test statistic.
+</p>
+<p>The lower panel shows the normal distribution for the test statistic
+under the alternative hypothesis where the true mean (or mean
+difference) is <code>diff</code>.  Using the rejection region from the upper
+panel it shades the upper tail area that corresponds to the power of
+the test.
+</p>
+<p>Both curves are affected by the specified <code>stdev</code> and sample size
+<code>n</code>.
+</p>
+<p>The function <code>run.power.examp</code> will in addition create a Tk
+slider box that will allow you to interactively change the values of
+<code>stdev</code>, <code>diff</code>, <code>alpha</code>, and <code>n</code> to dynamically
+see the effects of the change on the graphs and on the power of the
+test.
+</p>
+<p>This can be used to demonstrate the concept of power, show the effect
+of sample size on power, show the inverse relationship between the
+type I and type II error rates, and show how power is dependent on the
+true mean (or difference) and the population standard deviation.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>power.examp</code> invisibly returns the power computed.
+</p>
+<p><code>run.power.examp</code> returns a list with the parameter settings and
+the power if <code>wait</code> is TRUE.
+</p>
+<p><code>run.power.examp.old</code> does not return anything meaningful.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../stats/html/power.t.test.html">power.t.test</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+power.examp()
+power.examp(n=25)
+power.examp(alpha=0.1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

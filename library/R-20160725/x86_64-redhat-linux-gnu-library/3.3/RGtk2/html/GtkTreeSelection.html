@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkTreeSelection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkTreeSelection {RGtk2}"><tr><td>GtkTreeSelection {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkTreeSelection</h2>
+
+<h3>Description</h3>
+
+<p>The selection object for GtkTreeView</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkTreeSelectionSetMode.html">gtkTreeSelectionSetMode</a>(object, type)</code><br />
+<code><a href="gtkTreeSelectionGetMode.html">gtkTreeSelectionGetMode</a>(object)</code><br />
+<code><a href="gtkTreeSelectionSetSelectFunction.html">gtkTreeSelectionSetSelectFunction</a>(object, func, data = NULL)</code><br />
+<code><a href="gtkTreeSelectionGetSelectFunction.html">gtkTreeSelectionGetSelectFunction</a>(object)</code><br />
+<code><a href="gtkTreeSelectionGetUserData.html">gtkTreeSelectionGetUserData</a>(object)</code><br />
+<code><a href="gtkTreeSelectionGetTreeView.html">gtkTreeSelectionGetTreeView</a>(object)</code><br />
+<code><a href="gtkTreeSelectionGetSelected.html">gtkTreeSelectionGetSelected</a>(object)</code><br />
+<code><a href="gtkTreeSelectionSelectedForeach.html">gtkTreeSelectionSelectedForeach</a>(object, func, data = NULL)</code><br />
+<code><a href="gtkTreeSelectionGetSelectedRows.html">gtkTreeSelectionGetSelectedRows</a>(object)</code><br />
+<code><a href="gtkTreeSelectionCountSelectedRows.html">gtkTreeSelectionCountSelectedRows</a>(object)</code><br />
+<code><a href="gtkTreeSelectionSelectPath.html">gtkTreeSelectionSelectPath</a>(object, path)</code><br />
+<code><a href="gtkTreeSelectionUnselectPath.html">gtkTreeSelectionUnselectPath</a>(object, path)</code><br />
+<code><a href="gtkTreeSelectionPathIsSelected.html">gtkTreeSelectionPathIsSelected</a>(object, path)</code><br />
+<code><a href="gtkTreeSelectionSelectIter.html">gtkTreeSelectionSelectIter</a>(object, iter)</code><br />
+<code><a href="gtkTreeSelectionUnselectIter.html">gtkTreeSelectionUnselectIter</a>(object, iter)</code><br />
+<code><a href="gtkTreeSelectionIterIsSelected.html">gtkTreeSelectionIterIsSelected</a>(object, iter)</code><br />
+<code><a href="gtkTreeSelectionSelectAll.html">gtkTreeSelectionSelectAll</a>(object)</code><br />
+<code><a href="gtkTreeSelectionUnselectAll.html">gtkTreeSelectionUnselectAll</a>(object)</code><br />
+<code><a href="gtkTreeSelectionSelectRange.html">gtkTreeSelectionSelectRange</a>(object, start.path, end.path)</code><br />
+<code><a href="gtkTreeSelectionUnselectRange.html">gtkTreeSelectionUnselectRange</a>(object, start.path, end.path)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkTreeSelection</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code> object is a helper object to manage the selection
+for a <code><a href="GtkTreeView.html">GtkTreeView</a></code> widget.  The <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code> object is
+automatically created when a new <code><a href="GtkTreeView.html">GtkTreeView</a></code> widget is created, and
+cannot exist independentally of this widget.  The primary reason the
+<code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code> objects exists is for cleanliness of code and API.
+That is, there is no conceptual reason all these functions could not be
+methods on the <code><a href="GtkTreeView.html">GtkTreeView</a></code> widget instead of a separate function.
+</p>
+<p>The <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code> object is gotten from a <code><a href="GtkTreeView.html">GtkTreeView</a></code> by calling
+<code><a href="gtkTreeViewGetSelection.html">gtkTreeViewGetSelection</a></code>.  It can be manipulated to check the
+selection status of the tree, as well as select and deselect individual
+rows.  Selection is done completely view side.  As a result, multiple
+views of the same model can have completely different selections.
+Additionally, you cannot change the selection of a row on the model that
+is not currently displayed by the view without expanding its parents
+first.
+</p>
+<p>One of the important things to remember when monitoring the selection of
+a view is that the <code style="white-space: pre;">"changed"</code> signal is mostly a hint.  That is, it may
+only emit one signal when a range of rows is selected.  Additionally, it
+may on occasion emit a ::changed signal when nothing has happened
+(mostly as a result of programmers calling select_row on an already
+selected row).</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkTreeSelection</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>GtkTreeSelectionFunc(selection, model, path, path.currently.selected, data)</code></dt><dd>
+<p>A function used by <code><a href="gtkTreeSelectionSetSelectFunction.html">gtkTreeSelectionSetSelectFunction</a></code> to filter
+whether or not a row may be selected.  It is called whenever a row's
+state might change.  A return value of <code>TRUE</code> indicates to <code>selection</code>
+that it is okay to change the selection.
+</p>
+
+<dl>
+<dt><code>selection</code></dt><dd><p>A <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code></p>
+</dd>
+<dt><code>model</code></dt><dd><p>A <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> being viewed</p>
+</dd>
+<dt><code>path</code></dt><dd><p>The <code><a href="GtkTreeModel.html">GtkTreePath</a></code> of the row in question</p>
+</dd>
+<dt><code>path.currently.selected</code></dt><dd><p><code>TRUE</code>, if the path is currently selected</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code>, if the selection state of the row can be toggled
+</p>
+</dd>
+<dt><code>GtkTreeSelectionForeachFunc(model, path, iter, data)</code></dt><dd>
+<p>A function used by <code><a href="gtkTreeSelectionSelectedForeach.html">gtkTreeSelectionSelectedForeach</a></code> to map all
+selected rows.  It will be called on every selected row in the view.
+</p>
+
+<dl>
+<dt><code>model</code></dt><dd><p>The <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> being viewed</p>
+</dd>
+<dt><code>path</code></dt><dd><p>The <code><a href="GtkTreeModel.html">GtkTreePath</a></code> of a selected row</p>
+</dd>
+<dt><code>iter</code></dt><dd><p>A <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> pointing to a selected row</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(treeselection, user.data)</code></dt><dd>
+<p>Emitted whenever the selection has (possibly) changed.  Please note that
+this signal is mostly a hint.  It may only be emitted once when a range
+of rows are selected, and it may occasionally be emitted when nothing
+has happened.
+</p>
+
+<dl>
+<dt><code>treeselection</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkTreeSelection.html">http://library.gnome.org/devel//gtk/GtkTreeSelection.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkTreeView.html">GtkTreeView</a></code>
+<code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code>
+<code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code>
+<code><a href="GtkTreeModelSort.html">GtkTreeModelSort</a></code>
+<code><a href="GtkListStore.html">GtkListStore</a></code>
+<code><a href="GtkTreeStore.html">GtkTreeStore</a></code>
+<code><a href="GtkCellRenderer.html">GtkCellRenderer</a></code>
+<code><a href="GtkCellEditable.html">GtkCellEditable</a></code>
+<code><a href="GtkCellRendererPixbuf.html">GtkCellRendererPixbuf</a></code>
+<code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code>
+<code><a href="GtkCellRendererToggle.html">GtkCellRendererToggle</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

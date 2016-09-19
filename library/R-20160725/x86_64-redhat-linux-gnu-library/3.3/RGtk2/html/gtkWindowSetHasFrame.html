@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowSetHasFrame</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowSetHasFrame {RGtk2}"><tr><td>gtkWindowSetHasFrame {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowSetHasFrame</h2>
+
+<h3>Description</h3>
+
+<p>(Note: this is a special-purpose function for the framebuffer port,
+that causes GTK+ to draw its own window border. For most applications,
+you want <code><a href="gtkWindowSetDecorated.html">gtkWindowSetDecorated</a></code> instead, which tells the window
+manager whether to draw the window border.)</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowSetHasFrame(object, setting)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">setting</code></code></td>
+<td>
+<p>a boolean</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If this function is called on a window with setting of <code>TRUE</code>, before
+it is realized or showed, it will have a &quot;frame&quot; window around
+<code>window-&gt;window</code>, accessible in <code>window-&gt;frame</code>. Using the signal 
+frame_event you can receive all events targeted at the frame.
+</p>
+<p>This function is used by the linux-fb port to implement managed
+windows, but it could conceivably be used by X-programs that
+want to do their own window decorations.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

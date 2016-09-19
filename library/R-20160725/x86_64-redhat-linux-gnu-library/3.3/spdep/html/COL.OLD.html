@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Columbus OH spatial analysis data set - old numbering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for oldcol {spdep}"><tr><td>oldcol {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Columbus OH spatial analysis data set - old numbering</h2>
+
+<h3>Description</h3>
+
+<p>The <code>COL.OLD</code> data frame has 49 rows and 22 columns. The observations are
+ordered and numbered as in the original analyses of the data set in the
+SpaceStat documentation and in Anselin, L. 1988 Spatial econometrics: methods and models, Dordrecht: Kluwer.
+Unit of analysis: 49 neighbourhoods in Columbus, OH, 1980 data.
+In addition the data set includes <code>COL.nb</code>, the neighbours list
+as used in Anselin (1988).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(oldcol)</pre>
+
+
+<h3>Format</h3>
+
+<p>This data frame contains the following columns:
+</p>
+
+<dl>
+<dt>AREA_PL</dt><dd><p>computed by ArcView (agrees with areas of polygons in the &ldquo;columbus&rdquo; data set</p>
+</dd>
+<dt>PERIMETER</dt><dd><p>computed by ArcView</p>
+</dd>
+<dt>COLUMBUS.</dt><dd><p>internal polygon ID (ignore)</p>
+</dd>
+<dt>COLUMBUS.I</dt><dd><p>another internal polygon ID (ignore)</p>
+</dd>
+<dt>POLYID</dt><dd><p>yet another polygon ID</p>
+</dd>
+<dt>NEIG</dt><dd><p>neighborhood id value (1-49);
+conforms to id value used in Spatial Econometrics book.</p>
+</dd>
+<dt>HOVAL</dt><dd><p>housing value (in \$1,000)</p>
+</dd>
+<dt>INC</dt><dd><p>household income (in \$1,000)</p>
+</dd>
+<dt>CRIME</dt><dd><p>residential burglaries and vehicle thefts per thousand
+households in the neighborhood</p>
+</dd>
+<dt>OPEN</dt><dd><p>open space in neighborhood</p>
+</dd>
+<dt>PLUMB</dt><dd><p>percentage housing units without plumbin</p>
+</dd>
+<dt>DISCBD</dt><dd><p>distance to CBD</p>
+</dd>
+<dt>X</dt><dd><p>x coordinate (in arbitrary digitizing units, not polygon coordinates)</p>
+</dd>
+<dt>Y</dt><dd><p>y coordinate (in arbitrary digitizing units, not polygon coordinates)</p>
+</dd>
+<dt>AREA_SS</dt><dd><p>neighborhood area (computed by SpaceStat)</p>
+</dd>
+<dt>NSA</dt><dd><p>north-south dummy (North=1)</p>
+</dd>
+<dt>NSB</dt><dd><p>north-south dummy (North=1)</p>
+</dd>
+<dt>EW</dt><dd><p>east-west dummy (East=1)</p>
+</dd>
+<dt>CP</dt><dd><p>core-periphery dummy (Core=1)</p>
+</dd>
+<dt>THOUS</dt><dd><p>constant=1,000</p>
+</dd>
+<dt>NEIGNO</dt><dd><p>NEIG+1,000, alternative neighborhood id value</p>
+</dd>
+<dt>PERIM</dt><dd><p>polygon perimeter (computed by SpaceStat)</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The row names of <code>COL.OLD</code> and the <code>region.id</code> attribute of
+<code>COL.nb</code> are set to <code>columbus$NEIGNO</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>All source data files prepared by
+Luc Anselin, Spatial Analysis Laboratory, Department of Agricultural and Consumer Economics, University of Illinois, Urbana-Champaign, <a href="http://geodacenter.org/downloads/data-files/columbus.zip">http://geodacenter.org/downloads/data-files/columbus.zip</a>.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Anselin, Luc.  1988.  Spatial econometrics: methods and
+models.  Dordrecht: Kluwer Academic, Table 12.1 p. 189.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

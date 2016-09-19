@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prune a Minimun Spanning Tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for prunemst {spdep}"><tr><td>prunemst {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prune a Minimun Spanning Tree</h2>
+
+<h3>Description</h3>
+
+<p>This function deletes a first edge and makes two subsets of edges. Each
+subset is a Minimun Spanning Treee.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+prunemst(edges, only.nodes = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>edges</code></td>
+<td>
+<p>A matrix with two colums with each row is one edge</p>
+</td></tr>
+<tr valign="top"><td><code>only.nodes</code></td>
+<td>
+<p>If <code>only.nodes=FALSE</code>, return a edges and nodes
+of each MST resulted. If <code>only.nodes=TRUE</code>, return a two sets of
+nodes. Defalt is TRUE</p>
+</td></tr> 
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list of length two. If <code>only.nodes=TRUE</code> each element is a
+vector of nodes. If <code>only.nodes=FALSE</code> each element is a list with
+nodes and edges.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Elias T. Krainski and Renato M. Assuncao</p>
+
+
+<h3>See Also</h3>
+
+<p> See Also as <code><a href="mstree.html">mstree</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+e &lt;- matrix(c(2,3, 1,2, 3,4, 4,5), ncol=2, byrow=TRUE)
+e
+prunemst(e)
+prunemst(e, only.nodes=FALSE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

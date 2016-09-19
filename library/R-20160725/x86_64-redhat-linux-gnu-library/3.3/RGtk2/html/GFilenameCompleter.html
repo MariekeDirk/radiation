@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFilenameCompleter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFilenameCompleter {RGtk2}"><tr><td>GFilenameCompleter {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFilenameCompleter</h2>
+
+<h3>Description</h3>
+
+<p>Filename Completer</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFilenameCompleterNew.html">gFilenameCompleterNew</a>()</code><br />
+<code><a href="gFilenameCompleterGetCompletionSuffix.html">gFilenameCompleterGetCompletionSuffix</a>(object, initial.text)</code><br />
+<code><a href="gFilenameCompleterGetCompletions.html">gFilenameCompleterGetCompletions</a>(object, initial.text)</code><br />
+<code><a href="gFilenameCompleterSetDirsOnly.html">gFilenameCompleterSetDirsOnly</a>(object, dirs.only)</code><br />
+<code>gFilenameCompleter()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GFilenameCompleter</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Completes partial file and directory names given a partial string by
+looking in the file system for clues. Can return a list of possible 
+completion strings for widget implementations.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFilenameCompleter</code></dt><dd>
+<p>Completes filenames based on files that exist within the file system.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gFilenameCompleter</code> is the equivalent of <code><a href="gFilenameCompleterNew.html">gFilenameCompleterNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>got-completion-data(user.data)</code></dt><dd>
+<p>Emitted when the file name completion information comes available.
+</p>
+<dl>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd></dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFilenameCompleter.html">http://library.gnome.org/devel//gio/GFilenameCompleter.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

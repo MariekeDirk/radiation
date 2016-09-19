@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRecentChooserMenu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRecentChooserMenu {RGtk2}"><tr><td>GtkRecentChooserMenu {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRecentChooserMenu</h2>
+
+<h3>Description</h3>
+
+<p>Displays recently used files in a menu</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRecentChooserMenuNew.html">gtkRecentChooserMenuNew</a>()</code><br />
+<code><a href="gtkRecentChooserMenuNewForManager.html">gtkRecentChooserMenuNewForManager</a>(manager = NULL, show = TRUE)</code><br />
+<code><a href="gtkRecentChooserMenuGetShowNumbers.html">gtkRecentChooserMenuGetShowNumbers</a>(object)</code><br />
+<code><a href="gtkRecentChooserMenuSetShowNumbers.html">gtkRecentChooserMenuSetShowNumbers</a>(object, show.numbers)</code><br />
+<code>gtkRecentChooserMenu(manager = NULL, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkMenuShell
+                                 +----GtkMenu
+                                       +----GtkRecentChooserMenu</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRecentChooserMenu implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>,  <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code> is a widget suitable for displaying recently used files
+inside a menu.  It can be used to set a sub-menu of a <code><a href="GtkMenuItem.html">GtkMenuItem</a></code> using
+<code><a href="gtkMenuItemSetSubmenu.html">gtkMenuItemSetSubmenu</a></code>, or as the menu of a <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code>.
+</p>
+<p>Note that <code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code> does not have any methods of its own.  Instead,
+you should use the functions that work on a <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code>.
+</p>
+<p>Note also that <code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code> does not support multiple filters, as it
+has no way to let the user choose between them as the <code><a href="GtkRecentChooserWidget.html">GtkRecentChooserWidget</a></code>
+and <code><a href="GtkRecentChooserDialog.html">GtkRecentChooserDialog</a></code> widgets do. Thus using <code><a href="gtkRecentChooserAddFilter.html">gtkRecentChooserAddFilter</a></code>
+on a <code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code> widget will yield the same effects as using
+<code><a href="gtkRecentChooserSetFilter.html">gtkRecentChooserSetFilter</a></code>, replacing any currently set filter
+with the supplied filter; <code><a href="gtkRecentChooserRemoveFilter.html">gtkRecentChooserRemoveFilter</a></code> will remove
+any currently set <code><a href="GtkRecentFilter.html">GtkRecentFilter</a></code> object and will unset the current filter;
+<code><a href="gtkRecentChooserListFilters.html">gtkRecentChooserListFilters</a></code> will return a list containing a single
+<code><a href="GtkRecentFilter.html">GtkRecentFilter</a></code> object.
+</p>
+<p>Recently used files are supported since GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRecentChooserMenu</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRecentChooserMenu</code> is the equivalent of <code><a href="gtkRecentChooserMenuNewForManager.html">gtkRecentChooserMenuNewForManager</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">show-numbers</code> [logical : Read / Write]</dt><dd>
+<p>Whether the first ten items in the menu should be prepended by
+a number acting as a unique mnemonic.
+Default value: FALSE  Since 2.10
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRecentChooserMenu.html">http://library.gnome.org/devel//gtk/GtkRecentChooserMenu.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

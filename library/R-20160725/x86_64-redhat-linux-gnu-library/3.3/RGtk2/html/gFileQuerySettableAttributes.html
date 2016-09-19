@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileQuerySettableAttributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileQuerySettableAttributes {RGtk2}"><tr><td>gFileQuerySettableAttributes {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileQuerySettableAttributes</h2>
+
+<h3>Description</h3>
+
+<p>Obtain the list of settable attributes for the file.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileQuerySettableAttributes(object, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Returns the type and full attribute name of all the attributes 
+that can be set on this file. This doesn't mean setting it will always 
+succeed though, you might get an access failure, or some specific 
+file may not support a specific attribute.
+</p>
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="gio-GFileAttribute.html">GFileAttributeInfoList</a></code>] a <code><a href="gio-GFileAttribute.html">GFileAttributeInfoList</a></code> describing the settable attributes.
+When you are done with it,</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code>, or <code>NULL</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

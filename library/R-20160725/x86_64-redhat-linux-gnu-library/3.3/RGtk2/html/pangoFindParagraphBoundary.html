@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoFindParagraphBoundary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoFindParagraphBoundary {RGtk2}"><tr><td>pangoFindParagraphBoundary {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoFindParagraphBoundary</h2>
+
+<h3>Description</h3>
+
+<p>Locates a paragraph boundary in <code>text</code>. A boundary is caused by
+delimiter characters, such as a newline, carriage return, carriage
+return-newline pair, or Unicode paragraph separator character.  The
+index of the run of delimiters is returned in
+<code>paragraph.delimiter.index</code>. The index of the start of the paragraph
+(index after all delimiters) is stored in <code>next.paragraph.start</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoFindParagraphBoundary(text, length = -1)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">text</code></code></td>
+<td>
+<p>[character]  UTF-8 text</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">length</code></code></td>
+<td>
+<p>[integer]  length of <code>text</code> in bytes, or -1 if nul-terminated</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If no delimiters are found, both <code>paragraph.delimiter.index</code> and
+<code>next.paragraph.start</code> are filled with the length of <code>text</code> (an index one
+off the end).  </p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">paragraph.delimiter.index</code></code></td>
+<td>
+<p>[integer]  return location for index of delimiter</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">next.paragraph.start</code></code></td>
+<td>
+<p>[integer]  return location for start of next paragraph</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

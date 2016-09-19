@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create ellipses in form of SpatialPolygonsDataFrame.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for elSPDF {plotGoogleMaps}"><tr><td>elSPDF {plotGoogleMaps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create ellipses in form of SpatialPolygonsDataFrame.</h2>
+
+<h3>Description</h3>
+
+<p>Create ellipses in form of SpatialPolygonsDataFrame based on attributes: semi-major axis,  semi-minor axis, and orientation in degrees.</p>
+
+
+<h3>Usage</h3>
+
+<pre>elSPDF(SPDF,
+                  zcol=1:3,
+                  scale_e=10)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>SPDF</code></td>
+<td>
+<p>object of <a href="../../sp/html/SpatialPointsDataFrame-class.html">SpatialPointsDataFrame-class</a> with
+associated coordinate reference systems and minimum three attributes: semi-major axis,  semi-minor axis, and orientation in degrees.</p>
+</td></tr>
+<tr valign="top"><td><code>zcol</code></td>
+<td>
+<p>variable column names, or column numbers after removing spatial coordinates 
+from x@data: 1 refers to the first non-coordinate column</p>
+</td></tr>
+<tr valign="top"><td><code>scale_e</code></td>
+<td>
+<p>scale factor</p>
+</td></tr>                
+</table>
+
+
+<h3>Value</h3>
+
+<p>The function provide SpatialPolygonsDataFrame of ellipses.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Milan Kilibarda <a href="mailto:kili@grf.bg.ac.rs">kili@grf.bg.ac.rs</a></p>
+
+
+<h3>See Also</h3>
+
+<p><a href="pieSP.html">pieSP</a>,
+<a href="elSPDF.html">elSPDF</a>,
+<a href="bubbleGoogleMaps.html">bubbleGoogleMaps</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Data preparation
+    ell&lt;- data.frame(E=c(7456263,7456489,7456305),N=c(4954146,4952978,4952695),
+          A=c( 2.96,4.55,7.10),B=c(2.35,2.11,2.29),
+          teta=c(28.35242,41.04491,38.47216))
+    coordinates(ell) &lt;- ~E+N
+    proj4string(ell) &lt;- CRS("+proj=tmerc +lat_0=0 +lon_0=21 +k=0.9999 
+        +x_0=7500000 +y_0=0 +ellps=bessel 
+        +towgs84=574.027,170.175,401.545,4.88786,-0.66524,-13.24673,0.99999311067 
+        +units=m")
+    
+    ellpses&lt;-elSPDF(ell)
+    spplot(ellpses,"A")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotGoogleMaps</em> version 2.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

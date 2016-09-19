@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkTreeModelSort</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkTreeModelSort {RGtk2}"><tr><td>GtkTreeModelSort {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkTreeModelSort</h2>
+
+<h3>Description</h3>
+
+<p>A GtkTreeModel which makes an underlying tree model sortable</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkTreeModelSortNewWithModel.html">gtkTreeModelSortNewWithModel</a>(child.model = NULL)</code><br />
+<code><a href="gtkTreeModelSortGetModel.html">gtkTreeModelSortGetModel</a>(object)</code><br />
+<code><a href="gtkTreeModelSortConvertChildPathToPath.html">gtkTreeModelSortConvertChildPathToPath</a>(object, child.path)</code><br />
+<code><a href="gtkTreeModelSortConvertChildIterToIter.html">gtkTreeModelSortConvertChildIterToIter</a>(object, child.iter)</code><br />
+<code><a href="gtkTreeModelSortConvertPathToChildPath.html">gtkTreeModelSortConvertPathToChildPath</a>(object, sorted.path)</code><br />
+<code><a href="gtkTreeModelSortConvertIterToChildIter.html">gtkTreeModelSortConvertIterToChildIter</a>(object, sorted.iter)</code><br />
+<code><a href="gtkTreeModelSortResetDefaultSortFunc.html">gtkTreeModelSortResetDefaultSortFunc</a>(object)</code><br />
+<code><a href="gtkTreeModelSortClearCache.html">gtkTreeModelSortClearCache</a>(object)</code><br />
+<code><a href="gtkTreeModelSortIterIsValid.html">gtkTreeModelSortIterIsValid</a>(object, iter)</code><br />
+<code>gtkTreeModelSort(child.model = NULL)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkTreeModelSort</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkTreeModelSort implements
+<code><a href="GtkTreeModel.html">GtkTreeModel</a></code>,  <code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code> and  <code><a href="gtk-GtkTreeView-drag-and-drop.html">GtkTreeDragSource</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkTreeModelSort.html">GtkTreeModelSort</a></code> is a model which implements the <code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code>
+interface.  It does not hold any data itself, but rather is created with
+a child model and proxies its data.  It has identical column types to
+this child model, and the changes in the child are propagated.  The
+primary purpose of this model is to provide a way to sort a different
+model without modifying it. Note that the sort function used by
+<code><a href="GtkTreeModelSort.html">GtkTreeModelSort</a></code> is not guaranteed to be stable.
+</p>
+<p>The use of this is best demonstrated through an example.  In the
+following sample code we create two <code><a href="GtkTreeView.html">GtkTreeView</a></code> widgets each with a
+view of the same data.  As the model is wrapped here by a
+<code><a href="GtkTreeModelSort.html">GtkTreeModelSort</a></code>, the two <code><a href="GtkTreeView.html">GtkTreeView</a></code>s can each sort their
+view of the data without affecting the other.  By contrast, if we
+simply put the same model in each widget, then sorting the first would
+sort the second.
+</p>
+<p><em>Using a   <code>GtkTreeModelSort</code></em>
+</p>
+<pre>
+## Using a GtkTreeModel sort
+
+## get the child model
+child_model &lt;- get_my_model()
+
+## Create the first tree 
+sort_model1 &lt;- gtkTreeModelSort(child_model)
+tree_view1 &lt;- gtkTreeView(sort_model1)
+
+## Create the second tree
+sort_model2 &lt;- gtkTreeModelSort(child_model)
+tree_view2 &lt;- gtkTreeView(sort_model2)
+
+## Now we can sort the two models independently
+sort_model1$setSortColumnId(0, "ascending")
+sort_model2$setSortColumnId(0, "descending")
+</pre>  
+<p>To demonstrate how to access the underlying child model from the sort
+model, the next example will be a callback for the <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code>
+&quot;changed&quot; signal.  In this callback, we get a string from COLUMN_1 of
+the model.  We then modify the string, find the same selected row on the
+child model, and change the row there.
+</p>
+<p><em>Accessing the child model of in a selection changed callback</em>
+</p>
+<pre>
+# Accessing the child model in a selection changed callback
+
+selection_changed &lt;- function(selection, data)
+{
+  # Get the current selected row and the model.
+  selected &lt;- selection$getSelected()
+  if (!selected[[1]])
+    return()
+
+  ## Look up the current value on the selected row and get a new value
+  ## to change it to.
+  some_data &lt;- selected$model$get(selected$iter, COLUMN_1)
+  
+  modified_data &lt;- change_the_data(some_data)
+
+  ## Get an iterator on the child model, instead of the sort model.
+  child_iter &lt;- sort_model$convertIterToChildIter(selected$iter)$iter
+
+  ## Get the child model and change the value of the row.  In this
+  ## example, the child model is a GtkListStore.  It could be any other
+  ## type of model, though.
+  child_model &lt;- sort_model$getModel()
+  child_model$set(child_iter, COLUMN_1, modified_data)
+}
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkTreeModelSort</code></dt><dd>
+<p>This should not be accessed directly.  Use the accessor functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkTreeModelSort</code> is the equivalent of <code><a href="gtkTreeModelSortNewWithModel.html">gtkTreeModelSortNewWithModel</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write / Construct Only]</dt><dd>
+<p>The model for the TreeModelSort to sort.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkTreeModelSort.html">http://library.gnome.org/devel//gtk/GtkTreeModelSort.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkTreeModel.html">GtkTreeModel</a></code>
+<code><a href="GtkListStore.html">GtkListStore</a></code>
+<code><a href="GtkTreeStore.html">GtkTreeStore</a></code>
+<code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code>
+<code><a href="GtkTreeModelFilter.html">GtkTreeModelFilter</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

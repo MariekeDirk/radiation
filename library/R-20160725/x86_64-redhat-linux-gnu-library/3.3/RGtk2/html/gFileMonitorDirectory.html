@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileMonitorDirectory</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileMonitorDirectory {RGtk2}"><tr><td>gFileMonitorDirectory {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileMonitorDirectory</h2>
+
+<h3>Description</h3>
+
+<p>Obtains a directory monitor for the given file.
+This may fail if directory monitoring is not supported.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileMonitorDirectory(object, flags = "G_FILE_MONITOR_NONE", 
+    cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">flags</code></code></td>
+<td>
+<p>a set of <code><a href="GFile.html">GFileMonitorFlags</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="GFileMonitor-concept.html">GFileMonitor</a></code>] a <code><a href="GFileMonitor-concept.html">GFileMonitor</a></code> for the given <code>file</code>, or <code>NULL</code> on error.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code>, or <code>NULL</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

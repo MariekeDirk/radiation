@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDisplayGetWindowAtPointer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDisplayGetWindowAtPointer {RGtk2}"><tr><td>gdkDisplayGetWindowAtPointer {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDisplayGetWindowAtPointer</h2>
+
+<h3>Description</h3>
+
+<p>Obtains the window underneath the mouse pointer, returning the location
+of the pointer in that window in <code>win.x</code>, <code>win.y</code> for <code>screen</code>. Returns <code>NULL</code>
+if the window under the mouse pointer is not known to GDK (for example, 
+belongs to another application).</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDisplayGetWindowAtPointer(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GdkDisplay.html">GdkDisplay</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.2</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window under the mouse pointer, or <code>NULL</code>. <em>[  <acronym><span class="acronym">transfer none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">win.x</code></code></td>
+<td>
+<p>return location for x coordinate of the pointer location relative
+to the window origin, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">win.y</code></code></td>
+<td>
+<p>return location for y coordinate of the pointer location relative
+&amp;    to the window origin, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

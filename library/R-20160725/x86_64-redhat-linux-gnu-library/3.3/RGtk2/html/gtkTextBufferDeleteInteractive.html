@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferDeleteInteractive</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferDeleteInteractive {RGtk2}"><tr><td>gtkTextBufferDeleteInteractive {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferDeleteInteractive</h2>
+
+<h3>Description</h3>
+
+<p>Deletes all <em>editable</em> text in the given range.
+Calls <code><a href="gtkTextBufferDelete.html">gtkTextBufferDelete</a></code> for each editable sub-range of
+[<code>start</code>,<code>end</code>). <code>start</code> and <code>end</code> are revalidated to point to
+the location of the last deleted range, or left untouched if
+no text was deleted.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferDeleteInteractive(object, start.iter, end.iter, 
+    default.editable)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">start.iter</code></code></td>
+<td>
+<p>start of range to delete</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">end.iter</code></code></td>
+<td>
+<p>end of range</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">default.editable</code></code></td>
+<td>
+<p>whether the buffer is editable by default</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[logical] whether some text was actually deleted</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

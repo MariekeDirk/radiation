@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fetches a decision tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for get_tree {fastAdaboost}"><tr><td>get_tree {fastAdaboost}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fetches a decision tree</h2>
+
+<h3>Description</h3>
+
+<p>returns a single weak decision tree classifier which is part
+of the strong classifier
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+get_tree(object, tree_num)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>object of class adaboost</p>
+</td></tr>
+<tr valign="top"><td><code>tree_num</code></td>
+<td>
+<p>integer describing the tree to get</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>returns an individual tree from the adaboost object
+This can provide the user with some clarity on the 
+individual building blocks of the strong classifier
+</p>
+
+
+<h3>Value</h3>
+
+<p>object of class rpart
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="adaboost.html">adaboost</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+fakedata &lt;- data.frame( X=c(rnorm(100,0,1),rnorm(100,1,1)), Y=c(rep(0,100),rep(1,100) ) )
+fakedata$Y &lt;- factor(fakedata$Y)
+test_adaboost &lt;- adaboost(Y~X, fakedata, 10)
+tree &lt;- get_tree(test_adaboost,5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>fastAdaboost</em> version 1.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

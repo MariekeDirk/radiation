@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Draw Symbols (User Defined) on a Lattice Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for panel.my.symbols {TeachingDemos}"><tr><td>panel.my.symbols {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Draw Symbols (User Defined) on a Lattice Plot</h2>
+
+<h3>Description</h3>
+
+<p>This function draws symbols on a lattice plot.  It is similar to
+the builtin <code>symbols</code> function with the difference that it plots
+symbols defined by the user rather than a prespecified set of
+symbols.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+panel.my.symbols(x, y, symb, inches=1, polygon=FALSE,
+                       ..., symb.plots=FALSE, subscripts, MoreArgs)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+<p>The <code>x</code> and <code>y</code> coordinates for the position of
+the symbols to be plotted.  These can be specified in any way which is
+accepted by <code>xy.coords</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>symb</code></td>
+<td>
+<p>Either a matrix, list, or function defining the symbol to
+be plotted.  If it is a matrix or list it needs to be formatted that
+it can be passed directly to the <code>llines</code> function.  It then
+defines the shape of the symbol on on a range/domain of -1 to 1.  If
+this is a function it can either return a matrix or list as above
+(points on the range/domain of -1 to 1).</p>
+</td></tr>
+<tr valign="top"><td><code>inches</code></td>
+<td>
+<p>The size of the square containing the symbol in inches
+(note: unlike <code>symbols</code> this cannot be <code>FALSE</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>polygon</code></td>
+<td>
+<p>If TRUE, use <code>lpolygon</code> function to plot rather than the
+<code>llines</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>symb.plots</code></td>
+<td>
+<p>Currently not implemented.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments will be replicated to the same length
+as <code>x</code> then passed to <code>symb</code> (if <code>symb</code> is a function)
+and/or the <code>lines</code> function (one value per symbol drawn).</p>
+</td></tr>
+<tr valign="top"><td><code>subscripts</code></td>
+<td>
+<p>subscripts for the current panel</p>
+</td></tr>
+<tr valign="top"><td><code>MoreArgs</code></td>
+<td>
+<p>A list with any additional arguments to be passed to
+the <code>symb</code> function (as is, without being replicated/split).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>symb</code> argument can be a 2 column matrix or a list with
+components 'x' and 'y' that defines points on the interval [-1,1] that
+will be connected with lines to draw the symbol.  If you want a closed
+polygon then be sure to replicate the 1st point as the last point or
+use the <code>polygon</code> option.
+</p>
+<p>If any point contains an NA then the line will not be drawn to or from
+that point.  This can be used to create a symbol with disjoint parts
+that should not be connected.
+</p>
+<p>If <code>symb</code> is a function then any unmatched
+arguments that end up in the '...' argument will be replicated to the
+same length as 'x' (using the <code>rep</code> function) then the values
+will be passed one at a time to the <code>symb</code> function.  If
+<code>MoreArgs</code> is specified, the elements of it will also be passed
+to <code>symb</code> without modification.  The <code>symb</code> function can
+either return a matrix or list with the points that will then be
+passed to the <code>llines</code> function (see above).
+</p>
+
+
+<h3>Value</h3>
+
+<p>This function is run for its side effect of plotting, it returns an
+invisible NULL.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Plotting coordinates and sizes are based on the size of the device at
+the time the function is called.  If you resize the device after
+plotting, all bets are off.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/symbols.html">symbols</a></code>, <code><a href="mysymbols.html">my.symbols</a></code>, <code><a href="subplot.html">subplot</a></code>,
+<code><a href="../../base/html/mapply.html">mapply</a></code>, <code><a href="ms.polygram.html">ms.polygram</a></code>, <code><a href="../../graphics/html/lines.html">lines</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(require(lattice)) {
+  tmpdf &lt;- data.frame( x=1:10, y=1:10, g=rep( c("A","B"), each=5 ),
+	z=c(1:5,5:1) )
+
+  xyplot( y ~ x, tmpdf, panel=panel.my.symbols, symb=ms.female, inches=0.3 )
+
+  xyplot( y ~ x | g, tmpdf, panel=panel.my.symbols, symb=ms.male, inches=0.3)
+
+  xyplot( y ~ x, tmpdf, panel=panel.superpose, groups=g,
+	panel.groups= function(group.number, ...) {
+		if(group.number==1) {
+			panel.my.symbols(..., symb=ms.male)
+		} else {
+			panel.my.symbols(..., symb=ms.female)
+		} },
+		inches=0.3
+	)
+
+  xyplot( y ~ x, tmpdf, panel=panel.my.symbols, symb=ms.polygram, n=tmpdf$z,
+		inches=0.3)
+
+  xyplot( y ~ x | g, tmpdf, panel=panel.my.symbols, symb=ms.polygram,
+		n=tmpdf$z, inches=0.3)
+
+  xyplot( y ~ x, tmpdf, panel=panel.superpose, groups=g,
+	panel.groups = panel.my.symbols,
+		inches=0.3, symb=ms.polygon, n=tmpdf$z, polygon=TRUE,
+		adj=rep(c(0,pi/4),5)
+	)
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkToolbarInsertStock</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkToolbarInsertStock {RGtk2}"><tr><td>gtkToolbarInsertStock {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkToolbarInsertStock</h2>
+
+<h3>Description</h3>
+
+<p>Inserts a stock item at the specified position of the toolbar.  If
+<code>stock.id</code> is not a known stock item ID, it's inserted verbatim,
+except that underscores used to mark mnemonics are removed.
+<strong>WARNING: <code>gtk_toolbar_insert_stock</code> has been deprecated since version 2.4 and should not be used in newly-written code. Use <code><a href="gtkToolbarInsert.html">gtkToolbarInsert</a></code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkToolbarInsertStock(object, stock.id, tooltip.text, tooltip.private.text, 
+    callback, user.data, position)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkToolbar.html">GtkToolbar</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">stock.id</code></code></td>
+<td>
+<p>The id of the stock item you want to insert</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">tooltip.text</code></code></td>
+<td>
+<p>The text in the tooltip of the toolbar button</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">tooltip.private.text</code></code></td>
+<td>
+<p>The private text of the tooltip</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">callback</code></code></td>
+<td>
+<p>The callback called when the toolbar button is clicked.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">user.data</code></code></td>
+<td>
+<p>user data passed to callback</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">position</code></code></td>
+<td>
+<p>The position the button shall be inserted at.
+-1 means at the end.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>callback</code> must be a pointer to a function taking a <code><a href="GtkWidget.html">GtkWidget</a></code> and a gpointer as
+arguments. Use <code>gCallback()</code> to cast the function to <code style="white-space: pre;">GCallback</code>.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] the inserted widget</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

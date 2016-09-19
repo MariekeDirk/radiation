@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Genetic distances from gene frequencies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dist.genet {ade4}"><tr><td>dist.genet {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Genetic distances from gene frequencies </h2>
+
+<h3>Description</h3>
+
+<p>This program computes any one of five measures of genetic distance from a set of gene frequencies in different populations with several loci.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dist.genet(genet, method = 1, diag = FALSE, upper = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>genet</code></td>
+<td>
+<p> a list of class <code>genet</code>  </p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p> an integer between 1 and 5. See details </p>
+</td></tr>
+<tr valign="top"><td><code>diag</code></td>
+<td>
+<p> a logical value indicating whether the diagonal of the distance matrix should be printed by <code>print.dist</code> </p>
+</td></tr>
+<tr valign="top"><td><code>upper</code></td>
+<td>
+<p> a logical value indicating whether the upper triangle of the distance matrix should be printed by <code>print.dist</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let <b>A</b> a table containing allelic frequencies with <em>t</em> populations (rows) and <em>m</em> alleles (columns).<br />
+Let  <i>&nu;</i> the number of loci. The locus <em>j</em> gets <em>m(j)</em> alleles. 
+<i>m=&sum;_{j=1}^{&nu;} m(j)</i><br />
+</p>
+<p>For the row <em>i</em> and the modality <em>k</em> of the variable <em>j</em>, notice the value <i>a_{ij}^k</i> (<i>1 &le;q i &le;q t</i>, <i>1 &le;q j &le;q &nu;</i>,
+<i>1 &le;q k &le;q m(j)</i>) the value of the initial table.<br />
+</p>
+<p><i>a_{ij}^+=&sum;_{k=1}^{m(j)}a_{ij}^k</i> and <i>p_{ij}^k=\frac{a_{ij}^k}{a_{ij}^+}</i><br />
+</p>
+<p>Let <b>P</b> the table of general term <i>p_{ij}^k</i><br />
+<i>p_{ij}^+=&sum;_{k=1}^{m(j)}p_{ij}^k=1</i>, <i>p_{i+}^+=&sum;_{j=1}^{&nu;}p_{ij}^+=&nu;</i>, <i>p_{++}^+=&sum;_{j=1}^{&nu;}p_{i+}^+=t&nu;</i><br />
+</p>
+<p>The option <code>method</code> computes the distance matrices between populations using the frequencies <i>p_{ij}^k</i>. <br />
+</p>
+<p>1. Nei's distance: <br />
+<i>D_1(a,b)=- \ln(\frac{&sum;_{k=1}^{&nu;} &sum;_{j=1}^{m(k)}
+p_{aj}^k p_{bj}^k}{&radic;{&sum;_{k=1}^{&nu;} &sum;_{j=1}^{m(k)}
+{(p_{aj}^k) }^2}&radic;{&sum;_{k=1}^{&nu;} &sum;_{j=1}^{m(k)}
+{(p_{bj}^k)}^2}})</i><br />
+</p>
+<p>2. Angular distance or Edwards' distance:<br />
+<i>D_2(a,b)=&radic;{1-\frac{1}{&nu;} &sum;_{k=1}^{&nu;}
+&sum;_{j=1}^{m(k)} &radic;{p_{aj}^k  p_{bj}^k}}</i><br />
+</p>
+<p>3. Coancestrality coefficient or Reynolds' distance:<br />
+<i>D_3(a,b)=&radic;{\frac{&sum;_{k=1}^{&nu;}
+&sum;_{j=1}^{m(k)}{(p_{aj}^k - p_{bj}^k)}^2}{2 &sum;_{k=1}^{&nu;} (1-
+&sum;_{j=1}^{m(k)}p_{aj}^k p_{bj}^k)}}</i><br />
+</p>
+<p>4. Classical Euclidean distance or Rogers' distance:<br />
+<i>D_4(a,b)=\frac{1}{&nu;} &sum;_{k=1}^{&nu;} &radic;{\frac{1}{2}
+&sum;_{j=1}^{m(k)}{(p_{aj}^k - p_{bj}^k)}^2}</i><br />
+</p>
+<p>5. Absolute genetics distance or Provesti 's distance:<br />
+<i>D_5(a,b)=\frac{1}{2{&nu;}} &sum;_{k=1}^{&nu;} &sum;_{j=1}^{m(k)}
+|p_{aj}^k - p_{bj}^k|</i>
+</p>
+
+
+<h3>Value</h3>
+
+<p>returns a distance matrix of class <code>dist</code> between the rows of the data frame
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Daniel Chessel <br />
+Anne B Dufour <a href="mailto:anne-beatrice.dufour@univ-lyon1.fr">anne-beatrice.dufour@univ-lyon1.fr</a> 
+</p>
+
+
+<h3>References</h3>
+
+ 
+<p>To complete informations about distances:<br />
+</p>
+<p>Distance 1:<br />
+Nei, M. (1972) Genetic distances between populations. <em>American Naturalist</em>, <b>106</b>, 283&ndash;292. <br />
+Nei M. (1978) Estimation of average heterozygosity and genetic distance from a small number of individuals. <em>Genetics</em>, <b>23</b>, 341&ndash;369. <br />
+Avise, J. C. (1994) Molecular markers, natural history and evolution. Chapman &amp; Hall, London. 
+</p>
+<p>Distance 2:<br />
+Edwards, A.W.F. (1971) Distance between populations on the basis of gene frequencies. <em>Biometrics</em>, <b>27</b>, 873&ndash;881. <br />
+Cavalli-Sforza L.L. and Edwards A.W.F. (1967) Phylogenetic analysis: models and estimation procedures. <em>Evolution</em>, <b>32</b>, 550&ndash;570. <br />
+Hartl, D.L. and Clark, A.G. (1989) Principles of population genetics. Sinauer Associates, Sunderland, Massachussetts (p. 303).
+</p>
+<p>Distance 3:<br />
+Reynolds, J. B., B. S. Weir, and C. C. Cockerham. (1983) Estimation of the coancestry coefficient: basis for a short-term genetic distance. <em>Genetics</em>, <b>105</b>, 767&ndash;779.
+</p>
+<p>Distance 4:<br />
+Rogers, J.S. (1972) Measures of genetic similarity and genetic distances. <em>Studies in Genetics</em>, Univ. Texas Publ., <b>7213</b>, 145&ndash;153.  <br />
+Avise, J. C. (1994) Molecular markers, natural history and evolution. Chapman &amp; Hall, London. 
+</p>
+<p>Distance 5:<br />
+Prevosti A. (1974) La distancia genética entre poblaciones. <em>Miscellanea Alcobé</em>, <b>68</b>, 109&ndash;118. <br />
+Prevosti A., Oca\~na J. and Alonso G. (1975) Distances between populations of Drosophila subobscura, based on chromosome arrangements frequencies. <em>Theoretical and Applied Genetics</em>, <b>45</b>, 231&ndash;241. <br />
+</p>
+<p>To find some useful explanations:<br />
+Sanchez-Mazas A. (2003) Cours de Génétique Moléculaire des Populations. Cours VIII Distances génétiques - Représentation des populations. <br />
+<a href="http://anthro.unige.ch/GMDP/Alicia/GMDP_dist.htm">http://anthro.unige.ch/GMDP/Alicia/GMDP_dist.htm</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(casitas)
+casi.genet &lt;- char2genet(casitas,
+    as.factor(rep(c("dome", "cast", "musc", "casi"), c(24,11,9,30))))
+ldist &lt;- lapply(1:5, function(method) dist.genet(casi.genet,method))
+ldist
+unlist(lapply(ldist, is.euclid))
+kdist(ldist)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

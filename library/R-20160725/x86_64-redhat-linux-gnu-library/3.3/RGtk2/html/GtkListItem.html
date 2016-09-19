@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkListItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkListItem {RGtk2}"><tr><td>GtkListItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkListItem</h2>
+
+<h3>Description</h3>
+
+<p>An item in a GtkList</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkListItemNew.html">gtkListItemNew</a>(show = TRUE)</code><br />
+<code><a href="gtkListItemNewWithLabel.html">gtkListItemNewWithLabel</a>(label, show = TRUE)</code><br />
+<code><a href="gtkListItemSelect.html">gtkListItemSelect</a>(object)</code><br />
+<code><a href="gtkListItemDeselect.html">gtkListItemDeselect</a>(object)</code><br />
+<code>gtkListItem(label, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkItem
+                                       +----GtkListItem</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkListItem implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkListItem.html">GtkListItem</a></code> widget is used for each item in a <code><a href="GtkList.html">GtkList</a></code>.
+</p>
+<p>GtkList has has been deprecated since GTK+ 2.0 and should not be used
+in newly written code. Use <code><a href="GtkTreeView.html">GtkTreeView</a></code> instead.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkListItem</code></dt><dd>
+<p><strong>WARNING: <code>GtkListItem</code> is deprecated and should not be used in newly-written code.</strong>
+The <code><a href="GtkListItem.html">GtkListItem</a></code> struct contains private data only, and should
+only be accessed using the functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkListItem</code> is the result of collapsing the constructors of <code>GtkListItem</code> (<code><a href="gtkListItemNew.html">gtkListItemNew</a></code>, <code><a href="gtkListItemNewWithLabel.html">gtkListItemNewWithLabel</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>end-selection(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>extend-selection(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>scroll-horizontal(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>scroll-vertical(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>select-all(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>start-selection(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle-add-mode(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle-focus-row(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>undo-selection(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>unselect-all(listitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>listitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkListItem.html">http://library.gnome.org/devel//gtk/GtkListItem.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

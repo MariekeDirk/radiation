@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Unroll Genetic Horizons</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for unroll {aqp}"><tr><td>unroll {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Unroll Genetic Horizons</h2>
+
+<h3>Description</h3>
+
+<p>Generate a descretized vector of genetic horizons along a user-defined pattern.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>unroll(top, bottom, prop, max_depth, bottom_padding_value = NA, strict=FALSE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>top</code></td>
+<td>
+<p>vector of upper horizon boundaries, must be an integer</p>
+</td></tr>
+<tr valign="top"><td><code>bottom</code></td>
+<td>
+<p>vector of lower horizon boundaries, must be an integer</p>
+</td></tr>
+<tr valign="top"><td><code>prop</code></td>
+<td>
+<p>vector of some property to be &quot;unrolled&quot; over a regular sequence</p>
+</td></tr>
+<tr valign="top"><td><code>max_depth</code></td>
+<td>
+<p>maximum depth to which missing data is padded with NA</p>
+</td></tr>
+<tr valign="top"><td><code>bottom_padding_value</code></td>
+<td>
+<p>value to use when padding missing data</p>
+</td></tr>
+<tr valign="top"><td><code>strict</code></td>
+<td>
+<p>should horizons be strictly checked for self-consistency? defaults to FALSE</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is used internally by several higher-level components of the <code>aqp</code> package. Basic error checking is performed to make sure that bottom and top horizon boundaries make sense. Note that the horizons should be sorted according to depth before using this function. The <code>max_depth</code> argument is used to specifiy the maximum depth of profiles within a collection, so that data from any profile shallower than this depth is padded with NA.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a vector of &quot;unrolled&quot; property values</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Dylan E. Beaudette</p>
+
+
+<h3>References</h3>
+
+<p>http://casoilresource.lawr.ucdavis.edu/</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(sp1)
+
+# subset a single soil profile:
+sp1.1 &lt;- subset(sp1, subset=id == 'P001')
+
+# demonstrate how this function works
+x &lt;- with(sp1.1, unroll(top, bottom, prop, max_depth=50))
+plot(x, 1:length(x), ylim=c(90,0), type='b', cex=0.5)	
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

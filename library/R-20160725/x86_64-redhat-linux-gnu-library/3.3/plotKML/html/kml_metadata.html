@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Add metadata table to the active layer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kml_metadata-methods {plotKML}"><tr><td>kml_metadata-methods {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add metadata table to the active layer</h2>
+
+<h3>Description</h3>
+
+<p>Adds a selection of metadata to the description box of an active layer.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'SpatialMetadata'
+kml_metadata(obj, cwidth = 150, twidth = 500, asText = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>object of class <code>"SpatialMetadata"</code></p>
+</td></tr>
+<tr valign="top"><td><code>cwidth</code></td>
+<td>
+<p>html column width for the field names</p>
+</td></tr>
+<tr valign="top"><td><code>twidth</code></td>
+<td>
+<p>html total table width</p>
+</td></tr>
+<tr valign="top"><td><code>asText</code></td>
+<td>
+<p>logical; return the output as XML or characters</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>kml_metadata</code> function, by default, prints out only a number of selected metadata fields: 
+</p>
+
+<ol>
+<li> <p><code>"Citation_title"</code>,
+</p>
+</li>
+<li> <p><code>"Abstract"</code>,
+</p>
+</li>
+<li> <p><code>"Object_Count"</code>,
+</p>
+</li>
+<li> <p><code>"Beginning_Date"</code>,
+</p>
+</li>
+<li> <p><code>"Ending_Date"</code>,
+</p>
+</li>
+<li> <p><code>"Data_Order_URL"</code>,
+</p>
+</li>
+<li> <p><code>"Other_Citation_Details"</code>,
+</p>
+</li>
+<li> <p><code>"Citation_URL"</code>,
+</p>
+</li>
+<li> <p><code>"Data_Set_Credit"</code>,
+</p>
+</li>
+<li> <p><code>"Data_Distributing_Organization"</code>,
+</p>
+</li>
+<li> <p><code>"Format_Information_Content"</code>, 
+</p>
+</li>
+<li> <p><code>"Native_Data_Set_Environment"</code> 
+</p>
+</li></ol>
+
+<p>See <code>data(mdnames)</code> for a complete list of metadata fields. </p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="spMetadata.html">spMetadata</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

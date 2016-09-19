@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRecentManagerAddFull</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRecentManagerAddFull {RGtk2}"><tr><td>gtkRecentManagerAddFull {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRecentManagerAddFull</h2>
+
+<h3>Description</h3>
+
+<p>Adds a new resource, pointed by <code>uri</code>, into the recently used
+resources list, using the metadata specified inside the <code><a href="GtkRecentManager.html">GtkRecentData</a></code>
+structure passed in <code>recent.data</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRecentManagerAddFull(object, uri, recent.data)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkRecentManager.html">GtkRecentManager</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">uri</code></code></td>
+<td>
+<p>a valid URI</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">recent.data</code></code></td>
+<td>
+<p>metadata of the resource</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The passed URI will be used to identify this resource inside the
+list.
+</p>
+<p>In order to register the new recently used resource, metadata about
+the resource must be passed as well as the URI; the metadata is
+stored in a <code><a href="GtkRecentManager.html">GtkRecentData</a></code> structure, which must contain the MIME
+type of the resource pointed by the URI; the name of the application
+that is registering the item, and a command line to be used when
+launching the item.
+</p>
+<p>Optionally, a <code><a href="GtkRecentManager.html">GtkRecentData</a></code> structure might contain a UTF-8 string
+to be used when viewing the item instead of the last component of the
+URI; a short description of the item; whether the item should be
+considered private - that is, should be displayed only by the
+applications that have registered it.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the new item was successfully added to the
+recently used resources list, <code>FALSE</code> otherwise.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

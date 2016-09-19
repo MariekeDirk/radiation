@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: atkSelectionRefSelection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for atkSelectionRefSelection {RGtk2}"><tr><td>atkSelectionRefSelection {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>atkSelectionRefSelection</h2>
+
+<h3>Description</h3>
+
+<p>Gets a reference to the accessible object representing the specified 
+selected child of the object.
+Note: callers should not rely on <code>NULL</code> or on a zero value for
+indication of whether AtkSelectionIface is implemented, they should
+use type checking/interface checking functions or the
+<code>atkGetAccessibleValue()</code> convenience method.</p>
+
+
+<h3>Usage</h3>
+
+<pre>atkSelectionRefSelection(object, i)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="AtkSelection.html">AtkSelection</a></code>]  a <code><a href="GObject.html">GObject</a></code> instance that implements AtkSelectionIface</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">i</code></code></td>
+<td>
+<p>[integer]  a <code style="white-space: pre;">integer</code> specifying the index in the selection set.  (e.g. the
+ith selection as opposed to the ith child).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="AtkObject.html">AtkObject</a></code>]  an <code><a href="AtkObject.html">AtkObject</a></code> representing the selected accessible , or <code>NULL</code>
+if <code>selection</code> does not implement this interface.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

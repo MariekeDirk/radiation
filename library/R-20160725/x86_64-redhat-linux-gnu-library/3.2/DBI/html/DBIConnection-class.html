@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: DBIConnection class.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for DBIConnection-class {DBI}"><tr><td>DBIConnection-class {DBI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>DBIConnection class.</h2>
+
+<h3>Description</h3>
+
+<p>This virtual class encapsulates the connection to a DBMS, and it provides
+access to dynamic queries, result sets, DBMS session management
+(transactions), etc.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'DBIConnection'
+show(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>Object to display</p>
+</td></tr>
+</table>
+
+
+<h3>Implementation note</h3>
+
+<p>Individual drivers are free to implement single or multiple simultaneous
+connections.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other DBI classes: <code><a href="DBIDriver-class.html">DBIDriver-class</a></code>,
+<code><a href="DBIObject-class.html">DBIObject-class</a></code>,
+<code><a href="DBIResult-class.html">DBIResult-class</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+con &lt;- dbConnect(RSQLite::SQLite(), ":memory:")
+dbDisconnect(con)
+
+con &lt;- dbConnect(RPostgreSQL::PostgreSQL(), "username", "passsword")
+dbDisconnect(con)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>DBI</em> version 0.4-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot sim object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for density.sim {lava}"><tr><td>density.sim {lava}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot sim object</h2>
+
+<h3>Description</h3>
+
+<p>Plot sim object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'sim'
+density(x, plot.type = "single", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>sim object</p>
+</td></tr>
+<tr valign="top"><td><code>plot.type</code></td>
+<td>
+<p>Single or multiple plots</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional graphical arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+n &lt;- 1000
+val &lt;- cbind(est1=rnorm(n,sd=1),est2=rnorm(n,sd=0.2),est3=rnorm(n,1,sd=0.5),
+             sd1=runif(n,0.8,1.2),sd2=runif(n,0.1,0.3),sd3=runif(n,0.25,0.75))
+
+plot.sim(val,estimate=c(1,2),true=c(0,0),se=c(4,5),equal=TRUE)
+plot.sim(val,estimate=c(1,3),true=c(0,1),se=c(4,6),density.xlim=c(-3,3),ylim=c(-3,3))
+plot.sim(val,estimate=c(1,2),true=c(0,0),se=c(4,5),equal=TRUE,plot.type="single")
+plot.sim(val,estimate=c(1),se=c(4,5,6),plot.type="single")
+plot.sim(val,estimate=c(1,2,3),equal=TRUE)
+plot.sim(val,estimate=c(1,2,3),equal=TRUE,byrow=TRUE)
+plot.sim(val,estimate=c(1,2,3),plot.type="single")
+plot.sim(val,estimate=1,se=c(3,4,5),plot.type="single")
+
+density.sim(val,estimate=c(1,2,3))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>lava</em> version 1.4.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

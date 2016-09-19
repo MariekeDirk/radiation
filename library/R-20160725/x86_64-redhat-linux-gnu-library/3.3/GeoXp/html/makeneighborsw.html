@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial weight matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for makeneighborsw {GeoXp}"><tr><td>makeneighborsw {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial weight matrix</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>makeneighborsw()</code> create a spatial weight matrix based on a given number of nearest
+neighbors (option &quot;neighbor&quot; by default), based on a threshold distance (option method=&quot;distance&quot;)
+or both these 2 methods.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+makeneighborsw(coords,method="neighbor",m=1,d,cum=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>coords</code></td>
+<td>
+<p>a matrix of spatial coordinates</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>&quot;neighbor&quot; by default, &quot;distance&quot; or &quot;both&quot;</p>
+</td></tr>  
+<tr valign="top"><td><code>m</code></td>
+<td>
+<p>number of nearest neighbors</p>
+</td></tr>
+<tr valign="top"><td><code>d</code></td>
+<td>
+<p>threshold point</p>
+</td></tr>
+<tr valign="top"><td><code>cum</code></td>
+<td>
+<p>if cum=TRUE, W is the sum of spatial weight matrix based on k nearest neighbours (for <i>k &lt; m</i>;
+if FALSE W is the spatial weight matrix based only on <i>m^th</i> nearest neighbours</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the case of method=&quot;neighbor&quot;, for each site, we order the other sites by their distance from this
+site. If cum=TRUE, for i, if j is among the <i>m^th</i>
+nearest sites, then :     
+</p>
+<p style="text-align: center;"><i>W_ij=1</i></p>
+
+<p>else
+</p>
+<p style="text-align: center;"><i>W_ij=0</i></p>
+
+<p>If cum=FALSE, for </p>
+<p style="text-align: center;"><i>s_i</i></p>
+<p>, if </p>
+<p style="text-align: center;"><i>s_j</i></p>
+<p> is the <i>m^th</i>
+nearest site, then :     
+</p>
+<p style="text-align: center;"><i>W_ij=1</i></p>
+
+<p>else
+</p>
+<p style="text-align: center;"><i>W_ij=0</i></p>
+
+<p>In case of ties, the nearest neighbour is randomly chosen. <br /> <br />
+In the case of method=&quot;distance&quot;, if site i is seperated from j by a distance lower
+or equal to a given threshold : 
+</p>
+<p style="text-align: center;"><i>W_ij=1</i></p>
+
+<p>else
+</p>
+<p style="text-align: center;"><i>W_ij=0</i></p>
+
+<p><br /> 
+In the case of method=&quot;both&quot; W must verify the two first conditions.</p>
+
+
+<h3>Value</h3>
+
+<p>A spatial weight matrix of size <i>n x n</i></p>
+
+
+<h3>Note</h3>
+
+<p>This function is not optimised for large dataset. User could find similar functions in
+the package <code>spdep</code> (<code>dnearneigh</code> and <code>knearneigh</code>). However, these functions
+don't offer the possibility to use the two criteria in the same time.  Moreover, an
+inconvenient of <code>makeneighborsw</code> is that the result is included in a matrix object
+whereas most of functions of GeoXp use the <code>nb</code> structure for spatial weight matrix.
+An issue is to use the <code>mat2listw</code> function and then selecting the <code>nb</code> part, like the
+in the examples. </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Aragon Y., Thomas-Agnan C., Ruiz-Gazen A., Laurent T., Robidou L.</p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23. <br /> <br />
+</p>
+<p>Roger S.Bivand, Edzer J.Pebesma, Virgilio Gomez-Rubio (2009),  <em>Applied Spatial Data Analysis with R</em>, Springer.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="moranplotmap.html">moranplotmap</a></code>,<code><a href="normw.html">normw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##
+# data auckland
+data(auckland)
+coords &lt;- cbind(auckland$Easting[1:10],auckland$Northing[1:10])
+
+# matrix based on 5 nearest neighbors
+W&lt;-makeneighborsw(coords,method="neighbor",m=3)
+
+# matrix based on a threshold distance
+W1&lt;-makeneighborsw(coords,method="distance",d=20)
+
+# matrix based on the two methods
+W2&lt;-makeneighborsw(coords,method="both",m=3,d=20)
+
+# representation of the 3 spatial weight matrices
+op&lt;-par(mfrow=c(2,2))
+plot(mat2listw(W),coords,col="lightblue1",main="neighbor")
+plot(mat2listw(W1),coords,col="lightblue2",main="distance")
+plot(mat2listw(W2),coords,col="lightblue3",main="both")
+par(op)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

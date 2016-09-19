@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Display a color palette</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for display.pal {plotKML}"><tr><td>display.pal {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Display a color palette</h2>
+
+<h3>Description</h3>
+
+<p>Plots a color palette in a new window.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+display.pal(pal, sel=1:length(pal), names=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pal</code></td>
+<td>
+<p>list; each palette a vector of HEX-formated colors</p>
+</td></tr>
+<tr valign="top"><td><code>sel</code></td>
+<td>
+<p>integer; selection of palettes to plot</p>
+</td></tr>
+<tr valign="top"><td><code>names</code></td>
+<td>
+<p>logical; specifies whether to print also the class names</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The internal palettes available in plotKML typically consists of 20 elements. If class names are requrested (<code>names=TRUE</code>) than only one palette will be plotted.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl and Pierre Roudier </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="SAGA_pal.html">SAGA_pal</a></code>, <code><a href="SAGA_pal.html">R_pal</a></code>, <code><a href="worldgrids_pal.html">worldgrids_pal</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# SAGA GIS palette (http://saga-gis.org/en/about/software.html)
+data(SAGA_pal)
+names(SAGA_pal)
+## Not run: # display palettes:
+display.pal(pal=SAGA_pal, sel=c(1,2,7,8,10,11,17,18,19,21,22))
+dev.off()
+data(worldgrids_pal)
+worldgrids_pal[["globcov"]]
+display.pal(pal=worldgrids_pal, sel=c(5), names = TRUE)
+dev.off()
+# make icons (http://www.statmethods.net/advgraphs/parameters.html):
+for(i in 0:25){
+  png(filename=paste("icon", i, ".png", sep=""), width=45, height=45, 
+  bg="transparent", pointsize=16)
+  par(mar=c(0,0,0,0))
+  plot(x=1, y=1, axes=FALSE, xlab='', ylab='', pch=i, cex=4, lwd=2)
+  dev.off()
+}
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkDialogRun</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkDialogRun {RGtk2}"><tr><td>gtkDialogRun {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkDialogRun</h2>
+
+<h3>Description</h3>
+
+<p>Blocks in a recursive main loop until the <code>dialog</code> either emits the
+<code><a href="gtkDialogResponse.html">gtkDialogResponse</a></code> signal, or is destroyed. If the dialog is 
+destroyed during the call to <code><a href="gtkDialogRun.html">gtkDialogRun</a></code>, <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> returns 
+<code style="white-space: pre;">GTK_RESPONSE_NONE</code>. Otherwise, it returns the response ID from the 
+::response signal emission.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkDialogRun(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkDialog.html">GtkDialog</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Before entering the recursive main loop, <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> calls
+<code><a href="gtkWidgetShow.html">gtkWidgetShow</a></code> on the dialog for you. Note that you still
+need to show any children of the dialog yourself.
+</p>
+<p>During <code><a href="gtkDialogRun.html">gtkDialogRun</a></code>, the default behavior of <code style="white-space: pre;">"delete-event"</code> 
+is disabled; if the dialog receives ::delete_event, it will not be
+destroyed as windows usually are, and <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> will return
+<code style="white-space: pre;">GTK_RESPONSE_DELETE_EVENT</code>. Also, during <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> the dialog 
+will be modal. You can force <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> to return at any time by
+calling <code><a href="gtkDialogResponse.html">gtkDialogResponse</a></code> to emit the ::response signal. Destroying 
+the dialog during <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> is a very bad idea, because your 
+post-run code won't know whether the dialog was destroyed or not.
+</p>
+<p>After <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> returns, you are responsible for hiding or
+destroying the dialog if you wish to do so.
+</p>
+<p>Typical usage of this function might be:
+</p>
+<pre>
+result &lt;- dialog$run()
+if (result == GtkResponseType["accept"])
+  do_application_specific_something()
+else do_nothing_since_dialog_was_cancelled()
+dialog$destroy()
+</pre>
+<p>Note that even though the recursive main loop gives the effect of a
+modal dialog (it prevents the user from interacting with other 
+windows in the same window group while the dialog is run), callbacks 
+such as timeouts, IO channel watches, DND drops, etc, <em>will</em> 
+be triggered during a <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> call.</p>
+
+
+<h3>Value</h3>
+
+<p>[integer] response ID</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

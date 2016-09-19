@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Feature Selection in NMF Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for featureScore {NMF}"><tr><td>featureScore {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Feature Selection in NMF Models</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>featureScore</code> implements different
+methods to computes basis-specificity scores for each
+feature in the data.
+</p>
+<p>The function <code>extractFeatures</code> implements different
+methods to select the most basis-specific features of
+each basis component.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  featureScore(object, ...)
+
+  ## S4 method for signature 'matrix'
+featureScore(object,
+    method = c("kim", "max"))
+
+  extractFeatures(object, ...)
+
+  ## S4 method for signature 'matrix'
+extractFeatures(object,
+    method = c("kim", "max"),
+    format = c("list", "combine", "subset"), nodups = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object from which scores/features are
+computed/extracted</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extension</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>scoring or selection method. It specifies
+the name of one of the method described in sections
+<em>Feature scores</em> and <em>Feature selection</em>.
+</p>
+<p>Additionally for <code>extractFeatures</code>, it may be an
+integer vector that indicates the number of top most
+contributing features to extract from each column of
+<code>object</code>, when ordered in decreasing order, or a
+numeric value between 0 and 1 that indicates the minimum
+relative basis contribution above which a feature is
+selected (i.e. basis contribution threshold). In the case
+of a single numeric value (integer or percentage), it is
+used for all columns.
+</p>
+<p>Note that <code>extractFeatures(x, 1)</code> means relative
+contribution threshold of 100%, to select the top
+contributing features one must explicitly specify an
+integer value as in <code>extractFeatures(x, 1L)</code>.
+However, if all elements in methods are &gt; 1, they are
+automatically treated as if they were integers:
+<code>extractFeatures(x, 2)</code> means the top-2 most
+contributing features in each component.</p>
+</td></tr>
+<tr valign="top"><td><code>format</code></td>
+<td>
+<p>output format. The following values are
+accepted: </p>
+ <dl>
+<dt>&lsquo;list&rsquo;</dt><dd><p>(default)
+returns a list with one element per column in
+<code>object</code>, each containing the indexes of the
+selected features, as an integer vector. If <code>object</code>
+has row names, these are used to name each index vector.
+Components for which no feature were selected are
+assigned a <code>NA</code> value.</p>
+</dd>
+<dt>&lsquo;combine&rsquo;</dt><dd><p> returns all indexes in a single
+vector. Duplicated indexes are made unique if
+<code>nodups=TRUE</code> (default).</p>
+</dd>
+<dt>&lsquo;subset&rsquo;</dt><dd><p> returns an object of the same
+class as <code>object</code>, but subset with the selected
+indexes, so that it contains data only from
+basis-specific features.</p>
+</dd> </dl>
+</td></tr>
+<tr valign="top"><td><code>nodups</code></td>
+<td>
+<p>logical that indicates if duplicated
+indexes, i.e. features selected on multiple basis
+components (which should in theory not happen), should be
+only appear once in the result. Only used when
+<code>format='combine'</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>One of the properties of Nonnegative Matrix Factorization
+is that is tend to produce sparse representation of the
+observed data, leading to a natural application to
+bi-clustering, that characterises groups of samples by a
+small number of features.
+</p>
+<p>In NMF models, samples are grouped according to the basis
+components that contributes the most to each sample, i.e.
+the basis components that have the greatest coefficient
+in each column of the coefficient matrix (see
+<code><a href="predict.html">predict,NMF-method</a></code>). Each group of samples
+is then characterised by a set of features selected based
+on basis-specifity scores that are computed on the basis
+matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>featureScore</code> returns a numeric vector of the
+length the number of rows in <code>object</code> (i.e. one
+score per feature).
+</p>
+<p><code>extractFeatures</code> returns the selected features as a
+list of indexes, a single integer vector or an object of
+the same class as <code>object</code> that only contains the
+selected features.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>extractFeatures</dt><dd><p><code>signature(object =
+  "matrix")</code>: Select features on a given matrix, that
+contains the basis component in columns. </p>
+</dd>
+<dt>extractFeatures</dt><dd><p><code>signature(object = "NMF")</code>:
+Select basis-specific features from an NMF model, by
+applying the method <code>extractFeatures,matrix</code> to its
+basis matrix. </p>
+</dd>
+<dt>featureScore</dt><dd><p><code>signature(object = "matrix")</code>:
+Computes feature scores on a given matrix, that contains
+the basis component in columns. </p>
+</dd>
+<dt>featureScore</dt><dd><p><code>signature(object = "NMF")</code>:
+Computes feature scores on the basis matrix of an NMF
+model. </p>
+</dd>
+</dl>
+
+
+
+<h3>Feature scores</h3>
+
+<p>The function <code>featureScore</code> can compute
+basis-specificity scores using the following methods:
+</p>
+
+<dl>
+<dt>&lsquo;kim&rsquo;</dt><dd><p> Method defined by <cite>Kim et al. (2007)</cite>.
+</p>
+<p>The score for feature <i>i</i> is defined as: </p>
+<p style="text-align: center;"><i> S_i = 1 + 1/log2(k) sum_q [ p(i,q) log2( p(i,q)
+  ) ] </i></p>
+<p>,
+</p>
+<p>where <i>p(i,q)</i> is the probability that the <i>i</i>-th
+feature contributes to basis <i>q</i>: </p>
+<p style="text-align: center;"><i> p(i,q) = W(i,q) /
+  (sum_r W(i,r)) </i></p>
+
+<p>The feature scores are real values within the range
+[0,1]. The higher the feature score the more
+basis-specific the corresponding feature. </p>
+</dd>
+<dt>&lsquo;max&rsquo;</dt><dd><p>Method defined by
+<cite>Carmona-Saez et al. (2006)</cite>.
+</p>
+<p>The feature scores are defined as the row maximums. </p>
+</dd>
+</dl>
+
+
+
+<h3>Feature selection</h3>
+
+<p>The function <code>extractFeatures</code> can select features
+using the following methods: </p>
+
+<dl>
+<dt>&lsquo;kim&rsquo;</dt><dd><p> uses <cite>Kim et al. (2007)</cite> scoring schema
+and feature selection method.
+</p>
+<p>The features are first scored using the function
+<code>featureScore</code> with method &lsquo;kim&rsquo;. Then only
+the features that fulfil both following criteria are
+retained:
+</p>
+ <ul>
+<li><p> score greater than <i>\hat{&mu;} + 3
+  \hat{&sigma;}</i>, where <i>\hat{&mu;}</i> and
+<i>\hat{&sigma;}</i> are the median and the median absolute
+deviation (MAD) of the scores respectively;
+</p>
+</li>
+<li><p> the maximum contribution to a basis component is
+greater than the median of all contributions (i.e. of all
+elements of W). </p>
+</li></ul>
+
+</dd>
+<dt>&lsquo;max&rsquo;</dt><dd><p> uses the selection method used in
+the <code>bioNMF</code> software package and described in
+<cite>Carmona-Saez et al. (2006)</cite>.
+</p>
+<p>For each basis component, the features are first sorted
+by decreasing contribution. Then, one selects only the
+first consecutive features whose highest contribution in
+the basis matrix is effectively on the considered basis.
+</p>
+</dd>
+</dl>
+
+
+
+<h3>References</h3>
+
+<p>Kim H and Park H (2007). &quot;Sparse non-negative matrix
+factorizations via alternating non-negativity-constrained
+least squares for microarray data analysis.&quot;
+_Bioinformatics (Oxford, England)_, *23*(12), pp.
+1495-502. ISSN 1460-2059, &lt;URL:
+http://dx.doi.org/10.1093/bioinformatics/btm134&gt;, &lt;URL:
+http://www.ncbi.nlm.nih.gov/pubmed/17483501&gt;.
+</p>
+<p>Carmona-Saez P, Pascual-Marqui RD, Tirado F, Carazo JM
+and Pascual-Montano A (2006). &quot;Biclustering of gene
+expression data by Non-smooth Non-negative Matrix
+Factorization.&quot; _BMC bioinformatics_, *7*, pp. 78. ISSN
+1471-2105, &lt;URL:
+http://dx.doi.org/10.1186/1471-2105-7-78&gt;, &lt;URL:
+http://www.ncbi.nlm.nih.gov/pubmed/16503973&gt;.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# random NMF model
+x &lt;- rnmf(3, 50,20)
+
+# probably no feature is selected
+extractFeatures(x)
+# extract top 5 for each basis
+extractFeatures(x, 5L)
+# extract features that have a relative basis contribution above a threshold
+extractFeatures(x, 0.5)
+# ambiguity?
+extractFeatures(x, 1) # means relative contribution above 100%
+extractFeatures(x, 1L) # means top contributing feature in each component
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

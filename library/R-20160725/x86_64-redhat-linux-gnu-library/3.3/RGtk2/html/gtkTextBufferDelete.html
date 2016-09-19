@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferDelete</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferDelete {RGtk2}"><tr><td>gtkTextBufferDelete {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferDelete</h2>
+
+<h3>Description</h3>
+
+<p>Deletes text between <code>start</code> and <code>end</code>. The order of <code>start</code> and <code>end</code>
+is not actually relevant; <code><a href="gtkTextBufferDelete.html">gtkTextBufferDelete</a></code> will reorder
+them. This function actually emits the &quot;delete-range&quot; signal, and
+the default handler of that signal deletes the text. Because the
+buffer is modified, all outstanding iterators become invalid after
+calling this function; however, the <code>start</code> and <code>end</code> will be
+re-initialized to point to the location where text was deleted.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferDelete(object, start, end)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">start</code></code></td>
+<td>
+<p>a position in <code>buffer</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">end</code></code></td>
+<td>
+<p>another position in <code>buffer</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

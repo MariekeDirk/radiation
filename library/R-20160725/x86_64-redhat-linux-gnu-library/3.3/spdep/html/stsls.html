@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generalized spatial two stage least squares</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for stsls {spdep}"><tr><td>stsls {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generalized spatial two stage least squares</h2>
+
+<h3>Description</h3>
+
+<p>The function fits a spatial lag model by two stage least squares, with the option of adjusting the results for heteroskedasticity.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+stsls(formula, data = list(), listw, zero.policy = NULL,
+ na.action = na.fail, robust = FALSE, HC=NULL, legacy=FALSE, W2X = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a symbolic description of the model to be fit. The details 
+of model specification are given for <code>lm()</code></p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>an optional data frame containing the variables in the model. 
+By default the variables are taken from the environment which the function 
+is called.</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without 
+neighbours, if FALSE (default) assign NA - causing <code>lagsarlm()</code> to terminate with an error</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>a function (default <code>na.fail</code>), can also be <code>na.omit</code> or <code>na.exclude</code> with consequences for residuals and fitted values - in these cases the weights list will be subsetted to remove NAs in the data. It may be necessary to set zero.policy to TRUE because this subsetting may create no-neighbour observations. Note that only weights lists created without using the glist argument to <code>nb2listw</code> may be subsetted.</p>
+</td></tr>
+<tr valign="top"><td><code>robust</code></td>
+<td>
+<p>default FALSE, if TRUE, apply a heteroskedasticity correction to the coefficients covariances</p>
+</td></tr>
+<tr valign="top"><td><code>HC</code></td>
+<td>
+<p>default NULL, if <code>robust</code> is TRUE, assigned &ldquo;HC0&rdquo;, may take values &ldquo;HC0&rdquo; or &ldquo;HC1&rdquo; for White estimates or MacKinnon-White estimates respectively</p>
+</td></tr>
+<tr valign="top"><td><code>legacy</code></td>
+<td>
+<p>the argument chooses between two implementations of the robustness correction: default FALSE - use the estimate of Omega only in the White consistent estimator of the variance-covariance matrix, if TRUE, use the original implementation which runs a GLS using the estimate of Omega, and yields different coefficient estimates as well - see example below</p>
+</td></tr>
+<tr valign="top"><td><code>W2X</code></td>
+<td>
+<p>default TRUE, if FALSE only WX are used as instruments in the spatial two stage least squares; until release 0.4-60, only WX were used - see example below </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The fitting implementation fits a spatial lag model:
+</p>
+<p style="text-align: center;"><i>y = rho W y + X beta + e</i></p>
+
+<p>by using spatially lagged X variables as instruments for the spatially lagged dependent variable.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of class &quot;stsls&quot; containing:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>coefficients</code></td>
+<td>
+<p>coefficient estimates</p>
+</td></tr>
+<tr valign="top"><td><code>var</code></td>
+<td>
+<p>coefficient covariance matrix</p>
+</td></tr>
+<tr valign="top"><td><code>sse</code></td>
+<td>
+<p>sum of squared errors</p>
+</td></tr>
+<tr valign="top"><td><code>residuals</code></td>
+<td>
+<p>model residuals</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p>degrees of freedom</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Luc Anselin, Gianfranco Piras and Roger Bivand</p>
+
+
+<h3>References</h3>
+
+<p>Kelejian, H.H. and I.R. Prucha (1998). A generalized spatial two
+stage least squares procedure for estimating a spatial autoregressive
+model with autoregressive disturbances. <em>Journal of Real Estate
+Finance and Economics</em> 17, 99-121.
+</p>
+<p>Roger Bivand, Gianfranco Piras (2015). Comparing Implementations of Estimation Methods for Spatial Econometrics. <em>Journal of Statistical Software</em>, 63(18), 1-36. <a href="http://www.jstatsoft.org/v63/i18/">http://www.jstatsoft.org/v63/i18/</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lagsarlm.html">lagsarlm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+COL.lag.eig &lt;- lagsarlm(CRIME ~ INC + HOVAL, data=COL.OLD, nb2listw(COL.nb))
+summary(COL.lag.eig, correlation=TRUE)
+COL.lag.stsls &lt;- stsls(CRIME ~ INC + HOVAL, data=COL.OLD, nb2listw(COL.nb))
+summary(COL.lag.stsls, correlation=TRUE)
+COL.lag.stslsW &lt;- stsls(CRIME ~ INC + HOVAL, data=COL.OLD, nb2listw(COL.nb), W2X=FALSE)
+summary(COL.lag.stslsW, correlation=TRUE)
+COL.lag.stslsR &lt;- stsls(CRIME ~ INC + HOVAL, data=COL.OLD, nb2listw(COL.nb),
+robust=TRUE, W2X=FALSE)
+summary(COL.lag.stslsR, correlation=TRUE)
+COL.lag.stslsRl &lt;- stsls(CRIME ~ INC + HOVAL, data=COL.OLD, nb2listw(COL.nb),
+robust=TRUE, legacy=TRUE, W2X=FALSE)
+summary(COL.lag.stslsRl, correlation=TRUE)
+data(boston)
+gp2a &lt;- stsls(log(CMEDV) ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2) +
+  AGE + log(DIS) + log(RAD) + TAX + PTRATIO + B + log(LSTAT),
+ data=boston.c, nb2listw(boston.soi))
+summary(gp2a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

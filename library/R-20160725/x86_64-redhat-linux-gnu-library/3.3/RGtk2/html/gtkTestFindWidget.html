@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTestFindWidget</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTestFindWidget {RGtk2}"><tr><td>gtkTestFindWidget {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTestFindWidget</h2>
+
+<h3>Description</h3>
+
+<p>This function will search the descendants of <code>widget</code> for a widget
+of type <code>widget.type</code> that has a label matching <code>label.pattern</code> next
+to it. This is most useful for automated GUI testing, e.g. to find
+the &quot;OK&quot; button in a dialog and synthesize clicks on it.
+However see <code><a href="gtkTestFindLabel.html">gtkTestFindLabel</a></code>, <code><a href="gtkTestFindSibling.html">gtkTestFindSibling</a></code> and
+<code><a href="gtkTestWidgetClick.html">gtkTestWidgetClick</a></code> for possible caveats involving the search of
+such widgets and synthesizing widget events.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTestFindWidget(widget, label.pattern, widget.type)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">widget</code></code></td>
+<td>
+<p>Container widget, usually a GtkWindow.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">label.pattern</code></code></td>
+<td>
+<p>Shell-glob pattern to match a label string.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">widget.type</code></code></td>
+<td>
+<p>Type of a aearched for label sibling widget.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] a valid widget if any is found or <code>NULL</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

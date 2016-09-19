@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function to Recall Last Source File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GO {arm}"><tr><td>GO {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function to Recall Last Source File</h2>
+
+<h3>Description</h3>
+
+<p>A function that like <code>source()</code> but recalls the last source file names by default.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+go(..., add=FALSE, timer=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>list of filenames as character strings.</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>add these names to the current list; if replace, then <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>timer</code></td>
+<td>
+<p>time the execution time of <code>go()</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jouni Kerman <a href="mailto:jouni@kerman.com">jouni@kerman.com</a> <a href="mailto:kerman@stat.columbia.edu">kerman@stat.columbia.edu</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    go('myprog')            # will run source('myprog.r')
+    go()                    # will run source('myprog.r') again
+    go('somelib',add=TRUE)  # will run source('myprog.r') and source('somelib.r')
+    go('myprog','somelib')  # same as above
+    go('mytest')            # will run source('mytest') only
+    go()                    # runs source('mytest') again
+    G                       # short cut to call go()
+ </pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

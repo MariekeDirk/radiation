@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross Validated quantile regression with group penalty</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cv.rq.group.pen {rqPen}"><tr><td>cv.rq.group.pen {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cross Validated quantile regression with group penalty</h2>
+
+<h3>Description</h3>
+
+<p>Similar to cv.rq.pen function, but uses group penalty. Group penalties use the L1 norm instead of L2 for computational convenience. QICD is a group penalty extension of the algorithm presented by Peng and Wang (2015). LP does a linear programming version of the group penalty. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cv.rq.group.pen(x, y, groups, tau = 0.5, lambda = NULL, penalty = "LASSO", 
+    intercept = TRUE, criteria = "CV", cvFunc = "check", nfolds = 10, 
+    foldid = NULL, nlambda = 100, eps = 1e-04, init.lambda = 1,alg="QICD", 
+    ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Matrix of predictors.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> Vector of response values.</p>
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+<p> Vector assigning columns of x to groups.</p>
+</td></tr>
+<tr valign="top"><td><code>tau</code></td>
+<td>
+<p> Conditional quantile being modelled.</p>
+</td></tr>            
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p> Vector of lambdas. Default is for lambdas to be automatically generated.</p>
+</td></tr> 
+<tr valign="top"><td><code>penalty</code></td>
+<td>
+<p> Type of penalty: &quot;LASSO&quot;, &quot;SCAD&quot; or &quot;MCP&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>intercept</code></td>
+<td>
+<p> Whether model should include an intercept. Constant does not need to be included in &quot;x&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>criteria</code></td>
+<td>
+<p> How models will be evaluated. Either cross-validation &quot;CV&quot;, BIC &quot;BIC&quot; or large P BIC &quot;PBIC&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>cvFunc</code></td>
+<td>
+<p> If cross-validation is used how errors are evaluated. Check function &quot;check&quot;, &quot;SqErr&quot; (Squared Error) or &quot;AE&quot; (Absolute Value).</p>
+</td></tr>
+<tr valign="top"><td><code>nfolds</code></td>
+<td>
+<p> K for K-folds cross-validation.</p>
+</td></tr>
+<tr valign="top"><td><code>foldid</code></td>
+<td>
+<p> Group id for cross-validation. Function will randomly generate groups if not specified.</p>
+</td></tr>
+<tr valign="top"><td><code>nlambda</code></td>
+<td>
+<p> Number of lambdas for which models are fit.</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+<p> Smallest lambda used.</p>
+</td></tr>
+<tr valign="top"><td><code>init.lambda</code></td>
+<td>
+<p> Initial lambda used to find the maximum lambda. Not needed if lambda values are set.</p>
+</td></tr>
+<tr valign="top"><td><code>alg</code></td>
+<td>
+<p>Algorithm used for fit. &quot;QICD&quot; or &quot;LP&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to be sent to rq.group.fit or groupQICDMultLambda.</p>
+</td></tr>   
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns the following:          
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>beta</code></td>
+<td>
+<p> Matrix of coefficients for different values of lambda</p>
+</td></tr>
+<tr valign="top"><td><code>residuals</code></td>
+<td>
+<p> Matrix of residuals for different values of lambda.</p>
+</td></tr>
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p>Vector of rho, unpenalized portion of the objective function, for different values of lambda.</p>
+</td></tr>
+<tr valign="top"><td><code>cv</code></td>
+<td>
+<p> Data frame with &quot;lambda&quot; and second column is the evaluation based on the criteria selected.</p>
+</td></tr>
+<tr valign="top"><td><code>lambda.min</code></td>
+<td>
+<p> Lambda which provides the smallest statistic for the selected criteria.</p>
+</td></tr>
+<tr valign="top"><td><code>penalty</code></td>
+<td>
+<p> Penalty selected.</p>
+</td></tr> 
+<tr valign="top"><td><code>intercept</code></td>
+<td>
+<p>Whether intercept was included in model.</p>
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+<p>Group structure for penalty function.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Sherwood</p>
+
+
+<h3>References</h3>
+
+<p>[1] Yuan, M. and Lin, Y. (2006). Model selection and estimation in regression with grouped variables. <em>J. R. Statist. Soc. B</em>, <b>68</b>, 49-67.
+</p>
+<p>[2] Peng, B. and Wang, L. (2015). An Iterative Coordinate Descent Algorithm for High-Dimensional Nonconvex Penalized Quantile Regression. <em>Journal of Computational and Graphical Statistics</em>, <b>24</b>, 676-694.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>                           
+## Not run: 
+x &lt;- matrix(rnorm(800),nrow=100)
+y &lt;- 1 + x[,1] - 3*x[,5] + rnorm(100)
+cv_model &lt;- cv.rq.group.pen(x,y,groups=c(rep(1,4),rep(2,4)))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GDataInputStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GDataInputStream {RGtk2}"><tr><td>GDataInputStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GDataInputStream</h2>
+
+<h3>Description</h3>
+
+<p>Data Input Stream</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gDataInputStreamNew.html">gDataInputStreamNew</a>(base.stream = NULL)</code><br />
+<code><a href="gDataInputStreamSetByteOrder.html">gDataInputStreamSetByteOrder</a>(object, order)</code><br />
+<code><a href="gDataInputStreamGetByteOrder.html">gDataInputStreamGetByteOrder</a>(object)</code><br />
+<code><a href="gDataInputStreamSetNewlineType.html">gDataInputStreamSetNewlineType</a>(object, type)</code><br />
+<code><a href="gDataInputStreamGetNewlineType.html">gDataInputStreamGetNewlineType</a>(object)</code><br />
+<code><a href="gDataInputStreamReadByte.html">gDataInputStreamReadByte</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadInt16.html">gDataInputStreamReadInt16</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadUint16.html">gDataInputStreamReadUint16</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadInt32.html">gDataInputStreamReadInt32</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadUint32.html">gDataInputStreamReadUint32</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadInt64.html">gDataInputStreamReadInt64</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadUint64.html">gDataInputStreamReadUint64</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadLine.html">gDataInputStreamReadLine</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadLineAsync.html">gDataInputStreamReadLineAsync</a>(object, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDataInputStreamReadLineFinish.html">gDataInputStreamReadLineFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadUntil.html">gDataInputStreamReadUntil</a>(object, stop.chars, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gDataInputStreamReadUntilAsync.html">gDataInputStreamReadUntilAsync</a>(object, stop.chars, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDataInputStreamReadUntilFinish.html">gDataInputStreamReadUntilFinish</a>(object, result, length, .errwarn = TRUE)</code><br />
+<code>gDataInputStream(base.stream = NULL)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GObject
+   +----GInputStream
+         +----GFilterInputStream
+               +----GBufferedInputStream
+                     +----GDataInputStream
+GEnum
+   +----GDataStreamByteOrder
+GEnum
+   +----GDataStreamNewlineType
+</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Data input stream implements <code><a href="GInputStream.html">GInputStream</a></code> and includes functions for 
+reading structured data directly from a binary input stream.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GDataInputStream</code></dt><dd>
+<p>An implementation of <code><a href="GBufferedInputStream.html">GBufferedInputStream</a></code> that allows for high-level
+data manipulation of arbitrary data (including binary operations).
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gDataInputStream</code> is the equivalent of <code><a href="gDataInputStreamNew.html">gDataInputStreamNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GDataStreamByteOrder</code></dt><dd>
+<p><code><a href="GDataInputStream.html">GDataStreamByteOrder</a></code> is used to ensure proper endianness of streaming data sources
+across various machine architectures.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">big-endian</code></dt><dd><p>Selects Big Endian byte order.</p>
+</dd>
+<dt><code style="white-space: pre;">little-endian</code></dt><dd><p>Selects Little Endian byte order.</p>
+</dd>
+<dt><code style="white-space: pre;">host-endian</code></dt><dd><p>Selects endianness based on host machine's architecture.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GDataStreamNewlineType</code></dt><dd>
+<p><code><a href="GDataInputStream.html">GDataStreamNewlineType</a></code> is used when checking for or setting the line endings for a given file.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">lf</code></dt><dd><p>Selects &quot;LF&quot; line endings, common on most modern UNIX platforms.</p>
+</dd>
+<dt><code style="white-space: pre;">cr</code></dt><dd><p>Selects &quot;CR&quot; line endings.</p>
+</dd>
+<dt><code style="white-space: pre;">cr-lf</code></dt><dd><p>Selects &quot;CR, LF&quot; line ending, common on Microsoft Windows.</p>
+</dd>
+<dt><code style="white-space: pre;">any</code></dt><dd><p>Automatically try to handle any line ending type.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">byte-order</code> [<code><a href="GDataInputStream.html">GDataStreamByteOrder</a></code> : Read / Write]</dt><dd>
+<p>The byte order.  Default value: G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN
+</p>
+</dd>
+<dt><code style="white-space: pre;">newline-type</code> [<code><a href="GDataInputStream.html">GDataStreamNewlineType</a></code> : Read / Write]</dt><dd>
+<p>The accepted types of line ending.  Default value: G_DATA_STREAM_NEWLINE_TYPE_LF
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GDataInputStream.html">http://library.gnome.org/devel//gio/GDataInputStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

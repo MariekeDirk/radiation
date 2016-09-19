@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bidirectional Text</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pango-Bidirectional-Text {RGtk2}"><tr><td>pango-Bidirectional-Text {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Bidirectional Text</h2>
+
+<h3>Description</h3>
+
+<p>Types and functions to help with handling bidirectional text</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="pangoUnicharDirection.html">pangoUnicharDirection</a>(ch)</code><br />
+<code><a href="pangoFindBaseDir.html">pangoFindBaseDir</a>(text, length = -1)</code><br />
+<code><a href="pangoGetMirrorChar.html">pangoGetMirrorChar</a>(ch)</code><br />
+<code><a href="pangoBidiTypeForUnichar.html">pangoBidiTypeForUnichar</a>(ch)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Pango supports bidirectional text (like Arabic and Hebrew) automatically.
+Some applications however, need some help to correctly handle bidirectional
+text.
+</p>
+<p>The <code><a href="pango-Bidirectional-Text.html">PangoDirection</a></code> type can be used with <code><a href="pangoContextSetBaseDir.html">pangoContextSetBaseDir</a></code> to
+instruct Pango about direction of text, though in most cases Pango detects
+that correctly and automatically.  The rest of the facilities in this section
+are used internally by Pango already, and are provided to help applications
+that need more direct control over bidirectional setting of text.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">PangoDirection</code></dt><dd>
+<p>The <code><a href="pango-Bidirectional-Text.html">PangoDirection</a></code> type represents a direction in the
+Unicode bidirectional algorithm; not every value in this
+enumeration makes sense for every usage of <code><a href="pango-Bidirectional-Text.html">PangoDirection</a></code>;
+for example, the return value of <code><a href="pangoUnicharDirection.html">pangoUnicharDirection</a></code>
+and <code><a href="pangoFindBaseDir.html">pangoFindBaseDir</a></code> cannot be <code>PANGO_DIRECTION_WEAK_LTR</code>
+or <code>PANGO_DIRECTION_WEAK_RTL</code>, since every character is either
+neutral or has a strong direction; on the other hand
+<code>PANGO_DIRECTION_NEUTRAL</code> doesn't make sense to pass
+to <code><a href="pangoItemizeWithBaseDir.html">pangoItemizeWithBaseDir</a></code>.
+</p>
+<p>The <code>PANGO_DIRECTION_TTB_LTR</code>, <code>PANGO_DIRECTION_TTB_RTL</code>
+values come from an earlier interpretation of this
+enumeration as the writing direction of a block of
+text and are no longer used; See <code><a href="pango-Vertical-Text.html">PangoGravity</a></code> for how
+vertical text is handled in Pango.  
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">ltr</code></dt><dd><p> A strong left-to-right direction</p>
+</dd>
+<dt><code style="white-space: pre;">rtl</code></dt><dd><p> A strong right-to-left direction</p>
+</dd>
+<dt><code style="white-space: pre;">ttb-ltr</code></dt><dd><p> Deprecated value; treated the
+same as <code>PANGO_DIRECTION_RTL</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">ttb-rtl</code></dt><dd><p> Deprecated value; treated the
+same as <code>PANGO_DIRECTION_LTR</code></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoBidiType</code></dt><dd>
+<p>The <code><a href="pango-Bidirectional-Text.html">PangoBidiType</a></code> type represents the bidirectional character
+type of a Unicode character as specified by the
+Unicode bidirectional algorithm (<a href="http://www.unicode.org/reports/tr9/">http://www.unicode.org/reports/tr9/</a>).  
+Since 1.22
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">l</code></dt><dd><p> Left-to-Right</p>
+</dd>
+<dt><code style="white-space: pre;">lre</code></dt><dd><p> Left-to-Right Embedding</p>
+</dd>
+<dt><code style="white-space: pre;">lro</code></dt><dd><p> Left-to-Right Override</p>
+</dd>
+<dt><code style="white-space: pre;">r</code></dt><dd><p> Right-to-Left</p>
+</dd>
+<dt><code style="white-space: pre;">al</code></dt><dd><p> Right-to-Left Arabic</p>
+</dd>
+<dt><code style="white-space: pre;">rle</code></dt><dd><p> Right-to-Left Embedding</p>
+</dd>
+<dt><code style="white-space: pre;">rlo</code></dt><dd><p> Right-to-Left Override</p>
+</dd>
+<dt><code style="white-space: pre;">pdf</code></dt><dd><p> Pop Directional Format</p>
+</dd>
+<dt><code style="white-space: pre;">en</code></dt><dd><p> European Number</p>
+</dd>
+<dt><code style="white-space: pre;">es</code></dt><dd><p> European Number Separator</p>
+</dd>
+<dt><code style="white-space: pre;">et</code></dt><dd><p> European Number Terminator</p>
+</dd>
+<dt><code style="white-space: pre;">an</code></dt><dd><p> Arabic Number</p>
+</dd>
+<dt><code style="white-space: pre;">cs</code></dt><dd><p> Common Number Separator</p>
+</dd>
+<dt><code style="white-space: pre;">nsm</code></dt><dd><p> Nonspacing Mark</p>
+</dd>
+<dt><code style="white-space: pre;">bn</code></dt><dd><p> Boundary Neutral</p>
+</dd>
+<dt><code style="white-space: pre;">b</code></dt><dd><p> Paragraph Separator</p>
+</dd>
+<dt><code style="white-space: pre;">s</code></dt><dd><p> Segment Separator</p>
+</dd>
+<dt><code style="white-space: pre;">ws</code></dt><dd><p> Whitespace</p>
+</dd>
+<dt><code style="white-space: pre;">on</code></dt><dd><p> Other Neutrals</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//pango/pango-Bidirectional-Text.html">http://library.gnome.org/devel//pango/pango-Bidirectional-Text.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

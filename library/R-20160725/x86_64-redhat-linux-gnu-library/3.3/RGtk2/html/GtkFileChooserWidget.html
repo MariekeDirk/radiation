@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkFileChooserWidget</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkFileChooserWidget {RGtk2}"><tr><td>GtkFileChooserWidget {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkFileChooserWidget</h2>
+
+<h3>Description</h3>
+
+<p>File chooser widget that can be embedded in other widgets</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkFileChooserWidgetNew.html">gtkFileChooserWidgetNew</a>(action, show = TRUE)</code><br />
+<code><a href="gtkFileChooserWidgetNewWithBackend.html">gtkFileChooserWidgetNewWithBackend</a>(action, backend, show = TRUE)</code><br />
+<code><a href="gtkFileChooserWidgetNewWithBackend.html">gtkFileChooserWidgetNewWithBackend</a>(action, backend, show = TRUE)</code><br />
+<code>gtkFileChooserWidget(action, backend, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBox
+                                 +----GtkVBox
+                                       +----GtkFileChooserWidget</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkFileChooserWidget implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>,  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>,  <code><a href="GtkFileChooser.html">GtkFileChooser</a></code> and  GtkFileChooserEmbed.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkFileChooserWidget.html">GtkFileChooserWidget</a></code> is a widget suitable for selecting files.
+It is the main building block of a <code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code>.  Most
+applications will only need to use the latter; you can use
+<code><a href="GtkFileChooserWidget.html">GtkFileChooserWidget</a></code> as part of a larger window if you have
+special needs.
+</p>
+<p>Note that <code><a href="GtkFileChooserWidget.html">GtkFileChooserWidget</a></code> does not have any methods of its
+own.  Instead, you should use the functions that work on a
+<code><a href="GtkFileChooser.html">GtkFileChooser</a></code>.
+</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkFileChooserWidget</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkFileChooserWidget</code> is the result of collapsing the constructors of <code>GtkFileChooserWidget</code> (<code><a href="gtkFileChooserWidgetNew.html">gtkFileChooserWidgetNew</a></code>, <code><a href="gtkFileChooserWidgetNewWithBackend.html">gtkFileChooserWidgetNewWithBackend</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkFileChooserWidget.html">http://library.gnome.org/devel//gtk/GtkFileChooserWidget.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkFileChooser.html">GtkFileChooser</a></code>
+<code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

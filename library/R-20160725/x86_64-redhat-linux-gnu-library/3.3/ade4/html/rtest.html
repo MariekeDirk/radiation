@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class of the Permutation Tests (in R).</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rtest {ade4}"><tr><td>rtest {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class of the Permutation Tests (in R).</h2>
+
+<h3>Description</h3>
+
+<p>rtest is a generic function. It proposes methods for the following objects <code>between</code>, <code>discrimin</code>, <code>procuste</code> <code>...</code><br />
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+    rtest(xtest, ...)
+    ## S3 method for class 'rtest'
+plot(x, nclass = 10, coeff = 1, ...)
+    as.rtest (sim, obs, call = match.call())
+    ## S3 method for class 'rtest'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xtest</code></td>
+<td>
+<p>an object used to select a method</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class 'rtest'</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods; in <code>plot.randtest</code> to <code>hist</code></p>
+</td></tr>
+<tr valign="top"><td><code>nclass</code></td>
+<td>
+<p>a number of intervals for the histogram</p>
+</td></tr>
+<tr valign="top"><td><code>coeff</code></td>
+<td>
+<p>to fit the magnitude of the graph</p>
+</td></tr>
+<tr valign="top"><td><code>sim</code></td>
+<td>
+<p>a numeric vector of simulated values</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a numeric vector of an observed value</p>
+</td></tr>
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>a call order</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>as.rtest</code> returns a list of class <code>rtest</code><br />
+<code>plot.rtest</code> draws the simulated values histograms and the position of the observed value<br />
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Daniel Chessel </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="RV.rtest.html">RV.rtest</a></code>, <code><a href="mantel.rtest.html">mantel.rtest</a></code>, <code><a href="procuste.rtest.html">procuste.rtest</a></code>, <code><a href="randtest.html">randtest</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+par(mfrow = c(2, 2))
+for (x0 in c(2.4, 3.4, 5.4, 20.4)) {
+    l0 &lt;- as.rtest(sim = rnorm(200), obs = x0)
+    print(l0)
+    plot(l0, main = paste("p.value = ", round(l0$pvalue, dig = 5)))
+}
+par(mfrow = c(1, 1))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

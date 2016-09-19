@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Identifies Manually Run Vignettes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for isManualVignette {pkgmaker}"><tr><td>isManualVignette {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Identifies Manually Run Vignettes</h2>
+
+<h3>Description</h3>
+
+<p><code>isManualVignette</code> tells if a vignette is being run
+through the function <code>runVignette</code> of <span class="pkg">pkgmker</span>,
+allowing disabling behaviours not allowed in package
+vignettes that are checked vi <code>R CMD check</code>.
+</p>
+<p><code>rnw</code> provides a unified interface to run vignettes
+that detects the type of vignette (Sweave or
+<code><a href="../../knitr/html/knitr.html">knitr</a></code>), and which Sweave driver to
+use (either automatically or from an embedded command
+<code>\VignetteDriver</code> command).
+</p>
+<p><code>as.rnw</code> creates a S3 <code>rnw</code> object that
+contains information about a vignette, e.g., source
+filename, driver, fixed included files, etc..
+</p>
+<p><code>rnwCompiler</code> tries to detect the vignette compiler
+to use on a vignette source file, e.g.,
+<code><a href="../../utils/html/Sweave.html">Sweave</a></code> or <code><a href="../../knitr/html/knitr.html">knitr</a></code>.
+</p>
+<p><code>rnwWrapper</code> tries to detect the type of vignette
+and if it is meant to be wrapped into another main file.
+</p>
+<p><code>rnwDriver</code> tries to detect Sweave driver to use on
+a vignette source file, e.g., <code>SweaveCache</code>,
+<code>highlight</code>, etc..
+</p>
+<p><code>rnwIncludes</code> detects fixed includes, e.g., image or
+pdf files, that are required to build the final document.
+</p>
+<p><code>rnwChildren</code> detects included vignette documents
+and return them as a list of vignette objects.
+</p>
+<p><code>vignetteMakefile</code> returns the path to a generic
+makefile used to make vignettes.
+</p>
+<p>Compact PDFs using either <code>gs_quality='none'</code> or
+<code>'ebook'</code>, depending on which compacts best (as per
+CRAN check criteria).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  isManualVignette()
+
+  rnw(x, file = NULL, ..., raw = FALSE)
+
+  as.rnw(x, ..., load = TRUE)
+
+  rnwCompiler(x, verbose = TRUE)
+
+  rnwWrapper(x, verbose = TRUE)
+
+  rnwDriver(x)
+
+  rnwIncludes(x)
+
+  rnwChildren(x)
+
+  vignetteMakefile(package = NULL, skip = NULL,
+    print = TRUE, template = NULL, temp = FALSE,
+    checkMode = isCHECK() || vignetteCheckMode(),
+    user = NULL, tests = TRUE)
+
+  compactVignettes(paths, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>vignette source file specification as a path or
+a <code>rnw</code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>output file</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to <code>as.rnw</code> that
+can be used to force certain building parameters.</p>
+</td></tr>
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>a logical that indicates if the raw result for
+the compilation should be returned, instead of the result
+file path.</p>
+</td></tr>
+<tr valign="top"><td><code>load</code></td>
+<td>
+<p>logical to indicate if all the object's
+properties should loaded, which is done by parsing the
+file and look up for specific tags.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>logical that toggles verbosity</p>
+</td></tr>
+<tr valign="top"><td><code>package</code></td>
+<td>
+<p>package name. If <code>NULL</code>, a DESRIPTION
+file is looked for one directory up: this meant to work
+when building a vignette directly from a package's
+<code>'vignettes'</code> sub-directory.</p>
+</td></tr>
+<tr valign="top"><td><code>skip</code></td>
+<td>
+<p>Vignette files to skip (basename).</p>
+</td></tr>
+<tr valign="top"><td><code>print</code></td>
+<td>
+<p>logical that specifies if the path should be
+printed or only returned.</p>
+</td></tr>
+<tr valign="top"><td><code>template</code></td>
+<td>
+<p>template Makefile to use. The default is
+to use the file &ldquo;vignette.mk&rdquo; shipped with the
+package <span class="pkg">pkgmaker</span> and can be found in its install
+root directory.</p>
+</td></tr>
+<tr valign="top"><td><code>temp</code></td>
+<td>
+<p>logical that indicates if the generated
+makefile should using a temporary filename (<code>TRUE</code>),
+or simply named &ldquo;vignette.mk&rdquo;</p>
+</td></tr>
+<tr valign="top"><td><code>checkMode</code></td>
+<td>
+<p>logical that indicates if the vignettes
+should be generated as in a CRAN check (<code>TRUE</code>) or
+in development mode, in which case <code>pdflatex</code>,
+<code>bibtex</code>, and, optionally, <code>qpdf</code> are
+required.</p>
+</td></tr>
+<tr valign="top"><td><code>user</code></td>
+<td>
+<p>character vector containing usernames that
+enforce <code>checkMode=TRUE</code>, if the function is called
+from within their session.</p>
+</td></tr>
+<tr valign="top"><td><code>tests</code></td>
+<td>
+<p>logical that enables the compilation of a
+vignette that gathers all unit test results. Note that
+this means that all unit tests are run before generating
+the vignette. However, unit tests are not (re)-run at
+this stage when the vignettes are built when checking the
+package with <code>R CMD check</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>paths</code></td>
+<td>
+<p>A character vector of paths to PDF files, or
+a length-one character vector naming a directory, when
+all &lsquo;<span class="file">.pdf</span>&rsquo; files in that directory will be used.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

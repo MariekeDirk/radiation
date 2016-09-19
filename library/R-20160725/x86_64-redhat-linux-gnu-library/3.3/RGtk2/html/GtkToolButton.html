@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkToolButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkToolButton {RGtk2}"><tr><td>GtkToolButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkToolButton</h2>
+
+<h3>Description</h3>
+
+<p>A GtkToolItem subclass that displays buttons</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkToolButtonNew.html">gtkToolButtonNew</a>(icon.widget = NULL, label = NULL, show = TRUE)</code><br />
+<code><a href="gtkToolButtonNewFromStock.html">gtkToolButtonNewFromStock</a>(stock.id, show = TRUE)</code><br />
+<code><a href="gtkToolButtonSetLabel.html">gtkToolButtonSetLabel</a>(object, label = NULL)</code><br />
+<code><a href="gtkToolButtonGetLabel.html">gtkToolButtonGetLabel</a>(object)</code><br />
+<code><a href="gtkToolButtonSetUseUnderline.html">gtkToolButtonSetUseUnderline</a>(object, use.underline)</code><br />
+<code><a href="gtkToolButtonGetUseUnderline.html">gtkToolButtonGetUseUnderline</a>(object)</code><br />
+<code><a href="gtkToolButtonSetStockId.html">gtkToolButtonSetStockId</a>(object, stock.id = NULL)</code><br />
+<code><a href="gtkToolButtonGetStockId.html">gtkToolButtonGetStockId</a>(object)</code><br />
+<code><a href="gtkToolButtonSetIconName.html">gtkToolButtonSetIconName</a>(object, icon.name)</code><br />
+<code><a href="gtkToolButtonGetIconName.html">gtkToolButtonGetIconName</a>(object)</code><br />
+<code><a href="gtkToolButtonSetIconWidget.html">gtkToolButtonSetIconWidget</a>(object, icon.widget = NULL)</code><br />
+<code><a href="gtkToolButtonGetIconWidget.html">gtkToolButtonGetIconWidget</a>(object)</code><br />
+<code><a href="gtkToolButtonSetLabelWidget.html">gtkToolButtonSetLabelWidget</a>(object, label.widget = NULL)</code><br />
+<code><a href="gtkToolButtonGetLabelWidget.html">gtkToolButtonGetLabelWidget</a>(object)</code><br />
+<code>gtkToolButton(icon.widget = NULL, label = NULL, stock.id, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkToolItem
+                                       +----GtkToolButton
+                                             +----GtkMenuToolButton
+                                             +----GtkToggleToolButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkToolButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkToolButton.html">GtkToolButton</a></code>s are <code style="white-space: pre;">GtkToolItems</code> containing buttons.
+</p>
+<p>Use <code><a href="gtkToolButtonNew.html">gtkToolButtonNew</a></code> to create a new <code><a href="GtkToolButton.html">GtkToolButton</a></code>. Use
+<code>gtkToolButtonNewWithStock()</code> to create a <code><a href="GtkToolButton.html">GtkToolButton</a></code>
+containing a stock item.
+</p>
+<p>The label of a <code><a href="GtkToolButton.html">GtkToolButton</a></code> is determined by the properties
+&quot;label-widget&quot;, &quot;label&quot;, and &quot;stock-id&quot;. If &quot;label-widget&quot; is
+non-<code>NULL</code>, then that widget is used as the label. Otherwise, if
+&quot;label&quot; is non-<code>NULL</code>, that string is used as the label. Otherwise, if
+&quot;stock-id&quot; is non-<code>NULL</code>, the label is determined by the stock
+item. Otherwise, the button does not have a label.
+</p>
+<p>The icon of a <code><a href="GtkToolButton.html">GtkToolButton</a></code> is determined by the properties
+&quot;icon-widget&quot; and &quot;stock-id&quot;. If &quot;icon-widget&quot; is non-<code>NULL</code>, then
+that widget is used as the icon. Otherwise, if &quot;stock-id&quot; is
+non-<code>NULL</code>, the icon is determined by the stock item. Otherwise,
+the button does not have a icon.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkToolButton</code></dt><dd>
+<p>The <code><a href="GtkToolButton.html">GtkToolButton</a></code> struct contains only private. It should only be
+accessed with the function described below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkToolButton</code> is the result of collapsing the constructors of <code>GtkToolButton</code> (<code><a href="gtkToolButtonNew.html">gtkToolButtonNew</a></code>, <code><a href="gtkToolButtonNewFromStock.html">gtkToolButtonNewFromStock</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>clicked(toolbutton, user.data)</code></dt><dd>
+<p>This signal is emitted when the tool button is clicked with the mouse
+or activated with the keyboard.
+</p>
+
+<dl>
+<dt><code>toolbutton</code></dt><dd><p>the object that emitted the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">icon-name</code> [character : *                : Read / Write]</dt><dd>
+<p>The name of the themed icon displayed on the item.
+This property only has an effect if not overridden by &quot;label&quot;,
+&quot;icon_widget&quot; or &quot;stock_id&quot; properties.
+Default value: NULL  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">icon-widget</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Read / Write]</dt><dd>
+<p>Icon widget to display in the item.
+</p>
+</dd>
+<dt><code style="white-space: pre;">label</code> [character : *                : Read / Write]</dt><dd>
+<p>Text to show in the item.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">label-widget</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Read / Write]</dt><dd>
+<p>Widget to use as the item label.
+</p>
+</dd>
+<dt><code style="white-space: pre;">stock-id</code> [character : *                : Read / Write]</dt><dd>
+<p>The stock icon displayed on the item.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-underline</code> [logical : Read / Write]</dt><dd>
+<p>If set, an underline in the label property indicates that the next character should be used for the mnemonic accelerator key in the overflow menu.  Default value: FALSE
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">icon-spacing</code> [integer : Read / Write]</dt><dd>
+<p>Spacing in pixels between the icon and label.  Allowed values: &gt;= 0  Default value: 3
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkToolButton.html">http://library.gnome.org/devel//gtk/GtkToolButton.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

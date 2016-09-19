@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data normalization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for normalizeData {RSNNS}"><tr><td>normalizeData {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Data normalization</h2>
+
+<h3>Description</h3>
+
+<p>The input matrix is column-wise normalized.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+normalizeData(x, type = "norm")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>input data</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<dl>
+<dt>either</dt><dd><p>type string specifying the type of normalization. Implemented
+are &quot;0_1&quot;, &quot;center&quot;, and &quot;norm&quot;</p>
+</dd>
+<dt>or</dt><dd><p>attribute list of a former call to this method to apply
+e.g. normalization of the training data to the test data</p>
+</dd>
+</dl>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The parameter <code>type</code> specifies, how normalization takes place:
+</p>
+
+<dl>
+<dt>0_1</dt><dd><p>values are normalized to the [0,1]-interval. The minimum in the data is mapped to zero, the maximum to one.</p>
+</dd>
+<dt>center</dt><dd><p>the data is centered, i.e. the mean is substracted</p>
+</dd>
+<dt>norm</dt><dd><p>the data is normalized to mean zero, variance one</p>
+</dd>
+</dl>
+
+
+
+<h3>Value</h3>
+
+<p>column-wise normalized input. The normalization parameters that were used for the normalization are present as attributes
+of the output. They can be obtained with <code><a href="getNormParameters.html">getNormParameters</a></code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="denormalizeData.html">denormalizeData</a></code>, <code><a href="getNormParameters.html">getNormParameters</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

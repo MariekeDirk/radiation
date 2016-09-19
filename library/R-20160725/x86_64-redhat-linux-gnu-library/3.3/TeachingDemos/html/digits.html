@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Return the digits that make up an integer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for digits {TeachingDemos}"><tr><td>digits {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Return the digits that make up an integer
+</h2>
+
+<h3>Description</h3>
+
+<p>Takes an integer or vector of integers and returns a vector, list, or
+matrix of the individual digits (decimal) that make up that number.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+digits(x, n = NULL, simplify = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>An integer or vector of integers (if not integer, the fractional
+part will be ignored)
+</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+
+<p>The number of digits to be returned, this can be used to place 0's
+in front of smaller numbers.  If this is less than the number of
+digits then the last <code>n</code> digits are returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+
+<p>Should <code>sapply</code> simplify the list into a matrix
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function transforms an integer (or real ignoring the fractional
+part) into the decimal digits that make of the decimal representation
+of the number using modular mathematics rather than converting to
+character, splitting the string, and converting back to numeric.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>x</code> is of length 1 then a vector of the digits is returned.
+</p>
+<p>If <code>x</code> is a vector and <code>simplify</code> is <code>FALSE</code> then a list
+of vectors is returned, one element for each element of <code>x</code>.
+</p>
+<p>If <code>x</code> is a vector and <code>simplify</code> is <code>TRUE</code> then a
+matrix with 1 column for each element of <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Arithmetic.html">%%</a></code>, <code><a href="../../base/html/Arithmetic.html">%/%</a></code>, <code><a href="../../base/html/strsplit.html">strsplit</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+digits( 12345 )
+digits( 567, n=5 )
+
+x &lt;- c(1, 23, 456, 7890)
+
+digits(x)
+digits(x, simplify=TRUE)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

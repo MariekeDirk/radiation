@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Custom GtkTreeModel implementations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for custom-tree-models {RGtk2}"><tr><td>custom-tree-models {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Custom GtkTreeModel implementations</h2>
+
+<h3>Description</h3>
+
+<p>Functions that allow one to implement a custom <code><a href="GtkTreeModel.html">GtkTreeModel</a></code></p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  gtkTreeIter(id, stamp)
+  gtkTreeIterGetId(iter)
+  gtkTreeIterSetId(iter, id)
+  gtkTreeIterGetStamp(iter)
+  gtkTreeIterSetStamp(iter, stamp)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>iter</code></td>
+<td>
+<p>The <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> of a custom model</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>The integer code identifying <code>iter</code></p>
+</td></tr>
+<tr valign="top"><td><code>stamp</code></td>
+<td>
+<p>The integer code for tracking the version of <code>iter</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions allow one to create and access
+<code><a href="GtkTreeModel.html">GtkTreeIter</a></code> structures when implementing a <code><a href="GtkTreeModel.html">GtkTreeModel</a></code>.
+</p>
+<p><code>gtkTreeIter</code> creates an iter from scratch, given an id and stamp.
+</p>
+<p><code>gtkTreeIterGetId</code> and <code>gtkTreeIterSetId</code> access the integer that
+identifies the data element referred to by <code>iter</code>.
+</p>
+<p><code>gtkTreeIterGetStamp</code> and <code>gtkTreeIterSetStamp</code> access the integer
+that serves as a version stamp. After the model changes, the model version
+should be incremented, so that all existing iters are invalidated, as
+evidenced by their stamp.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>gtkTreeIter</code>, an external pointer to the underlying C structure.
+</p>
+<p>For <code>gtkTreeIterGetId</code>, the integer code identifying the element
+referred to by <code>iter</code>.
+</p>
+<p>For <code>gtkTreeIterGetStamp</code>, the integer code identifying the version
+of <code>iter</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>These functions are for implementing <code><a href="GtkTreeModel.html">GtkTreeModel</a></code>s only! Most
+of the time, one can use one of the implementations included with GTK+ 
+(<code><a href="GtkListStore.html">GtkListStore</a></code> or <code><a href="GtkTreeStore.html">GtkTreeStore</a></code>) or
+<code><a href="RGtkDataFrame.html">RGtkDataFrame</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence</p>
+
+
+<h3>See Also</h3>
+
+<p>gClass</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetGetChildRequisition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetGetChildRequisition {RGtk2}"><tr><td>gtkWidgetGetChildRequisition {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetGetChildRequisition</h2>
+
+<h3>Description</h3>
+
+<p>This function is only for use in widget implementations. Obtains
+<code>widget-&gt;requisition</code>, unless someone has forced a particular
+geometry on the widget (e.g. with <code><a href="gtkWidgetSetSizeRequest.html">gtkWidgetSetSizeRequest</a></code>),
+in which case it returns that geometry instead of the widget's
+requisition.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetGetChildRequisition(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>This function differs from <code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code> in that
+it retrieves the last size request value from <code>widget-&gt;requisition</code>,
+while <code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code> actually calls the &quot;size_request&quot; method
+on <code>widget</code> to compute the size request and fill in <code>widget-&gt;requisition</code>,
+and only then returns <code>widget-&gt;requisition</code>.
+</p>
+<p>Because this function does not call the &quot;size_request&quot; method, it
+can only be used when you know that <code>widget-&gt;requisition</code> is
+up-to-date, that is, <code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code> has been called
+since the last time a resize was queued. In general, only container
+implementations have this information; applications should use
+<code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">requisition</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkRequisition</a></code> to be filled in. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

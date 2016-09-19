@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkKeymapGetEntriesForKeyval</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkKeymapGetEntriesForKeyval {RGtk2}"><tr><td>gdkKeymapGetEntriesForKeyval {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkKeymapGetEntriesForKeyval</h2>
+
+<h3>Description</h3>
+
+<p>Obtains a list of keycode/group/level combinations that will
+generate <code>keyval</code>. Groups and levels are two kinds of keyboard mode;
+in general, the level determines whether the top or bottom symbol
+on a key is used, and the group determines whether the left or
+right symbol is used. On US keyboards, the shift key changes the
+keyboard level, and there are no groups. A group switch key might
+convert a keyboard between Hebrew to English modes, for example.
+<code><a href="gdk-Event-Structures.html">GdkEventKey</a></code> contains a <code>group</code> field that indicates the active
+keyboard group. The level is computed from the modifier mask.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkKeymapGetEntriesForKeyval(object, keyval)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Keyboard-Handling.html">GdkKeymap</a></code>, or <code>NULL</code> to use the default keymap</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keyval</code></code></td>
+<td>
+<p>a keyval, such as <code>GDK_a</code>, <code>GDK_Up</code>, <code>GDK_Return</code>, etc.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if keys were found and returned</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keys</code></code></td>
+<td>
+<p>return location for a list of <code><a href="gdk-Keyboard-Handling.html">GdkKeymapKey</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.keys</code></code></td>
+<td>
+<p>return location for number of elements in returned list</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

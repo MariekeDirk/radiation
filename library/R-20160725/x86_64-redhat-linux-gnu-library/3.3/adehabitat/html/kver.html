@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Handling of Objects of Class kver</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kver {adehabitat}"><tr><td>kver {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Handling of Objects of Class kver</h2>
+
+<h3>Description</h3>
+
+<p>Objects of class <code>kver</code> are created by <code>getverticeshr</code> and
+<code>getverticesclusthr</code>: they contain the vertices of the home range
+estimated using either nearest neighbour clustering or kernel
+estimation.  An object of class <code>kver</code> is list of data frames of
+class <code>area</code>.<br />
+</p>
+<p><code>plot.kver</code> is used to display the home-range contours defined in
+an object of clss <code>kver</code>.<br />
+</p>
+<p><code>kver.rast</code> is used to rasterize the home ranges.<br />
+</p>
+<p><code>kver2shapefile</code> is used to convert the home ranges into a
+shapefile object (for exportation to a GIS).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kver.rast(kv, asc)
+kver2shapefile(kv, which = names(kv))
+## S3 method for class 'kver'
+plot(x, which = names(x), colpol = rainbow(length(which)),
+          colborder = rep("black", length(which)), lwd = 2,
+          add = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kv,x</code></td>
+<td>
+<p>an object of class <code>kver</code></p>
+</td></tr>
+<tr valign="top"><td><code>asc</code></td>
+<td>
+<p>a matrix of class <code>asc</code></p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+<p>a vector of character indicating the polygons to be
+plotted</p>
+</td></tr>
+<tr valign="top"><td><code>colpol</code></td>
+<td>
+<p>a vector of the color for filling the polygon.  The default,
+<code>NA</code>, is to leave polygons unfilled </p>
+</td></tr>
+<tr valign="top"><td><code>colborder</code></td>
+<td>
+<p>a vector of the color to draw the border (black, by
+default).  Use <code>border = NA</code> to omit borders</p>
+</td></tr> 
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+<p>the border width, a positive number</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, the polygons are added to a
+previous plot</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to the function
+<code>plot.area</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>kver.rast</code> returns an object of class <code>asc</code>.<br />
+<code>kver2shapefile</code> returns a shapefile object (can be exported
+using the function <code>write.shapefile</code> of the package
+<code>shapefiles</code>.<br />
+</p>
+
+
+<h3>Warning</h3>
+
+<p><code>kver2shapefile</code> requires the packages <code>shapefiles</code>.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="clusthr.html">getverticesclusthr</a></code> and
+<code><a href="kernelUD.html">getverticeshr</a></code> for functions creating this class of
+objects. <code><a href="as.area.html">area</a></code> for more information on objects of
+class <code>area</code>.  <code><a href="import.asc.html">asc</a></code> for more information on
+objects of class <code>asc</code>.
+<code><a href="../../shapefiles/html/write.shapefile.html">write.shapefile</a></code> for exportation of shape
+files.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+lo&lt;-puechabon$locs[,c("X","Y")]
+
+## Home Range Estimation
+res &lt;- clusthr(lo, puechabon$locs$Name)
+
+## gets the vertices
+vec &lt;- getverticesclusthr(res)
+plot(vec)
+image(kver.rast(vec, getkasc(puechabon$kasc,1)))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

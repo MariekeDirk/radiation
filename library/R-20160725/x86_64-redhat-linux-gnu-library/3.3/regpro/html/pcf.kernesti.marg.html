@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: An estimator of a marginal average of a regression function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pcf.kernesti.marg {regpro}"><tr><td>pcf.kernesti.marg {regpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+An estimator of a marginal average of a regression function
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the values of an estimator of a marginal average
+of a regression function on a regular grid.
+Marginal averages are called also partial dependency functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pcf.kernesti.marg(x, y, h, N, kernel="gauss", coordi=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>n*d data matrix; the matrix of the values of the explanatory variables</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>n vector; the values of the response variable</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>a positive real number; the smoothing parameter of the kernel estimate</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+<p>vector of d positive integers; the number of grid points for each direction</p>
+</td></tr> 
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+<p>a character; determines the kernel function; 
+the only allowed value is &quot;gauss&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>coordi</code></td>
+<td>
+<p>integer 1,...,d; indicates which marginal average is calculated</p>
+</td></tr> 
+</table>
+
+
+<h3>Value</h3>
+
+<p>a piecewise constant function</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="pcf.kernesti.html">pcf.kernesti</a></code>,
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+n&lt;-10
+d&lt;-2 
+x&lt;-8*matrix(runif(n*d),n,d)-3
+C&lt;-(2*pi)^(-d/2)
+phi&lt;-function(x){ return( C*exp(-sum(x^2)/2) ) }
+D&lt;-3; c1&lt;-c(0,0); c2&lt;-D*c(1,0); c3&lt;-D*c(1/2,sqrt(3)/2)
+func&lt;-function(x){phi(x-c1)+phi(x-c2)+phi(x-c3)}
+y&lt;-matrix(0,n,1)
+for (i in 1:n) y[i]&lt;-func(x[i,])+0.01*rnorm(1)
+
+num&lt;-30  # number of grid points in one direction
+pcf&lt;-pcf.kernesti.marg(x,y,h=0.5,N=num)
+
+dp&lt;-draw.pcf(pcf,minval=min(y))
+plot(dp$x,dp$y,type="l")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>regpro</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

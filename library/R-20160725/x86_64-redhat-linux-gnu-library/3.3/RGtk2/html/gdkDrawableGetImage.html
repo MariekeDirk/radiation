@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDrawableGetImage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDrawableGetImage {RGtk2}"><tr><td>gdkDrawableGetImage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDrawableGetImage</h2>
+
+<h3>Description</h3>
+
+<p>A <code><a href="gdk-Images.html">GdkImage</a></code> stores client-side image data (pixels). In contrast,
+<code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code> and <code><a href="gdk-Windows.html">GdkWindow</a></code> are server-side
+objects. <code><a href="gdkDrawableGetImage.html">gdkDrawableGetImage</a></code> obtains the pixels from a
+server-side drawable as a client-side <code><a href="gdk-Images.html">GdkImage</a></code>.  The format of a
+<code><a href="gdk-Images.html">GdkImage</a></code> depends on the <code><a href="gdk-Visuals.html">GdkVisual</a></code> of the current display, which
+makes manipulating <code><a href="gdk-Images.html">GdkImage</a></code> extremely difficult; therefore, in
+most cases you should use <code><a href="gdkPixbufGetFromDrawable.html">gdkPixbufGetFromDrawable</a></code> instead of
+this lower-level function. A <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code> contains image data in a
+canonicalized RGB format, rather than a display-dependent format.
+Of course, there's a convenience vs. speed tradeoff here, so you'll
+want to think about what makes sense for your application.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDrawableGetImage(object, x, y, width, height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>x coordinate on <code>drawable</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>y coordinate on <code>drawable</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>width of region to get</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>height or region to get</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code> define the region of <code>drawable</code> to
+obtain as an image.
+</p>
+<p>You would usually copy image data to the client side if you intend
+to examine the values of individual pixels, for example to darken
+an image or add a red tint. It would be prohibitively slow to
+make a round-trip request to the windowing system for each pixel,
+so instead you get all of them at once, modify them, then copy
+them all back at once.
+</p>
+<p>If the X server or other windowing system backend is on the local
+machine, this function may use shared memory to avoid copying
+the image data.
+</p>
+<p>If the source drawable is a <code><a href="gdk-Windows.html">GdkWindow</a></code> and partially offscreen
+or obscured, then the obscured portions of the returned image
+will contain undefined data.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Images.html">GdkImage</a></code>] a <code><a href="gdk-Images.html">GdkImage</a></code> containing the contents of <code>drawable</code></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

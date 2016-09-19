@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visualization of Multivariate Functions, Sets, and Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for denpro-package {denpro}"><tr><td>denpro-package {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Visualization of Multivariate Functions, Sets, and Data
+</h2>
+
+<h3>Description</h3>
+
+<p>We provide tools to 
+(1) visualize multivariate functions and density estimates 
+with level set trees,
+(2) visualize level sets with shape trees,
+(3) visualize multivariate data with tail trees, 
+(4) visualize scales of multivariate density estimates with 
+mode graphs and branching maps, and
+(5) visualize anisotropic spread with 2D volume functions and
+2D probability content functions.
+Level set trees visualize mode structure,
+shape trees visualize shapes of level sets of unimodal densities,
+and tail trees visualize connected data sets.
+The kernel estimator is implemented
+but the package may  also be applied for visualizing other density estimates. 
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+Package: </td><td style="text-align: left;"> denpro</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Version: </td><td style="text-align: left;"> 0.9.2</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Date: </td><td style="text-align: left;"> 2015-05-12</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Depends: </td><td style="text-align: left;"> </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+License: </td><td style="text-align: left;"> GPL(&gt;=2)</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+URL: </td><td style="text-align: left;"> http://www.jussiklemela.com/denpro/</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Packaged: </td><td style="text-align: left;"> Mon Jun 15 16:34:17 2015; jsk</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+Built: </td><td style="text-align: left;"> R 3.2.0; i486-pc-linux-gnu; 2013-06-12 16:34:35; unix</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>The main function:
+</p>
+<p>*leafsfirst 
+</p>
+<p>Functions to plot a level set tree, shape tree, or tail tree:
+</p>
+<p>*plotvolu 
+*plotbary
+*plottree 
+*treedisc 
+*prunemodes 
+</p>
+<p>Visualization of scales of estimates:
+</p>
+<p>* lstseq.kern 
+* modegraph 
+* plotmodet 
+* branchmap 
+* plotbranchmap 
+* scaletable 
+* exmap 
+* plotexmap 
+* hgrid :
+</p>
+<p>Visualization of anisotropic spread 
+(2D volume function and 2D probability content function):
+</p>
+<p>* stseq 
+* shape2d 
+* plotvolu2d 
+* plotdelineator
+</p>
+<p>Other utilities:
+</p>
+<p>* pcf.kern 
+* tree.segme
+* lst2xy
+* graph.matrix
+* plotbary.slide
+* Calculation of level set trees with &quot;DynaDecompose&quot; algorithm 
+and with naive algorithm
+o profkern 
+o profhist 
+o profgene 
+o profeval
+* locofmax 
+* modecent 
+* excmas 
+</p>
+<p>Other visualization tools:
+</p>
+<p>* draw.pcf 
+* slicing 
+* draw.levset 
+* paracoor 
+* pp.plot
+* qq.plot
+* plot.kernscale
+* dist.func
+* paraclus
+</p>
+<p>Miscallenous:
+</p>
+<p>* pcf.func 
+* sim.data 
+* dend2parent
+* explo.compa
+* nn.radit
+* nn.likeset
+* rotation
+* liketree
+* leafsfirst.visu
+* plottwin
+</p>
+<p>Index (alphaphetical):
+</p>
+<pre>
+branchmap               Calculates a branching map from a sequence of
+                        level set trees
+draw.levset             Plots a level set of a 2D function
+draw.pcf                Prepares the plotting of a 2D or 1D piecewise
+                        constant function
+excmas                  Calculates the excess masses associated with
+                        the nodes of a level set tree
+exmap                   Calculates a scale of excess mass profiles
+hgrid                   Returns a grid of smoothing parameter values
+leafsfirst              Calculates a level set tree, shape tree, or
+                        tail tree
+locofmax                Calculates the location of the maximum of a
+                        function
+lstseq.kern             Calculates a scale of kernel estimates
+modecent                Returns locations of modes of a density
+                        estimate
+modegraph               Calculates a mode graph from a scale of
+                        estimates
+paracoor                Makes a parallel coordinate plot
+pcf.func                Calculates a piecewise constant function for
+                        some illustrative purposes
+pcf.kern                Calculates a multivariate kernel estimate
+plotbary                Makes a barycenter plot of a level set tree, a
+                        location plot of a shape tree, or a tail tree
+                        plot of a tail tree
+plotbranchmap           Plots a branching map
+plotexmap               Plots a scale of excess mass profiles
+plotmodet               Plots a mode graph
+plottree                Makes a tree plot of a level set tree, of a
+                        shape tree, or of a tail tree
+plotvolu                Makes a volume plot of a level set tree, a
+                        shape plot of a shape tree, or a tail frequency
+                        plot of a tail tree
+plotvolu2d              Makes a perspective plot of a 2D volume
+                        function or a 2D probability content function
+profgene                Calculates the level set tree of a
+                        rectangularwise constant function
+profhist                Calculates the level set tree of a histogram
+profkern                Calculates a level set tree of a kernel
+                        estimate
+prunemodes              Prunes modes away from a level set tree or a
+                        shape tree
+scaletable              Implements the scale and shape table
+shape2d                 Returns a 2D volume function or 2D probability
+                        content function
+sim.data                Generates data for illustrative purposes
+slicing                 Returns a one- or two-dimensional slice of a
+                        multivariate function
+stseq                   Calculates a sequence of radius functions from
+                        a sequence of level sets
+treedisc                Prunes a level set tree or a tail tree
+tree.segme              Returns the segmentation of the nodes of 
+                        a visualization tree
+</pre>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela &lt;jussi.klemela@gmail.com&gt;
+</p>
+<p>Maintainer: Jussi Klemela &lt;jussi.klemela@gmail.com&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p> http://www.rni.helsinki.fi/~jsk/denpro </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# level set tree
+
+dendat&lt;-sim.data(n=200,type="mulmod")   # data
+pcf&lt;-pcf.kern(dendat,h=1,N=c(32,32))    # kernel estimate
+
+lst&lt;-leafsfirst(pcf)             # level set tree
+td&lt;-treedisc(lst,pcf,ngrid=60)   # pruned level set tree
+
+plotvolu(td)                     # volume plot
+
+plotbary(td)                     # barycenter plot 
+
+# shape tree
+
+dendat&lt;-sim.data(n=200,type="cross")    # data
+pcf&lt;-pcf.kern(dendat,h=1,N=c(32,32))    # kernel estimate
+
+st&lt;-leafsfirst(pcf,propo=0.01)   # shape tree, 1 per cent level set
+tdst&lt;-treedisc(st,pcf,ngrid=60)  # pruned shape tree
+
+plotvolu(tdst)          # radius plot
+
+plotbary(tdst)          # location plot
+
+# tail tree
+
+dendat&lt;-sim.data(n=200,type="cross")    # data
+
+tt&lt;-leafsfirst(dendat=dendat,rho=0.65) # tail tree
+
+plotbary(tt)     # tail tree plot
+
+plotvolu(tt)     # tail frequency plot
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

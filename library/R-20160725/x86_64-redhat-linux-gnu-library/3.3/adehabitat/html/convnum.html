@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion from Factor to Numeric for Raster Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for convnum {adehabitat}"><tr><td>convnum {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Conversion from Factor to Numeric for Raster Map</h2>
+
+<h3>Description</h3>
+
+<p>The objects of class <code>kasc</code> may contain maps of type <code>"numeric"</code>
+(e.g. the elevation) or of type <code>"factor"</code> (e.g. the type of
+vegetation).  With <code>convnum</code>, factor maps are transformed into a
+collection of k maps of type &quot;numeric&quot; (where k is the number of levels
+of the factor), with zero means and unit variance (see dudi.mix in the
+ade4 package for further details). Additionaly, maps of type &quot;numeric&quot;
+are also centered and scaled (see <code>dudi.mix</code> in the
+<code>ade4</code> package for further details).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+convnum(kasc)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kasc</code></td>
+<td>
+<p>an object of class <code>kasc</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>kasc</code></td>
+<td>
+<p>an object of class <code>kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+<p>the weights associated with
+each map of the object kasc, so that the collection of maps defining
+a categorical variable has the same weight as a numeric variable
+(see examples).</p>
+</td></tr> 
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ade4/html/dudi.mix.html">dudi.mix</a></code> (package ade4), <code><a href="as.kasc.html">kasc</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## loads the data
+data(puechabon)
+kasc &lt;- puechabon$kasc
+image(kasc)
+
+## scales all the variables
+toto &lt;- convnum(kasc)
+image(toto$kasc)
+
+## the Aspect has four levels:
+## four variables have been defined.
+toto$weight
+
+## The sum of the weights given to each
+## level of aspect is equal to:
+toto$weight[2:5]
+sum(toto$weight[2:5])
+
+## The same weight is therefore given to the factor variable Aspect and
+## to any continuous variable, e.g. the elevation.
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

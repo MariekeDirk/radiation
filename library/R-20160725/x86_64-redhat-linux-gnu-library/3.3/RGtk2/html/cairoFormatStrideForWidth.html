@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoFormatStrideForWidth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoFormatStrideForWidth {RGtk2}"><tr><td>cairoFormatStrideForWidth {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoFormatStrideForWidth</h2>
+
+<h3>Description</h3>
+
+<p>This function provides a stride value that will respect all
+alignment requirements of the accelerated image-rendering code
+within cairo. Typical usage will be of the form:</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoFormatStrideForWidth(format, width)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">format</code></code></td>
+<td>
+<p>[<code><a href="cairo-image-surface.html">CairoFormat</a></code>]  A <code><a href="cairo-image-surface.html">CairoFormat</a></code> value</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>[integer]  The desired width of an image surface to be created.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<pre>
+stride &lt;- format$strideForWidth(width)
+data &lt;- raw(stride * height)
+surface &lt;- cairoImageSurfaceCreateForData(data, format, width, height, stride)
+</pre>  
+<p>Since 1.6</p>
+
+
+<h3>Value</h3>
+
+<p>[integer]  the appropriate stride to use given the desired
+format and width, or -1 if either the format is invalid or the width
+too large.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

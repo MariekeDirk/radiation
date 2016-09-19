@@ -1,0 +1,6 @@
+Example10MarkerFile     Example Marker File with 10 Markers on BTA 1
+GeneList_BTA1           Output from GetGeneList function for BTA 1
+GetGeneList             A Function to Filter and Save Genomic Features
+                        from NCBI
+Map2NCBI-package        Mapping Markers to the Nearest Genomic Feature
+MapMarkers              Mapping SNP Markers to Closest Genomic Feature

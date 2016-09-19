@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetQueueClearArea</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetQueueClearArea {RGtk2}"><tr><td>gtkWidgetQueueClearArea {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetQueueClearArea</h2>
+
+<h3>Description</h3>
+
+<p>This function is no longer different from
+<code><a href="gtkWidgetQueueDrawArea.html">gtkWidgetQueueDrawArea</a></code>, though it once was. Now it just calls
+<code><a href="gtkWidgetQueueDrawArea.html">gtkWidgetQueueDrawArea</a></code>. Originally
+<code><a href="gtkWidgetQueueClearArea.html">gtkWidgetQueueClearArea</a></code> would force a redraw of the
+background for <code>GTK_NO_WINDOW</code> widgets, and
+<code><a href="gtkWidgetQueueDrawArea.html">gtkWidgetQueueDrawArea</a></code> would not. Now both functions ensure
+the background will be redrawn.
+<strong>WARNING: <code>gtk_widget_queue_clear_area</code> has been deprecated since version 2.2 and should not be used in newly-written code. Use <code><a href="gtkWidgetQueueDrawArea.html">gtkWidgetQueueDrawArea</a></code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetQueueClearArea(object, x, y, width, height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>x coordinate of upper-left corner of rectangle to redraw</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>y coordinate of upper-left corner of rectangle to redraw</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>width of region to draw</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>height of region to draw</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

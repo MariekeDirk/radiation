@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkTreeSortable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkTreeSortable {RGtk2}"><tr><td>GtkTreeSortable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkTreeSortable</h2>
+
+<h3>Description</h3>
+
+<p>The interface for sortable models used by GtkTreeView</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkTreeSortableSortColumnChanged.html">gtkTreeSortableSortColumnChanged</a>(object)</code><br />
+<code><a href="gtkTreeSortableGetSortColumnId.html">gtkTreeSortableGetSortColumnId</a>(object)</code><br />
+<code><a href="gtkTreeSortableSetSortColumnId.html">gtkTreeSortableSetSortColumnId</a>(object, sort.column.id, order)</code><br />
+<code><a href="gtkTreeSortableSetSortFunc.html">gtkTreeSortableSetSortFunc</a>(object, sort.column.id, sort.func, user.data = NULL)</code><br />
+<code><a href="gtkTreeSortableSetDefaultSortFunc.html">gtkTreeSortableSetDefaultSortFunc</a>(object, sort.func, user.data = NULL)</code><br />
+<code><a href="gtkTreeSortableHasDefaultSortFunc.html">gtkTreeSortableHasDefaultSortFunc</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GtkTreeSortable</pre>
+
+<h3>Implementations</h3>
+
+<p>GtkTreeSortable is implemented by
+<code><a href="GtkListStore.html">GtkListStore</a></code>,  <code><a href="GtkTreeModelSort.html">GtkTreeModelSort</a></code> and  <code><a href="GtkTreeStore.html">GtkTreeStore</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code> is an interface to be implemented by tree models which
+support sorting. The <code><a href="GtkTreeView.html">GtkTreeView</a></code> uses the methods provided by this interface
+to sort the model.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkTreeSortable</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkTreeIterCompareFunc(model, a, b, user.data)</code></dt><dd>
+<p>A GtkTreeIterCompareFunc should return a negative integer, zero, or a positive
+integer if <code>a</code> sorts before <code>b</code>, <code>a</code> sorts with <code>b</code>, or <code>a</code> sorts after <code>b</code>
+respectively. If two iters compare as equal, their order in the sorted model
+is undefined. In order to ensure that the <code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code> behaves as
+expected, the GtkTreeIterCompareFunc must define a partial order on
+the model, i.e. it must be reflexive, antisymmetric and transitive.
+</p>
+<p>For example, if <code>model</code> is a product catalogue, then a compare function
+for the &quot;price&quot; column could be one which returns
+<code>price_of(  a  ) - price_of(  b  )</code>.
+</p>
+
+<dl>
+<dt><code>model</code></dt><dd><p>The <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> the comparison is within</p>
+</dd>
+<dt><code>a</code></dt><dd><p>A <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> in <code>model</code></p>
+</dd>
+<dt><code>b</code></dt><dd><p>Another <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> in <code>model</code></p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>Data passed when the compare func is assigned e.g. by
+<code><a href="gtkTreeSortableSetSortFunc.html">gtkTreeSortableSetSortFunc</a></code></p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [integer] a negative integer, zero or a positive integer depending on whether
+<code>a</code> sorts before, with or after <code>b</code>
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>sort-column-changed(sortable, user.data)</code></dt><dd>
+<p>The ::sort-column-changed signal is emitted when the sort column
+or sort order of <code>sortable</code> is changed. The signal is emitted before
+the contents of <code>sortable</code> are resorted.
+</p>
+
+<dl>
+<dt><code>sortable</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkTreeSortable.html">http://library.gnome.org/devel//gtk/GtkTreeSortable.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkTreeModel.html">GtkTreeModel</a></code>
+<code><a href="GtkTreeView.html">GtkTreeView</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

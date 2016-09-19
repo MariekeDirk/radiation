@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rendering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pango-Text-Processing {RGtk2}"><tr><td>pango-Text-Processing {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rendering</h2>
+
+<h3>Description</h3>
+
+<p>Functions to run the rendering pipeline</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="pangoItemize.html">pangoItemize</a>(context, text, start.index, length, attrs, cached.iter = NULL)</code><br />
+<code><a href="pangoItemizeWithBaseDir.html">pangoItemizeWithBaseDir</a>(context, base.dir, text, start.index, length, attrs, cached.iter = NULL)</code><br />
+<code><a href="pangoItemCopy.html">pangoItemCopy</a>(item)</code><br />
+<code><a href="pangoItemNew.html">pangoItemNew</a>()</code><br />
+<code><a href="pangoItemSplit.html">pangoItemSplit</a>(orig, split.index, split.offset)</code><br />
+<code><a href="pangoReorderItems.html">pangoReorderItems</a>(logical.items)</code><br />
+<code><a href="pangoContextSetFontMap.html">pangoContextSetFontMap</a>(object, font.map)</code><br />
+<code><a href="pangoContextGetFontMap.html">pangoContextGetFontMap</a>(object)</code><br />
+<code><a href="pangoContextGetFontDescription.html">pangoContextGetFontDescription</a>(object)</code><br />
+<code><a href="pangoContextSetFontDescription.html">pangoContextSetFontDescription</a>(object, desc)</code><br />
+<code><a href="pangoContextGetLanguage.html">pangoContextGetLanguage</a>(object)</code><br />
+<code><a href="pangoContextSetLanguage.html">pangoContextSetLanguage</a>(object, language)</code><br />
+<code><a href="pangoContextGetBaseDir.html">pangoContextGetBaseDir</a>(object)</code><br />
+<code><a href="pangoContextSetBaseDir.html">pangoContextSetBaseDir</a>(object, direction)</code><br />
+<code><a href="pangoContextGetBaseGravity.html">pangoContextGetBaseGravity</a>(object)</code><br />
+<code><a href="pangoContextSetBaseGravity.html">pangoContextSetBaseGravity</a>(object, gravity)</code><br />
+<code><a href="pangoContextGetGravity.html">pangoContextGetGravity</a>(object)</code><br />
+<code><a href="pangoContextGetGravityHint.html">pangoContextGetGravityHint</a>(object)</code><br />
+<code><a href="pangoContextSetGravityHint.html">pangoContextSetGravityHint</a>(object, hint)</code><br />
+<code><a href="pangoContextGetMatrix.html">pangoContextGetMatrix</a>(object)</code><br />
+<code><a href="pangoContextSetMatrix.html">pangoContextSetMatrix</a>(object, matrix)</code><br />
+<code><a href="pangoContextLoadFont.html">pangoContextLoadFont</a>(object, desc)</code><br />
+<code><a href="pangoContextLoadFontset.html">pangoContextLoadFontset</a>(object, desc, language)</code><br />
+<code><a href="pangoContextGetMetrics.html">pangoContextGetMetrics</a>(object, desc, language = NULL)</code><br />
+<code><a href="pangoContextListFamilies.html">pangoContextListFamilies</a>(object)</code><br />
+<code><a href="pangoBreak.html">pangoBreak</a>(text, analysis)</code><br />
+<code><a href="pangoGetLogAttrs.html">pangoGetLogAttrs</a>(text, level, language)</code><br />
+<code><a href="pangoFindParagraphBoundary.html">pangoFindParagraphBoundary</a>(text, length = -1)</code><br />
+<code><a href="pangoShape.html">pangoShape</a>(text, analysis, glyphs)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----PangoContext</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The Pango rendering pipeline takes a string of
+Unicode characters and converts it into glyphs.
+The functions described in this section accomplish
+various steps of this process.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">PangoContext</code></dt><dd>
+<p>The <code><a href="pango-Text-Processing.html">PangoContext</a></code> structure stores global information
+used to control the itemization process.
+</p>
+</dd>
+<dt><code style="white-space: pre;">PangoItem</code></dt><dd>
+<p>The <code><a href="pango-Text-Processing.html">PangoItem</a></code> structure stores information about
+a segment of text. It contains the following fields:
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">offset</code></dt><dd><p>[integer] the offset of the segment from the beginning of the
+string in bytes.</p>
+</dd>
+<dt><code style="white-space: pre;">length</code></dt><dd><p>[integer] the length of the segment in bytes.</p>
+</dd>
+<dt><code style="white-space: pre;">numChars</code></dt><dd><p>[integer] the length of the segment in characters.</p>
+</dd>
+<dt><code style="white-space: pre;">analysis</code></dt><dd><p>[<code><a href="pango-Text-Processing.html">PangoAnalysis</a></code>] the properties of the segment.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAnalysis</code></dt><dd>
+<p>The <code><a href="pango-Text-Processing.html">PangoAnalysis</a></code> structure stores information about
+the properties of a segment of text. It has the following
+fields:
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">font</code></dt><dd><p>[<code><a href="pango-Fonts.html">PangoFont</a></code>] the engine for doing rendering-system-dependent processing.</p>
+</dd>
+<dt><code style="white-space: pre;">level</code></dt><dd><p>[raw] the engine for doing rendering-system-independent processing.</p>
+</dd>
+<dt><code style="white-space: pre;">language</code></dt><dd><p>[<code><a href="pango-Scripts-and-Languages.html">PangoLanguage</a></code>] the font for this segment.</p>
+</dd>
+<dt><code style="white-space: pre;">extraAttrs</code></dt><dd><p>[list] the bidirectional level for this segment.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoLogAttr</code></dt><dd>
+<p>The <code><a href="pango-Text-Processing.html">PangoLogAttr</a></code> structure stores information
+about the attributes of a single character.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">isLineBreak</code></dt><dd><p>[numeric] if set, can break line in front of character</p>
+</dd>
+<dt><code style="white-space: pre;">isMandatoryBreak</code></dt><dd><p>[numeric] if set, must break line in front of character</p>
+</dd>
+<dt><code style="white-space: pre;">isCharBreak</code></dt><dd><p>[numeric] if set, can break here when doing character wrapping</p>
+</dd>
+<dt><code style="white-space: pre;">isWhite</code></dt><dd><p>[numeric] is whitespace character</p>
+</dd>
+<dt><code style="white-space: pre;">isCursorPosition</code></dt><dd><p>[numeric] if set, cursor can appear in front of character.
+i.e. this is a grapheme boundary, or the first character
+in the text.
+This flag implements Unicode's
+Grapheme
+Cluster Boundaries (<a href="http://www.unicode.org/reports/tr29/">http://www.unicode.org/reports/tr29/</a>) semantics.</p>
+</dd>
+<dt><code style="white-space: pre;">isWordStart</code></dt><dd><p>[numeric] is first character in a word</p>
+</dd>
+<dt><code style="white-space: pre;">isWordEnd</code></dt><dd><p>[numeric] is first non-word char after a word
+Note that in degenerate cases, you could have both <code>is.word.start</code>
+and <code>is.word.end</code> set for some character.</p>
+</dd>
+<dt><code style="white-space: pre;">isSentenceBoundary</code></dt><dd><p>[numeric] is a sentence boundary.
+There are two ways to divide sentences. The first assigns all
+inter-sentence whitespace/control/format chars to some sentence,
+so all chars are in some sentence; <code>is.sentence.boundary</code> denotes
+the boundaries there. The second way doesn't assign
+between-sentence spaces, etc. to any sentence, so
+<code>is.sentence.start</code>/<code>is.sentence.end</code> mark the boundaries
+of those sentences.</p>
+</dd>
+<dt><code style="white-space: pre;">isSentenceStart</code></dt><dd><p>[numeric] is first character in a sentence</p>
+</dd>
+<dt><code style="white-space: pre;">isSentenceEnd</code></dt><dd><p>[numeric] is first char after a sentence.
+Note that in degenerate cases, you could have both <code>is.sentence.start</code>
+and <code>is.sentence.end</code> set for some character. (e.g. no space after a
+period, so the next sentence starts right away)</p>
+</dd>
+<dt><code style="white-space: pre;">backspaceDeletesCharacter</code></dt><dd><p>[numeric] if set, backspace deletes one character
+rather than the entire grapheme cluster. This
+field is only meaningful on grapheme
+boundaries (where <code>is.cursor.position</code> is
+set).  In some languages, the full grapheme
+(e.g.  letter + diacritics) is considered a
+unit, while in others, each decomposed
+character in the grapheme is a unit. In the
+default implementation of <code><a href="pangoBreak.html">pangoBreak</a></code>, this
+bit is set on all grapheme boundaries except
+those following Latin, Cyrillic or Greek base
+characters.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//pango/pango-Text-Processing.html">http://library.gnome.org/devel//pango/pango-Text-Processing.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

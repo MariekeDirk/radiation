@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimates key covariance parameters for a spatial process.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for MLESpatialProcess {fields}"><tr><td>MLESpatialProcess {fields}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Estimates key covariance parameters for a spatial process.
+
+</h2>
+
+<h3>Description</h3>
+
+<p>Maximizes the likelihood to determine the nugget variance (sigma^2), the sill
+( rho) and the range (theta) for a spatial process.
+
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+MLESpatialProcess(x, y, theta.grid=NULL, par.grid=NULL, lambda.grid=NULL, 
+                  cov.function = "stationary.cov", 
+                  cov.args = list(Covariance = "Matern", smoothness = 1), 
+                  optim.args = NULL, ngrid = 10, niter = 15, tol = 0.01, 
+                  Distance = "rdist", nstep.cv = 50, verbose = FALSE, 
+                  doMKrig=FALSE, ...)
+                           
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A matrix of spatial locations with rows indexing location
+and columns the dimension (e.g. longitude/latitude)
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>Spatial observations
+</p>
+</td></tr>
+<tr valign="top"><td><code>theta.grid</code></td>
+<td>
+
+<p>Grid of theta parameter values to use for grid search in maximizing 
+the Likelilood. The defualt is do an initial grid search on ngrid 
+points with the range at the 3 an d 97 quantiles of the pairwise 
+distances.  If only two points are passed then this is used as the 
+range for a sequence of ngrid points.  Note that this is only used 
+when <code>doMKrig==FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>par.grid</code></td>
+<td>
+
+<p>Grid list of covariance parameters and the values to use in the grid 
+search for maximizing the Likelilood. All combinations of parameter 
+values are used in the grid search.  If only two values 
+for a parameter are passed then this is used as the range for a 
+sequence of ngrid points.  If a full set of parameter values 
+is passed, it is recommended they be distributed on a log scale.  
+Make sure to put all fixed parameters in cov.args rather than 
+par.grid.  Note that this is only used when <code>doMKrig==TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda.grid</code></td>
+<td>
+
+<p>Grid list of lambda values to use for grid search in maximizing 
+the Likelilood. If NULL, automatically set to <code>10^seq(-6, 1, by=1)</code>  
+If only two points are passed then this is used as the range 
+for a sequence of ngrid points.  If a full grid.list of 
+parameter values is passed, it is recommended they be distributed 
+on a log scale.  If lambda is fixed, put the fixed value as a ... 
+argument rather than in lambda.grid.  Note that this is only used when 
+<code>doMKrig==TRUE</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>cov.function</code></td>
+<td>
+
+<p>The name of the covariance function (See help on Krig for details. )
+</p>
+</td></tr>
+<tr valign="top"><td><code>cov.args</code></td>
+<td>
+
+<p>A list with arguments for the covariance functions. These are 
+usually parameters and other options such as the type of 
+distance function. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+
+<p>Number of points in grid search over parameters. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>nstep.cv</code></td>
+<td>
+
+<p>Number of grid points to use in GCV or REML coarse
+search for optimum.  Note that this is only used 
+when <code>doMKrig==FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>optim.args</code></td>
+<td>
+
+<p>Additional arguments that would also be included in calls to the optim 
+function in the final joint likelihood maximization with initial 
+lambda and covariance guesses set to the Tps maximum.  The default 
+value in this function is:
+<code>optim.args = list(method = "BFGS", 
+                        control=list(fnscale = -1, 
+                                     ndeps = rep(log(1.1), 2), 
+                                     reltol=1e-02, maxit=3))</code>
+Note that this argument is only used when <code>doMKrig==TRUE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>niter</code></td>
+<td>
+
+<p>Max number of iterations for the golden section search to maximize over theta.
+Note that this is only used when <code>doMKrig==FALSE</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+
+<p>Tolerance to declare convergence. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>doMKrig</code></td>
+<td>
+
+<p>If <code>TRUE</code>, uses <code>mKrig</code>.  If <code>FALSE</code>, uses <code>Krig</code>.  This 
+will also change which input arguments are used.
+</p>
+</td></tr>
+<tr valign="top"><td><code>Distance</code></td>
+<td>
+
+<p>Distance function to use in covariance.
+</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+
+<p>If TRUE print out intermediate information for debugging. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional arguments to pass to the Krig or mKrig function depending on 
+which is used.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>MLESpatialProcess is designed to be a robust but perhaps slow function to 
+maximize the likelihood for a Gaussian spatial process. For certain fixed,
+covariance parameters, the likelihood is maximized over the nugget and sill
+parameters using the <code>Krig</code> or <code>mKrig</code> function. An outer 
+optimization finds the maximum over other specified covariance parameters 
+as well. See the help(Krig) for details of the restricted maximum 
+likelihood criterion (REML).
+</p>
+<p>MLESpatialProcess.fast uses the <code>optim</code>
+function to maximize the likelihood computed from the <code>mKrig</code> function. It is more
+efficient in the computation as it does not find a full eigen decomposition with each new value
+of theta and maximizes the likelihood over theta and lambda simultaneously. 
+</p>
+<p>Note the likelihood can be maximized analytically over the  parameters of the fixed part and with the nugget (sigma) and sill (rho)  reduced to the single parameter lambda= sigma^2/rho. So fixing any other covariance parameters the likelihood is maximzed numerically over lambda and theta. The differences between these two functions is due to the differences between the definition of the
+restricted likelihood used in Krig and the conventional likelihood used in mKrig.
+</p>
+<p>In general, it is recommended to perform joint optimization using 
+<code>mKrig</code>, which evaluates the log-likelihood over the grid of 
+lambda and covariance parameter values, interpolating them with a 
+thin-plate spline.  Afterwards, a final joint optimization is 
+performed using <code>mKrig.MLE.joint</code> with the initial guess set 
+to the thin-plate spline maximum.  It may be more advantageous to 
+use <code>Krig</code>, however, when only performing optimization over 
+lambda.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>MLESpatialProcess</code>:
+A list that includes components:
+<code>theta.MLE, rho.MLE, sigma.MLE, lambda.MLE</code> being the maximum
+likelihood estimates of these
+parameters. The component <code>REML.grid</code> is a two column matrix
+with the
+first column being the theta grid and the second column being the
+profiled and restricted  likelihood for that value of theta. Here profile means that
+the likelihood has already been evaluated at the maximum over sigma
+and rho for this value of theta.
+<code>eval.grid</code> is a more complete &quot;capture&quot; of the 
+evaluations being a 
+6 column matrix with the parameters theta, lambda, sigma,
+rho, profile likelihood and the effective degrees of
+freedom. This is just last row of 
+<code>lambda.est</code> returned by the core function <code>Krig</code>
+</p>
+<p><code>MLESpatialProcess.fast</code> here the returned value is limited because this
+function isbuilt around calls to <code>mKrig</code>. Returned value is a list with components:
+<code>pars</code>, the MLEs for theta, rho, sigma and lambda,  
+<code>logLikelihood</code>,values of the log likelihood at the maximum, 
+<code>eval.grid</code>, a table with the results from evaluating different combinations of 
+parameters,
+</p>
+<p><code>converge</code>, convergence flag from optim (0=Successfull) and number of evaluations used to find maximum.
+and <code>call</code>, the calling arguments. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Doug Nychka, John Paige
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="Krig.html">Krig</a></code>, <code><a href="mKrig.MLE.html">mKrig.MLE</a></code>, <code><a href="mKrig.MLE.html">mKrig.MLE.joint</a></code>, <code><a href="../../stats/html/optim.html">optim</a></code>, <code><a href="mKrig.MLE.html">fastTps.MLE</a></code>, <code><a href="spatialProcess.html">spatialProcess</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#
+# examples with doMKrig==TRUE
+#
+
+#generate observation locations
+n=200
+x = matrix(runif(2*n), nrow=n)
+
+#generate observations at the locations
+
+trueTheta = .2
+trueLambda = .1
+Sigma = exp( -rdist(x,x) /trueTheta ) 
+# y = t(chol(Sigma))%*% (rnorm(n))  +  trueLambda* rnorm( n)
+y = t(chol(Sigma))%*% (rnorm(n))  +  trueLambda* rnorm( n)
+
+#Use exponential covariance, assume the true range parameter is known
+out = MLESpatialProcess(x, y, 
+                        cov.args=list(Covariance="Exponential", range=trueTheta), 
+                        doMKrig=TRUE)
+
+#Use exponential covariance, use a range to determine MLE of range parameter
+## Not run: 
+testThetas = seq(from=trueTheta/2, to=2*trueTheta, length=6)
+par.grid=list(theta=testThetas)
+out = MLESpatialProcess(x, y, 
+                        cov.args=list(Covariance="Exponential"), 
+                        par.grid=par.grid, doMKrig=TRUE)                        
+
+#Use exponential covariance, use a range to determine MLE of range 
+#parameter, set custom lambda.grid
+testLambdas= seq(from=trueLambda/2, to=2*trueLambda, length=6)
+out = MLESpatialProcess(x, y, cov.args=list(Covariance="Exponential"), 
+                        lambda.grid=testLambdas, par.grid=par.grid, doMKrig=TRUE)
+
+#Use Matern covariance, compute joint MLE of range, smoothness, and lambda.  
+#This may take a few seconds
+testSmoothness = c(.5, 1, 2)
+par.grid=list(range=testThetas, smoothness=testSmoothness)
+out = MLESpatialProcess(x, y, cov.args=list(Covariance="Matern"), 
+                        par.grid=par.grid, doMKrig=TRUE)
+
+## End(Not run)
+
+#
+# examples with doMKrig==FALSE
+#
+	N&lt;- 100
+  set.seed(123)
+  x&lt;- matrix(runif(2*N), N,2)
+  theta&lt;- .2
+  Sigma&lt;-  Matern( rdist(x,x)/theta , smoothness=1.0)
+  Sigma.5&lt;- chol( Sigma)
+  sigma&lt;- .1
+#  F.true&lt;- t( Sigma.5)%*%  rnorm(N)
+  F.true&lt;- t( Sigma.5) %*%  rnorm(N)
+  Y&lt;-  F.true +  sigma*rnorm(N)
+# find MLE for  sigma rho and theta  smoothness fixed  first
+# data set
+  obj&lt;- MLESpatialProcess( x,Y)
+  obj$pars
+  # profile likelihood over theta
+  plot(obj$eval.grid[,1], obj$eval.grid[,6], xlab="theta",
+  ylab= "log Profile likelihood", type="p" )
+  xline( obj$pars["theta"], col="red")
+# log likelihood surface over theta and  log lambda
+image.plot( obj$logLikelihoodSurface$x,
+               obj$logLikelihoodSurface$y, obj$logLikelihoodSurface$z,
+               xlab="theta (range)", ylab="log lambda" )
+# MLE               
+  points( obj$pars[1], log(obj$pars[2]), pch=16, col="magenta", cex=1.2)      
+
+# using "fast" version  
+obj.fast&lt;- MLESpatialProcess.fast( x,Y)
+obj.fast$pars 
+# points where likelihood evaluated:
+quilt.plot( log( obj.fast$eval.grid[,1:2] ), obj.fast$eval.grid[,7],
+                   xlab="log(theta)",ylab="log(lambda)")
+
+# parameters are slightly different due to the differences of REML and the full likelihood.
+                 
+# example with a covariate  
+## Not run: 
+data(COmonthlyMet)
+obj2&lt;-  MLESpatialProcess( CO.loc, CO.tmean.MAM.climate)
+obj3&lt;-  MLESpatialProcess( CO.loc, CO.tmean.MAM.climate, Z= CO.elev)
+ind&lt;- !is.na( CO.tmean.MAM.climate)
+obj4&lt;-  MLESpatialProcess.fast( CO.loc[ind,], CO.tmean.MAM.climate[ind],
+               Z= CO.elev[ind])
+# elevation makes a difference
+obj2$pars
+obj3$pars
+obj4$pars
+  
+## End(Not run)
+ ## Not run: 
+# fits for ozone data
+data( ozone2) 	 
+NDays&lt;- nrow( ozone2$y)
+O3MLE&lt;- matrix( NA, nrow= NDays, ncol=4)
+dimnames(O3MLE)&lt;- list(NULL, c("theta",  "lambda", "rho",    "sigma"))
+for( day in 1: NDays){
+	cat( day, " ")
+	O3MLE[day,]&lt;- MLESpatialProcess( ozone2$lon.lat, ozone2$y[day,],
+	 Distance="rdist.earth")$pars
+}
+plot( log(O3MLE[,1]), log(O3MLE[,3]))
+
+## End(Not run)  
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>fields</em> version 8.4-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

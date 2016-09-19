@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkDragGetData</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkDragGetData {RGtk2}"><tr><td>gtkDragGetData {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkDragGetData</h2>
+
+<h3>Description</h3>
+
+<p>Gets the data associated with a drag. When the data
+is received or the retrieval fails, GTK+ will emit a
+&quot;drag_data_received&quot; signal. Failure of the retrieval
+is indicated by the length field of the <code>selection.data</code>
+signal parameter being negative. However, when <code><a href="gtkDragGetData.html">gtkDragGetData</a></code>
+is called implicitely because the <code>GTK_DEST_DEFAULT_DROP</code> was set,
+then the widget will not receive notification of failed
+drops.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkDragGetData(object, context, target, time = "GDK_CURRENT_TIME")</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the widget that will receive the &quot;drag_data_received&quot;
+signal.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">context</code></code></td>
+<td>
+<p>the drag context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">target</code></code></td>
+<td>
+<p>the target (form of the data) to retrieve.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">time</code></code></td>
+<td>
+<p>a timestamp for retrieving the data. This will
+generally be the time received in a &quot;drag_data_motion&quot;
+or &quot;drag_data_drop&quot; signal.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

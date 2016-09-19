@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Multiple SoilProfileCollection Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plotMultipleSPC {aqp}"><tr><td>plotMultipleSPC {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Multiple SoilProfileCollection Objects</h2>
+
+<h3>Description</h3>
+
+<p>Combine multiple SoilProfilecollection objects into a single profile sketch, with annotated groups.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plotMultipleSPC(spc.list, group.labels, 
+args = rep(list(NA), times=length(spc.list)), 
+arrow.offset = 2, bracket.base.depth = 95,
+...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>spc.list</code></td>
+<td>
+<p>a list of <code>SoilProfileCollection</code> objects</p>
+</td></tr>
+<tr valign="top"><td><code>group.labels</code></td>
+<td>
+<p>a vector of group labels, one for each <code>SoilProfileCollection</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>a list of arguments passed to <code>plotSPC</code>, one for each <code>SoilProfileCollection</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>arrow.offset</code></td>
+<td>
+<p>vertical offset in depth from base of start / end profiles and group bracket arrows</p>
+</td></tr>
+<tr valign="top"><td><code>bracket.base.depth</code></td>
+<td>
+<p>baseline depth used for group brackets</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to the first call to <code>plotSPC</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See examples below for usage.</p>
+
+
+<h3>Note</h3>
+
+<p>Multiple color legends for thematic profile sketches are not currently supported, use with caution.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette and Ben Marshall</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="profileGroupLabels.html">profileGroupLabels</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load sample data
+data(sp3)
+data(sp4)
+
+# convert soil colors
+sp3$h &lt;- NA ; sp3$s &lt;- NA ; sp3$v &lt;- NA
+sp3.rgb &lt;- with(sp3, munsell2rgb(hue, value, chroma, return_triplets=TRUE))
+sp3[, c('h','s','v')] &lt;- t(with(sp3.rgb, rgb2hsv(r, g, b, maxColorValue=1)))
+
+# promote to SoilProfileCollection
+depths(sp3) &lt;- id ~ top + bottom
+depths(sp4) &lt;- id ~ top + bottom
+
+# combine into a list
+spc.list &lt;- list(sp3, sp4)
+
+# plot multiple SPC objects, with list of named arguments for each call to plotSPC
+par(mar=c(1,1,3,3))
+plotMultipleSPC(spc.list, group.labels=c('Collection 1', 'Collection 2'), 
+args=list(list(name='name', id.style='top'), 
+list(name='name', id.style='side')), bracket.base.depth=120)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.3 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: predict method for Rborst</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.Rborist {Rborist}"><tr><td>predict.Rborist {Rborist}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>predict method for Rborst</h2>
+
+<h3>Description</h3>
+
+<p>Prediction and test using Rborist.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'Rborist'
+predict(object, newdata, yTest=NULL, quantVec=NULL,
+quantiles = !is.null(quantVec), qBin = 5000, ctgCensus = "votes", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object of class <code>Rborist</code>, created from a
+previous invocation of the command <code>Rborist</code> to train.</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p>a design matrix containing new data, with the same signature
+of predictors as in the training command.</p>
+</td></tr>
+<tr valign="top"><td><code>yTest</code></td>
+<td>
+<p>if specfied, a response vector against which to test the new
+predictions.</p>
+</td></tr>
+<tr valign="top"><td><code>quantVec</code></td>
+<td>
+<p>a vector of quantiles to predict.</p>
+</td></tr>
+<tr valign="top"><td><code>quantiles</code></td>
+<td>
+<p>whether to predict quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>qBin</code></td>
+<td>
+<p>bin size for quantile etimation.  Performance scales with
+bin size.  Smaller bins sacrifice precision.</p>
+</td></tr>
+<tr valign="top"><td><code>ctgCensus</code></td>
+<td>
+<p>whether/how to summarize per-category predictions.
+&quot;votes&quot; specifies the number of trees predicting a given class.
+&quot;prob&quot; specifies a normalized, probabilistic summary.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>not currently used.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p> a list containing either of the two prediction containers:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>PredictReg</code></td>
+<td>
+<p> a list of prediction results for regression:
+</p>
+<p><code>yPred</code> a vector containing the predicted response.
+</p>
+<p><code>qPred</code> a matrix containing the prediction quantiles, if requested.
+</p>
+</td></tr>
+<tr valign="top"><td><code>PredictCtg</code></td>
+<td>
+<p> a list of validation results for classification:
+</p>
+<p><code>yPred</code> a vector containing the predicted response.
+</p>
+<p><code>census</code> a matrix of predictions, by category.
+</p>
+<p><code>prob</code> a matrix of prediction probabilities by category, if requested.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Mark Seligman at Suiji.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="Rborist.html">Rborist</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+  # Regression example:
+  nRow &lt;- 5000
+  x &lt;- data.frame(replicate(6, rnorm(nRow)))
+  y &lt;- with(x, X1^2 + sin(X2) + X3 * X4) # courtesy of S. Welling.
+  rb &lt;- Rborist(x,y)
+
+
+  # Performs separate prediction on new data:
+  xx &lt;- data.frame(replace(6, rnorm(nRow)))
+  pred &lt;- predict(rb, xx)
+  yPred &lt;- pred$yPred
+
+
+  # Performs separate prediction, using original response as test
+  # vector:
+  pred &lt;- predict(rb, xx, y)
+  mse &lt;- pred$mse
+  rsq &lt;- pred$rsq
+
+
+  # Performs separate prediction with (default) quantiles:
+  pred &lt;- predict(rb, xx, quantiles="TRUE")
+  qPred &lt;- pred$qPred
+
+
+  # Performs separate prediction with deciles:
+  pred &lt;- predict(rb, xx, quantVec = seq(0.1, 1.0, by = 0.10))
+  qPred &lt;- pred$qPred
+
+
+  # Performs separate quantile prediction with high binning factor:
+  pred &lt;- predict(rb, xx, qBin=20000, quantiles="TRUE")
+  qPred &lt;- pred$pPred
+
+
+  # Classification examples:
+  data(iris)
+  rb &lt;- Rborist(iris[-5], iris[5])
+
+
+  # Generic prediction using training set.
+  # Census as (default) votes:
+  pred &lt;- predict(rb, iris[-5])
+  yPred &lt;- pred$yPred
+  census &lt;- pred$census
+
+
+  # As above, but validation census to report class probabilities:
+  pred &lt;- predict(rb, iris[-5], ctgCensus="prob")
+  prob &lt;- pred$prob
+
+
+  # As above, but with training reponse as test vector:
+  pred &lt;- predict(rb, iris[-5], iris[5], ctgCensus = "prob")
+  prob &lt;- pred$prob
+  conf &lt;- pred$confusion
+  misPred &lt;- pred$misPred
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>Rborist</em> version 0.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

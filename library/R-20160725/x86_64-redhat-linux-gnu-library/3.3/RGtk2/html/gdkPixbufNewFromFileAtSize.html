@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufNewFromFileAtSize</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufNewFromFileAtSize {RGtk2}"><tr><td>gdkPixbufNewFromFileAtSize {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufNewFromFileAtSize</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new pixbuf by loading an image from a file.  
+The file format is detected automatically. If <code>NULL</code> is returned, then 
+<code>error</code> will be set. Possible errors are in the <code style="white-space: pre;">GDK_PIXBUF_ERROR</code> and 
+<code style="white-space: pre;">G_FILE_ERROR</code> domains.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufNewFromFileAtSize(filename, width, height, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">filename</code></code></td>
+<td>
+<p>Name of file to load, in the GLib file name encoding</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>The width the image should have or -1 to not constrain the width</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>The height the image should have or -1 to not constrain the height</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The image will be scaled to fit in the requested size, preserving
+the image's aspect ratio. Note that the returned pixbuf may be smaller
+than <code>width</code> x <code>height</code>, if the aspect ratio requires it. To load
+and image at the requested size, regardless of aspect ratio, use
+<code><a href="gdkPixbufNewFromFileAtScale.html">gdkPixbufNewFromFileAtScale</a></code>.
+Since 2.4</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>] A newly-created pixbuf with a reference count of 1, or
+<code>NULL</code> if any of several error conditions occurred:  the file could not
+be opened, there was no loader for the file's format, there was not
+enough memory to allocate the image buffer, or the image file contained
+invalid data.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>Return location for an error</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

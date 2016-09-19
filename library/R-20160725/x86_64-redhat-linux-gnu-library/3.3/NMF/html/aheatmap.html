@@ -1,0 +1,531 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Annotated Heatmaps</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for aheatmap {NMF}"><tr><td>aheatmap {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Annotated Heatmaps</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>aheatmap</code> plots high-quality heatmaps,
+with a detailed legend and unlimited annotation tracks
+for both columns and rows. The annotations are coloured
+differently according to their type (factor or numeric
+covariate). Although it uses grid graphics, the generated
+plot is compatible with base layouts such as the ones
+defined with <code>'mfrow'</code> or <code><a href="../../graphics/html/layout.html">layout</a></code>,
+enabling the easy drawing of multiple heatmaps on a
+single a plot &ndash; at last!.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  aheatmap(x, color = "-RdYlBu2:100", breaks = NA,
+    border_color = NA, cellwidth = NA, cellheight = NA,
+    scale = "none", Rowv = TRUE, Colv = TRUE,
+    revC = identical(Colv, "Rowv") || is_NA(Rowv) || (is.integer(Rowv) &amp;&amp; 
+        length(Rowv) &gt; 1) || is(Rowv, "silhouette"),
+    distfun = "euclidean", hclustfun = "complete",
+    reorderfun = function(d, w) reorder(d, w),
+    treeheight = 50, legend = TRUE, annCol = NA,
+    annRow = NA, annColors = NA, annLegend = TRUE,
+    labRow = NULL, labCol = NULL, subsetRow = NULL,
+    subsetCol = NULL, txt = NULL, fontsize = 10,
+    cexRow = min(0.2 + 1/log10(nr), 1.2),
+    cexCol = min(0.2 + 1/log10(nc), 1.2), filename = NA,
+    width = NA, height = NA, main = NULL, sub = NULL,
+    info = NULL, verbose = getOption("verbose"),
+    gp = gpar())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric matrix of the values to be plotted. An
+<code><a href="../../Biobase/html/ExpressionSet-class.html">ExpressionSet</a></code>
+objects can also be passed, in which case the expression
+values are plotted (<code>exprs(x)</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>colour specification for the heatmap.
+Default to palette '-RdYlBu2:100', i.e. reversed palette
+'RdYlBu2' (a slight modification of RColorBrewer's
+palette 'RdYlBu') with 100 colors. Possible values are:
+</p>
+ <ul>
+<li><p> a character/integer vector of length
+greater than 1 that is directly used and assumed to
+contain valid R color specifications. </p>
+</li>
+<li><p> a single
+color/integer (between 0 and 8)/other numeric value that
+gives the dominant colors. Numeric values are converted
+into a pallete by <code>rev(sequential_hcl(2, h = x, l =
+  c(50, 95)))</code>. Other values are concatenated with the grey
+colour '#F1F1F1'. </p>
+</li>
+<li><p> one of RColorBrewer's palette
+name (see <code><a href="../../RColorBrewer/html/display.brewer.all.html">display.brewer.all</a></code>)
+, or one of 'RdYlBu2', 'rainbow', 'heat', 'topo',
+'terrain', 'cm'. </p>
+</li></ul>
+<p> When the coluor palette is specified
+with a single value, and is negative or preceded a minus
+('-'), the reversed palette is used. The number of breaks
+can also be specified after a colon (':'). For example,
+the default colour palette is specified as
+'-RdYlBu2:100'.</p>
+</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+<p>a sequence of numbers that covers the range
+of values in <code>x</code> and is one element longer than
+color vector. Used for mapping values to colors. Useful,
+if needed to map certain values to certain colors. If
+value is NA then the breaks are calculated automatically.
+If <code>breaks</code> is a single value, then the colour
+palette is centered on this value.</p>
+</td></tr>
+<tr valign="top"><td><code>border_color</code></td>
+<td>
+<p>color of cell borders on heatmap, use
+NA if no border should be drawn.</p>
+</td></tr>
+<tr valign="top"><td><code>cellwidth</code></td>
+<td>
+<p>individual cell width in points. If left
+as NA, then the values depend on the size of plotting
+window.</p>
+</td></tr>
+<tr valign="top"><td><code>cellheight</code></td>
+<td>
+<p>individual cell height in points. If
+left as NA, then the values depend on the size of
+plotting window.</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>character indicating how the values should
+scaled in either the row direction or the column
+direction. Note that the scaling is performed after
+row/column clustering, so that it has no effect on the
+row/column ordering. Possible values are: </p>
+ <ul>
+<li>
+<p><code>"row"</code>: center and standardize each row separately
+to row Z-scores </p>
+</li>
+<li> <p><code>"column"</code>: center and
+standardize each column separately to column Z-scores
+</p>
+</li>
+<li> <p><code>"r1"</code>: scale each row to sum up to one </p>
+</li>
+<li>
+<p><code>"c1"</code>: scale each column to sum up to one </p>
+</li>
+<li>
+<p><code>"none"</code>: no scaling </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>Rowv</code></td>
+<td>
+<p>clustering specification(s) for the rows. It
+allows to specify the
+distance/clustering/ordering/display parameters to be
+used for the <em>rows only</em>. Possible values are:
+</p>
+ <ul>
+<li> <p><code>TRUE</code> or <code>NULL</code> (to be
+consistent with <code><a href="../../stats/html/heatmap.html">heatmap</a></code>): compute a
+dendrogram from hierarchical clustering using the
+distance and clustering methods <code>distfun</code> and
+<code>hclustfun</code>.
+</p>
+</li>
+<li> <p><code>NA</code>: disable any ordering. In this case, and
+if not otherwise specified with argument
+<code>revC=FALSE</code>, the heatmap shows the input matrix
+with the rows in their original order, with the first row
+on top to the last row at the bottom. Note that this
+differ from the behaviour or <code><a href="../../stats/html/heatmap.html">heatmap</a></code>, but
+seemed to be a more sensible choice when vizualizing a
+matrix without reordering.
+</p>
+</li>
+<li><p> an integer vector of length the number of rows of
+the input matrix (<code>nrow(x)</code>), that specifies the row
+order. As in the case <code>Rowv=NA</code>, the ordered matrix
+is shown first row on top, last row at the bottom.
+</p>
+</li>
+<li><p> a character vector or a list specifying values to
+use instead of arguments <code>distfun</code>, <code>hclustfun</code>
+and <code>reorderfun</code> when clustering the rows (see the
+respective argument descriptions for a list of accepted
+values). If <code>Rowv</code> has no names, then the first
+element is used for <code>distfun</code>, the second (if
+present) is used for <code>hclustfun</code>, and the third (if
+present) is used for <code>reorderfun</code>.
+</p>
+</li>
+<li><p> a numeric vector of weights, of length the number
+of rows of the input matrix, used to reorder the
+internally computed dendrogram <code>d</code> by
+<code>reorderfun(d, Rowv)</code>.
+</p>
+</li>
+<li> <p><code>FALSE</code>: the dendrogram <em>is</em> computed
+using methods <code>distfun</code>, <code>hclustfun</code>, and
+<code>reorderfun</code> but is not shown.
+</p>
+</li>
+<li><p> a single integer that specifies how many subtrees
+(i.e. clusters) from the computed dendrogram should have
+their root faded out. This can be used to better
+highlight the different clusters.
+</p>
+</li>
+<li><p> a single double that specifies how much space is
+used by the computed dendrogram. That is that this value
+is used in place of <code>treeheight</code>. </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>Colv</code></td>
+<td>
+<p>clustering specification(s) for the columns.
+It accepts the same values as argument <code>Rowv</code>
+(modulo the expected length for vector specifications),
+and allow specifying the
+distance/clustering/ordering/display parameters to be
+used for the <em>columns only</em>. <code>Colv</code> may also be
+set to <code>"Rowv"</code>, in which case the dendrogram or
+ordering specifications applied to the rows are also
+applied to the columns. Note that this is allowed only
+for square input matrices, and that the row ordering is
+in this case by default reversed (<code>revC=TRUE</code>) to
+obtain the diagonal in the standard way (from top-left to
+bottom-right). See argument <code>Rowv</code> for other
+possible values.</p>
+</td></tr>
+<tr valign="top"><td><code>revC</code></td>
+<td>
+<p>a logical that specify if the <em>row
+order</em> defined by <code>Rowv</code> should be reversed. This is
+mainly used to get the rows displayed from top to bottom,
+which is not the case by default. Its default value is
+computed at runtime, to suit common situations where
+natural ordering is a more sensible choice: no or fix
+ordering of the rows (<code>Rowv=NA</code> or an integer vector
+of indexes &ndash; of length &gt; 1), and when a symmetric
+ordering is requested &ndash; so that the diagonal is shown as
+expected. An argument in favor of the &quot;odd&quot; default
+display (bottom to top) is that the row dendrogram is
+plotted from bottom to top, and reversing its reorder may
+take a not too long but non negligeable time.</p>
+</td></tr>
+<tr valign="top"><td><code>distfun</code></td>
+<td>
+<p>default distance measure used in
+clustering rows and columns. Possible values are:
+</p>
+ <ul>
+<li><p> all the distance methods supported by
+<code><a href="../../stats/html/dist.html">dist</a></code> (e.g. &quot;euclidean&quot; or &quot;maximum&quot;).
+</p>
+</li>
+<li><p> all correlation methods supported by
+<code><a href="../../stats/html/cor.html">cor</a></code>, such as <code>"pearson"</code> or
+<code>"spearman"</code>. The pairwise distances between
+rows/columns are then computed as <code>d &lt;- dist(1 -
+  cor(..., method = distfun))</code>.
+</p>
+<p>One may as well use the string &quot;correlation&quot; which is an
+alias for &quot;pearson&quot;.
+</p>
+</li>
+<li><p> an object of class <code>dist</code> such as returned by
+<code><a href="../../stats/html/dist.html">dist</a></code> or <code><a href="../../stats/html/dist.html">as.dist</a></code>. </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>hclustfun</code></td>
+<td>
+<p>default clustering method used to
+cluster rows and columns. Possible values are: </p>
+
+<ul>
+<li><p> a method name (a character string) supported by
+<code><a href="../../stats/html/hclust.html">hclust</a></code> (e.g. <code>'average'</code>). </p>
+</li>
+<li><p> an
+object of class <code>hclust</code> such as returned by
+<code><a href="../../stats/html/hclust.html">hclust</a></code> </p>
+</li>
+<li><p> a dendrogram </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>reorderfun</code></td>
+<td>
+<p>default dendrogram reordering function,
+used to reorder the dendrogram, when either <code>Rowv</code>
+or <code>Colv</code> is a numeric weight vector, or provides or
+computes a dendrogram. It must take 2 parameters: a
+dendrogram, and a weight vector.</p>
+</td></tr>
+<tr valign="top"><td><code>subsetRow</code></td>
+<td>
+<p>Specification of subsetting the rows
+before drawing the heatmap. Possible values are:
+</p>
+ <ul>
+<li><p> an integer vector of length &gt; 1
+specifying the indexes of the rows to keep; </p>
+</li>
+<li><p> a
+character vector of length &gt; 1 specyfing the names of the
+rows to keep. These are the original rownames, not the
+names specified in <code>labRow</code>. </p>
+</li>
+<li><p> a logical vector
+of length &gt; 1, whose elements are recycled if the vector
+has not as many elements as rows in <code>x</code>. </p>
+</li></ul>
+<p> Note that
+in the case <code>Rowv</code> is a dendrogram or hclust object,
+it is first converted into an ordering vector, and cannot
+be displayed &ndash; and a warning is thrown.</p>
+</td></tr>
+<tr valign="top"><td><code>subsetCol</code></td>
+<td>
+<p>Specification of subsetting the columns
+before drawing the heatmap. It accepts the similar values
+as <code>subsetRow</code>. See details above.</p>
+</td></tr>
+<tr valign="top"><td><code>txt</code></td>
+<td>
+<p>character matrix of the same size as <code>x</code>,
+that contains text to display in each cell. <code>NA</code>
+values are allowed and are not displayed. See demo for an
+example.</p>
+</td></tr>
+<tr valign="top"><td><code>treeheight</code></td>
+<td>
+<p>how much space (in points) should be
+used to display dendrograms. If specified as a single
+value, it is used for both dendrograms. A length-2 vector
+specifies separate values for the row and column
+dendrogram respectively. Default value: 50 points.</p>
+</td></tr>
+<tr valign="top"><td><code>legend</code></td>
+<td>
+<p>boolean value that determines if a colour
+ramp for the heatmap's colour palette should be drawn or
+not. Default is <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>annCol</code></td>
+<td>
+<p>specifications of column annotation tracks
+displayed as coloured rows on top of the heatmaps. The
+annotation tracks are drawn from bottom to top. A single
+annotation track can be specified as a single vector;
+multiple tracks are specified as a list, a data frame, or
+an
+<code><a href="../../Biobase/html/ExpressionSet-class.html">ExpressionSet</a></code>
+object, in which case the phenotypic data is used
+(<code>pData(eset)</code>). Character or integer vectors are
+converted and displayed as factors. Unnamed tracks are
+internally renamed into <code>Xi</code>, with i being
+incremented for each unamed track, across both column and
+row annotation tracks. For each track, if no
+corresponding colour is specified in argument
+<code>annColors</code>, a palette or a ramp is automatically
+computed and named after the track's name.</p>
+</td></tr>
+<tr valign="top"><td><code>annRow</code></td>
+<td>
+<p>specifications of row annotation tracks
+displayed as coloured columns on the left of the
+heatmaps. The annotation tracks are drawn from left to
+right. The same conversion, renaming and colouring rules
+as for argument <code>annCol</code> apply.</p>
+</td></tr>
+<tr valign="top"><td><code>annColors</code></td>
+<td>
+<p>list for specifying annotation track
+colors manually. It is possible to define the colors for
+only some of the annotations. Check examples for
+details.</p>
+</td></tr>
+<tr valign="top"><td><code>annLegend</code></td>
+<td>
+<p>boolean value specifying if the legend
+for the annotation tracks should be drawn or not. Default
+is <code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>labRow</code></td>
+<td>
+<p>labels for the rows.</p>
+</td></tr>
+<tr valign="top"><td><code>labCol</code></td>
+<td>
+<p>labels for the columns. See description for
+argument <code>labRow</code> for a list of the possible
+values.</p>
+</td></tr>
+<tr valign="top"><td><code>fontsize</code></td>
+<td>
+<p>base fontsize for the plot</p>
+</td></tr>
+<tr valign="top"><td><code>cexRow</code></td>
+<td>
+<p>fontsize for the rownames, specified as a
+fraction of argument <code>fontsize</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>cexCol</code></td>
+<td>
+<p>fontsize for the colnames, specified as a
+fraction of argument <code>fontsize</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main title as a character string or a grob.</p>
+</td></tr>
+<tr valign="top"><td><code>sub</code></td>
+<td>
+<p>Subtitle as a character string or a grob.</p>
+</td></tr>
+<tr valign="top"><td><code>info</code></td>
+<td>
+<p>(experimental) Extra information as a
+character vector or a grob.  If <code>info=TRUE</code>,
+information about the clustering methods is displayed at
+the bottom of the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>file path ending where to save the
+picture. Currently following formats are supported: png,
+pdf, tiff, bmp, jpeg. Even if the plot does not fit into
+the plotting window, the file size is calculated so that
+the plot would fit there, unless specified otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>manual option for determining the output
+file width in</p>
+</td></tr>
+<tr valign="top"><td><code>height</code></td>
+<td>
+<p>manual option for determining the output
+file height in inches.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>if <code>TRUE</code> then verbose messages are
+displayed and the borders of some viewports are
+highlighted. It is entended for debugging purposes.</p>
+</td></tr>
+<tr valign="top"><td><code>gp</code></td>
+<td>
+<p>graphical parameters for the text used in plot.
+Parameters passed to <code><a href="../../grid/html/grid.text.html">grid.text</a></code>, see
+<code><a href="../../grid/html/gpar.html">gpar</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The development of this function started as a fork of the
+function <code>pheatmap</code> from the <span class="pkg">pheatmap</span> package,
+and provides several enhancements such as: </p>
+
+<ul>
+<li><p> argument names match those used in the base
+function <code><a href="../../stats/html/heatmap.html">heatmap</a></code>; </p>
+</li>
+<li><p> unlimited number of
+annotation for <strong>both</strong> columns and rows, with
+simplified and more flexible interface; </p>
+</li>
+<li><p> easy
+specification of clustering methods and colors; </p>
+</li>
+<li>
+<p>return clustering data, as well as grid grob object. </p>
+</li></ul>
+
+<p>Please read the associated vignette for more information
+and sample code.
+</p>
+
+
+<h3>PDF graphic devices</h3>
+
+<p>if plotting on a PDF graphic device &ndash; started with
+<code><a href="../../grDevices/html/pdf.html">pdf</a></code>, one may get generate a first blank
+page, due to internals of standard functions from the
+<span class="pkg">grid</span> package that are called by <code>aheatmap</code>.
+The <span class="pkg">NMF</span> package ships a custom patch that fixes
+this issue. However, in order to comply with CRAN
+policies, the patch is <strong>not</strong> applied by default
+and the user must explicitly be enabled it. This can be
+achieved on runtime by either setting the NMF specific
+option 'grid.patch' via
+<code>nmf.options(grid.patch=TRUE)</code>, or on load time if
+the environment variable 'R_PACKAGE_NMF_GRID_PATCH' is
+defined and its value is something that is not equivalent
+to <code>FALSE</code> (i.e. not &rdquo;, 'false' nor 0).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original version of <code>pheatmap</code>: Raivo Kolde
+</p>
+<p>Enhancement into <code>aheatmap</code>: Renaud Gaujoux
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+## See the demo 'aheatmap' for more examples:
+## Not run: 
+demo('aheatmap')
+
+## End(Not run)
+
+# Generate random data
+n &lt;- 50; p &lt;- 20
+x &lt;- abs(rmatrix(n, p, rnorm, mean=4, sd=1))
+x[1:10, seq(1, 10, 2)] &lt;- x[1:10, seq(1, 10, 2)] + 3
+x[11:20, seq(2, 10, 2)] &lt;- x[11:20, seq(2, 10, 2)] + 2
+rownames(x) &lt;- paste("ROW", 1:n)
+colnames(x) &lt;- paste("COL", 1:p)
+
+## Default heatmap
+aheatmap(x)
+
+## Distance methods
+aheatmap(x, Rowv = "correlation")
+aheatmap(x, Rowv = "man") # partially matched to 'manhattan'
+aheatmap(x, Rowv = "man", Colv="binary")
+
+# Generate column annotations
+annotation = data.frame(Var1 = factor(1:p %% 2 == 0, labels = c("Class1", "Class2")), Var2 = 1:10)
+aheatmap(x, annCol = annotation)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

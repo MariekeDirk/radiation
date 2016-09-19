@@ -1,0 +1,67 @@
+AWCPTF                  Available soil water capacity
+ERDICM                  Effective Rooting Zone depth
+FAO.SoilProfileCollection-class
+                        A class for FAO SoilProfileCollection
+GSIF.env                GSIF specific environmental variables / paths
+GlobalSoilMap-class     A class for GlobalSoilMap soil property maps
+LRI                     Limiting Rootability
+MaxEnt                  Prediction and cross-validation using the
+                        Maximum Entropy
+OCSKGM                  Soil organic carbon stock
+REST.SoilGrids-class    A class for SoilGrids REST API
+SoilGrid.validator      Validate SoilGrid (spatial predictions)
+SoilGrids-class         A class for SoilGrids - soil property and/or
+                        class maps
+SpatialComponents-class
+                        A class for gridded components derived using
+                        the 'spc' method
+SpatialMemberships-class
+                        A class for membership maps derived using the
+                        'fkmeans' classification
+USDA.TT.im              Probability density for texture triangle
+WPS-class               A class for a Web Processing Service
+afsp                    Africa Soil Profiles Database
+as.data.frame           Converts an object of class
+                        '"SoilProfileCollection"' to a data frame
+as.geosamples           Converts an object to geosamples class
+autopredict             Autopredict numeric or factor type variables
+buffer.dist             Derive buffer distances to a set of points
+cookfarm                The Cook Agronomy Farm data set
+edgeroi                 The Edgeroi Data Set
+extract                 Extracts values at points from a list of files
+fit.gstatModel-method   Methods to fit a regression-kriging model
+fit.regModel            Fits a regression model to spatial data
+fit.vgmModel            Fits a 2D or 3D variogram model to spatial data
+geochm                  NGS database samples for Indiana State
+geosamples-class        A class for spatially and temporally referenced
+                        samples
+getID                   Derive 1 degree cell IDs
+getSpatialTiles         Get a list of tiles (regular blocks)
+gstatModel-class        A class for a geostatistical model
+isis                    ISRIC Soil Information System
+landmask                Global coarse resolution land / soil mask maps
+make.3Dgrid             Methods to prepare 3D prediction locations
+makeGstatCmd            Make a gstat command script
+merge                   Merge multiple predictions
+mpspline                Fits a mass preserving spline
+predict,gstatModel-method
+                        Predict from an object of class '"gstatModel"'
+sample.grid             sample spatial points by grids
+soil.classes            Soil classification tables
+soil.legends            Standard color palettes for soil properties and
+                        classes
+spc                     Derive Spatial Predictive Components
+spfkm                   Supervised fuzzy _k_-means on spatial pixels
+spline.krige            Kriging combined with splines
+spmultinom              Multinomial logistic regression on spatial
+                        objects
+spsample.prob           Estimate occurrence probabilities of a sampling
+                        plan (points)
+summary                 Summarize an object of class
+                        '"SpatialPredictions"'
+test.gstatModel-method
+                        Methods to test predictability of a
+                        regression-kriging model
+tile                    Tiles (subsets or clips) a spatial object to
+                        regular blocks
+warp                    (GDAL) warp function from FWTools

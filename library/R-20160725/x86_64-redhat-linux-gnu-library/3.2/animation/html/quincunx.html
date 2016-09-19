@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Demonstration of the Quincunx (Bean Machine/Galton Box)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quincunx {animation}"><tr><td>quincunx {animation}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Demonstration of the Quincunx (Bean Machine/Galton Box)</h2>
+
+<h3>Description</h3>
+
+<p>Simulates the quincunx with &ldquo;balls&rdquo; (beans) falling through several layers
+(denoted by triangles) and the distribution of the final locations at which
+the balls hit is denoted by a histogram; <code>quincunx()</code> is shows single
+layer, and <code>quincunx2()</code> is a two-stage version of the quincunx.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quincunx(balls = 200, layers = 15, pch.layers = 2, pch.balls = 19, 
+    col.balls = sample(colors(), balls, TRUE), cex.balls = 2)
+
+quincunx2(balls = 200, layers = 15, pch.layers = 2, pch.balls = 19, 
+    col.balls = sample(colors(), balls, TRUE), cex.balls = 2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>balls</code></td>
+<td>
+<p>number of balls</p>
+</td></tr>
+<tr valign="top"><td><code>layers</code></td>
+<td>
+<p>number of layers</p>
+</td></tr>
+<tr valign="top"><td><code>pch.layers</code></td>
+<td>
+<p>point character of layers; triangles (<code>pch = 2</code>) are
+recommended</p>
+</td></tr>
+<tr valign="top"><td><code>pch.balls, col.balls, cex.balls</code></td>
+<td>
+<p>point character, colors and
+magnification of balls</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The bean machine, also known as the quincunx or Galton box, is a device
+invented by Sir Francis Galton to demonstrate the law of error and the normal
+distribution.
+</p>
+<p>When a ball falls through a layer, it can either go to the right or left side
+with the probability 0.5. At last the location of all the balls will show us
+the bell-shaped distribution.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A named vector: the frequency table for the locations of the balls.
+Note the names of the vector are the locations: 1.5, 2.5, ..., layers -
+0.5.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The maximum number of animation frames is controlled by
+<code>ani.options('nmax')</code> as usual, but it is strongly recommended that
+<code>ani.options(nmax = balls + layers -2)</code>, in which case all the balls
+will just fall through all the layers and there will be no redundant
+animation frames.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yihui Xie, Lijia Yu, and Keith ORourke
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://vis.supstat.com/2013/04/bean-machine">http://vis.supstat.com/2013/04/bean-machine</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/Binomial.html">rbinom</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(123)
+oopt = ani.options(nmax = ifelse(interactive(), 200 + 15 - 
+    2, 2), interval = 0.03)
+freq = quincunx(balls = 200, col.balls = rainbow(200))
+## frequency table
+barplot(freq, space = 0)
+
+## HTML animation page
+saveHTML({
+    ani.options(nmax = ifelse(interactive(), 200 + 15 - 
+        2, 2), interval = 0.03)
+    quincunx(balls = 200, col.balls = rainbow(200))
+}, img.name = "quincunx", htmlfile = "quincunx.html", ani.height = 500, 
+    ani.width = 600, single.opts = paste("'controls':", 
+        "['first', 'previous', 'play', 'next', 'last', 'loop', 'speed'],", 
+        "'delayMin': 0"), title = "Demonstration of the Galton Box", 
+    description = c("Balls", "falling through pins will show you the Normal", 
+        "distribution."))
+
+ani.options(oopt)
+set.seed(123)
+oopt = ani.options(nmax = ifelse(interactive(), 200 + 15 - 
+    2, 2), interval = 0.03)
+freq = quincunx2(balls = 200, col.balls = rainbow(200))
+
+## frequency table
+barplot(freq$top, space = 0)  # top layers
+barplot(freq$bottom, space = 0)  # bottom layers
+
+## HTML animation page
+saveHTML({
+    ani.options(nmax = ifelse(interactive(), 200 + 15 - 
+        2, 2), interval = 0.03)
+    quincunx2(balls = 200, col.balls = rainbow(200))
+}, img.name = "quincunx2", htmlfile = "quincunx2.html", 
+    ani.height = 500, ani.width = 600, single.opts = paste("'controls':", 
+        "['first', 'previous', 'play', 'next', 'last', 'loop', 'speed'],", 
+        "'delayMin': 0"), title = "Demonstration of the Galton Box", 
+    description = c("Balls", "falling through pins will show you the Normal", 
+        "distribution."))
+
+ani.options(oopt)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>animation</em> version 2.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

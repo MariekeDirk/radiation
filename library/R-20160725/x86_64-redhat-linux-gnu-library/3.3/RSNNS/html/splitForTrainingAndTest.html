@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Function to split data into training and test set</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for splitForTrainingAndTest {RSNNS}"><tr><td>splitForTrainingAndTest {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Function to split data into training and test set</h2>
+
+<h3>Description</h3>
+
+<p>Split the input and target values to a training and a test set. Test set is taken from the end of the
+data. If the data is to be shuffled, this should be done before calling this function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+splitForTrainingAndTest(x, y, ratio = 0.15)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>inputs</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>targets</p>
+</td></tr>
+<tr valign="top"><td><code>ratio</code></td>
+<td>
+<p>ratio of training and test sets (default: 15% of the data is used for testing)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a named list with the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>inputsTrain</code></td>
+<td>
+<p>a matrix containing the training inputs</p>
+</td></tr>
+<tr valign="top"><td><code>targetsTrain</code></td>
+<td>
+<p>a matrix containing the training targets</p>
+</td></tr>
+<tr valign="top"><td><code>inputsTest</code></td>
+<td>
+<p>a matrix containing the test inputs</p>
+</td></tr>
+<tr valign="top"><td><code>targetsTest</code></td>
+<td>
+<p>a matrix containing the test targets</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(iris)
+#shuffle the vector
+iris &lt;- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
+
+irisValues &lt;- iris[,1:4]
+irisTargets &lt;- decodeClassLabels(iris[,5])
+
+splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

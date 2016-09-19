@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Locate endpoints by time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for endpoints {rts}"><tr><td>endpoints {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Locate endpoints by time</h2>
+
+<h3>Description</h3>
+
+<p>Extract index values of a given <code>Raster*TS</code> object corresponding
+to the <em>last</em> observations given a period specified by <code>on</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+endpoints(x, on="months", k=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a raster time series (<code>Raster*TS</code>) object created by <code><a href="rts.html">rts</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>on</code></td>
+<td>
+<p> the periods endpoints to find as a character string </p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p> along every k-th element - see notes </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is, indeed, <code><a href="../../xts/html/endpoints.html">endpoints</a></code> in <span class="pkg">xts</span> that works with <code>Raster*TS</code> objects. It returns a numeric vector corresponding to the <em>last</em>  observation in each period specified by <code>on</code>, with a zero added to the beginning of the vector, and the index of the last raster in <code>x</code> at the end.
+</p>
+<p>Valid values for the argument <code>on</code> include: &ldquo;us&rdquo; (microseconds),
+&ldquo;microseconds&rdquo;, &ldquo;ms&rdquo; (milliseconds),
+&ldquo;milliseconds&rdquo;, &ldquo;secs&rdquo; (seconds),
+&ldquo;seconds&rdquo;, &ldquo;mins&rdquo; (minutes), &ldquo;minutes&rdquo;,
+&ldquo;hours&rdquo;, &ldquo;days&rdquo;, &ldquo;weeks&rdquo;, &ldquo;months&rdquo;, &ldquo;quarters&rdquo;,
+and &ldquo;years&rdquo;.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A numeric vector of endpoints beginning with 0 and ending with a value equal to the number of raster layers in the x argument.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Windows support for subsecond periods is not supported. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+</p>
+<p><a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+</p>
+<p><a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../xts/html/endpoints.html">endpoints</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+file &lt;- system.file("external/ndvi", package="rts")
+
+ndvi &lt;- rts(file) # read the ndvi time series from the specified file
+
+endpoints(ndvi,"years")
+
+endpoints(ndvi,"quarters")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

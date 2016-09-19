@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkAction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkAction {RGtk2}"><tr><td>AtkAction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkAction</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface provided by UI components which the user can
+activate/interact with,</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkActionDoAction.html">atkActionDoAction</a>(object, i)</code><br />
+<code><a href="atkActionGetNActions.html">atkActionGetNActions</a>(object)</code><br />
+<code><a href="atkActionGetDescription.html">atkActionGetDescription</a>(object, i)</code><br />
+<code><a href="atkActionGetName.html">atkActionGetName</a>(object, i)</code><br />
+<code><a href="atkActionGetLocalizedName.html">atkActionGetLocalizedName</a>(object, i)</code><br />
+<code><a href="atkActionGetKeybinding.html">atkActionGetKeybinding</a>(object, i)</code><br />
+<code><a href="atkActionSetDescription.html">atkActionSetDescription</a>(object, i, desc)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkAction</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkAction is implemented by
+<code><a href="AtkHyperlink.html">AtkHyperlink</a></code> and  <code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="AtkAction.html">AtkAction</a></code> should be implemented by instances of <code><a href="AtkObject.html">AtkObject</a></code> classes with
+which the user can interact directly, i.e. buttons, checkboxes,
+scrollbars,  e.g. components which are not &quot;passive&quot;
+providers of UI information.
+</p>
+<p>Exceptions: when the user interaction is already covered by
+another appropriate interface such as <code><a href="AtkEditableText.html">AtkEditableText</a></code> (insert/delete
+test, etc.) or <code><a href="AtkValue.html">AtkValue</a></code> (set value) then these actions should not be
+exposed by <code><a href="AtkAction.html">AtkAction</a></code> as well.
+</p>
+<p>Also note that the <code><a href="AtkAction.html">AtkAction</a></code> API is limited in that parameters may not
+be passed to the object being activated; thus the action must be
+self-contained and specifiable via only a single &quot;verb&quot;.  Concrete
+examples include &quot;press&quot;, &quot;release&quot;, &quot;click&quot; for buttons, &quot;drag&quot;
+(meaning initiate drag) and &quot;drop&quot; for drag sources and drop targets,
+etc.
+</p>
+<p>Though most UI interactions on components should be invocable via
+keyboard as well as mouse, there will generally be a close mapping
+between &quot;mouse actions&quot; that are possible on a component and the
+AtkActions.  Where mouse and keyboard actions are redundant in effect,
+<code><a href="AtkAction.html">AtkAction</a></code> should expose only one action rather than exposing redundant
+actions if possible.  By convention we have been using &quot;mouse centric&quot;
+terminology for <code><a href="AtkAction.html">AtkAction</a></code> names.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkAction</code></dt><dd>
+<p>The AtkAction structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkAction.html">http://library.gnome.org/devel//atk/AtkAction.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

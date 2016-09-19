@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFileOutputStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFileOutputStream {RGtk2}"><tr><td>GFileOutputStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFileOutputStream</h2>
+
+<h3>Description</h3>
+
+<p>File output streaming operations</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileOutputStreamQueryInfo.html">gFileOutputStreamQueryInfo</a>(object, attributes, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileOutputStreamQueryInfoAsync.html">gFileOutputStreamQueryInfoAsync</a>(object, attributes, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileOutputStreamQueryInfoFinish.html">gFileOutputStreamQueryInfoFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileOutputStreamGetEtag.html">gFileOutputStreamGetEtag</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GOutputStream
+         +----GFileOutputStream</pre>
+
+<h3>Interfaces</h3>
+
+<p>GFileOutputStream implements
+<code><a href="GSeekable.html">GSeekable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>GFileOutputStream provides output streams that write their
+content to a file.
+</p>
+<p>GFileOutputStream implements <code><a href="GSeekable.html">GSeekable</a></code>, which allows the output 
+stream to jump to arbitrary positions in the file and to truncate
+the file, provided the filesystem of the file supports these 
+operations.
+</p>
+<p>To find the position of a file output stream, use <code><a href="gSeekableTell.html">gSeekableTell</a></code>.
+To find out if a file output stream supports seeking, use
+<code><a href="gSeekableCanSeek.html">gSeekableCanSeek</a></code>.To position a file output stream, use
+<code><a href="gSeekableSeek.html">gSeekableSeek</a></code>. To find out if a file output stream supports
+truncating, use <code><a href="gSeekableCanTruncate.html">gSeekableCanTruncate</a></code>. To truncate a file output
+stream, use <code><a href="gSeekableTruncate.html">gSeekableTruncate</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileOutputStream</code></dt><dd>
+<p>A subclass of GOutputStream for opened files. This adds
+a few file-specific operations and seeking and truncating.
+<code><a href="GFileOutputStream.html">GFileOutputStream</a></code> implements GSeekable.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFileOutputStream.html">http://library.gnome.org/devel//gio/GFileOutputStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Export a time series of images to KML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kml_layer.RasterBrick {plotKML}"><tr><td>kml_layer.RasterBrick {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Export a time series of images to KML</h2>
+
+<h3>Description</h3>
+
+<p>Writes a series of images to PNGs and uses them to create ground overlays. Works only with <code>"RasterBrick"</code> class objects with time dimension specified via the <code>"@zvalue"</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kml_layer.RasterBrick(obj, plot.legend = TRUE, dtime = "", tz = "GMT", 
+          z.lim = c(min(minValue(obj), na.rm=TRUE), max(maxValue(obj), na.rm=TRUE)), 
+          colour_scale = get("colour_scale_numeric", envir = plotKML.opts),
+          home_url = get("home_url", envir = plotKML.opts),
+          metadata = NULL, html.table = NULL,
+          altitudeMode = "clampToGround", balloon = FALSE,
+          png.width, png.height, min.png.width = 800, png.type = "cairo-png", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>object of class <code>"RasterBrick"</code> (e.g. a time series of images)</p>
+</td></tr>
+<tr valign="top"><td><code>plot.legend</code></td>
+<td>
+<p>logical; specify whether a map legend should be generated automatically</p>
+</td></tr>
+<tr valign="top"><td><code>dtime</code></td>
+<td>
+<p>temporal support (point or block) expressed in seconds</p>
+</td></tr>
+<tr valign="top"><td><code>tz</code></td>
+<td>
+<p>referent time zone</p>
+</td></tr>
+<tr valign="top"><td><code>z.lim</code></td>
+<td>
+<p>upper and lower limits (unique for all maps in the time series); the function by default uses the absolute minimum and maximum in values</p>
+</td></tr>
+<tr valign="top"><td><code>colour_scale</code></td>
+<td>
+<p>color palette; by default uses the color scale for numeric variables</p>
+</td></tr>
+<tr valign="top"><td><code>home_url</code></td>
+<td>
+<p>(optional) URL directory / location of the images</p>
+</td></tr>
+<tr valign="top"><td><code>metadata</code></td>
+<td>
+<p>(optional) the metadata object</p>
+</td></tr>
+<tr valign="top"><td><code>html.table</code></td>
+<td>
+<p>(optional) the description block (html)</p>
+</td></tr>
+<tr valign="top"><td><code>altitudeMode</code></td>
+<td>
+<p>character; the default altitudeMode</p>
+</td></tr>
+<tr valign="top"><td><code>balloon</code></td>
+<td>
+<p>logical; specifies whether to display balloon for each element</p>
+</td></tr>
+<tr valign="top"><td><code>png.width</code></td>
+<td>
+<p>(optional) width of the PNG files</p>
+</td></tr>
+<tr valign="top"><td><code>png.height</code></td>
+<td>
+<p>(optional) height of the PNG files</p>
+</td></tr>
+<tr valign="top"><td><code>min.png.width</code></td>
+<td>
+<p>(optional) minimum width of the PNG file</p>
+</td></tr>
+<tr valign="top"><td><code>png.type</code></td>
+<td>
+<p>character; PNG type</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments (see <code>aesthetics</code>)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This method is recommended for visualization of numeric bands representing the same variable i.e. time series of images. To export a stack of images of different type see <code><a href="layer.Raster.html">kml_layer.Raster</a></code>. If the <code>"@zvalue"</code> slot is empty, dates will be added by subtracting days from the current day with 1&ndash;day increments.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="kml.html">kml-methods</a></code>, <code><a href="kml_open.html">kml_open</a></code>, <code><a href="layer.Raster.html">kml_layer.Raster</a></code>, <code><a href="plotKML.html">plotKML-method</a></code> </p>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

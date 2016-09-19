@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create Deviance Evaluation Function from Predictor and...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mkdevfun {lme4}"><tr><td>mkdevfun {lme4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create Deviance Evaluation Function from Predictor and Response Module</h2>
+
+<h3>Description</h3>
+
+<p>From a <code><a href="merMod-class.html">merMod</a></code> object create an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> function that
+takes a   single argument, which is the new parameter value, and
+returns the deviance.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mkdevfun(rho, nAGQ = 1L, maxit = 100, verbose = 0, control = list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p>an environment containing <code>pp</code>, a
+prediction module, typically of class
+<code><a href="merPredD-class.html">merPredD</a></code> and <code>resp</code>, a response
+module, e.g., of class <code><a href="lmResp-class.html">lmerResp</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nAGQ</code></td>
+<td>
+<p>scalar integer - the number of adaptive
+Gauss-Hermite quadrature points.  A value of 0 indicates
+that both the fixed-effects parameters and the random
+effects are optimized by the iteratively reweighted least
+squares algorithm.</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>scalar integer, currently only for GLMMs: the maximal
+number of Pwrss update iterations.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>scalar logical: print verbose output?</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>list of control parameters, a subset of
+those specified by <code><a href="lmerControl.html">lmerControl</a></code>
+(<code>tolPwrss</code> and <code>compDev</code> for GLMMs,
+<code>tolPwrss</code> for NLMMs)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function returned by <code>mkdevfun</code> evaluates the
+deviance of the model represented by the predictor
+module, <code>pp</code>, and the response module, <code>resp</code>.
+</p>
+<p>For <code><a href="lmer.html">lmer</a></code> model objects the argument of the
+resulting function is the variance component parameter,
+<code>theta</code>, with lower bound.  For <code><a href="glmer.html">glmer</a></code> or
+<code><a href="nlmer.html">nlmer</a></code> model objects with <code>nAGQ = 0</code> the
+argument is also <code>theta</code>.  However, when nAGQ &gt; 0,
+the argument is <code>c(theta, beta)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code><a href="../../base/html/function.html">function</a></code> of one numeric argument.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lmer.html">lmer</a></code>, <code><a href="glmer.html">glmer</a></code> and
+<code><a href="nlmer.html">nlmer</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+(dd &lt;- lmer(Yield ~ 1|Batch, Dyestuff, devFunOnly=TRUE))
+dd(0.8)
+minqa::bobyqa(1, dd, 0)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>lme4</em> version 1.1-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

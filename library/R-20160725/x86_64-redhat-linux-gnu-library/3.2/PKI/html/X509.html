@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Public Key Instraftructure (X509) functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for X509 {PKI}"><tr><td>X509 {PKI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Public Key Instraftructure (X509) functions
+</h2>
+
+<h3>Description</h3>
+
+<p><code>PKI.load.cert</code> creates a certificate obejct from a string,
+connection or file.
+</p>
+<p><code>PKI.verifyCA</code> verifies a certificate against a given chain of
+trust.
+</p>
+<p><code>PKI.pubkey</code> extracts public key from a certificate.  
+</p>
+<p><code>PKI.get.subject</code> extracts the subject name from the certificate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+PKI.load.cert(what, format = c("PEM", "DER"), file)
+PKI.verifyCA(certificate, ca)
+PKI.pubkey(certificate)
+PKI.get.subject(certificate)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>what</code></td>
+<td>
+<p>string, raw vector or connection to load the certificate
+from</p>
+</td></tr>
+<tr valign="top"><td><code>format</code></td>
+<td>
+<p>format used to encode the certificate</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>filename to load the certificate from - <code>what</code> and
+<code>file</code> are mutually exclusive</p>
+</td></tr>
+<tr valign="top"><td><code>certificate</code></td>
+<td>
+<p>a certificate object (as returned by
+<code>PKI.load.cert</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>ca</code></td>
+<td>
+<p>a certificate object of the Certificate Authority (CA) or a
+list of such objects if multiple CAs are involved</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>PKI.load.code</code>: a certificate object
+</p>
+<p><code>PKI.verifyCA</code>: <code>TRUE</code> is the certificate can be trusted,
+<code>FALSE</code> otherwise
+</p>
+<p><code>PKI.pubkey</code>: public key object
+</p>
+<p><code>PKI.get.subject</code>: string containing the subject information in
+one-line RFC2253 format but in UTF8 encoding instead of MBS escapes.
+NOTE: this is experimantal, we may choose to parse the contents and
+return it in native R form as a named vector instead.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simon Urbanek
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ca &lt;- PKI.load.cert(file=system.file("certs", "RForge-ca.crt", package="PKI"))
+  my.cert &lt;- PKI.load.cert(readLines(system.file("certs", "demo.crt", package="PKI")))
+  PKI.verifyCA(my.cert, ca)
+  PKI.pubkey(my.cert)
+  PKI.get.subject(my.cert)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>PKI</em> version 0.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

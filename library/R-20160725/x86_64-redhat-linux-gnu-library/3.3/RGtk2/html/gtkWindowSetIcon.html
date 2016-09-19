@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowSetIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowSetIcon {RGtk2}"><tr><td>gtkWindowSetIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowSetIcon</h2>
+
+<h3>Description</h3>
+
+<p>Sets up the icon representing a <code><a href="GtkWindow.html">GtkWindow</a></code>. This icon is used when
+the window is minimized (also known as iconified).  Some window
+managers or desktop environments may also place it in the window
+frame, or display it in other contexts.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowSetIcon(object, icon = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">icon</code></code></td>
+<td>
+<p>icon image, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The icon should be provided in whatever size it was naturally
+drawn; that is, don't scale the image before passing it to
+GTK+. Scaling is postponed until the last minute, when the desired
+final size is known, to allow best quality.
+</p>
+<p>If you have your icon hand-drawn in multiple sizes, use
+<code><a href="gtkWindowSetIconList.html">gtkWindowSetIconList</a></code>. Then the best size will be used.
+</p>
+<p>This function is equivalent to calling <code><a href="gtkWindowSetIconList.html">gtkWindowSetIconList</a></code>
+with a 1-element list.
+</p>
+<p>See also <code><a href="gtkWindowSetDefaultIconList.html">gtkWindowSetDefaultIconList</a></code> to set the icon
+for all windows in your application in one go.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

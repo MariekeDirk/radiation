@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Symbolize Volume Fraction on a Soil Profile Collection Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for addVolumeFraction {aqp}"><tr><td>addVolumeFraction {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Symbolize Volume Fraction on a Soil Profile Collection Plot</h2>
+
+<h3>Description</h3>
+
+<p>Symbolize volume fraction on an existing soil profile collection plot.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addVolumeFraction(x, colname, res = 10, cex.min = 0.1, 
+cex.max = 0.5, pch = 1, col = "black")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a <code>SoilProfileCollection</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>colname</code></td>
+<td>
+<p>character vector of length 1, naming the column containing volume fraction data (horizon-level attribute)</p>
+</td></tr>
+<tr valign="top"><td><code>res</code></td>
+<td>
+<p>integer, resolution of the grid used to symbolize volume fraction</p>
+</td></tr>
+<tr valign="top"><td><code>cex.min</code></td>
+<td>
+<p>minimum symbol size</p>
+</td></tr>
+<tr valign="top"><td><code>cex.max</code></td>
+<td>
+<p>maximum symbol size</p>
+</td></tr>
+<tr valign="top"><td><code>pch</code></td>
+<td>
+<p>plotting character</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>color of the symbol</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function can only be called after plotting a <code>SoilProfileCollection</code> object.</p>
+
+
+<h3>Note</h3>
+
+<p>Details associated with a call to plot.SoilProfileCollection are automatically accounted for within this function: e.g. <code>plot.order</code>, <code>width</code>, etc.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="SPC-plotting.html">plotSPC</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# sample data
+data(loafercreek, package='soilDB')
+
+# subset first 10 profiles 
+s &lt;- loafercreek[1:10, ]
+
+# replace 0% frags with NA
+s$total_frags_pct[which(s$total_frags_pct == 0)] &lt;- NA
+
+# plot in random order, note that annotations follow
+par(mar=c(0, 0, 3, 0))
+plot(s, color='total_frags_pct', plot.order=sample(1:length(s)))
+addVolumeFraction(s, 'total_frags_pct', pch=1)
+
+par(mar=c(0, 0, 0, 0))
+plot(s, max.depth=100, name='total_frags_pct', cex.name=1, axis.line.offset=-4.25)
+addVolumeFraction(s, 'total_frags_pct', pch=1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

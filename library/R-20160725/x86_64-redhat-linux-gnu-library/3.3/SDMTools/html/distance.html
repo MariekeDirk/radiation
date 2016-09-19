@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vincenty Direct Calculation of Distance and Direction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for distance {SDMTools}"><tr><td>distance {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vincenty Direct Calculation of Distance and Direction</h2>
+
+<h3>Description</h3>
+
+<p><code>distance</code> estimates the distance given a starting &amp;
+ending latitude and longitude. <br /> <br /> For general
+information on Vincenty's formula, see e.g.,
+<a href="http://en.wikipedia.org/wiki/Vincenty's_formulae">http://en.wikipedia.org/wiki/Vincenty's_formulae</a>. It
+states: <br /> <em>Vincenty's formulae are two related
+iterative methods used in geodesy to calculate the distance
+between two points on the surface of an spheroid, developed
+by Thaddeus Vincenty in 1975. They are based on the
+assumption that the figure of the Earth is an oblate
+spheroid, and hence are more accurate than methods such as
+great-circle distance which assume a spherical Earth.</em> <br />
+<br /> <b>Note:</b> this method assumes a locations are lat &amp;
+lon given in WGS 84.<br /><br /> Direction, if requested, is the
+the initial bearing (sometimes referred to as forward
+azimuth) for which one would follow as a straight line
+along a great-circle arc from start to finish.<br /> <br />
+<b>Note:</b> this will fail if there are NA's in the data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+distance(lat1, lon1 = NULL, lat2 = NULL, lon2 = NULL, bearing = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lat1</code></td>
+<td>
+<p>a single value or vector of values
+representing latitude in decimal degrees from -90 to 90
+degrees. Alternatively, a data.frame or matrix can be
+used here with each column representing lat1, lon1, lat2,
+lon2 (in that order).</p>
+</td></tr>
+<tr valign="top"><td><code>lon1</code></td>
+<td>
+<p>a single value or vector of values
+representing longitude in decimal degrees from -180 to
+180 degrees. If NULL, lat1 is assumed to be a matrix or
+data.frame.</p>
+</td></tr>
+<tr valign="top"><td><code>lat2</code></td>
+<td>
+<p>a single value or vector of values
+representing latitude in decimal degrees from -90 to 90
+degrees. If NULL, lat1 is assumed to be a matrix or
+data.frame.</p>
+</td></tr>
+<tr valign="top"><td><code>lon2</code></td>
+<td>
+<p>a single value or vector of values
+representing longitude in decimal degrees from -180 to
+180 degrees. If NULL, lat1 is assumed to be a matrix or
+data.frame.</p>
+</td></tr>
+<tr valign="top"><td><code>bearing</code></td>
+<td>
+<p>boolean value as to calculate the
+direction as well as the distance.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a data.frame with: </p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>lon1</code></td>
+<td>
+<p>the original
+longitude</p>
+</td></tr> <tr valign="top"><td><code>lat1</code></td>
+<td>
+<p>the original latitude</p>
+</td></tr>
+<tr valign="top"><td><code>lon2</code></td>
+<td>
+<p>the destination longitude</p>
+</td></tr> <tr valign="top"><td><code>lat2</code></td>
+<td>
+<p>the
+destination latitude</p>
+</td></tr> <tr valign="top"><td><code>distance</code></td>
+<td>
+<p>the distance used</p>
+</td></tr>
+<tr valign="top"><td><code>bearing</code></td>
+<td>
+<p>if requested, the bearing between the two
+points</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>Source</h3>
+
+<p>The source code for the distance algorithm here was
+modified from
+<a href="http://www.movable-type.co.uk/scripts/latlong-vincenty.html">http://www.movable-type.co.uk/scripts/latlong-vincenty.html</a>.<br />
+<br /> Distances were validated against Geoscience Australia
+calculations
+(<a href="http://www.ga.gov.au/geodesy/datums/vincenty_inverse.jsp">http://www.ga.gov.au/geodesy/datums/vincenty_inverse.jsp</a>).<br />
+<br /> Bearings were from multiple sources including
+<a href="http://williams.best.vwh.net/avform.htm#Crs">http://williams.best.vwh.net/avform.htm#Crs</a>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Vincenty, T. 1975. Direct and Inverse Solutions of
+Geodesics on the Ellipsoid with application of Nested
+Equations. Survey Review, vol XXII no 176.
+<a href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="destination.html">destination</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#get the distance of 1 degree longitude at each 5 degrees latitude from -90 to 90
+distance(lat1=seq(-90,90,5),lon1=rep(0,37),lat2=seq(-90,90,5),lon2=rep(1,37),bearing=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkPrintContext</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkPrintContext {RGtk2}"><tr><td>GtkPrintContext {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkPrintContext</h2>
+
+<h3>Description</h3>
+
+<p>Encapsulates context for drawing pages</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkPrintContextGetCairoContext.html">gtkPrintContextGetCairoContext</a>(object)</code><br />
+<code><a href="gtkPrintContextSetCairoContext.html">gtkPrintContextSetCairoContext</a>(object, cr, dpi.x, dpi.y)</code><br />
+<code><a href="gtkPrintContextGetPageSetup.html">gtkPrintContextGetPageSetup</a>(object)</code><br />
+<code><a href="gtkPrintContextGetWidth.html">gtkPrintContextGetWidth</a>(object)</code><br />
+<code><a href="gtkPrintContextGetHeight.html">gtkPrintContextGetHeight</a>(object)</code><br />
+<code><a href="gtkPrintContextGetDpiX.html">gtkPrintContextGetDpiX</a>(object)</code><br />
+<code><a href="gtkPrintContextGetDpiY.html">gtkPrintContextGetDpiY</a>(object)</code><br />
+<code><a href="gtkPrintContextGetPangoFontmap.html">gtkPrintContextGetPangoFontmap</a>(object)</code><br />
+<code><a href="gtkPrintContextCreatePangoContext.html">gtkPrintContextCreatePangoContext</a>(object)</code><br />
+<code><a href="gtkPrintContextCreatePangoLayout.html">gtkPrintContextCreatePangoLayout</a>(object)</code><br />
+<code><a href="gtkPrintContextGetHardMargins.html">gtkPrintContextGetHardMargins</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkPrintContext</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A GtkPrintContext encapsulates context information that is required when
+drawing pages for printing, such as the cairo context and important
+parameters like page size and resolution. It also lets you easily
+create <code><a href="pango-Layout-Objects.html">PangoLayout</a></code> and <code><a href="pango-Text-Processing.html">PangoContext</a></code> objects that match the font metrics
+of the cairo surface.
+</p>
+<p>GtkPrintContext objects gets passed to the ::begin-print, ::end-print,
+::request-page-setup and ::draw-page signals on the <code><a href="gtk-High-level-Printing-API.html">GtkPrintOperation</a></code>.
+</p>
+<p><em>Using GtkPrintContext in a ::draw-page callback</em>
+</p>
+<pre>
+draw_page &lt;- function(operation, context, page_nr)
+{
+  cr &lt;- context$getCairoContext()
+
+  # Draw a red rectangle, as wide as the paper (inside the margins)
+  cr$setSourceRgb(1.0, 0, 0)
+  cr$rectangle(0, 0, context$getWidth(), 50)
+  
+  cr$fill()
+
+  # Draw some lines
+  cr$moveTo(20, 10)
+  cr$lineTo(40, 20)
+  cr$arc(60, 60, 20, 0, pi)
+  cr$lineTo(80, 20)
+  
+  cr$setSourceRgb(0, 0, 0)
+  cr$setLineWidth(5)
+  cr$setLineCap("round")
+  cr$setLineJoin("round")
+  
+  cr$stroke()
+
+  # Draw some text
+  
+  layout &lt;- context$createLayout()
+  layout$setText("Hello World! Printing is easy")
+  desc &lt;- pangoFontDescriptionFromString("sans 28")
+  layout$setFontDescription(desc)
+  
+  cr$moveTo(30, 20)
+  cr$layoutPath(layout)
+
+  # Font Outline
+  cr$setSourceRgb(0.93, 1.0, 0.47)
+  cr$setLineWidth(0.5)
+  cr$strokePreserve()
+
+  # Font Fill
+  cr$setSourceRgb(0, 0.0, 1.0)
+  cr$fill()
+}
+</pre>  
+<p>Printing support was added in GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkPrintContext</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkPrintContext.html">http://library.gnome.org/devel//gtk/GtkPrintContext.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

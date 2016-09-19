@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visualization of ordEval results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.ordEval {CORElearn}"><tr><td>plot.ordEval {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Visualization of ordEval results </h2>
+
+<h3>Description</h3>
+
+<p>The method <code>plot</code> visualizes the results of ordEval algorithm with an adapted 
+box-and-whiskers plots. The method <code>printOrdEval</code> prints summary of the results 
+in a text format.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+    plotOrdEval(file, rndFile, ...) 
+    
+    ## S3 method for class 'ordEval'
+plot(x, graphType=c("avBar", "attrBar", "avSlope"), ...)
+    
+    printOrdEval(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>The object containing results of ordEval algorithm obtained by calling  <code><a href="ordEval.html">ordEval</a></code>.
+If this object is not given, it has to be constructed from files <code>file</code> and <code>rndFile</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p> Name of file where evaluation results of ordEval algorithm were written to. </p>
+</td></tr>
+<tr valign="top"><td><code>rndFile</code></td>
+<td>
+<p> Name of file where evaluation of random normalizing attributes by ordEval algorithm were written to. </p>
+</td></tr>
+<tr valign="top"><td><code>graphType</code></td>
+<td>
+<p> The type of the graph to produce. Can be any of <code>"avBar", "attrBar", "avSlope"</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>... </code></td>
+<td>
+<p> Other options controlling graphical output, used by specific graphical methods. See details.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The output of function <code><a href="ordEval.html">ordEval</a></code> either returned directly or stored in files <code>file</code> and <code>rndFile</code>
+is read and visualized. The type of graph produced is controlled by <code>graphType</code> parameter:
+</p>
+
+<ul>
+<li> <p><code>avBar</code> the positive and negative reinforcement of each value of each attribute is visualized 
+as the length of the bar. For each value also a normalizing modified box and whiskers plot
+is produced above it, showing the confidence interval of the same attribute value under the assumption 
+that the attribute contains no information. If the length of the bar is outside the normalizing whiskers this 
+is a statistically significant indication that the value is important.
+</p>
+</li>
+<li> <p><code>attrBar</code> the positive and negative reinforcement for each attribute is visualized 
+as the length of the bar. This reinforcement is weighted sum of contributions of individual
+values visualized with <code>avBar</code> graph type. 
+</p>
+</li>
+<li> <p><code>avSlope</code> the positive and negative reinforcement of each value of each attribute is visualized 
+as the slope of the line segment connecting consequent values
+</p>
+</li></ul>
+    
+<p>The <code>avBar</code> and <code>avSlope</code> produce several graphs (one for each attribute). In order to see them all on
+an interactive device use <code><a href="../../grDevices/html/devAskNewPage.html">devAskNewPage</a></code>. On some platforms graphical window has a menu item
+history, where one can turn on recording and browse through recent pages. Alternatively use any of non-interactive devices
+such as <code><a href="../../grDevices/html/pdf.html">pdf</a></code> or <code><a href="../../grDevices/html/postscript.html">postscript</a></code>. Some support for opening and handling of these devices is provided 
+by function <code><a href="preparePlot.html">preparePlot</a></code>. The user should take care to call <code><a href="../../grDevices/html/dev.html">dev.off</a></code> after completion of the operations.  
+</p>
+<p>There are some additional optional parameters <b>... </b> which are important to all or for some graph types.
+</p>
+
+<ul>
+<li> <p><code>ci</code> The type of the confidence interval in &quot;avBar&quot; and &quot;attrBar&quot; graph types. Can be <code>"two.sided"</code>,
+<code>"upper"</code>, <code>"lower"</code>, or <code>"none"</code>. 
+Together with <code>ordEvalNormalizingPercentile</code> parameter in <code><a href="ordEval.html">ordEval</a></code>, <code>ci</code>, and <code>ciDisplay</code>
+controls the type, length and display of of confidence intervals for each value.    
+</p>
+</li>
+<li> <p><code>ciDisplay</code> The way how confidence intervals are displayed. Can be <code>"box"</code> or <code>"color"</code>. The value
+<code>"box"</code> displays confidence interval as box and whiskers plot above the actual value with whiskers representing 
+confidence percentiles.
+The value <code>"color"</code> displays only the upper limit of confidence interval, namely the value 
+(represented with a length of the bar) beyond the confidence interval is displayed with more intensive color or shade. 
+</p>
+</li>
+<li> <p><code>equalUpDown</code> a boolean specifying if upward and downward reinforcement of the same value are to be displayed side by side on the same level; it usually makes sense to 
+set this parameter to <code>TRUE</code> when specifying a single value differences by setting <code>variant="attrDist1"</code> in <code><a href="ordEval.html">ordEval</a></code> function.  
+</p>
+</li>
+<li> <p><code>graphTitle</code> specifies text to incorporate into the title.
+</p>
+</li>
+<li> <p><code>attrIdx</code> displays plot for a single attribute with specified index.
+</p>
+</li>
+<li> <p><code>xlabel</code>  label of lower horizontal axis. 
+</p>
+</li>
+<li> <p><code>ylabLeft</code> label of left vertical axis.
+</p>
+</li>
+<li> <p><code>ylabRight</code> label of right vertical axis; the default value is 
+</p>
+</li>
+<li> <p><code>colors</code> a vector with four colors specifying colors of reinforcement bars for down, down_beyond, up, and up_beyond, respectively.
+If set to NULL this produces black and white graph with shades of gray.
+The colors down_beyond and up_beyond depict the confidence interval if parameter <code>ciDisplay="color"</code>. 
+The default values are <code>colors=c("green","lightgreen","blue","lightblue")</code>.
+</p>
+</li></ul>
+   
+
+
+<h3>Value</h3>
+
+<p>The method returns no value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja</p>
+
+
+<h3>References</h3>
+
+ 
+<p>Marko Robnik-Sikonja, Koen Vanhoof: Evaluation of ordinal attributes at value level. 
+<em>Knowledge Discovery and Data Mining</em>, 14:225-243, 2007    
+</p>
+<p>Marko Robnik-Sikonja, Igor Kononenko: Theoretical and Empirical Analysis of ReliefF and RReliefF.
+<em>Machine Learning Journal</em>, 53:23-69, 2003
+</p>
+<p>Some of the references are available also from <a href="http://lkm.fri.uni-lj.si/rmarko/papers/">http://lkm.fri.uni-lj.si/rmarko/papers/</a>    
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ordEval.html">ordEval</a></code>,
+<code><a href="helpCore.html">helpCore</a></code>,
+<code><a href="preparePlot.html">preparePlot</a></code>,
+<code><a href="CORElearn-package.html">CORElearn</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # prepare a data set
+    dat &lt;- ordDataGen(200)
+
+    # evaluate ordered features with ordEval
+    oe &lt;- ordEval(class ~ ., dat, ordEvalNoRandomNormalizers=200)
+    plot(oe)
+    # printOrdEval(oe)
+    
+    # the same effect we achieve by storing results to files
+    tmp &lt;- ordEval(class ~ ., dat, file="profiles.oe", rndFile="profiles.oer", 
+                   ordEvalNoRandomNormalizers=200)   
+    plotOrdEval(file="profiles.oe", rndFile="profiles.oer",graphType="attrBar")
+    
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

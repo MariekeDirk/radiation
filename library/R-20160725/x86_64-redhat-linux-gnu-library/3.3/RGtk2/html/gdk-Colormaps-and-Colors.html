@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Colormaps and Colors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Colormaps-and-Colors {RGtk2}"><tr><td>gdk-Colormaps-and-Colors {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Colormaps and Colors</h2>
+
+<h3>Description</h3>
+
+<p>Manipulation of colors and colormaps</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkColormapNew.html">gdkColormapNew</a>(visual, allocate)</code><br />
+<code><a href="gdkColormapGetSystem.html">gdkColormapGetSystem</a>()</code><br />
+<code><a href="gdkColormapGetSystemSize.html">gdkColormapGetSystemSize</a>()</code><br />
+<code><a href="gdkColormapAllocColors.html">gdkColormapAllocColors</a>(colormap, colors, writeable, best.match)</code><br />
+<code><a href="gdkColormapAllocColor.html">gdkColormapAllocColor</a>(object, color, writeable, best.match)</code><br />
+<code><a href="gdkColormapFreeColors.html">gdkColormapFreeColors</a>(object, colors)</code><br />
+<code><a href="gdkColormapQueryColor.html">gdkColormapQueryColor</a>(object, pixel)</code><br />
+<code><a href="gdkColormapGetVisual.html">gdkColormapGetVisual</a>(object)</code><br />
+<code><a href="gdkColormapGetScreen.html">gdkColormapGetScreen</a>(object)</code><br />
+<code><a href="gdkColorsStore.html">gdkColorsStore</a>(object, colors)</code><br />
+<code><a href="gdkColorWhite.html">gdkColorWhite</a>(object)</code><br />
+<code><a href="gdkColorBlack.html">gdkColorBlack</a>(object)</code><br />
+<code><a href="gdkColorParse.html">gdkColorParse</a>(spec)</code><br />
+<code><a href="gdkColorAlloc.html">gdkColorAlloc</a>(object, color)</code><br />
+<code><a href="gdkColorChange.html">gdkColorChange</a>(object, color)</code><br />
+<code><a href="gdkColorToString.html">gdkColorToString</a>(object)</code><br />
+<code>gdkColormap(visual, allocate)</code>
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>These functions are used to modify colormaps.
+A colormap is an object that contains the mapping
+between the color values stored in memory and
+the RGB values that are used to display color
+values. In general, colormaps only contain
+significant information for pseudo-color visuals,
+but even for other visual types, a colormap object
+is required in some circumstances.
+</p>
+<p>There are a couple of special colormaps that can
+be retrieved. The system colormap (retrieved
+with <code><a href="gdkColormapGetSystem.html">gdkColormapGetSystem</a></code>) is the default
+colormap of the system. If you are using GdkRGB,
+there is another colormap that is important - the
+colormap in which GdkRGB works, retrieved with
+<code><a href="gdkRgbGetColormap.html">gdkRgbGetColormap</a></code>. However, when using GdkRGB,
+it is not generally necessary to allocate colors
+directly.
+</p>
+<p>In previous revisions of this interface, a number
+of functions that take a <code><a href="gdk-Colormaps-and-Colors.html">GdkColormap</a></code> parameter
+were replaced with functions whose names began
+with &quot;gdk_colormap_&quot;. This process will probably
+be extended somewhat in the future -
+<code><a href="gdkColorWhite.html">gdkColorWhite</a></code>, <code><a href="gdkColorBlack.html">gdkColorBlack</a></code>, and
+<code><a href="gdkColorChange.html">gdkColorChange</a></code> will probably become aliases.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkColor</code></dt><dd>
+<p>The <code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> structure is used to describe an
+allocated or unallocated color.
+<strong><code style="white-space: pre;">GdkColor</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">pixel</code></dt><dd><p>[numeric] For allocated colors, the value used to
+draw this color on the screen.</p>
+</dd>
+<dt><code style="white-space: pre;">red</code></dt><dd><p>[integer] The red component of the color. This is
+a value between 0 and 65535, with 65535 indicating
+full intensitiy.</p>
+</dd>
+<dt><code style="white-space: pre;">green</code></dt><dd><p>[integer] The blue component of the color.</p>
+</dd>
+<dt><code style="white-space: pre;">blue</code></dt><dd><p>[integer] The green component of the color.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkColormap</code></dt><dd>
+<p>The colormap structure contains the following public fields.
+</p>
+
+<dl>
+<dt><code>size</code></dt><dd><p>For pseudo-color colormaps, the number of colors
+in the colormap.</p>
+</dd>
+<dt><code>colors</code></dt><dd><p>An list containing the current values in the
+colormap. This can be used to map from pixel values
+back to RGB values. This is only meaningful for
+pseudo-color colormaps.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gdkColormap</code> is the equivalent of <code><a href="gdkColormapNew.html">gdkColormapNew</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Colormaps-and-Colors.html">http://library.gnome.org/devel//gdk/gdk-Colormaps-and-Colors.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a function to simulate data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for simfun {TeachingDemos}"><tr><td>simfun {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Create a function to simulate data
+</h2>
+
+<h3>Description</h3>
+
+<p>This function is used to create a new function that will simulate data.
+This could be used by a teacher to create homework or test conditions
+that the students would then simulate data from (each student could have
+their own unique data set) or this function could be used in simulations
+for power or other values of interest. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+simfun(expr, drop, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+
+<p>This is an expression, usually just one or more statements, that will
+generate the simulated data. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>drop</code></td>
+<td>
+
+<p>A character vector of names of objects/columns that will be dropped from
+the return value.  These are usually intermediate objects or parameter
+values that you don't want carried into the final returned object. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Additional named items that will be in the environment when <code>expr</code>
+is evaluated. 
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function creates another function to simulate data.  You supply
+the general ideas of the simulation to this function and the resulting
+function can then be used to create simulated datasets.  The resulting
+function can then be given to students for them to simulate datasets,
+or used localy as part of larger simulations. 
+</p>
+<p>The environment where the expression is evaluated will have all the
+columns or elements of the <code>data</code> argument available as well as
+the <code>data</code> argument itself.  Any variables/parameters passed
+through <code>...</code> in the original function will also be available.
+You then supply the code based on those variables to create the
+simulated data.  The names of any columns or parameters submitted as
+part of <code>data</code> will need to match the code exactly (provide
+specific directions to the users on what columns need to be named).
+Rember that indexing using factors indexes based on the underlying
+integers not the character representation.  See the examples for
+details. 
+</p>
+<p>The resulting function can be saved and loaded/attached in different R
+sessions (it is important to use <code>save</code> rather than something
+like <code>dput</code> so that the environment of the function is
+preserved). 
+</p>
+<p>The function includes an optional seed that will be used with the
+<code><a href="char2seed.html">char2seed</a></code> function (if the seed is a character) so that
+each student could use a unique but identifiable seed (such as their
+name or something based on their name) so that each student will use a
+different dataset, but the instructor will be able to generate the
+exact same dataset to check answers. 
+</p>
+<p>The &quot;True&quot; parameters are hidden in the environment of the function so
+the student will not see the &quot;true&quot; values by simply printing the
+function.  However an intermediate level R programmer/user would be
+able to extract the simulation parameters (but the correct homework or
+test answer will not be the simulation parameters). 
+</p>
+
+
+<h3>Value</h3>
+
+<p>The return value is a function that will generate simulated datasets.
+The function will have 2 arguments, <code>data</code> and <code>seed</code>.  The
+<code>data</code> argument can be either a data frame of the predictor
+variables (study design) or a list of simulation parameters.  The
+<code>seed</code> argument will be passed on to <code><a href="../../base/html/Random.html">set.seed</a></code> if it
+is numeric and <code><a href="char2seed.html">char2seed</a></code> if it is a character. 
+</p>
+<p>The return value of this function is a dataframe with the simulated data
+and any explanitory variables passed to the function. 
+</p>
+<p>See the examples for how to use the result function.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function was not designed for speed, if you are doing long
+simulations then hand crafting the simulation function will probably
+run quicker than one created using this function. 
+</p>
+<p>Like the prediction functions the data frame passed in as the data
+argument will need to have exact names of the columns to match with
+the code (including capitolization). 
+</p>
+<p>This function is different from the <code><a href="../../stats/html/simulate.html">simulate</a></code> functions
+in that it allows for different sample sizes, user specified
+parameters, and different predictor variables. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Random.html">set.seed</a></code>, <code><a href="char2seed.html">char2seed</a></code>, <code><a href="../../base/html/with.html">within</a></code>, <code><a href="../../stats/html/simulate.html">simulate</a></code>, <code><a href="../../base/html/save.html">save</a></code>, <code><a href="../../base/html/load.html">load</a></code>, <code><a href="../../base/html/attach.html">attach</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Create a function to simulate heights for a given dataset
+
+simheight &lt;- simfun( {h &lt;- c(64,69); height&lt;-h[sex]+ rnorm(10,0,3)}, drop='h' )
+
+my.df &lt;- data.frame(sex=rep(c('Male','Female'),each=5))
+simdat &lt;- simheight(my.df)
+t.test(height~sex, data=simdat)
+
+# a more general version, and have the expression predefined
+# (note that this assumes that the levels are Female, Male in that order)
+
+myexpr &lt;- quote({
+  n &lt;- length(sex)
+  h &lt;- c(64,69)
+  height &lt;- h[sex] + rnorm(n,0,3)
+})
+
+simheight &lt;- simfun(eval(myexpr), drop=c('n','h'))
+my.df &lt;- data.frame(sex=sample(rep(c('Male','Female'),c(5,10))))
+(simdat &lt;- simheight(my.df))
+
+# similar to above, but use named parameter vector and index by names
+
+myexpr &lt;- quote({
+  n &lt;- length(sex)
+  height &lt;- h[ as.character(sex)] + rnorm(n,0,sig)
+})
+
+simheight &lt;- simfun(eval(myexpr), drop=c('n','h','sig'), 
+  h=c(Male=69,Female=64), sig=3)
+my.df &lt;- data.frame( sex=sample(c('Male','Female'),100, replace=TRUE))
+(simdat &lt;- simheight(my.df, seed='example'))
+
+# Create a function to simulate Sex and Height for a given sample size 
+# (actually it will generate n males and n females for a total of 2*n samples)
+# then use it in a set of simulations
+simheight &lt;- simfun( {sex &lt;- factor(rep(c('Male','Female'),each=n))
+                      height &lt;- h[sex] + rnorm(2*n,0,s)
+                      }, drop=c('h','n'), h=c(64,69), s=3)
+(simdat &lt;- simheight(list(n=10)))
+
+out5  &lt;- replicate(1000, t.test(height~sex, data=simheight(list(n= 5)))$p.value)
+out15 &lt;- replicate(1000, t.test(height~sex, data=simheight(list(n=15)))$p.value)
+
+mean(out5  &lt;= 0.05)
+mean(out15 &lt;= 0.05)
+
+# use a fixed population
+
+simstate &lt;- simfun({
+  tmp &lt;- state.df[as.character(State),]
+  Population &lt;- tmp[['Population']]
+  Income &lt;- tmp[['Income']]
+  Illiteracy &lt;- tmp[['Illiteracy']]
+}, state.df=as.data.frame(state.x77), drop=c('tmp','state.df'))
+simstate(data.frame(State=sample(state.name,10)))
+
+# Use simulation, but override setting the seed
+
+simheight &lt;- simfun({
+  set.seed(1234)
+  h &lt;- c(64,69)
+  sex &lt;- factor(rep(c('Female','Male'),each=50))
+  height &lt;- round(rnorm(100, rep(h,each=50),3),1)
+  sex &lt;- sex[ID]
+  height &lt;- height[ID]
+}, drop='h')
+(newdat &lt;- simheight(list(ID=c(1:5,51:55))))
+(newdat2&lt;- simheight(list(ID=1:10)))
+
+# Using a fitted object
+
+fit &lt;- lm(Fertility ~ . , data=swiss)
+simfert &lt;- simfun({
+  Fertility &lt;- predict(fit, newdata=data)
+  Fertility &lt;- Fertility + rnorm(length(Fertility),0,summary(fit)$sigma)
+}, drop=c('fit'), fit=fit)
+
+tmpdat &lt;- as.data.frame(lapply(swiss[,-1], 
+            function(x) round(runif(100, min(x), max(x)))))
+names(tmpdat) &lt;- names(swiss)[-1]
+fertdat &lt;- simfert(tmpdat)
+head(fertdat)
+rbind(coef(fit), coef(lm(Fertility~., data=fertdat)))
+
+# simulate a nested mixed effects model
+simheight &lt;- simfun({
+  n.city &lt;- length(unique(city))
+  n.state &lt;- length(unique(state))
+  n &lt;- length(city)
+  height &lt;- h[sex] + rnorm(n.state,0,sig.state)[state] + 
+    rnorm(n.city,0,sig.city)[city] + rnorm(n,0,sig.e)
+}, sig.state=1, sig.city=0.5, sig.e=3, h=c(64,69),
+  drop=c('sig.state','sig.city','sig.e','h','n.city','n.state','n'))
+
+tmpdat &lt;- data.frame(state=gl(5,20), city=gl(10,10), 
+  sex=gl(2,5,length=100, labels=c('F','M')))
+heightdat &lt;- simheight(tmpdat)
+
+# similar to above, but include cost information, this assumes that 
+# each new state costs $100, each new city is $10, and each subject is $1
+# this shows 2 possible methods
+
+simheight &lt;- simfun({
+  n.city &lt;- length(unique(city))
+  n.state &lt;- length(unique(state))
+  n &lt;- length(city)
+  height &lt;- h[sex] + rnorm(n.state,0,sig.state)[state] + 
+    rnorm(n.city,0,sig.city)[city] + rnorm(n,0,sig.e)
+  cost &lt;- 100 * (!duplicated(state)) + 10*(!duplicated(city)) + 1
+  cat('The total cost for this design is $', 100*n.state+10*n.city+1*n, 
+  '\n', sep='')
+}, sig.state=1, sig.city=0.5, sig.e=3, h=c(64,69),
+  drop=c('sig.state','sig.city','sig.e','h','n.city','n.state','n'))
+
+tmpdat &lt;- data.frame(state=gl(5,20), city=gl(10,10), 
+  sex=gl(2,5,length=100, labels=c('F','M')))
+heightdat &lt;- simheight(tmpdat)
+sum(heightdat$cost)
+
+
+# another mixed model method
+
+simheight &lt;- simfun({
+  state &lt;- gl(n.state, n/n.state)
+  city &lt;- gl(n.city*n.state, n/n.city/n.state)
+  sex &lt;- gl(2, n.city, length=n, labels=c('F','M') )
+  height &lt;- h[sex] + rnorm(n.state,0,sig.state)[state] + 
+    rnorm(n.city*n.state,0,sig.city)[city] + rnorm(n,0,sig.e)
+}, drop=c('n.state','n.city','n','sig.city','sig.state','sig.e','h'))
+
+heightdat &lt;- simheight( list(
+  n.state=5, n.city=2, n=100, sig.state=10, sig.city=3, sig.e=1, h=c(64,69)
+))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

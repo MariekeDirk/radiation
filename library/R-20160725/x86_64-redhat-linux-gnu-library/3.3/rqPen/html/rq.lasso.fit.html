@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Regression with LASSO penalty</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rq.lasso.fit {rqPen}"><tr><td>rq.lasso.fit {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Quantile Regression with LASSO penalty</h2>
+
+<h3>Description</h3>
+
+<p>Fits a quantile regression model with the LASSO penalty. Algorithm is similar to LASSO code presented in Koenker and Mizera (2014).    
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rq.lasso.fit(x,y,tau=.5,lambda=NULL,weights=NULL,
+             intercept=TRUE,coef.cutoff=.00000001,
+             method="br", penVars=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Matrix of predictors.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> Vector of response values.</p>
+</td></tr>
+<tr valign="top"><td><code>tau</code></td>
+<td>
+<p> Conditional quantile being modelled.</p>
+</td></tr>   
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p> Tuning parameter.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p> Weights for the objective function.</p>
+</td></tr>
+<tr valign="top"><td><code>intercept</code></td>
+<td>
+<p> Whether model should include an intercept. Constant does not need to be included in &quot;x&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>coef.cutoff</code></td>
+<td>
+<p> Coefficients below this value will be set to zero.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Use method &quot;br&quot; or &quot;fn&quot; as outlined in quantreg package. Method &quot;fn&quot; better for large n or p.</p>
+</td></tr> 
+<tr valign="top"><td><code>penVars</code></td>
+<td>
+<p>Variables that should be penalized. With default value of NULL all variables are penalized.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional items to be sent to rq. Note this will have to be done carefully as rq is run on the augmented data to account for penalization and could provide strange results if this is not taken into account.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns the following:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>coefficients</code></td>
+<td>
+<p> Coefficients from the penalized model.</p>
+</td></tr> 
+<tr valign="top"><td><code>PenRho</code></td>
+<td>
+<p> Penalized objective function value.</p>
+</td></tr>
+<tr valign="top"><td><code>residuals</code></td>
+<td>
+<p> Residuals from the model.</p>
+</td></tr>
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p> Objective function evaluation without the penalty.</p>
+</td></tr>
+<tr valign="top"><td><code>tau</code></td>
+<td>
+<p> Conditional quantile being modelled.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> Sample size.</p>
+</td></tr>  
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Sherwood</p>
+
+
+<h3>References</h3>
+
+<p>[1] Koenker, R. and Mizera, I. (2014). Convex optimization in R. <em>Journal of Statistical Software</em>, <b>60</b>, 1&ndash;23.  
+</p>
+<p>[2] Tibshirani, R. (1996). Regression shrinkage and selection via the lasso.
+<em>Journal of the Royal Statistical Society. Series B</em>, <b>58</b>, 267&ndash;288.
+</p>
+<p>[3] Wu, Y. and Liu, Y. (2009). Variable selection in quantile regression. <em>Statistica
+Sinica</em>, <b>19</b>, 801&ndash;817.   
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix(rnorm(800),nrow=100)
+y &lt;- 1 + x[,1] - 3*x[,5] + rnorm(100)
+lassoModel &lt;- rq.lasso.fit(x,y,lambda=1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gSocketReceive</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gSocketReceive {RGtk2}"><tr><td>gSocketReceive {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gSocketReceive</h2>
+
+<h3>Description</h3>
+
+<p>Receive data (up to <code>size</code> bytes) from a socket. This is mainly used by
+connection-oriented sockets; it is identical to <code><a href="gSocketReceiveFrom.html">gSocketReceiveFrom</a></code>
+with <code>address</code> set to <code>NULL</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gSocketReceive(object, size, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GSocket.html">GSocket</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">size</code></code></td>
+<td>
+<p>the number of bytes you want to read from the socket</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>a <code><a href="GCancellable.html">GCancellable</a></code> or <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For <code>G_SOCKET_TYPE_DATAGRAM</code> and <code>G_SOCKET_TYPE_SEQPACKET</code> sockets,
+<code><a href="gSocketReceive.html">gSocketReceive</a></code> will always read either 0 or 1 complete messages from
+the socket. If the received message is too large to fit in <code>buffer</code>, then
+the data beyond <code>size</code> bytes will be discarded, without any explicit
+indication that this has occurred.
+</p>
+<p>For <code>G_SOCKET_TYPE_STREAM</code> sockets, <code><a href="gSocketReceive.html">gSocketReceive</a></code> can return any
+number of bytes, up to <code>size</code>. If more than <code>size</code> bytes have been
+received, the additional data will be returned in future calls to
+<code><a href="gSocketReceive.html">gSocketReceive</a></code>.
+</p>
+<p>If the socket is in blocking mode the call will block until there is
+some data to receive or there is an error. If there is no data available
+and the socket is in non-blocking mode, a <code>G_IO_ERROR_WOULD_BLOCK</code> error
+will be returned. To be notified when data is available, wait for the
+<code>G_IO_IN</code> condition.
+</p>
+<p>On error -1 is returned and <code>error</code> is set accordingly.
+Since 2.22</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[integer] Number of bytes read, or -1 on error</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">buffer</code></code></td>
+<td>
+<p>a buffer to read data into (which should be at least <code>size</code>
+bytes long).</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p><code><a href="GError.html">GError</a></code> for error reporting, or <code>NULL</code> to ignore.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

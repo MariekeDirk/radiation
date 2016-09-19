@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The GLib Main Loop</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GMainLoop {RGtk2}"><tr><td>GMainLoop {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The GLib Main Loop</h2>
+
+<h3>Description</h3>
+
+<p>GLib provides an event-loop to all GLib-based libraries and applications.
+RGtk2 is one such library.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gTimeoutAdd(interval, f, data = NULL)
+gIdleAdd(f, data = NULL)
+gSourceRemove(id)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>interval</code></td>
+<td>
+<p>The time interval which determines the frequency of the handler call</p>
+</td></tr>
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p>An R function that is called by the loop</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>Any R object that is passed to the R function as the last parameter</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>The source id obtained when adding a handler</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The RGtk2 user has limited control over the event loop, but it still possible to 
+register handlers as either timeout or idle tasks. A handler may be any R 
+function, though it must return <code>TRUE</code> as long as it wants to stay connected 
+to the loop.
+</p>
+<p>Timeout tasks are performed once per some specified interval of time. Use 
+<code>gTimeoutAdd</code> to register such a handler.
+</p>
+<p>When the event loop is idle (not busy) it will execute the idle handlers, which 
+may be registered with <code>gIdleAdd</code>.
+</p>
+<p>If one needs to externally remove a handler from the loop, <code>gSourceRemove</code> 
+will serve this purpose.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>gIdleAdd</code> and <code>gTimeoutAdd</code> both return a source id that may be used 
+to remove the handler later.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://developer.gnome.org/doc/API/2.0/glib/glib-The-Main-Event-Loop.html">http://developer.gnome.org/doc/API/2.0/glib/glib-The-Main-Event-Loop.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

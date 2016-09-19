@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Regresion BIC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for qbic {rqPen}"><tr><td>qbic {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Quantile Regresion BIC</h2>
+
+<h3>Description</h3>
+
+<p>Quantile regression BIC with large p alternative as described in Lee, Noh and Park (2013). 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+qbic(model, largeP=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>Model of class &quot;rqPen&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>largeP</code></td>
+<td>
+<p>Large P version using an additional penalty factor of log(s) where &quot;s&quot; is the total number of covariates considered.</p>
+</td></tr>  
+</table>
+
+
+<h3>Value</h3>
+
+<p>Numeric value representing BIC of selected model.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Sherwood</p>
+
+
+<h3>References</h3>
+
+<p>[1] Lee, E., Noh, H. and Park, B. (2014). Model selection via Bayesian Information Criterion for quantile regression models., <em>J. Am. Statist. Ass</em>, <b>109</b>, 216&ndash;229.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix(rnorm(800),nrow=100)
+y &lt;- 1 + x[,1] - 3*x[,5] + rnorm(100)
+l_model &lt;- rq.lasso.fit(x,y, lambda=1)
+nc_model &lt;- rq.nc.fit(x,y, lambda=1)
+qbic(l_model)
+qbic(nc_model)
+qbic(l_model, largeP=TRUE)
+qbic(nc_model, largeP=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

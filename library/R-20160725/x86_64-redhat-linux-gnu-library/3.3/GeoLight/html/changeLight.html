@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residency analysis using a changepoint model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for changeLight {GeoLight}"><tr><td>changeLight {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Residency analysis using a changepoint model</h2>
+
+<h3>Description</h3>
+
+<p>Function to discriminate between periods of residency and movement based on
+consecutive sunrise and sunset data. The calculation is based on a
+changepoint model (<b><span class="pkg">R</span></b> Package <code><a href="../../changepoint/html/changepoint-package.html">changepoint</a></code>:
+<code><a href="../../changepoint/html/cpt.mean.html">cpt.mean</a></code>) to find multiple changepoints within the
+data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+changeLight(tFirst, tSecond, type, twl, quantile = 0.9, rise.prob = NA,
+  set.prob = NA, days = 5, plot = TRUE, summary = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tFirst</code></td>
+<td>
+<p>vector of sunrise/sunset times (e.g. 2008-12-01 08:30).</p>
+</td></tr>
+<tr valign="top"><td><code>tSecond</code></td>
+<td>
+<p>vector of of sunrise/sunset times (e.g. 2008-12-01 17:30).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>vector of either 1 or 2, defining <code>tFirst</code> as sunrise or sunset respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>twl</code></td>
+<td>
+<p>data.frame containing twilights and at least <code>tFirst</code>, <code>tSecond</code> and <code>type</code> (alternatively give each parameter separately).</p>
+</td></tr>
+<tr valign="top"><td><code>quantile</code></td>
+<td>
+<p>probability threshold for stationary site selection. Higher
+values (above the defined quantile of all probabilities) will be considered
+as changes in the behavior. Argmuent will only be considered if either <code>rise.prob</code> and/or
+<code>set.prob</code> remain unspecified.</p>
+</td></tr>
+<tr valign="top"><td><code>rise.prob</code></td>
+<td>
+<p>the probability threshold for <b>sunrise</b>: greater or
+equal values indicates changes in the behaviour of the individual.</p>
+</td></tr>
+<tr valign="top"><td><code>set.prob</code></td>
+<td>
+<p>the probability threshold for <b>sunset</b>: higher and
+equal values indicates changes in the behaviour of the individual.</p>
+</td></tr>
+<tr valign="top"><td><code>days</code></td>
+<td>
+<p>a threshold for the length of stationary period. Periods smaller
+than &quot;days&quot; will not be considered as a residency period</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p>logical, if <code>TRUE</code> a plot will be produced</p>
+</td></tr>
+<tr valign="top"><td><code>summary</code></td>
+<td>
+<p>logical, if <code>TRUE</code> a summary of the results will be
+printed</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>cpt.mean</code> from the <code>R</code> Package <code>changepoint</code> is a
+function to find a multiple changes in mean for data where no assumption is
+made on their distribution. The value returned is the result of finding the
+optimal location of up to Q changepoints (in this case as many as possible)
+using the cumulative sums test statistic.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>list</code> with probabilities for <em>sunrise</em> and
+<em>sunset</em> the user settings of the probabilities and the resulting
+stationary periods given as a <code>vector</code>, with the residency sites as
+positiv numbers in ascending order (0 indicate movement/migration).
+</p>
+
+
+<h3>Note</h3>
+
+<p>The sunrise and/or sunset times shown in the graph (if
+<code>plot=TRUE</code>) represent hours of the day. However if one or both of the
+twilight events cross midnight during the recording period the values will
+be formed to avoid discontinuity.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski &amp; Tamara Emmenegger
+</p>
+
+
+<h3>References</h3>
+
+<p>Taylor, Wayne A. (2000) Change-Point Analysis: A Powerful New
+Tool For Detecting Changes.
+</p>
+<p>M. Csorgo, L. Horvath (1997) Limit Theorems in Change-Point Analysis.
+<em>Wiley</em>.
+</p>
+<p>Chen, J. and Gupta, A. K. (2000) Parametric statistical change point
+analysis. <em>Birkhauser</em>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../changepoint/html/changepoint-package.html">changepoint</a></code>, <code><a href="../../changepoint/html/cpt.mean.html">cpt.mean</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(hoopoe2)
+  hoopoe2$tFirst &lt;- as.POSIXct(hoopoe2$tFirst, tz = "GMT")
+  hoopoe2$tSecond &lt;- as.POSIXct(hoopoe2$tSecond, tz = "GMT")
+residency &lt;- changeLight(hoopoe2, quantile=0.9)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Attribute evaluation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for attrEval {CORElearn}"><tr><td>attrEval {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Attribute evaluation </h2>
+
+<h3>Description</h3>
+
+<p>The method evaluates the quality of the features/attributes/dependent variables
+specified by the formula with the selected heuristic method.  
+Feature evaluation algorithms available for classification problems 
+are various variants of Relief and ReliefF algorithms (ReliefF,
+cost-sensitive ReliefF, ...), gain ratio, gini-index, MDL, DKM, information gain, ...
+For regression problems there are RREliefF, MSEofMean, MSEofModel, MAEofModel, ...
+Parallel execution on several cores is supported for speedup.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  attrEval(formula, data, estimator, costMatrix = NULL, outputNumericSplits=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p> Either a formula specifying the attributes to be evaluated and the target variable, or a name of target variable, or an index of target variable. </p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p> Data frame with evaluation data. </p>
+</td></tr>
+<tr valign="top"><td><code>estimator</code></td>
+<td>
+<p> The name of the evaluation method.</p>
+</td></tr>
+<tr valign="top"><td><code>costMatrix</code></td>
+<td>
+<p> Optional cost matrix used with certain estimators. </p>
+</td></tr>
+<tr valign="top"><td><code>outputNumericSplits</code></td>
+<td>
+<p> Controls of the output contain also the best split point for numeric attributes. 
+This is only sensible for impurity based estimators (like gini, MDL, gain ratio in classification 
+and MSEofMean in regression). Additionally, the default value of parameter 
+<code>binaryEvaluateNumericAttributes=TRUE</code> shall not be modified. If the value of 
+<code>outputNumericSplits</code> the output is a list instead of vector, see the returned value description.</p>
+</td></tr>
+<tr valign="top"><td><code>... </code></td>
+<td>
+<p> Additional options used by specific evaluation methods as described in <code><a href="helpCore.html">helpCore</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The parameter <code>formula</code> can be interpreted in three ways, where the formula interface is the most elegant one, 
+but inefficient and inappropriate for large data sets.   See also examples below. As <code>formula</code> one can specify:
+</p>
+ 
+<dl>
+<dt>an object of class <code>formula</code></dt><dd><p>used as a mechanism to select features (attributes) 
+and prediction variable (class). Only simple terms can be used and 
+interaction expressed in formula syntax are not supported. The simplest way is
+to specify just response variable: <code>class ~ .</code>.
+In this case all other attributes in the data set are evaluated. Note that formula interface is not appropriate for data sets with
+large number of variables.</p>
+</dd>
+<dt>a character vector</dt><dd><p>specifying the name of target variable, all the other columns in data frame <code>data</code> are used as predictors.</p>
+</dd>
+<dt>an integer</dt><dd><p>specifying the index of of target variable in data frame <code>data</code>, all the other columns are used as predictors.</p>
+</dd>
+</dl>
+  
+<p>The optional parameter <b> costMatrix </b> can provide nonuniform cost matrix to certain
+cost-sensitive measures (ReliefFexpC, ReliefFavgC, ReliefFpe, ReliefFpa, ReliefFsmp,GainRatioCost,     
+DKMcost, ReliefKukar, and MDLsmp). For other measures this parameter is ignored.    
+The format of the matrix is costMatrix(true class, predicted class). 
+By default a uniform costs are assumed, i.e.,  costMatrix(i, i) = 0, and costMatrix(i, j) = 1, for i not equal to j.
+</p>
+<p>The <b>estimator</b> parameter selects the evaluation heuristics.  For classification problem it 
+must be one of the names returned by <code>infoCore(what="attrEval")</code> and for 
+regression problem it must be one of the names returned by <code>infoCore(what="attrEvalReg")</code>
+Majority of these feature evaluation measures are described in the references given below,
+here only a short description is given. For classification problem they are
+</p>
+
+<dl>
+<dt>&quot;ReliefFequalK&quot;</dt><dd><p>ReliefF algorithm where k nearest instances have equal weight. </p>
+</dd>
+<dt>&quot;ReliefFexpRank&quot;</dt><dd><p>ReliefF algorithm where k nearest instances have weight exponentially decreasing with 
+increasing rank. Rank of nearest instance is determined by the increasing (Manhattan) distance from the selected instance.
+This is a default choice for methods taking conditional dependencies among the attributes into account. </p>
+</dd>
+<dt>&quot;ReliefFbestK&quot;</dt><dd><p>ReliefF algorithm where all possible k (representing k nearest instances)
+are tested and for each feature the highest score is returned. Nearest instances have equal weights. </p>
+</dd>
+<dt>&quot;Relief&quot;</dt><dd><p>Original algorithm of Kira and Rendel (1991) working on two class problems. </p>
+</dd>
+<dt>&quot;InfGain&quot;</dt><dd><p>Information gain. </p>
+</dd>
+<dt>&quot;GainRatio&quot;</dt><dd><p>Gain ratio, which is normalized information gain to prevent bias to multi-valued attributes.</p>
+</dd>
+<dt>&quot;MDL&quot;</dt><dd><p>Acronym for Minimum Description Length, presents method introduced in (Kononenko, 1995) 
+with favorable bias for multi-valued and multi-class problems. Might be the best method
+among those not taking conditional dependencies into account. </p>
+</dd>
+<dt>&quot;Gini&quot;</dt><dd><p>Gini-index. </p>
+</dd>
+<dt>&quot;MyopicReliefF&quot;</dt><dd><p>Myopic version of ReliefF resulting from assumption of no local dependencies and 
+attribute dependencies upon class. </p>
+</dd>
+<dt>&quot;Accuracy&quot;</dt><dd><p>Accuracy of resulting split. </p>
+</dd>
+<dt>&quot;ReliefFmerit&quot; </dt><dd><p>ReliefF algorithm where for each random instance the merit of each attribute is 
+normalized by the sum of differences in all attributes.</p>
+</dd>
+<dt>&quot;ReliefFdistance&quot;</dt><dd><p>ReliefF algorithm where k nearest instances are weighed  directly with its 
+inverse distance from the selected instance. Usually using ranks instead of distance
+as in <code>ReliefFexpRank</code> is more effective. </p>
+</dd>
+<dt>&quot;ReliefFsqrDistance&quot;</dt><dd><p>ReliefF algorithm where k nearest instances are weighed  with its 
+inverse square distance from the selected instance. </p>
+</dd> 
+<dt>&quot;DKM&quot;</dt><dd><p>Measure named after Dietterich, Kearns, and Mansour who proposed it in 1996. </p>
+</dd>
+<dt>&quot;ReliefFexpC&quot;</dt><dd><p>Cost-sensitive ReliefF algorithm with expected costs. </p>
+</dd>
+<dt>&quot;ReliefFavgC&quot;</dt><dd><p>Cost-sensitive ReliefF algorithm with average costs. </p>
+</dd>
+<dt>&quot;ReliefFpe&quot;</dt><dd><p>Cost-sensitive ReliefF algorithm with expected probability. </p>
+</dd>
+<dt>&quot;ReliefFpa&quot;</dt><dd><p>Cost-sensitive ReliefF algorithm with average probability. </p>
+</dd>
+<dt>&quot;ReliefFsmp&quot;</dt><dd><p>Cost-sensitive ReliefF algorithm with cost sensitive sampling. </p>
+</dd>
+<dt>&quot;GainRatioCost&quot; </dt><dd><p>Cost-sensitive variant of GainRatio. </p>
+</dd>
+<dt>&quot;DKMcost&quot; </dt><dd><p>Cost-sensitive variant of DKM. </p>
+</dd>
+<dt>&quot;ReliefKukar&quot;</dt><dd><p>Cost-sensitive Relief algorithm introduced by Kukar in 1999. </p>
+</dd>
+<dt>&quot;MDLsmp&quot; </dt><dd><p>Cost-sensitive variant of MDL where costs are introduced through sampling.</p>
+</dd>
+<dt>&quot;ImpurityEuclid&quot;</dt><dd><p>Euclidean distance as impurity function on within node class distributions.</p>
+</dd>
+<dt>&quot;ImpurityHellinger&quot;</dt><dd><p>Hellinger distance as impurity function on within node class distributions.</p>
+</dd>
+<dt>&quot;UniformDKM&quot;</dt><dd><p>Dietterich-Kearns-Mansour (DKM) with uniform priors. </p>
+</dd>
+<dt>&quot;UniformGini&quot;</dt><dd><p>Gini index with uniform priors.</p>
+</dd>                      
+<dt>&quot;UniformInf&quot;</dt><dd><p>Information gain with uniform priors.</p>
+</dd> 
+<dt>&quot;UniformAccuracy&quot;</dt><dd><p>Accuracy with uniform priors. </p>
+</dd>               
+<dt>&quot;EqualDKM&quot;</dt><dd><p>Dietterich-Kearns-Mansour (DKM) with equal weights for splits. </p>
+</dd>
+<dt>&quot;EqualGini&quot;</dt><dd><p>Gini index with equal weights for splits.</p>
+</dd>                      
+<dt>&quot;EqualInf&quot;</dt><dd><p>Information gain with equal weights for splits. </p>
+</dd>              
+<dt>&quot;EqualHellinger&quot;</dt><dd><p>Two equally weighted splits based Hellinger distance.</p>
+</dd> 
+<dt>&quot;DistHellinger&quot;</dt><dd><p>Hellinger distance between class distributions in branches.</p>
+</dd>
+<dt>&quot;DistAUC&quot;</dt><dd><p>AUC distance between splits.</p>
+</dd>               
+<dt>&quot;DistAngle&quot;</dt><dd><p>Cosine of angular distance between splits.</p>
+</dd>              
+<dt>&quot;DistEuclid&quot;</dt><dd><p>Euclidean distance between splits.</p>
+</dd>              
+</dl>
+    
+<p>For regression problem the implemented measures are:
+</p>
+
+<dl>
+<dt>&quot;RReliefFequalK&quot;</dt><dd><p>RReliefF algorithm where k nearest instances have equal weight. </p>
+</dd>
+<dt>&quot;ReliefFexpRank&quot;</dt><dd><p>RReliefF algorithm where k nearest instances have weight exponentially decreasing with 
+increasing rank. Rank of nearest instance is determined by the increasing (Manhattan) distance from the selected instance.
+This is a default choice for methods taking conditional dependencies among the attributes into account. </p>
+</dd>
+<dt>&quot;RReliefFbestK&quot;</dt><dd><p>RReliefF algorithm where all possible k (representing k nearest instances)
+are tested and for each feature the highest score is returned. Nearest instances have equal weights. </p>
+</dd>
+<dt>&quot;RReliefFwithMSE&quot;</dt><dd><p>A combination of RReliefF and MSE algorithms. </p>
+</dd>
+<dt>&quot;MSEofMean&quot;  </dt><dd><p>Mean Squared Error as heuristic used to measure error by mean predicted value after split on the feature.</p>
+</dd>
+<dt>&quot;MSEofModel&quot;  </dt><dd><p>Mean Squared Error of an arbitrary model used on splits resulting from the feature. 
+The model is chosen with parameter <code>modelTypeReg</code>. </p>
+</dd>
+<dt>&quot;MAEofModel&quot;  </dt><dd><p>Mean Absolute Error of an arbitrary model used on splits resulting from the feature. 
+The model is chosen with parameter <code>modelTypeReg</code>. If we use median as the model, we get robust equivalent 
+to <code>MSEofMean</code>.</p>
+</dd>
+<dt>&quot;RReliefFdistance&quot;</dt><dd><p>RReliefF algorithm where k nearest instances are weighed  directly with its 
+inverse distance from the selected instance. Usually using ranks instead of distance
+as in <code>RReliefFexpRank</code> is more effective. </p>
+</dd>
+<dt>&quot;RReliefFsqrDistance&quot;</dt><dd><p>RReliefF algorithm where k nearest instances are weighed  with its 
+inverse square distance from the selected instance. </p>
+</dd> 
+</dl>
+        
+<p>There are some additional parameters <b>... </b> available which are used by specific evaluation heuristics.
+Their list and short description is available by calling <code><a href="helpCore.html">helpCore</a></code>. See Section on attribute evaluation.
+</p>
+<p>The attributes can also be evaluated via random forest out-of-bag set with function <code><a href="rfAttrEval.html">rfAttrEval</a></code>.
+</p>
+<p>Evaluation and visualization of ordered attributes is covered in function <code><a href="ordEval.html">ordEval</a></code>.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>The method returns a vector of evaluations for the features in the order specified by the formula.
+In case of parameter <code>binaryEvaluateNumericAttributes=TRUE</code> the method returns a list with two components:
+<code>attrEval</code> and <code>splitPointNum</code>. The <code>attrEval</code> contains 
+a vector of evaluations for the features in the order specified by the formula. The <code>splitPointNum</code>
+contains the split points of numeric attributes which produced the given attribute evaluation scores.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja </p>
+
+
+<h3>References</h3>
+
+ 
+<p>Marko Robnik-Sikonja, Igor Kononenko: Theoretical and Empirical Analysis of ReliefF and RReliefF.
+<em>Machine Learning Journal</em>, 53:23-69, 2003
+</p>
+<p>Marko Robnik-Sikonja: Experiments with Cost-sensitive Feature Evaluation. 
+In Lavrac et al.(eds): <em>Machine Learning, Proceedings of ECML 2003</em>, Springer, Berlin, 2003, pp. 325-336
+</p>
+<p>Igor Kononenko: On Biases in Estimating Multi-Valued Attributes.
+In <em>Proceedings of the International Joint Conference on Artificial Intelligence (IJCAI'95)</em>, 
+pp. 1034-1040, 1995 
+</p>
+<p>Some of these references are available also from <a href="http://lkm.fri.uni-lj.si/rmarko/papers/">http://lkm.fri.uni-lj.si/rmarko/papers/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>,
+<code><a href="CoreModel.html">CoreModel</a></code>,
+<code><a href="rfAttrEval.html">rfAttrEval</a></code>,
+<code><a href="ordEval.html">ordEval</a></code>,
+<code><a href="helpCore.html">helpCore</a></code>, 
+<code><a href="infoCore.html">infoCore</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# use iris data
+
+# run method ReliefF with exponential rank distance  
+estReliefF &lt;- attrEval(Species ~ ., iris, 
+                            estimator="ReliefFexpRank", ReliefIterations=30)
+print(estReliefF)
+
+# alternatively and more appropriate for large data sets 
+# one can specify just the target variable
+# estReliefF &lt;- attrEval("Species", iris, estimator="ReliefFexpRank", ReliefIterations=30)
+
+# print all available estimators
+infoCore(what="attrEval")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

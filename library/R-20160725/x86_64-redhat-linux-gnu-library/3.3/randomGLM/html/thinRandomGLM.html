@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random generalized linear model predictor thinning</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for thinRandomGLM {randomGLM}"><tr><td>thinRandomGLM {randomGLM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random generalized linear model predictor thinning</h2>
+
+<h3>Description</h3>
+
+<p> This function allows the user to define a &quot;thinned&quot; version of a random  generalized linear
+model predictor by focusing on those features that occur relatively frequently. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+thinRandomGLM(rGLM, threshold)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rGLM</code></td>
+<td>
+<p>a <code>randomGLM</code> object such as one returned by <code><a href="randomGLM.html">randomGLM</a></code>. </p>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p> integer specifying the minimum of times a feature was selected across the bags in
+<code>rGLM</code> for the feature to be kept. Note that only features selected <code>threshold +1</code> times and more
+are retained. For the purposes of this count, appearances in interactions are not
+counted. Features that appear 
+<code>threshold</code> times or fewer are removed from the underlying regression models when the models are re-fit.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function &quot;thins out&quot; (reduces) a previously-constructed random generalized linear model predictor by
+removing rarely selected features and refitting each (generalized) linear model (GLM). 
+Each GLM (per bag) is refit using only those
+features that occur more than <code>threshold</code> times across the <code>nBags</code> number of bags. The
+occurrence count excludes interactions (in other words, the threshold will be applied to the first row of
+<code>timesSelectedByForwardRegression</code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns a valid <code>randomGLM</code> object (see <code><a href="randomGLM.html">randomGLM</a></code> for details) that can be
+used as input to the predict() method (see <code><a href="predict.randomGLM.html">predict.randomGLM</a></code>). The returned object contains a
+copy of  the input <code>rGLM</code> in which the following components were modified:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>predictedOOB</code></td>
+<td>
+<p>the updated continuous prediction (if <code>classify</code> is <code>FALSE</code>) 
+or predicted classification (if <code>classify</code> is <code>TRUE</code>) of the input data based on out-of-bag 
+samples.
+</p>
+</td></tr>
+<tr valign="top"><td><code>predictedOOB.response</code></td>
+<td>
+<p>In case of a binary outcome, the updated predicted probability of each
+outcome
+specified by <code>y</code> based on out-of-bag samples. In case of a continuous outcome, this is the predicted
+value based on out-of-bag samples (i.e., a copy of <code>predictedOOB</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>featuresInForwardRegression</code></td>
+<td>
+<p>features selected by forward selection in each bag. A list with one
+component per bag. Each component
+is a matrix with <code>maxInteractionOrder</code> rows.
+Each column represents one
+interaction obtained by multiplying the features indicated by the entries in each column (0 means no
+feature, i.e. a lower order interaction).  </p>
+</td></tr>
+<tr valign="top"><td><code>coefOfForwardRegression</code></td>
+<td>
+<p>coefficients of forward regression. A list with one
+component per bag. Each component is a vector giving the coefficients of the model determined by forward
+selection in the corresponding bag. The order of the coefficients is the same as the order of the terms in
+the corresponding component of <code>featuresInForwardRegression</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>interceptOfForwardRegression</code></td>
+<td>
+<p>a vector with one component per bag giving the intercept of the
+regression model in each bag.</p>
+</td></tr>
+<tr valign="top"><td><code>timesSelectedByForwardRegression</code></td>
+<td>
+<p>a matrix of <code>maxInteractionOrder</code> rows and number of features
+columns. Each entry gives the number of times the corresponding feature appeared in a predictor model at the
+corresponding order of interactions. Interactions where a single feature enters more than once (e.g., a
+quadratic interaction of the feature with itself) are counted once.
+</p>
+</td></tr>
+<tr valign="top"><td><code>models</code></td>
+<td>
+<p>the &quot;thinned&quot; regression models for each bag. </p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Lin Song, Steve Horvath, Peter Langfelder</p>
+
+
+<h3>References</h3>
+
+<p>Lin Song, Peter Langfelder, Steve Horvath: Random generalized linear model: a highly accurate and interpretable ensemble predictor. BMC Bioinformatics (2013)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## binary outcome prediction
+# data generation
+data(iris)
+# Restrict data to first 100 observations
+iris=iris[1:100,]
+# Turn Species into a factor
+iris$Species = as.factor(as.character(iris$Species))
+# Select a training and a test subset of the 100 observations
+set.seed(1)
+indx = sample(100, 67, replace=FALSE)
+xyTrain = iris[indx,]
+xyTest = iris[-indx,]
+xTrain = xyTrain[, -5]
+yTrain = xyTrain[, 5]
+
+xTest = xyTest[, -5]
+yTest = xyTest[, 5]
+
+# predict with a small number of bags - normally nBags should be at least 100.
+RGLM = randomGLM(xTrain, yTrain, nCandidateCovariates=ncol(xTrain), nBags=30, keepModels = TRUE, nThreads = 1)
+table(RGLM$timesSelectedByForwardRegression[1, ])
+# 0  7 23 
+# 2  1  1 
+
+thinnedRGLM = thinRandomGLM(RGLM, threshold=7)
+predicted = predict(thinnedRGLM, newdata = xTest, type="class")
+predicted = predict(RGLM, newdata = xTest, type="class")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>randomGLM</em> version 1.02-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

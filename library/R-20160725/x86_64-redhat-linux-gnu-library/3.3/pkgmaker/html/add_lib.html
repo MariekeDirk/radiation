@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Adding Package Libraries</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for add_lib {pkgmaker}"><tr><td>add_lib {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Adding Package Libraries</h2>
+
+<h3>Description</h3>
+
+<p>Prepend/append paths to the library path list, using
+<code><a href="../../base/html/libPaths.html">.libPaths</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  add_lib(..., append = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>paths to add to .libPath</p>
+</td></tr>
+<tr valign="top"><td><code>append</code></td>
+<td>
+<p>logical that indicates that the paths
+should be appended rather than prepended.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is meant to be more convenient than
+<code>.libPaths</code>, which requires more writing if one
+wants to: </p>
+ <ul>
+<li><p> sequentially add libraries;
+</p>
+</li>
+<li><p> append and not prepend new path(s); </p>
+</li>
+<li><p> keep the
+standard user library in the search path. </p>
+</li></ul>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+ol &lt;- .libPaths()
+# called sequentially, .libPaths only add the last library
+show( .libPaths('.') )
+show( .libPaths(tempdir()) )
+# restore
+.libPaths(ol)
+
+# .libPaths does not keep the standard user library
+show( .libPaths() )
+show( .libPaths('.') )
+# restore
+.libPaths(ol)
+
+# with add_lib
+show( add_lib('.') )
+show( add_lib(tempdir()) )
+show( add_lib('..', append=TRUE) )
+
+# restore
+.libPaths(ol)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

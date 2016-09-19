@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferDeleteMark</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferDeleteMark {RGtk2}"><tr><td>gtkTextBufferDeleteMark {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferDeleteMark</h2>
+
+<h3>Description</h3>
+
+<p>Deletes <code>mark</code>, so that it's no longer located anywhere in the
+buffer. Removes the reference the buffer holds to the mark, it will be freed. Even
+if the mark isn't freed, most operations on <code>mark</code> become
+invalid, until it gets added to a buffer again with 
+<code><a href="gtkTextBufferAddMark.html">gtkTextBufferAddMark</a></code>. Use <code><a href="gtkTextMarkGetDeleted.html">gtkTextMarkGetDeleted</a></code> to  
+find out if a mark has been removed from its buffer.
+The &quot;mark-deleted&quot; signal will be emitted as notification after 
+the mark is deleted.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferDeleteMark(object, mark)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">mark</code></code></td>
+<td>
+<p>a <code><a href="GtkTextMark.html">GtkTextMark</a></code> in <code>buffer</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

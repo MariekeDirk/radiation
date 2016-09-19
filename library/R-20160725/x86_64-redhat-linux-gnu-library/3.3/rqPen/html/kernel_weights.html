@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nonparametric estimate of IPW weights</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kernel_weights {rqPen}"><tr><td>kernel_weights {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nonparametric estimate of IPW weights</h2>
+
+<h3>Description</h3>
+
+<p>This is for downstream analysis for fitting models with missing data. Future work is to fully incorporate these into penalized models. Tuning parameter for condtional density is esimated using approach of Chen, Wan and Zhou (2015), which is a simplified approach of Sepanski et al. (1994)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kernel_weights(obs_data,obs_ind,...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs_data</code></td>
+<td>
+<p>Matrix of variables with complete observations</p>
+</td></tr>
+<tr valign="top"><td><code>obs_ind</code></td>
+<td>
+<p>Vector of whether sample is observed or not (1-observed, 0-not)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to be sent to kernel_estimates.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Estimates of weights. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Sherwood</p>
+
+
+<h3>References</h3>
+
+<p>[1] Chen, X., Wan, A. and Zhou, Y. Efficient quantile regression analysis with missing observations. (2015).  <em>J. Amer. Statist. Assoc.</em>, <b>110</b>, 723&ndash;741.
+[2] Sepanski, J., Knickerbocker, R. and Carroll, R. A semiparametric correction for attenuation. (1994). <em>J. Amer. Statist. Assoc.</em>, <b>89</b>, 1366&ndash;1373.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix(rnorm(800),nrow=100)
+y &lt;- rbinom(100,1,.5)
+wt_est &lt;- kernel_weights(x,y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

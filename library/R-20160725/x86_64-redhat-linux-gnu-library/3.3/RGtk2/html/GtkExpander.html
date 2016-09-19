@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkExpander</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkExpander {RGtk2}"><tr><td>GtkExpander {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkExpander</h2>
+
+<h3>Description</h3>
+
+<p>A container which can hide its child</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkExpanderNew.html">gtkExpanderNew</a>(label = NULL, show = TRUE)</code><br />
+<code><a href="gtkExpanderNewWithMnemonic.html">gtkExpanderNewWithMnemonic</a>(label = NULL)</code><br />
+<code><a href="gtkExpanderSetExpanded.html">gtkExpanderSetExpanded</a>(object, expanded)</code><br />
+<code><a href="gtkExpanderGetExpanded.html">gtkExpanderGetExpanded</a>(object)</code><br />
+<code><a href="gtkExpanderSetSpacing.html">gtkExpanderSetSpacing</a>(object, spacing)</code><br />
+<code><a href="gtkExpanderGetSpacing.html">gtkExpanderGetSpacing</a>(object)</code><br />
+<code><a href="gtkExpanderSetLabel.html">gtkExpanderSetLabel</a>(object, label = NULL)</code><br />
+<code><a href="gtkExpanderGetLabel.html">gtkExpanderGetLabel</a>(object)</code><br />
+<code><a href="gtkExpanderSetUseUnderline.html">gtkExpanderSetUseUnderline</a>(object, use.underline)</code><br />
+<code><a href="gtkExpanderGetUseUnderline.html">gtkExpanderGetUseUnderline</a>(object)</code><br />
+<code><a href="gtkExpanderSetUseMarkup.html">gtkExpanderSetUseMarkup</a>(object, use.markup)</code><br />
+<code><a href="gtkExpanderGetUseMarkup.html">gtkExpanderGetUseMarkup</a>(object)</code><br />
+<code><a href="gtkExpanderSetLabelWidget.html">gtkExpanderSetLabelWidget</a>(object, label.widget = NULL)</code><br />
+<code><a href="gtkExpanderGetLabelWidget.html">gtkExpanderGetLabelWidget</a>(object)</code><br />
+<code>gtkExpander(label = NULL, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkExpander</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkExpander implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkExpander.html">GtkExpander</a></code> allows the user to hide or show its child by clicking
+on an expander triangle similar to the triangles used in a <code><a href="GtkTreeView.html">GtkTreeView</a></code>.
+</p>
+<p>Normally you use an expander as you would use any other descendant
+of <code><a href="GtkBin.html">GtkBin</a></code>; you create the child widget and use <code><a href="gtkContainerAdd.html">gtkContainerAdd</a></code>
+to add it to the expander. When the expander is toggled, it will take
+care of showing and hiding the child automatically.</p>
+
+
+<h3>Special Usage</h3>
+
+<p>There are situations in which you may prefer to show and hide the
+expanded widget yourself, such as when you want to actually create
+the widget at expansion time. In this case, create a <code><a href="GtkExpander.html">GtkExpander</a></code>
+but do not add a child to it. The expander widget has an
+<code>expanded</code> property which can be used to monitor
+its expansion state. You should watch this property with a signal
+connection as follows:
+</p>
+<pre>expander = gtk_expander_new_with_mnemonic ("_More Options");
+g_signal_connect (expander, "notify::expanded",
+                  G_CALLBACK (expander_callback), NULL);
+...
+static void
+expander_callback (GObject    *object,
+                   GParamSpec *param_spec,
+                   gpointer    user_data)
+{
+  GtkExpander *expander;
+  expander = GTK_EXPANDER (object);
+  if (gtk_expander_get_expanded (expander))
+    {
+      /* Show or create widgets */
+    }
+  else
+    {
+      /* Hide or destroy widgets */
+    }
+}
+</pre>
+
+<h3>GtkExpander as GtkBuildable</h3>
+
+<p>The GtkExpander implementation of the GtkBuildable interface
+supports placing a child in the label position by specifying
+&quot;label&quot; as the &quot;type&quot; attribute of a &lt;child&gt; element.
+A normal content child can be specified without specifying
+a &lt;child&gt; type attribute.
+</p>
+<p><em>A UI definition fragment with GtkExpander</em>
+</p>
+<pre>
+expander &lt;- gtkExpanderNewWithMnemonic("_More Options")
+gSignalConnect(expander, "notify::expanded", expander_callback)
+
+...
+
+
+expander_callback &lt;- (expander, param_spec, user_data)
+{
+  if (expander$getExpanded()) {
+    # Show or create widgets
+  } else {
+    # Hide or destroy widgets
+  }
+}
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkExpander</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkExpander</code> is the equivalent of <code><a href="gtkExpanderNew.html">gtkExpanderNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>activate(expander, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>expander</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">expanded</code> [logical : Read / Write / Construct]</dt><dd>
+<p>Whether the expander has been opened to reveal the child widget.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">label</code> [character : *                : Read / Write / Construct]</dt><dd>
+<p>Text of the expander's label.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">label-widget</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Read / Write]</dt><dd>
+<p>A widget to display in place of the usual expander label.
+</p>
+</dd>
+<dt><code style="white-space: pre;">spacing</code> [integer : Read / Write]</dt><dd>
+<p>Space to put between the label and the child.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-markup</code> [logical : Read / Write / Construct]</dt><dd>
+<p>The text of the label includes XML markup. See pango_parse_markup().  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-underline</code> [logical : Read / Write / Construct]</dt><dd>
+<p>If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key.  Default value: FALSE
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">expander-size</code> [integer : Read]</dt><dd>
+<p>Size of the expander arrow.  Allowed values: &gt;= 0  Default value: 10
+</p>
+</dd>
+<dt><code style="white-space: pre;">expander-spacing</code> [integer : Read]</dt><dd>
+<p>Spacing around expander arrow.  Allowed values: &gt;= 0  Default value: 2
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkExpander.html">http://library.gnome.org/devel//gtk/GtkExpander.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkEntryBufferDeleteText</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkEntryBufferDeleteText {RGtk2}"><tr><td>gtkEntryBufferDeleteText {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkEntryBufferDeleteText</h2>
+
+<h3>Description</h3>
+
+<p>Deletes a sequence of characters from the buffer. <code>n.chars</code> characters are
+deleted starting at <code>position</code>. If <code>n.chars</code> is negative, then all characters
+until the end of the text are deleted.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkEntryBufferDeleteText(object, position, n.chars)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkEntryBuffer.html">GtkEntryBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">position</code></code></td>
+<td>
+<p>position at which to delete text</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.chars</code></code></td>
+<td>
+<p>number of characters to delete</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>position</code> or <code>n.chars</code> are out of bounds, then they are coerced to sane
+values.
+</p>
+<p>Note that the positions are specified in characters, not bytes.
+Since 2.18</p>
+
+
+<h3>Value</h3>
+
+<p>[numeric] The number of characters deleted.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

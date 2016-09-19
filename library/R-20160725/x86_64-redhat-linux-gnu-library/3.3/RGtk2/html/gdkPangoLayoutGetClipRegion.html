@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPangoLayoutGetClipRegion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPangoLayoutGetClipRegion {RGtk2}"><tr><td>gdkPangoLayoutGetClipRegion {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPangoLayoutGetClipRegion</h2>
+
+<h3>Description</h3>
+
+<p>Obtains a clip region which contains the areas where the given ranges
+of text would be drawn. <code>x.origin</code> and <code>y.origin</code> are the same position
+you would pass to <code><a href="gdkDrawLayoutLine.html">gdkDrawLayoutLine</a></code>. <code>index.ranges</code> should contain
+ranges of bytes in the layout's text.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPangoLayoutGetClipRegion(layout, x.origin, index.ranges)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">layout</code></code></td>
+<td>
+<p>a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x.origin</code></code></td>
+<td>
+<p>X pixel where you intend to draw the layout with this clip</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">index.ranges</code></code></td>
+<td>
+<p>array of byte indexes into the layout, where even members of list are start indexes and odd elements are end indexes</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that the regions returned correspond to logical extents of the text
+ranges, not ink extents. So the drawn layout may in fact touch areas out of
+the clip region.  The clip region is mainly useful for highlightling parts
+of text, such as when text is selected.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Points-Rectangles-and-Regions.html">GdkRegion</a></code>] a clip region containing the given ranges</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

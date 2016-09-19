@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: 'NMFSeed' is a constructor method that instantiate 'NMFSeed'...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFSeed {NMF}"><tr><td>NMFSeed {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2><code>NMFSeed</code> is a constructor method that instantiate
+<code><a href="NMFSeed-class.html">NMFSeed</a></code> objects.</h2>
+
+<h3>Description</h3>
+
+<p><code>NMFSeed</code> is a constructor method that instantiate
+<code><a href="NMFSeed-class.html">NMFSeed</a></code> objects.
+</p>
+<p>NMF seeding methods are registered via the function
+<code>setNMFSeed</code>, which stores them as
+<code><a href="NMFSeed-class.html">NMFSeed</a></code> objects in a dedicated
+registry.
+</p>
+<p><code>removeNMFSeed</code> removes an NMF seeding method from
+the registry.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  NMFSeed(key, method, ...)
+
+  setNMFSeed(..., overwrite = isLoadingNamespace(),
+    verbose = TRUE)
+
+  removeNMFSeed(name, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>key</code></td>
+<td>
+<p>access key as a single character string</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>specification of the seeding method, as a
+function that takes at least the following arguments:
+</p>
+ <dl>
+<dt>object</dt><dd><p>uninitialised/empty NMF model,
+i.e. that it has 0 rows and columns, but has already the
+rank requested in the call to <code><a href="nmf.html">nmf</a></code> or
+<code><a href="seed.html">seed</a></code>.</p>
+</dd> <dt>x</dt><dd><p>target matrix</p>
+</dd>
+<dt>...</dt><dd><p>extra arguments</p>
+</dd> </dl>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments passed to <code>NMFSeed</code> and used to
+initialise slots in the <code><a href="NMFSeed-class.html">NMFSeed</a></code>
+object, or to <code><a href="../../pkgmaker/html/pkgreg_remove.html">pkgreg_remove</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>name of the seeding method.</p>
+</td></tr>
+<tr valign="top"><td><code>overwrite</code></td>
+<td>
+<p>logical that indicates if any existing
+NMF method with the same name should be overwritten
+(<code>TRUE</code>) or not (<code>FALSE</code>), in which case an
+error is thrown.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>a logical that indicates if information
+about the registration should be printed (<code>TRUE</code>) or
+not (<code>FALSE</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>NMFSeed</dt><dd><p><code>signature(key = "character")</code>:
+Default method simply calls <code><a href="../../methods/html/new.html">new</a></code> with the
+same arguments. </p>
+</dd>
+<dt>NMFSeed</dt><dd><p><code>signature(key = "NMFSeed")</code>: Creates
+an <code>NMFSeed</code> based on a template object
+(Constructor-Copy), in particular it uses the
+<strong>same</strong> name. </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

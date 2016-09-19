@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K-Select Analysis: a Method to Analyse the Habitat Selection...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kselect {adehabitat}"><tr><td>kselect {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> K-Select Analysis: a Method to Analyse the Habitat Selection by
+Animals  </h2>
+
+<h3>Description</h3>
+
+<p>Performs a multivariate analysis of ecological data (K-select analysis).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kselect(dudi, factor, weight, scannf = TRUE, nf = 2, ewa = FALSE)
+## S3 method for class 'kselect'
+print(x, ...)
+## S3 method for class 'kselect'
+kplot(object, xax = 1, yax = 2, csub = 2, possub = c("topleft",
+              "bottomleft", "bottomright", "topright"),
+              addval = TRUE, cpoint = 1, csize = 1, clegend = 2, ...)
+## S3 method for class 'kselect'
+hist(x, xax = 1, mar=c(0.1,0.1,0.1,0.1),
+             ncell=TRUE, csub=2,
+             possub=c("bottomleft", "topleft",
+                      "bottomright", "topright"),
+             ncla=15, ...)
+## S3 method for class 'kselect'
+plot(x, xax = 1, yax = 2, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dudi</code></td>
+<td>
+<p>an object of class <code>dudi</code></p>
+</td></tr>
+<tr valign="top"><td><code>factor</code></td>
+<td>
+<p>a factor with the same length as <code>nrow(dudi$tab)</code></p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+<p>a numeric vector of integer values giving the weight
+associated to the rows of <code>dudi$tab</code></p>
+</td></tr>
+<tr valign="top"><td><code>scannf</code></td>
+<td>
+<p>logical. Whether the eigenvalues bar plot
+should be displayed</p>
+</td></tr>
+<tr valign="top"><td><code>nf</code></td>
+<td>
+<p>if <code>scannf = FALSE</code>, an integer indicating the number
+of kept axes</p>
+</td></tr>
+<tr valign="top"><td><code>ewa</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, uniform weights are given
+to all animals in the analysis. If <code>FALSE</code>, animal weights are
+given by the proportion of relocations of each animal (i.e. an
+animal with 10 relocations has a weight 10 times lower than an
+animal with 100 relocations)</p>
+</td></tr>
+<tr valign="top"><td><code>x, object</code></td>
+<td>
+<p>an object of class <code>kselect</code></p>
+</td></tr>
+<tr valign="top"><td><code>xax</code></td>
+<td>
+<p>the column number for the x-axis</p>
+</td></tr>
+<tr valign="top"><td><code>yax</code></td>
+<td>
+<p>the column number for the y-axis</p>
+</td></tr>
+<tr valign="top"><td><code>addval</code></td>
+<td>
+<p>logical.  If <code>TRUE</code>, the frequency of the
+relocations per animal is displayed (see examples)</p>
+</td></tr>
+<tr valign="top"><td><code>cpoint</code></td>
+<td>
+<p>the size of the points (if 0, the points where no
+relocations are found are not displayed)</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>the margin parameter (see <code>help(par)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>ncell</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, the histogram shows the
+distribution of the cells of 
+the raster map where at least one relocation is found. If
+<code>FALSE</code>, the histogram shows the distribution of the
+relocations</p>
+</td></tr>
+<tr valign="top"><td><code>csub</code></td>
+<td>
+<p>the character size for the legend, used with
+<code>par("cex")*csub</code></p>
+</td></tr>
+<tr valign="top"><td><code>csize</code></td>
+<td>
+<p>the size coefficient for the points</p>
+</td></tr>
+<tr valign="top"><td><code>clegend</code></td>
+<td>
+<p>the character size for the legend used by
+<code>par("cex")*clegend</code></p>
+</td></tr>
+<tr valign="top"><td><code>possub</code></td>
+<td>
+<p>a character string indicating the sub-title position
+<code>("topleft", "topright", "bottomleft", "bottomright")</code></p>
+</td></tr>
+<tr valign="top"><td><code>ncla</code></td>
+<td>
+<p>the number of classes of the histograms</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to the generic function
+<code>histniche</code>, <code>print</code> or, in the case of <code>plot.kselect</code>,
+<code>s.distri</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The K-select analysis is intended for hindcasting studies of habitat
+selection by animals using radio-tracking data.  Each habitat variable
+defines one dimension in the ecological space.  For each animal, the
+difference between the vector of average available habitat conditions
+and the vector of average used conditions defines the marginality
+vector. Its size is proportional to the importance of habitat
+selection, and its direction indicates which variables are
+selected. By performing a non-centered principal component analysis of
+the table containing the coordinates of the marginality vectors of
+each animal (row) on the habitat variables (column), the K-select
+analysis returns a linear combination of habitat variables for which
+the average marginality is greatest. It is a synthesis of variables
+which contributes the most to the habitat selection. As with principal
+component analysis, the biological significance of the factorial axes is
+deduced from the loading of variables.<br />
+</p>
+<p><code>plot.kselect</code> returns a summary of the analysis: it displays (i)
+a graph of the correlations between the principal axes of the PCA of
+the objects of class <code>dudi</code> passed as argument and the factorial
+axes of the K-select analysis; (ii) a graph giving the scores of the
+habitat variables on the factorial axes of the K-select analysis;
+(iii) the barplot of the eigenvalues of the analysis (each eigenvalue
+measure the mean marginality explained by the axis; (iv) the
+projection of the non-recentred marginality vectors on the factorial
+plane (the origin of the arrow indicates the average available habitat
+conditions, and the end of the arrow indicates the average used
+conditions); (v) the projection of the resource units available to
+each animal on the first factorial plane and (vi) the coordinates of
+the recentred marginality vectors (i.e. recentred so that they have a
+common origin) on the first factorial plane.<br />
+</p>
+<p><code>kplot.kselect</code> returns one graph per animal showing the
+projections of the available resource units on the factorial plane, as
+well as their use by the animal.  <code>hist.kselect</code> does the same
+thing, but on one dimension instead of two.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>kselect</code> returns a list of the class <code>kselect</code> and
+<code>dudi</code> (see <code><a href="../../ade4/html/dudi.html">dudi</a></code>). 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Calenge, C., Dufour, A.B. and Maillard, D. (2005) K-select analysis: a
+new method to analyse habitat selection in radio-tracking
+studies. <em>Ecological modelling</em>, <b>186</b>, 143&ndash;153.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="sahrlocs2kselect.html">sahrlocs2kselect</a></code> for
+conversion of objects class <code>sahrlocs</code> to objects suitable for a
+K-select analysis, <code><a href="../../ade4/html/s.distri.html">s.distri</a></code>, and
+<code><a href="../../ade4/html/dudi.html">dudi</a></code> for class <code>dudi</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Not run: 
+## Loads the data
+data(puechabon)
+sahr &lt;- puechabon$sahr
+
+## prepares the data for the kselect analysis
+x &lt;- sahrlocs2kselect(sahr)
+tab &lt;- x$tab
+
+## Example of analysis with two variables: the slope and the elevation.
+## Have a look at the use and availability of the two variables
+## for the 4 animals
+tab &lt;- tab[,((names(tab) == "Slope")|(names(tab) == "Elevation"))]
+tab &lt;- scale(tab)
+tmp &lt;- split.data.frame(tab, x$factor)
+wg &lt;- split(x$weight, x$factor)
+opar &lt;- par(mfrow = n2mfrow(nlevels(x$factor)))
+for (i in names(tmp))
+  s.distri(scale(tmp[[i]]), wg[[i]])
+par(opar)
+
+## We call a new graphic window
+x11()
+## A K-select analysis
+acp &lt;- dudi.pca(tab, scannf = FALSE, nf = 2)
+kn &lt;- kselect(acp, x$factor, x$weight,
+ scannf = FALSE, nf = 2)
+
+# use of the generic function scatter
+scatter(kn)
+
+# Displays the first factorial plane
+kplot(kn)
+kplot(kn, cellipse = 0, cpoint = 0)
+kplot(kn, addval = FALSE, cstar = 0)
+
+# this factorial plane can be compared with
+# the other graph to see the rotation proposed by
+# the analysis
+graphics.off()
+
+# Displays the first factorial axis
+hist(kn)
+
+# Displays the second factorial axis
+hist(kn, xax = 2)
+
+# Summary of the analysis
+plot(kn)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

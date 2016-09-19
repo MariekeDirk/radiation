@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Measuring Habitat Selection Using the Method of Engen et al....</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for engen2008II {adehabitat}"><tr><td>engen2008II {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Measuring Habitat Selection Using the Method of Engen et al. (2008) </h2>
+
+<h3>Description</h3>
+
+<p>These functions implements the method described by Engen et al. to
+measure the preference of animals for habitat variables in habitat
+selection studies.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+engen2008II(us, av, id, nsim = 500, nsimra = 500)
+
+engen2008I(us, av, nsimra=500)
+
+## S3 method for class 'engenetalI'
+print(x, ...)
+
+## S3 method for class 'engenetalII'
+print(x, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>us</code></td>
+<td>
+<p>a data frame containing the value of numeric habitat
+variables (columns) in each site (rows) used by the animals.</p>
+</td></tr>
+<tr valign="top"><td><code>av</code></td>
+<td>
+<p>a data frame containing the value of numeric habitat
+variables (columns) in each site (rows) available to the animals.</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>a factor with as many elements as there are rows in
+<code>us</code>, indicating the ID of the animal that used the
+corresponding rows in <code>us</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>the number of randomizations used in
+the calculation of the total variance.</p>
+</td></tr>
+<tr valign="top"><td><code>nsimra</code></td>
+<td>
+<p>the number of random allocation of ranks used in the
+calculation of the normal score (see details). </p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>engenetalI</code> or <code>engenetalII</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to other functions
+(currently unused)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Engen et al. (2008) proposed an original approach to measure the
+preference of animals for values of each particular variable of a
+multivariate set of environmental variables.  Their approach was
+originally developed for the case where there is a sample of used site
+is for each animal in a sample of identified animals (e.g. using
+radiotelemetry or GPS), with several sites per animal (i.e., design II
+according to the classification of Thomas and Taylor, 1990).  However,
+we extended this approach to also include the case where habitat use
+is described by a sample of used site, with one site per unidentified
+animal (i.e., design I).<br />
+</p>
+<p>The original approach is the following: first, a normal score
+transformation of each habitat variable is performed: for each
+variable, the empirical cumulative distribution is computed, by
+dividing the rank of the value of each available site by the number of
+observations.  Note that the ties are ranked randomly.  Then, the
+inverse of the standard normal integral (see <code>?qnorm</code>) of the
+cumulative distribution function is computed for all available sites:
+this results into a perfectly normal distribution of the habitat
+variables for the available sites.  Then, the value of the cumulative
+distribution &ndash; estimated from the available sites &ndash; is computed for
+each used site.  Then, the inverse of the standard normal integral is
+computed for each one.<br />
+</p>
+<p>Engen et al. (2008) suppose the following model describing how habitat
+use results from habitat availability.  Let </p>
+<p style="text-align: center;"><i>Z_{ij}</i></p>
+<p> be
+the value of a given habitat variable (transformed according to the
+normal score) for the j-th site used by the i-th animal.  Then this
+value can be described by the model:
+</p>
+<p style="text-align: center;"><i>Z_{ij} = mu + U_i + V_{ij}</i></p>
+
+<p>where </p>
+<p style="text-align: center;"><i>mu</i></p>
+<p> is the preference for the habitat variable (0
+indicates a non-preference), </p>
+<p style="text-align: center;"><i>U_i</i></p>
+<p> and </p>
+<p style="text-align: center;"><i>V_{ij}</i></p>
+
+<p>are normal distributions with means equal to zero and variances equal
+to </p>
+<p style="text-align: center;"><i>sigma^2</i></p>
+<p> and </p>
+<p style="text-align: center;"><i>tau^2</i></p>
+<p> respectively.
+Engen et al. give fomula for the estimation of these parameters.
+Their estimation is done by first estimating the total variance
+</p>
+<p style="text-align: center;"><i>sigma^2 + tau^2</i></p>
+<p> (this variance is estimated
+by sampling randomly one observation per animal &ndash; the parameter
+<code>nsim</code> controls the number of samples used in this computation;
+see Engen et al. 2008).  Note that the correlation between the value
+observed for two used units sampled from all the units used by a given
+animal is </p>
+<p style="text-align: center;"><i>rho = sigma^2 /
+  (sigma^2 + tau^2)</i></p>
+<p>.  A large value of rho indicates a large variation
+in the habitat used between animals (or a small within-animal
+variation).  The main parameter of concern is here the preference.
+The function <code>engen2008II</code> allows to estimate these
+parameters.<br />
+</p>
+<p>The function <code>engen2008I</code> extends this model for design I
+studies (a sample of used sites and a sample of available sites,
+animals not identified), by considering the following model for these
+studies:
+</p>
+<p style="text-align: center;"><i>Z_{ij} = mu + V_{ij}</i></p>
+
+<p>where </p>
+<p style="text-align: center;"><i>mu</i></p>
+<p> is the preference for the habitat variable (0
+indicates a non-preference), and </p>
+<p style="text-align: center;"><i>V_{ij}</i></p>
+
+<p>are normal distributions with means equal to zero and variances equal
+to </p>
+<p style="text-align: center;"><i>sigma^2</i></p>
+<p>.<br />
+</p>
+<p>Note that the habitat variables may be correlated on the study
+area. In this case, observed preference for a given variable may be
+an artefact of other variables prefered by animals.  Supposing that
+the data.frame containing the </p>
+<p style="text-align: center;"><i>Z_{ij}</i></p>
+<p>'s is a realization
+of a multivariate normal distribution, we can compute, for each
+habitat variable and each used site, the *conditional* mean
+</p>
+<p style="text-align: center;"><i>m_{ij}</i></p>
+<p> and *conditional* standard deviation
+</p>
+<p style="text-align: center;"><i>s_{ij}</i></p>
+<p> of this variable at this site, *given* the values
+of the other habitat variables at this site (this is done using the
+algorithm described by Ripley, 1987, p.98).  We then compute the
+standardized values </p>
+<p style="text-align: center;"><i>P_{ij} =
+  Z_{ij} - m_{ij})/s_{ij}</i></p>
+<p>.  The preference is then computed using these
+standardized values.<br />
+</p>
+<p>Because there may be ties in the distribution of values of habitat
+variables, the results may vary depending on the random order chosen
+for ties when computing the normal scores.  Engen et al. recommended
+to repeat the function a large number of times, and to use the mean
+values as estimates of the parameters.  This is what the function
+does, and the number of randomization is controlled by the parameter
+<code>nsimra</code>.<br />
+</p>
+<p>Note that all these methods rely on the following hypotheses: (i)
+independence between animals, (ii) independence between sites, and
+(iii) all animals are selecting habitat in the same way (in addition
+to &quot;traditional&quot; hypotheses in these kinds of studies: no
+territoriality, all animals having equal access to all available
+resource units, etc., see Manly et al. 2002 for further details).
+</p>
+<p>That the examples below provide an illustration and discussion of
+interesting and (at first sight) surprising properties of this
+method.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>engen2008I</code> returns a list of class <code>engenetalI</code>, and
+<code>engen2008II</code> returns a list of class <code>engenetalII</code>.  Both
+types of list contain two elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>this is a list containing one data frame per habitat
+variable, containing the value of the correlation rho (for
+<code>engenetalII</code> objects), mean preferences and standard error of
+these preferences (columns) for each randomization performed (rows);</p>
+</td></tr>
+<tr valign="top"><td><code>results</code></td>
+<td>
+<p>a data frame containing the mean values over all
+the randomizations, of these parameters (columns) for each habitat
+variable (rows).</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>Be patient! these functions can be very long (depending on the number of
+sites and on the value of <code>simra</code>)  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Engen, S., Grotan, V., Halley, D. and Nygard, T. (2008) An efficient
+multivariate approach for estimating preference when individual
+observations are dependent. <em>Journal of Animal Ecology</em>,
+<b>77</b>: 958&ndash;965.
+</p>
+<p>Thomas, D. and Taylor, E. (1990) Study designs and tests for comparing
+resource use and availability. <em>Journal of Wildlife Management</em>,
+<b>54</b>, 322&ndash;330.
+</p>
+<p>Ripley, B. (1987) Stochastic Simulation. John Wiley and Sons.   
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../ade4/html/niche.html">niche</a></code>, <code><a href="madifa.html">madifa</a></code>,
+<code><a href="gnesfa.html">gnesfa</a></code> for another approach to tackle the study of
+habitat selection.  For categorical variables, see
+<code><a href="kselect.html">kselect</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Not run: 
+
+#################################
+#################################
+#################################
+
+
+## Practical use of engen2008II
+
+data(puechabon)
+kasc &lt;- puechabon$kasc
+
+## Removes the aspect (no factor allowed in the function)
+kasc$Aspect &lt;- NULL
+
+## engen2008II:
+avail &lt;- kasc2df(kasc)$tab
+use &lt;- join.kasc(puechabon$locs[,c("X","Y")], kasc)
+id &lt;- puechabon$locs$Name
+
+## This function can be very long:
+engen2008II(use, avail, id, nsimra=10)
+
+
+
+
+## Practical use of engen2008I
+
+data(lynxjura)
+ka &lt;- lynxjura$map
+lo &lt;- lynxjura$locs[,1:2]
+av &lt;- kasc2df(ka)$tab
+us &lt;- join.kasc(lo, ka)
+
+## Idem, be patient here:
+engen2008I(us, av, nsimra=10)
+
+
+
+
+#################################
+#################################
+#################################
+##
+##  For a deeper discussion on
+##  this method... a simulation:
+
+
+
+#################################
+##
+## First, simulation of a dataset
+## copy and paste this part into R,
+## but skip the reading of the
+## comments if you are not interested
+## into this simulation
+
+## simulate the available points
+
+set.seed(235)
+av &lt;- cbind(rnorm(1000, mean=0, sd=3), rnorm(1000, mean=0, sd=0.5))
+tt &lt;- cbind(c(cos(-pi/4),sin(-pi/4)),c(cos(pi/4), sin(pi/4)))
+av &lt;- as.data.frame(as.matrix(av)%*%tt)
+
+## simulate the used points: we simulate a selection on the first
+## principal component of the PCA of the data.frame describing the
+## availability. In other words, we simulate the case where the
+## habitat selection occurs on the "common part" of the two habitat
+## variable (no preference for one particular variable).
+
+us &lt;- do.call("rbind", lapply(1:5, function(i) {
+    us1 &lt;- cbind(rnorm(30, mean=rnorm(1, -4, 1), sd=0.5),
+                 rnorm(30, mean=rnorm(1, 0, 0.5), sd=0.2))
+
+    return(us1%*%tt)
+}))
+colnames(us) &lt;- colnames(av) &lt;- c("var1", "var2")
+id &lt;- gl(5,30)
+
+
+#################################
+##
+## Study of the habitat selection on these data
+## The data are:
+## - us: a matrix containing the used sites for two
+##       habitat variables
+## - av: a matrix containing the available sites for two
+##       habitat variables
+## - id: a vector containing the id of 5 animals
+
+## First illustrate the use and availability of the two variables:
+
+plot(av, xlab="Habitat variable 1", ylab="Habitat variable 2",
+     col="grey", pch=16)
+lius &lt;- split(as.data.frame(us), id)
+junk &lt;- lapply(1:5, function(i) points(lius[[i]], pch=16, col=i))
+
+## -----&gt; ***It is very clear that there is a selection***:
+## the animals select the low values of both habitat variables.
+## (this is what we actually simulated
+
+
+## Now perform the method of Engen et al. (2008):
+engen2008II(us, av, id)
+
+
+## Surprisingly, the method seems to fail to identify the clear
+## habitat selection identified graphically...
+##
+## In fact, it does not fail:
+## this method identifies the part of habitat selection that is clearly
+## attributable to a given variable.  Here the animals select the
+## the common factor expressed in the two variables, and it is impossible
+## to identify whether the selection is due only to the variable 1 or to
+## the variable 2: it is caused by both variable simultaneously.
+## Once the selection on the variable 2 (including the common part)
+## has been removed, there is no longer appearant selection on
+## variable 1.  Once the selection caused by the variable 1
+## (including the common part) has been removed, there is no
+## longer selection on variable 2...
+##
+## For this reason, Engen et al. recommended to use this method
+## concurrently with other factor analyses of the habitat selection
+## such as madifa, kselect, niche (in ade4 package), etc.
+##
+## Note also the strong correlation between the value of two random
+## points used by a given animal. This indicates a strong variability
+## among animals...
+
+
+
+
+## End(Not run)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

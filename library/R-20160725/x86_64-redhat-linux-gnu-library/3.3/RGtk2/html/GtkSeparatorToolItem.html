@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkSeparatorToolItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkSeparatorToolItem {RGtk2}"><tr><td>GtkSeparatorToolItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkSeparatorToolItem</h2>
+
+<h3>Description</h3>
+
+<p>A toolbar item that separates groups of other toolbar items</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkSeparatorToolItemNew.html">gtkSeparatorToolItemNew</a>(show = TRUE)</code><br />
+<code><a href="gtkSeparatorToolItemSetDraw.html">gtkSeparatorToolItemSetDraw</a>(object, draw)</code><br />
+<code><a href="gtkSeparatorToolItemGetDraw.html">gtkSeparatorToolItemGetDraw</a>(object)</code><br />
+<code>gtkSeparatorToolItem(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkToolItem
+                                       +----GtkSeparatorToolItem</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkSeparatorToolItem implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>  A <code style="white-space: pre;">GtkSeparatorItem</code> is a <code><a href="GtkToolItem.html">GtkToolItem</a></code> that separates groups of other
+<code style="white-space: pre;">GtkToolItems</code>. Depending on the theme, a <code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code> will
+often look like a vertical line on horizontally docked toolbars.
+</p>
+<p>If the property &quot;expand&quot; is <code style="white-space: pre;">TRUE</code> and the property &quot;draw&quot; is <code style="white-space: pre;">FALSE</code>, a
+<code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code> will act as a &quot;spring&quot; that forces other items
+to the ends of the toolbar.
+</p>
+<p>Use <code><a href="gtkSeparatorToolItemNew.html">gtkSeparatorToolItemNew</a></code> to create a new <code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkSeparatorToolItem</code></dt><dd>
+<p>The <code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code> struct contains only private data and
+should only be accessed through the functions described below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkSeparatorToolItem</code> is the equivalent of <code><a href="gtkSeparatorToolItemNew.html">gtkSeparatorToolItemNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">draw</code> [logical : Read / Write]</dt><dd>
+<p>Whether the separator is drawn, or just blank.  Default value: TRUE
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkSeparatorToolItem.html">http://library.gnome.org/devel//gtk/GtkSeparatorToolItem.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

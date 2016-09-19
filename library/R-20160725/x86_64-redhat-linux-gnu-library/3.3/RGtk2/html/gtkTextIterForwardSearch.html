@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextIterForwardSearch</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextIterForwardSearch {RGtk2}"><tr><td>gtkTextIterForwardSearch {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextIterForwardSearch</h2>
+
+<h3>Description</h3>
+
+<p>Searches forward for <code>str</code>. Any match is returned by setting
+<code>match.start</code> to the first character of the match and <code>match.end</code> to the
+first character after the match. The search will not continue past
+<code>limit</code>. Note that a search is a linear or O(n) operation, so you
+may wish to use <code>limit</code> to avoid locking up your UI on large
+buffers.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextIterForwardSearch(object, str, flags, limit = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>start of search</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">str</code></code></td>
+<td>
+<p>a search string</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">flags</code></code></td>
+<td>
+<p>flags affecting how the search is done</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">limit</code></code></td>
+<td>
+<p>bound for the search, or <code>NULL</code> for the end of the buffer. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the <code style="white-space: pre;">GTK_TEXT_SEARCH_VISIBLE_ONLY</code> flag is present, the match may
+have invisible text interspersed in <code>str</code>. i.e. <code>str</code> will be a
+possibly-noncontiguous subsequence of the matched range. similarly,
+if you specify <code style="white-space: pre;">GTK_TEXT_SEARCH_TEXT_ONLY</code>, the match may have
+pixbufs or child widgets mixed inside the matched range. If these
+flags are not given, the match must be exact; the special 0xFFFC
+character in <code>str</code> will match embedded pixbufs or child widgets.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] whether a match was found</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">match.start</code></code></td>
+<td>
+<p>return location for start of match, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">match.end</code></code></td>
+<td>
+<p>return location for end of match, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

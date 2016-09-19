@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkImage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkImage {RGtk2}"><tr><td>AtkImage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkImage</h2>
+
+<h3>Description</h3>
+
+<p>The ATK Interface implemented by components which expose image or pixmap
+content on-screen.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkImageGetImagePosition.html">atkImageGetImagePosition</a>(object, coord.type)</code><br />
+<code><a href="atkImageGetImageDescription.html">atkImageGetImageDescription</a>(object)</code><br />
+<code><a href="atkImageSetImageDescription.html">atkImageSetImageDescription</a>(object, description)</code><br />
+<code><a href="atkImageGetImageSize.html">atkImageGetImageSize</a>(object)</code><br />
+<code><a href="atkImageGetImageLocale.html">atkImageGetImageLocale</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkImage</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkImage is implemented by
+<code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="AtkImage.html">AtkImage</a></code> should be implemented by <code><a href="AtkObject.html">AtkObject</a></code> subtypes on behalf of
+components which display image/pixmap information onscreen, and which
+provide information (other than just widget borders, etc.) via that
+image content.  For instance, icons, buttons with icons, toolbar
+elements, and image viewing panes typically should implement <code><a href="AtkImage.html">AtkImage</a></code>.
+<code><a href="AtkImage.html">AtkImage</a></code> primarily provides two types of information: coordinate
+information (useful for screen review mode of screenreaders, and for use
+by onscreen magnifiers), and descriptive information.  The descriptive
+information is provided for alternative, text-only presentation of the
+most significant information present in the image.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkImage</code></dt><dd>
+<p>The AtkImage structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkImage.html">http://library.gnome.org/devel//atk/AtkImage.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

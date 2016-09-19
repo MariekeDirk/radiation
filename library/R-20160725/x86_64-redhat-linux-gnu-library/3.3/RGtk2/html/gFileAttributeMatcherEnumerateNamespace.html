@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileAttributeMatcherEnumerateNamespace</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileAttributeMatcherEnumerateNamespace {RGtk2}"><tr><td>gFileAttributeMatcherEnumerateNamespace {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileAttributeMatcherEnumerateNamespace</h2>
+
+<h3>Description</h3>
+
+<p>Checks if the matcher will match all of the keys in a given namespace.
+This will always return <code>TRUE</code> if a wildcard character is in use (e.g. if 
+matcher was created with &quot;standard::*&quot; and <code>ns</code> is &quot;standard&quot;, or if matcher was created
+using &quot;*&quot; and namespace is anything.) </p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileAttributeMatcherEnumerateNamespace(object, ns)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GFileInfo.html">GFileAttributeMatcher</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ns</code></code></td>
+<td>
+<p>a string containing a file attribute namespace.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>TODO: this is awkwardly worded.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the matcher matches all of the entries
+in the given <code>ns</code>, <code>FALSE</code> otherwise.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

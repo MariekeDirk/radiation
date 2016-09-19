@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPangoContextGet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPangoContextGet {RGtk2}"><tr><td>gdkPangoContextGet {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPangoContextGet</h2>
+
+<h3>Description</h3>
+
+<p>Creates a <code><a href="pango-Text-Processing.html">PangoContext</a></code> for the default GDK screen.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPangoContextGet()</pre>
+
+
+<h3>Details</h3>
+
+<p>When using GTK+, normally you should use <code><a href="gtkWidgetGetPangoContext.html">gtkWidgetGetPangoContext</a></code>
+instead of this function, to get the appropriate context for
+the widget you intend to render text onto.
+</p>
+<p>The newly created context will have the default font options (see
+<code><a href="cairo-font-options.html">CairoFontOptions</a></code>) for the default screen; if these options
+change it will not be updated. Using <code><a href="gtkWidgetGetPangoContext.html">gtkWidgetGetPangoContext</a></code>
+is more convenient if you want to keep a context around and track
+changes to the screen's font rendering settings.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="pango-Text-Processing.html">PangoContext</a></code>] a new <code><a href="pango-Text-Processing.html">PangoContext</a></code> for the default display</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

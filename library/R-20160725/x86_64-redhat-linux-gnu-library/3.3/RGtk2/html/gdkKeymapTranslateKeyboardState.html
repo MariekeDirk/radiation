@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkKeymapTranslateKeyboardState</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkKeymapTranslateKeyboardState {RGtk2}"><tr><td>gdkKeymapTranslateKeyboardState {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkKeymapTranslateKeyboardState</h2>
+
+<h3>Description</h3>
+
+<p>Translates the contents of a <code><a href="gdk-Event-Structures.html">GdkEventKey</a></code> into a keyval, effective
+group, and level. Modifiers that affected the translation and
+are thus unavailable for application use are returned in
+<code>consumed.modifiers</code>.  See  for an explanation of
+groups and levels.  The <code>effective.group</code> is the group that was
+actually used for the translation; some keys such as Enter are not
+affected by the active keyboard group. The <code>level</code> is derived from
+<code>state</code>. For convenience, <code><a href="gdk-Event-Structures.html">GdkEventKey</a></code> already contains the translated
+keyval, so this function isn't as useful as you might think.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkKeymapTranslateKeyboardState(object, hardware.keycode, state, 
+    group)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Keyboard-Handling.html">GdkKeymap</a></code>, or <code>NULL</code> to use the default. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hardware.keycode</code></code></td>
+<td>
+<p>a keycode</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">state</code></code></td>
+<td>
+<p>a modifier state</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">group</code></code></td>
+<td>
+<p>active keyboard group</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><strong>PLEASE NOTE:</strong> <code>consumed.modifiers</code> gives modifiers that should be masked out
+from <code>state</code> when comparing this key press to a hot key. For
+instance, on a US keyboard, the <code>plus</code>
+symbol is shifted, so when comparing a key press to a
+<code>&lt;Control&gt;plus</code> accelerator &lt;Shift&gt; should
+be masked out.
+</p>
+<pre>
+# We want to ignore irrelevant modifiers like ScrollLock
+all_accels_mask &lt;- GdkModifierType["control-mask"] | 
+GdkModifierType["shift-mask"] | GdkModifierType["mod1-mask"]
+state &lt;- gdkKeymapTranslateKeyboardState(keymap, event[["hardware_keycode"]],
+                                         event[["state"]], event[["group"]])
+unconsumed &lt;- all_accels_mask &amp; event[["state"]] &amp; !as.flag(state$consumed) 
+if (state$keyval == .gdkPlus &amp;&amp; unconsumed == GdkModifierType["control-mask"])
+  print("Control was pressed")
+</pre>  
+<p>An older interpretation <code>consumed.modifiers</code> was that it contained
+all modifiers that might affect the translation of the key;
+this allowed accelerators to be stored with irrelevant consumed
+modifiers, by doing:  </p>
+<pre>
+# XXX Don't do this XXX
+unconsumed &lt;- all_accel_mask &amp; event[["state"]] &amp; !as.flag(state$consumed)
+if (state$keyval == accel_keyval &amp;&amp;
+    unconsumed == accel_mods &amp; !as.flag(state$consumed))
+  print("Accellerator was pressed")
+</pre>  
+<p>However, this did not work if multi-modifier combinations were
+used in the keymap, since, for instance, <code>&lt;Control&gt;</code>
+would be masked out even if only <code>&lt;Control&gt;&lt;Alt&gt;</code>
+was used in the keymap. To support this usage as well as well as
+possible, all <em>single modifier</em> combinations
+that could affect the key for any combination of modifiers will
+be returned in <code>consumed.modifiers</code>; multi-modifier combinations
+are returned only when actually found in <code>state</code>. When you store
+accelerators, you should always store them with consumed modifiers
+removed. Store <code>&lt;Control&gt;plus</code>,
+not <code>&lt;Control&gt;&lt;Shift&gt;plus</code>,</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if there was a keyval bound to the keycode/state/group</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keyval</code></code></td>
+<td>
+<p>return location for keyval, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">effective.group</code></code></td>
+<td>
+<p>return location for effective group, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">level</code></code></td>
+<td>
+<p>return location for level, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">consumed.modifiers</code></code></td>
+<td>
+<p>return location for modifiers that were used to
+determine the group or level, or <code>NULL</code>. <em>[  <acronym><span class="acronym">out</span></acronym>  ][  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p><code>consumed.modifiers</code> gives modifiers that should be masked out
+from <code>state</code> when comparing this key press to a hot key. For
+instance, on a US keyboard, the <code>plus</code>
+symbol is shifted, so when comparing a key press to a
+<code>&lt;Control&gt;plus</code> accelerator &lt;Shift&gt; should
+be masked out.
+</p>
+<p>An older interpretation <code>consumed.modifiers</code> was that it contained
+all modifiers that might affect the translation of the key;
+this allowed accelerators to be stored with irrelevant consumed
+modifiers, by doing:  
+However, this did not work if multi-modifier combinations were
+used in the keymap, since, for instance, <code>&lt;Control&gt;</code>
+would be masked out even if only <code>&lt;Control&gt;&lt;Alt&gt;</code>
+was used in the keymap. To support this usage as well as well as
+possible, all <em>single modifier</em> combinations
+that could affect the key for any combination of modifiers will
+be returned in <code>consumed.modifiers</code>; multi-modifier combinations
+are returned only when actually found in <code>state</code>. When you store
+accelerators, you should always store them with consumed modifiers
+removed. Store <code>&lt;Control&gt;plus</code>,
+not <code>&lt;Control&gt;&lt;Shift&gt;plus</code>,</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

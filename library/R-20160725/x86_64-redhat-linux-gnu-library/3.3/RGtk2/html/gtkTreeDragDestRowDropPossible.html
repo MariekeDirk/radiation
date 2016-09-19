@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeDragDestRowDropPossible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeDragDestRowDropPossible {RGtk2}"><tr><td>gtkTreeDragDestRowDropPossible {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeDragDestRowDropPossible</h2>
+
+<h3>Description</h3>
+
+<p>Determines whether a drop is possible before the given <code>dest.path</code>,
+at the same depth as <code>dest.path</code>. i.e., can we drop the data in
+<code>selection.data</code> at that location. <code>dest.path</code> does not have to
+exist; the return value will almost certainly be <code>FALSE</code> if the
+parent of <code>dest.path</code> doesn't exist, though.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeDragDestRowDropPossible(object, dest.path, selection.data)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-GtkTreeView-drag-and-drop.html">GtkTreeDragDest</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.path</code></code></td>
+<td>
+<p>destination row</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">selection.data</code></code></td>
+<td>
+<p>the data being dragged</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if a drop is possible before <code>dest.path</code></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

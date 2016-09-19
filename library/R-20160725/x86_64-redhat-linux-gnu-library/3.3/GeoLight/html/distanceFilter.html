@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Filter for unrealistic positions within a track based on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for distanceFilter {GeoLight}"><tr><td>distanceFilter {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Filter for unrealistic positions within a track based on distance</h2>
+
+<h3>Description</h3>
+
+<p>The filter identifies unrealistic positions. The maximal distance per
+hour/day can be set corresponding to the particular species.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+distanceFilter(tFirst, tSecond, type, twl, degElevation = -6, distance,
+  units = "hour")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tFirst</code></td>
+<td>
+<p>vector of sunrise/sunset times (e.g. 2008-12-01 08:30).</p>
+</td></tr>
+<tr valign="top"><td><code>tSecond</code></td>
+<td>
+<p>vector of of sunrise/sunset times (e.g. 2008-12-01 17:30).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>vector of either 1 or 2, defining <code>tFirst</code> as sunrise or sunset respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>twl</code></td>
+<td>
+<p>data.frame containing twilights and at least <code>tFirst</code>, <code>tSecond</code> and <code>type</code> (alternatively give each parameter separately).</p>
+</td></tr>
+<tr valign="top"><td><code>degElevation</code></td>
+<td>
+<p>sun elevation angle in degrees (e.g. -6 for &quot;civil
+twilight&quot;)</p>
+</td></tr>
+<tr valign="top"><td><code>distance</code></td>
+<td>
+<p>the maximal distance in km per <code>units</code>. Distances above
+will be considered as unrealistic.</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>the time unite corresponding to the distance. Default is
+&quot;hour&quot;, alternative option is &quot;day&quot;.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that this type of filter significantly depends on the calibration
+(<code>degElevation</code>). Especially during equinox periods. In contrast, the
+(<code>loessFilter</code>) is independent from positions (uses twilight times)
+and therefore superior.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Logical <code>vector</code>. TRUE means the particular position passed the filter.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski, Fraenzi Korner-Nievergelt
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

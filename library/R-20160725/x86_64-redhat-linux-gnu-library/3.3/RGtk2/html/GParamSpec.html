@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Parameter metadata in GObject</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GParamSpec {RGtk2}"><tr><td>GParamSpec {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Parameter metadata in GObject</h2>
+
+<h3>Description</h3>
+
+<p><code>GParamSpec</code> is an object structure that encapsulates the metadata 
+required to specify parameters, such as e.g. <code>GObject</code> properties.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gParamSpec(type, name, nick = NULL, blurb = NULL, flags = NULL, ...)
+as.GParamSpec(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>a string naming the R type (ie 'character', 'numeric', ...) corresponding
+to the desired <code>GParamSpec</code> (property) type</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>the name of the <code>GParamSpec</code> (property)</p>
+</td></tr>
+<tr valign="top"><td><code>nick</code></td>
+<td>
+<p>the nickname of the <code>GParamSpec</code> (property)</p>
+</td></tr>
+<tr valign="top"><td><code>blurb</code></td>
+<td>
+<p>a short string description of the <code>GParamSpec</code> (property)</p>
+</td></tr>
+<tr valign="top"><td><code>flags</code></td>
+<td>
+<p>a vector of values from the <code>GParamFlags</code> enumeration - 
+please see the GObject documentation for more information</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>named arguments specific to the type of <code>GParamSpec</code> - 
+please see the GObject documentation for more information</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A list corresponding to a <code>GParamSpec</code> - the class
+of the list should be the name of the <code>GParamSpec</code> type</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>As a transparent type, the various <code>GParamSpec</code> structures should be returned to 
+R as corresponding lists, and <code>as.GParamSpec</code> coerces a list to one understandable
+by the C wrappers, assuming that the class of the list is the name of the <code>GParamSpec</code> type.
+<code>gParamSpec</code> is a more user-friendly wrapper to <code>as.GParamSpec</code> that
+constructs the correctly-classed list on the fly from its arguments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list representing a <code>GParamSpec</code>, ready to be passed to the underlying C libraries
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://developer.gnome.org/doc/API/2.0/gobject/gobject-GParamSpec.html">http://developer.gnome.org/doc/API/2.0/gobject/gobject-GParamSpec.html</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

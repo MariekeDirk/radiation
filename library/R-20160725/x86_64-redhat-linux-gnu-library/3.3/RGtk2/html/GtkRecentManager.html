@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRecentManager</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRecentManager {RGtk2}"><tr><td>GtkRecentManager {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRecentManager</h2>
+
+<h3>Description</h3>
+
+<p>Managing Recently Used Files</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRecentManagerNew.html">gtkRecentManagerNew</a>()</code><br />
+<code><a href="gtkRecentManagerGetDefault.html">gtkRecentManagerGetDefault</a>()</code><br />
+<code><a href="gtkRecentManagerGetForScreen.html">gtkRecentManagerGetForScreen</a>(screen)</code><br />
+<code><a href="gtkRecentManagerGetForScreen.html">gtkRecentManagerGetForScreen</a>(screen)</code><br />
+<code><a href="gtkRecentManagerSetScreen.html">gtkRecentManagerSetScreen</a>(object, screen)</code><br />
+<code><a href="gtkRecentManagerSetScreen.html">gtkRecentManagerSetScreen</a>(object, screen)</code><br />
+<code><a href="gtkRecentManagerAddItem.html">gtkRecentManagerAddItem</a>(object, uri)</code><br />
+<code><a href="gtkRecentManagerAddFull.html">gtkRecentManagerAddFull</a>(object, uri, recent.data)</code><br />
+<code><a href="gtkRecentManagerRemoveItem.html">gtkRecentManagerRemoveItem</a>(object, uri, .errwarn = TRUE)</code><br />
+<code><a href="gtkRecentManagerLookupItem.html">gtkRecentManagerLookupItem</a>(object, uri, .errwarn = TRUE)</code><br />
+<code><a href="gtkRecentManagerHasItem.html">gtkRecentManagerHasItem</a>(object, uri)</code><br />
+<code><a href="gtkRecentManagerMoveItem.html">gtkRecentManagerMoveItem</a>(object, uri, new.uri, .errwarn = TRUE)</code><br />
+<code><a href="gtkRecentManagerGetLimit.html">gtkRecentManagerGetLimit</a>(object)</code><br />
+<code><a href="gtkRecentManagerSetLimit.html">gtkRecentManagerSetLimit</a>(object, limit)</code><br />
+<code><a href="gtkRecentManagerGetItems.html">gtkRecentManagerGetItems</a>(object)</code><br />
+<code><a href="gtkRecentManagerPurgeItems.html">gtkRecentManagerPurgeItems</a>(object, .errwarn = TRUE)</code><br />
+<code><a href="gtkRecentInfoRef.html">gtkRecentInfoRef</a>(object)</code><br />
+<code><a href="gtkRecentInfoUnref.html">gtkRecentInfoUnref</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetUri.html">gtkRecentInfoGetUri</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetDisplayName.html">gtkRecentInfoGetDisplayName</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetDescription.html">gtkRecentInfoGetDescription</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetMimeType.html">gtkRecentInfoGetMimeType</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetAdded.html">gtkRecentInfoGetAdded</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetModified.html">gtkRecentInfoGetModified</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetVisited.html">gtkRecentInfoGetVisited</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetPrivateHint.html">gtkRecentInfoGetPrivateHint</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetApplicationInfo.html">gtkRecentInfoGetApplicationInfo</a>(object, app.name)</code><br />
+<code><a href="gtkRecentInfoGetApplications.html">gtkRecentInfoGetApplications</a>(object, length)</code><br />
+<code><a href="gtkRecentInfoLastApplication.html">gtkRecentInfoLastApplication</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetGroups.html">gtkRecentInfoGetGroups</a>(object)</code><br />
+<code><a href="gtkRecentInfoHasGroup.html">gtkRecentInfoHasGroup</a>(object, group.name)</code><br />
+<code><a href="gtkRecentInfoHasApplication.html">gtkRecentInfoHasApplication</a>(object, app.name)</code><br />
+<code><a href="gtkRecentInfoGetIcon.html">gtkRecentInfoGetIcon</a>(object, size)</code><br />
+<code><a href="gtkRecentInfoGetShortName.html">gtkRecentInfoGetShortName</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetUriDisplay.html">gtkRecentInfoGetUriDisplay</a>(object)</code><br />
+<code><a href="gtkRecentInfoGetAge.html">gtkRecentInfoGetAge</a>(object)</code><br />
+<code><a href="gtkRecentInfoIsLocal.html">gtkRecentInfoIsLocal</a>(object)</code><br />
+<code><a href="gtkRecentInfoExists.html">gtkRecentInfoExists</a>(object)</code><br />
+<code><a href="gtkRecentInfoMatch.html">gtkRecentInfoMatch</a>(object, info.b)</code><br />
+<code>gtkRecentManager()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkRecentManager</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkRecentManager.html">GtkRecentManager</a></code> provides a facility for adding, removing and
+looking up recently used files.  Each recently used file is
+identified by its URI, and has meta-data associated to it, like
+the names and command lines of the applications that have
+registered it, the number of time each application has registered
+the same file, the mime type of the file and whether the file
+should be displayed only by the applications that have
+registered it.
+</p>
+<p>The <code><a href="GtkRecentManager.html">GtkRecentManager</a></code> acts like a database of all the recently
+used files.  You can create new <code><a href="GtkRecentManager.html">GtkRecentManager</a></code> objects, but
+it is more efficient to use the standard recent manager for
+the <code><a href="GdkScreen.html">GdkScreen</a></code> so that informations about the recently used
+files is shared with other people using them.  In case the
+default screen is being used, adding a new recently used
+file is as simple as:
+</p>
+<pre>
+manager &lt;- gtkRecentManagerGetDefault()
+manager$addItem(file_uri)
+
+</pre>  <pre>
+manager &lt;- gtkRecentManagerGetDefault()
+lookup &lt;- manager$lookupItem(file_uri)
+if (lookup$error)
+  warning("Could not find the file:", lookup$error$message)
+else use_info_object(lookup$retval)
+</pre>  
+<p>Recently used files are supported since GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkRecentManager</code></dt><dd>
+<p>Acts as a database of information about the list of recently
+used files.  Normally, you retrieve the recent manager for a
+particular screen using <code><a href="gtkRecentManagerGetForScreen.html">gtkRecentManagerGetForScreen</a></code>
+and it will contain information about current recent manager
+for that screen.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GtkRecentInfo</code></dt><dd>
+<p>Contains informations found when looking up an entry of the
+recently used files list.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GtkRecentData</code></dt><dd>
+<p>Meta-data to be passed to <code><a href="gtkRecentManagerAddFull.html">gtkRecentManagerAddFull</a></code> when
+registering a recently used resource.
+<strong><code style="white-space: pre;">GtkRecentData</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">displayName</code></dt><dd><p>[character] a UTF-8 encoded string, containing the name of the recently
+used resource to be displayed, or <code>NULL</code>;</p>
+</dd>
+<dt><code style="white-space: pre;">description</code></dt><dd><p>[character] a UTF-8 encoded string, containing a short description of
+the resource, or <code>NULL</code>;</p>
+</dd>
+<dt><code style="white-space: pre;">mimeType</code></dt><dd><p>[character] the MIME type of the resource;</p>
+</dd>
+<dt><code style="white-space: pre;">appName</code></dt><dd><p>[character] the name of the application that is registering this recently
+used resource;</p>
+</dd>
+<dt><code style="white-space: pre;">appExec</code></dt><dd><p>[character] command line used to launch this resource; may contain the
+&quot;%f&quot; and &quot;%u&quot; escape characters which will be expanded
+to the resource file path and URI respectively when the command line
+is retrieved;</p>
+</dd>
+<dt><code style="white-space: pre;">groups</code></dt><dd><p>[character] a vector of strings containing groups names;</p>
+</dd>
+<dt><code style="white-space: pre;">isPrivate</code></dt><dd><p>[logical] whether this resource should be displayed only by the
+applications that have registered it or not.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRecentManager</code> is the equivalent of <code><a href="gtkRecentManagerNew.html">gtkRecentManagerNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRecentManagerError</code></dt><dd>
+<p>Error codes for GtkRecentManager operations
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">not-found</code></dt><dd><p>the URI specified does not exists in
+the recently used resources list.</p>
+</dd>
+<dt><code style="white-space: pre;">invalid-uri</code></dt><dd><p>the URI specified is not valid.</p>
+</dd>
+<dt><code style="white-space: pre;">invalid-encoding</code></dt><dd><p>the supplied string is not
+UTF-8 encoded.</p>
+</dd>
+<dt><code style="white-space: pre;">not-registered</code></dt><dd><p>no application has registered
+the specified item.</p>
+</dd>
+<dt><code style="white-space: pre;">read</code></dt><dd><p>failure while reading the recently used
+resources file.</p>
+</dd>
+<dt><code style="white-space: pre;">write</code></dt><dd><p>failure while writing the recently used
+resources file.</p>
+</dd>
+<dt><code style="white-space: pre;">unknown</code></dt><dd><p>unspecified error.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(recent.manager, user.data)</code></dt><dd>
+<p>Emitted when the current recently used resources manager changes its
+contents.
+Since 2.10
+</p>
+
+<dl>
+<dt><code>recent.manager</code></dt><dd><p>the recent manager</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">filename</code> [character : *                : Read / Write / Construct Only]</dt><dd>
+<p>The full path to the file to be used to store and read the recently
+used resources list
+Default value: NULL  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">limit</code> [integer : Read / Write]</dt><dd>
+<p>The maximum number of items to be returned by the
+<code><a href="gtkRecentManagerGetItems.html">gtkRecentManagerGetItems</a></code> function.
+Allowed values: &gt;= -1  Default value: -1  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">size</code> [integer : Read]</dt><dd>
+<p>The size of the recently used resources list.
+Allowed values: &gt;= -1  Default value: 0  Since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRecentManager.html">http://library.gnome.org/devel//gtk/GtkRecentManager.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

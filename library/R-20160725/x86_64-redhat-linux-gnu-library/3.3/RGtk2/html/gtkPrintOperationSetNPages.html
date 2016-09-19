@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkPrintOperationSetNPages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkPrintOperationSetNPages {RGtk2}"><tr><td>gtkPrintOperationSetNPages {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkPrintOperationSetNPages</h2>
+
+<h3>Description</h3>
+
+<p>Sets the number of pages in the document. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkPrintOperationSetNPages(object, n.pages)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-High-level-Printing-API.html">GtkPrintOperation</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.pages</code></code></td>
+<td>
+<p>the number of pages</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This <em>must</em> be set to a positive number
+before the rendering starts. It may be set in a 
+<code style="white-space: pre;">"begin-print"</code> signal hander.
+</p>
+<p>Note that the page numbers passed to the 
+<code style="white-space: pre;">"request-page-setup"</code> 
+and <code style="white-space: pre;">"draw-page"</code> signals are 0-based, i.e. if 
+the user chooses to print all pages, the last ::draw-page signal 
+will be for page <code>n.pages</code> - 1.
+Since 2.10</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

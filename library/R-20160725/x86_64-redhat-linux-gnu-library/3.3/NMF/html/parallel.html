@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Utilities for Parallel Computations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for parallel-NMF {NMF}"><tr><td>parallel-NMF {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Utilities for Parallel Computations</h2>
+
+<h3>Description</h3>
+
+<p>Utilities for Parallel Computations
+</p>
+<p><code>ts_eval</code> generates a thread safe version of
+<code><a href="../../base/html/eval.html">eval</a></code>. It uses boost mutexes provided by the
+<code><a href="../../synchronicity/html/synchronicity.html">synchronicity</a></code> package. The
+generated function has arguments <code>expr</code> and
+<code>envir</code>, which are passed to <code><a href="../../base/html/eval.html">eval</a></code>.
+</p>
+<p><code>ts_tempfile</code> generates a <em>unique</em> temporary
+filename that includes the name of the host machine
+and/or the caller's process id, so that it is thread
+safe.
+</p>
+<p><code>hostfile</code> generates a temporary filename composed
+with the name of the host machine and/or the current
+process id.
+</p>
+<p><code>gVariable</code> generates a function that access a
+global static variable, possibly in shared memory (only
+for numeric matrix-coercible data in this case). It is
+used primarily in parallel computations, to preserve data
+accross computations that are performed by the same
+process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ts_eval(mutex = synchronicity::boost.mutex(),
+    verbose = FALSE)
+
+  ts_tempfile(pattern = "file", ..., host = TRUE,
+    pid = TRUE)
+
+  hostfile(pattern = "file", tmpdir = tempdir(),
+    fileext = "", host = TRUE, pid = TRUE)
+
+  gVariable(init, shared = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mutex</code></td>
+<td>
+<p>a mutex or a mutex descriptor. If missing, a
+new mutex is created via the function
+<code><a href="../../synchronicity/html/boost.mutex.html">boost.mutex</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>a logical that indicates if messages
+should be printed when locking and unlocking the mutex.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to
+<code><a href="../../base/html/tempfile.html">tempfile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>host</code></td>
+<td>
+<p>logical that indicates if the host machine
+name should be appear in the filename.</p>
+</td></tr>
+<tr valign="top"><td><code>pid</code></td>
+<td>
+<p>logical that indicates if the current process
+id be appear in the filename.</p>
+</td></tr>
+<tr valign="top"><td><code>init</code></td>
+<td>
+<p>initial value</p>
+</td></tr>
+<tr valign="top"><td><code>shared</code></td>
+<td>
+<p>a logical that indicates if the variable
+should be stored in shared memory or in a local
+environment.</p>
+</td></tr>
+<tr valign="top"><td><code>pattern</code></td>
+<td>
+<p>a non-empty character vector giving the
+initial part of the name.</p>
+</td></tr>
+<tr valign="top"><td><code>tmpdir</code></td>
+<td>
+<p>a non-empty character vector giving the
+directory name</p>
+</td></tr>
+<tr valign="top"><td><code>fileext</code></td>
+<td>
+<p>a non-empty character vector giving the
+file extension</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

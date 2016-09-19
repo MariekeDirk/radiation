@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gResolverLookupByName</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gResolverLookupByName {RGtk2}"><tr><td>gResolverLookupByName {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gResolverLookupByName</h2>
+
+<h3>Description</h3>
+
+<p>Synchronously resolves <code>hostname</code> to determine its associated IP
+address(es). <code>hostname</code> may be an ASCII-only or UTF-8 hostname, or
+the textual form of an IP address (in which case this just becomes
+a wrapper around <code><a href="gInetAddressNewFromString.html">gInetAddressNewFromString</a></code>).</p>
+
+
+<h3>Usage</h3>
+
+<pre>gResolverLookupByName(object, hostname, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GResolver.html">GResolver</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hostname</code></code></td>
+<td>
+<p>the hostname to look up</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>a <code><a href="GCancellable.html">GCancellable</a></code>, or <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>On success, <code><a href="gResolverLookupByName.html">gResolverLookupByName</a></code> will return a <code style="white-space: pre;">list</code> of
+<code><a href="GInetAddress.html">GInetAddress</a></code>, sorted in order of preference. (That is, you should
+attempt to connect to the first address first, then the second if
+the first fails, etc.)
+</p>
+<p>If the DNS resolution fails, <code>error</code> (if non-<code>NULL</code>) will be set to a
+value from <code style="white-space: pre;">GResolverError</code>.
+</p>
+<p>If <code>cancellable</code> is non-<code>NULL</code>, it can be used to cancel the
+operation, in which case <code>error</code> (if non-<code>NULL</code>) will be set to
+<code>G_IO_ERROR_CANCELLED</code>.
+</p>
+<p>If you are planning to connect to a socket on the resolved IP
+address, it may be easier to create a <code><a href="GNetworkAddress.html">GNetworkAddress</a></code> and use its
+<code><a href="GSocketConnectable.html">GSocketConnectable</a></code> interface.
+Since 2.22</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[list] a <code style="white-space: pre;">list</code> of <code><a href="GInetAddress.html">GInetAddress</a></code>, or <code>NULL</code> on error. You
+must unref each of the addresses and free the list when you are
+done with it. (You can use <code><a href="gResolverFreeAddresses.html">gResolverFreeAddresses</a></code> to do this.)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>return location for a <code><a href="GError.html">GError</a></code>, or <code>NULL</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

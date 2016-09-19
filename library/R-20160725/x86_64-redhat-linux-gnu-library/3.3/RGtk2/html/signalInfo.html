@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Reflectance information about a Gtk signal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkSignalGetInfo {RGtk2}"><tr><td>gtkSignalGetInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Reflectance information about a Gtk signal</h2>
+
+<h3>Description</h3>
+
+<p><strong>DEPRECATED!! (compatibility wrappers for RGtk 1!)</strong> 
+</p>
+<p>This returns information about the
+Gtk signal of interest, giving details
+such as the number and type of parameters that
+are passed to a signal handler function registered
+for an event associated with this signal;
+the type of the return value expected from the handler;
+the class for which it is defined;
+the flags indicating how and when handlers for this signal are invoked when an event occurs;
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gtkSignalGetInfo(sig)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sig</code></td>
+<td>
+<p>an object of class <code>GtkSignalId</code>,
+typically obtained from a call to <code><a href="getSignal.html">gtkTypeGetSignals</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This uses the C-level reflectance mechanism provided by Gtk
+to obtain information about a particular signal registered
+via the class mechanism. This information is then converted
+to an S object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with 6 elements
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>signal</code></td>
+<td>
+<p>the <code>GtkSignalId</code> object (<code>sig</code>) used to identify the signal
+in the call</p>
+</td></tr>
+<tr valign="top"><td><code>parameters</code></td>
+<td>
+<p>a named list of parameter types that
+are passed to a callback/signal handler for this signal.
+Each element is a <code>GtkType</code> object identifying the particular
+type of that argument. The names are intended to give some indication
+of their meaning.
+Note that this list does not include the object for which the event
+is generated and which is included in all signal handler calls.</p>
+</td></tr>
+<tr valign="top"><td><code>returnType</code></td>
+<td>
+<p>the <code>GtkType</code> object identifying
+the type of the value a handler should return.</p>
+</td></tr>
+<tr valign="top"><td><code>isUserSignal</code></td>
+<td>
+<p>a logical value indicating whether this is
+a user-defined signal or built-in signal</p>
+</td></tr>
+<tr valign="top"><td><code>runFlags</code></td>
+<td>
+<p>a value giving information about how and when
+the handlers are invoked in response to this signal.
+This is a single value made up of OR'ing values from
+the <code>.GtkSignalRunType</code> vector. See the possible
+values there. One rarely needs to understand this information to
+use a signal handler function.
+</p>
+</td></tr>
+<tr valign="top"><td><code>objectType</code></td>
+<td>
+<p>an object of class <code>GtkType</code>
+identifying the Gtk class/type for which the signal
+is defined.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Duncan Temple Lang &lt;duncan@research.bell-labs.com&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>Information on the package is available
+from <a href="http://www.omegahat.org/RGtk">http://www.omegahat.org/RGtk</a>.
+</p>
+<p>Information on Gtk is available from
+<a href="http://www.gtk.org">http://www.gtk.org</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="getSignal.html">gtkTypeGetSignals</a></code>
+<code><a href="getSignalInfo.html">getSignalInfo</a></code>   
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if (gtkInit()) {
+    gtkButton()
+    sigs &lt;- gtkTypeGetSignals("GtkButton")
+    gtkSignalGetInfo(sigs[["clicked"]])
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

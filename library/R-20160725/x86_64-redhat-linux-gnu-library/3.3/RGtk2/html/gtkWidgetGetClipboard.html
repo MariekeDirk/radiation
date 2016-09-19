@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetGetClipboard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetGetClipboard {RGtk2}"><tr><td>gtkWidgetGetClipboard {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetGetClipboard</h2>
+
+<h3>Description</h3>
+
+<p>Returns the clipboard object for the given selection to
+be used with <code>widget</code>. <code>widget</code> must have a <code><a href="GdkDisplay.html">GdkDisplay</a></code>
+associated with it, so must be attached to a toplevel
+window.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetGetClipboard(object, selection)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">selection</code></code></td>
+<td>
+<p>a <code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code> which identifies the clipboard
+to use. <code>GDK_SELECTION_CLIPBOARD</code> gives the
+default clipboard. Another common value
+is <code>GDK_SELECTION_PRIMARY</code>, which gives
+the primary X selection.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.2</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gtk-Clipboards.html">GtkClipboard</a></code>] the appropriate clipboard object. If no
+clipboard already exists, a new one will
+be created. Once a clipboard object has
+been created, it is persistent for all time. <em>[  <acronym><span class="acronym">transfer none</span></acronym>  ]</em></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

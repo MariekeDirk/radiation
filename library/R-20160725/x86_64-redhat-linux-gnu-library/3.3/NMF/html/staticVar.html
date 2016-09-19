@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get/Set a Static Variable in NMF Algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for staticVar {NMF}"><tr><td>staticVar {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get/Set a Static Variable in NMF Algorithms</h2>
+
+<h3>Description</h3>
+
+<p>This function is used in iterative NMF algorithms to
+manage variables stored in a local workspace, that are
+accessible to all functions that define the iterative
+schema described in
+<code><a href="NMFStrategyIterative-class.html">NMFStrategyIterative</a></code>.
+</p>
+<p>It is specially useful for computing stopping criteria,
+which often require model data from different iterations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  staticVar(name, value, init = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>Name of the static variable (as a single
+character string)</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>New value of the static variable</p>
+</td></tr>
+<tr valign="top"><td><code>init</code></td>
+<td>
+<p>a logical used when a <code>value</code> is
+provided, that specifies if the variable should be set to
+the new value only if it does not exist yet
+(<code>init=TRUE</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The value of the static variable
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

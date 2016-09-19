@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prunes a level set tree or a tail tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for treedisc {denpro}"><tr><td>treedisc {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Prunes a level set tree or a tail tree
+</h2>
+
+<h3>Description</h3>
+
+<p>Prunes a level set tree or a tail tree so that it contains fewer levels.
+The pruning makes plotting of the trees much faster.
+The quality does not typically decrease essentially when a tree is pruned.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+treedisc(lst, pcf, ngrid = NULL, r = NULL, type = NULL, lowest = "dens")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lst</code></td>
+<td>
+<p>level set tree or a shape tree; output of for example &quot;leafsfirst&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>pcf</code></td>
+<td>
+<p>piecewise constant function; 
+output of for example &quot;pcf.kern&quot; or &quot;pcf.func&quot;;
+&quot;lst&quot; should be the level set tree or shape tree of &quot;pcf&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>ngrid</code></td>
+<td>
+<p>positive integer; the number of levels which the pruned tree
+will have</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>vector of positive reals in increasing order; 
+we may give the set of levels explicitely with the argument &quot;r&quot;;
+then the levels need not be equispaced as when we apply argument &quot;ngrid&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>&quot;lst&quot; or &quot;shape&quot;; not needed</p>
+</td></tr>
+<tr valign="top"><td><code>lowest</code></td>
+<td>
+<p>a character; if lowest=&quot;dens&quot;, then it is assumed that
+the function whose level set tree we calculate is nonnegative</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a level set tree or a shape tree which contains fewer levels than the input
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="leafsfirst.html">leafsfirst</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dendat&lt;-sim.data(n=100,type="mulmod")
+pcf&lt;-pcf.kern(dendat,h=1,N=c(32,32))
+lst&lt;-leafsfirst(pcf)          # level set tree
+td&lt;-treedisc(lst,pcf,ngrid=30)
+
+plotvolu(td)
+
+r&lt;-c(0.01,0.03,0.04)
+td&lt;-treedisc(lst,pcf,r=r)
+
+plotvolu(td)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

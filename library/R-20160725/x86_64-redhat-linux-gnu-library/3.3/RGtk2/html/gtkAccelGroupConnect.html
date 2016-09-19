@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkAccelGroupConnect</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkAccelGroupConnect {RGtk2}"><tr><td>gtkAccelGroupConnect {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkAccelGroupConnect</h2>
+
+<h3>Description</h3>
+
+<p>Installs an accelerator in this group. When <code>accel.group</code> is being activated
+in response to a call to <code><a href="gtkAccelGroupsActivate.html">gtkAccelGroupsActivate</a></code>, <code>closure</code> will be
+invoked if the <code>accel.key</code> and <code>accel.mods</code> from <code><a href="gtkAccelGroupsActivate.html">gtkAccelGroupsActivate</a></code>
+match those of this connection.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkAccelGroupConnect(object, accel.key, accel.mods, accel.flags, 
+    closure)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the accelerator group to install an accelerator in</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.key</code></code></td>
+<td>
+<p>key value of the accelerator</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.mods</code></code></td>
+<td>
+<p>modifier combination of the accelerator</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.flags</code></code></td>
+<td>
+<p>a flag mask to configure this accelerator</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">closure</code></code></td>
+<td>
+<p>closure to be executed upon accelerator activation</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The signature used for the <code>closure</code> is that of <code><a href="gtk-Keyboard-Accelerators.html">GtkAccelGroupActivate</a></code>.
+</p>
+<p>Note that, due to implementation details, a single closure can only be
+connected to one accelerator group.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

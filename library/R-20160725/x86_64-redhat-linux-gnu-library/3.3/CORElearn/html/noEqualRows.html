@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Number of equal rows in two data sets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for noEqualRows {CORElearn}"><tr><td>noEqualRows {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Number of equal rows in two data sets </h2>
+
+<h3>Description</h3>
+
+<p>Counts number of equal rows in two data sets. The two data sets shall have equal number of columns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ noEqualRows(data1, data2, tolerance=1e-5, countOnce=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data1</code></td>
+<td>
+<p> The first data set.</p>
+</td></tr>
+<tr valign="top"><td><code>data2</code></td>
+<td>
+<p> The second data set.</p>
+</td></tr>
+<tr valign="top"><td><code>tolerance</code></td>
+<td>
+<p> Tolerated difference between two rows.</p>
+</td></tr>
+<tr valign="top"><td><code>countOnce</code></td>
+<td>
+<p> Shall each equal row in data1 be counted just once, or number of rows it is equal to in data2.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Rows are compared using column-wise comparisons. The sum of differences up to a given tolerance are tolerated.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Integer value giving the count of equal instances.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# uses two randomly generated data sets
+set.seed(12345)
+d1 &lt;- classDataGen(100)
+d2 &lt;- classDataGen(100)
+noEqualRows(d1, d2, tolerance=1e-4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: System Environment Variables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Sys.getenv_value {pkgmaker}"><tr><td>Sys.getenv_value {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>System Environment Variables</h2>
+
+<h3>Description</h3>
+
+<p>System Environment Variables
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  Sys.getenv_value(name, raw = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>variable name as a character string.</p>
+</td></tr>
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>logical that indicates if one should return
+the raw value or the convertion of any false value to
+<code>FALSE</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>the value of the environment variable as a character
+string or <code>NA</code> is the variable is not defined
+<strong>at all</strong>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# undefined returns FALSE
+Sys.getenv_value('TOTO')
+# raw undefined returns NA
+Sys.getenv_value('TOTO', raw = TRUE)
+
+Sys.setenv(TOTO='bla')
+Sys.getenv_value('TOTO')
+
+# anything false-like returns FALSE
+Sys.setenv(TOTO='false'); Sys.getenv_value('TOTO')
+Sys.setenv(TOTO='0'); Sys.getenv_value('TOTO')
+
+# cleanup
+Sys.unsetenv('TOTO')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

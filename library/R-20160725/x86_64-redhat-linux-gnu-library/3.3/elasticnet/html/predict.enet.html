@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make predictions or extract coefficients from a fitted...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.enet {elasticnet}"><tr><td>predict.enet {elasticnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Make predictions or extract coefficients from a fitted elastic net model
+</h2>
+
+<h3>Description</h3>
+
+<p>While enet() produces the entire path of solutions, predict.enet
+allows one to extract a prediction at a particular point along the path.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'enet'
+predict(object, newx, s, type = c("fit", "coefficients"), mode =
+c("step","fraction", "norm", "penalty"),naive=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted enet object
+</p>
+</td></tr>
+<tr valign="top"><td><code>newx</code></td>
+<td>
+
+<p>If type=&quot;fit&quot;, then newx should be the x values at which the fit is
+required. If type=&quot;coefficients&quot;, then newx can be omitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>a value, or vector of values, indexing the path. Its values depends on the mode= argument. By
+default (mode=&quot;step&quot;).
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>If type=&quot;fit&quot;, predict returns the fitted values. If
+type=&quot;coefficients&quot;, predict returns the coefficients.
+Abbreviations allowed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mode</code></td>
+<td>
+
+<p>Mode=&quot;step&quot; means the s= argument indexes the LARS-EN step number, and
+the coefficients will be returned corresponding to the values
+corresponding to step s. If mode=&quot;fraction&quot;, then s should be a number
+between 0 and 1, and it refers to the ratio of the L1 norm of the
+coefficient vector, relative to the norm at the full LS solution.
+Mode=&quot;norm&quot; means s refers to the L1 norm of the coefficient vector.
+Abbreviations allowed. If mode=&quot;norm&quot;, then s should be the L1 norm of
+the coefficient vector. If mode=&quot;penalty&quot;, then s should be the 1-norm
+penalty parameter.
+</p>
+</td></tr>
+<tr valign="top"><td><code>naive</code></td>
+<td>
+<p>IF naive is True, then the naive elastic net fit is
+returned.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additonal arguments for generic print.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Starting from zero, the LARS-EN algorithm provides the entire sequence of coefficients and fits.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a vector/matrix of fitted values, or a vector/matrix of coefficients.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hui Zou and Trevor Hastie</p>
+
+
+<h3>References</h3>
+
+<p>Zou and Hastie (2005) &quot;Regularization and
+Variable Selection via the Elastic Net&quot;
+<em>Journal of the Royal Statistical Society, Series B,67,301-320</em>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>print, plot,  enet
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(diabetes)
+attach(diabetes)
+object &lt;- enet(x,y,lambda=0.1)
+### make predictions at the values in x, at each of the
+### steps produced in object
+fits &lt;- predict.enet(object, x, type="fit")
+### extract the coefficient vector with L1 norm=2000
+coef2000 &lt;- predict(object, s=2000, type="coef", mode="norm")
+### extract the coefficient vector with L1 norm fraction=0.45
+coef.45 &lt;- predict(object, s=0.45, type="coef", mode="fraction")
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>elasticnet</em> version 1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkWindowSetGroup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkWindowSetGroup {RGtk2}"><tr><td>gdkWindowSetGroup {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkWindowSetGroup</h2>
+
+<h3>Description</h3>
+
+<p>Sets the group leader window for <code>window</code>. By default,
+GDK sets the group leader for all toplevel windows
+to a global window implicitly created by GDK. With this function
+you can override this default.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkWindowSetGroup(object, leader)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a toplevel <code><a href="gdk-Windows.html">GdkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">leader</code></code></td>
+<td>
+<p>group leader window, or <code>NULL</code> to restore the default group leader window</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The group leader window allows the window manager to distinguish
+all windows that belong to a single application. It may for example
+allow users to minimize/unminimize all windows belonging to an
+application at once. You should only set a non-default group window
+if your application pretends to be multiple applications.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

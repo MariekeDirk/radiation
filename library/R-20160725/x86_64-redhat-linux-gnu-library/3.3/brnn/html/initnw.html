@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Initialize networks weights and biases</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for initnw {brnn}"><tr><td>initnw {brnn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Initialize networks weights and biases</h2>
+
+<h3>Description</h3>
+
+<p>Function to initialize the weights and biases in a neural network. It uses the Nguyen-Widrow (1990) algorithm.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+     initnw(neurons,p,n,npar)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>neurons</code></td>
+<td>
+<p>Number of neurons.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Number of predictors.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Number of cases.</p>
+</td></tr>
+<tr valign="top"><td><code>npar</code></td>
+<td>
+<p>Number of parameters to be estimate including only weights and biases, and should be equal to <i>neurons*(1+1+p)+1</i>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The algorithm is described in Nguyen-Widrow (1990) and in other books, see for example Sivanandam and Sumathi (2005). The algorithm is briefly described below.
+</p>
+
+<ul>
+<li><p>1.-Compute the scaling factor <i>theta=0.7*p^(1/n)</i>.
+</p>
+</li>
+<li><p>2.- Initialize the weight and biases for each neuron at random, for example generating random numbers from <i>U(-0.5,0.5)</i>.
+</p>
+</li>
+<li><p>3.- For each neuron:
+</p>
+
+<ul>
+<li><p>compute <i>&eta;_k=&radic;{&sum;_{j=1}^p (&beta;_j^{(k)})^2}</i>,
+</p>
+</li>
+<li><p>update <i>(&beta;_1^{(k)},...,&beta;_p^{(k)})'</i>,
+</p>
+<p style="text-align: center;"><i>&beta;_j^{(k)}=\frac{&theta; &beta;_j^{(k)}}{&eta;_k}, j=1,...,p,</i></p>
+
+</li>
+<li><p>Update the bias <i>(b_k)</i> generating a random number from <i>U(-theta,theta)</i>.
+</p>
+</li></ul>
+
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>A list containing initial values for weights and biases. The first <i>s</i> components of the list contains vectors with the initial values for 
+the weights and biases of the <i>k</i>-th neuron, i.e. <i>(&omega;_k, b_k, &beta;_1^{(k)},...,&beta;_p^{(k)})'</i>.
+</p>
+
+
+<h3>References</h3>
+
+<p>Nguyen, D. and Widrow, B. 1990. &quot;Improving the learning speed of 2-layer neural networks by choosing initial values of the adaptive weights&quot;,
+<em>Proceedings of the IJCNN</em>, vol. 3, pp. 21-26.
+</p>
+<p>Sivanandam, S.N. and Sumathi, S. 2005. Introduction to Neural Networks Using MATLAB 6.0. Ed. McGraw Hill, First edition. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+#Load the library
+library(brnn)
+
+#Set parameters
+neurons=3
+p=4
+n=10
+npar=neurons*(1+1+p)+1
+initnw(neurons=neurons,p=p,n=n,npar=npar)
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>brnn</em> version 0.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

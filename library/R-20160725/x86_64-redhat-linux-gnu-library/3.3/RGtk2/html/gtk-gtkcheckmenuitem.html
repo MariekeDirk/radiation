@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCheckMenuItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-gtkcheckmenuitem {RGtk2}"><tr><td>gtk-gtkcheckmenuitem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCheckMenuItem</h2>
+
+<h3>Description</h3>
+
+<p>A menu item with a check box</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCheckMenuItemNew.html">gtkCheckMenuItemNew</a>(show = TRUE)</code><br />
+<code><a href="gtkCheckMenuItemNewWithLabel.html">gtkCheckMenuItemNewWithLabel</a>(label, show = TRUE)</code><br />
+<code><a href="gtkCheckMenuItemNewWithMnemonic.html">gtkCheckMenuItemNewWithMnemonic</a>(label, show = TRUE)</code><br />
+<code><a href="gtkCheckMenuItemGetActive.html">gtkCheckMenuItemGetActive</a>(object)</code><br />
+<code><a href="gtkCheckMenuItemSetActive.html">gtkCheckMenuItemSetActive</a>(object, is.active)</code><br />
+<code><a href="gtkCheckMenuItemSetShowToggle.html">gtkCheckMenuItemSetShowToggle</a>(object, always)</code><br />
+<code><a href="gtkCheckMenuItemToggled.html">gtkCheckMenuItemToggled</a>(object)</code><br />
+<code><a href="gtkCheckMenuItemGetInconsistent.html">gtkCheckMenuItemGetInconsistent</a>(object)</code><br />
+<code><a href="gtkCheckMenuItemSetInconsistent.html">gtkCheckMenuItemSetInconsistent</a>(object, setting)</code><br />
+<code><a href="gtkCheckMenuItemSetDrawAsRadio.html">gtkCheckMenuItemSetDrawAsRadio</a>(object, draw.as.radio)</code><br />
+<code><a href="gtkCheckMenuItemGetDrawAsRadio.html">gtkCheckMenuItemGetDrawAsRadio</a>(object)</code><br />
+<code>gtkCheckMenuItem(label, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkItem
+                                       +----GtkMenuItem
+                                             +----GtkCheckMenuItem
+                                                   +----GtkRadioMenuItem</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkCheckMenuItem implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="gtk-gtkcheckmenuitem.html">GtkCheckMenuItem</a></code> is a menu item that maintains the state of a boolean
+value in addition to a <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>'s usual role in activating application
+code.
+</p>
+<p>A check box indicating the state of the boolean value is displayed
+at the left side of the <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>.  Activating the <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>
+toggles the value.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCheckMenuItem</code></dt><dd>
+<p>The <code><a href="gtk-gtkcheckmenuitem.html">GtkCheckMenuItem</a></code> struct contains the following fields.
+(These fields should be considered read-only. They should never be set by
+an application.)
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"><code style="white-space: pre;">numeric</code>   active; </td><td style="text-align: left;"> TRUE if the check box is active. </td>
+</tr>
+
+</table>
+
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCheckMenuItem</code> is the result of collapsing the constructors of <code>GtkCheckMenuItem</code> (<code><a href="gtkCheckMenuItemNew.html">gtkCheckMenuItemNew</a></code>, <code><a href="gtkCheckMenuItemNewWithLabel.html">gtkCheckMenuItemNewWithLabel</a></code>, <code><a href="gtkCheckMenuItemNewWithMnemonic.html">gtkCheckMenuItemNewWithMnemonic</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>toggled(checkmenuitem, user.data)</code></dt><dd>
+<p>This signal is emitted when the state of the check box is changed.
+</p>
+<p>A signal handler can examine the <code>active</code>
+field of the <code><a href="gtk-gtkcheckmenuitem.html">GtkCheckMenuItem</a></code> struct to discover the new state.
+</p>
+
+<dl>
+<dt><code>checkmenuitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">active</code> [logical : Read / Write]</dt><dd>
+<p>Whether the menu item is checked.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">draw-as-radio</code> [logical : Read / Write]</dt><dd>
+<p>Whether the menu item looks like a radio menu item.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">inconsistent</code> [logical : Read / Write]</dt><dd>
+<p>Whether to display an &quot;inconsistent&quot; state.  Default value: FALSE
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">indicator-size</code> [integer : Read]</dt><dd>
+<p>Size of check or radio indicator.  Allowed values: &gt;= 0  Default value: 13
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-gtkcheckmenuitem.html">http://library.gnome.org/devel//gtk/gtk-gtkcheckmenuitem.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

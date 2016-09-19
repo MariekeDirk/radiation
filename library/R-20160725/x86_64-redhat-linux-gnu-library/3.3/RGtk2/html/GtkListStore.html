@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkListStore</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkListStore {RGtk2}"><tr><td>GtkListStore {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkListStore</h2>
+
+<h3>Description</h3>
+
+<p>A list-like data structure that can be used with the GtkTreeView</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkListStoreNew.html">gtkListStoreNew</a>(...)</code><br />
+<code><a href="gtkListStoreNewv.html">gtkListStoreNewv</a>(value)</code><br />
+<code><a href="gtkListStoreSetColumnTypes.html">gtkListStoreSetColumnTypes</a>(object, types)</code><br />
+<code><a href="gtkListStoreSet.html">gtkListStoreSet</a>(object, iter, ...)</code><br />
+<code><a href="gtkListStoreSetValue.html">gtkListStoreSetValue</a>(object, iter, column, value)</code><br />
+<code><a href="gtkListStoreSetValuesv.html">gtkListStoreSetValuesv</a>(object, iter, columns, values)</code><br />
+<code><a href="gtkListStoreRemove.html">gtkListStoreRemove</a>(object, iter)</code><br />
+<code><a href="gtkListStoreInsert.html">gtkListStoreInsert</a>(object, position)</code><br />
+<code><a href="gtkListStoreInsertBefore.html">gtkListStoreInsertBefore</a>(object, sibling)</code><br />
+<code><a href="gtkListStoreInsertAfter.html">gtkListStoreInsertAfter</a>(object, sibling)</code><br />
+<code><a href="gtkListStoreInsertWithValues.html">gtkListStoreInsertWithValues</a>(object, position, ...)</code><br />
+<code><a href="gtkListStoreInsertWithValuesv.html">gtkListStoreInsertWithValuesv</a>(object, position, columns, values)</code><br />
+<code><a href="gtkListStorePrepend.html">gtkListStorePrepend</a>(object, iter)</code><br />
+<code><a href="gtkListStoreAppend.html">gtkListStoreAppend</a>(object)</code><br />
+<code><a href="gtkListStoreClear.html">gtkListStoreClear</a>(object)</code><br />
+<code><a href="gtkListStoreIterIsValid.html">gtkListStoreIterIsValid</a>(object, iter)</code><br />
+<code><a href="gtkListStoreReorder.html">gtkListStoreReorder</a>(object, new.order)</code><br />
+<code><a href="gtkListStoreSwap.html">gtkListStoreSwap</a>(object, a, b)</code><br />
+<code><a href="gtkListStoreMoveBefore.html">gtkListStoreMoveBefore</a>(object, iter, position = NULL)</code><br />
+<code><a href="gtkListStoreMoveAfter.html">gtkListStoreMoveAfter</a>(object, iter, position = NULL)</code><br />
+<code>gtkListStore(..., value)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkListStore</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkListStore implements
+<code><a href="GtkTreeModel.html">GtkTreeModel</a></code>,  <code><a href="gtk-GtkTreeView-drag-and-drop.html">GtkTreeDragSource</a></code>,  <code><a href="gtk-GtkTreeView-drag-and-drop.html">GtkTreeDragDest</a></code>,  <code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code> and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkListStore.html">GtkListStore</a></code> object is a list model for use with a <code><a href="GtkTreeView.html">GtkTreeView</a></code>
+widget.  It implements the <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> interface, and consequentialy,
+can use all of the methods available there.  It also implements the
+<code><a href="GtkTreeSortable.html">GtkTreeSortable</a></code> interface so it can be sorted by the view.
+Finally, it also implements the tree drag and
+drop interfaces.
+</p>
+<p>The <code><a href="GtkListStore.html">GtkListStore</a></code> can accept most GObject types as a column type, though
+it can't accept all custom types.  Internally, it will keep a copy of
+data passed in (such as a string or a boxed pointer).  Columns that
+accept <code><a href="GObject.html">GObject</a></code>s are handled a little differently.  The
+<code><a href="GtkListStore.html">GtkListStore</a></code> will keep a reference to the object instead of copying the
+value.  As a result, if the object is modified, it is up to the
+application writer to call <code>gtk.tree.model.row.changed</code> to emit the
+&quot;row_changed&quot; signal.  This most commonly affects lists with
+<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>s stored.
+</p>
+<p><em>Creating a simple list store.</em>
+</p>
+<pre>
+list_store &lt;- gtk_list_store_new ("character", "integer", "logical")
+
+sapply(character_vector,
+       function(string) {
+         ## Add a new row to the model
+         iter &lt;- list_store$append(iter)$iter
+         list_store$set(iter, 0, string, 1, i, 2,  FALSE)
+       })
+
+## Modify a particular row
+path &lt;- gtkTreePathNewFromString("4")
+iter &lt;- list_store$getIter(path)$iter
+list_store$set(iter, 2, TRUE)
+
+</pre>
+
+<h3>Performance Considerations</h3>
+
+<p>Internally, the <code><a href="GtkListStore.html">GtkListStore</a></code> was implemented with a linked list with a
+tail pointer prior to GTK+ 2.6.  As a result, it was fast at data
+insertion and deletion, and not fast at random data access.  The
+<code><a href="GtkListStore.html">GtkListStore</a></code> sets the <code style="white-space: pre;">GTK_TREE_MODEL_ITERS_PERSIST</code> flag, which means
+that <code><a href="GtkTreeModel.html">GtkTreeIter</a></code>s can be cached while the row exists.  Thus, if
+access to a particular row is needed often and your code is expected to
+run on older versions of GTK+, it is worth keeping the iter around.
+</p>
+<p>It is important to note that only the methods
+<code><a href="gtkListStoreInsertWithValues.html">gtkListStoreInsertWithValues</a></code> and <code><a href="gtkListStoreInsertWithValuesv.html">gtkListStoreInsertWithValuesv</a></code>
+are atomic, in the sense that the row is being appended to the store and the
+values filled in in a single operation with regard to <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> signaling.
+In contrast, using e.g. <code><a href="gtkListStoreAppend.html">gtkListStoreAppend</a></code> and then <code><a href="gtkListStoreSet.html">gtkListStoreSet</a></code>
+will first create a row, which triggers the <code><a href="gtkTreeModelRowInserted.html">gtkTreeModelRowInserted</a></code> signal
+on <code><a href="GtkListStore.html">GtkListStore</a></code>. The row, however, is still empty, and any signal handler
+connecting to &quot;row-inserted&quot; on this particular store should be prepared
+for the situation that the row might be empty. This is especially important
+if you are wrapping the <code><a href="GtkListStore.html">GtkListStore</a></code> inside a <code><a href="GtkTreeModelFilter.html">GtkTreeModelFilter</a></code> and are
+using a <code><a href="GtkTreeModelFilter.html">GtkTreeModelFilterVisibleFunc</a></code>. Using any of the non-atomic operations
+to append rows to the <code><a href="GtkListStore.html">GtkListStore</a></code> will cause the
+<code><a href="GtkTreeModelFilter.html">GtkTreeModelFilterVisibleFunc</a></code> to be visited with an empty row first; the
+function must be prepared for that.</p>
+
+
+<h3>GtkListStore as GtkBuildable</h3>
+
+<p>The GtkListStore implementation of the GtkBuildable interface allows
+to specify the model columns with a &lt;columns&gt; element that may
+contain multiple &lt;column&gt; elements, each specifying one model
+column. The &quot;type&quot; attribute specifies the data type for the column.
+</p>
+<p>Additionally, it is possible to specify content for the list store
+in the UI definition, with the &lt;data&gt; element. It can contain
+multiple &lt;row&gt; elements, each specifying to content for one
+row of the list model. Inside a &lt;row&gt;, the &lt;col&gt; elements
+specify the content for individual cells.
+</p>
+<p>Note that it is probably more common to define your models
+in the code, and one might consider it a layering violation
+to specify the content of a list store in a UI definition,
+<em>data</em>, not <em>presentation</em>,
+and common wisdom is to separate the two, as far as possible.
+</p>
+<p><em>A UI Definition fragment for a list store</em></p>
+<pre>&lt;object class="GtkListStore"&gt;
+  &lt;columns&gt;
+    &lt;column type="gchararray"/&gt;
+    &lt;column type="gchararray"/&gt;
+    &lt;column type="gint"/&gt;
+  &lt;/columns&gt;
+  &lt;data&gt;
+    &lt;row&gt;
+      &lt;col id="0"&gt;John&lt;/col&gt;
+      &lt;col id="1"&gt;Doe&lt;/col&gt;
+      &lt;col id="2"&gt;25&lt;/col&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+      &lt;col id="0"&gt;Johan&lt;/col&gt;
+      &lt;col id="1"&gt;Dahlin&lt;/col&gt;
+      &lt;col id="2"&gt;50&lt;/col&gt;
+    &lt;/row&gt;
+  &lt;/data&gt;
+&lt;/object&gt;
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkListStore</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkListStore</code> is the result of collapsing the constructors of <code>GtkListStore</code> (<code><a href="gtkListStoreNew.html">gtkListStoreNew</a></code>, <code><a href="gtkListStoreNewv.html">gtkListStoreNewv</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkListStore.html">http://library.gnome.org/devel//gtk/GtkListStore.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkTreeModel.html">GtkTreeModel</a></code>
+<code><a href="GtkTreeStore.html">GtkTreeStore</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

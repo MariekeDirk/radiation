@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Selection of a point or polygon on a scatterplot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for selectmap {GeoXp}"><tr><td>selectmap {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Selection of a point or polygon on a scatterplot</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>selectmap()</code> is used to select a point or a polygon on the map or
+on a scatterplot. Called by any function which draws a scatterplot.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+selectmap(var1, var2, obs, Xpoly, Ypoly, method = "")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>var1</code></td>
+<td>
+<p>a vector x of size n</p>
+</td></tr>
+<tr valign="top"><td><code>var2</code></td>
+<td>
+<p>a vector y of size n </p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a boolean vector of size n : TRUE if a site is already selectioned, FALSE otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code>Xpoly</code></td>
+<td>
+<p>X-coordinates of the vertices of selected polygon</p>
+</td></tr>
+<tr valign="top"><td><code>Ypoly</code></td>
+<td>
+<p>Y-coordinates of the vertices of selected polygon</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>&lsquo;point&rsquo; if the selected area is a point; &lsquo;poly&rsquo; if the selected area is a polygon</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is called by all the functions which draw a scatterplot such as <code>scattermap</code>,
+<code>moranplotmap</code>,... This is not an interactive function.</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of boolean of size n. TRUE if a site has been selected, FALSE otherwise.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas-Agnan C., Aragon Y.,  Ruiz-Gazen A., Laurent T., Robidou L.</p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23.</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

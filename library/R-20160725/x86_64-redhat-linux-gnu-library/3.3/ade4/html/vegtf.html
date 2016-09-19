@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vegetation in Trois-Fontaines</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vegtf {ade4}"><tr><td>vegtf {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vegetation in Trois-Fontaines</h2>
+
+<h3>Description</h3>
+
+<p>This data set contains abundance values (Braun-Blanquet scale) of 80 plant
+species for 337 sites. Data have been collected by Sonia Said and
+Francois Debias.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(vegtf)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>vegtf</code> is a list containing the following objects :
+</p>
+
+<dl>
+<dt>veg</dt><dd><p>is a data.frame with the abundance values of 80 species (columns)
+in 337 sites (rows).</p>
+</dd>
+<dt>xy</dt><dd><p>is a data.frame with the spatial coordinates of the sites.</p>
+</dd> 
+<dt>area</dt><dd><p>is data.frame (area) which define the boundaries of the study
+site.</p>
+</dd>
+<dt>nb</dt><dd><p>is a neighborhood object (class nb defined in package spdep)</p>
+</dd> 
+</dl>
+
+
+<h3>Source</h3>
+
+<p>Dray, S., Said, S. and Debias, F. (2008) Spatial ordination of vegetation data using a generalization of Wartenberg's multivariate spatial correlation. <em>Journal of vegetation science</em>, <b>19</b>, 45&ndash;56.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(requireNamespace("spdep", quiet = TRUE)) {
+  data(vegtf)
+  coa1 &lt;- dudi.coa(vegtf$veg, scannf = FALSE)
+  ms.coa1 &lt;- multispati(coa1, listw = nb2listw(vegtf$nb), nfposi = 2, nfnega = 0, scannf = FALSE)
+  summary(ms.coa1)
+  plot(ms.coa1)
+  
+  if(adegraphicsLoaded()) {
+    g1 &lt;- s.value(vegtf$xy, coa1$li[, 1], Sp = vegtf$Spatial, pSp.col = "white", plot = F)
+    g2 &lt;- s.value(vegtf$xy, ms.coa1$li[, 1], Sp = vegtf$Spatial, pSp.col = "white", plot = F)
+    g3 &lt;- s.label(coa1$c1, plot = F)
+    g4 &lt;- s.label(ms.coa1$c1, plot = F)
+    G &lt;- ADEgS(list(g1, g2, g3, g4), layout = c(2, 2))
+  } else {
+    par(mfrow = c(2, 2))
+    s.value(vegtf$xy, coa1$li[, 1], area = vegtf$area, include.origin = FALSE)
+    s.value(vegtf$xy, ms.coa1$li[, 1], area = vegtf$area, include.origin = FALSE)
+    s.label(coa1$c1)
+    s.label(ms.coa1$c1)
+  }
+}</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

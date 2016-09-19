@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Import Grid Files to SAGA grid format using GDAL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsaga.import.gdal {RSAGA}"><tr><td>rsaga.import.gdal {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Import Grid Files to SAGA grid format using GDAL</h2>
+
+<h3>Description</h3>
+
+<p>These functions provide simple interfaces for reading and writing grids from/to ASCII grids and Rd files. Grids are stored in matrices, their headers in lists.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsaga.import.gdal(in.grid, out.grid, env = rsaga.env(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>in.grid</code></td>
+<td>
+<p>file name of a grid in a format supported by GDAL</p>
+</td></tr>
+<tr valign="top"><td><code>out.grid</code></td>
+<td>
+<p>output SAGA grid file name; defaults to <code>in.grid</code> with the file extension being removed; file extension should not be specified, it defaults to <code>.sgrd</code></p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>RSAGA geoprocessing environment created by <code><a href="rsaga.env.html">rsaga.env</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to <code>rsaga.geoprocessor</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The GDAL Raster Import module of SAGA imports grid data from various file formats using the Geospatial Data Abstraction Library (GDAL) by Frank Warmerdam.
+GDAL Versions are specific to SAGA versions:
+</p>
+
+<ul>
+<li><p> SAGA 2.0.7 - 2.0.8: GDAL v.1.8.0
+</p>
+</li>
+<li><p> SAGA 2.1.0 - 2.1.1: GDAL v.1.10.0
+</p>
+</li>
+<li><p> SAGA 2.1.2 - 2.2.0: GDAL v.1.11.0
+</p>
+</li>
+<li><p> SAGA 2.2.1 - 2.2.3: GDAL v.2.1.0 dev</p>
+</li></ul>
+
+<p>More information is available at <a href="http://www.gdal.org/">http://www.gdal.org/</a>.
+</p>
+<p>If <code>in.grid</code> has more than one band (e.g. RGB GEOTIFF), then output grids with file names of the form <i>in.grid_01.sgrd</i>, <i>in.grid_02.sgrd</i> etc. are written, one for each band.
+</p>
+<p>The following raster formats are currently supported. Last updated for SAGA GIS 2.2.3;
+for a list for a specific SAGA GIS version call <code>rsaga.html.help("io_gdal","GDAL: Import Raster", env = rsaga.env(path="SAGA_Version_to_Test"))</code>
+</p>
+
+<ul>
+<li><p> BAG - Bathymetry Attributed Grid
+</p>
+</li>
+<li><p> ECW - ERDAS Compressed Wavelets (SDK 3.x)
+</p>
+</li>
+<li><p> JP2ECW - ERDAS JPEG2000 (SDK 3.x)
+</p>
+</li>
+<li><p> FITS - Flexible Image Transport System
+</p>
+</li>
+<li><p> GMT - GMT NetCDF Grid Format
+</p>
+</li>
+<li><p> HDF4 - Hierarchical Data Format Release 4
+</p>
+</li>
+<li><p> HDF4Image - HDF4 Dataset
+</p>
+</li>
+<li><p> HDF5 - Hierarchical Data Format Release 5
+</p>
+</li>
+<li><p> HDF5Image - HDF5 Dataset
+</p>
+</li>
+<li><p> KEA - KEA Image Format (.kea)
+</p>
+</li>
+<li><p> MG4Lidar - MrSID Generation 4 / Lidar (.sid)
+</p>
+</li>
+<li><p> MrSID - Multi-resolution Seamless Image Database (MrSID)
+</p>
+</li>
+<li><p> netCDF - Network Common Data Format
+</p>
+</li>
+<li><p> PostgreSQL - PostgreSQL/PostGIS
+</p>
+</li>
+<li><p> VRT - Virtual Raster
+</p>
+</li>
+<li><p> GTiff - GeoTIFF
+</p>
+</li>
+<li><p> NITF - National Imagery Transmission Format
+</p>
+</li>
+<li><p> RPFTOC - Raster Product Format TOC format
+</p>
+</li>
+<li><p> ECRGTOC - ECRG TOC format
+</p>
+</li>
+<li><p> HFA - Erdas Imagine Images (.img)
+</p>
+</li>
+<li><p> SAR_CEOS - CEOS SAR Image
+</p>
+</li>
+<li><p> CEOS - CEOS Image
+</p>
+</li>
+<li><p> JAXAPALSAR - JAXA PALSAR Product Reader (Level 1.1/1.5)
+</p>
+</li>
+<li><p> GFF - Ground-based SAR Applications Testbed File Format (.gff)
+</p>
+</li>
+<li><p> ELAS - ELAS
+</p>
+</li>
+<li><p> AIG - Arc/Info Binary Grid
+</p>
+</li>
+<li><p> AAIGrid - Arc/Info ASCII Grid
+</p>
+</li>
+<li><p> GRASSASCIIGrid - GRASS ASCII Grid
+</p>
+</li>
+<li><p> SDTS - SDTS Raster
+</p>
+</li>
+<li><p> DTED - DTED Elevation Raster
+</p>
+</li>
+<li><p> PNG - Portable Network Graphics
+</p>
+</li>
+<li><p> JPEG - JPEG JFIF
+</p>
+</li>
+<li><p> MEM - In Memory Raster
+</p>
+</li>
+<li><p> JDEM - Japanese DEM (.mem)
+</p>
+</li>
+<li><p> GIF - Graphics Interchange Format (.gif)
+</p>
+</li>
+<li><p> BIGGIF - Graphics Interchange Format (.gif)
+</p>
+</li>
+<li><p> ESAT - Envisat Image Format
+</p>
+</li>
+<li><p> BSB - Maptech BSB Nautical Charts
+</p>
+</li>
+<li><p> XPM - X11 PixMap Format
+</p>
+</li>
+<li><p> BMP - MS Windows Device Independent Bitmap
+</p>
+</li>
+<li><p> DIMAP - SPOT DIMAP
+</p>
+</li>
+<li><p> AirSAR - AirSAR Polarimetric Image
+</p>
+</li>
+<li><p> RS2 - RadarSat 2 XML Product
+</p>
+</li>
+<li><p> SAFE - Sentinel SAFE Product
+</p>
+</li>
+<li><p> PCIDSK - PCIDSK Database File
+</p>
+</li>
+<li><p> PCRaster - PCRaster Raster File
+</p>
+</li>
+<li><p> ILWIS - ILWIS Raster Map
+</p>
+</li>
+<li><p> SGI - SGI Image File Format 1.0
+</p>
+</li>
+<li><p> SRTMHGT - SRTMHGT File Format
+</p>
+</li>
+<li><p> Leveller - Leveller heightfield
+</p>
+</li>
+<li><p> Terragen - Terragen heightfield
+</p>
+</li>
+<li><p> ISIS3 - USGS Astrogeology ISIS cube (Version 3)
+</p>
+</li>
+<li><p> ISIS2 - USGS Astrogeology ISIS cube (Version 2)
+</p>
+</li>
+<li><p> PDS - NASA Planetary Data System
+</p>
+</li>
+<li><p> VICAR - MIPL VICAR file
+</p>
+</li>
+<li><p> TIL - EarthWatch .TIL
+</p>
+</li>
+<li><p> ERS - ERMapper .ers Labelled
+</p>
+</li>
+<li><p> JP2OpenJPEG - JPEG-2000 driver based on OpenJPEG library
+</p>
+</li>
+<li><p> L1B - NOAA Polar Orbiter Level 1b Data Set
+</p>
+</li>
+<li><p> FIT - FIT Image
+</p>
+</li>
+<li><p> GRIB - GRIdded Binary (.grb)
+</p>
+</li>
+<li><p> RMF - Raster Matrix Format
+</p>
+</li>
+<li><p> WCS - OGC Web Coverage Service
+</p>
+</li>
+<li><p> WMS - OGC Web Map Service
+</p>
+</li>
+<li><p> MSGN - EUMETSAT Archive native (.nat)
+</p>
+</li>
+<li><p> RST - Idrisi Raster A.1
+</p>
+</li>
+<li><p> INGR - Intergraph Raster
+</p>
+</li>
+<li><p> GSAG - Golden Software ASCII Grid (.grd)
+</p>
+</li>
+<li><p> GSBG - Golden Software Binary Grid (.grd)
+</p>
+</li>
+<li><p> GS7BG - Golden Software 7 Binary Grid (.grd)
+</p>
+</li>
+<li><p> COSAR - COSAR Annotated Binary Matrix (TerraSAR-X)
+</p>
+</li>
+<li><p> TSX - TerraSAR-X Product
+</p>
+</li>
+<li><p> COASP - DRDC COASP SAR Processor Raster
+</p>
+</li>
+<li><p> R - R Object Data Store
+</p>
+</li>
+<li><p> MAP - OziExplorer .MAP
+</p>
+</li>
+<li><p> PNM - Portable Pixmap Format (netpbm)
+</p>
+</li>
+<li><p> DOQ1 - USGS DOQ (Old Style)
+</p>
+</li>
+<li><p> DOQ2 - USGS DOQ (New Style)
+</p>
+</li>
+<li><p> ENVI - ENVI .hdr Labelled
+</p>
+</li>
+<li><p> EHdr - ESRI .hdr Labelled
+</p>
+</li>
+<li><p> GenBin - Generic Binary (.hdr Labelled)
+</p>
+</li>
+<li><p> PAux - PCI .aux Labelled
+</p>
+</li>
+<li><p> MFF - Vexcel MFF Raster
+</p>
+</li>
+<li><p> MFF2 - Vexcel MFF2 (HKV) Raster
+</p>
+</li>
+<li><p> FujiBAS - Fuji BAS Scanner Image
+</p>
+</li>
+<li><p> GSC - GSC Geogrid
+</p>
+</li>
+<li><p> FAST - EOSAT FAST Format
+</p>
+</li>
+<li><p> BT - VTP .bt (Binary Terrain) 1.3 Format
+</p>
+</li>
+<li><p> LAN - Erdas .LAN/.GIS
+</p>
+</li>
+<li><p> CPG - Convair PolGASP
+</p>
+</li>
+<li><p> IDA - Image Data and Analysis
+</p>
+</li>
+<li><p> NDF - NLAPS Data Format
+</p>
+</li>
+<li><p> EIR - Erdas Imagine Raw
+</p>
+</li>
+<li><p> DIPEx - DIPEx
+</p>
+</li>
+<li><p> LCP - FARSITE v.4 Landscape File (.lcp)
+</p>
+</li>
+<li><p> GTX - NOAA Vertical Datum .GTX
+</p>
+</li>
+<li><p> LOSLAS - NADCON .los/.las Datum Grid Shift
+</p>
+</li>
+<li><p> NTv2 - NTv2 Datum Grid Shift
+</p>
+</li>
+<li><p> CTable2 - CTable2 Datum Grid Shift
+</p>
+</li>
+<li><p> ACE2 - ACE2
+</p>
+</li>
+<li><p> SNODAS - Snow Data Assimilation System
+</p>
+</li>
+<li><p> KRO - KOLOR Raw
+</p>
+</li>
+<li><p> ROI_PAC - ROI_PAC raster
+</p>
+</li>
+<li><p> ISCE - ISCE raster
+</p>
+</li>
+<li><p> ARG - Azavea Raster Grid format
+</p>
+</li>
+<li><p> RIK - Swedish Grid RIK (.rik)
+</p>
+</li>
+<li><p> USGSDEM - USGS Optional ASCII DEM (and CDED)
+</p>
+</li>
+<li><p> GXF - GeoSoft Grid Exchange Format
+</p>
+</li>
+<li><p> NWT_GRD - Northwood Numeric Grid Format .grd/.tab
+</p>
+</li>
+<li><p> NWT_GRC - Northwood Classified Grid Format .grc/.tab
+</p>
+</li>
+<li><p> ADRG - ARC Digitized Raster Graphics
+</p>
+</li>
+<li><p> SRP - Standard Raster Product (ASRP/USRP)
+</p>
+</li>
+<li><p> BLX - Magellan topo (.blx)
+</p>
+</li>
+<li><p> Rasterlite - Rasterlite
+</p>
+</li>
+<li><p> PostGISRaster - PostGIS Raster driver
+</p>
+</li>
+<li><p> SAGA - SAGA GIS Binary Grid (.sdat)
+</p>
+</li>
+<li><p> KMLSUPEROVERLAY - Kml Super Overlay
+</p>
+</li>
+<li><p> XYZ - ASCII Gridded XYZ
+</p>
+</li>
+<li><p> HF2 - HF2/HFZ heightfield raster
+</p>
+</li>
+<li><p> PDF - Geospatial PDF
+</p>
+</li>
+<li><p> OZI - OziExplorer Image File
+</p>
+</li>
+<li><p> CTG - USGS LULC Composite Theme Grid
+</p>
+</li>
+<li><p> E00GRID - Arc/Info Export E00 GRID
+</p>
+</li>
+<li><p> ZMap - ZMap Plus Grid
+</p>
+</li>
+<li><p> NGSGEOID - NOAA NGS Geoid Height Grids
+</p>
+</li>
+<li><p> MBTiles - MBTiles
+</p>
+</li>
+<li><p> IRIS - IRIS data (.PPI, .CAPPi etc)
+</p>
+</li>
+<li><p> PLMOSAIC - Planet Labs Mosaic
+</p>
+</li>
+<li><p> CALS - CALS (Type 1)
+</p>
+</li>
+<li><p> WMTS - OGC Web Map Tile Service
+</p>
+</li>
+<li><p> ESRI Shapefile - ESRI Shapefile
+</p>
+</li>
+<li><p> MapInfo File - MapInfo File
+</p>
+</li>
+<li><p> UK .NTF - UK .NTF
+</p>
+</li>
+<li><p> OGD_SDTS - SDTS
+</p>
+</li>
+<li><p> S57 - IHO S-57 (ENC)
+</p>
+</li>
+<li><p> DGN - Microstation DGN
+</p>
+</li>
+<li><p> OGR_VRT - VRT - Virtual Datasource
+</p>
+</li>
+<li><p> REC EPIInfo .REC
+</p>
+</li>
+<li><p> Memory - Memory
+</p>
+</li>
+<li><p> BNA - Atlas BNA
+</p>
+</li>
+<li><p> CSV - Comma Separated Value (.csv)
+</p>
+</li>
+<li><p> NAS - NAS - ALKIS
+</p>
+</li>
+<li><p> GML - Geography Markup Language
+</p>
+</li>
+<li><p> GPX - GPX
+</p>
+</li>
+<li><p> LIBKML - Keyhole Markup Language (LIBKML)
+</p>
+</li>
+<li><p> KML - Keyhole Markup Language (KML)
+</p>
+</li>
+<li><p> GeoJSON - GeoJSON
+</p>
+</li>
+<li><p> Interlis 1 - Interlis 1
+</p>
+</li>
+<li><p> Interlis 2 - Interlis 2
+</p>
+</li>
+<li><p> OGR_GMT - GMT ASCII Vectors (.gmt)
+</p>
+</li>
+<li><p> GPKG - GeoPackage
+</p>
+</li>
+<li><p> SQLite - SQLite / Spatialite
+</p>
+</li>
+<li><p> ODBC - ODBC
+</p>
+</li>
+<li><p> WAsP - WAsP .map format
+</p>
+</li>
+<li><p> PGeo - ESRI Personal GeoDatabase
+</p>
+</li>
+<li><p> MSSQLSpatial - Microsoft SQL Server Spatial Database
+</p>
+</li>
+<li><p> MySQL - MySQL
+</p>
+</li>
+<li><p> OpenFileGDB - ESRI FileGDB
+</p>
+</li>
+<li><p> XPlane - X-Plane/Flightgear aeronautical data
+</p>
+</li>
+<li><p> DXF - AutoCAD DXF
+</p>
+</li>
+<li><p> Geoconcept - Geoconcept
+</p>
+</li>
+<li><p> GeoRSS - GeoRSS
+</p>
+</li>
+<li><p> GPSTrackMaker - GPSTrackMaker
+</p>
+</li>
+<li><p> VFK - Czech Cadastral Exchange Data Format
+</p>
+</li>
+<li><p> PGDUMP - PostgreSQL SQL dump
+</p>
+</li>
+<li><p> OSM - OpenStreetMap XML and PDF
+</p>
+</li>
+<li><p> GPSBabel - GPSBabel
+</p>
+</li>
+<li><p> SUA - Tim Newport-Peace's Special Use Airspace Format
+</p>
+</li>
+<li><p> OpenAir - OpenAir
+</p>
+</li>
+<li><p> OGR_PDS - Planetary Data Systems TABLE
+</p>
+</li>
+<li><p> WFS - OGC WFS (Web Feature Service)
+</p>
+</li>
+<li><p> HTF - Hydrographic Transfer Vector
+</p>
+</li>
+<li><p> AeronavFAA - Aeronav FAA
+</p>
+</li>
+<li><p> Geomedia - Geomedia .mdb
+</p>
+</li>
+<li><p> EDIGEO - French EDIGEO exchange format
+</p>
+</li>
+<li><p> GFT - Google Fusion Tables
+</p>
+</li>
+<li><p> GME - Google Maps Engine
+</p>
+</li>
+<li><p> SVG - Scalable Vector Graphics
+</p>
+</li>
+<li><p> CouchDB - CouchDB / GeoCouch
+</p>
+</li>
+<li><p> Cloudant - Cloudant / CouchDB
+</p>
+</li>
+<li><p> Idrisi - Idrisi Vector (.vct)
+</p>
+</li>
+<li><p> ARCGEN - Arc/Info Generate
+</p>
+</li>
+<li><p> SEGUKOOA - SEG-P1 / UKOOA P1/90
+</p>
+</li>
+<li><p> SEG-Y - SEG-Y
+</p>
+</li>
+<li><p> ODS - Open Document/ LibreOffice / OpenOffice Spreadsheet
+</p>
+</li>
+<li><p> XLSX - MS Office Open XML spreadsheet
+</p>
+</li>
+<li><p> ElasticSearch - Elastic Search
+</p>
+</li>
+<li><p> Walk - Walk
+</p>
+</li>
+<li><p> CartoDB - CartoDB
+</p>
+</li>
+<li><p> SXF - Storage and eXchange Format
+</p>
+</li>
+<li><p> Selafin - Selafin
+</p>
+</li>
+<li><p> JML - OpenJUMP JML
+</p>
+</li>
+<li><p> PLSCENES - Planet Labs Scenes API
+</p>
+</li>
+<li><p> CSW - OGC CSW (Catalog Search for the Web)
+</p>
+</li>
+<li><p> IDF - INTREST Data Format
+</p>
+</li>
+<li><p> TIGER - U.S. Census TIGER/Line
+</p>
+</li>
+<li><p> AVCBin - Arc/Info Binary Coverage
+</p>
+</li>
+<li><p> AVCE00 - Arc/Info E00 (ASCII) Coverage
+</p>
+</li>
+<li><p> HTTP - HTTP Fetching Wrapper
+</p>
+</li></ul>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning (R interface), Olaf Conrad / Andre Ringeler (SAGA module), Frank Warmerdam (GDAL)
+</p>
+
+
+<h3>References</h3>
+
+<p>GDAL website: <a href="http://www.gdal.org/">http://www.gdal.org/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>read.ascii.grid</code>, <code>rsaga.esri.to.sgrd</code>, <code>read.sgrd</code>, <code>read.Rd.grid</code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

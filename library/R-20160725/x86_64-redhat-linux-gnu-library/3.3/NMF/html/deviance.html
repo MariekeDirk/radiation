@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Distances and Objective Functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for deviance {NMF}"><tr><td>deviance {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Distances and Objective Functions</h2>
+
+<h3>Description</h3>
+
+<p>The NMF package defines methods for the generic
+<code>deviance</code> from the package <code>stats</code>, to compute
+approximation errors between NMF models and matrices,
+using a variety of objective functions.
+</p>
+<p><code>nmfDistance</code> returns a function that computes the
+distance between an NMF model and a compatible matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  deviance(object, ...)
+
+  ## S4 method for signature 'NMF'
+deviance(object, y,
+    method = c("", "KL", "euclidean"), ...)
+
+  nmfDistance(method = c("", "KL", "euclidean"))
+
+  ## S4 method for signature 'NMFfit'
+deviance(object, y, method, ...)
+
+  ## S4 method for signature 'NMFStrategy'
+deviance(object, x, y, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>a matrix compatible with the NMF model
+<code>object</code>, i.e. <code>y</code> must have the same dimension
+as <code>fitted(object)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>a character string or a function with
+signature <code>(x="NMF", y="matrix", ...)</code> that
+implements a distance measure between an NMF model
+<code>x</code> and a target matrix <code>y</code>, i.e. an objective
+function to use to compute the deviance. In
+<code>deviance</code>, it is passed to <code>nmfDistance</code> to
+get the function that effectively computes the deviance.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra parameters passed to the objective
+function.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an NMF model that estimates <code>y</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object for which the deviance is
+desired.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>deviance</code> returns a nonnegative numerical value
+</p>
+<p><code>nmfDistance</code> returns a function with least two
+arguments: an NMF model and a matrix.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>deviance</dt><dd><p><code>signature(object = "NMF")</code>:
+Computes the distance between a matrix and the estimate
+of an <code>NMF</code> model. </p>
+</dd>
+<dt>deviance</dt><dd><p><code>signature(object = "NMFfit")</code>:
+Returns the deviance of a fitted NMF model.
+</p>
+<p>This method returns the final residual value if the
+target matrix <code>y</code> is not supplied, or the
+approximation error between the fitted NMF model stored
+in <code>object</code> and <code>y</code>. In this case, the
+computation is performed using the objective function
+<code>method</code> if not missing, or the objective of the
+algorithm that fitted the model (stored in slot
+<code>'distance'</code>).
+</p>
+<p>If not computed by the NMF algorithm itself, the value is
+automatically computed at the end of the fitting process
+by the function <code><a href="nmf.html">nmf</a></code>, using the objective
+function associated with the NMF algorithm, so that it
+should always be available. </p>
+</dd>
+<dt>deviance</dt><dd><p><code>signature(object = "NMFfitX")</code>:
+Returns the deviance achieved by the best fit object,
+i.e. the lowest deviance achieved across all NMF runs. </p>
+</dd>
+<dt>deviance</dt><dd><p><code>signature(object = "NMFStrategy")</code>:
+Computes the value of the objective function between the
+estimate <code>x</code> and the target <code>y</code>. </p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+<p>Other stats: <code><a href="deviance.html">deviance,NMF-method</a></code>,
+<code><a href="residuals.html">hasTrack</a></code>, <code><a href="residuals.html">residuals</a></code>,
+<code><a href="residuals.html">residuals&lt;-</a></code>, <code><a href="residuals.html">trackError</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

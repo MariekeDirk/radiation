@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Matrix exponential spatial lag model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lagmess {spdep}"><tr><td>lagmess {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Matrix exponential spatial lag model</h2>
+
+<h3>Description</h3>
+
+<p>The function fits a matrix exponential spatial lag model, using <code>optim</code> to find the value of <code>alpha</code>, the spatial coefficient.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lagmess(formula, data = list(), listw, zero.policy = NULL, na.action = na.fail,
+ q = 10, start = -2.5, control=list(), method="BFGS", verbose=NULL)
+## S3 method for class 'lagmess'
+summary(object, ...)
+## S3 method for class 'lagmess'
+print(x, ...)
+## S3 method for class 'summary.lagmess'
+print(x, digits = max(5, .Options$digits - 3),
+    signif.stars = FALSE, ...)
+## S3 method for class 'lagmess'
+residuals(object, ...)
+## S3 method for class 'lagmess'
+deviance(object, ...)
+## S3 method for class 'lagmess'
+coef(object, ...)
+## S3 method for class 'lagmess'
+fitted(object, ...)
+## S3 method for class 'lagmess'
+logLik(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a symbolic description of the model to be fit. The details 
+of model specification are given for <code>lm()</code></p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>an optional data frame containing the variables in the model. 
+By default the variables are taken from the environment which the function 
+is called.</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without 
+neighbours, if FALSE assign NA - causing <code>lagmess()</code> to terminate with an error</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>a function (default <code>options("na.action")</code>), can also be <code>na.omit</code> or <code>na.exclude</code> with consequences for residuals and fitted values - in these cases the weights list will be subsetted to remove NAs in the data. It may be necessary to set zero.policy to TRUE because this subsetting may create no-neighbour observations. Note that only weights lists created without using the glist argument to <code>nb2listw</code> may be subsetted.</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>default 10; number of powers of the spatial weights to use</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>starting value for numerical optimization, should be a small negative number</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>control parameters passed to <code>optim</code></p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>default <code>BFGS</code>, method passed to <code>optim</code></p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE report function values during optimization</p>
+</td></tr>
+<tr valign="top"><td><code>x,object</code></td>
+<td>
+<p>Objects of classes <code>lagmess</code> or <code>summary.lagmess</code> to be passed to methods</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>the number of significant digits to use when printing</p>
+</td></tr>
+<tr valign="top"><td><code>signif.stars</code></td>
+<td>
+<p>logical. If TRUE, &quot;significance stars&quot; are printed
+for each coefficient.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The underlying spatial lag model:
+</p>
+<p style="text-align: center;"><i>y = rho W y + X beta + e</i></p>
+
+<p>where <i>rho</i> is the spatial parameter may be fitted by maximum likelihood. In that case, the log likelihood function includes the logartithm of cumbersome Jacobian term <i>|I - rho W|</i>. If we rewrite the model as:
+</p>
+<p style="text-align: center;"><i>S y = X beta + e</i></p>
+
+<p>we see that in the ML case <i>S y = (I - rho W) y</i>. If W is row-stochastic, S may be expressed as a linear combination of row-stochastic matrices. By pre-computing the matrix <i>[y Wy, W^2y, ..., W^{q-1}y]</i>, the term <i>S y (alpha)</i> can readily be found by numerical optimization using the matrix exponential approach. <i>alpha</i> and <i>rho</i> are related as <i>rho = 1 - exp(alpha)</i>, conditional on the number of matrix power terms taken <code>q</code>.</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns an object of class <code>lagmess</code> with components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>lmobj</code></td>
+<td>
+<p>the <code>lm</code> object returned after fitting <code>alpha</code></p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>the spatial coefficient</p>
+</td></tr>
+<tr valign="top"><td><code>alphase</code></td>
+<td>
+<p>the standard error of the spatial coefficient using the numerical Hessian</p>
+</td></tr>
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p>the value of <code>rho</code> implied by <code>alpha</code></p>
+</td></tr>
+<tr valign="top"><td><code>bestmess</code></td>
+<td>
+<p>the object returned by <code>optim</code></p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>the number of powers of the spatial weights used</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>the starting value for numerical optimization used</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>(possibly) named vector of excluded or omitted observations if non-default na.action argument used</p>
+</td></tr>
+<tr valign="top"><td><code>nullLL</code></td>
+<td>
+<p>the log likelihood of the aspatial model for the same data</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a> and Eric Blankmeyer</p>
+
+
+<h3>References</h3>
+
+<p>J. P. LeSage and R. K. Pace (2007) A matrix exponential specification. Journal of Econometrics, 140, 190-214; J. P. LeSage and R. K. Pace (2009) Introduction to Spatial Econometrics. CRC Press, Chapter 9.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lagsarlm.html">lagsarlm</a></code>, <code><a href="../../stats/html/optim.html">optim</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(baltimore)
+baltimore$AGE &lt;- ifelse(baltimore$AGE &lt; 1, 1, baltimore$AGE)
+lw &lt;- nb2listw(knn2nb(knearneigh(cbind(baltimore$X, baltimore$Y), k=7)))
+obj1 &lt;- lm(log(PRICE) ~ PATIO + log(AGE) + log(SQFT) + lag(lw, log(AGE)),
+ data=baltimore)
+lm.morantest(obj1, lw)
+lm.LMtests(obj1, lw, test="all")
+obj2 &lt;- lagmess(log(PRICE) ~ PATIO + log(AGE) + log(SQFT) + 
+ lag(lw, log(AGE)), data=baltimore, listw=lw)
+summary(obj2)
+obj3 &lt;- lagsarlm(log(PRICE) ~ PATIO + log(AGE) + log(SQFT) + 
+ lag(lw, log(AGE)), data=baltimore, listw=lw)
+summary(obj3)
+data(boston)
+lw &lt;- nb2listw(boston.soi)
+gp2 &lt;- lagsarlm(log(CMEDV) ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2)
+ +  AGE + log(DIS) + log(RAD) + TAX + PTRATIO + B + log(LSTAT),
+ data=boston.c, lw, method="Matrix")
+summary(gp2)
+gp2a &lt;- lagmess(CMEDV ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2)
+ +  AGE + log(DIS) + log(RAD) + TAX + PTRATIO + B + log(LSTAT),
+ data=boston.c, lw)
+summary(gp2a)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

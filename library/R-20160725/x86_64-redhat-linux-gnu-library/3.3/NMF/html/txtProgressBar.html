@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simple Progress Bar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for txtProgressBar {NMF}"><tr><td>txtProgressBar {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simple Progress Bar</h2>
+
+<h3>Description</h3>
+
+<p>Creates a simple progress bar with title. This function
+is identical to <code>utils::txtProgressBar</code> but allow
+adding a title to the progress bar, and can be shared by
+multiple processes, e.g., in multicore or multi-hosts
+computations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  txtProgressBar(min = 0, max = 1, initial = 0, char = "=",
+    width = NA, title = if (style == 3) " ", label,
+    style = 1, file = "", shared = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>shared</code></td>
+<td>
+<p>specification of a shared directory to use
+when the progress bar is to be used by multiple
+processes.</p>
+</td></tr>
+<tr valign="top"><td><code>min</code></td>
+<td>
+<p>(finite) numeric values for the extremes of
+the progress bar. Must have <code>min &lt; max</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p>(finite) numeric values for the extremes of
+the progress bar. Must have <code>min &lt; max</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>initial</code></td>
+<td>
+<p>initial or new value for the progress bar.
+See &lsquo;Details&rsquo; for what happens with invalid
+values.</p>
+</td></tr>
+<tr valign="top"><td><code>char</code></td>
+<td>
+<p>the character (or character string) to form
+the progress bar.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>the width of the progress bar, as a multiple
+of the width of <code>char</code>.  If <code>NA</code>, the default,
+the number of characters is that which fits into
+<code>getOption("width")</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+<p>ignored, for compatibility with other
+progress bars.</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>ignored, for compatibility with other
+progress bars.</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+<p>the &lsquo;style&rsquo; of the bar &ndash; see
+&lsquo;Details&rsquo;.</p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>an open connection object or <code>""</code> which
+indicates the console: <code><a href="../../base/html/showConnections.html">stderr</a>()</code> might be
+useful here.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>R Core Team
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

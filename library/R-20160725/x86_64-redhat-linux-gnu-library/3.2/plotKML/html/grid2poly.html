@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Converts a gridded map to a polygon map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for grid2poly {plotKML}"><tr><td>grid2poly {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Converts a gridded map to a polygon map</h2>
+
+<h3>Description</h3>
+
+<p>Converts a <code>"SpatialGridDataFrame"</code> object to a polygon map with each available grid node represented with a polygon. To allow further export to KML, <code>grid2poly</code> will, by default, convert any projected coordinates to the lat-lon system (geographic coordinates in the WGS84 system).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+grid2poly(obj, var.name = names(obj)[1], reproject = TRUE, 
+    method = c("sp", "raster", "RSAGA")[1], tmp.file = TRUE, 
+    saga_lib = "shapes_grid", saga_module = 3, silent = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p><code>"SpatialGridDataFrame"</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>var.name</code></td>
+<td>
+<p>target variable column name</p>
+</td></tr>
+<tr valign="top"><td><code>reproject</code></td>
+<td>
+<p>logical; reproject coordinates to lat lon system?</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>decide to convert grids to polygons either using <code>"sp"</code>, <code>"raster"</code> or <code>"RSAGA"</code> packages</p>
+</td></tr>
+<tr valign="top"><td><code>tmp.file</code></td>
+<td>
+<p>logical; specify whether to create a temporary file, or to actually write to the workding directory (in the case of SAGA GIS is used to convert grids)</p>
+</td></tr>
+<tr valign="top"><td><code>saga_lib</code></td>
+<td>
+<p>string; SAGA GIS library name</p>
+</td></tr>
+<tr valign="top"><td><code>saga_module</code></td>
+<td>
+<p>SAGA GIS module number; see <code>?rsaga_get_modules</code> for more details</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>logical; specifies whether to print the SAGA GIS output</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments that can be parsed to the <code>rasterToPolygons</code> command</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>grid2poly</code> is not recommended for large grids (&gt;&gt;10e4 pixels). Consider splitting large input grids into tiles before running <code>grid2poly</code>. For converting large grids to polygons consider using SAGA GIS (<code>method = "RSAGA"</code>) instead of using the default sp method.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="vect2rast.html">vect2rast</a></code>, <code>raster::rasterToPolygons</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(eberg_grid)
+library(sp)
+coordinates(eberg_grid) &lt;- ~x+y
+gridded(eberg_grid) &lt;- TRUE
+proj4string(eberg_grid) &lt;- CRS("+init=epsg:31467")
+data(SAGA_pal)
+## Not run: # compare various methods:
+system.time(dem_poly &lt;- grid2poly(eberg_grid, "DEMSRT6", method = "raster"))
+system.time(dem_poly &lt;- grid2poly(eberg_grid, "DEMSRT6", method = "sp"))
+system.time(dem_poly &lt;- grid2poly(eberg_grid, "DEMSRT6", method = "RSAGA"))
+## plotting large polygons in R -&gt; not a good idea
+# spplot(dem_poly, col.regions = SAGA_pal[[1]])
+## visualize the data in Google Earth:
+kml(dem_poly, colour_scale = SAGA_pal[[1]], colour = DEMSRT6, kmz = TRUE)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

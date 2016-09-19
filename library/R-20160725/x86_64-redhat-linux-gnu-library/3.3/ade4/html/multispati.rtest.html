@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Multivariate spatial autocorrelation test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for multispati.rtest {ade4}"><tr><td>multispati.rtest {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Multivariate spatial autocorrelation test</h2>
+
+<h3>Description</h3>
+
+<p>This function performs a multivariate autocorrelation test.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+multispati.rtest(dudi, listw, nrepet = 99)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dudi</code></td>
+<td>
+<p>an object of class <code>dudi</code> for the duality diagram analysis</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>an object of class <code>listw</code> for the spatial dependence of data observations</p>
+</td></tr>
+<tr valign="top"><td><code>nrepet</code></td>
+<td>
+<p>the number of permutations</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>We note X the data frame with the variables, Q the column weight matrix 
+and D the row weight matrix associated to the duality diagram <em>dudi</em>.
+We note L the neighbouring weights matrix associated to  <em>listw</em>.
+This function performs a Monte-Carlo Test on the multivariate spatial 
+autocorrelation index : </p>
+<p style="text-align: center;"><i>r = t(X)DLXQ / t(X)DXQ</i></p>
+
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>randtest</code> (randomization tests).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Daniel Chessel  <br />
+S?bastien Ollier <a href="mailto:sebastien.ollier@u-psud.fr">sebastien.ollier@u-psud.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Smouse, P. E. and Peakall, R. (1999) Spatial autocorrelation analysis of individual multiallele and multilocus genetic structure. 
+<em>Heredity</em>, <b>82</b>, 561&ndash;573.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="dudi.html">dudi</a></code>,<code><a href="../../spdep/html/mat2listw.html">mat2listw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if (requireNamespace("maptools", quiet = TRUE) &amp; requireNamespace("spdep", quiet = TRUE)) {
+    data(mafragh)
+    maf.listw &lt;- nb2listw(neig2nb(mafragh$neig))
+    maf.pca &lt;- dudi.pca(mafragh$mil, scannf = FALSE)
+    multispati.rtest(maf.pca, maf.listw)
+    maf.pca.ms &lt;- multispati(maf.pca, maf.listw, scannf=FALSE)
+    plot(maf.pca.ms)
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

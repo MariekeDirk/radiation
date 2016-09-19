@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDragFindWindow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDragFindWindow {RGtk2}"><tr><td>gdkDragFindWindow {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDragFindWindow</h2>
+
+<h3>Description</h3>
+
+<p>Finds the destination window and DND protocol to use at the
+given pointer position.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDragFindWindow(object, drag.window, x.root, y.root)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drag-and-Drop.html">GdkDragContext</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">drag.window</code></code></td>
+<td>
+<p>a window which may be at the pointer position, but
+should be ignored, since it is put up by the drag source as an icon.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x.root</code></code></td>
+<td>
+<p>the x position of the pointer in root coordinates.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y.root</code></code></td>
+<td>
+<p>the y position of the pointer in root coordinates.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is called by the drag source to obtain the 
+<code>dest.window</code> and <code>protocol</code> parameters for <code><a href="gdkDragMotion.html">gdkDragMotion</a></code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">dest.window</code></code></td>
+<td>
+<p>location to store the destination window in. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">protocol</code></code></td>
+<td>
+<p>location to store the DND protocol in. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

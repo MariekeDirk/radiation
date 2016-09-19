@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simple Threshold Geolocation Estimates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for coord {GeoLight}"><tr><td>coord {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simple Threshold Geolocation Estimates</h2>
+
+<h3>Description</h3>
+
+<p>Estimate location from consecutive twilights
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+coord(tFirst, tSecond, type, twl, degElevation = -6, tol = 0,
+  method = "NOAA", note = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tFirst</code></td>
+<td>
+<p>vector of sunrise/sunset times (e.g. 2008-12-01 08:30).</p>
+</td></tr>
+<tr valign="top"><td><code>tSecond</code></td>
+<td>
+<p>vector of of sunrise/sunset times (e.g. 2008-12-01 17:30).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>vector of either 1 or 2, defining <code>tFirst</code> as sunrise or sunset respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>twl</code></td>
+<td>
+<p>data.frame containing twilights and at least <code>tFirst</code>, <code>tSecond</code> and <code>type</code> (alternatively give each parameter separately).</p>
+</td></tr>
+<tr valign="top"><td><code>degElevation</code></td>
+<td>
+<p>the sun elevation angle (in degrees) that defines twilight (e.g. -6 for &quot;civil
+twilight&quot;). Either a single value, a <code>vector</code> with the same length as
+<code>tFirst</code> or <code>nrow(x)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>tolerance on the sine of the solar declination (only implemented in method 'NOAA').</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Defines the method for the location estimates. 'NOAA' is based on
+code and the excel spreadsheet from the NOAA site (http://www.esrl.noaa.gov/gmd/grad/solcalc/),
+'Montenbruck' is based on Montenbruck, O. &amp; Pfleger, T. (2000) Astronomy on the Personal
+Computer. <em>Springer</em>, Berlin.</p>
+</td></tr>
+<tr valign="top"><td><code>note</code></td>
+<td>
+<p><code>logical</code>, if TRUE a notation of how many positions could
+be calculated in proportion to the number of failures will be printed at the
+end.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function estimates the location given the times at which
+the observer sees two successive twilights.
+</p>
+<p>Longitude is estimated by computing apparent time of local noon
+from sunrise and sunset, and determining the longitude for which
+this is noon. Latitude is estimated from the required zenith and
+the sun's hour angle for both sunrise and sunset, and averaged.
+</p>
+<p>When the solar declination is near zero (at the equinoxes)
+latitude estimates are extremely sensitive to errors.  Where the
+sine of the solar declination is less than <code>tol</code>, the
+latitude estimates are returned as <code>NA</code>.
+</p>
+<p>The format (date and time) of <em>tFirst</em> and <em>tSecond</em> has to be
+&quot;yyyy-mm-dd hh:mm&quot; corresponding to Universal Time Zone UTC (see:
+<code><a href="../../base/html/as.POSIXlt.html">as.POSIXct</a></code>, <a href="../../base/html/timezones.html">time zones</a>)
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix of coordinates in decimal degrees. First column are
+longitudes, expressed in degrees east of Greenwich. Second column contains
+the latitudes in degrees north the equator.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski, Simon Wotherspoon, Michael Sumner
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(hoopoe2)
+  hoopoe2$tFirst &lt;- as.POSIXct(hoopoe2$tFirst, tz = "GMT")
+  hoopoe2$tSecond &lt;- as.POSIXct(hoopoe2$tSecond, tz = "GMT")
+crds &lt;- coord(hoopoe2, degElevation=-6, tol = 0.2)
+## tripMap(crds, xlim=c(-20,20), ylim=c(5,50), main="hoopoe2")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

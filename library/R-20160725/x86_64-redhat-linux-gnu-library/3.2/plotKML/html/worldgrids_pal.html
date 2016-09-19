@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Standard global color palettes for factor variables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for worldgrids_pal {plotKML}"><tr><td>worldgrids_pal {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Standard global color palettes for factor variables</h2>
+
+<h3>Description</h3>
+
+<p>A number of color palettes used to visualize various environmental categorical / factor variables: land cover classes, water types, anthroms, soil types and similar. Each colour palette consists of a variable number of colours (hexadecimal system). Factor levels names are attached as attributes to the palette.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(worldgrids_pal)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The list contains:
+</p>
+
+<dl>
+<dt><code>anthroms</code></dt><dd><p>Color palette used for the global map of anthroms (Ellis and Ramankutty, 2008).</p>
+</dd>
+<dt><code>bodemfgr</code></dt><dd><p>A simplified color palette for soil types.</p>
+</dd>
+<dt><code>corine2k</code></dt><dd><p>Color palette used in the Corine 2000 project for land cover classes (Büttner, et al., 2002).</p>
+</dd>
+<dt><code>glc2000</code></dt><dd><p>Color palette used for the Global Land Cover 2000 mapping project (Global Land Cover 2000).</p>
+</dd>
+<dt><code>globcov</code></dt><dd><p>Color palette used for the ENVISAT-based Global Land Cover map at resolution of 300 m (GlobCover Land Cover version V2.2).</p>
+</dd>
+<dt><code>gtkaart</code></dt><dd><p>Color palette used for the Ground water levels map of the Netherlands (Gaast et al. 2005).</p>
+</dd>
+<dt><code>IGBP</code></dt><dd><p>Color palette for 17 land cover classes defined by the International Geosphere Biosphere Programme (IGBP).</p>
+</dd>
+<dt><code>lgn3</code></dt><dd><p>Color palette used for the Dutch land use map (Hazeu, 2005).</p>
+</dd>
+<dt><code>t250vlak</code></dt><dd><p>Color palette used for the most general land use classes at scale 1:250k (TOP250NL).</p>
+</dd>
+<dt><code>watert</code></dt><dd><p>Color palette used for the water types (generalized) in the Netherlands.</p>
+</dd>
+</dl>
+
+
+
+<h3>Note</h3>
+
+<p>These colour palettes are only valid for factor-type variables. The names of classes used in the legend can be obtained by loading the palette list.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl </p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Bicheron, P. et al. (2008) GLOBCOVER: Products Description and Validation Report. MEDIAS France, Toulouse, 47 p.
+</p>
+</li>
+<li> <p>Büttner, G. et al. (2002) Corine Land Cover update 2000, Technical guidelines. EEA (European Environment Agency), Kopenhagen. 
+</p>
+</li>
+<li><p> Ellis, E.C., Ramankutty, N. (2008) Putting people in the map: anthropogenic biomes of the world. Frontiers in Ecology and the Environment, Vol. 6, No. 8, pp. 439-447.
+</p>
+</li>
+<li><p> Fritz, S. et al. (2003) Harmonisation, mosaicing and production of the Global Land Cover 2000 database. JRC report EUR 20849 EN, Luxembourg, 41 p.
+</p>
+</li>
+<li><p> Gaast, J.W.J. van der, H.R.J. Vroon en M. Pleijter, (2006) De grondwaterdynamiek in het waterschap Regge en Dinkel. Wageningen, Alterra-rapport 1335.
+</p>
+</li>
+<li><p> Hazeu, G.W., (2005) Landelijk Grondgebruiksbestand Nederland (LGN5). Vervaardiging, nauwkeurigheid en gebruik. Wageningen, Alterra. Alterra-report 1213, 92 pp.
+</p>
+</li>
+<li><p> Puijenbroek, P. van; Clement, J., (2008) Het oppervlaktewater getypeerd: de eerste Nederlandse watertypenkaart. Agro informatica 21(3): 21-25.
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="SAGA_pal.html">SAGA_pal</a></code>, <code><a href="SAGA_pal.html">R_pal</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(worldgrids_pal)
+## Not run: # globcov palette with class names:
+display.pal(worldgrids_pal)
+dev.off()
+display.pal(worldgrids_pal, sel=5, names=TRUE)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculates a piecewise constant function for some...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pcf.func {denpro}"><tr><td>pcf.func {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculates a piecewise constant function for some illustrative purposes
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates a piecewise constant function of a given functional form:
+Gaussian or a mixture of Gaussians, or functions with a given copula, ...
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pcf.func(func, N, 
+sig = rep(1, length(N)), support = NULL, theta = NULL, 
+g=1, M = NULL, p = NULL, mul = 3, t = NULL, 
+marginal = "normal", r = 0, 
+mu = NULL, xi = NULL, Omega = NULL, alpha = NULL, df = NULL,
+a = 0.5, b = 0.5, distr = FALSE, std = 1, lowest = 0)   
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>func</code></td>
+<td>
+<p>a character string; the possibilities are
+&quot;mixt&quot;,  
+&quot;normal&quot;,&quot;student&quot;,&quot;gumbel&quot;,&quot;frank&quot;,&quot;clayton&quot;,
+&quot;skewgauss&quot;,
+&quot;prod&quot;,
+&quot;epan&quot;, 
+&quot;hat&quot;
+</p>
+</td></tr>
+<tr valign="top"><td><code>N</code></td>
+<td>
+<p>vector of d positive integers; the dimension of the grid where the
+function will be evaluated; we evaluate the function on a regular
+grid which contains the support of the function</p>
+</td></tr>
+<tr valign="top"><td><code>sig</code></td>
+<td>
+<p>mixnum*d matrix of positive real numbers; 
+the standard deviations of the marginals in a mixture of Gaussians,
+or the scaling factors of the student and uniform copulas </p>
+</td></tr>
+<tr valign="top"><td><code>support</code></td>
+<td>
+<p>2*d vector of reals gives the d intervals of a 
+rectangular support</p>
+</td></tr>
+<tr valign="top"><td><code>theta</code></td>
+<td>
+<p>rotation angle</p>
+</td></tr>
+<tr valign="top"><td><code>g</code></td>
+<td>
+<p>parameter of the Archimedean copulas </p>
+</td></tr>
+<tr valign="top"><td><code>M</code></td>
+<td>
+<p>mixnum*d matrix of positive real numbers; the means of the
+components in a mixture of Gaussians </p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>mixnum-vector of probabilities; mixture weights</p>
+</td></tr>
+<tr valign="top"><td><code>mul</code></td>
+<td>
+<p> internal parameter</p>
+</td></tr>
+<tr valign="top"><td><code>t</code></td>
+<td>
+<p>parameter of the Student marginals (degrees of freedom)</p>
+</td></tr>
+<tr valign="top"><td><code>marginal</code></td>
+<td>
+<p>marginal distributions for the copulas; &quot;normal&quot;, &quot;student&quot;,
+or &quot;unif&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>0&lt;r&lt;1; correlation for the Gaussian and Student copulas </p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+<p>  parameter </p>
+</td></tr>
+<tr valign="top"><td><code>xi</code></td>
+<td>
+<p> parameter </p>
+</td></tr>
+<tr valign="top"><td><code>Omega</code></td>
+<td>
+<p> parameter </p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p> skeweness parameter for the skewed Gaussian density </p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p> degrees of freedom for the Student copula</p>
+</td></tr>
+<tr valign="top"><td><code>a, b</code></td>
+<td>
+<p> parameters of the hat function </p>
+</td></tr>
+<tr valign="top"><td><code>distr</code></td>
+<td>
+<p> TRUE if the distribution function is to be drawn instead of
+the density</p>
+</td></tr>
+<tr valign="top"><td><code>std</code></td>
+<td>
+<p>standard deviation in the 1D case</p>
+</td></tr>
+<tr valign="top"><td><code>lowest</code></td>
+<td>
+<p>real value; for densities equal to 0, otherwise is equal
+to the minimum of the function</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a piecewise constant function object, see the web page
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>References</h3>
+
+<p>http://www.rni.helsinki.fi/~jsk/denpro/ </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="draw.pcf.html">draw.pcf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Elliptical copulas
+
+N&lt;-c(32,32)  # choose the grid size
+copula&lt;-c("gauss","student")
+margin&lt;-c("normal","student","unif")
+b&lt;-4
+support&lt;-c(-b,b,-b,b)
+
+ci&lt;-1        # copula, ci = 1, 2
+r&lt;-0.5       # parameter of the copula
+df&lt;-2        # degrees of freedom for the Student copula 
+
+mi&lt;-1        # margin, mi = 1, 2, 3
+sig&lt;-c(1,1)  # std:s for the margins
+t&lt;-c(2,2)    # degreeds of freedom for the student margin
+
+ef&lt;-pcf.func(copula[ci],N,marginal=margin[mi],support=support,
+             r=r,df=df,sig=sig,t=t)
+
+dp&lt;-draw.pcf(ef)
+contour(dp$x,dp$y,dp$z)   
+
+persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+
+# Archimedean copulas
+
+N&lt;-c(32,32)  # choose the grid size
+copula&lt;-c("gumbel","frank","clayton")
+margin&lt;-c("normal","student","unif")
+b&lt;-4
+support&lt;-c(-b,b,-b,b)
+
+ci&lt;-1        # copula, ci = 1, 2, 3
+g&lt;-2         # parameter of the copula
+
+mi&lt;-1        # margin, mi = 1, 2, 3
+sig&lt;-c(1,1)  # std:s for the margins
+t&lt;-c(2,2)    # degreeds of freedom for the student margin
+
+ef&lt;-pcf.func(copula[ci],N,marginal=margin[mi],support=support,
+             g=g,sig=sig,t=t)
+
+dp&lt;-draw.pcf(ef)
+contour(dp$x,dp$y,dp$z)   
+
+persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+
+# mixture of Gaussians
+
+d&lt;-2
+mixnum&lt;-3               #we simulate a mixture of three Gaussians
+M&lt;-matrix(0,mixnum,d)   #rows of M contain the means of members of the mixture
+M[1,]&lt;-c(0,0)   
+M[2,]&lt;-c(4,0)  
+M[3,]&lt;-c(0,4)   
+sig&lt;-matrix(1,mixnum,d) #rows of sig contain the std:s ot the marginals
+p0&lt;-1/mixnum
+p&lt;-p0*rep(1,mixnum)     #p is a vector of weights for the mixture members
+N&lt;-c(50,50)
+
+pcf&lt;-pcf.func("mixt",N,sig=sig,M=M,p=p) 
+
+dp&lt;-draw.pcf(pcf,pnum=c(30,30))
+contour(dp$x,dp$y,dp$z,drawlabels=FALSE)
+persp(dp$x,dp$y,dp$z)
+
+# skewed Gaussian
+
+func&lt;-"skewgauss"
+N&lt;-c(50,50)
+support&lt;-c(-6,2,-6,2)
+mu&lt;-c(0,0)
+sig&lt;-c(3,1)
+alpha&lt;-c(6,0)
+theta&lt;--3*pi/4
+
+pcf&lt;-pcf.func(func,N,support=support,mu=mu,sig=sig,
+               alpha=alpha,theta=theta)
+
+dp&lt;-draw.pcf(pcf,pnum=c(60,60))
+
+contour(dp$x,dp$y,dp$z)
+
+persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+
+# product of univariate Student densities
+
+func&lt;-"prod"
+marginal&lt;-"student"
+b&lt;-5; support&lt;-c(-b,b,-b,b)
+N&lt;-c(32,32)                 # choose the grid size
+t&lt;-0.5                      # degrees of freedom                 
+ef&lt;-pcf.func(func,N,t=t,support=support,marginal=marginal)
+
+dp&lt;-draw.pcf(ef)
+contour(dp$x,dp$y,dp$z)   
+
+persp(dp$x,dp$y,dp$z,theta=30,phi=30) 
+
+# Bartlett-Epanechnikov
+
+func&lt;-"epan"
+N&lt;-c(50,50)
+sig&lt;-c(1,1)
+
+ef&lt;-pcf.func(func,N,sig)
+
+dp&lt;-draw.pcf(ef)
+contour(dp$x,dp$y,dp$z)
+
+persp(dp$x,dp$y,dp$z,theta=30,phi=30)   
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a copy of a SAGA grid file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsaga.copy.sgrd {RSAGA}"><tr><td>rsaga.copy.sgrd {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a copy of a SAGA grid file</h2>
+
+<h3>Description</h3>
+
+<p>Creates a copy of a SAGA grid file, optionally overwriting the target file if it already exists. Intended mainly for internal use by RSAGA functions, currently in particular <code><a href="rsaga.inverse.distance.html">rsaga.inverse.distance</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsaga.copy.sgrd(in.grid, out.grid, overwrite = TRUE, env = rsaga.env())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>in.grid</code></td>
+<td>
+<p>name of a SAGA GIS grid file; file extension can be omitted</p>
+</td></tr>
+<tr valign="top"><td><code>out.grid</code></td>
+<td>
+<p>name of a SAGA GIS grid file; file extension can be omitted</p>
+</td></tr>
+<tr valign="top"><td><code>overwrite</code></td>
+<td>
+<p>logical; if <code>TRUE</code> (the default), overwrite <code>out.grid</code> if it already exists; if <code>FALSE</code> and the <code>out.grid</code> already exists, copying will be skipped without causing an error.</p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>a SAGA geoprocessing environment as created by <code><a href="rsaga.env.html">rsaga.env</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>SAGA grid files consist of three (or more) individual files with file extensions <code>.mgrd</code>, <code>.sgrd</code> and <code>.sdat</code>. The files with these three file extensions are copied, any additional files (e.g. a history file) are ignored.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

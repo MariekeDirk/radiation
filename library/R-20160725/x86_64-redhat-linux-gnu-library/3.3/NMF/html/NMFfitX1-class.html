@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Structure for Storing the Best Fit Amongst Multiple NMF Runs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFfitX1-class {NMF}"><tr><td>NMFfitX1-class {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Structure for Storing the Best Fit Amongst Multiple NMF Runs</h2>
+
+<h3>Description</h3>
+
+<p>This class is used to return the result from a multiple
+run of a single NMF algorithm performed with function
+<code>nmf</code> with the &ndash; default &ndash; option
+<code>keep.all=FALSE</code> (cf. <code><a href="nmf.html">nmf</a></code>).
+</p>
+
+
+<h3>Details</h3>
+
+<p>It extends both classes <code><a href="NMFfitX-class.html">NMFfitX</a></code> and
+<code><a href="NMFfit-class.html">NMFfit</a></code>, and stores a the result of
+the best fit in its <code>NMFfit</code> structure.
+</p>
+<p>Beside the best fit, this class allows to hold data about
+the computation of the multiple runs, such as the number
+of runs, the CPU time used to perform all the runs, as
+well as the consensus matrix.
+</p>
+<p>Due to the inheritance from class <code>NMFfit</code>, objects
+of class <code>NMFfitX1</code> can be handled exactly as the
+results of single NMF run &ndash; as if only the best run had
+been performed.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>consensus</dt><dd><p>object of class <code>matrix</code> used to
+store the consensus matrix based on all the runs.</p>
+</dd>
+<dt>nrun</dt><dd><p>an <code>integer</code> that contains the number of
+runs performed to compute the object.</p>
+</dd>
+<dt>rng1</dt><dd><p>an object that contains RNG settings used for
+the first run. See <code><a href="RNG.html">getRNG1</a></code>.</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>consensus</dt><dd><p><code>signature(object = "NMFfitX1")</code>:
+The result is the matrix stored in slot
+&lsquo;consensus&rsquo;. This method returns <code>NULL</code> if
+the consensus matrix is empty. </p>
+</dd>
+<dt>fit</dt><dd><p><code>signature(object = "NMFfitX1")</code>: Returns
+the model object associated with the best fit, amongst
+all the runs performed when fitting <code>object</code>.
+</p>
+<p>Since <code>NMFfitX1</code> objects only hold the best fit,
+this method simply returns the NMF model fitted by
+<code>object</code> &ndash; that is stored in slot &lsquo;fit&rsquo;. </p>
+</dd>
+<dt>getRNG1</dt><dd><p><code>signature(object = "NMFfitX1")</code>:
+Returns the RNG settings used to compute the first of all
+NMF runs, amongst which <code>object</code> was selected as the
+best fit. </p>
+</dd>
+<dt>minfit</dt><dd><p><code>signature(object = "NMFfitX1")</code>:
+Returns the fit object associated with the best fit,
+amongst all the runs performed when fitting
+<code>object</code>.
+</p>
+<p>Since <code>NMFfitX1</code> objects only hold the best fit,
+this method simply returns <code>object</code> coerced into an
+<code>NMFfit</code> object. </p>
+</dd>
+<dt>nmf.equal</dt><dd><p><code>signature(x = "NMFfitX1", y =
+  "NMFfitX1")</code>: Compares the NMF models fitted by multiple
+runs, that only kept the best fits. </p>
+</dd>
+<dt>nrun</dt><dd><p><code>signature(object = "NMFfitX1")</code>:
+Returns the number of NMF runs performed, amongst which
+<code>object</code> was selected as the best fit. </p>
+</dd>
+<dt>show</dt><dd><p><code>signature(object = "NMFfitX1")</code>: Show
+method for objects of class <code>NMFfitX1</code> </p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+<p>Other multipleNMF: <code><a href="NMFfitX-class.html">NMFfitX-class</a></code>,
+<code><a href="NMFfitXn-class.html">NMFfitXn-class</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# generate a synthetic dataset with known classes
+n &lt;- 20; counts &lt;- c(5, 2, 3);
+V &lt;- syntheticNMF(n, counts)
+
+# get the class factor
+groups &lt;- V$pData$Group
+
+# perform multiple runs of one algorithm, keeping only the best fit (default)
+#i.e.: the implicit nmf options are .options=list(keep.all=FALSE) or .options='-k'
+res &lt;- nmf(V, 3, nrun=3)
+res
+
+# compute summary measures
+summary(res)
+# get more info
+summary(res, target=V, class=groups)
+
+# show computational time
+runtime.all(res)
+
+# plot the consensus matrix, as stored (pre-computed) in the object
+## Not run:  consensusmap(res, annCol=groups) 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

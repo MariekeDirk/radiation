@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkFileChooserSetFile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkFileChooserSetFile {RGtk2}"><tr><td>gtkFileChooserSetFile {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkFileChooserSetFile</h2>
+
+<h3>Description</h3>
+
+<p>Sets <code>file</code> as the current filename for the file chooser, by changing
+to the file's parent folder and actually selecting the file in list.  If
+the <code>chooser</code> is in <code>GTK_FILE_CHOOSER_ACTION_SAVE</code> mode, the file's base name
+will also appear in the dialog's file name entry.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkFileChooserSetFile(object, file, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkFileChooser.html">GtkFileChooser</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">file</code></code></td>
+<td>
+<p>the <code><a href="GFile.html">GFile</a></code> to set as current</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the file name isn't in the current folder of <code>chooser</code>, then the current
+folder of <code>chooser</code> will be changed to the folder containing <code>filename</code>. This
+is equivalent to a sequence of <code><a href="gtkFileChooserUnselectAll.html">gtkFileChooserUnselectAll</a></code> followed by
+<code><a href="gtkFileChooserSelectFilename.html">gtkFileChooserSelectFilename</a></code>.
+</p>
+<p>Note that the file must exist, or nothing will be done except
+for the directory change.
+</p>
+<p>If you are implementing a <em>File/Save As...</em> dialog,
+you should use this function if you already have a file name to which the
+user may save; for example, when the user opens an existing file and then
+does <em>File/Save As...</em> on it.  If you don't have
+a file name already &ndash; for example, if the user just created a new
+file and is saving it for the first time, do not call this function.
+Instead, use something similar to this:
+</p>
+<pre>if (document_is_new)
+  {
+    /* the user just created a new document */
+    gtk_file_chooser_set_current_folder_file (chooser, default_file_for_saving);
+    gtk_file_chooser_set_current_name (chooser, "Untitled document");
+  }
+else
+  {
+    /* the user edited an existing document */
+    gtk_file_chooser_set_file (chooser, existing_file);
+  }
+</pre>
+<p>Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if both the folder could be changed and the file was
+selected successfully, <code>FALSE</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>location to store the error, or <code>NULL</code> to ignore errors. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

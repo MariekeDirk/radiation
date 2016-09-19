@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowResize</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowResize {RGtk2}"><tr><td>gtkWindowResize {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowResize</h2>
+
+<h3>Description</h3>
+
+<p>Resizes the window as if the user had done so, obeying geometry
+constraints. The default geometry constraint is that windows may
+not be smaller than their size request; to override this
+constraint, call <code><a href="gtkWidgetSetSizeRequest.html">gtkWidgetSetSizeRequest</a></code> to set the window's
+request to a smaller value.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowResize(object, width, height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>width in pixels to resize the window to</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>height in pixels to resize the window to</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code><a href="gtkWindowResize.html">gtkWindowResize</a></code> is called before showing a window for the
+first time, it overrides any default size set with
+<code><a href="gtkWindowSetDefaultSize.html">gtkWindowSetDefaultSize</a></code>.
+</p>
+<p>Windows may not be resized smaller than 1 by 1 pixels.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

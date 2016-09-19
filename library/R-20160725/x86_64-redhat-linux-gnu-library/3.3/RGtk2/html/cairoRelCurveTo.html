@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoRelCurveTo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoRelCurveTo {RGtk2}"><tr><td>cairoRelCurveTo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoRelCurveTo</h2>
+
+<h3>Description</h3>
+
+<p>Relative-coordinate version of <code><a href="cairoCurveTo.html">cairoCurveTo</a></code>. All offsets are
+relative to the current point. Adds a cubic B&lt;U+00E9&gt;zier spline to the
+path from the current point to a point offset from the current
+point by (<code>dx3</code>, <code>dy3</code>), using points offset by (<code>dx1</code>, <code>dy1</code>) and
+(<code>dx2</code>, <code>dy2</code>) as the control points. After this call the current
+point will be offset by (<code>dx3</code>, <code>dy3</code>).</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoRelCurveTo(cr, dx1, dy1, dx2, dy2, dx3, dy3)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dx1</code></code></td>
+<td>
+<p>[numeric]  the X offset to the first control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dy1</code></code></td>
+<td>
+<p>[numeric]  the Y offset to the first control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dx2</code></code></td>
+<td>
+<p>[numeric]  the X offset to the second control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dy2</code></code></td>
+<td>
+<p>[numeric]  the Y offset to the second control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dx3</code></code></td>
+<td>
+<p>[numeric]  the X offset to the end of the curve</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dy3</code></code></td>
+<td>
+<p>[numeric]  the Y offset to the end of the curve</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Given a current point of (x, y), cairo_rel_curve_to(<code>cr</code>, <code>dx1</code>,
+<code>dy1</code>, <code>dx2</code>, <code>dy2</code>, <code>dx3</code>, <code>dy3</code>) is logically equivalent to
+cairo_curve_to(<code>cr</code>, x+<code>dx1</code>, y+<code>dy1</code>, x+<code>dx2</code>, y+<code>dy2</code>, x+<code>dx3</code>, y+<code>dy3</code>).
+</p>
+<p>It is an error to call this function with no current point. Doing
+so will cause <code>cr</code> to shutdown with a status of
+<code>CAIRO_STATUS_NO_CURRENT_POINT</code>.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

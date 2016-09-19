@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Preparation of K-Select Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sahrlocs2kselect {adehabitat}"><tr><td>sahrlocs2kselect {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Preparation of K-Select Analysis</h2>
+
+<h3>Description</h3>
+
+<p><code>sahrlocs2kselect</code> converts an object of class sahrlocs into a
+list that contains the arguments needed for a kselect analysis (see
+<code>help(kselect)</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sahrlocs2kselect(sahr)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sahr</code></td>
+<td>
+<p>an object of class <code>sahrlocs</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>tab</code></td>
+<td>
+<p>a data frame giving the habitat composition of the home range of
+animals</p>
+</td></tr>
+<tr valign="top"><td><code>factor</code></td>
+<td>
+<p>a factor giving for each row of <code>tab</code> the name of the
+corresponding animal</p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+<p>a numeric vector giving for each row of <code>tab</code> the number
+of relocations numbered in this cell of the raster map</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Calenge, C., Dufour, A.B. and Maillard,
+D. (<em>submitted</em>). K-select analysis, a new method to analyse
+habitat selection in radio-tracking studies.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.sahrlocs.html">as.sahrlocs</a></code> for additional information on the
+objects of class <code>sahrlocs</code>, <code><a href="kselect.html">kselect</a></code> for a K-select
+analysis, and <code><a href="kasc2df.html">kasc2df</a></code> for additional information on
+the index component of the output.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+sahr &lt;- puechabon$sahr
+s &lt;- sahrlocs2kselect(sahr)
+
+# 1. PCA of the dataset
+pc &lt;- dudi.mix(s$tab, scannf = FALSE)
+
+# 2. k-select analysis
+kn &lt;- kselect(pc, s$factor, s$weight, scannf = FALSE)
+
+
+scatter(kn)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

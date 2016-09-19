@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Creates an S3 generic function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for setGenericS3 {R.methodsS3}"><tr><td>setGenericS3 {R.methodsS3}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Creates an S3 generic function</h2>
+
+<h3>Description</h3>
+
+<p><em>Note that this method is a internal method called by
+<code><a href="setMethodS3.html">setMethodS3</a></code>() and there is no reason for calling it directly!</em><br />
+</p>
+<p>Creates a generic function in S3 style, i.e. setting a
+function with name <code>name</code> that dispatches the method <code>name</code>
+via <code>UseMethod</code>. If there is already a function named <code>name</code>
+that function is renamed to <code>name.default</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## Default S3 method:
+setGenericS3(name, export=TRUE, envir=parent.frame(), dontWarn=getOption("dontWarnPkgs"),
+  validators=getOption("R.methodsS3:validators:setGenericS3"), overwrite=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>The name of the generic function.</p>
+</td></tr>
+<tr valign="top"><td><code>export</code></td>
+<td>
+<p>A <code><a href="../../base/html/logical.html">logical</a></code> setting attribute <code>"export"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>The environment for where this method should be stored.</p>
+</td></tr>
+<tr valign="top"><td><code>dontWarn</code></td>
+<td>
+<p>If a non-generic method with the same name is found it
+will be &quot;renamed&quot; to a default method. If that method is found in
+a package with a name that is <em>not</em> found in <code>dontWarn</code>
+a warning will be produced, otherwise it will be renamed silently.</p>
+</td></tr>
+<tr valign="top"><td><code>validators</code></td>
+<td>
+<p>An optional <code><a href="../../base/html/list.html">list</a></code> of <code><a href="../../base/html/function.html">function</a></code>s that can be used
+to assert that the generated generic function meets certain
+criteria.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Not used.</p>
+</td></tr>
+<tr valign="top"><td><code>overwrite</code></td>
+<td>
+<p>If <code><a href="../../base/html/logical.html">TRUE</a></code> an already existing generic function with
+the same name will be overwritten, otherwise not.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Henrik Bengtsson</p>
+
+
+<h3>See Also</h3>
+
+<p>To define a method for a class see <code><a href="setMethodS3.html">setMethodS3</a></code>().
+For more information about S3, see <code><a href="../../base/html/UseMethod.html">UseMethod</a></code>().
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+myCat.matrix &lt;- function(..., sep=", ") {
+  cat("A matrix:\n")
+  cat(..., sep=sep)
+  cat("\n")
+}
+
+myCat.default &lt;- function(..., sep=", ") {
+  cat(..., sep=sep)
+  cat("\n")
+}
+
+setGenericS3("myCat")
+
+myCat(1:10)
+mat &lt;- matrix(1:10, ncol=5)
+myCat(mat)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>R.methodsS3</em> version 1.7.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

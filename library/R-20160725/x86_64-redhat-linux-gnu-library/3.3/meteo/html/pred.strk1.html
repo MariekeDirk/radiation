@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatio-temporal regression kriging</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pred.strk1 {meteo}"><tr><td>pred.strk1 {meteo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatio-temporal regression kriging</h2>
+
+<h3>Description</h3>
+
+<p> Function for spatio-temporal regression kriging prediction based on <a href="../../gstat/html/krigeST.html">krigeST</a>. The prediction is made for points given in <a href="../../base/html/data.frame.html">data.frame</a>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pred.strk1(obs, stations, newdata, zero.tol=0,
+reg.coef=list(
+tmean=c(-0.126504415,0.4051734447,0.4943247727,0.0001837527,-0.0189207588),
+tmin = c(-0.9825601517,0.5672140021,0.3344561638, 0.0003119777,-0.0243629638),
+tmax = c(1.7873573081,0.350228076, 0.5569091092, 0.0002571338,-0.0012988123)
+)[['tmean']],
+vgm.model=list(tmean=vgmST("sumMetric",
+                                    space=vgm( 14.13, "Sph", 5903, 1.933),
+                                    time =vgm(0, "Sph",  0.1, 0),
+                                    joint=vgm(9.06, "Sph", 2054, 0.474),
+                                    stAni=497.9),
+                         tmin = vgmST("sumMetric",
+                                    space=vgm( 22.682, "Sph", 5725, 3.695),
+                                    time =vgm(0, "Sph",  0.1, 0),
+                                    joint=vgm(9.457, "Sph",1888, 1.67),
+                                    stAni=485),
+                         tmax = vgmST("sumMetric",
+                                    space=vgm( 8.31, "Sph", 4930, 2.872),
+                                    time =vgm(0, "Sph",  0.1, 0),
+                                    joint=vgm(11.175, "Sph", 2117, 1.75),
+                                    stAni=527) ) [['tmean']] ,
+computeVar=FALSE, out.remove=FALSE, threshold.res=15, returnList=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p> data.frame; observations data frame contains station ID column, time column (day of observation), measured variable column and ovariates columns (in exactly that order). It can contain additional variables (columns).</p>
+</td></tr>
+<tr valign="top"><td><code>stations</code></td>
+<td>
+<p> data.frame; Stations data frame contains at least station ID column, longitude (or x) and latitude (or y) column (in exactly that order).It can contain additional variables (columns).</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p> data.frame; predictions data frame contains longitude (or x) and latitude (or y) column, time column (day of prediction) and covariates columns (in exactly that order)</p>
+</td></tr>
+<tr valign="top"><td><code>zero.tol</code></td>
+<td>
+<p>distance values less than or equal to this threshold value locations are considered as duplicates, see <a href="rm.dupl.html">rm.dupl</a>, duplicates are removed to avoid singular covariance matrices in kriging.</p>
+</td></tr>
+<tr valign="top"><td><code>reg.coef</code></td>
+<td>
+<p>linear regression coefficients; order is assumed as intercept, <code>dynamic.cov</code>, <code>static.cov</code>. Coefficients can be specified by user; depending on type, number and order of dynamic and static covariates.  At the moment the function contains regression coefficient for mean, minimum and maximum temperature calculated globally for GSOD and ECA&amp;D data set on geometrical temperature trend, MODIS LST-8 day, elevation and TWI, see <a href="regdata.html">regdata</a>. Coefficients for mean temperature are defined by default.</p>
+</td></tr>
+<tr valign="top"><td><code>vgm.model</code></td>
+<td>
+<p>spatio-temporal variogram of regression residuals, see <a href="../../gstat/html/vgmST.html">vgmST</a>. At the moment the function contains spatio-temporal variogram model on residuals for mean, minimum and maximum temperature calculated globally for GSOD and ECA&amp;D data set. Regression residuals on geometrical temperature trend, MODIS LST-8 day, elevation and TWI, see <a href="regdata.html">regdata</a>. Ranges are in km. Spatio-temporal variogram for mean temperatures is defined by default. User can specified own variogram model as <a href="../../gstat/html/vgmST.html">vgmST</a> object.</p>
+</td></tr>
+<tr valign="top"><td><code>computeVar</code></td>
+<td>
+<p>if TRUE, just variance is computed</p>
+</td></tr>
+<tr valign="top"><td><code>out.remove</code></td>
+<td>
+<p>if TRUE, potential outliers are removed. Removing procedure is iterative, all location with residual higher than defined threshold (<code>treshold.res</code>) are selected. Only location with highest cross validation residual is removed, than cross validation is done again, the procedure removing one by one location run until all locations have residuals under defined threshold.  
+</p>
+</td></tr>
+<tr valign="top"><td><code>threshold.res</code></td>
+<td>
+<p>critical threshold for removing potential outliers</p>
+</td></tr>
+<tr valign="top"><td><code>returnList</code></td>
+<td>
+<p>if TRUE, result islist; if FALSE, result is data frame </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An list object containing:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>pred</code></td>
+<td>
+<p>an object of <a href="../../sp/html/SpatialPointsDataFrame-class.html">SpatialPointsDataFrame-class</a> with column contains prediction or variance</p>
+</td></tr>
+<tr valign="top"><td><code>cv</code></td>
+<td>
+<p>cross validation information for points used in prediction, as object of <a href="../../spacetime/html/STFDF-class.html">STFDF-class</a></p>
+</td></tr>
+<tr valign="top"><td><code>remst</code></td>
+<td>
+<p>removed locations as an object of <a href="../../sp/html/Spatial-class.html">Spatial-class</a>, if <code>out.remove=TRUE</code> </p>
+</td></tr>
+<tr valign="top"><td><code>remobs</code></td>
+<td>
+<p>removed locations with observations as an object of <a href="../../spacetime/html/STFDF-class.html">STFDF-class</a>, if <code>out.remove=TRUE</code> </p>
+</td></tr>
+</table>
+<p>A data frame object contains longitude (or x) and latitude (or y) column, time column (day of prediction) and prediction value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Aleksandar Sekulic <a href="mailto:asekulic@grf.bg.ac.rs">asekulic@grf.bg.ac.rs</a>, Milan Kilibarda <a href="mailto:kili@grf.bg.ac.rs">kili@grf.bg.ac.rs</a>  </p>
+
+
+<h3>References</h3>
+
+<p>Kilibarda, M., T. Hengl, G. B. M. Heuvelink, B. Graeler, E. Pebesma, M. Percec Tadic, and B. Bajat (2014), Spatio-temporal interpolation of daily temperatures for global land areas at 1 km resolution, J. Geophys. Res. Atmos., 119, 2294-2313, doi:10.1002/2013JD020803.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="regdata.html">regdata</a></code>
+<code><a href="meteo2STFDF.html">meteo2STFDF</a></code>
+<code><a href="tgeom2STFDF.html">tgeom2STFDF</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## prepare data
+## load observation - data.frame of mean temperatures
+data(dtempc) 
+str(dtempc)
+data(stations)
+library(sp)
+library(spacetime)
+library(gstat)
+
+#str(stations)
+## lonmin,lonmax,lonmax, lonmin   latmin, latnmin,latmax,latmax
+serbia= point.in.polygon(stations$lon, stations$lat, c(18,22.5,22.5,18), c(40,40,46,46))
+st= stations[ serbia!=0, ]
+## create STFDF
+temp &lt;- meteo2STFDF(dtempc,st)
+rm(dtempc)
+# str(temp)
+## Adding CRS
+temp@sp@proj4string &lt;- CRS('+proj=longlat +datum=WGS84')
+
+## load covariates for mean temperatures
+data(regdata)
+# str(regdata)
+regdata@sp@proj4string &lt;- CRS('+proj=longlat +datum=WGS84')
+
+#creating newdata
+pred &lt;- data.frame(regdata@sp@coords[1:5,1],regdata@sp@coords[1:5,2], 
+                  '2011-07-05', regdata@data$temp_geo[1:5], regdata@data$modis[1:5], 
+                  regdata@sp@data$dem[1:5], regdata@sp@data$twi[1:5])
+## pred names
+names(pred)=c("x", "y", "time", "temp_geo", "modis", "dem", "twi")
+
+#creating observation
+gg &lt;- regdata
+time &lt;- gg@time
+gg@data$dem = rep(gg@sp@data[,1],length(time))
+gg@data$twi = rep(gg@sp@data[,2],length(time))
+
+temp_geo &lt;- sapply(1:length(time),
+                function(i) over(temp@sp,as(gg[,i,'temp_geo'],'SpatialPixelsDataFrame')))
+modis &lt;- sapply(1:length(time),
+                function(i) over(temp@sp,as(gg[,i,'modis'],'SpatialPixelsDataFrame' ) ) )
+dem &lt;- sapply(1:length(time),
+              function(i) over(temp@sp,as(gg[,i,'dem'],'SpatialPixelsDataFrame' ) ) )
+twi &lt;- sapply(1:length(time),
+                function(i) over(temp@sp,as(gg[,i,'twi'],'SpatialPixelsDataFrame' ) ) )
+
+temp_geo &lt;- do.call('cbind',temp_geo)
+temp_geo &lt;- as.vector(temp_geo)
+modis &lt;- do.call('cbind',modis)
+modis &lt;- as.vector(modis)
+dem &lt;- do.call('cbind',dem)
+dem &lt;- as.vector(dem)
+twi &lt;- do.call('cbind',twi)
+twi &lt;- as.vector(twi)
+
+t1 &lt;- which(as.character(index(time[1])) == as.character( index(temp@time)) )
+t2 &lt;- which(as.character(index(time[ length(time) ])) == as.character(index(temp@time)) )
+
+temp &lt;- temp[,t1:t2, drop=FALSE]
+
+temp$temp_geo = temp_geo
+temp$modis = modis
+temp$dem = dem
+temp$twi = twi
+
+obs = as.data.frame(temp)[,c(7,4,11,12,13,14,15)]
+
+# Calculate prediction of points in pred data frame
+# global model is used for regression and variogram
+# load precalculated variograms
+data(tvgms)
+data(tregcoef)
+res= pred.strk1(obs,st, newdata= pred, 
+              reg.coef=tregcoef[[1]] ,vgm.model=tvgms[[1]], returnList=TRUE )
+
+#str(res)
+
+# res1= pred.strk1(obs,st, newdata= pred, reg.coef=tregcoef[[1]] ,vgm.model=tvgms[[1]], 
+#               returnList=FALSE, out.remove=TRUE, threshold.res=15 )
+
+# str(res1)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>meteo</em> version 0.1-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

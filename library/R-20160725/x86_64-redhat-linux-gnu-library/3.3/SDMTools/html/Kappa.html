@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Kappa Statistic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Kappa {SDMTools}"><tr><td>Kappa {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Kappa Statistic</h2>
+
+<h3>Description</h3>
+
+<p><code>Kappa</code> estimates the Kappa statistic for model
+accuracy.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Kappa(mat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>a confusion matrix of class 'confusion.matrix'
+from <code>confusion.matrix</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a single value represting the Kappa statistic.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="auc.html">auc</a></code>, <code><a href="omission.html">omission</a></code>,
+<code><a href="omission.html">sensitivity</a></code>, <code><a href="omission.html">specificity</a></code>,
+<code><a href="omission.html">prop.correct</a></code>, <code><a href="confusion.matrix.html">confusion.matrix</a></code>,
+<code><a href="accuracy.html">accuracy</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#create some data
+obs = c(sample(c(0,1),20,replace=TRUE),NA); obs = obs[order(obs)]
+pred = runif(length(obs),0,1); pred = pred[order(pred)]
+
+#calculate the confusion matrix
+mat = confusion.matrix(obs,pred,threshold=0.5)
+
+#calculate the Kappa statistic
+Kappa(mat)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

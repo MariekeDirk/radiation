@@ -1,0 +1,738 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Event Structures</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Event-Structures {RGtk2}"><tr><td>gdk-Event-Structures {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Event Structures</h2>
+
+<h3>Description</h3>
+
+<p>Data structures specific to each type of event</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The event structs contain data specific to each type of event in GDK.
+<strong>PLEASE NOTE:</strong> A common mistake is to forget to set the event mask of a widget so that the
+required events are received. See <code><a href="gtkWidgetSetEvents.html">gtkWidgetSetEvents</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkEventAny</code></dt><dd>
+<p>Contains the fields which are common to all event structs.
+Any event pointer can safely be cast to a pointer to a <code><a href="gdk-Event-Structures.html">GdkEventAny</a></code> to access
+these fields.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event.</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventKey</code></dt><dd>
+<p>Describes a key press or key release event.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_KEY_PRESS</code> or <code>GDK_KEY_RELEASE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric] a bit-mask representing the state of the modifier keys (e.g. Control,
+Shift and Alt) and the pointer buttons. See <code><a href="gdk-Windows.html">GdkModifierType</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">keyval</code></dt><dd><p>[numeric] the key that was pressed or released. See the
+&lsquo;<span class="file">&lt;gdk/gdkkeysyms.h&gt;</span>&rsquo;
+header file for a complete list of GDK key codes.</p>
+</dd>
+<dt><code style="white-space: pre;">length</code></dt><dd><p>[integer] the length of <code>string</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">string</code></dt><dd><p>[character] a string containing the an approximation of the text that
+would result from this keypress. The only correct way to handle text
+input of text is using input methods (see <code><a href="GtkIMContext.html">GtkIMContext</a></code>), so this
+field is deprecated and should never be used.
+(<code><a href="gdkUnicodeToKeyval.html">gdkUnicodeToKeyval</a></code> provides a non-deprecated way of getting
+an approximate translation for a key.) The string is encoded in the encoding
+of the current locale (Note: this for backwards compatibility:
+strings in GTK+ and GDK are typically in UTF-8.) and NUL-terminated.
+In some cases, the translation of the key code will be a single
+NUL byte, in which case looking at <code>length</code> is necessary to distinguish
+it from the an empty translation.</p>
+</dd>
+<dt><code style="white-space: pre;">hardwareKeycode</code></dt><dd><p>[integer] the raw code of the key that was pressed or released.</p>
+</dd>
+<dt><code style="white-space: pre;">group</code></dt><dd><p>[raw] the keyboard group.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventButton</code></dt><dd>
+<p>Used for button press and button release events. The
+<code>type</code> field will be one of <code>GDK_BUTTON_PRESS</code>,
+<code>GDK_2BUTTON_PRESS</code>, <code>GDK_3BUTTON_PRESS</code>, and <code>GDK_BUTTON_RELEASE</code>.
+</p>
+<p>Double and triple-clicks result in a sequence of events being received.
+For double-clicks the order of events will be:
+</p>
+
+<ol>
+<li> <p><code>GDK_BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_RELEASE</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_2BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_RELEASE</code>
+</p>
+</li></ol>
+
+<p>Note that the first click is received just like a normal
+button press, while the second click results in a <code>GDK_2BUTTON_PRESS</code> being
+received just after the <code>GDK_BUTTON_PRESS</code>.
+</p>
+<p>Triple-clicks are very similar to double-clicks, except that <code>GDK_3BUTTON_PRESS</code>
+is inserted after the third click. The order of the events is:
+</p>
+
+<ol>
+<li> <p><code>GDK_BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_RELEASE</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_2BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_RELEASE</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_3BUTTON_PRESS</code>
+</p>
+</li>
+<li> <p><code>GDK_BUTTON_RELEASE</code>
+</p>
+</li></ol>
+
+<p>For a double click to occur, the second button press must occur within 1/4 of
+a second of the first. For a triple click to occur, the third button press
+must also occur within 1/2 second of the first button press.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_BUTTON_PRESS</code>, <code>GDK_2BUTTON_PRESS</code>,
+<code>GDK_3BUTTON_PRESS</code> or <code>GDK_BUTTON_RELEASE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">x</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">y</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">axes</code></dt><dd><p>[numeric] <code>x</code>, <code>y</code> translated to the axes of <code>device</code>, or <code>NULL</code> if <code>device</code> is
+the mouse.</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric] a bit-mask representing the state of the modifier keys (e.g. Control,
+Shift and Alt) and the pointer buttons. See <code><a href="gdk-Windows.html">GdkModifierType</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">button</code></dt><dd><p>[numeric] the button which was pressed or released, numbered from 1 to 5.
+Normally button 1 is the left mouse button, 2 is the middle button,
+and 3 is the right button. On 2-button mice, the middle button can often
+be simulated by pressing both mouse buttons together.</p>
+</dd>
+<dt><code style="white-space: pre;">device</code></dt><dd><p>[<code><a href="gdk-Input-Devices.html">GdkDevice</a></code>] the device where the event originated.</p>
+</dd>
+<dt><code style="white-space: pre;">xRoot</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+<dt><code style="white-space: pre;">yRoot</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventScroll</code></dt><dd>
+<p>Generated from button presses for the buttons 4 to 7. Wheel mice are
+usually configured to generate button press events for buttons 4 and 5
+when the wheel is turned.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_SCROLL</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">x</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">y</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric] a bit-mask representing the state of the modifier keys (e.g. Control,
+Shift and Alt) and the pointer buttons. See <code><a href="gdk-Windows.html">GdkModifierType</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">direction</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkScrollDirection</a></code>] the direction to scroll to (one of <code>GDK_SCROLL_UP</code>,
+<code>GDK_SCROLL_DOWN</code>, <code>GDK_SCROLL_LEFT</code> and <code>GDK_SCROLL_RIGHT</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">device</code></dt><dd><p>[<code><a href="gdk-Input-Devices.html">GdkDevice</a></code>] the device where the event originated.</p>
+</dd>
+<dt><code style="white-space: pre;">xRoot</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+<dt><code style="white-space: pre;">yRoot</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventMotion</code></dt><dd>
+<p>Generated when the pointer moves.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event.</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">x</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">y</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">axes</code></dt><dd><p>[numeric] <code>x</code>, <code>y</code> translated to the axes of <code>device</code>, or <code>NULL</code> if <code>device</code> is
+the mouse.</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric] a bit-mask representing the state of the modifier keys (e.g. Control,
+Shift and Alt) and the pointer buttons. See <code><a href="gdk-Windows.html">GdkModifierType</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">isHint</code></dt><dd><p>[integer] set to 1 if this event is just a hint, see the <code>GDK_POINTER_MOTION_HINT_MASK</code>
+value of <code><a href="gdk-Events.html">GdkEventMask</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">device</code></dt><dd><p>[<code><a href="gdk-Input-Devices.html">GdkDevice</a></code>] the device where the event originated.</p>
+</dd>
+<dt><code style="white-space: pre;">xRoot</code></dt><dd><p>[numeric] the x coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+<dt><code style="white-space: pre;">yRoot</code></dt><dd><p>[numeric] the y coordinate of the pointer relative to the root of the screen.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventExpose</code></dt><dd>
+<p>Generated when all or part of a window becomes visible and needs to be
+redrawn.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_EXPOSE</code> or <code>GDK_DAMAGE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">area</code></dt><dd><p>[<code><a href="gdk-Points-Rectangles-and-Regions.html">GdkRectangle</a></code>] bounding box of <code>region</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">region</code></dt><dd><p>[<code><a href="gdk-Points-Rectangles-and-Regions.html">GdkRegion</a></code>] the region that needs to be redrawn.</p>
+</dd>
+<dt><code style="white-space: pre;">count</code></dt><dd><p>[integer] the number of contiguous <code>GDK_EXPOSE</code> events following this one.
+The only use for this is &quot;exposure compression&quot;, i.e. handling all contiguous
+<code>GDK_EXPOSE</code> events in one go, though GDK performs some exposure compression
+so this is not normally needed.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventVisibility</code></dt><dd>
+<p>Generated when the window visibility status has changed.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_VISIBILITY_NOTIFY</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkVisibilityState</a></code>] the new visibility state (<code>GDK_VISIBILITY_FULLY_OBSCURED</code>,
+<code>GDK_VISIBILITY_PARTIAL</code> or <code>GDK_VISIBILITY_UNOBSCURED</code>).</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventCrossing</code></dt><dd>
+<p>Generated when the pointer enters or leaves a window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_ENTER_NOTIFY</code> or <code>GDK_LEAVE_NOTIFY</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using
+<code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">context</code></dt><dd><p>[<code><a href="gdk-Drag-and-Drop.html">GdkDragContext</a></code>] the window that was entered or left.</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">xRoot</code></dt><dd><p>[integer] the x coordinate of the pointer relative to the window.</p>
+</dd>
+<dt><code style="white-space: pre;">yRoot</code></dt><dd><p>[integer] the y coordinate of the pointer relative to the window.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventFocus</code></dt><dd>
+<p>Describes a change of keyboard focus.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_FOCUS_CHANGE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">in</code></dt><dd><p>[integer] <code>TRUE</code> if the window has gained the keyboard focus, <code>FALSE</code> if it has lost
+the focus.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventConfigure</code></dt><dd>
+<p>Generated when a window size or position has changed.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_CONFIGURE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">x</code></dt><dd><p>[integer] the new x coordinate of the window, relative to its parent.</p>
+</dd>
+<dt><code style="white-space: pre;">y</code></dt><dd><p>[integer] the new y coordinate of the window, relative to its parent.</p>
+</dd>
+<dt><code style="white-space: pre;">width</code></dt><dd><p>[integer] the new width of the window.</p>
+</dd>
+<dt><code style="white-space: pre;">height</code></dt><dd><p>[integer] the new height of the window.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventProperty</code></dt><dd>
+<p>Describes a property change on a window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_PROPERTY_NOTIFY</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">atom</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the property that was changed.</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric] whether the property was changed (<code>GDK_PROPERTY_NEW_VALUE</code>) or
+deleted (<code>GDK_PROPERTY_DELETE</code>).</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventSelection</code></dt><dd>
+<p>Generated when a selection is requested or ownership of a selection
+is taken over by another client application.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_SELECTION_CLEAR</code>, <code>GDK_SELECTION_NOTIFY</code> or
+<code>GDK_SELECTION_REQUEST</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">selection</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the selection.</p>
+</dd>
+<dt><code style="white-space: pre;">target</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the target to which the selection should be converted.</p>
+</dd>
+<dt><code style="white-space: pre;">property</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the property in which to place the result of the conversion.</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">requestor</code></dt><dd><p>[<code><a href="GdkNativeWindow.html">GdkNativeWindow</a></code>] the native window on which to place <code>property</code>.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventDND</code></dt><dd>
+<p>Generated during DND operations.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_DRAG_ENTER</code>, <code>GDK_DRAG_LEAVE</code>,
+<code>GDK_DRAG_MOTION</code>, <code>GDK_DRAG_STATUS</code>, <code>GDK_DROP_START</code> or <code>GDK_DROP_FINISHED</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">context</code></dt><dd><p>[<code><a href="gdk-Drag-and-Drop.html">GdkDragContext</a></code>] the <code><a href="gdk-Drag-and-Drop.html">GdkDragContext</a></code> for the current DND operation.</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">xRoot</code></dt><dd><p>[integer] the x coordinate of the pointer relative to the root of the screen,
+only set for <code>GDK_DRAG_MOTION</code> and <code>GDK_DROP_START</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">yRoot</code></dt><dd><p>[integer] the y coordinate of the pointer relative to the root of the screen,
+only set for <code>GDK_DRAG_MOTION</code> and <code>GDK_DROP_START</code>.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventProximity</code></dt><dd>
+<p>Proximity events are generated when using GDK's wrapper for the
+XInput extension. The XInput extension is an add-on for standard X
+that allows you to use nonstandard devices such as graphics tablets.
+A proximity event indicates that the stylus has moved in or out of
+contact with the tablet, or perhaps that the user's finger has moved
+in or out of contact with a touch screen.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_PROXIMITY_IN</code> or <code>GDK_PROXIMITY_OUT</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the time of the event in milliseconds.</p>
+</dd>
+<dt><code style="white-space: pre;">device</code></dt><dd><p>[<code><a href="gdk-Input-Devices.html">GdkDevice</a></code>] the device where the event originated.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventClient</code></dt><dd>
+<p>An event sent by another client application.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_CLIENT_EVENT</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">messageType</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the type of the message, which can be defined by the
+application.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventNoExpose</code></dt><dd>
+<p>Generated when the area of a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code> being copied, with <code><a href="gdkDrawDrawable.html">gdkDrawDrawable</a></code>
+or <code>gdkWindowCopyArea()</code>, was completely available.
+</p>
+<p>FIXME: add more here.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_NO_EXPOSE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventWindowState</code></dt><dd>
+<p>Generated when the state of a toplevel window changes.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_WINDOW_STATE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">changedMask</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkWindowState</a></code>] mask specifying what flags have changed.</p>
+</dd>
+<dt><code style="white-space: pre;">newWindowState</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkWindowState</a></code>] the new window state, a combination of <code><a href="gdk-Event-Structures.html">GdkWindowState</a></code> bits.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventSetting</code></dt><dd>
+<p>Generated when a setting is modified.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_SETTING</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event.</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">action</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkSettingAction</a></code>] what happened to the setting (<code>GDK_SETTING_ACTION_NEW</code>,
+<code>GDK_SETTING_ACTION_CHANGED</code> or <code>GDK_SETTING_ACTION_DELETED</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">name</code></dt><dd><p>[char] the name of the setting.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventOwnerChange</code></dt><dd>
+<p>Generated when the owner of a selection changes. On X11, this information is
+only available if the X server supports the XFIXES extension.
+Since 2.6
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_OWNER_CHANGE</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">owner</code></dt><dd><p>[<code><a href="GdkNativeWindow.html">GdkNativeWindow</a></code>] the new owner of the selection</p>
+</dd>
+<dt><code style="white-space: pre;">reason</code></dt><dd><p>[<code><a href="gdk-Event-Structures.html">GdkOwnerChange</a></code>] the reason for the ownership change as a <code><a href="gdk-Event-Structures.html">GdkOwnerChange</a></code> value</p>
+</dd>
+<dt><code style="white-space: pre;">selection</code></dt><dd><p>[<code><a href="gdk-Properties-and-Atoms.html">GdkAtom</a></code>] the atom identifying the selection</p>
+</dd>
+<dt><code style="white-space: pre;">time</code></dt><dd><p>[numeric] the timestamp of the event</p>
+</dd>
+<dt><code style="white-space: pre;">selectionTime</code></dt><dd><p>[numeric] the time at which the selection ownership was taken over</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventGrabBroken</code></dt><dd>
+<p>Generated when a pointer or keyboard grab is broken. On X11, this happens
+when the grab window becomes unviewable (i.e. it or one of its ancestors
+is unmapped), or if the same application grabs the pointer or keyboard
+again. Note that implicit grabs (which are initiated by button presses)
+can also cause <code><a href="gdk-Event-Structures.html">GdkEventGrabBroken</a></code> events.
+Since 2.8
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Events.html">GdkEventType</a></code>] the type of the event (<code>GDK_GRAB_BROKEN</code>)</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the window which received the event, i.e. the window
+that previously owned the grab</p>
+</dd>
+<dt><code style="white-space: pre;">sendEvent</code></dt><dd><p>[raw] <code>TRUE</code> if the event was sent explicitly (e.g. using <code>xsendevent</code>).</p>
+</dd>
+<dt><code style="white-space: pre;">keyboard</code></dt><dd><p>[logical] <code>TRUE</code> if a keyboard grab was broken, <code>FALSE</code> if a pointer
+grab was broken</p>
+</dd>
+<dt><code style="white-space: pre;">implicit</code></dt><dd><p>[logical] <code>TRUE</code> if the broken grab was implicit</p>
+</dd>
+<dt><code style="white-space: pre;">grabWindow</code></dt><dd><p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] If this event is caused by another grab in the same
+application, <code>grab.window</code> contains the new grab window. Otherwise
+<code>grab.window</code> is <code>NULL</code>.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkScrollDirection</code></dt><dd>
+<p>Specifies the direction for <code><a href="gdk-Event-Structures.html">GdkEventScroll</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">up</code></dt><dd><p>the window is scrolled up.</p>
+</dd>
+<dt><code style="white-space: pre;">down</code></dt><dd><p>the window is scrolled down.</p>
+</dd>
+<dt><code style="white-space: pre;">left</code></dt><dd><p>the window is scrolled to the left.</p>
+</dd>
+<dt><code style="white-space: pre;">right</code></dt><dd><p>the window is scrolled to the right.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkVisibilityState</code></dt><dd>
+<p>Specifies the visiblity status of a window for a <code><a href="gdk-Event-Structures.html">GdkEventVisibility</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">unobscured</code></dt><dd><p>the window is completely visible.</p>
+</dd>
+<dt><code style="white-space: pre;">partial</code></dt><dd><p>the window is partially visible.</p>
+</dd>
+<dt><code style="white-space: pre;">fully-obscured</code></dt><dd><p>the window is not visible at all.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkCrossingMode</code></dt><dd>
+<p>Specifies the crossing mode for <code><a href="gdk-Event-Structures.html">GdkEventCrossing</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">normal</code></dt><dd><p>crossing because of pointer motion.</p>
+</dd>
+<dt><code style="white-space: pre;">grab</code></dt><dd><p>crossing because a grab is activated.</p>
+</dd>
+<dt><code style="white-space: pre;">ungrab</code></dt><dd><p>crossing because a grab is deactivated.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkNotifyType</code></dt><dd>
+<p>Specifies the kind of crossing for <code><a href="gdk-Event-Structures.html">GdkEventCrossing</a></code>.
+</p>
+<p>See the X11 protocol specification of <code style="white-space: pre;">LeaveNotify</code> for
+full details of crossing event generation.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">ancestor</code></dt><dd><p>the window is entered from an ancestor or 
+left towards an ancestor.</p>
+</dd>
+<dt><code style="white-space: pre;">virtual</code></dt><dd><p>the pointer moves between an ancestor and an 
+inferior of the window.</p>
+</dd>
+<dt><code style="white-space: pre;">inferior</code></dt><dd><p>the window is entered from an inferior or 
+left towards an inferior.</p>
+</dd>
+<dt><code style="white-space: pre;">nonlinear</code></dt><dd><p> the window is entered from or left towards 
+a window which is neither an ancestor nor an inferior.</p>
+</dd>
+<dt><code style="white-space: pre;">nonlinear-virtual</code></dt><dd><p>the pointer moves between two windows 
+which are not ancestors of each other and the window is part of
+the ancestor chain between one of these windows and their least
+common ancestor.</p>
+</dd>
+<dt><code style="white-space: pre;">unknown</code></dt><dd><p>an unknown type of enter/leave event occurred.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkPropertyState</code></dt><dd>
+<p>Specifies the type of a property change for a <code><a href="gdk-Event-Structures.html">GdkEventProperty</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">new-value</code></dt><dd><p>the property value was changed.</p>
+</dd>
+<dt><code style="white-space: pre;">delete</code></dt><dd><p>the property was deleted.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowState</code></dt><dd>
+<p>Specifies the state of a toplevel window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">withdrawn</code></dt><dd><p>the window is not shown.</p>
+</dd>
+<dt><code style="white-space: pre;">iconified</code></dt><dd><p>the window is minimized.</p>
+</dd>
+<dt><code style="white-space: pre;">maximized</code></dt><dd><p>the window is maximized.</p>
+</dd>
+<dt><code style="white-space: pre;">sticky</code></dt><dd><p>the window is sticky.</p>
+</dd>
+<dt><code style="white-space: pre;">fullscreen</code></dt><dd><p>the window is maximized without decorations.</p>
+</dd>
+<dt><code style="white-space: pre;">above</code></dt><dd><p>the window is kept above other windows.</p>
+</dd>
+<dt><code style="white-space: pre;">below</code></dt><dd><p>the window is kept below other windows.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkSettingAction</code></dt><dd>
+<p>Specifies the kind of modification applied to a setting in a <code><a href="gdk-Event-Structures.html">GdkEventSetting</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">new</code></dt><dd><p>a setting was added.</p>
+</dd>
+<dt><code style="white-space: pre;">changed</code></dt><dd><p>a setting was changed.</p>
+</dd>
+<dt><code style="white-space: pre;">deleted</code></dt><dd><p>a setting was deleted.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkOwnerChange</code></dt><dd>
+<p>Specifies why a selection ownership was changed.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">new-owner</code></dt><dd><p>some other app claimed the ownership</p>
+</dd>
+<dt><code style="white-space: pre;">destroy</code></dt><dd><p>the window was destroyed</p>
+</dd>
+<dt><code style="white-space: pre;">close</code></dt><dd><p>the client was closed</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Event-Structures.html">http://library.gnome.org/devel//gdk/gdk-Event-Structures.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

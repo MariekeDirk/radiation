@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vehicle Silhouettes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Vehicle {mlbench}"><tr><td>Vehicle {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vehicle Silhouettes</h2>
+
+<h3>Description</h3>
+
+<p>The purpose is to classify a given silhouette as one of four types
+of vehicle, using a set of features extracted from the
+silhouette. The vehicle may be viewed from one of many different
+angles. The features were extracted from the silhouettes by the HIPS
+(Hierarchical Image Processing System) extension BINATTS, which
+extracts a combination of scale independent features utilising both
+classical moments based measures such as scaled variance, skewness
+and kurtosis about the major/minor axes and heuristic measures such
+as hollows, circularity, rectangularity and compactness. 
+</p>
+<p>Four &quot;Corgie&quot; model vehicles were used for the experiment: a double
+decker bus, Cheverolet van, Saab 9000 and an Opel Manta 400. This
+particular combination of vehicles was chosen with the expectation
+that the bus, van and either one of the cars would be readily
+distinguishable, but it would be more difficult to distinguish
+between the cars. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(Vehicle)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 846 observations on 19 variables, all numerical
+and one nominal defining the class of the objects.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: center;">
+   [,1] </td><td style="text-align: left;"> Comp </td><td style="text-align: left;"> Compactness</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,2] </td><td style="text-align: left;"> Circ </td><td style="text-align: left;"> Circularity</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,3] </td><td style="text-align: left;"> D.Circ </td><td style="text-align: left;"> Distance Circularity</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,4] </td><td style="text-align: left;"> Rad.Ra </td><td style="text-align: left;"> Radius ratio</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,5] </td><td style="text-align: left;"> Pr.Axis.Ra </td><td style="text-align: left;"> pr.axis aspect ratio</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,6] </td><td style="text-align: left;"> Max.L.Ra </td><td style="text-align: left;"> max.length aspect ratio</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,7] </td><td style="text-align: left;"> Scat.Ra </td><td style="text-align: left;"> scatter ratio</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,8] </td><td style="text-align: left;"> Elong </td><td style="text-align: left;"> elongatedness</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   [,9] </td><td style="text-align: left;"> Pr.Axis.Rect </td><td style="text-align: left;"> pr.axis rectangularity</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,10] </td><td style="text-align: left;"> Max.L.Rect </td><td style="text-align: left;"> max.length rectangularity</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,11] </td><td style="text-align: left;"> Sc.Var.Maxis </td><td style="text-align: left;"> scaled variance along major axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,12] </td><td style="text-align: left;"> Sc.Var.maxis </td><td style="text-align: left;"> scaled variance along minor axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,13] </td><td style="text-align: left;"> Ra.Gyr </td><td style="text-align: left;"> scaled radius of gyration</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,14] </td><td style="text-align: left;"> Skew.Maxis </td><td style="text-align: left;"> skewness about major axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,15] </td><td style="text-align: left;"> Skew.maxis </td><td style="text-align: left;"> skewness about minor axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,16] </td><td style="text-align: left;"> Kurt.maxis </td><td style="text-align: left;"> kurtosis about minor axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,17] </td><td style="text-align: left;"> Kurt.Maxis </td><td style="text-align: left;"> kurtosis about major axis</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,18] </td><td style="text-align: left;"> Holl.Ra </td><td style="text-align: left;"> hollows ratio</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+  [,19] </td><td style="text-align: left;"> Class </td><td style="text-align: left;"> type
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Creator: Drs.Pete Mowforth and Barry Shepherd, Turing
+Institute, Glasgow, Scotland.   
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Evgenia Dimitriadou.
+</p>
+
+
+<h3>References</h3>
+
+<p>Turing Institute Research Memorandum TIRM-87-018 &quot;Vehicle
+Recognition Using Rule Based Methods&quot; by Siebert,JP (March 1987)
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Vehicle)
+summary(Vehicle)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

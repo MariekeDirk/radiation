@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkScrollbar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkScrollbar {RGtk2}"><tr><td>GtkScrollbar {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkScrollbar</h2>
+
+<h3>Description</h3>
+
+<p>Base class for GtkHScrollbar and GtkVScrollbar</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkRange
+                           +----GtkScrollbar
+                                 +----GtkHScrollbar
+                                 +----GtkVScrollbar</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkScrollbar implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkScrollbar.html">GtkScrollbar</a></code> widget is an abstract base class for <code><a href="GtkHScrollbar.html">GtkHScrollbar</a></code> and
+<code><a href="GtkVScrollbar.html">GtkVScrollbar</a></code>. It is not very useful in itself.
+</p>
+<p>The position of the thumb in a scrollbar is controlled by the scroll
+adjustments. See <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> for the fields in an adjustment - for
+<code><a href="GtkScrollbar.html">GtkScrollbar</a></code>, the &quot;value&quot; field represents the position of the
+scrollbar, which must be between the &quot;lower&quot; field and &quot;upper -
+page_size.&quot; The &quot;page_size&quot; field represents the size of the visible
+scrollable area. The &quot;step_increment&quot; and &quot;page_increment&quot; fields are
+used when the user asks to step down (using the small stepper arrows)
+or page down (using for example the PageDown key).</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkScrollbar</code></dt><dd>
+<p>The <code><a href="GtkScrollbar.html">GtkScrollbar</a></code> struct does not contain any public data.
+</p>
+</dd></dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">fixed-slider-length</code> [logical : Read]</dt><dd>
+<p>Don't change slider size, just lock it to the minimum length.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">has-backward-stepper</code> [logical : Read]</dt><dd>
+<p>Display the standard backward arrow button.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">has-forward-stepper</code> [logical : Read]</dt><dd>
+<p>Display the standard forward arrow button.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">has-secondary-backward-stepper</code> [logical : Read]</dt><dd>
+<p>Display a second backward arrow button on the opposite end of the scrollbar.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">has-secondary-forward-stepper</code> [logical : Read]</dt><dd>
+<p>Display a second forward arrow button on the opposite end of the scrollbar.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">min-slider-length</code> [integer : Read]</dt><dd>
+<p>Minimum length of scrollbar slider.  Allowed values: &gt;= 0  Default value: 21
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkScrollbar.html">http://library.gnome.org/devel//gtk/GtkScrollbar.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

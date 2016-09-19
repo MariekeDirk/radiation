@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkMenuToolButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkMenuToolButton {RGtk2}"><tr><td>GtkMenuToolButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkMenuToolButton</h2>
+
+<h3>Description</h3>
+
+<p>A GtkToolItem containing a button with an additional dropdown menu</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkMenuToolButtonNew.html">gtkMenuToolButtonNew</a>(icon.widget, label, show = TRUE)</code><br />
+<code><a href="gtkMenuToolButtonNewFromStock.html">gtkMenuToolButtonNewFromStock</a>(stock.id)</code><br />
+<code><a href="gtkMenuToolButtonSetMenu.html">gtkMenuToolButtonSetMenu</a>(object, menu)</code><br />
+<code><a href="gtkMenuToolButtonGetMenu.html">gtkMenuToolButtonGetMenu</a>(object)</code><br />
+<code><a href="gtkMenuToolButtonSetArrowTooltip.html">gtkMenuToolButtonSetArrowTooltip</a>(object, tooltips, tip.text = NULL, tip.private = NULL)</code><br />
+<code><a href="gtkMenuToolButtonSetArrowTooltip.html">gtkMenuToolButtonSetArrowTooltip</a>(object, tooltips, tip.text = NULL, tip.private = NULL)</code><br />
+<code><a href="gtkMenuToolButtonSetArrowTooltipText.html">gtkMenuToolButtonSetArrowTooltipText</a>(object, text)</code><br />
+<code><a href="gtkMenuToolButtonSetArrowTooltipMarkup.html">gtkMenuToolButtonSetArrowTooltipMarkup</a>(object, markup)</code><br />
+<code>gtkMenuToolButton(icon.widget, label, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkToolItem
+                                       +----GtkToolButton
+                                             +----GtkMenuToolButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkMenuToolButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>  A <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code> is a <code><a href="GtkToolItem.html">GtkToolItem</a></code> that contains a button and
+a small additional button with an arrow. When clicked, the arrow
+button pops up a dropdown menu.
+</p>
+<p>Use <code><a href="gtkMenuToolButtonNew.html">gtkMenuToolButtonNew</a></code> to create a new
+<code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code>. Use <code><a href="gtkMenuToolButtonNewFromStock.html">gtkMenuToolButtonNewFromStock</a></code> to
+create a new <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code> containing a stock item.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMenuToolButton</code></dt><dd>
+<p>The <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code> struct contains only private data and
+should only be accessed through the functions described below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkMenuToolButton</code> is the equivalent of <code><a href="gtkMenuToolButtonNew.html">gtkMenuToolButtonNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>show-menu(button, user.data)</code></dt><dd>
+<p>The ::show-menu signal is emitted before the menu is shown.
+</p>
+<p>It can be used to populate the menu on demand, using
+<code><a href="gtkMenuToolButtonGetMenu.html">gtkMenuToolButtonGetMenu</a></code>.
+</p>
+<p>Note that even if you populate the menu dynamically in this way,
+you must set an empty menu on the <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code> beforehand,
+since the arrow is made insensitive if the menu is not set.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">menu</code> [<code><a href="GtkMenu.html">GtkMenu</a></code> : *              : Read / Write]</dt><dd>
+<p>The dropdown menu.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkMenuToolButton.html">http://library.gnome.org/devel//gtk/GtkMenuToolButton.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

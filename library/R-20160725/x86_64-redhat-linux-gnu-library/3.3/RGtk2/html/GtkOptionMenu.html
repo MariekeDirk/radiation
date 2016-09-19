@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkOptionMenu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkOptionMenu {RGtk2}"><tr><td>GtkOptionMenu {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkOptionMenu</h2>
+
+<h3>Description</h3>
+
+<p>A widget used to choose from a list of valid choices</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkOptionMenuNew.html">gtkOptionMenuNew</a>(show = TRUE)</code><br />
+<code><a href="gtkOptionMenuGetMenu.html">gtkOptionMenuGetMenu</a>(object)</code><br />
+<code><a href="gtkOptionMenuSetMenu.html">gtkOptionMenuSetMenu</a>(object, menu)</code><br />
+<code><a href="gtkOptionMenuRemoveMenu.html">gtkOptionMenuRemoveMenu</a>(object)</code><br />
+<code><a href="gtkOptionMenuSetHistory.html">gtkOptionMenuSetHistory</a>(object, index)</code><br />
+<code><a href="gtkOptionMenuGetHistory.html">gtkOptionMenuGetHistory</a>(object)</code><br />
+<code>gtkOptionMenu(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkButton
+                                       +----GtkOptionMenu</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkOptionMenu implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> is a widget that allows the user to choose from a
+list of valid choices.  The <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> displays the selected
+choice.  When activated the <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> displays a popup <code><a href="GtkMenu.html">GtkMenu</a></code>
+which allows the user to make a new choice.
+</p>
+<p>Using a <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> is simple; build a <code><a href="GtkMenu.html">GtkMenu</a></code>, by calling
+<code><a href="gtkMenuNew.html">gtkMenuNew</a></code>, then appending menu items to it with
+<code><a href="gtkMenuShellAppend.html">gtkMenuShellAppend</a></code>. Set that menu on the option menu
+with <code><a href="gtkOptionMenuSetMenu.html">gtkOptionMenuSetMenu</a></code>. Set the selected menu item with
+<code><a href="gtkOptionMenuSetHistory.html">gtkOptionMenuSetHistory</a></code>; connect to the &quot;changed&quot; signal on
+the option menu; in the &quot;changed&quot; signal, check the new selected
+menu item with <code><a href="gtkOptionMenuGetHistory.html">gtkOptionMenuGetHistory</a></code>.
+</p>
+<p>As of GTK+ 2.4, <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> has been deprecated in favor of <code><a href="GtkComboBox.html">GtkComboBox</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkOptionMenu</code></dt><dd>
+<p><strong>WARNING: <code>GtkOptionMenu</code> has been deprecated since version 2.4 and should not be used in newly-written code. Use <code><a href="GtkComboBox.html">GtkComboBox</a></code> instead.</strong>
+The <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code> struct contains private data only, and
+should be accessed using the functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkOptionMenu</code> is the equivalent of <code><a href="gtkOptionMenuNew.html">gtkOptionMenuNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(optionmenu, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>optionmenu</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">menu</code> [<code><a href="GtkMenu.html">GtkMenu</a></code> : *              : Read / Write]</dt><dd>
+<p>The menu of options.
+</p>
+</dd></dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">indicator-size</code> [<code><a href="GtkWidget.html">GtkRequisition</a></code> : *       : Read]</dt><dd>
+<p>Size of dropdown indicator.
+</p>
+</dd>
+<dt><code style="white-space: pre;">indicator-spacing</code> [<code><a href="GtkStyle.html">GtkBorder</a></code> : *            : Read]</dt><dd>
+<p>Spacing around indicator.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkOptionMenu.html">http://library.gnome.org/devel//gtk/GtkOptionMenu.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

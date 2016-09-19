@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: K nearest neighbours for spatial weights</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for knearneigh {spdep}"><tr><td>knearneigh {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>K nearest neighbours for spatial weights</h2>
+
+<h3>Description</h3>
+
+<p>The function returns a matrix with the indices of points belonging to the set of the k nearest neighbours of each other. If longlat = TRUE, Great Circle distances are used. A warning will be given if identical points are found.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+knearneigh(x, k=1, longlat = NULL, RANN=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>matrix of point coordinates or a SpatialPoints object</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>number of nearest neighbours to be returned</p>
+</td></tr>
+<tr valign="top"><td><code>longlat</code></td>
+<td>
+<p>TRUE if point coordinates are longitude-latitude decimal degrees, in which case distances are measured in kilometers; if x is a SpatialPoints object, the value is taken from the object itself</p>
+</td></tr>
+<tr valign="top"><td><code>RANN</code></td>
+<td>
+<p>logical value, if the RANN package is available, use for finding k nearest neighbours when longlat is FALSE, and when there are no identical points</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The underlying C code is based on the <code>knn</code> function in the <span class="pkg">class</span> package.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of class <code>knn</code>
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>nn</code></td>
+<td>
+<p>integer matrix of region number ids</p>
+</td></tr>
+<tr valign="top"><td><code>np</code></td>
+<td>
+<p>number of input points</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>input required k</p>
+</td></tr>
+<tr valign="top"><td><code>dimension</code></td>
+<td>
+<p>number of columns of x</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>input coordinates</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../class/html/knn.html">knn</a></code>, <code><a href="dnearneigh.html">dnearneigh</a></code>,
+<code><a href="knn2nb.html">knn2nb</a></code>, <code><a href="../../RANN/html/nn2.html">nn2</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+col.knn &lt;- knearneigh(coords, k=4)
+plot(columbus, border="grey")
+plot(knn2nb(col.knn), coords, add=TRUE)
+title(main="K nearest neighbours, k = 4")
+data(state)
+us48.fipsno &lt;- read.geoda(system.file("etc/weights/us48.txt",
+ package="spdep")[1])
+if (as.numeric(paste(version$major, version$minor, sep="")) &lt; 19) {
+ m50.48 &lt;- match(us48.fipsno$"State.name", state.name)
+} else {
+ m50.48 &lt;- match(us48.fipsno$"State_name", state.name)
+}
+xy &lt;- as.matrix(as.data.frame(state.center))[m50.48,]
+llk4.nb &lt;- knn2nb(knearneigh(xy, k=4, longlat=FALSE))
+gck4.nb &lt;- knn2nb(knearneigh(xy, k=4, longlat=TRUE))
+plot(llk4.nb, xy)
+plot(diffnb(llk4.nb, gck4.nb), xy, add=TRUE, col="red", lty=2)
+title(main="Differences between Euclidean and Great Circle k=4 neighbours")
+summary(llk4.nb, xy, longlat=TRUE)
+summary(gck4.nb, xy, longlat=TRUE)
+
+xy1 &lt;- SpatialPoints((as.data.frame(state.center))[m50.48,],
+  proj4string=CRS("+proj=longlat +ellps=GRS80"))
+gck4a.nb &lt;- knn2nb(knearneigh(xy1, k=4))
+summary(gck4a.nb, xy1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileHasPrefix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileHasPrefix {RGtk2}"><tr><td>gFileHasPrefix {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileHasPrefix</h2>
+
+<h3>Description</h3>
+
+<p>Checks whether <code>file</code> has the prefix specified by <code>prefix</code>. In other word, 
+if the names of inital elements of <code>file</code>s pathname match <code>prefix</code>.
+Only full pathname elements are matched, so a path like /foo is not
+considered a prefix of /foobar, only of /foo/bar.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileHasPrefix(object, descendant)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">descendant</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This call does no i/o, as it works purely on names. As such it can 
+sometimes return <code>FALSE</code> even if <code>file</code> is inside a <code>prefix</code> (from a 
+filesystem point of view), because the prefix of <code>file</code> is an alias 
+of <code>prefix</code>.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the <code>files</code>'s parent, grandparent, etc is <code>prefix</code>.
+<code>FALSE</code> otherwise.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

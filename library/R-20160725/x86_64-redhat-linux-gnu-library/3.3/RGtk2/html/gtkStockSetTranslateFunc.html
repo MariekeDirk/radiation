@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkStockSetTranslateFunc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkStockSetTranslateFunc {RGtk2}"><tr><td>gtkStockSetTranslateFunc {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkStockSetTranslateFunc</h2>
+
+<h3>Description</h3>
+
+<p>Sets a function to be used for translating the <code>label</code> of 
+a stock item.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkStockSetTranslateFunc(domain, func, data)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">domain</code></code></td>
+<td>
+<p>the translation domain for which <code>func</code> shall be used</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">func</code></code></td>
+<td>
+<p>a <code><a href="GtkItemFactory.html">GtkTranslateFunc</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>data to pass to <code>func</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If no function is registered for a translation domain,
+<code>gDgettext()</code> is used.
+</p>
+<p>The function is used for all stock items whose
+<code>translation.domain</code> matches <code>domain</code>. Note that it is possible
+to use strings different from the actual gettext translation domain
+of your application for this, as long as your <code><a href="GtkItemFactory.html">GtkTranslateFunc</a></code> uses
+the correct domain when calling <code>dgettext()</code>. This can be useful, e.g.
+when dealing with message contexts:
+</p>
+<pre>GtkStockItem items[] = { 
+ { MY_ITEM1, NC_("odd items", "Item 1"), 0, 0, "odd-item-domain" },
+ { MY_ITEM2, NC_("even items", "Item 2"), 0, 0, "even-item-domain" },
+};
+
+gchar *
+my_translate_func (const gchar *msgid,
+                   gpointer     data)
+{
+  gchar *msgctxt = data;
+
+  return (gchar*)g_dpgettext2 (GETTEXT_PACKAGE, msgctxt, msgid);
+}
+
+/* ... */
+
+gtk_stock_add (items, G_N_ELEMENTS (items));
+gtk_stock_set_translate_func ("odd-item-domain", my_translate_func, "odd items"); 
+gtk_stock_set_translate_func ("even-item-domain", my_translate_func, "even items"); 
+</pre><p>  Since 2.8</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

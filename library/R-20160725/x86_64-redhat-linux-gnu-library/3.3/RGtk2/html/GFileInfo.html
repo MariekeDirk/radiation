@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFileInfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFileInfo {RGtk2}"><tr><td>GFileInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFileInfo</h2>
+
+<h3>Description</h3>
+
+<p>File Information and Attributes</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileInfoNew.html">gFileInfoNew</a>()</code><br />
+<code><a href="gFileInfoDup.html">gFileInfoDup</a>(object)</code><br />
+<code><a href="gFileInfoCopyInto.html">gFileInfoCopyInto</a>(object, dest.info)</code><br />
+<code><a href="gFileInfoHasAttribute.html">gFileInfoHasAttribute</a>(object, attribute)</code><br />
+<code><a href="gFileInfoHasNamespace.html">gFileInfoHasNamespace</a>(object, name.space)</code><br />
+<code><a href="gFileInfoListAttributes.html">gFileInfoListAttributes</a>(object, name.space)</code><br />
+<code><a href="gFileInfoGetAttributeType.html">gFileInfoGetAttributeType</a>(object, attribute)</code><br />
+<code><a href="gFileInfoRemoveAttribute.html">gFileInfoRemoveAttribute</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeAsString.html">gFileInfoGetAttributeAsString</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeData.html">gFileInfoGetAttributeData</a>(object, attribute, type, status)</code><br />
+<code><a href="gFileInfoGetAttributeStatus.html">gFileInfoGetAttributeStatus</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeString.html">gFileInfoGetAttributeString</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeStringv.html">gFileInfoGetAttributeStringv</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeByteString.html">gFileInfoGetAttributeByteString</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeBoolean.html">gFileInfoGetAttributeBoolean</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeUint32.html">gFileInfoGetAttributeUint32</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeInt32.html">gFileInfoGetAttributeInt32</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeUint64.html">gFileInfoGetAttributeUint64</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeInt64.html">gFileInfoGetAttributeInt64</a>(object, attribute)</code><br />
+<code><a href="gFileInfoGetAttributeObject.html">gFileInfoGetAttributeObject</a>(object, attribute)</code><br />
+<code><a href="gFileInfoSetAttribute.html">gFileInfoSetAttribute</a>(object, attribute, type, value.p)</code><br />
+<code><a href="gFileInfoSetAttributeStatus.html">gFileInfoSetAttributeStatus</a>(object, attribute, status)</code><br />
+<code><a href="gFileInfoSetAttributeString.html">gFileInfoSetAttributeString</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeStringv.html">gFileInfoSetAttributeStringv</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeByteString.html">gFileInfoSetAttributeByteString</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeBoolean.html">gFileInfoSetAttributeBoolean</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeUint32.html">gFileInfoSetAttributeUint32</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeInt32.html">gFileInfoSetAttributeInt32</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeUint64.html">gFileInfoSetAttributeUint64</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeInt64.html">gFileInfoSetAttributeInt64</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoSetAttributeObject.html">gFileInfoSetAttributeObject</a>(object, attribute, attr.value)</code><br />
+<code><a href="gFileInfoClearStatus.html">gFileInfoClearStatus</a>(object)</code><br />
+<code><a href="gFileInfoGetFileType.html">gFileInfoGetFileType</a>(object)</code><br />
+<code><a href="gFileInfoGetIsHidden.html">gFileInfoGetIsHidden</a>(object)</code><br />
+<code><a href="gFileInfoGetIsBackup.html">gFileInfoGetIsBackup</a>(object)</code><br />
+<code><a href="gFileInfoGetIsSymlink.html">gFileInfoGetIsSymlink</a>(object)</code><br />
+<code><a href="gFileInfoGetName.html">gFileInfoGetName</a>(object)</code><br />
+<code><a href="gFileInfoGetDisplayName.html">gFileInfoGetDisplayName</a>(object)</code><br />
+<code><a href="gFileInfoGetEditName.html">gFileInfoGetEditName</a>(object)</code><br />
+<code><a href="gFileInfoGetIcon.html">gFileInfoGetIcon</a>(object)</code><br />
+<code><a href="gFileInfoGetContentType.html">gFileInfoGetContentType</a>(object)</code><br />
+<code><a href="gFileInfoGetSize.html">gFileInfoGetSize</a>(object)</code><br />
+<code><a href="gFileInfoGetModificationTime.html">gFileInfoGetModificationTime</a>(object, result)</code><br />
+<code><a href="gFileInfoGetSymlinkTarget.html">gFileInfoGetSymlinkTarget</a>(object)</code><br />
+<code><a href="gFileInfoGetEtag.html">gFileInfoGetEtag</a>(object)</code><br />
+<code><a href="gFileInfoGetSortOrder.html">gFileInfoGetSortOrder</a>(object)</code><br />
+<code><a href="gFileInfoSetAttributeMask.html">gFileInfoSetAttributeMask</a>(object, mask)</code><br />
+<code><a href="gFileInfoUnsetAttributeMask.html">gFileInfoUnsetAttributeMask</a>(object)</code><br />
+<code><a href="gFileInfoSetFileType.html">gFileInfoSetFileType</a>(object, type)</code><br />
+<code><a href="gFileInfoSetIsHidden.html">gFileInfoSetIsHidden</a>(object, is.hidden)</code><br />
+<code><a href="gFileInfoSetIsSymlink.html">gFileInfoSetIsSymlink</a>(object, is.symlink)</code><br />
+<code><a href="gFileInfoSetName.html">gFileInfoSetName</a>(object, name)</code><br />
+<code><a href="gFileInfoSetDisplayName.html">gFileInfoSetDisplayName</a>(object, display.name)</code><br />
+<code><a href="gFileInfoSetEditName.html">gFileInfoSetEditName</a>(object, edit.name)</code><br />
+<code><a href="gFileInfoSetIcon.html">gFileInfoSetIcon</a>(object, icon)</code><br />
+<code><a href="gFileInfoSetContentType.html">gFileInfoSetContentType</a>(object, content.type)</code><br />
+<code><a href="gFileInfoSetSize.html">gFileInfoSetSize</a>(object, size)</code><br />
+<code><a href="gFileInfoSetModificationTime.html">gFileInfoSetModificationTime</a>(object, mtime)</code><br />
+<code><a href="gFileInfoSetSymlinkTarget.html">gFileInfoSetSymlinkTarget</a>(object, symlink.target)</code><br />
+<code><a href="gFileInfoSetSortOrder.html">gFileInfoSetSortOrder</a>(object, sort.order)</code><br />
+<code><a href="gFileAttributeMatcherNew.html">gFileAttributeMatcherNew</a>(attributes)</code><br />
+<code><a href="gFileAttributeMatcherMatches.html">gFileAttributeMatcherMatches</a>(object, attribute)</code><br />
+<code><a href="gFileAttributeMatcherMatchesOnly.html">gFileAttributeMatcherMatchesOnly</a>(object, attribute)</code><br />
+<code><a href="gFileAttributeMatcherEnumerateNamespace.html">gFileAttributeMatcherEnumerateNamespace</a>(object, ns)</code><br />
+<code><a href="gFileAttributeMatcherEnumerateNext.html">gFileAttributeMatcherEnumerateNext</a>(object)</code><br />
+<code>gFileInfo()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GEnum
+   +----GFileType
+GObject
+   +----GFileInfo
+</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Functionality for manipulating basic metadata for files. <code><a href="GFileInfo.html">GFileInfo</a></code>
+implements methods for getting information that all files should 
+contain, and allows for manipulation of extended attributes. 
+</p>
+<p>See GFileAttribute for more
+information on how GIO handles file attributes.
+</p>
+<p>To obtain a <code><a href="GFileInfo.html">GFileInfo</a></code> for a <code><a href="GFile.html">GFile</a></code>, use <code><a href="gFileQueryInfo.html">gFileQueryInfo</a></code> (or its 
+async variant). To obtain a <code><a href="GFileInfo.html">GFileInfo</a></code> for a file input or output 
+stream, use <code><a href="gFileInputStreamQueryInfo.html">gFileInputStreamQueryInfo</a></code> or 
+<code><a href="gFileOutputStreamQueryInfo.html">gFileOutputStreamQueryInfo</a></code> (or their async variants).
+</p>
+<p>To change the actual attributes of a file, you should then set the 
+attribute in the <code><a href="GFileInfo.html">GFileInfo</a></code> and call <code><a href="gFileSetAttributesFromInfo.html">gFileSetAttributesFromInfo</a></code> 
+or <code><a href="gFileSetAttributesAsync.html">gFileSetAttributesAsync</a></code> on a GFile.
+</p>
+<p>However, not all attributes can be changed in the file. For instance, 
+the actual size of a file cannot be changed via <code><a href="gFileInfoSetSize.html">gFileInfoSetSize</a></code>. 
+You may call <code><a href="gFileQuerySettableAttributes.html">gFileQuerySettableAttributes</a></code> and 
+<code><a href="gFileQueryWritableNamespaces.html">gFileQueryWritableNamespaces</a></code> to discover the settable attributes 
+of a particular file at runtime.
+<code><a href="GFileInfo.html">GFileAttributeMatcher</a></code> allows for searching through a <code><a href="GFileInfo.html">GFileInfo</a></code> for 
+attributes.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GFileAttributeMatcher</code></dt><dd>
+<p>Determines if a string matches a file attribute.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GFileInfo</code></dt><dd>
+<p>Stores information about a file system object referenced by a <code><a href="GFile.html">GFile</a></code>.
+</p>
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gFileInfo</code> is the equivalent of <code><a href="gFileInfoNew.html">gFileInfoNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileType</code></dt><dd>
+<p>Indicates the file's on-disk type.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">unknown</code></dt><dd><p>File's type is unknown.</p>
+</dd>
+<dt><code style="white-space: pre;">regular</code></dt><dd><p>File handle represents a regular file.</p>
+</dd>
+<dt><code style="white-space: pre;">directory</code></dt><dd><p>File handle represents a directory.</p>
+</dd>
+<dt><code style="white-space: pre;">symbolic-link</code></dt><dd><p>File handle represents a symbolic link
+(Unix systems).</p>
+</dd>
+<dt><code style="white-space: pre;">special</code></dt><dd><p>File is a &quot;special&quot; file, such as a socket, fifo,
+block device, or character device.</p>
+</dd>
+<dt><code style="white-space: pre;">shortcut</code></dt><dd><p>File is a shortcut (Windows systems).</p>
+</dd>
+<dt><code style="white-space: pre;">mountable</code></dt><dd><p>File is a mountable location.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFileInfo.html">http://library.gnome.org/devel//gio/GFileInfo.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

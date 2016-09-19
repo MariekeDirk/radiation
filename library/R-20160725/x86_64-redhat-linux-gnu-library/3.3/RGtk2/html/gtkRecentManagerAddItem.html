@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRecentManagerAddItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRecentManagerAddItem {RGtk2}"><tr><td>gtkRecentManagerAddItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRecentManagerAddItem</h2>
+
+<h3>Description</h3>
+
+<p>Adds a new resource, pointed by <code>uri</code>, into the recently used
+resources list.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRecentManagerAddItem(object, uri)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkRecentManager.html">GtkRecentManager</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">uri</code></code></td>
+<td>
+<p>a valid URI</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function automatically retrieves some of the needed
+metadata and setting other metadata to common default values; it
+then feeds the data to <code><a href="gtkRecentManagerAddFull.html">gtkRecentManagerAddFull</a></code>.
+</p>
+<p>See <code><a href="gtkRecentManagerAddFull.html">gtkRecentManagerAddFull</a></code> if you want to explicitly
+define the metadata for the resource pointed by <code>uri</code>.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the new item was successfully added
+to the recently used resources list</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial neighbour sparse representation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for listw2sn {spdep}"><tr><td>listw2sn {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial neighbour sparse representation</h2>
+
+<h3>Description</h3>
+
+<p>The function makes a <code>"spatial neighbour"</code> object representation
+(similar to the S-PLUS spatial statististics module representation of a
+<code>"listw"</code> spatial weights object. <code>sn2listw()</code> is the inverse function to <code>listw2sn()</code>, creating a <code>"listw"</code> object from a <code>"spatial neighbour"</code> object. The <code>as.spam.listw</code> method converts a <code>"listw"</code> object to a sparse matrix as defined in the <span class="pkg">spam</span> package, using <code>listw2sn()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+listw2sn(listw)
+sn2listw(sn)
+as.spam.listw(listw)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object from for example <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>sn</code></td>
+<td>
+<p>a <code>spatial.neighbour</code> object</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>listw2sn()</code>returns a data frame with three columns, and with class <code>spatial.neighbour</code>:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>from</code></td>
+<td>
+<p>region number id for the start of the link (S-PLUS row.id)</p>
+</td></tr>
+<tr valign="top"><td><code>to</code></td>
+<td>
+<p>region number id for the end of the link (S-PLUS col.id)</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>weight for this link</p>
+</td></tr>
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="nb2listw.html">nb2listw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+col.listw &lt;- nb2listw(col.gal.nb)
+col.listw$neighbours[[1]]
+col.listw$weights[[1]]
+col.sn &lt;- listw2sn(col.listw)
+str(col.sn)
+## Not run: 
+col.sp &lt;- as.spam.listw(col.listw)
+str(col.sp)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

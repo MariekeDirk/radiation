@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial simultaneous autoregressive error model estimation by...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GMerrorsar {spdep}"><tr><td>GMerrorsar {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial simultaneous autoregressive error model estimation by GMM</h2>
+
+<h3>Description</h3>
+
+<p>An implementation of Kelejian and Prucha's generalised moments estimator for the autoregressive parameter in a spatial model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+GMerrorsar(formula, data = list(), listw, na.action = na.fail,
+ zero.policy = NULL, method="nlminb", arnoldWied=FALSE, 
+ control = list(), pars, scaleU=FALSE, verbose=NULL, legacy=FALSE,
+ se.lambda=TRUE, returnHcov=FALSE, pWOrder=250, tol.Hcov=1.0e-10)
+## S3 method for class 'gmsar'
+summary(object, correlation = FALSE, Hausman=FALSE, ...)
+GMargminImage(obj, lambdaseq, s2seq)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a symbolic description of the model to be fit. The details 
+of model specification are given for <code>lm()</code></p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>an optional data frame containing the variables in the model. 
+By default the variables are taken from the environment which the function 
+is called.</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>a function (default <code>na.fail</code>), can also be <code>na.omit</code> or <code>na.exclude</code> with consequences for residuals and fitted values - in these cases the weights list will be subsetted to remove NAs in the data. It may be necessary to set zero.policy to TRUE because this subsetting may create no-neighbour observations. Note that only weights lists created without using the glist argument to <code>nb2listw</code> may be subsetted.</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without 
+neighbours, if FALSE (default) assign NA - causing <code>GMerrorsar()</code> to terminate with an error</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>default <code>"nlminb"</code>, or optionally a method passed to <code>optim</code> to use an alternative optimizer</p>
+</td></tr>
+<tr valign="top"><td><code>arnoldWied</code></td>
+<td>
+<p>default FALSE</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>A list of control parameters. See details in <code><a href="../../stats/html/optim.html">optim</a></code> or <code><a href="../../stats/html/nlminb.html">nlminb</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>pars</code></td>
+<td>
+<p>starting values for <i>lambda</i> and <i>sigma squared</i> for GMM optimisation, if missing (default), approximated from initial OLS model as the autocorrelation coefficient corrected for weights style and model sigma squared</p>
+</td></tr>
+<tr valign="top"><td><code>scaleU</code></td>
+<td>
+<p>Default FALSE: scale the OLS residuals before computing the moment matrices; only used if the <code>pars</code> argument is missing</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE, reports function values during optimization.</p>
+</td></tr>
+<tr valign="top"><td><code>legacy</code></td>
+<td>
+<p>default FALSE - compute using the unfiltered values of the response and right hand side variables; if TRUE - compute the fitted value and residuals from the spatially filtered model using the spatial error parameter</p>
+</td></tr>
+<tr valign="top"><td><code>se.lambda</code></td>
+<td>
+<p>default TRUE, use the analytical method described in <a href="http://econweb.umd.edu/~prucha/STATPROG/OLS/desols.pdf">http://econweb.umd.edu/~prucha/STATPROG/OLS/desols.pdf</a></p>
+</td></tr>
+<tr valign="top"><td><code>returnHcov</code></td>
+<td>
+<p>default FALSE, return the Vo matrix for a spatial Hausman test</p>
+</td></tr>
+<tr valign="top"><td><code>tol.Hcov</code></td>
+<td>
+<p>the tolerance for computing the Vo matrix (default=1.0e-10)</p>
+</td></tr>
+<tr valign="top"><td><code>pWOrder</code></td>
+<td>
+<p>default 250, if returnHcov=TRUE, pass this order to <code>powerWeights</code> as the power series maximum limit</p>
+</td></tr>
+<tr valign="top"><td><code>object, obj</code></td>
+<td>
+<p><code>gmsar</code> object from <code>GMerrorsar</code></p>
+</td></tr>
+<tr valign="top"><td><code>correlation</code></td>
+<td>
+<p>logical; (default=FALSE), TRUE not available</p>
+</td></tr>
+<tr valign="top"><td><code>Hausman</code></td>
+<td>
+<p>if TRUE, the results of the Hausman test for error models are reported</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p><code>summary</code> arguments passed through</p>
+</td></tr>
+<tr valign="top"><td><code>lambdaseq</code></td>
+<td>
+<p>if given, an increasing sequence of lambda values for gridding</p>
+</td></tr>
+<tr valign="top"><td><code>s2seq</code></td>
+<td>
+<p>if given, an increasing sequence of sigma squared values for gridding</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>When the control list is set with care, the function will converge to values close to the ML estimator without requiring computation of the Jacobian, the most resource-intensive part of ML estimation. 
+</p>
+<p>Note that the fitted() function for the output object assumes that the response 
+variable may be reconstructed as the sum of the trend, the signal, and the
+noise (residuals). Since the values of the response variable are known,
+their spatial lags are used to calculate signal components (Cressie 1993, p. 564). This differs from other software, including GeoDa, which does not use knowledge of the response 
+variable in making predictions for the fitting data.
+</p>
+<p>The <code>GMargminImage</code> may be used to visualize the shape of the surface of the argmin function used to find lambda.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list object of class <code>gmsar</code>
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>&quot;ERROR&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>simultaneous autoregressive error coefficient</p>
+</td></tr>
+<tr valign="top"><td><code>coefficients</code></td>
+<td>
+<p>GMM coefficient estimates</p>
+</td></tr>
+<tr valign="top"><td><code>rest.se</code></td>
+<td>
+<p>GMM coefficient standard errors</p>
+</td></tr>
+<tr valign="top"><td><code>s2</code></td>
+<td>
+<p>GMM residual variance</p>
+</td></tr>
+<tr valign="top"><td><code>SSE</code></td>
+<td>
+<p>sum of squared GMM errors</p>
+</td></tr>
+<tr valign="top"><td><code>parameters</code></td>
+<td>
+<p>number of parameters estimated</p>
+</td></tr>
+<tr valign="top"><td><code>lm.model</code></td>
+<td>
+<p>the <code>lm</code> object returned when estimating for <i>lambda=0</i></p>
+</td></tr>
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>the call used to create this object</p>
+</td></tr>
+<tr valign="top"><td><code>residuals</code></td>
+<td>
+<p>GMM residuals</p>
+</td></tr>
+<tr valign="top"><td><code>lm.target</code></td>
+<td>
+<p>the <code>lm</code> object returned for the GMM fit</p>
+</td></tr>
+<tr valign="top"><td><code>fitted.values</code></td>
+<td>
+<p>Difference between residuals and response variable</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>model formula</p>
+</td></tr>
+<tr valign="top"><td><code>aliased</code></td>
+<td>
+<p>if not NULL, details of aliased variables</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>zero.policy for this model</p>
+</td></tr>
+<tr valign="top"><td><code>vv</code></td>
+<td>
+<p>list of internal bigG and litg components for testing optimisation surface</p>
+</td></tr>
+<tr valign="top"><td><code>optres</code></td>
+<td>
+<p>object returned by optimizer</p>
+</td></tr>
+<tr valign="top"><td><code>pars</code></td>
+<td>
+<p>start parameter values for optimisation</p>
+</td></tr>
+<tr valign="top"><td><code>Hcov</code></td>
+<td>
+<p>Spatial DGP covariance matrix for Hausman test if available</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>(possibly) named vector of excluded or omitted observations if non-default na.action argument used</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Luc Anselin and Roger Bivand</p>
+
+
+<h3>References</h3>
+
+<p>Kelejian, H. H., and Prucha, I. R., 1999. A Generalized Moments Estimator for the Autoregressive Parameter in a Spatial Model. International Economic Review, 40, pp. 509&ndash;533; Cressie, N. A. C. 1993 <em>Statistics for spatial data</em>, Wiley, New York.
+</p>
+<p>Roger Bivand, Gianfranco Piras (2015). Comparing Implementations of Estimation Methods for Spatial Econometrics. <em>Journal of Statistical Software</em>, 63(18), 1-36. <a href="http://www.jstatsoft.org/v63/i18/">http://www.jstatsoft.org/v63/i18/</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/optim.html">optim</a></code>, <code><a href="../../stats/html/nlminb.html">nlminb</a></code>, <code><a href="errorsarlm.html">errorsarlm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ nb2listw(COL.nb, style="W"), method="eigen")
+summary(COL.errW.eig, Hausman=TRUE)
+COL.errW.GM &lt;- GMerrorsar(CRIME ~ INC + HOVAL, data=COL.OLD,
+ nb2listw(COL.nb, style="W"), returnHcov=TRUE)
+summary(COL.errW.GM, Hausman=TRUE)
+aa &lt;- GMargminImage(COL.errW.GM)
+levs &lt;- quantile(aa$z, seq(0, 1, 1/12))
+image(aa, breaks=levs, xlab="lambda", ylab="s2")
+points(COL.errW.GM$lambda, COL.errW.GM$s2, pch=3, lwd=2)
+contour(aa, levels=signif(levs, 4), add=TRUE)
+COL.errW.GM1 &lt;- GMerrorsar(CRIME ~ INC + HOVAL, data=COL.OLD,
+ nb2listw(COL.nb, style="W"))
+summary(COL.errW.GM1)
+example(NY_data)
+esar1f &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, family="SAR", method="eigen")
+summary(esar1f)
+esar1gm &lt;- GMerrorsar(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME,
+ data=nydata, listw=listw_NY)
+summary(esar1gm)
+esar1gm1 &lt;- GMerrorsar(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME,
+ data=nydata, listw=listw_NY, method="Nelder-Mead")
+summary(esar1gm1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

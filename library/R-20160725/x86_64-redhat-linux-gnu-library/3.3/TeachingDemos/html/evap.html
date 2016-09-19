@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data on soil evaporation.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for evap {TeachingDemos}"><tr><td>evap {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Data on soil evaporation.
+</h2>
+
+<h3>Description</h3>
+
+<p>Data from 46 consecutive days on weather variables used to estimate
+amount of evaporation from the soil. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(evap)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 46 observations on the following 14 variables.
+</p>
+
+<dl>
+<dt><code>Obs</code></dt><dd><p>Observation number</p>
+</dd>
+<dt><code>Month</code></dt><dd><p>Month (6-June, 7-July)</p>
+</dd>
+<dt><code>day</code></dt><dd><p>Day of the month</p>
+</dd>
+<dt><code>MaxST</code></dt><dd><p>Maximum Soil Temperature</p>
+</dd>
+<dt><code>MinST</code></dt><dd><p>Minimum Soil Temperature</p>
+</dd>
+<dt><code>AvST</code></dt><dd><p>Average (integrated) Soil Temperature</p>
+</dd>
+<dt><code>MaxAT</code></dt><dd><p>Maximum Air Temperature</p>
+</dd>
+<dt><code>MinAT</code></dt><dd><p>Minimum Air Temperature</p>
+</dd>
+<dt><code>AvAT</code></dt><dd><p>Average (integrated) Air Temperature</p>
+</dd>
+<dt><code>MaxH</code></dt><dd><p>Maximum Relative Humidity</p>
+</dd>
+<dt><code>MinH</code></dt><dd><p>Minimum Relative Humidity</p>
+</dd>
+<dt><code>AvH</code></dt><dd><p>Average (integrated) Relative Humidity</p>
+</dd>
+<dt><code>Wind</code></dt><dd><p>Total Wind</p>
+</dd>
+<dt><code>Evap</code></dt><dd><p>Total evoporation from the soil</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The idea of the data is to predict the amount of evaporation given the
+other variables.  Note that the &quot;average&quot; values are scaled differently
+from the others, this is more an area under the curve measure
+representing the total/average value.
+</p>
+<p>This dataset was entered by hand from a low quality copy of the paper.
+If you find any typos, please e-mail them to the package maintainer.
+</p>
+
+
+<h3>Source</h3>
+
+<p>Freund, R.J. (1979) Multicollinearity etc., Some &quot;New&quot; Examples.
+Proceedings of the Statistical Computing Section, *4*, 111-112.
+
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(evap)
+pairs(evap[,-c(1,2,3)], panel=panel.smooth)
+## maybe str(evap) ; plot(evap) ...
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

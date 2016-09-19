@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkMisc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkMisc {RGtk2}"><tr><td>GtkMisc {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkMisc</h2>
+
+<h3>Description</h3>
+
+<p>Base class for widgets with alignments and padding</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkMiscSetAlignment.html">gtkMiscSetAlignment</a>(object, xalign, yalign)</code><br />
+<code><a href="gtkMiscSetPadding.html">gtkMiscSetPadding</a>(object, xpad, ypad)</code><br />
+<code><a href="gtkMiscGetAlignment.html">gtkMiscGetAlignment</a>(object)</code><br />
+<code><a href="gtkMiscGetPadding.html">gtkMiscGetPadding</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkMisc
+                           +----GtkLabel
+                           +----GtkArrow
+                           +----GtkImage
+                           +----GtkPixmap</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkMisc implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkMisc.html">GtkMisc</a></code> widget is an abstract widget which is not useful itself, but
+is used to derive subclasses which have alignment and padding attributes.
+</p>
+<p>The horizontal and vertical padding attributes allows extra space to be
+added around the widget.
+</p>
+<p>The horizontal and vertical alignment attributes enable the widget to be
+positioned within its allocated area. Note that if the widget is added to
+a container in such a way that it expands automatically to fill its
+allocated area, the alignment settings will not alter the widgets position.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMisc</code></dt><dd>
+<p>The <code><a href="GtkMisc.html">GtkMisc</a></code> struct contains the following fields.
+(These fields should be considered read-only. They should never be set by
+an application.)
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>  <code>xalign</code>  ; </td><td style="text-align: left;"> the horizontal alignment, from 0 (left) to 1 (right). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>  <code>yalign</code>  ; </td><td style="text-align: left;"> the vertical alignment, from 0 (top) to 1 (bottom). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">integer</code>  <code>xpad</code>  ; </td><td style="text-align: left;"> the amount of space to add on the left and right of the widget,
+in pixels. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">integer</code>  <code>ypad</code>  ; </td><td style="text-align: left;"> the amount of space to add on the top and bottom of the widget,
+in pixels. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">xalign</code> [numeric : Read / Write]</dt><dd>
+<p>The horizontal alignment, from 0 (left) to 1 (right). Reversed for RTL layouts.  Allowed values: [0,1]  Default value: 0.5
+</p>
+</dd>
+<dt><code style="white-space: pre;">xpad</code> [integer : Read / Write]</dt><dd>
+<p>The amount of space to add on the left and right of the widget, in pixels.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">yalign</code> [numeric : Read / Write]</dt><dd>
+<p>The vertical alignment, from 0 (top) to 1 (bottom).  Allowed values: [0,1]  Default value: 0.5
+</p>
+</dd>
+<dt><code style="white-space: pre;">ypad</code> [integer : Read / Write]</dt><dd>
+<p>The amount of space to add on the top and bottom of the widget, in pixels.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkMisc.html">http://library.gnome.org/devel//gtk/GtkMisc.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

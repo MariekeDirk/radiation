@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Computes K-fold cross-validated error curve for elastic net</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cv.enet {elasticnet}"><tr><td>cv.enet {elasticnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Computes K-fold cross-validated error curve for elastic net</h2>
+
+<h3>Description</h3>
+
+<p>Computes the K-fold cross-validated mean squared prediction error for
+elastic net.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cv.enet(x, y, K = 10, lambda, s, mode,trace = FALSE, plot.it = TRUE, se = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Input to lars</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>Input to lars</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>Number of folds</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>Quadratic penalty parameter</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+<p>Abscissa values at which CV curve should be computed.
+A value, or vector of values, indexing the path. Its values depends on the mode= argument</p>
+</td></tr>
+<tr valign="top"><td><code>mode</code></td>
+<td>
+<p>Mode=&quot;step&quot; means the s= argument indexes the LARS-EN step number. If mode=&quot;fraction&quot;, then s should be a number
+between 0 and 1, and it refers to the ratio of the L1 norm of the
+coefficient vector, relative to the norm at the full LS solution.
+Mode=&quot;norm&quot; means s refers to the L1 norm of the coefficient vector.
+Abbreviations allowed. If mode=&quot;norm&quot;, then s should be the L1 norm of
+the coefficient vector. If mode=&quot;penalty&quot;, then s should be the 1-norm
+penalty parameter.</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+<p>Show computations?</p>
+</td></tr>
+<tr valign="top"><td><code>plot.it</code></td>
+<td>
+<p>Plot it?</p>
+</td></tr>
+<tr valign="top"><td><code>se</code></td>
+<td>
+<p>Include standard error bands?</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to <code>enet</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Invisibly returns a list with components (which can be plotted using <code>plotCVLars</code>)
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>fraction</code></td>
+<td>
+<p>Values of s</p>
+</td></tr>
+<tr valign="top"><td><code>cv</code></td>
+<td>
+<p>The CV curve at each value of fraction</p>
+</td></tr>
+<tr valign="top"><td><code>cv.error</code></td>
+<td>
+<p>The standard error of the CV curve</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Hui Zou and Trevor Hastie</p>
+
+
+<h3>References</h3>
+
+<p>Zou and Hastie (2005) &quot;Regularization and
+Variable Selection via the Elastic Net&quot;
+<em>Journal of the Royal Statistical Society, Series B,76,301-320</em>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(diabetes)
+attach(diabetes)
+## use the L1 fraction norm as the tuning parameter
+cv.enet(x2,y,lambda=0.05,s=seq(0,1,length=100),mode="fraction",trace=TRUE,max.steps=80)
+## use the number of steps as the tuning parameter
+cv.enet(x2,y,lambda=0.05,s=1:50,mode="step")
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>elasticnet</em> version 1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

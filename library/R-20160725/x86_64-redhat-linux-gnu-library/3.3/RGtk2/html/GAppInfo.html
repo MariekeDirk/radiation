@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GAppInfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GAppInfo {RGtk2}"><tr><td>GAppInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GAppInfo</h2>
+
+<h3>Description</h3>
+
+<p>Application information and launch contexts</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gAppInfoCreateFromCommandline.html">gAppInfoCreateFromCommandline</a>(commandline, application.name = NULL, flags = "G_APP_INFO_CREATE_NONE", .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoDup.html">gAppInfoDup</a>(object)</code><br />
+<code><a href="gAppInfoEqual.html">gAppInfoEqual</a>(object, appinfo2)</code><br />
+<code><a href="gAppInfoGetId.html">gAppInfoGetId</a>(object)</code><br />
+<code><a href="gAppInfoGetName.html">gAppInfoGetName</a>(object)</code><br />
+<code><a href="gAppInfoGetDescription.html">gAppInfoGetDescription</a>(object)</code><br />
+<code><a href="gAppInfoGetExecutable.html">gAppInfoGetExecutable</a>(object)</code><br />
+<code><a href="gAppInfoGetCommandline.html">gAppInfoGetCommandline</a>(object)</code><br />
+<code><a href="gAppInfoGetIcon.html">gAppInfoGetIcon</a>(object)</code><br />
+<code><a href="gAppInfoLaunch.html">gAppInfoLaunch</a>(object, files, launch.context, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoSupportsFiles.html">gAppInfoSupportsFiles</a>(object)</code><br />
+<code><a href="gAppInfoSupportsUris.html">gAppInfoSupportsUris</a>(object)</code><br />
+<code><a href="gAppInfoLaunchUris.html">gAppInfoLaunchUris</a>(object, uris, launch.context, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoShouldShow.html">gAppInfoShouldShow</a>(object)</code><br />
+<code><a href="gAppInfoCanDelete.html">gAppInfoCanDelete</a>(object)</code><br />
+<code><a href="gAppInfoDelete.html">gAppInfoDelete</a>(object)</code><br />
+<code><a href="gAppInfoResetTypeAssociations.html">gAppInfoResetTypeAssociations</a>(content.type)</code><br />
+<code><a href="gAppInfoSetAsDefaultForType.html">gAppInfoSetAsDefaultForType</a>(object, content.type, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoSetAsDefaultForExtension.html">gAppInfoSetAsDefaultForExtension</a>(object, extension, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoAddSupportsType.html">gAppInfoAddSupportsType</a>(object, content.type, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoCanRemoveSupportsType.html">gAppInfoCanRemoveSupportsType</a>(object)</code><br />
+<code><a href="gAppInfoRemoveSupportsType.html">gAppInfoRemoveSupportsType</a>(object, content.type, .errwarn = TRUE)</code><br />
+<code><a href="gAppInfoGetAll.html">gAppInfoGetAll</a>()</code><br />
+<code><a href="gAppInfoGetAllForType.html">gAppInfoGetAllForType</a>(content.type)</code><br />
+<code><a href="gAppInfoGetDefaultForType.html">gAppInfoGetDefaultForType</a>(content.type, must.support.uris)</code><br />
+<code><a href="gAppInfoGetDefaultForUriScheme.html">gAppInfoGetDefaultForUriScheme</a>(uri.scheme)</code><br />
+<code><a href="gAppInfoLaunchDefaultForUri.html">gAppInfoLaunchDefaultForUri</a>(uri, launch.context, .errwarn = TRUE)</code><br />
+<code><a href="gAppLaunchContextGetDisplay.html">gAppLaunchContextGetDisplay</a>(object, info, files)</code><br />
+<code><a href="gAppLaunchContextGetStartupNotifyId.html">gAppLaunchContextGetStartupNotifyId</a>(object, info, files)</code><br />
+<code><a href="gAppLaunchContextLaunchFailed.html">gAppLaunchContextLaunchFailed</a>(object, startup.notify.id)</code><br />
+<code><a href="gAppLaunchContextNew.html">gAppLaunchContextNew</a>()</code><br />
+<code>gAppLaunchContext()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GFlags
+   +----GAppInfoCreateFlags
+GInterface
+   +----GAppInfo
+GObject
+   +----GAppLaunchContext
+</pre>
+
+<h3>Implementations</h3>
+
+<p>GAppInfo is implemented by
+GDesktopAppInfo.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GAppInfo.html">GAppInfo</a></code> and <code><a href="GAppInfo.html">GAppLaunchContext</a></code> are used for describing and launching 
+applications installed on the system.
+</p>
+<p>As of GLib 2.20, URIs will always be converted to POSIX paths
+(using <code><a href="gFileGetPath.html">gFileGetPath</a></code>) when using <code><a href="gAppInfoLaunch.html">gAppInfoLaunch</a></code> even if
+the application requested an URI and not a POSIX path. For example
+for an desktop-file based application with Exec key <code>totem
+%  U</code> and a single URI,
+<code>sftp://foo/file.avi</code>, then
+<code>/home/user/.gvfs/sftp on foo/file.avi</code> will be
+passed. This will only work if a set of suitable GIO extensions
+(such as gvfs 2.26 compiled with FUSE support), is available and
+operational; if this is not the case, the URI will be passed
+unmodified to the application. Some URIs, such as
+<code>mailto:</code>, of course cannot be mapped to a POSIX
+path (in gvfs there's no FUSE mount for it); such URIs will be
+passed unmodified to the application.
+</p>
+<p>Specifically for gvfs 2.26 and later, the POSIX URI will be mapped
+back to the GIO URI in the <code><a href="GFile.html">GFile</a></code> constructors (since gvfs
+implements the <code><a href="GVfs.html">GVfs</a></code> extension point). As such, if the application
+needs to examine the URI, it needs to use <code><a href="gFileGetUri.html">gFileGetUri</a></code> or
+similar on <code><a href="GFile.html">GFile</a></code>. In other words, an application cannot assume
+that the URI passed to e.g. <code><a href="gFileNewForCommandlineArg.html">gFileNewForCommandlineArg</a></code> is
+equal to the result of <code><a href="gFileGetUri.html">gFileGetUri</a></code>. The following snippet
+illustrates this:
+</p>
+<pre>GFile *f;
+char *uri;
+
+file = g_file_new_for_commandline_arg (uri_from_commandline);
+
+uri = g_file_get_uri (file);
+strcmp (uri, uri_from_commandline) == 0; // FALSE
+g_free (uri);
+
+if (g_file_has_uri_scheme (file, "cdda"))
+  {
+    // do something special with uri
+  }
+g_object_unref (file);
+</pre>  
+<p>This code will work when both <code>cdda://sr0/Track
+1.wav</code> and <code>/home/user/.gvfs/cdda on sr0/Track
+1.wav</code> is passed to the application. It should be noted
+that it's generally not safe for applications to rely on the format
+of a particular URIs. Different launcher applications (e.g. file
+managers) may have different ideas of what a given URI means.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GAppInfo</code></dt><dd>
+<p>Information about an installed application and methods to launch
+it (with file arguments).
+</p>
+</dd>
+<dt><code style="white-space: pre;">GAppLaunchContext</code></dt><dd>
+<p>Integrating the launch with the launching application. This is used to
+handle for instance startup notification and launching the new application
+on the same screen as the launching window.
+</p>
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gAppLaunchContext</code> is the equivalent of <code><a href="gAppLaunchContextNew.html">gAppLaunchContextNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GAppInfoCreateFlags</code></dt><dd>
+<p>Flags used when creating a <code><a href="GAppInfo.html">GAppInfo</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">one</code></dt><dd><p>No flags.</p>
+</dd>
+<dt><code style="white-space: pre;">eeds-terminal</code></dt><dd><p>Application opens in a terminal window.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GAppInfo.html">http://library.gnome.org/devel//gio/GAppInfo.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkViewport</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkViewport {RGtk2}"><tr><td>GtkViewport {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkViewport</h2>
+
+<h3>Description</h3>
+
+<p>An adapter which makes widgets scrollable</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkViewportNew.html">gtkViewportNew</a>(hadjustment = NULL, vadjustment = NULL, show = TRUE)</code><br />
+<code><a href="gtkViewportGetHadjustment.html">gtkViewportGetHadjustment</a>(object)</code><br />
+<code><a href="gtkViewportGetVadjustment.html">gtkViewportGetVadjustment</a>(object)</code><br />
+<code><a href="gtkViewportSetHadjustment.html">gtkViewportSetHadjustment</a>(object, adjustment = NULL)</code><br />
+<code><a href="gtkViewportSetVadjustment.html">gtkViewportSetVadjustment</a>(object, adjustment = NULL)</code><br />
+<code><a href="gtkViewportSetShadowType.html">gtkViewportSetShadowType</a>(object, type)</code><br />
+<code><a href="gtkViewportGetShadowType.html">gtkViewportGetShadowType</a>(object)</code><br />
+<code><a href="gtkViewportGetBinWindow.html">gtkViewportGetBinWindow</a>(object)</code><br />
+<code>gtkViewport(hadjustment = NULL, vadjustment = NULL, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkViewport</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkViewport implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkViewport.html">GtkViewport</a></code> widget acts as an adaptor class, implementing
+scrollability for child widgets that lack their own scrolling
+capabilities. Use <code><a href="GtkViewport.html">GtkViewport</a></code> to scroll child widgets such as
+<code><a href="GtkTable.html">GtkTable</a></code>, <code><a href="GtkBox.html">GtkBox</a></code>, and so on.
+</p>
+<p>If a widget has native scrolling abilities, such as <code><a href="GtkTextView.html">GtkTextView</a></code>,
+<code><a href="GtkTreeView.html">GtkTreeView</a></code> or <code style="white-space: pre;">GtkIconview</code>, it can be added to a <code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code>
+with <code><a href="gtkContainerAdd.html">gtkContainerAdd</a></code>. If a widget does not, you must first add the
+widget to a <code><a href="GtkViewport.html">GtkViewport</a></code>, then add the viewport to the scrolled window.
+The convenience function <code><a href="gtkScrolledWindowAddWithViewport.html">gtkScrolledWindowAddWithViewport</a></code> does
+exactly this, so you can ignore the presence of the viewport.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkViewport</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkViewport</code> is the equivalent of <code><a href="gtkViewportNew.html">gtkViewportNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>set-scroll-adjustments(horizontal, vertical, user.data)</code></dt><dd>
+<p>Set the scroll adjustments for the viewport. Usually scrolled containers
+like <code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code> will emit this signal to connect two instances
+of <code><a href="GtkScrollbar.html">GtkScrollbar</a></code> to the scroll directions of the <code><a href="GtkViewport.html">GtkViewport</a></code>.
+</p>
+
+<dl>
+<dt><code>horizontal</code></dt><dd><p>the horizontal <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>vertical</code></dt><dd><p>the vertical <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">hadjustment</code> [<code><a href="GtkAdjustment.html">GtkAdjustment</a></code> : *        : Read / Write / Construct]</dt><dd>
+<p>The GtkAdjustment that determines the values of the horizontal position for this viewport.
+</p>
+</dd>
+<dt><code style="white-space: pre;">shadow-type</code> [<code><a href="gtk-Standard-Enumerations.html">GtkShadowType</a></code> : Read / Write]</dt><dd>
+<p>Determines how the shadowed box around the viewport is drawn.  Default value: GTK_SHADOW_IN
+</p>
+</dd>
+<dt><code style="white-space: pre;">vadjustment</code> [<code><a href="GtkAdjustment.html">GtkAdjustment</a></code> : *        : Read / Write / Construct]</dt><dd>
+<p>The GtkAdjustment that determines the values of the vertical position for this viewport.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkViewport.html">http://library.gnome.org/devel//gtk/GtkViewport.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code>
+<code><a href="GtkAdjustment.html">GtkAdjustment</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

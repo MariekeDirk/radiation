@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextIterGetText</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextIterGetText {RGtk2}"><tr><td>gtkTextIterGetText {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextIterGetText</h2>
+
+<h3>Description</h3>
+
+<p>Returns <em>text</em> in the given range.  If the range
+contains non-text elements such as images, the character and byte
+offsets in the returned string will not correspond to character and
+byte offsets in the buffer. If you want offsets to correspond, see
+<code><a href="gtkTextIterGetSlice.html">gtkTextIterGetSlice</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextIterGetText(object, end)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>iterator at start of a range</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">end</code></code></td>
+<td>
+<p>iterator at end of a range</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[character] array of characters from the buffer</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

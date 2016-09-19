@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkCellRendererTextSetFixedHeightFromFont</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkCellRendererTextSetFixedHeightFromFont {RGtk2}"><tr><td>gtkCellRendererTextSetFixedHeightFromFont {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkCellRendererTextSetFixedHeightFromFont</h2>
+
+<h3>Description</h3>
+
+<p>Sets the height of a renderer to explicitly be determined by the &quot;font&quot; and
+&quot;y_pad&quot; property set on it.  Further changes in these properties do not
+affect the height, so they must be accompanied by a subsequent call to this
+function.  Using this function is unflexible, and should really only be used
+if calculating the size of a cell is too slow (ie, a massive number of cells
+displayed).  If <code>number.of.rows</code> is -1, then the fixed height is unset, and
+the height is determined by the properties again.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkCellRendererTextSetFixedHeightFromFont(object, number.of.rows)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">number.of.rows</code></code></td>
+<td>
+<p>Number of rows of text each cell renderer is allocated, or -1</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

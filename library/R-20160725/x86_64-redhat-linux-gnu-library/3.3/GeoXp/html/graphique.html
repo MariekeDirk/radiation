@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Drawing a graphic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for graphique {GeoXp}"><tr><td>graphique {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Drawing a graphic</h2>
+
+<h3>Description</h3>
+
+<p>The function &lsquo;graphique&rsquo; draws a specific graphic. Possibility to draw
+one of these graphics : Histogram, Barplot, Boxplot, Polyboxplot, Scatterplot, Densityplot, Neighbourplot, Lorentz, Moran, Angleplot, Variocloud, Cluster and PCA (graphics of individuals and variables). This function is called in most of the functions of GeoXp (this is not an interactive function). 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+graphique(var1, var2, var3, obs, num, graph = "", couleurs = "",
+    symbol = 16, labvar = "", nbcol = 10, alpha1, W,
+    Xpoly, Ypoly, F, G, opt1 = 1, opt2 = 1, quantiles = 0,
+    labmod = "", direct, inertie, label = 0, kernel, obsq, locmoran = FALSE,
+    bin = NULL, cex.lab=1, buble=FALSE, cbuble=NULL, legmap=NULL, 
+    legends=list(FALSE,FALSE), xlim, ylim)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>var1</code></td>
+<td>
+<p>1st variable of size n</p>
+</td></tr>
+<tr valign="top"><td><code>var2</code></td>
+<td>
+<p>2nd variable of size n</p>
+</td></tr>
+<tr valign="top"><td><code>var3</code></td>
+<td>
+<p>3rd variable of size n (used for variocloudmap)</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a vector of boolean of size n with sites selected</p>
+</td></tr>
+<tr valign="top"><td><code>num</code></td>
+<td>
+<p>number of windows which must be activated (3 ou 4)</p>
+</td></tr>
+<tr valign="top"><td><code>graph</code></td>
+<td>
+<p>name of graphic which must be drawn : Histogram, Barplot, Boxplot, Polyboxplot, Scatterplot, Densityplot1, Densityplot2, Neighbourplot, Lorentz, Moran, Quadrant, Angleplot, Variocloud, Cluster, Acp1, Acp2</p>
+</td></tr>
+<tr valign="top"><td><code>couleurs</code></td>
+<td>
+<p>Possibilty to change colors on the graphic</p>
+</td></tr>
+<tr valign="top"><td><code>symbol</code></td>
+<td>
+<p>choice of representation of selected sites</p>
+</td></tr>
+<tr valign="top"><td><code>labvar</code></td>
+<td>
+<p>name(s) of variable(s) studied</p>
+</td></tr>
+<tr valign="top"><td><code>nbcol</code></td>
+<td>
+<p>number of cells if the graphic choosen is the histogram (10 by default)  </p>
+</td></tr>
+<tr valign="top"><td><code>alpha1</code></td>
+<td>
+<p>regression smoothing paramater</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>Spatial weight matrix</p>
+</td></tr>
+<tr valign="top"><td><code>Xpoly</code></td>
+<td>
+<p>x-coordinates of the vertices of selected polygon</p>
+</td></tr>
+<tr valign="top"><td><code>Ypoly</code></td>
+<td>
+<p>y-coordinates of the vertices of selected polygon</p>
+</td></tr>
+<tr valign="top"><td><code>F</code></td>
+<td>
+<p>Used for Ginimap</p>
+</td></tr>
+<tr valign="top"><td><code>G</code></td>
+<td>
+<p>Used for Ginimap</p>
+</td></tr>
+<tr valign="top"><td><code>opt1</code></td>
+<td>
+<p>Option for adding a curve (regression line or conditionnal quantile depending on the function) </p>
+</td></tr>
+<tr valign="top"><td><code>opt2</code></td>
+<td>
+<p>Option for drawing robust empirical variogram</p>
+</td></tr>
+<tr valign="top"><td><code>quantiles</code></td>
+<td>
+<p>vector which contains the values of <i>alpha</i> for conditionnal quantile</p>
+</td></tr>
+<tr valign="top"><td><code>labmod</code></td>
+<td>
+<p>names of factor if the graphic choosed is a barplot</p>
+</td></tr>
+<tr valign="top"><td><code>direct</code></td>
+<td>
+<p>Used for PCA</p>
+</td></tr>
+<tr valign="top"><td><code>inertie</code></td>
+<td>
+<p>Used for PCA</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>Name of sites</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+<p>Name of the kernel choosed in densitymap</p>
+</td></tr>
+<tr valign="top"><td><code>obsq</code></td>
+<td>
+<p>Used for clustermap and barmap</p>
+</td></tr>
+<tr valign="top"><td><code>locmoran</code></td>
+<td>
+<p>Print local moran for each site</p>
+</td></tr>
+<tr valign="top"><td><code>bin</code></td>
+<td>
+<p>The bins chosen to calculate empirical variogram</p>
+</td></tr>
+<tr valign="top"><td><code>cex.lab</code></td>
+<td>
+<p>character size of label</p>
+</td></tr>
+<tr valign="top"><td><code>buble</code></td>
+<td>
+<p>For Local Moran plot only : a boolean with TRUE for drawing bubbles, FALSE otherwise</p>
+</td></tr>
+<tr valign="top"><td><code>cbuble</code></td>
+<td>
+<p>For Local Moran plot only : vector of size n with size of each site depending on variable with which bubbles are constructed </p>
+</td></tr>
+<tr valign="top"><td><code>legmap</code></td>
+<td>
+<p>For Local Moran plot only : a list of (numeric,numeric,numeric,numeric,numeric,numeric,character) with the sizes and the corresponding values of the 3 bubbles represented in the legend and the variable name of variable choosed </p>
+</td></tr>
+<tr valign="top"><td><code>legends</code></td>
+<td>
+<p>For Local Moran plot only : a list of c(boolean,boolean,c(numeric,numeric),c(numeric,numeric)) with TRUE for drawing legends of bubbles (1st argument) or factors (2nd argument) and the coordinates of the location of the upper left corner of the legend box</p>
+</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+<p>the x limits of the plot</p>
+</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+<p>the y limits of the plot</p>
+</td></tr> 
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is called by any function which draws a graphic. A lot of options
+are considered because of the large number of graphics proposed
+</p>
+
+
+<h3>Value</h3>
+
+<p>No values, only drawing of a graphic</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas-Agnan C., Aragon Y.,  Ruiz-Gazen A., Laurent T., Robidou L.</p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23.</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

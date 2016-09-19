@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create and train a Jordan network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for jordan {RSNNS}"><tr><td>jordan {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create and train a Jordan network</h2>
+
+<h3>Description</h3>
+
+<p>Jordan networks are partially recurrent networks and similar to Elman
+networks (see <code><a href="elman.html">elman</a></code>). Partially recurrent networks are useful
+when working with time series data. I.e., when the output of the network not
+only should depend on the current pattern, but also on the patterns presented
+before.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+jordan(x, ...)
+
+## Default S3 method:
+jordan(x, y, size = c(5), maxit = 100,
+  initFunc = "JE_Weights", initFuncParams = c(1, -1, 0.3, 1, 0.5),
+  learnFunc = "JE_BP", learnFuncParams = c(0.2), updateFunc = "JE_Order",
+  updateFuncParams = c(0), shufflePatterns = FALSE, linOut = TRUE,
+  inputsTest = NULL, targetsTest = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix with training inputs for the network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional function parameters (currently not used)</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the corresponding targets values</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>number of units in the hidden layer(s)</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>maximum of iterations to learn</p>
+</td></tr>
+<tr valign="top"><td><code>initFunc</code></td>
+<td>
+<p>the initialization function to use</p>
+</td></tr>
+<tr valign="top"><td><code>initFuncParams</code></td>
+<td>
+<p>the parameters for the initialization function</p>
+</td></tr>
+<tr valign="top"><td><code>learnFunc</code></td>
+<td>
+<p>the learning function to use</p>
+</td></tr>
+<tr valign="top"><td><code>learnFuncParams</code></td>
+<td>
+<p>the parameters for the learning function</p>
+</td></tr>
+<tr valign="top"><td><code>updateFunc</code></td>
+<td>
+<p>the update function to use</p>
+</td></tr>
+<tr valign="top"><td><code>updateFuncParams</code></td>
+<td>
+<p>the parameters for the update function</p>
+</td></tr>
+<tr valign="top"><td><code>shufflePatterns</code></td>
+<td>
+<p>should the patterns be shuffled?</p>
+</td></tr>
+<tr valign="top"><td><code>linOut</code></td>
+<td>
+<p>sets the activation function of the output units to linear or logistic</p>
+</td></tr>
+<tr valign="top"><td><code>inputsTest</code></td>
+<td>
+<p>a matrix with inputs to test the network</p>
+</td></tr>
+<tr valign="top"><td><code>targetsTest</code></td>
+<td>
+<p>the corresponding targets for the test input</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Learning on Jordan networks: Backpropagation algorithms for feed-forward
+networks can be adapted for their use with this type of networks. In SNNS,
+there exist adapted versions of several backpropagation-type algorithms for
+Jordan and Elman networks.
+</p>
+<p>Network architecture: A Jordan network can be seen as a feed-forward network
+with additional context units in the input layer. These context units take
+input from themselves (direct feedback), and from the output units. The
+context units save the current state of the net. In a Jordan net, the number
+of context units and output units has to be the same.
+</p>
+<p>Initialization of Jordan and Elman nets should be done with the default init
+function <code>JE_Weights</code>, which has five parameters. The first two
+parameters define an interval from which the forward connections are randomly
+chosen. The third parameter gives the self-excitation weights of the context
+units. The fourth parameter gives the weights of context units between them,
+and the fifth parameter gives the initial activation of context units.
+</p>
+<p>Learning functions are <code>JE_BP</code>, <code>JE_BP_Momentum</code>,
+<code>JE_Quickprop</code>, and <code>JE_Rprop</code>, which are all adapted versions of
+their standard-procedure counterparts.  Update functions that can be used are
+<code>JE_Order</code> and <code>JE_Special</code>.
+</p>
+<p>A detailed description of the theory and the parameters is available, as
+always, from the SNNS documentation and the other referenced literature.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="rsnnsObjectFactory.html">rsnns</a></code> object.
+</p>
+
+
+<h3>References</h3>
+
+<p>Jordan, M. I. (1986), 'Serial Order: A Parallel, Distributed
+Processing Approach', Advances in Connectionist Theory Speech 121(ICS-8604),
+471-495.
+</p>
+<p>Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual,
+Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
+<a href="http://www.ra.cs.uni-tuebingen.de/SNNS/">http://www.ra.cs.uni-tuebingen.de/SNNS/</a>
+</p>
+<p>Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="elman.html">elman</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: demo(iris)
+## Not run: demo(laser)
+## Not run: demo(eight_elman)
+## Not run: demo(eight_elmanSnnsR)
+
+
+data(snnsData)
+inputs &lt;- snnsData$laser_1000.pat[,inputColumns(snnsData$laser_1000.pat)]
+outputs &lt;- snnsData$laser_1000.pat[,outputColumns(snnsData$laser_1000.pat)]
+
+patterns &lt;- splitForTrainingAndTest(inputs, outputs, ratio=0.15)
+
+modelJordan &lt;- jordan(patterns$inputsTrain, patterns$targetsTrain,
+                       size=c(8), learnFuncParams=c(0.1), maxit=100,
+                       inputsTest=patterns$inputsTest,
+                       targetsTest=patterns$targetsTest, linOut=FALSE)
+
+names(modelJordan)
+
+par(mfrow=c(3,3))
+plotIterativeError(modelJordan)
+
+plotRegressionError(patterns$targetsTrain, modelJordan$fitted.values)
+plotRegressionError(patterns$targetsTest, modelJordan$fittedTestValues)
+hist(modelJordan$fitted.values - patterns$targetsTrain, col="lightblue")
+
+plot(inputs, type="l")
+plot(inputs[1:100], type="l")
+lines(outputs[1:100], col="red")
+lines(modelJordan$fitted.values[1:100], col="green")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

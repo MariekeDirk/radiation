@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: SQL quoting.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SQL {DBI}"><tr><td>SQL {DBI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>SQL quoting.</h2>
+
+<h3>Description</h3>
+
+<p>This set of classes and generics make it possible to flexibly deal with SQL
+escaping needs. By default, any user supplied input to a query should be
+escaped using either <code>dbQuoteIdentifier</code> or <code>dbQuoteString</code>
+depending on whether it refers to a table or variable name, or is a literal
+string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+SQL(x)
+
+dbQuoteIdentifier(conn, x, ...)
+
+dbQuoteString(conn, x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A character vector to label as being escaped SQL.</p>
+</td></tr>
+<tr valign="top"><td><code>conn</code></td>
+<td>
+<p>A subclass of <code><a href="DBIConnection-class.html">DBIConnection</a></code>, representing
+an active connection to an DBMS.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Other arguments passed on to methods. Not otherwise used.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The SQL class has associated <code>SQL()</code> constructor function. This class
+is used to prevent double escaping of SQL strings, and to make it possible
+to tell DBI functions that you've done the escaping yourself.
+</p>
+
+
+<h3>Implementation notes</h3>
+
+<p>DBI provides default methods for SQL-92 compatible quoting. If the database
+uses a different convention, you will need to provide your own methods.
+Note that because of the way that S4 dispatch finds methods and because
+SQL inherits from character, if you implement (e.g.) a method for
+<code>dbQuoteString(MyConnection, character)</code>, you will also need to
+implement <code>dbQuoteString(MyConnection, SQL)</code> - this should simply
+return <code>x</code> unchanged.
+</p>
+<p>If you implement your own method, make sure to convert NA to NULL (unquoted).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Quoting ensures that arbitrary input is safe for use in a query
+name &lt;- "Robert'); DROP TABLE Students;--"
+dbQuoteString(ANSI(), name)
+dbQuoteIdentifier(ANSI(), name)
+
+# NAs become NULL
+dbQuoteString(ANSI(), c("x", NA))
+
+# SQL vectors are always passed through as is
+var_name &lt;- SQL("select")
+var_name
+
+dbQuoteIdentifier(ANSI(), var_name)
+dbQuoteString(ANSI(), var_name)
+
+# This mechanism is used to prevent double escaping
+dbQuoteString(ANSI(), dbQuoteString(ANSI(), name))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>DBI</em> version 0.4-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

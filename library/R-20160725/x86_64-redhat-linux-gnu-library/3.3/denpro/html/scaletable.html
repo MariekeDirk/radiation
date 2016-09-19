@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Implements the scale and shape table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for scaletable {denpro}"><tr><td>scaletable {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Implements the scale and shape table
+</h2>
+
+<h3>Description</h3>
+
+<p>Implements the scale and shape table, which is a dynamic tool to visualize a
+scale of multivariate estimates and to inspect the shape of the estimates.
+Takes as an input a scale of estimates. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+scaletable(estiseq, paletti = NULL, shift = 0, ptext = 0, 
+ptextst = 0, bm = NULL, levnum = 60, levnumst = 60, 
+redu=TRUE, volu.modelabel = TRUE, volu.colo = TRUE,
+st.modelabel = FALSE, st.colo = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>estiseq</code></td>
+<td>
+<p>a list of density estimates, contains 5 fields: 
+pcfseq, lstseq, stseq, hseq, and type</p>
+</td></tr>
+<tr valign="top"><td><code>paletti</code></td>
+<td>
+<p>a character vector of color names</p>
+</td></tr>
+<tr valign="top"><td><code>shift</code></td>
+<td>
+<p>a real number; possible shifting of mode tree lines</p>
+</td></tr>
+<tr valign="top"><td><code>ptext</code></td>
+<td>
+<p>a real number; lifting of the mode labels</p>
+</td></tr>
+<tr valign="top"><td><code>ptextst</code></td>
+<td>
+<p>a real number; lifting of the tail labels</p>
+</td></tr>
+<tr valign="top"><td><code>bm</code></td>
+<td>
+<p>branching map; just to fasten the plotting in the case the
+branching map has been already calculated</p>
+</td></tr>
+<tr valign="top"><td><code>levnum</code></td>
+<td>
+<p>positive ineteger; the number of levels in level set trees</p>
+</td></tr>
+<tr valign="top"><td><code>levnumst</code></td>
+<td>
+<p>positive ineteger; the number of levels in shape trees</p>
+</td></tr>
+<tr valign="top"><td><code>redu</code></td>
+<td>
+<p>TRUE or FALSE; TRUE when the number of levels will be reduced,
+see argument &quot;levnum&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>volu.modelabel</code></td>
+<td>
+<p>TRUE or FALSE; TRUE when the modes are labeled in 
+volume plots (otherwise the identification of the modes between volume
+plots and barycenter plots is made with colors)</p>
+</td></tr>
+<tr valign="top"><td><code>volu.colo</code></td>
+<td>
+<p>TRUE or FALSE; whether volume plots are colored</p>
+</td></tr>
+<tr valign="top"><td><code>st.modelabel</code></td>
+<td>
+<p>FALSE or TRUE; whether the modes of radius plots 
+are labeled</p>
+</td></tr> 
+<tr valign="top"><td><code>st.colo</code></td>
+<td>
+<p>TRUE or FALSE; whether the radius plots are colored</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Plots 7 frames: 
+control frame,
+map of branches and mode graph (the biggest frames), 
+volume plot, and barycenter plot (2 medium frames).
+radius plot, and location plot (2 small frames).
+</p>
+<p>One chooses from the control panel the frame which one wants to manipulate.
+To return to the control panel, 
+click at the bottom of the frame which is currently active.
+</p>
+<p>Interaction in the mode graph frame:
+At the beginning the mode tree shows the first coordinate.
+Click at the top of the mode tree frame to change the coordinate
+of the mode tree.
+Click with the mouse at the scale of smoothing parameter values;
+the frames of 
+volume plot barycenter plot, radius plot, and location plot
+change to correspond to this smoothing parameter value.
+The vertical position of the click point determines the smoothing parameter
+value, and the horizontal position does not matter.
+(At the beginning the frames correspond
+to the estimate with the largest smoothing parameter,
+and radius plot and location plot show the 10% level set.)
+</p>
+<p>Interaction in the volume plot frame:
+Click inside of the figure to zoom in (to change the range of x-coordinates).
+Click at the top of the frame to return to the original scale.
+Click at the left to the y-coordinate axis to choose the level of the 
+radius plot and location plot.
+</p>
+<p>Interaction in the frame of the barycenter plot:
+Click at the top of the frame or inside the frame to change the coordinate.
+(At the beginning the barycenter plot shows the first coordinate.)
+</p>
+<p>Interaction in the frame of the radius plot:
+Choose with the mouse click at the top of the frame the reference point
+of the radius and location plot.
+The reference point is either th elocation of the maximum of the estimate,
+or the barycenter of the level set.
+</p>
+<p>Interaction in the frame of the location plot:
+Click at the top of the frame or inside the frame to change the coordinate.
+(At the beginning the location plot shows the first coordinate.)
+</p>
+<p>Interaction in the frame of the map of branches:
+Rotate the perspective plot with the mouse clicks.
+Each click rotates 10 degrees.
+The direction of the rotation is up or down, left or right, dpending on the 
+position of the mouse click relative to the center of the frame.
+</p>
+<p>To finish the program, click with the mouse at the label &quot;STOP&quot;
+at the control frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lstseq.kern.html">lstseq.kern</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dendat&lt;-sim.data(n=200,type="mulmod")
+
+h1&lt;-0.9
+h2&lt;-2.2
+lkm&lt;-5
+hseq&lt;-hgrid(h1,h2,lkm)
+
+N&lt;-c(16,16)
+estiseq&lt;-lstseq.kern(dendat,hseq,N,lstree=TRUE,level=0.1) 
+
+# scaletable(estiseq)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

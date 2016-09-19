@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Formating the Rounding of Numbers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for fround {arm}"><tr><td>fround {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Formating the Rounding of Numbers</h2>
+
+<h3>Description</h3>
+
+<p><code>fround</code> rounds the values in its first argument to the specified
+number of decimal places with surrounding quotes.
+</p>
+<p><code>pfround</code> rounds the values in its first argument to the specified
+number of decimal places without surrounding quotes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fround(x, digits)
+pfround(x, digits)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric vector.</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>integer indicating the precision to be used.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Gelman <a href="mailto:gelman@stat.columbia.edu">gelman@stat.columbia.edu</a>; 
+Yu-Sung Su <a href="mailto:suyusung@tsinghua.edu.cn">suyusung@tsinghua.edu.cn</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Round.html">round</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    x &lt;- rnorm(1)
+    fround(x, digits=2)
+    pfround(x, digits=2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFileIOStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFileIOStream {RGtk2}"><tr><td>GFileIOStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFileIOStream</h2>
+
+<h3>Description</h3>
+
+<p>File read and write streaming operations</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileIOStreamGetEtag.html">gFileIOStreamGetEtag</a>(object)</code><br />
+<code><a href="gFileIOStreamQueryInfo.html">gFileIOStreamQueryInfo</a>(object, attributes, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileIOStreamQueryInfoAsync.html">gFileIOStreamQueryInfoAsync</a>(object, attributes, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileIOStreamQueryInfoFinish.html">gFileIOStreamQueryInfoFinish</a>(object, result, .errwarn = TRUE)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GIOStream
+         +----GFileIOStream</pre>
+
+<h3>Interfaces</h3>
+
+<p>GFileIOStream implements
+<code><a href="GSeekable.html">GSeekable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>GFileIOStream provides io streams that both read and write to the same
+file handle.
+</p>
+<p>GFileIOStream implements <code><a href="GSeekable.html">GSeekable</a></code>, which allows the io
+stream to jump to arbitrary positions in the file and to truncate
+the file, provided the filesystem of the file supports these
+operations.
+</p>
+<p>To find the position of a file io stream, use
+<code><a href="gSeekableTell.html">gSeekableTell</a></code>.
+</p>
+<p>To find out if a file io stream supports seeking, use <code><a href="gSeekableCanSeek.html">gSeekableCanSeek</a></code>.
+To position a file io stream, use <code><a href="gSeekableSeek.html">gSeekableSeek</a></code>.
+To find out if a file io stream supports truncating, use
+<code><a href="gSeekableCanTruncate.html">gSeekableCanTruncate</a></code>. To truncate a file io
+stream, use <code><a href="gSeekableTruncate.html">gSeekableTruncate</a></code>.
+</p>
+<p>The default implementation of all the <code><a href="GFileIOStream.html">GFileIOStream</a></code> operations
+and the implementation of <code><a href="GSeekable.html">GSeekable</a></code> just call into the same operations
+on the output stream.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileIOStream</code></dt><dd>
+<p>A subclass of GIOStream for opened files. This adds
+a few file-specific operations and seeking and truncating.
+<code><a href="GFileIOStream.html">GFileIOStream</a></code> implements GSeekable.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFileIOStream.html">http://library.gnome.org/devel//gio/GFileIOStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

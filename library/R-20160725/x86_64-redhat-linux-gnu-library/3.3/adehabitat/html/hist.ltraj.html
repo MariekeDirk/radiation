@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Histogram of the Descriptive Parameters of a Trajectory</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hist.ltraj {adehabitat}"><tr><td>hist.ltraj {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Histogram of the Descriptive Parameters of a Trajectory</h2>
+
+<h3>Description</h3>
+
+<p>This function draws an histogram of any tranformation of the
+descriptive parameters of a trajectory in objects of class
+<code>ltraj</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ltraj'
+hist(x, which = "dx/sqrt(dt)", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+<p>a character string giving any syntactically correct R
+expression implying the descriptive elements in <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>parameters to be passed to the generic function
+<code>hist</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a list of objects of class <code>"histogram"</code>  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/hist.html">hist</a></code>, <code><a href="as.ltraj.html">ltraj</a></code> for additional
+information on the descriptive parameters of the trajectory,
+<code><a href="qqchi.html">qqnorm.ltraj</a></code> for examination of distribution. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Simulation of a Brownian Motion
+a &lt;- simm.brown(c(1:300, seq(301,6000,by=20)))
+plot(a, addpoints = FALSE)
+
+
+## dx/sqrt(dt) and dy/sqrt(dt) are normally distributed (see
+## ?qqchi) 
+hist(a, "dx/sqrt(dt)", freq = FALSE)
+lines(tutu &lt;- seq(-5,5, length=50), dnorm(tutu), col="red")
+
+hist(a, "dy/sqrt(dt)", freq = FALSE)
+lines(tutu, dnorm(tutu), col="red")
+
+
+## Look at the distribution of distances between
+## successive relocations
+hist(a, "dist/sqrt(dt)", freq = FALSE)
+lines(tutu &lt;- seq(0,5, length=50), dchi(tutu), col="red")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkClipboardWaitIsUrisAvailable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkClipboardWaitIsUrisAvailable {RGtk2}"><tr><td>gtkClipboardWaitIsUrisAvailable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkClipboardWaitIsUrisAvailable</h2>
+
+<h3>Description</h3>
+
+<p>Test to see if there is a list of URIs available to be pasted
+This is done by requesting the TARGETS atom and checking
+if it contains the URI targets. This function
+waits for the data to be received using the main loop, so events, 
+timeouts, etc, may be dispatched during the wait.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkClipboardWaitIsUrisAvailable(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-Clipboards.html">GtkClipboard</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>This function is a little faster than calling
+<code><a href="gtkClipboardWaitForUris.html">gtkClipboardWaitForUris</a></code> since it doesn't need to retrieve
+the actual URI data.
+Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> is there is an URI list available, <code>FALSE</code> otherwise.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRadioAction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRadioAction {RGtk2}"><tr><td>GtkRadioAction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRadioAction</h2>
+
+<h3>Description</h3>
+
+<p>An action of which only one in a group can be active</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRadioActionNew.html">gtkRadioActionNew</a>(name = NULL, label = NULL, tooltip = NULL, stock.id = NULL, value = NULL)</code><br />
+<code><a href="gtkRadioActionGetGroup.html">gtkRadioActionGetGroup</a>(object)</code><br />
+<code><a href="gtkRadioActionSetGroup.html">gtkRadioActionSetGroup</a>(object, group)</code><br />
+<code><a href="gtkRadioActionGetCurrentValue.html">gtkRadioActionGetCurrentValue</a>(object)</code><br />
+<code><a href="gtkRadioActionSetCurrentValue.html">gtkRadioActionSetCurrentValue</a>(object, current.value)</code><br />
+<code>gtkRadioAction(name = NULL, label = NULL, tooltip = NULL, stock.id = NULL, value = NULL)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkAction
+         +----GtkToggleAction
+               +----GtkRadioAction</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRadioAction implements
+<code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkRadioAction.html">GtkRadioAction</a></code> is similar to <code><a href="GtkRadioMenuItem.html">GtkRadioMenuItem</a></code>. A number of radio
+actions can be linked together so that only one may be active at any
+one time.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRadioAction</code></dt><dd>
+<p>The <code>GtkRadioAction</code> struct contains
+only private members and should not be accessed directly.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRadioAction</code> is the equivalent of <code><a href="gtkRadioActionNew.html">gtkRadioActionNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(action, current, user.data)</code></dt><dd>
+<p>The ::changed signal is emitted on every member of a radio group when the
+active member is changed. The signal gets emitted after the ::activate signals
+for the previous and current active members.
+Since 2.4
+</p>
+
+<dl>
+<dt><code>action</code></dt><dd><p>the action on which the signal is emitted</p>
+</dd>
+<dt><code>current</code></dt><dd><p>the member of <code>action</code>s group which has just been activated</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">current-value</code> [integer : Read / Write]</dt><dd>
+<p>The value property of the currently active member of the group to which
+this action belongs.
+Default value: 0  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">group</code> [<code><a href="GtkRadioAction.html">GtkRadioAction</a></code> : *       : Write]</dt><dd>
+<p>Sets a new group for a radio action.
+Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">value</code> [integer : Read / Write]</dt><dd>
+<p>The value is an arbitrary integer which can be used as a
+convenient way to determine which action in the group is
+currently active in an ::activate or ::changed signal handler.
+See <code><a href="gtkRadioActionGetCurrentValue.html">gtkRadioActionGetCurrentValue</a></code> and <code><a href="GtkActionGroup.html">GtkRadioActionEntry</a></code>
+for convenient ways to get and set this property.
+Default value: 0  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRadioAction.html">http://library.gnome.org/devel//gtk/GtkRadioAction.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkPlug</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkPlug {RGtk2}"><tr><td>GtkPlug {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkPlug</h2>
+
+<h3>Description</h3>
+
+<p>Toplevel for embedding into other processes</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkPlugConstruct.html">gtkPlugConstruct</a>(object, socket.id)</code><br />
+<code><a href="gtkPlugConstructForDisplay.html">gtkPlugConstructForDisplay</a>(object, display, socket.id)</code><br />
+<code><a href="gtkPlugNew.html">gtkPlugNew</a>(socket.id, show = TRUE)</code><br />
+<code><a href="gtkPlugNewForDisplay.html">gtkPlugNewForDisplay</a>(display, socket.id)</code><br />
+<code><a href="gtkPlugGetId.html">gtkPlugGetId</a>(object)</code><br />
+<code><a href="gtkPlugGetEmbedded.html">gtkPlugGetEmbedded</a>(object)</code><br />
+<code><a href="gtkPlugGetSocketWindow.html">gtkPlugGetSocketWindow</a>(object)</code><br />
+<code>gtkPlug(socket.id, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkWindow
+                                       +----GtkPlug</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkPlug implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Together with <code><a href="GtkSocket.html">GtkSocket</a></code>, <code><a href="GtkPlug.html">GtkPlug</a></code> provides the ability
+to embed widgets from one process into another process
+in a fashion that is transparent to the user. One
+process creates a <code><a href="GtkSocket.html">GtkSocket</a></code> widget and passes the
+ID of that widget's window to the other process,
+which then creates a <code><a href="GtkPlug.html">GtkPlug</a></code> with that window ID.
+Any widgets contained in the <code><a href="GtkPlug.html">GtkPlug</a></code> then will appear
+inside the first application's window.
+<strong>PLEASE NOTE:</strong> The   <code><a href="GtkPlug.html">GtkPlug</a></code>   and   <code><a href="GtkSocket.html">GtkSocket</a></code>   widgets are currently not available
+on all platforms supported by GTK+.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkPlug</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkPlug</code> is the equivalent of <code><a href="gtkPlugNew.html">gtkPlugNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>embedded(plug, user.data)</code></dt><dd>
+<p>Gets emitted when the plug becomes embedded in a socket.
+</p>
+
+<dl>
+<dt><code>plug</code></dt><dd><p>the object on which the signal was emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">embedded</code> [logical : Read]</dt><dd>
+<p><code>TRUE</code> if the plug is embedded in a socket.
+Default value: FALSE  Since 2.12
+</p>
+</dd>
+<dt><code style="white-space: pre;">socket-window</code> [<code><a href="gdk-Windows.html">GdkWindow</a></code> : *            : Read]</dt><dd>
+<p>The window of the socket the plug is embedded in.
+Since 2.14
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkPlug.html">http://library.gnome.org/devel//gtk/GtkPlug.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

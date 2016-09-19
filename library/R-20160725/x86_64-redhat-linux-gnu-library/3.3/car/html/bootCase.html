@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Case bootstrap for regression models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bootCase {car}"><tr><td>bootCase {car}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Case bootstrap for regression models </h2>
+
+<h3>Description</h3>
+
+<p>This routine does a case bootstrap resampling for regression models.  It
+returns a matrix of the estimated coefficients from each of the bootstrap
+samples.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lm'
+bootCase(object, f.=coef, B=999)
+
+## S3 method for class 'glm'
+bootCase(object, f.=coef, B=999)
+
+## S3 method for class 'nls'
+bootCase(object, f.=coef, B=999)
+
+nextBoot(object, sample)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p> A regression object of type <code>lm</code>, <code>glm</code> or class
+<code>nls</code>.  May work with other regression objects that support the <code>update</code>
+method and has a <code>subset</code> argument.  See details below.</p>
+</td></tr>
+<tr valign="top"><td><code>f.</code></td>
+<td>
+<p>A function that will be applied to the updated regression object to
+compute the statistics of interest.  The default is <code>coef</code>, to return to
+regression coefficient estimates.</p>
+</td></tr>
+<tr valign="top"><td><code>B</code></td>
+<td>
+<p>Number of bootstrap samples.</p>
+</td></tr>
+<tr valign="top"><td><code>sample</code></td>
+<td>
+<p>A sample with replacement of the integers from 
+1 to n=non-missing sample size that defines a bootstrap sample.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This routine does the case-bootstrap described in the references below.  Begin
+with a regression object.  For each of B bootstrap samples, sample the 
+non-missing rows of the data
+matrix with replacement, and recompute and save estimates.  For nls objects there may
+be convergence problems in the bootstrap.  The routine will continue until
+convergence is attained B times, or until there are 25 consecutive failures to converge. 
+<code>nextBoot</code> is an internal function that will update a model correctly, depending
+on the class of the model object.
+</p>
+<p>This simple routine should return a result with any S3 regression object that
+can be updated using the <code>update</code> function and has a <code>subset</code>
+argument.  It is OK in general for
+linear regression, logistic regression in which the response is either zero or
+one.  With bionomial responses, one would generally want to resample one
+observation, not all the observations in m trials, so this function will
+incorrect results.  The function can be used with Poisson regression with Poisson
+sampling, but it is probably wrong for contingency tables with multinomial
+sampling.  It is OK proportional odds models without Frequencies set, but
+inappropriate with Frequencies.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A matrix (with class <code>c("bootCase", "matrix")</code>) with B rows and rank(object)
+columns giving the bootstrap estimates.
+These can be summarized as needed using standard R tools.  The returned object
+has an attribute <code>"pointEstimate"</code> that contains the value of the function
+<code>f</code> applied to the argument <code>object</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Sanford Weisberg, <a href="mailto:sandy@umn.edu">sandy@umn.edu</a>.  The error checking was
+written by
+Lexin Li.</p>
+
+
+<h3>References</h3>
+
+<p>Fox, J. and Weisberg, S. (2011) <em>Companion to Applied Regression</em>, Second Edition.
+Thousand Oaks:  Sage.
+</p>
+<p>Weisberg, S. (2014) <em>Applied Linear Regression</em>, Fourth Edition, Wiley   
+Wiley, Chapters 4 and 11.</p>
+
+
+<h3>See Also</h3>
+
+<p>See Also  <code><a href="../../stats/html/update.html">update</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+m1 &lt;- lm(Fertility ~ ., swiss)
+betahat &lt;- coef(m1)
+betahat.boot &lt;- bootCase(m1, B=99) # 99 bootstrap samples--too small to be useful
+summary(betahat.boot)  # default summary
+cbind("Bootstrap SD"=apply(betahat.boot, 2, sd),
+    t(apply(betahat.boot, 2, function(x) quantile(x, c(.025, .975)))))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>car</em> version 2.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

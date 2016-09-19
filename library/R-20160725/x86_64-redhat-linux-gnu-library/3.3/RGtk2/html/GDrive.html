@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GDrive</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GDrive {RGtk2}"><tr><td>GDrive {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GDrive</h2>
+
+<h3>Description</h3>
+
+<p>Drive management</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gDriveGetName.html">gDriveGetName</a>(object)</code><br />
+<code><a href="gDriveGetIcon.html">gDriveGetIcon</a>(object)</code><br />
+<code><a href="gDriveHasVolumes.html">gDriveHasVolumes</a>(object)</code><br />
+<code><a href="gDriveGetVolumes.html">gDriveGetVolumes</a>(object)</code><br />
+<code><a href="gDriveCanEject.html">gDriveCanEject</a>(object)</code><br />
+<code><a href="gDriveGetStartStopType.html">gDriveGetStartStopType</a>(object)</code><br />
+<code><a href="gDriveCanStart.html">gDriveCanStart</a>(object)</code><br />
+<code><a href="gDriveCanStartDegraded.html">gDriveCanStartDegraded</a>(object)</code><br />
+<code><a href="gDriveCanStop.html">gDriveCanStop</a>(object)</code><br />
+<code><a href="gDriveCanPollForMedia.html">gDriveCanPollForMedia</a>(object)</code><br />
+<code><a href="gDrivePollForMedia.html">gDrivePollForMedia</a>(object, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDrivePollForMediaFinish.html">gDrivePollForMediaFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDriveHasMedia.html">gDriveHasMedia</a>(object)</code><br />
+<code><a href="gDriveIsMediaCheckAutomatic.html">gDriveIsMediaCheckAutomatic</a>(object)</code><br />
+<code><a href="gDriveIsMediaRemovable.html">gDriveIsMediaRemovable</a>(object)</code><br />
+<code><a href="gDriveEject.html">gDriveEject</a>(object, flags = "G_MOUNT_UNMOUNT_NONE", cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDriveEjectFinish.html">gDriveEjectFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDriveEjectWithOperation.html">gDriveEjectWithOperation</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDriveEjectWithOperationFinish.html">gDriveEjectWithOperationFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDriveStart.html">gDriveStart</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDriveStartFinish.html">gDriveStartFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDriveStop.html">gDriveStop</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gDriveStopFinish.html">gDriveStopFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gDriveEnumerateIdentifiers.html">gDriveEnumerateIdentifiers</a>(object)</code><br />
+<code><a href="gDriveGetIdentifier.html">gDriveGetIdentifier</a>(object, kind)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GDrive</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GDrive.html">GDrive</a></code> - this represent a piece of hardware connected to the machine.
+It's generally only created for removable hardware or hardware with
+removable media.
+<code><a href="GDrive.html">GDrive</a></code> is a container class for <code><a href="GVolume.html">GVolume</a></code> objects that stem from
+the same piece of media. As such, <code><a href="GDrive.html">GDrive</a></code> abstracts a drive with
+(or without) removable media and provides operations for querying
+whether media is available, determing whether media change is
+automatically detected and ejecting the media.
+</p>
+<p>If the <code><a href="GDrive.html">GDrive</a></code> reports that media isn't automatically detected, one
+can poll for media; typically one should not do this periodically
+as a poll for media operation is potententially expensive and may
+spin up the drive creating noise.
+<code><a href="GDrive.html">GDrive</a></code> supports starting and stopping drives with authentication
+support for the former. This can be used to support a diverse set
+of use cases including connecting/disconnecting iSCSI devices,
+powering down external disk enclosures and starting/stopping
+multi-disk devices such as RAID devices. Note that the actual
+semantics and side-effects of starting/stopping a <code><a href="GDrive.html">GDrive</a></code> may vary
+according to implementation. To choose the correct verbs in e.g. a
+file manager, use <code><a href="gDriveGetStartStopType.html">gDriveGetStartStopType</a></code>.
+</p>
+<p>For porting from GnomeVFS note that there is no equivalent of
+<code><a href="GDrive.html">GDrive</a></code> in that API.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GDrive</code></dt><dd>
+<p>Opaque drive object.
+</p>
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GDriveStartFlags</code></dt><dd>
+<p>Flags used when starting a drive.
+Since 2.22
+</p>
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>No flags set.</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">GDriveStartStopType</code></dt><dd>
+<p>Enumeration describing how a drive can be started/stopped.
+Since 2.22
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">unknown</code></dt><dd><p>Unknown or drive doesn't support
+start/stop.</p>
+</dd>
+<dt><code style="white-space: pre;">shutdown</code></dt><dd><p>The stop method will physically
+shut down the drive and e.g. power down the port the drive is
+attached to.</p>
+</dd>
+<dt><code style="white-space: pre;">network</code></dt><dd><p>The start/stop methods are used
+for connecting/disconnect to the drive over the network.</p>
+</dd>
+<dt><code style="white-space: pre;">multidisk</code></dt><dd><p>The start/stop methods will
+assemble/disassemble a virtual drive from several physical
+drives.</p>
+</dd>
+<dt><code style="white-space: pre;">password</code></dt><dd><p>The start/stop methods will
+unlock/lock the disk (for example using the ATA &ldquo;SECURITY
+UNLOCK DEVICE&rdquo; command)</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>changed(drive, user.data)</code></dt><dd>
+<p>Emitted when the drive's state has changed.
+</p>
+
+<dl>
+<dt><code>drive</code></dt><dd><p>a <code><a href="GDrive.html">GDrive</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>disconnected(drive, user.data)</code></dt><dd>
+<p>This signal is emitted when the <code><a href="GDrive.html">GDrive</a></code> have been
+disconnected. If the recipient is holding references to the
+object they should release them so the object can be
+finalized.
+</p>
+
+<dl>
+<dt><code>drive</code></dt><dd><p>a <code><a href="GDrive.html">GDrive</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>eject-button(drive, user.data)</code></dt><dd>
+<p>Emitted when the physical eject button (if any) of a drive has
+been pressed.
+</p>
+
+<dl>
+<dt><code>drive</code></dt><dd><p>a <code><a href="GDrive.html">GDrive</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>stop-button(drive, user.data)</code></dt><dd>
+<p>Emitted when the physical stop button (if any) of a drive has
+been pressed.
+Since 2.22
+</p>
+
+<dl>
+<dt><code>drive</code></dt><dd><p>a <code><a href="GDrive.html">GDrive</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GDrive.html">http://library.gnome.org/devel//gio/GDrive.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

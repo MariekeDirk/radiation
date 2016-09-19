@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Predict with an earth model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.earth {earth}"><tr><td>predict.earth {earth}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Predict with an earth model</h2>
+
+<h3>Description</h3>
+
+<p>Predict with an <code><a href="earth.html">earth</a></code> model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'earth'
+predict(object = stop("no 'object' argument"), newdata = NULL,
+        type = c("link", "response", "earth", "class", "terms"),
+        interval = "none", level = .95,
+        thresh = .5, trace = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An <code><a href="earth.html">earth</a></code> object.
+This is the only required argument.
+</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+
+<p>Make predictions using <code>newdata</code>, which
+can be a data frame, a matrix, or a vector with length equal to a multiple of the number of columns
+of the original input matrix <code>x</code>.
+Note that this is more flexible than the predict methods for most R models.<br />
+NAs are allowed (and the predicted value will be NA unless the NAs are in variables
+that are unused in the earth model).<br />
+Default is NULL, meaning return values predicted from the training set.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>Type of prediction.
+One of <code>"link"</code> (default), <code>"response"</code>, <code>"earth"</code>, <code>"class"</code>, or <code>"terms"</code>.
+See the <b>Note</b> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>interval</code></td>
+<td>
+
+<p>Return prediction or confidence levels.
+Default is <code>"none"</code>.
+Use <code>interval="pint"</code> to get prediction intervals on new data.
+<br />
+Requires that the earth model was built with <code>varmod.method</code>.
+<br />
+This argument gets passed on as the <code>type</code> argument to <code><a href="predict.varmod.html">predict.varmod</a></code>.
+See its help page for details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>level</code></td>
+<td>
+
+<p>Confidence level for the <code>interval</code> argument.
+Default is <code>.95</code>, meaning construct 95% confidence bands
+(estimate the 2.5% and 97.5% levels).
+</p>
+</td></tr>
+<tr valign="top"><td><code>thresh</code></td>
+<td>
+
+<p>Threshold, a value between 0 and 1 when predicting a probability.
+Only applies when <code>type="class"</code>.
+Default is .5.
+See the <b>Note</b> below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+
+<p>Default <code>FALSE</code>. Set to <code>TRUE</code> to see which data, subset, etc.  <code>predict.earth</code> is using.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Unused, but provided for generic/method consistency.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The predicted values (a matrix for multiple response models).
+</p>
+<p>If <code>type="terms"</code>, a matrix with each column showing the contribution of a predictor.
+</p>
+<p>If <code>interval="pint"</code> or <code>"cint"</code>, a matrix with three columns:<br />
+<code>fit</code>: the predicted values<br />
+<code>lwr</code>: the lower confidence or prediction limit<br />
+<code>upr</code>: the upper confidence or prediction limit
+</p>
+<p>If <code>interval="se"</code>, the standard errors.
+</p>
+
+
+<h3>Note</h3>
+
+<p><b>Predicting with standard earth models</b>
+</p>
+<p>Use the default <code>type="link"</code>, or possibly <code>type="class"</code>.
+</p>
+<p>Actually, the <code>"link"</code>, <code>"response"</code>, and <code>"earth"</code>
+choices all return the same value unless the <code>glm</code> argument
+was used in the original call to <code><a href="earth.html">earth</a></code>.
+</p>
+<p><b>Predicting with earth-GLM models</b>
+</p>
+<p>This section applies to earth models with a GLM component, i.e.,
+when the <code>glm</code> argument was used
+in the original call to <code><a href="earth.html">earth</a></code>.
+</p>
+<p>The <code>"link"</code> and <code>"response"</code> options:
+see <code><a href="../../stats/html/predict.glm.html">predict.glm</a></code> for a description of these.
+In brief: for logistic models
+use <code>type="link"</code> to get log-odds and
+<code>type="response"</code> to get probabilities.
+</p>
+<p>Use option <code>"earth"</code> to get the linear fit (this gives the prediction you would get
+if your original call to earth had no <code>glm</code> argument).
+</p>
+<p><b>Predicting with &quot;class&quot;</b>
+</p>
+<p>Use option <code>"class"</code> to get the predicted class.
+With option <code>"class"</code>, this function first makes predictions with
+<code>type="response"</code> and then assigns the predicted values to classes as follows:
+</p>
+<p>(i) When the response is a <em>logical</em>, predict <code>TRUE</code> if
+the predicted probability is greater than <code>thresh</code>.
+</p>
+<p>(ii) When the response is a <em>numeric</em>, predict <code>TRUE</code> if
+the predicted value is greater than <code>thresh</code>.
+Actually, this is identical to the above case,
+although <code>thresh</code> here may legitimately be a value
+outside the 0...1 range.
+</p>
+<p>(iii) When the response is a <em>two level factor</em>,
+predict the second level if its probability is more than <code>thresh</code>.
+In other words, with the default <code>thresh=.5</code> predict the most probable level.
+</p>
+<p>(iv) When the response is a <em>three or more level factor</em>,
+predict the most probable level (and <code>thresh</code> is ignored).
+</p>
+<p><b>Predicting with &quot;terms&quot;</b>
+</p>
+<p>The <code>"terms"</code> option returns a <code>"link"</code> response suitable for <code><a href="../../stats/html/termplot.html">termplot</a></code>.
+Only the additive terms and the first response (for multi-response models) are returned.
+Also, <code>"terms"</code> always returns the earth terms, and ignores the GLM component
+of the model, if any.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="earth.html">earth</a></code>,
+<code><a href="../../stats/html/predict.html">predict</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(trees)
+earth.mod &lt;- earth(Volume ~ ., data = trees)
+predict(earth.mod)           # same as earth.mod$fitted.values
+predict(earth.mod, c(10,80)) # yields 16.8
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>earth</em> version 4.4.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

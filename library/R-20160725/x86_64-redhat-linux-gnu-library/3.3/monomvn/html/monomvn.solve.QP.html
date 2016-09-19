@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Solve a Quadratic Program</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for monomvn.solve.QP {monomvn}"><tr><td>monomvn.solve.QP {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Solve a Quadratic Program  </h2>
+
+<h3>Description</h3>
+
+<p>Solve a Quadratic Program specified by a <code>QP</code> object
+using the covariance matrix and mean vector specified
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+monomvn.solve.QP(S, QP, mu = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>S</code></td>
+<td>
+<p> a positive-definite covariance <code>matrix</code> whose
+dimensions agree with the Quadratic Program, e.g.,
+<code>nrow(QP$Amat)</code> </p>
+</td></tr>
+<tr valign="top"><td><code>QP</code></td>
+<td>
+<p> a Quadratic Programming object like one that can
+be generated automatically by <code>default.QP</code> </p>
+</td></tr>
+<tr valign="top"><td><code>mu</code></td>
+<td>
+<p> an mean vector with
+<code>length(mu) = nrow(QP$Amat)</code> that is required
+if <code>QP$dmu == TRUE</code> or <code>QP$mu.constr[1] != 0</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The protocol executed by this function is identical to
+the one used on samples of <i>S</i> and <i>mu</i>
+obtained in <code><a href="bmonomvn.html">bmonomvn</a></code> when a Quadratic Program
+is specified through the <code>QP</code> argument.  For more details
+on the specification of the Quadratic Program implied by a
+<code>QP</code> object, please see <code><a href="default.QP.html">default.QP</a></code> and
+the examples therein
+</p>
+
+
+<h3>Value</h3>
+
+<p>The output is a vector whose length agrees with
+the dimension of <code>S</code>, describing the solution to the
+Quadratic Program given
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert B. Gramacy <a href="mailto:rbgramacy@chicagobooth.edu">rbgramacy@chicagobooth.edu</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="default.QP.html">default.QP</a></code>, <code><a href="bmonomvn.html">bmonomvn</a></code>,
+and <code><a href="../../quadprog/html/solve.QP.html">solve.QP</a></code> in the <span class="pkg">quadprog</span> package
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

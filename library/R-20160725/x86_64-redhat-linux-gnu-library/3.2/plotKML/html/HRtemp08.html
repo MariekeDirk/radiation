@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Daily temperatures for Croatia for year 2008</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for HRtemp08 {plotKML}"><tr><td>HRtemp08 {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Daily temperatures for Croatia for year 2008</h2>
+
+<h3>Description</h3>
+
+<p>The daily measurements of temperature (thermometers) for year 2008 kindly contributed by the <a href="http://meteo.hr">Croatian National Meteorological Service</a>. <code>HRtemp08</code> contains 56,608 measurements of temperature (159 stations by 365 days). 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(HRtemp08)</pre>
+
+
+<h3>Format</h3>
+
+<p>The <code>HRtemp08</code> data frames contain the following columns:
+</p>
+
+<dl>
+<dt><code>NAME</code></dt><dd><p>name of the meteorological station</p>
+</dd>
+<dt><code>Lon</code></dt><dd><p>a numeric vector; x-coordiante / longitude in the WGS84 system</p>
+</dd>
+<dt><code>Lat</code></dt><dd><p>a numeric vector; y-coordinate / latitude in the WGS84 system</p>
+</dd>
+<dt><code>DATE</code></dt><dd><p>'Date' class vector</p>
+</dd>
+<dt><code>TEMP</code></dt><dd><p>daily temperature measurements in degree C</p>
+</dd>
+</dl>
+
+
+
+<h3>Note</h3>
+
+<p> The precision of the temperature readings in <code>HRtemp08</code> is tenth of degree C. On most climatological stations temperature is measured three times a day, at 7 a.m., 1 p.m. and 9 p.m. The daily mean can be calculated as a weighted average. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl, Melita Percec Tadic and Benedikt Gräler</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Hengl, T., Heuvelink, G.B.M., Percec Tadic, M., Pebesma, E., (2011) <a href="http://dx.doi.org/10.1007/s00704-011-0464-2">Spatio-temporal prediction of daily temperatures using time-series of MODIS LST images</a>. Theoretical and Applied Climatology, 107(1-2): 265-277.
+</p>
+</li>
+<li><p> AGGM book datasets (<a href="http://spatial-analyst.net/book/HRclim2008">http://spatial-analyst.net/book/HRclim2008</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="HRprec08.html">HRprec08</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(HRtemp08)
+
+## Not run: 
+## examples from: http://dx.doi.org/10.1007/s00704-011-0464-2 
+library(spacetime)
+library(gstat)
+library(sp)
+sp &lt;- SpatialPoints(HRtemp08[,c("Lon","Lat")])
+proj4string(sp) &lt;- CRS("+proj=longlat +datum=WGS84")
+HRtemp08.st &lt;- STIDF(sp, time = HRtemp08$DATE-.5, 
+     data = HRtemp08[,c("NAME","TEMP")], 
+     endTime = as.POSIXct(HRtemp08$DATE+.5))
+## Country borders:
+con0 &lt;- url("http://www.gadm.org/data/rda/HRV_adm1.RData")
+load(con0)
+stplot(HRtemp08.st[,"2008-07-02::2008-07-03","TEMP"], 
+   na.rm=TRUE, col.regions=SAGA_pal[[1]],
+   sp.layout=list("sp.polygons", gadm))
+
+## Load covariates:
+con &lt;- url("http://plotkml.r-forge.r-project.org/HRgrid1km.rda")
+load(con)
+str(HRgrid1km)
+sel.s &lt;- c("HRdem","HRdsea","HRtwi","Lat","Lon")
+## Prepare static covariates:
+begin &lt;- as.Date("2008-01-01")  
+endTime &lt;- as.POSIXct(as.Date("2008-12-31"))
+sp.grid &lt;- as(HRgrid1km, "SpatialPixels")
+HRgrid1km.st0 &lt;- STFDF(sp.grid, time=begin, 
+    data=HRgrid1km@data[,sel.s], endTime=endTime)
+## Prepare dynamic covariates:
+sel.d &lt;- which(!names(HRgrid1km) %in% sel.s)
+dates &lt;- sapply(names(HRgrid1km)[sel.d], 
+     function(x){strsplit(x, "LST")[[1]][2]}
+)
+dates &lt;- as.Date(dates, format="%Y_%m_%d")
+## Sort values of MODIS LST bands:
+m &lt;- data.frame(MODIS.LST = as.vector(unlist(HRgrid1km@data[,sel.d])))
+## &gt;10M values!
+## Create an object of type STFDF:
+HRgrid1km.stD &lt;- STFDF(sp.grid, time=dates-4, data=m, 
+     endTime=as.POSIXct(dates+4))
+
+## Overlay in space and time:
+HRtemp08.stxy &lt;- spTransform(HRtemp08.st, CRS(proj4string(HRgrid1km)))
+ov.s &lt;- over(HRtemp08.stxy, HRgrid1km.st0)
+ov.d &lt;- over(HRtemp08.stxy, HRgrid1km.stD)
+## Prepare the regression matrix:
+regm &lt;- do.call(cbind, list(HRtemp08.stxy@data, ov.s, ov.d))
+## Estimate cumulative days:
+regm$cday &lt;- floor(unclass(HRtemp08.stxy@endTime)/86400-.5)
+str(regm)
+## Plot a single station:
+scatter.smooth(regm$cday[regm$NAME=="Zavi&lt;c5&gt;&lt;be&gt;an"], 
+    regm$TEMP[regm$NAME=="Zavi&lt;c5&gt;&lt;be&gt;an"], 
+    xlab="Cumulative days", 
+    ylab="Mean daily temperature (\260C)", 
+    ylim=c(-12,28), main="GL039 (Zavi\236an)", 
+    col="grey")
+## Run PCA so we can filter missing pixels in the MODIS images:
+pca &lt;- prcomp(~HRdem+HRdsea+Lat+Lon+HRtwi+MODIS.LST, 
+    data=regm, scale.=TRUE)
+selc &lt;- c("TEMP","Lon","Lat","cday")
+regm.pca &lt;- cbind( regm[-pca$na.action, selc], 
+    as.data.frame(pca$x))
+## Fit a spatio-temporal regression model:
+theta &lt;- min(regm.pca$cday)
+lm.HRtemp08 &lt;- lm(TEMP~PC1+PC2+PC3+PC4+PC5+PC6 
+     +cos((cday-theta)*pi/180), data=regm.pca)
+summary(lm.HRtemp08)
+
+## Prediction locations -&gt; focus on Istria:
+data(LST)
+gridded(LST) &lt;- ~lon+lat
+proj4string(LST) &lt;- CRS("+proj=longlat +datum=WGS84")
+LST.xy &lt;- reproject(LST[1], proj4string(HRgrid1km))
+LST.xy &lt;- as(LST.xy, "SpatialPixels")
+## targeted dates:
+t.dates &lt;- as.Date(c("2008-02-01","2008-05-01","2008-08-01"), 
+     format="%Y-%m-%d")
+LST.st &lt;- STF(geometry(LST.xy), time=t.dates)
+## get values of covariates:
+ov.s.IS &lt;- over(LST.st, HRgrid1km.st0)
+ov.d.IS &lt;- over(LST.st, HRgrid1km.stD)
+LST.stdf &lt;- STFDF(geometry(LST.xy), time=t.dates, 
+    data=cbind(ov.s.IS, ov.d.IS))
+## predict Principal Components:
+LST.pca &lt;- as.data.frame(predict(pca, LST.stdf@data))
+LST.stdf@data[,paste0("PC",1:6)] &lt;- LST.pca
+cday.l &lt;- as.vector(sapply(
+    floor(unclass(LST.stdf@endTime)/86400-.5), 
+    rep, nrow(LST.xy@coords)))
+LST.stdf@data[,"cday"] &lt;- cday.l
+stplot(LST.stdf[,,"PC1"], col.regions=SAGA_pal[[1]])
+stplot(LST.stdf[,,"PC2"], col.regions=SAGA_pal[[1]])
+
+## Predict spatio-temporal regression:
+LST.stdf@data[,"TEMP.reg"] &lt;- predict(lm.HRtemp08, 
+     newdata=LST.stdf@data)
+## Plot predictions:
+gadm.ll &lt;- as(spTransform(gadm, 
+     CRS(proj4string(HRgrid1km))), "SpatialLines")
+stplot(LST.stdf[,,"TEMP.reg"], col.regions=SAGA_pal[[1]],
+  sp.layout=list( list("sp.lines", gadm.ll),
+   list("sp.points", HRtemp08.stxy, col="black", pch=19) )
+  )
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

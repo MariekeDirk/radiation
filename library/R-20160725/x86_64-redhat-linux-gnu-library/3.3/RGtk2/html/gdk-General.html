@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: General</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-General {RGtk2}"><tr><td>gdk-General {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>General</h2>
+
+<h3>Description</h3>
+
+<p>Library initialization and miscellaneous functions</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkNotifyStartupComplete.html">gdkNotifyStartupComplete</a>()</code><br />
+<code><a href="gdkNotifyStartupCompleteWithId.html">gdkNotifyStartupCompleteWithId</a>(id)</code><br />
+<code><a href="gdkGetProgramClass.html">gdkGetProgramClass</a>()</code><br />
+<code><a href="gdkSetProgramClass.html">gdkSetProgramClass</a>(program.class)</code><br />
+<code><a href="gdkGetDisplay.html">gdkGetDisplay</a>()</code><br />
+<code><a href="gdkFlush.html">gdkFlush</a>()</code><br />
+<code><a href="gdkScreenWidth.html">gdkScreenWidth</a>()</code><br />
+<code><a href="gdkScreenHeight.html">gdkScreenHeight</a>()</code><br />
+<code><a href="gdkScreenWidthMm.html">gdkScreenWidthMm</a>()</code><br />
+<code><a href="gdkScreenHeightMm.html">gdkScreenHeightMm</a>()</code><br />
+<code><a href="gdkPointerGrab.html">gdkPointerGrab</a>(window, owner.events = FALSE, event.mask = 0, confine.to = NULL, cursor = NULL, time = "GDK_CURRENT_TIME")</code><br />
+<code><a href="gdkPointerUngrab.html">gdkPointerUngrab</a>(time = "GDK_CURRENT_TIME")</code><br />
+<code><a href="gdkPointerIsGrabbed.html">gdkPointerIsGrabbed</a>()</code><br />
+<code><a href="gdkSetDoubleClickTime.html">gdkSetDoubleClickTime</a>(msec)</code><br />
+<code><a href="gdkKeyboardGrab.html">gdkKeyboardGrab</a>(window, owner.events = FALSE, time = "GDK_CURRENT_TIME")</code><br />
+<code><a href="gdkKeyboardUngrab.html">gdkKeyboardUngrab</a>(time = "GDK_CURRENT_TIME")</code><br />
+<code><a href="gdkBeep.html">gdkBeep</a>()</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>This section describes the GDK initialization functions and miscellaneous
+utility functions.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkGrabStatus</code></dt><dd>
+<p>Returned by <code><a href="gdkPointerGrab.html">gdkPointerGrab</a></code> and <code><a href="gdkKeyboardGrab.html">gdkKeyboardGrab</a></code> to indicate
+success or the reason for the failure of the grab attempt.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">success</code></dt><dd><p>the resource was successfully grabbed.</p>
+</dd>
+<dt><code style="white-space: pre;">already-grabbed</code></dt><dd><p>the resource is actively grabbed by another client.</p>
+</dd>
+<dt><code style="white-space: pre;">invalid-time</code></dt><dd><p>the resource was grabbed more recently than the 
+specified time.</p>
+</dd>
+<dt><code style="white-space: pre;">not-viewable</code></dt><dd><p>the grab window or the <code>confine.to</code> window are not
+viewable.</p>
+</dd>
+<dt><code style="white-space: pre;">frozen</code></dt><dd><p>the resource is frozen by an active grab of another client.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-General.html">http://library.gnome.org/devel//gdk/gdk-General.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

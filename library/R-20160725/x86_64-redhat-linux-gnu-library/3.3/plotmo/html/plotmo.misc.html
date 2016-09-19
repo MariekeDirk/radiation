@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ignore</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plotmo.misc {plotmo}"><tr><td>plotmo.misc {plotmo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ignore</h2>
+
+<h3>Description</h3>
+
+<p>Miscellaneous functions exported for internal use by <code>earth</code>
+and other packages.
+You can ignore these.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+# for earth
+plotmo_fitted(object, trace, nresponse, type, ...)
+plotmo_cum(rinfo, info, nfigs=1, add=FALSE,
+           cum.col1, grid.col, jitter=0, cum.grid="percentages", ...)
+plotmo_nresponse(y, object, nresponse, trace, fname, type="response")
+plotmo_rinfo(object, type=NULL, residtype=type, nresponse=1,
+    standardize=FALSE, delever=FALSE, trace=0,
+    leverage.msg="returned as NA", expected.levs=NULL, labels.id=NULL, ...)
+plotmo_predict(object, newdata, nresponse,
+    type, expected.levs, trace, inverse.func=NULL, ...)
+plotmo_prolog(object, object.name, trace, ...)
+plotmo_resplevs(object, plotmo_fitted, yfull, trace)
+plotmo_rsq(object, newdata, trace=0, nresponse=NA, type=NULL, ...)
+plotmo_standardizescale(object)
+plotmo_type(object, trace, fname="plotmo", type, ...)
+plotmo_y(object, nresponse=NULL, trace=0, expected.len=NULL,
+    resp.levs=NULL, convert.glm.response=!is.null(nresponse))
+## Default S3 method:
+plotmo.pairs(object, x, nresponse, trace, all2, ...)
+## Default S3 method:
+plotmo.singles(object, x, nresponse, trace, all1, ...)
+## Default S3 method:
+plotmo.y(object, trace, naked, expected.len, ...)
+# plotmo methods
+plotmo.convert.na.nresponse(object, nresponse, yhat, type="response", ...)
+plotmo.pairs(object, x, nresponse, trace, all2, ...)
+plotmo.pint(object, newdata, type, level, trace, ...)
+plotmo.predict(object, newdata, type, ..., TRACE)
+plotmo.prolog(object, object.name, trace, ...)
+plotmo.residtype(object, ...)
+plotmo.singles(object, x, nresponse, trace, all1, ...)
+plotmo.type(object, ...)
+plotmo.x(object, trace, ...)
+plotmo.y(object, trace, naked, expected.len, nresponse=1, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>all1</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>all2</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>convert.glm.response</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>cum.col1</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>cum.grid</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>delever</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>expected.len</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>expected.levs</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>fname</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>grid.col</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>info</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>inverse.func</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>jitter</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>labels.id</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>level</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>leverage.msg</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>naked</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>nfigs</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>nresponse</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>object.name</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>plotmo_fitted</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>residtype</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>resp.levs</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>rinfo</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>standardize</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>TRACE</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>yfull</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>yhat</code></td>
+<td>
+<p>-</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>-</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>plotmo</em> version 3.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

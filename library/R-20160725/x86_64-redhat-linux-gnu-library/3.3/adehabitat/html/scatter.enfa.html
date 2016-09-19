@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scatter Plot of the Results of the ENFA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for scatter.enfa {adehabitat}"><tr><td>scatter.enfa {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scatter Plot of the Results of the ENFA</h2>
+
+<h3>Description</h3>
+
+<p>Performs the scatter diagrams of objects of class <code>enfa</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'enfa'
+scatter(x, xax = 1, yax = 2, pts = FALSE, nc = TRUE, 
+             percent = 95, clabel = 1, side = c("top", "bottom", "none"),
+             Adensity, Udensity, Aangle, Uangle, Aborder, Uborder, 
+             Acol, Ucol, Alty, Ulty, Abg, Ubg, Ainch, Uinch, ...) 
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>enfa</code></p>
+</td></tr>
+<tr valign="top"><td><code>xax</code></td>
+<td>
+<p>the column number for the x-axis</p>
+</td></tr>
+<tr valign="top"><td><code>yax</code></td>
+<td>
+<p>the column number for the y-axis</p>
+</td></tr>
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>logical. Whether the points should be drawn.  If
+<code>FALSE</code>, minimum convex polygons are displayed</p>
+</td></tr>
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>whether or not the niche center should be displayed</p>
+</td></tr>
+<tr valign="top"><td><code>percent</code></td>
+<td>
+<p>100 minus the proportion of outliers to be excluded from the
+computation of the minimum convex polygons</p>
+</td></tr>
+<tr valign="top"><td><code>clabel</code></td>
+<td>
+<p>a character size for the columns</p>
+</td></tr>
+<tr valign="top"><td><code>side</code></td>
+<td>
+<p>if <code>"top"</code>, the legend of the kept axis is upside, if
+<code>"bottom"</code> it is downside, if <code>"none"</code> no legend</p>
+</td></tr>
+<tr valign="top"><td><code>Adensity</code></td>
+<td>
+<p>the density of shading lines, in lines per inch, for the 
+available pixels polygon. See <code><a href="../../graphics/html/polygon.html">polygon</a></code> for more details</p>
+</td></tr>
+<tr valign="top"><td><code>Udensity</code></td>
+<td>
+<p>the density of shading lines, in lines per inch, for the 
+used pixels polygon. See <code><a href="../../graphics/html/polygon.html">polygon</a></code> for more details</p>
+</td></tr>
+<tr valign="top"><td><code>Aangle</code></td>
+<td>
+<p>the slope of shading lines, given as an angle in degrees
+(counter-clockwise), for the available pixels polygon</p>
+</td></tr>
+<tr valign="top"><td><code>Uangle</code></td>
+<td>
+<p>the slope of shading lines, given as an angle in degrees
+(counter-clockwise), for the used pixels polygon</p>
+</td></tr>
+<tr valign="top"><td><code>Aborder</code></td>
+<td>
+<p>the color for drawing the border of the available pixels 
+polygon. See <code><a href="../../graphics/html/polygon.html">polygon</a></code> for more details</p>
+</td></tr>
+<tr valign="top"><td><code>Uborder</code></td>
+<td>
+<p>the color for drawing the border of the used pixels polygon. 
+See <code><a href="../../graphics/html/polygon.html">polygon</a></code> for more details</p>
+</td></tr>
+<tr valign="top"><td><code>Acol</code></td>
+<td>
+<p>the color for filling the available pixels polygon. 
+if <code>pts == FALSE</code>, the color for the points corresponding to available
+pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Ucol</code></td>
+<td>
+<p>the color for filling the used pixels polygon. 
+if <code>pts == FALSE</code>, the color for the points corresponding to used 
+pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Alty</code></td>
+<td>
+<p>the line type for the available pixels polygon, as in <code>par</code></p>
+</td></tr>
+<tr valign="top"><td><code>Ulty</code></td>
+<td>
+<p>the line type for the used pixels polygon, as in <code>par</code></p>
+</td></tr>
+<tr valign="top"><td><code>Abg</code></td>
+<td>
+<p>if <code>pts == TRUE</code>, background color for open plot symbols of 
+available pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Ubg</code></td>
+<td>
+<p>if <code>pts == TRUE</code>, background color for open plot symbols of 
+used pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Ainch</code></td>
+<td>
+<p>if <code>pts == TRUE</code>, heigth in inches of the available pixels</p>
+</td></tr> 
+<tr valign="top"><td><code>Uinch</code></td>
+<td>
+<p>if <code>pts == TRUE</code>, heigth in inches of the largest used pixels</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>scatter.enfa</code> displays a factorial map of pixels, as well as the
+projection of the vectors of the canonical basis multiplied by a
+constant of rescaling.
+The kept axes for the plot are specified in a corner.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mathieu Basille <a href="mailto:basille@ase-research.org">basille@ase-research.org</a></p>
+
+
+<h3>References</h3>
+
+<p>Basille, M., Calenge, C., Marboutin, E., Andersen, R. &amp; Gaillard,
+J.M. (2008) Assessing habitat selection using multivariate statistics:
+Some refinements of the ecological-niche factor
+analysis. <em>Ecological Modelling</em>, <b>211</b>, 233&ndash;240.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="enfa.html">enfa</a></code>, <code><a href="../../ade4/html/scatter.html">scatter</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(lynxjura)
+
+map &lt;- lynxjura$map
+
+## We keep only "wild" indices.
+tmp &lt;- lynxjura$locs[,4]!="D"
+locs &lt;- lynxjura$locs[tmp, c("X","Y")]
+
+## We perform a square root transformation
+## of the variable to normalize it
+map[,4] &lt;- sqrt(map[,4])
+
+## We perform the ENFA
+tmp &lt;- data2enfa(map, locs[tmp, c("X","Y")])
+(enfa1 &lt;- enfa(dudi.pca(tmp$tab, scannf=FALSE),
+               tmp$pr, scannf = FALSE))
+scatter(enfa1)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

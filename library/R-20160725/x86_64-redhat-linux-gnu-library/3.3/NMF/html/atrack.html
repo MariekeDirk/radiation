@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Annotation Tracks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for .atrack {NMF}"><tr><td>.atrack {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Annotation Tracks</h2>
+
+<h3>Description</h3>
+
+<p><code>.atrack</code> is an S4 generic method that converts an
+object into an annotation track object. It provides a
+general and flexible annotation framework that is used by
+<code><a href="aheatmap.html">aheatmap</a></code> to annotates heatmap rows and
+columns.
+</p>
+<p><code>is.atrack</code> tests if an object is an
+<code>annotationTrack</code> object.
+</p>
+<p><code>adata</code> get/sets the annotation parameters on an
+object
+</p>
+<p><code>amargin</code> get/sets the annotation margin, i.e. along
+which dimension of the data the annotations are to be
+considered.
+</p>
+<p><code>anames</code> returns the reference margin names for
+annotation tracks, from their embedded annotation data
+object.
+</p>
+<p><code>alength</code> returns the reference length for
+annotation tracks, from their embedded annotation data
+object
+</p>
+<p><code>atrack</code> creates/concatenates <code>annotationTrack</code>
+objects
+</p>
+<p><code>annotationTrack</code> is constructor function for
+<code>annotationTrack</code> object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  .atrack(object, ...)
+
+  is.atrack(x)
+
+  adata(x, value, ...)
+
+  amargin(x, value)
+
+  anames(x, default.margin)
+
+  alength(x, default.margin)
+
+  ## S4 method for signature 'ANY'
+.atrack(object, data = NULL, ...)
+
+  atrack(..., order = NULL, enforceNames = FALSE,
+    .SPECIAL = NA, .DATA = NULL, .CACHE = NULL)
+
+  annotationTrack(x = list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object from which is extracted
+annotation tracks</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extensions and passed
+to the next method call. For <code>atrack</code>, arguments in
+<code>...</code> are concatenated into a single
+<code>annotationTrack</code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an R object</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>replacement value for the complete
+annotation data list</p>
+</td></tr>
+<tr valign="top"><td><code>default.margin</code></td>
+<td>
+<p>margin to use if no margin data is
+stored in the <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>object used to extend the annotation track
+within a given data context. It is typically a
+matrix-like object, against which annotation
+specifications are matched using
+<code><a href="match_atrack.html">match_atrack</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+<p>an integer vector that indicates the order
+of the annotation tracks in the result list</p>
+</td></tr>
+<tr valign="top"><td><code>enforceNames</code></td>
+<td>
+<p>logical that indicates if missing
+track names should be generated as <code>X&lt;i&gt;</code></p>
+</td></tr>
+<tr valign="top"><td><code>.SPECIAL</code></td>
+<td>
+<p>an optional list of functions (with no
+arguments) that are called to generate special annotation
+tracks defined by codes of the form <code>':NAME'</code>. e.g.,
+the function <code>link{consensusmap}</code> defines special
+tracks <code>':basis'</code> and <code>':consensus'</code>.
+</p>
+<p>If <code>.SPECIAL=FALSE</code>, then any special tracks is
+discarded and a warning is thrown.</p>
+</td></tr>
+<tr valign="top"><td><code>.DATA</code></td>
+<td>
+<p>data used to match and extend annotation
+specifications. It is passed to argument <code>data</code> of
+the <code>.atrack</code> methods, which in turn use pass it to
+<code><a href="match_atrack.html">match_atrack</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>.CACHE</code></td>
+<td>
+<p>an <code>annotationTrack</code> object with which
+the generated annotation track should be consistent. This
+argument is more for internal/advanced usage and should
+not be used by the end-user.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Methods for <code>.atrack</code> exist for common type of
+objects, which should provide enough options for new
+methods to define how annotation track are extracted from
+more complex objects, by coercing/filtering them into a
+supported type.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>atrack</code> returns a list, decorated with class
+<code>'annotationTrack'</code>, where each element contains the
+description of an annotation track.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>.atrack</dt><dd><p><code>signature(object = "ANY")</code>: The
+default method converts character or integer vectors into
+factors. Numeric vectors, factors, a single NA or
+<code>annotationTrack</code> objects are returned unchanged
+(except from reordering by argument <code>order</code>). Data
+frames are not changed either, but class
+'annotationTrack' is appended to their original class
+set. </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

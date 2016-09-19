@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Output spatial neighbours for INLA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nb2INLA {spdep}"><tr><td>nb2INLA {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Output spatial neighbours for INLA</h2>
+
+<h3>Description</h3>
+
+<p>Output spatial neighbours for INLA
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nb2INLA(file, nb)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>file where adjacency matrix will be stored</p>
+</td></tr>
+<tr valign="top"><td><code>nb</code></td>
+<td>
+<p>an object of class <code>nb</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Nothing is returned but a file will be created with the representation of
+the adjacency matrix as required by INLA for its spatial models.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Virgilio Gomez-Rubio</p>
+
+
+<h3>References</h3>
+
+<p>http://www.r-inla.org</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+td &lt;- tempdir()
+x &lt;- nb2INLA(paste(td, "columbus-INLA.adj", sep="/"), col.gal.nb)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

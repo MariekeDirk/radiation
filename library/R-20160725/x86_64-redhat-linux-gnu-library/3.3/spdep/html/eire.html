@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Eire data sets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for eire {spdep}"><tr><td>eire {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Eire data sets</h2>
+
+<h3>Description</h3>
+
+<p>The Eire data set has been converted to shapefile format and placed in the etc/shapes directory. The initial data objects are now stored as a SpatialPolygonsDataFrame object, from which the contiguity neighbour list is recreated. For purposes of record, the original data set is retained.
+</p>
+<p>The <code>eire.df</code> data frame has 26 rows and 9 columns. In addition,
+polygons of the 26 counties are provided as a multipart polylist in
+eire.polys.utm (coordinates in km, projection UTM zone 30). Their
+centroids are in eire.coords.utm. The original Cliff and Ord binary contiguities are in eire.nb.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(eire)</pre>
+
+
+<h3>Format</h3>
+
+<p>This data frame contains the following columns:
+</p>
+
+<dl>
+<dt>A</dt><dd><p>Percentage of sample with blood group A</p>
+</dd>
+<dt>towns</dt><dd><p>Towns/unit area</p>
+</dd>
+<dt>pale</dt><dd><p>Beyond the Pale 0, within the Pale 1</p>
+</dd>
+<dt>size</dt><dd><p>number of blood type samples</p>
+</dd>
+<dt>ROADACC</dt><dd><p>arterial road network accessibility in 1961</p>
+</dd>
+<dt>OWNCONS</dt><dd><p>percentage in value terms of gross agricultural output of 
+each county consumed by itself</p>
+</dd>
+<dt>POPCHG</dt><dd><p>1961 population as percentage of 1926</p>
+</dd>
+<dt>RETSALE</dt><dd><p>value of retail sales £000</p>
+</dd>
+<dt>INCOME</dt><dd><p>total personal income £000</p>
+</dd>
+<dt>names</dt><dd><p>County names</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>Upton and Fingleton 1985, - Bailey and Gatrell 1995, ch. 1 for blood 
+group data, Cliff and Ord (1973), p. 107 for remaining variables (also after 
+O'Sullivan, 1968). Polygon borders and Irish data sourced from Michael
+Tiefelsdorf's SPSS Saddlepoint bundle, originally hosted at:
+http://geog-www.sbs.ohio-state.edu/faculty/tiefelsdorf/GeoStat.htm but no longer available.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+require(maptools)
+eire &lt;- readShapePoly(system.file("etc/shapes/eire.shp", package="spdep")[1],
+  ID="names", proj4string=CRS("+proj=utm +zone=30 +ellps=airy +units=km"))
+eire.nb &lt;- poly2nb(eire)
+#data(eire)
+
+summary(eire$A)
+brks &lt;- round(fivenum(eire$A), digits=2)
+cols &lt;- rev(heat.colors(4))
+plot(eire, col=cols[findInterval(eire$A, brks, all.inside=TRUE)])
+title(main="Percentage with blood group A in Eire")
+legend(x=c(-50, 70), y=c(6120, 6050), leglabs(brks), fill=cols, bty="n")
+plot(eire)
+plot(eire.nb, coordinates(eire), add=TRUE)
+lA &lt;- lag.listw(nb2listw(eire.nb), eire$A)
+summary(lA)
+moran.test(eire$A, nb2listw(eire.nb))
+geary.test(eire$A, nb2listw(eire.nb))
+cor(lA, eire$A)
+moran.plot(eire$A, nb2listw(eire.nb),
+ labels=eire$names)
+A.lm &lt;- lm(A ~ towns + pale, data=eire)
+summary(A.lm)
+res &lt;- residuals(A.lm)
+brks &lt;- c(min(res),-2,-1,0,1,2,max(res))
+cols &lt;- rev(cm.colors(6))
+plot(eire, col=cols[findInterval(res, brks, all.inside=TRUE)])
+title(main="Regression residuals")
+legend(x=c(-50, 70), y=c(6120, 6050), legend=leglabs(brks), fill=cols,
+  bty="n")
+lm.morantest(A.lm, nb2listw(eire.nb))
+lm.morantest.sad(A.lm, nb2listw(eire.nb))
+lm.LMtests(A.lm, nb2listw(eire.nb), test="LMerr")
+
+brks &lt;- round(fivenum(eire$OWNCONS), digits=2)
+cols &lt;- grey(4:1/5)
+plot(eire, col=cols[findInterval(eire$OWNCONS, brks, all.inside=TRUE)])
+title(main="Percentage own consumption of agricultural produce")
+legend(x=c(-50, 70), y=c(6120, 6050), legend=leglabs(brks),
+  fill=cols, bty="n")
+moran.plot(eire$OWNCONS, nb2listw(eire.nb))
+moran.test(eire$OWNCONS, nb2listw(eire.nb))
+e.lm &lt;- lm(OWNCONS ~ ROADACC, data=eire)
+res &lt;- residuals(e.lm)
+brks &lt;- c(min(res),-2,-1,0,1,2,max(res))
+cols &lt;- rev(cm.colors(6))
+plot(eire, col=cols[findInterval(res, brks, all.inside=TRUE)])
+title(main="Regression residuals")
+legend(x=c(-50, 70), y=c(6120, 6050), legend=leglabs(brks), fill=cm.colors(6),
+  bty="n")
+lm.morantest(e.lm, nb2listw(eire.nb))
+lm.morantest.sad(e.lm, nb2listw(eire.nb))
+lm.LMtests(e.lm, nb2listw(eire.nb), test="LMerr")
+print(localmoran.sad(e.lm, eire.nb, select=1:length(slot(eire, "polygons"))))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDrawDrawable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDrawDrawable {RGtk2}"><tr><td>gdkDrawDrawable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDrawDrawable</h2>
+
+<h3>Description</h3>
+
+<p>Copies the <code>width</code> x <code>height</code> region of <code>src</code> at coordinates (<code>xsrc</code>,
+<code>ysrc</code>) to coordinates (<code>xdest</code>, <code>ydest</code>) in <code>drawable</code>.
+<code>width</code> and/or <code>height</code> may be given as -1, in which case the entire
+<code>src</code> drawable will be copied.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDrawDrawable(object, gc, src, xsrc, ysrc, xdest, ydest, width, 
+    height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">gc</code></code></td>
+<td>
+<p>a <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> sharing the drawable's visual and colormap</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">src</code></code></td>
+<td>
+<p>the source <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code>, which may be the same as <code>drawable</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">xsrc</code></code></td>
+<td>
+<p>X position in <code>src</code> of rectangle to draw</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ysrc</code></code></td>
+<td>
+<p>Y position in <code>src</code> of rectangle to draw</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">xdest</code></code></td>
+<td>
+<p>X position in <code>drawable</code> where the rectangle should be drawn</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ydest</code></code></td>
+<td>
+<p>Y position in <code>drawable</code> where the rectangle should be drawn</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>width of rectangle to draw, or -1 for entire <code>src</code> width</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>height of rectangle to draw, or -1 for entire <code>src</code> height</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Most fields in <code>gc</code> are not used for this operation, but notably the
+clip mask or clip region will be honored.
+</p>
+<p>The source and destination drawables must have the same visual and
+colormap, or errors will result. (On X11, failure to match
+visual/colormap results in a BadMatch error from the X server.)
+A common cause of this problem is an attempt to draw a bitmap to
+a color drawable. The way to draw a bitmap is to set the bitmap as 
+the stipple on the <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code>, set the fill mode to <code>GDK_STIPPLED</code>, and 
+then draw the rectangle.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

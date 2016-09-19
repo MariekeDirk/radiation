@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GUnixInputStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GUnixInputStream {RGtk2}"><tr><td>GUnixInputStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GUnixInputStream</h2>
+
+<h3>Description</h3>
+
+<p>Streaming input operations for UNIX file descriptors</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInputStream
+         +----GUnixInputStream</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code style="white-space: pre;">GUnixInputStream</code> implements <code style="white-space: pre;">\link{GInputStream}</code> for reading from a
+UNIX file descriptor, including asynchronous operations. The file
+descriptor must be selectable, so it doesn't work with opened files.
+</p>
+<p>Note that &lsquo;<span class="file">&lt;gio/gunixinputstream.h&gt;</span>&rsquo; belongs 
+to the UNIX-specific GIO interfaces, thus you have to use the 
+&lsquo;<span class="file">gio-unix-2.0.pc</span>&rsquo; pkg-config file when using it.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">close-fd</code> [logical : Read / Write]</dt><dd>
+<p>Whether to close the file descriptor when the stream is closed.
+Default value: TRUE  Since 2.20
+</p>
+</dd>
+<dt><code style="white-space: pre;">fd</code> [integer : Read / Write / Construct Only]</dt><dd>
+<p>The file descriptor that the stream reads from.
+Default value: -1  Since 2.20
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GUnixInputStream.html">http://library.gnome.org/devel//gio/GUnixInputStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

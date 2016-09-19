@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Computes the excess masses associated with the nodes of a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for excmas {denpro}"><tr><td>excmas {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Computes the excess masses associated with the 
+nodes of a level set tree
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a level set tree, 
+calculates the excess mass for every node of the tree. 
+The excess mass is the probability mass under the curve, 
+over a given level, 
+in a certain branch of the level set tree.
+For example, function &quot;leafsfirst&quot; returns a level set tree. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+excmas(lst)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>lst</code></td>
+<td>
+<p>level set tree object;
+list of vectors which is the output of for example 
+&quot;leafsfirst&quot;, &quot;profkern&quot;, &quot;profhist&quot;, or &quot;profgene&quot; </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Vector whose length is equal to the number of nodes of the level set tree.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Jussi Klemela </p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="leafsfirst.html">leafsfirst</a></code>,
+<code><a href="plottree.html">plottree</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+dendat&lt;-matrix(rnorm(20),10)   #10*2 data-matrix
+pcf&lt;-pcf.kern(dendat,h=1,N=c(16,16))
+lst&lt;-leafsfirst(pcf)
+excmas(lst)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

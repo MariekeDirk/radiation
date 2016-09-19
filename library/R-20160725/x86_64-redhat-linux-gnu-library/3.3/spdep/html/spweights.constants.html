@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Provides constants for spatial weights matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spweights.constants {spdep}"><tr><td>spweights.constants {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Provides constants for spatial weights matrices</h2>
+
+<h3>Description</h3>
+
+<p>The function calculates the constants needed for tests of spatial autocorrelation for general weights matrices represented as <code>listw</code> objects. Note: from spdep 0.3-32, the values of S1 and S2 are returned correctly for both underlying symmetric and asymmetric neighbour lists, before 0.3-32, S1 and S2 were wrong for listw objects based on asymmetric neighbour lists, such as k-nearest neighbours (thanks to Luc Anselin for finding the bug).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spweights.constants(listw, zero.policy=NULL, adjust.n=TRUE)
+Szero(listw)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object from for example <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE ignore zones without neighbours, if FALSE fail when encountered</p>
+</td></tr>
+<tr valign="top"><td><code>adjust.n</code></td>
+<td>
+<p>default TRUE, if FALSE the number of observations is not adjusted for no-neighbour observations, if TRUE, the number of observations is adjusted</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of zones</p>
+</td></tr>
+<tr valign="top"><td><code>n1</code></td>
+<td>
+<p>n - 1</p>
+</td></tr>
+<tr valign="top"><td><code>n2</code></td>
+<td>
+<p>n - 2</p>
+</td></tr>
+<tr valign="top"><td><code>n3</code></td>
+<td>
+<p>n - 3</p>
+</td></tr>
+<tr valign="top"><td><code>nn</code></td>
+<td>
+<p>n * n</p>
+</td></tr>
+<tr valign="top"><td><code>S0</code></td>
+<td>
+<p>global sum of weights</p>
+</td></tr>
+<tr valign="top"><td><code>S1</code></td>
+<td>
+<p>S1 sum of weights</p>
+</td></tr>
+<tr valign="top"><td><code>S2</code></td>
+<td>
+<p>S2 sum of weights</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Haining, R. 1990 Spatial data analysis in the social and environmental sciences, Cambridge University Press, p. 233; Cliff, A. D., Ord, J. K. 1981 Spatial processes, Pion, p. 19, 21.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="nb2listw.html">nb2listw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+B &lt;- spweights.constants(nb2listw(COL.nb, style="B"))
+W &lt;- spweights.constants(nb2listw(COL.nb, style="W"))
+C &lt;- spweights.constants(nb2listw(COL.nb, style="C"))
+S &lt;- spweights.constants(nb2listw(COL.nb, style="S"))
+U &lt;- spweights.constants(nb2listw(COL.nb, style="U"))
+print(data.frame(rbind(unlist(B), unlist(W), unlist(C), unlist(S), unlist(U)),
+  row.names=c("B", "W", "C", "S", "U")))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

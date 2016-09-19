@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GVolume</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GVolume {RGtk2}"><tr><td>GVolume {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GVolume</h2>
+
+<h3>Description</h3>
+
+<p>Volume management</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gVolumeGetName.html">gVolumeGetName</a>(object)</code><br />
+<code><a href="gVolumeGetUuid.html">gVolumeGetUuid</a>(object)</code><br />
+<code><a href="gVolumeGetIcon.html">gVolumeGetIcon</a>(object)</code><br />
+<code><a href="gVolumeGetDrive.html">gVolumeGetDrive</a>(object)</code><br />
+<code><a href="gVolumeGetMount.html">gVolumeGetMount</a>(object)</code><br />
+<code><a href="gVolumeCanMount.html">gVolumeCanMount</a>(object)</code><br />
+<code><a href="gVolumeShouldAutomount.html">gVolumeShouldAutomount</a>(object)</code><br />
+<code><a href="gVolumeGetActivationRoot.html">gVolumeGetActivationRoot</a>(object)</code><br />
+<code><a href="gVolumeMount.html">gVolumeMount</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gVolumeMountFinish.html">gVolumeMountFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gVolumeCanEject.html">gVolumeCanEject</a>(object)</code><br />
+<code><a href="gVolumeEject.html">gVolumeEject</a>(object, flags = "G_MOUNT_UNMOUNT_NONE", cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gVolumeEjectFinish.html">gVolumeEjectFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gVolumeEjectWithOperation.html">gVolumeEjectWithOperation</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gVolumeEjectWithOperationFinish.html">gVolumeEjectWithOperationFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gVolumeEnumerateIdentifiers.html">gVolumeEnumerateIdentifiers</a>(object)</code><br />
+<code><a href="gVolumeGetIdentifier.html">gVolumeGetIdentifier</a>(object, kind)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GVolume</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GVolume.html">GVolume</a></code> interface represents user-visible objects that can be
+mounted. Note, when porting from GnomeVFS, <code><a href="GVolume.html">GVolume</a></code> is the moral
+equivalent of <code style="white-space: pre;">GnomeVFSDrive</code>.
+</p>
+<p>Mounting a <code><a href="GVolume.html">GVolume</a></code> instance is an asynchronous operation. For more
+information about asynchronous operations, see <code style="white-space: pre;">GAsyncReady</code> and
+<code style="white-space: pre;">GSimpleAsyncReady</code>. To mount a <code><a href="GVolume.html">GVolume</a></code>, first call
+<code><a href="gVolumeMount.html">gVolumeMount</a></code> with (at least) the <code><a href="GVolume.html">GVolume</a></code> instance, optionally
+a <code><a href="GMountOperation.html">GMountOperation</a></code> object and a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code>. 
+</p>
+<p>Typically, one will only want to pass <code>NULL</code> for the
+<code><a href="GMountOperation.html">GMountOperation</a></code> if automounting all volumes when a desktop session
+starts since it's not desirable to put up a lot of dialogs asking
+for credentials.
+</p>
+<p>The callback will be fired when the operation has resolved (either
+with success or failure), and a <code style="white-space: pre;">GAsyncReady</code> structure will be
+passed to the callback.  That callback should then call
+<code><a href="gVolumeMountFinish.html">gVolumeMountFinish</a></code> with the <code><a href="GVolume.html">GVolume</a></code> instance and the
+<code style="white-space: pre;">GAsyncReady</code> data to see if the operation was completed
+successfully.  If an <code>error</code> is present when <code><a href="gVolumeMountFinish.html">gVolumeMountFinish</a></code>
+is called, then it will be filled with any error information.
+</p>
+<p>It is sometimes necessary to directly access the underlying
+operating system object behind a volume (e.g. for passing a volume
+to an application via the commandline). For this purpose, GIO
+allows to obtain an 'identifier' for the volume. There can be
+different kinds of identifiers, such as Hal UDIs, filesystem labels,
+traditional Unix devices (e.g. &lsquo;<span class="file">/dev/sda2</span>&rsquo;),
+uuids. GIO uses predefind strings as names for the different kinds
+of identifiers: <code style="white-space: pre;">G_VOLUME_IDENTIFIER_KIND_HAL_UDI</code>,
+<code style="white-space: pre;">G_VOLUME_IDENTIFIER_KIND_LABEL</code>, etc. Use <code><a href="gVolumeGetIdentifier.html">gVolumeGetIdentifier</a></code>
+to obtain an identifier for a volume.
+</p>
+<p>Note that <code style="white-space: pre;">G_VOLUME_IDENTIFIER_KIND_HAL_UDI</code> will only be available
+when the gvfs hal volume monitor is in use. Other volume monitors
+will generally be able to provide the <code style="white-space: pre;">G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE</code>
+identifier, which can be used to obtain a hal device by means of
+<code>libhalMangerFindDeviceStringMatch()</code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GVolume</code></dt><dd>
+<p>Opaque mountable volume object.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>changed(user.data)</code></dt><dd>
+<p>Emitted when the volume has been changed.
+</p>
+<dl>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd></dl>
+
+</dd>
+<dt><code>removed(user.data)</code></dt><dd>
+<p>This signal is emitted when the <code><a href="GVolume.html">GVolume</a></code> have been removed. If
+the recipient is holding references to the object they should
+release them so the object can be finalized.
+</p>
+<dl>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd></dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GVolume.html">http://library.gnome.org/devel//gio/GVolume.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

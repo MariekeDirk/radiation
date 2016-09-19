@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkScreenGetActiveWindow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkScreenGetActiveWindow {RGtk2}"><tr><td>gdkScreenGetActiveWindow {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkScreenGetActiveWindow</h2>
+
+<h3>Description</h3>
+
+<p>Returns the screen's currently active window.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkScreenGetActiveWindow(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GdkScreen.html">GdkScreen</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>On X11, this is done by inspecting the _NET_ACTIVE_WINDOW property
+on the root window, as described in the Extended Window
+Manager Hints (<a href="http://www.freedesktop.org/Standards/wm-spec">http://www.freedesktop.org/Standards/wm-spec</a>). If there is no currently currently active
+window, or the window manager does not support the
+_NET_ACTIVE_WINDOW hint, this function returns <code>NULL</code>.
+</p>
+<p>On other platforms, this function may return <code>NULL</code>, depending on whether
+it is implementable on that platform.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Windows.html">GdkWindow</a></code>] the currently active window, or <code>NULL</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

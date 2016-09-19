@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Artificial data for testing ordEval algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ordDataGen {CORElearn}"><tr><td>ordDataGen {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Artificial data for testing ordEval algorithms</h2>
+
+<h3>Description</h3>
+
+<p>The generator produces ordinal data simulating different profiles of attributes:
+basic, performance, excitement and irrelevant.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ordDataGen(noInst, classNoise=0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>noInst</code></td>
+<td>
+<p>Number of instances to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>classNoise</code></td>
+<td>
+<p>Proportion of randomly determined values in the class variable.</p>
+</td></tr>   
+</table>
+
+
+<h3>Details</h3>
+
+<p>Problem is
+described by six important and two
+irrelevant features. The important features correspond to different
+feature types from the marketing theory:  two basic features
+(<i>B_{weak}</i> and <i>B_{strong}</i>), two performance features (<i>P_{weak}</i>
+and <i>P_{strong}</i>), two excitement features (<i>E_{weak}</i> and
+<i>E_{strong}</i>), and two irrelevant features (<i>I_{uniform}</i> and
+<i>I_{normal}</i>). The values of all features are randomly generated
+integer values from 1 to 5, indicating for example score assigned to
+each of the features by the survey's respondent. The dependent
+variable for each instance (class) is the sum of its features'
+effects, which we scale to the uniform distribution of integers 1-5,
+indicating, for example, an overall score assigned by the respondent.
+</p>
+<p style="text-align: center;"><i>%
+ C=b_w(B_{weak})+b_s(B_{strong})+p_w(P_{weak})+p_s(P_{strong})+e_w(E_{weak})+e_s(E_{strong})%
+ </i></p>
+
+
+
+<h3>Value</h3>
+
+<p>The method returns a <code><a href="../../base/html/data.frame.html">data.frame</a></code> with <code>noInst</code> rows and 9 columns. 
+Range of values of the attributes and class are integers in [1,5]
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="classDataGen.html">classDataGen</a></code>,
+<code><a href="regDataGen.html">regDataGen</a></code>,
+<code><a href="ordEval.html">ordEval</a></code>,
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#prepare a data set
+dat &lt;- ordDataGen(200)
+
+# evaluate ordered features with ordEval
+est &lt;- ordEval(class ~ ., dat, ordEvalNoRandomNormalizers=100)
+# print(est)  
+plot(est)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

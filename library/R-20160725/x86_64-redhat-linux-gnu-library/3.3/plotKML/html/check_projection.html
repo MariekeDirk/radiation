@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extracts the proj4 parameters and checks if the projection...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for check_projection {plotKML}"><tr><td>check_projection {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extracts the proj4 parameters and checks if the projection matches the referent CRS</h2>
+
+<h3>Description</h3>
+
+<p>Function <code>parse_proj4</code> gets the proj4 string from a space-time object and <code>check_projection</code> checks if the input projection is compatible with the referent projection system. The referent system is by default the <code>longlat</code> projection with WGS84 datum (KML-compatible coordinates).</p>
+
+
+<h3>Usage</h3>
+
+<pre>check_projection(obj, control = TRUE, 
+                 ref_CRS = get("ref_CRS", envir = plotKML.opts))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>object of class <code>Spatial*</code> or <code>Raster*</code></p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>logical; if TRUE, a logical value is returned, if FALSE, an error is thrown if the test failed</p>
+</td></tr>
+<tr valign="top"><td><code>ref_CRS</code></td>
+<td>
+<p>the referent coordinate system.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A cartographic projection is KML compatible if: (a) geographical coordinates are used, and (b) if they relate to the WGS84 ellispoid (<code>"+proj=longlat +datum=WGS84"</code>). You can also set your own local referent projection system by specifiying <code>plotKML.env(ref_CRS = ...)</code>.
+</p>
+
+
+<h3>Warning</h3>
+
+<p><code>obj</code> needs to have a proper proj4 string (CRS), otherwise <code>check_projection</code> will not run. If the geodetic datum is defined via the <code>+towgs</code>, consider converting the coordinates manually i.e. by using the <code>spTransform</code> or <code><a href="reproject.html">reproject</a></code> method.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pierre Roudier, Tomislav Hengl, and Dylan Beaudette</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> WGS84 (<a href="http://spatialreference.org/ref/epsg/4326/">http://spatialreference.org/ref/epsg/4326/</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="reproject.html">reproject</a></code>, <code>rgdal::CRS-class</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(eberg)
+library(sp)
+library(rgdal)
+coordinates(eberg) &lt;- ~X+Y
+proj4string(eberg) &lt;- CRS("+init=epsg:31467")
+check_projection(eberg)
+# not yet ready for export to KML;
+parse_proj4(proj4string(eberg))
+eberg.geo &lt;- reproject(eberg)
+check_projection(eberg.geo)
+# ... now ready for export
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

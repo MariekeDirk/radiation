@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDisplayAddClientMessageFilter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDisplayAddClientMessageFilter {RGtk2}"><tr><td>gdkDisplayAddClientMessageFilter {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDisplayAddClientMessageFilter</h2>
+
+<h3>Description</h3>
+
+<p>Adds a filter to be called when X ClientMessage events are received.
+See <code><a href="gdkWindowAddFilter.html">gdkWindowAddFilter</a></code> if you are interested in filtering other
+types of events.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDisplayAddClientMessageFilter(object, message.type, func, 
+    data)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GdkDisplay.html">GdkDisplay</a></code> for which this message filter applies</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">message.type</code></code></td>
+<td>
+<p>the type of ClientMessage events to receive.
+This will be checked against the <code>message.type</code> field
+of the XClientMessage event struct.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">func</code></code></td>
+<td>
+<p>the function to call to process the event.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>user data to pass to <code>func</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.2</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

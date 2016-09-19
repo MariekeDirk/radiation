@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkContainerRemove</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkContainerRemove {RGtk2}"><tr><td>gtkContainerRemove {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkContainerRemove</h2>
+
+<h3>Description</h3>
+
+<p>Removes <code>widget</code> from <code>container</code>. <code>widget</code> must be inside <code>container</code>.
+Note that <code>container</code> will own a reference to <code>widget</code>, and that this
+may be the last reference held; so removing a widget from its
+container can destroy that widget. If you want to use <code>widget</code>
+again, you need to add a reference to it while it's not inside
+a container, If you don't want to use <code>widget</code>
+again it's usually more efficient to simply destroy it directly
+using <code><a href="gtkWidgetDestroy.html">gtkWidgetDestroy</a></code> since this will remove it from the
+container and help break any circular reference count cycles.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkContainerRemove(object, widget)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkContainer.html">GtkContainer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">widget</code></code></td>
+<td>
+<p>a current child of <code>container</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

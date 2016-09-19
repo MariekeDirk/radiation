@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gBufferedInputStreamFillAsync</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gBufferedInputStreamFillAsync {RGtk2}"><tr><td>gBufferedInputStreamFillAsync {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gBufferedInputStreamFillAsync</h2>
+
+<h3>Description</h3>
+
+<p>Reads data into <code>stream</code>'s buffer asynchronously, up to <code>count</code> size.
+<code>io.priority</code> can be used to prioritize reads. For the synchronous
+version of this function, see <code><a href="gBufferedInputStreamFill.html">gBufferedInputStreamFill</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gBufferedInputStreamFillAsync(object, count, io.priority = 0, 
+    cancellable = NULL, callback, user.data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p><code><a href="GBufferedInputStream.html">GBufferedInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">count</code></code></td>
+<td>
+<p>the number of bytes that will be read from the stream.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">io.priority</code></code></td>
+<td>
+<p>the I/O priority
+of the request.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">callback</code></code></td>
+<td>
+<p>a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">user.data</code></code></td>
+<td>
+<p>a <code style="white-space: pre;">R object</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>count</code> is -1 then the attempted read size is equal to the number
+of bytes that are required to fill the buffer.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

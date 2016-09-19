@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summarize Soil Colors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for aggregateColor {aqp}"><tr><td>aggregateColor {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summarize Soil Colors</h2>
+
+<h3>Description</h3>
+
+<p>Summarize soil color data, weighted by occurrence and horizon thickness.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+aggregateColor(x, groups = "genhz", col = "soil_color")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a <code>SoilProfileCollection</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+<p>the name of a horizon or site attribute used to group horizons, see examples</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>the name of a horizon-level attribute with soil color specified in hexadecimal (i.e. &quot;#rrggbb&quot;)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Weights are computed by:
+w_i = sqrt(sum(thickness_i)) * n_i
+where w_i is the weight associated with color i, thickness_i is the total thickness of all horizons associated with the color i, and n_i is the number of horizons associated with color i. Weights are computed within groups specified by <code>groups</code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>scaled.data</code></td>
+<td>
+<p>a list of colors and associated weights, one item for each generalized horizon label with at least one color specified in the source data</p>
+</td></tr>
+<tr valign="top"><td><code>aggregate.data</code></td>
+<td>
+<p>a data.frame of weighted-mean colors, one row for each generalized horizon label with at least one color specified in the source data</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="generalize.hz.html">generalize.hz</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load some example data
+data(sp1, package='aqp')
+
+# upgrade to SoilProfileCollection and convert Munsell colors
+sp1$soil_color &lt;- with(sp1, munsell2rgb(hue, value, chroma))
+depths(sp1) &lt;- id ~ top + bottom
+site(sp1) &lt;- ~ group
+
+# generalize horizon names
+n &lt;- c('O', 'A', 'B', 'C')
+p &lt;- c('O', 'A', 'B', 'C')
+sp1$genhz &lt;- generalize.hz(sp1$name, n, p)
+
+# aggregate colors over horizon-level attribute: 'genhz'
+a &lt;- aggregateColor(sp1, 'genhz')
+
+# aggregate colors over site-level attribute: 'group'
+a &lt;- aggregateColor(sp1, 'group')
+
+# aggregate colors over depth-slices
+s &lt;- slice(sp1, c(5, 10, 15, 25, 50, 100, 150) ~ soil_color)
+s$slice &lt;- paste0(s$top, ' cm')
+a &lt;- aggregateColor(s, 'slice')
+
+## Not run: 
+# optionally plot with helper function
+if(require(sharpshootR))
+  aggregateColorPlot(a)
+
+## End(Not run)
+
+# a more interesting example
+## Not run: 
+data(loafercreek, package = 'soilDB')
+
+# generalize horizon names using REGEX rules
+n &lt;- c('Oi', 'A', 'BA','Bt1','Bt2','Bt3','Cr','R')
+p &lt;- c('O', '^A$|Ad|Ap|AB','BA$|Bw', 
+'Bt1$|^B$','^Bt$|^Bt2$','^Bt3|^Bt4|CBt$|BCt$|2Bt|2CB$|^C$','Cr','R')
+loafercreek$genhz &lt;- generalize.hz(loafercreek$hzname, n, p)
+
+# remove non-matching generalized horizon names
+loafercreek$genhz[loafercreek$genhz == 'not-used'] &lt;- NA
+loafercreek$genhz &lt;- factor(loafercreek$genhz)
+
+a &lt;- aggregateColor(loafercreek, 'genhz')
+
+# plot results with helper function
+par(mar=c(1,4,4,1))
+aggregateColorPlot(a, print.n.hz = TRUE)
+
+# inspect aggregate data
+a$aggregate.data
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.3 <a href="00Index.html">Index</a>]</div>
+</body></html>

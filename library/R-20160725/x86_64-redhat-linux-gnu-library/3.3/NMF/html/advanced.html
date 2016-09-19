@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Advanced Usage of the Package NMF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for advanced-NMF {NMF}"><tr><td>advanced-NMF {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Advanced Usage of the Package NMF</h2>
+
+<h3>Description</h3>
+
+<p>The functions documented here provide advanced
+functionalities useful when developing within the
+framework implemented in the NMF package.
+</p>
+<p><code>which.best</code> returns the index of the best fit in a
+list of NMF fit, according to some quantitative measure.
+The index of the fit with the lowest measure is returned.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  which.best(object, FUN = deviance, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an NMF model fitted by multiple runs.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>the function that computes the quantitative
+measure.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to <code>FUN</code>.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

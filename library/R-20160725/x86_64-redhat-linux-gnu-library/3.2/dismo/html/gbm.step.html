@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gbm step</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gbm.step {dismo}"><tr><td>gbm.step {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+gbm step
+</h2>
+
+<h3>Description</h3>
+
+<p>Function to assess the optimal number of boosting trees using k-fold cross validation. This is an implementation of the cross-validation procedure described on page 215 of Hastie et al (2001).
+</p>
+<p>The data is divided into 10 subsets, with stratification by prevalence if required for presence/absence data. The function then fits a gbm model of increasing complexity along the sequence from <code>n.trees</code> to <code>n.trees + (n.steps * step.size)</code>, calculating the residual deviance at each step along the way. After each fold processed, the function calculates the average holdout residual deviance and its standard error and then identifies the optimal number of trees as that at which the holdout deviance is minimised. It fits a model with this number of trees, returning it as a gbm model along with additional information from the cross-validation selection process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gbm.step(data, gbm.x, gbm.y, offset = NULL, fold.vector = NULL, tree.complexity = 1,
+ learning.rate = 0.01, bag.fraction = 0.75, site.weights = rep(1, nrow(data)), 
+ var.monotone = rep(0, length(gbm.x)), n.folds = 10, prev.stratify = TRUE, 
+ family = "bernoulli", n.trees = 50, step.size = n.trees, max.trees = 10000,
+ tolerance.method = "auto", tolerance = 0.001, plot.main = TRUE, plot.folds = FALSE,
+ verbose = TRUE, silent = FALSE, keep.fold.models = FALSE, keep.fold.vector = FALSE, 
+ keep.fold.fit = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>input data.frame</p>
+</td></tr>
+<tr valign="top"><td><code>gbm.x</code></td>
+<td>
+<p>indices or names of predictor variables in <code>data</code></p>
+</td></tr>
+<tr valign="top"><td><code>gbm.y</code></td>
+<td>
+<p>index or name of response variable in <code>data</code></p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+<p>offset</p>
+</td></tr>
+<tr valign="top"><td><code>fold.vector</code></td>
+<td>
+<p>a fold vector to be read in for cross validation with offsets</p>
+</td></tr>
+<tr valign="top"><td><code>tree.complexity</code></td>
+<td>
+<p>sets the complexity of individual trees</p>
+</td></tr>
+<tr valign="top"><td><code>learning.rate</code></td>
+<td>
+<p>sets the weight applied to inidivudal trees</p>
+</td></tr>
+<tr valign="top"><td><code>bag.fraction</code></td>
+<td>
+<p>sets the proportion of observations used in selecting variables</p>
+</td></tr>
+<tr valign="top"><td><code>site.weights</code></td>
+<td>
+<p>allows varying weighting for sites</p>
+</td></tr>
+<tr valign="top"><td><code>var.monotone</code></td>
+<td>
+<p>restricts responses to individual predictors to monotone</p>
+</td></tr>
+<tr valign="top"><td><code>n.folds</code></td>
+<td>
+<p>number of folds</p>
+</td></tr>
+<tr valign="top"><td><code>prev.stratify</code></td>
+<td>
+<p>prevalence stratify the folds - only for presence/absence data</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+<p>family - bernoulli (=binomial), poisson, laplace or gaussian</p>
+</td></tr>
+<tr valign="top"><td><code>n.trees</code></td>
+<td>
+<p>number of initial trees to fit</p>
+</td></tr>
+<tr valign="top"><td><code>step.size</code></td>
+<td>
+<p>numbers of trees to add at each cycle</p>
+</td></tr>
+<tr valign="top"><td><code>max.trees</code></td>
+<td>
+<p>max number of trees to fit before stopping</p>
+</td></tr>
+<tr valign="top"><td><code>tolerance.method</code></td>
+<td>
+<p>method to use in deciding to stop - &quot;fixed&quot; or &quot;auto&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>tolerance</code></td>
+<td>
+<p>tolerance value to use - if method == fixed is absolute, if auto is multiplier * total mean deviance</p>
+</td></tr>
+<tr valign="top"><td><code>plot.main</code></td>
+<td>
+<p>Logical. plot hold-out deviance curve</p>
+</td></tr>
+<tr valign="top"><td><code>plot.folds</code></td>
+<td>
+<p>Logical. plot the individual folds as well</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Logical. control amount of screen reporting</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>Logical. to allow running with no output for simplifying model)</p>
+</td></tr>
+<tr valign="top"><td><code>keep.fold.models</code></td>
+<td>
+<p>Logical. keep the fold models from cross valiation</p>
+</td></tr>
+<tr valign="top"><td><code>keep.fold.vector</code></td>
+<td>
+<p>Logical. allows the vector defining fold membership to be kept</p>
+</td></tr>
+<tr valign="top"><td><code>keep.fold.fit</code></td>
+<td>
+<p>Logical. allows the predicted values for observations from cross-validation to be kept</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Logical. allows for any additional plotting parameters</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>object of S3 class gbm
+</p>
+
+
+<h3>Note</h3>
+
+<p>This and other boosted regression trees (BRT) functions in the dismo package do not work if you use only one predictor. There is an easy work around: make a dummy variable with a constant value and then fit a model with two predictors, the one of interest and the dummy variable, which will be ignored by the model fitting as it has no useful information.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John R. Leathwick and Jane Elith
+</p>
+
+
+<h3>References</h3>
+
+<p>Hastie, T., R. Tibshirani, and J.H. Friedman, 2001. The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer-Verlag, New York
+Elith, J., J.R. Leathwick and T. Hastie, 2009. A working guide to boosted regression trees. Journal of Animal Ecology 77: 802-81
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Anguilla_train)
+# reduce data set to speed things up a bit
+Anguilla_train = Anguilla_train[1:200,]
+angaus.tc5.lr01 &lt;- gbm.step(data=Anguilla_train, gbm.x = 3:14, gbm.y = 2, family = "bernoulli",
+       tree.complexity = 5, learning.rate = 0.01, bag.fraction = 0.5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

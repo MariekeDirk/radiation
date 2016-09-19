@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods to reproject maps to a referent coordinate system...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for reproject {plotKML}"><tr><td>reproject {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods to reproject maps to a referent coordinate system (WGS84)</h2>
+
+<h3>Description</h3>
+
+<p>This wrapper function reprojects any vector or raster spatial data to some referent coordinate system (by default: geographic coordinates on the <a href="http://spatialreference.org/ref/epsg/4326/">World Geodetic System of 1984 / WGS84</a> datum).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'SpatialPoints'
+reproject(obj, CRS, ...)
+## S4 method for signature 'SpatialPolygons'
+reproject(obj, CRS, ...)
+## S4 method for signature 'SpatialLines'
+reproject(obj, CRS, ...)
+## S4 method for signature 'RasterLayer'
+reproject(obj, CRS, program = "raster", tmp.file = TRUE, 
+      NAflag, show.output.on.console = FALSE, method, ...)
+## S4 method for signature 'SpatialGridDataFrame'
+reproject(obj, CRS, tmp.file = TRUE, program = "raster", 
+      NAflag, show.output.on.console = FALSE, ...)
+## S4 method for signature 'SpatialPixelsDataFrame'
+reproject(obj, CRS, tmp.file = TRUE, program = "raster", 
+      NAflag, show.output.on.console = FALSE, ...)
+## S4 method for signature 'RasterBrick'
+reproject(obj, CRS)
+## S4 method for signature 'RasterStack'
+reproject(obj, CRS)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>Spatial* or Raster* object</p>
+</td></tr>
+<tr valign="top"><td><code>CRS</code></td>
+<td>
+<p>object of class <code>"CRS"</code>; proj4 string</p>
+</td></tr>
+<tr valign="top"><td><code>program</code></td>
+<td>
+<p>reprojection engine; either raster package or GDAL</p>
+</td></tr>
+<tr valign="top"><td><code>tmp.file</code></td>
+<td>
+<p>logical; specifies whether to create a temporary file or not</p>
+</td></tr>
+<tr valign="top"><td><code>NAflag</code></td>
+<td>
+<p>character; missing value flag</p>
+</td></tr>
+<tr valign="top"><td><code>show.output.on.console</code></td>
+<td>
+<p>logical; specifies whether to print the progress</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character; resampling method e.g.<code>"bilinear"</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments evaluated in the context of function <code>projectRaster</code> from the raster package</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In the case of raster and/or gridded maps, by selecting <code>program = "GDAL"</code> <code>gdalwarp</code> functionality will be initiated (otherwise it tries to reproject via the package raster). This requires that <a href="http://gdal.org">GDAL</a> are installed and located from R via <code>paths()</code>.
+</p>
+
+
+<h3>Warning</h3>
+
+<p><code>obj</code> needs to have a proper proj4 string (CRS), otherwise <code>reproject</code> will not run.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Pierre Roudier, Tomislav Hengl and Dylan Beaudette</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Raster package (<a href="http://CRAN.R-project.org/package=raster">http://CRAN.R-project.org/package=raster</a>)
+</p>
+</li>
+<li><p> GDAL (<a href="http://GDAL.org">http://GDAL.org</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><a href="plotKML.env.html">paths</a>, <a href="../../raster/html/projectRaster.html">projectRaster</a>, <a href="../../sp/html/spTransform.html">spTransform</a>, <a href="../../sp/html/CRS-class.html">CRS-class</a></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## example with vector data:
+data(eberg)
+library(sp)
+library(rgdal)
+coordinates(eberg) &lt;- ~X+Y
+proj4string(eberg) &lt;- CRS("+init=epsg:31467")
+eberg.geo &lt;- reproject(eberg)
+## Not run: ## example with raster data:
+data(eberg_grid25)
+gridded(eberg_grid25) &lt;- ~x+y
+proj4string(eberg_grid25) &lt;- CRS("+init=epsg:31467")
+## reproject to geographical coords (can take few minutes!):
+eberg_grid_ll &lt;- reproject(eberg_grid25[1])
+## much faster when using GDAL:
+eberg_grid_ll2 &lt;- reproject(eberg_grid25[1], program = "GDAL")
+## optional: compare processing times:
+system.time(eberg_grid_ll &lt;- reproject(eberg_grid25[1]))
+system.time(eberg_grid_ll2 &lt;- reproject(eberg_grid25[1], program="GDAL"))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

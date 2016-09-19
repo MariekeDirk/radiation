@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkPrintOperationRun</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkPrintOperationRun {RGtk2}"><tr><td>gtkPrintOperationRun {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkPrintOperationRun</h2>
+
+<h3>Description</h3>
+
+<p>Runs the print operation, by first letting the user modify
+print settings in the print dialog, and then print the document.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkPrintOperationRun(object, action, parent = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-High-level-Printing-API.html">GtkPrintOperation</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">action</code></code></td>
+<td>
+<p>the action to start</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">parent</code></code></td>
+<td>
+<p>Transient parent of the dialog. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Normally that this function does not return until the rendering of all 
+pages is complete. You can connect to the 
+<code style="white-space: pre;">"status-changed"</code> signal on <code>op</code> to obtain some 
+information about the progress of the print operation. 
+Furthermore, it may use a recursive mainloop to show the print dialog.
+</p>
+<p>If you call <code><a href="gtkPrintOperationSetAllowAsync.html">gtkPrintOperationSetAllowAsync</a></code> or set the 
+<code style="white-space: pre;">"allow-async"</code> property the operation will run 
+asynchronously if this is supported on the platform. The 
+<code style="white-space: pre;">"done"</code> signal will be emitted with the result of the 
+operation when the it is done (i.e. when the dialog is canceled, or when 
+the print succeeds or fails).
+</p>
+<pre>
+if (!is.null(settings))
+  op$setPrintSettings(settings)
+  
+if (!is.null(page_setup))
+  op$setDefaultPageSetup(page_setup)
+  
+gSignalConnect(op, "begin-print", begin_print)
+gSignalConnect(op, "draw-page", draw_page)
+ 
+res &lt;- op$run("print-dialog", parent)
+ 
+if (res[[1]] == "error") {
+  error_dialog = gtkMessageDialog(parent, "destroy-with-parent", "error",
+    "close", "Error printing file: ", res$error$message)
+  gSignalConnect(error_dialog, "response", gtkWidgetDestroy)
+  error_dialog$show()
+} else if (res[[1]] == "apply")
+  settings = op$getPrintSettings()
+</pre>
+<p>Note that <code><a href="gtkPrintOperationRun.html">gtkPrintOperationRun</a></code> can only be called once on a
+given <code><a href="gtk-High-level-Printing-API.html">GtkPrintOperation</a></code>.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="gtk-High-level-Printing-API.html">GtkPrintOperationResult</a></code>] the result of the print operation. A return value of
+<code>GTK_PRINT_OPERATION_RESULT_APPLY</code> indicates that the printing was
+completed successfully. In this case, it is a good idea to obtain
+the used print settings with <code><a href="gtkPrintOperationGetPrintSettings.html">gtkPrintOperationGetPrintSettings</a></code>
+and store them for reuse with the next print operation. A value of
+<code>GTK_PRINT_OPERATION_RESULT_IN_PROGRESS</code> means the operation is running
+asynchronously, and will emit the <code style="white-space: pre;">"done"</code> signal when
+done.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>Return location for errors, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

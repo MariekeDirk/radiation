@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Graphics Contexts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-Graphics-Contexts {RGtk2}"><tr><td>gtk-Graphics-Contexts {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Graphics Contexts</h2>
+
+<h3>Description</h3>
+
+<p>A shared pool of GdkGC objects</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkGcGet.html">gtkGcGet</a>(depth, colormap, values)</code><br />
+<code><a href="gtkGcRelease.html">gtkGcRelease</a>(gc)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>These functions provide access to a shared pool of <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> objects.
+When a new <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> is needed, <code><a href="gtkGcGet.html">gtkGcGet</a></code> is called with the required depth,
+colormap and <code><a href="gdk-Graphics-Contexts.html">GdkGCValues</a></code>. If a <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> with the required properties already
+exists then that is returned. If not, a new <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> is created.
+When the <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> is no longer needed, <code><a href="gtkGcRelease.html">gtkGcRelease</a></code> should be called.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-Graphics-Contexts.html">http://library.gnome.org/devel//gtk/gtk-Graphics-Contexts.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

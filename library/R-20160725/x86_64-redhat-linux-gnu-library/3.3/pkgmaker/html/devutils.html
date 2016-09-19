@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Package Development Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for packageEnv {pkgmaker}"><tr><td>packageEnv {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Package Development Utilities</h2>
+
+<h3>Description</h3>
+
+<p><code>packageEnv</code> is a slight modification from
+<code><a href="../../base/html/ns-topenv.html">topenv</a></code>, which returns the top environment,
+which in the case of development packages is the
+environment into which the source files are loaded by
+<code><a href="../../devtools/html/load_all.html">load_all</a></code>.
+</p>
+<p><code>topns_name</code>: the top namespace is is not
+necessarily the namespace where <code>topns_name</code> is
+effectively called. This is useful for packages that
+define functions that need to access the calling
+namespace, even from calls nested into calls to another
+function from the same package &ndash; in which case
+<code>topenv</code> would not give the desired environment.
+</p>
+<p><code>topns</code> returns the runtime top namespace, i.e. the
+namespace of the top calling package, possibly skipping
+the namespace where <code>topns</code> is effectively called.
+This is useful for packages that define functions that
+need to access the calling namespace, even from calls
+nested into calls to another function from the same
+package &ndash; in which case <code>topenv</code> would not give the
+desired environment.
+</p>
+<p><code>packageName</code> returns the current package's name. It
+was made internal from version 0.16, since the package
+<span class="pkg">utils</span> exported its own
+<code><a href="../../utils/html/packageName.html">packageName</a></code> function in R-3.0.0.
+</p>
+<p><code>str_ns</code> formats a package environment/namespace for
+log/info messages.
+</p>
+<p><code>packagePath</code> returns the current package's root
+directory, which is its installation/loading directory in
+the case of an installed package, or its source directory
+served by devtools.
+</p>
+<p><code>isPackageInstalled</code> checks if a package is
+installed.
+</p>
+<p><code>as.package</code> is enhanced version of
+<code><a href="../../devtools/html/as.package.html">as.package</a></code>, that is not exported
+not to mask the original function. It could eventually be
+incorporated into <code>devtools</code> itself. Extra arguments
+in <code>...</code> are passed to <code><a href="../../base/html/find.package.html">find.package</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  packageEnv(pkg, skip = FALSE, verbose = FALSE)
+
+  topns_name(n = 1L, strict = TRUE, unique = TRUE)
+
+  topns(strict = TRUE)
+
+  packageName(envir = packageEnv(), .Global = FALSE,
+    rm.prefix = TRUE)
+
+  str_ns(envir = packageEnv())
+
+  packagePath(..., package = NULL, lib.loc = NULL)
+
+  isPackageInstalled(..., lib.loc = NULL)
+
+  as.package(x, ..., quiet = FALSE, extract = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pkg</code></td>
+<td>
+<p>package name. If missing the environment of
+the runtime caller package is returned.</p>
+</td></tr>
+<tr valign="top"><td><code>skip</code></td>
+<td>
+<p>a logical that indicates if the calling
+namespace should be skipped.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>logical that toggles verbosity</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of namespaces to return</p>
+</td></tr>
+<tr valign="top"><td><code>strict</code></td>
+<td>
+<p>a logicical that indicates if the global
+environment should be considered as a valid namespace.</p>
+</td></tr>
+<tr valign="top"><td><code>unique</code></td>
+<td>
+<p>logical that indicates if the result should
+be reduced to contain only one occurence of each
+namespace.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>environment where to start looking for a
+package name. The default is to use the <strong>runtime</strong>
+calling package environment.</p>
+</td></tr>
+<tr valign="top"><td><code>.Global</code></td>
+<td>
+<p>a logical that indicates if calls from the
+global environment should throw an error (<code>FALSE</code>:
+default) or the string <code>'R_GlobalEnv'</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>rm.prefix</code></td>
+<td>
+<p>logical that indicates if an eventual
+prefix 'package:' should be removed from the returned
+string.</p>
+</td></tr>
+<tr valign="top"><td><code>package</code></td>
+<td>
+<p>optional name of an installed package</p>
+</td></tr>
+<tr valign="top"><td><code>lib.loc</code></td>
+<td>
+<p>path to a library of R packages where to
+search the package</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments passed to <code><a href="../../base/html/file.path.html">file.path</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>package specified by its
+installation/development path or its name as
+<code>'package:*'</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>a logical that indicate if an error should
+be thrown if a package is not found. It is also passed to
+<code><a href="../../base/html/find.package.html">find.package</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>extract</code></td>
+<td>
+<p>logical that indicates if DESCRIPTION of
+package source files should be extracted. In this case
+there will be no valid path.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>packageEnv</code> returns an environment
+</p>
+<p>a character string
+</p>
+<p>a character string
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

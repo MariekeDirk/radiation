@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Place Missing Values in Objects of Class 'ltraj'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for setNA {adehabitat}"><tr><td>setNA {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Place Missing Values in Objects of Class 'ltraj' </h2>
+
+<h3>Description</h3>
+
+<p>This function places missing values in an (approximately) regular
+trajectory, when a relocation should have been collected, but is
+actually missing.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+setNA(ltraj, date.ref, dt, tol = dt/10,
+      units = c("sec", "min", "hour", "day"), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ltraj</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>date.ref</code></td>
+<td>
+<p>an object of class <code>POSIXt</code> (see below)</p>
+</td></tr>
+<tr valign="top"><td><code>dt</code></td>
+<td>
+<p>the time lag between relocations</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>the tolerance, which measures the imprecision in the timing
+of data collection (see below)</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>a character string indicating the time units for
+<code>dt</code> and <code>tol</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to the function
+<code>rec</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>During the field study, the collection of the relocations of a
+trajectory may sometimes fail, which results into missing values.  The
+class <code>ltraj</code> deal with these missing values, so that it is
+recommended to store the missing values in the data *before* the
+creation of the object of class <code>ltraj</code>.  For example, GPS
+collars often fail to locate the animal, so that the GPS data imported
+within R contain missing values.  It is recommended to *not remove*
+these missing values.<br />
+</p>
+<p>However, sometimes, the data come without any information concerning
+the location of these missing values.  If the trajectory is
+approximately regular (i.e. approximately constant time lag), it is
+possible to determine where these missing values should occur in the
+object of class <code>ltraj</code>.  This is the role of the function
+<code>setNA</code>.<br />
+</p>
+<p>The relocations in the object of class <code>ltraj</code> may not have been
+collected at exactly identical time lag (e.g. a relocation is
+collected at 17H57 instead of 18H00). The function <code>setNA</code>
+requires that the imprecision in the timing is at most equal to
+<code>tol</code>.  Because of this imprecision, it is necessary to pass a
+reference date as argument to the function <code>setNA</code>. This
+reference date is used to determine at which time the missing values
+should be placed.<br />
+</p>
+<p>The reference date is chosen so that the rest of the division of
+(date.relocations - reference.date) by the time lag <code>dt</code> is equal
+to zero.  For example, if it is known that one of the relocations of the
+trajectory has been collected on January 16th 1996 at 18H00,
+and if the theoretical time lag between two relocations is of one
+hour, the date of reference could be (for example) the August 1st 2007
+at 05H00, because these two dates are separated by an exact number of
+hours (i.e. an exact number of <code>dt</code>). Therefore, any date
+fulfilling this condition could be passed as reference date.
+Alternatively, the August 1st 2007 at 05H30 is an uncorrect reference
+date, because the number of hours separating these two dates is not an
+integer.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>ltraj</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.ltraj.html">ltraj</a></code> for additional information about objects
+of class <code>ltraj</code>. <code><a href="sett0.html">sett0</a></code> (especially the examples
+of this help page) and <code><a href="is.regular.html">is.regular</a></code> for additional
+information about regular trajectories.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+data(porpoise)
+foc &lt;- porpoise[1]
+
+## the list foc does not contain any missing value:
+foc
+plotNAltraj(foc)
+
+## we remove the second to tenth relocation
+foc[[1]] &lt;- foc[[1]][-c(2:10),]
+foc &lt;- rec(foc)
+
+## The missing values are not visible:
+foc
+plotNAltraj(foc)
+
+## The porpoise is located once a day.
+## We use the first relocation as the reference date
+foc2 &lt;- setNA(foc, foc[[1]]$date[1], 24*3600)
+
+## Missing values are now present
+foc2
+plotNAltraj(foc2)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

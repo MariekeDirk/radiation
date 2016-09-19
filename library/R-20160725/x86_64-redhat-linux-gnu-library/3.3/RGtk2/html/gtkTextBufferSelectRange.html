@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferSelectRange</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferSelectRange {RGtk2}"><tr><td>gtkTextBufferSelectRange {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferSelectRange</h2>
+
+<h3>Description</h3>
+
+<p>This function moves the &quot;insert&quot; and &quot;selection_bound&quot; marks
+simultaneously.  If you move them in two steps
+with <code><a href="gtkTextBufferMoveMark.html">gtkTextBufferMoveMark</a></code>, you will temporarily select a
+region in between their old and new locations, which can be pretty
+inefficient since the temporarily-selected region will force stuff
+to be recalculated. This function moves them as a unit, which can
+be optimized.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferSelectRange(object, ins, bound)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ins</code></code></td>
+<td>
+<p>where to put the &quot;insert&quot; mark</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">bound</code></code></td>
+<td>
+<p>where to put the &quot;selection_bound&quot; mark</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

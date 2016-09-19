@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPropertyGet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPropertyGet {RGtk2}"><tr><td>gdkPropertyGet {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPropertyGet</h2>
+
+<h3>Description</h3>
+
+<p>Retrieves a portion of the contents of a property. If the
+property does not exist, then the function returns <code>FALSE</code>,
+and <code>GDK_NONE</code> will be stored in <code>actual.property.type</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPropertyGet(object, property, type, offset, length, pdelete)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Windows.html">GdkWindow</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">property</code></code></td>
+<td>
+<p>the property to retrieve.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>the desired property type, or <code>GDK_NONE</code>, if any type of data
+is acceptable. If this does not match the actual
+type, then <code>actual.format</code> and <code>actual.length</code> will
+be filled in, a warning will be printed to stderr
+and no data will be returned.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">offset</code></code></td>
+<td>
+<p>the offset into the property at which to begin
+retrieving data, in 4 byte units.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">length</code></code></td>
+<td>
+<p>the length of the data to retrieve in bytes.  Data is
+considered to be retrieved in 4 byte chunks, so <code>length</code>
+will be rounded up to the next highest 4 byte boundary
+(so be careful not to pass a value that might overflow
+when rounded up).</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">pdelete</code></code></td>
+<td>
+<p>if <code>TRUE</code>, delete the property after retrieving the
+data.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if data was successfully received and stored
+in <code>data</code>, otherwise <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">actual.property.type</code></code></td>
+<td>
+<p>location to store the actual type of
+the property.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">actual.format</code></code></td>
+<td>
+<p>location to store the actual return format of the
+data; either 8, 16 or 32 bits.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">actual.length</code></code></td>
+<td>
+<p>location to store the length of the retrieved data, in
+bytes.  Data returned in the 32 bit format is stored
+in a long variable, so the actual number of 32 bit
+elements should be be calculated via
+<code>actual.length</code>/sizeof(glong) to ensure portability to
+64 bit systems.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>location to store a pointer to the data. The retrieved
+data should be freed with <code>gFree()</code> when you are finished
+using it.</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The <code>xgetwindowproperty()</code> function that <code><a href="gdkPropertyGet.html">gdkPropertyGet</a></code>
+uses has a very confusing and complicated set of semantics.
+Unfortunately, <code><a href="gdkPropertyGet.html">gdkPropertyGet</a></code> makes the situation
+worse instead of better (the semantics should be considered
+undefined), and also prints warnings to stderr in cases where it
+should return a useful error to the program. You are advised to use
+<code>xgetwindowproperty()</code> directly until a replacement function for
+<code><a href="gdkPropertyGet.html">gdkPropertyGet</a></code>
+is provided.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

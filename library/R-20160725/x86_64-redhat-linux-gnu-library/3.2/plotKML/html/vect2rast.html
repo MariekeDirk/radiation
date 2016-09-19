@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert points, lines and/or polygons to rasters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vect2rast {plotKML}"><tr><td>vect2rast {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert points, lines and/or polygons to rasters</h2>
+
+<h3>Description</h3>
+
+<p>Converts any <code>"SpatialPoints*"</code>, <code>"SpatialLines*"</code>, or <code>"SpatialPolygons*"</code> object to a raster map, and (optional) writes it to an external file (GDAL-supported formats; writes to SAGA GIS format by default).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'SpatialPoints'
+vect2rast(obj, fname = names(obj)[1], cell.size, bbox, 
+      file.name, silent = FALSE, method = c("raster", "SAGA")[1], 
+      FIELD = 0, MULTIPLE = 1, LINE_TYPE = 0, GRID_TYPE = 2, ... )
+## S4 method for signature 'SpatialLines'
+vect2rast(obj, fname = names(obj)[1], cell.size, bbox, 
+      file.name, silent = FALSE, method = c("raster", "SAGA")[1], 
+      FIELD = 0, MULTIPLE = 1, LINE_TYPE = 1, GRID_TYPE = 2, ... )
+## S4 method for signature 'SpatialPolygons'
+vect2rast(obj, fname = names(obj)[1], cell.size, bbox,
+      file.name, silent = FALSE, method = c("raster", "SAGA")[1], 
+      FIELD = 0, MULTIPLE = 0, LINE_TYPE = 1, GRID_TYPE = 2, ... )
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>Spatial-PointsDataFrame,-LinesDataFrame or -PolygonsDataFrame object</p>
+</td></tr>
+<tr valign="top"><td><code>fname</code></td>
+<td>
+<p>character; target variable</p>
+</td></tr>
+<tr valign="top"><td><code>cell.size</code></td>
+<td>
+<p>numeric; output cell size</p>
+</td></tr>
+<tr valign="top"><td><code>bbox</code></td>
+<td>
+<p>matrix; output bounding box</p>
+</td></tr>
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p>character; (optional) output file name</p>
+</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+<p>logical; specifies whether to print the output</p>
+</td></tr> 
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character; output rasterization engine (either raster package or SAGA GIS)</p>
+</td></tr>
+<tr valign="top"><td><code>FIELD</code></td>
+<td>
+<p>integer; target column in the output shape file (see <code>rsaga.get.usage("grid_gridding", 0)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>MULTIPLE</code></td>
+<td>
+<p>integer; method for multiple values (see <code>rsaga.get.usage("grid_gridding", 0)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>LINE_TYPE</code></td>
+<td>
+<p>integer; method for lines (see <code>rsaga.get.usage("grid_gridding", 0)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>GRID_TYPE</code></td>
+<td>
+<p>integer; preferred target grid type (see <code>rsaga.get.usage("grid_gridding", 0)</code>)</p>
+</td></tr>  
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments that can be passed to the <code>raster::rasterize</code> command</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function basically extends the <code><a href="vect2rast.html">rasterize</a></code> function available in the raster package. The advantage of <code>vect2rast</code>, however, is that it requires no input from the user's side i.e. it automatically determines the grid cell size and the bounding box based on the properties of the input data set. The grid cell size is estimated based on the density/size of features in the map (<code>nndist</code> function in <a href="http://www.spatstat.org">spatstat</a> package): (a) in the case of <code>"SpatialPoints"</code> cell size is determined as half the mean distance between the nearest points; (b) in the case of <code>"SpatialLines"</code> half cell size is determined as half the mean distance between the lines; (c) in the case of polygon data cell size is determined as half the median size (area) of polygons of interest. For more details see <a href="http://dx.doi.org/10.1016/j.cageo.2005.11.008">Hengl (2006)</a>. To process larger vector maps consider using <code>method="SAGA"</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of type <code>"SpatialGridDataFrame"</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl </p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Hengl T., (2006) <a href="http://dx.doi.org/10.1016/j.cageo.2005.11.008">Finding the right pixel size</a>. Computers and Geosciences, 32(9): 1283-1298.
+</p>
+</li>
+<li><p> Raster package (<a href="http://CRAN.R-project.org/package=raster">http://CRAN.R-project.org/package=raster</a>)
+</p>
+</li>
+<li><p> SpatStat package (<a href="http://www.spatstat.org">http://www.spatstat.org</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="vect2rast.SpatialPoints.html">vect2rast.SpatialPoints</a></code>, <code>raster::rasterize</code>, <code>spatstat::nndist</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+data(eberg)
+library(sp)
+library(maptools)
+library(spatstat)
+coordinates(eberg) &lt;- ~X+Y
+data(eberg_zones)
+# point map:
+x &lt;- vect2rast(eberg, fname = "SNDMHT_A")
+image(x)
+# polygon map:
+x &lt;- vect2rast(eberg_zones)
+image(x)
+# for large data sets use SAGA GIS:
+x &lt;- vect2rast(eberg_zones, method = "SAGA")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

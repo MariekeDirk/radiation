@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Habitat Suitability Maps Built from the ENFA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.enfa {adehabitat}"><tr><td>predict.enfa {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Habitat Suitability Maps Built from the ENFA</h2>
+
+<h3>Description</h3>
+
+<p><code>predict.enfa</code> computes habitat suitability maps using the
+Ecological-Niche Factor Analysis and the Mahalanobis distances
+method.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'enfa'
+predict(object, index, attr, nf, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object of class <code>enfa</code></p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+<p>an integer vector giving the position of the rows of
+<code>tab</code> in the  initial object of class <code>kasc</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>attr</code></td>
+<td>
+<p>an object of class <code>kasc</code> or <code>mapattr</code>.</p>
+</td></tr> 
+<tr valign="top"><td><code>nf</code></td>
+<td>
+<p>the number of axes of specialization kept for the
+predictions.  By default, all axes kept in <code>object</code> are
+used</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The predictions are based on the position of the niche defined by the
+ENFA within the multidimensional space of environmental variables.  The
+ENFA produces row coordinates for each pixel, which are used with the
+function <code>mahalanobis</code>.  For each pixel, this function computes the
+Mahalanobis distances from the barycentre of the niche.<br />
+</p>
+<p>Actually, the function <code>predict.enfa</code> is identical to the function
+<code>mahasuhab</code>, except that the habitat suitability map is computed
+using the axes of the ENFA, instead of the raw data.<br />
+</p>
+<p>Note that the MADIFA allows a more consistent factorial decomposition of
+the Mahalanobis distances.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a raster map of class <code>kasc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mathieu Basille <a href="mailto:basille@ase-research.org">basille@ase-research.org</a></p>
+
+
+<h3>References</h3>
+
+<p>Clark, J.D., Dunn, J.E. and Smith, K.G. (1993) A multivariate model of
+female black bear habitat use for a geographic information
+system. <em>Journal of Wildlife Management</em>, <b>57</b>, 519&ndash;526.
+</p>
+<p>Hirzel, A.H., Hausser, J., Chessel, D. &amp; Perrin, N. (2002)
+Ecological-niche factor analysis: How to compute habitat-suitability
+maps without absence data? <em>Ecology</em>, <b>83</b>, 2027&ndash;2036.  
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/mahalanobis.html">mahalanobis</a></code> for information on the computation of
+Mahalanobis distances.  <code><a href="mahasuhab.html">mahasuhab</a></code> for more details on the
+computation of habitat suitability maps using the Mahalanobis distances.
+<code><a href="madifa.html">madifa</a></code> for a more consistent factorial decomposition of
+the Mahalanobis distances
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+data(lynxjura)
+
+map &lt;- lynxjura$map
+
+## We keep only "wild" indices.
+tmp &lt;- lynxjura$loc[,4] != "D"
+locs &lt;- lynxjura$locs[tmp, c("X","Y")]
+dataenfa1 &lt;- data2enfa(map, locs)
+
+(enfa1 &lt;- enfa(dudi.pca(dataenfa1$tab, scannf=FALSE),
+               dataenfa1$pr, scannf = FALSE))
+
+## Compute the prediction
+pred &lt;- predict(enfa1, dataenfa1$index, dataenfa1$attr)
+image(pred)
+contour(pred, col="green", add=T)
+points(locs, col = "red", pch = 16)
+## Lighter areas are the most preferred areas
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

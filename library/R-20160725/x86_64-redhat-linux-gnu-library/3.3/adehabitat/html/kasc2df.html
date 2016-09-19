@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion of Objects of Class kasc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kasc2df {adehabitat}"><tr><td>kasc2df {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Conversion of Objects of Class kasc</h2>
+
+<h3>Description</h3>
+
+<p>An object of class <code>kasc</code> stores several maps in a data frame
+(one column per variable, and one row per pixel of the raster map).
+However, the features mapped are rarely rectangle-shaped, whereas the
+map are inevitably rectangles.  Therefore, a lot of pixels of the maps
+do not contain data.  The pixels of the map that do not contain data
+are <code>NA</code> in this data frame.  <code>kasc2df</code> will &quot;clean&quot; the
+object of class <code>kasc</code> from these NAs, and will return a data
+frame containing only mapped values that can be used in subsequent
+analysis. <br />
+After these analyses, <code>df2kasc</code> may be used to convert the
+modified data frame to an object of 
+class <code>kasc</code> for mapping (e.g. for maps of factorial axes,
+using <code>dudi</code> analyses, see <code>help(dudi.pca)</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kasc2df(x, var = names(x))
+df2kasc(df, index, x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>kasc</code> in <code>kasc2df</code><br />
+an object of class <code>kasc</code> or <code>mapattr</code> in <code>df2kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>var</code></td>
+<td>
+<p>a character vector.  The names of the variables in the
+<code>kasc</code> that are to be kept in the output</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p>a data frame resulting from a computation of the component
+<code>tab</code> of the list previously returned by the function <code>kasc2df</code>
+(see section <code>Value</code> below).  This computation may be any form
+of analysis (Principal component analysis, modelling techniques,
+etc.) </p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+<p>an integer vector giving the position of the rows of
+<code>df</code> in the returned <code>kasc</code> (such an index can be computed
+using <code>kasc2df</code>)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>kasc2df</code> returns a list with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>tab</code></td>
+<td>
+<p>a data frame without NAs, with a number of variables equals
+to <code>length(var)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+<p>a vector of indices of the rows of the <code>kasc</code> kept
+for the analyses (that is, not <code>NA</code>).</p>
+</td></tr>
+</table>
+<p><code>df2kasc</code> returns an object of class <code>kasc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.kasc.html">kasc</a></code> for additional information on
+objects of class <code>kasc</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+kasc &lt;- puechabon$kasc
+
+# Display the kasc object
+image(kasc)
+
+# Preparation for Principal component analysis
+x &lt;- kasc2df(kasc)
+x$tab &lt;- x$tab[, (names(x$tab) != "Aspect")]
+
+# Principal component analysis
+ana &lt;- dudi.pca(x$tab, scannf = FALSE)
+
+s.corcircle(ana$co)
+s.label(ana$li, clab = 0)
+
+
+## Map of the scores of the rows
+scores &lt;- df2kasc(ana$li, x$index, kasc)
+image(scores)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

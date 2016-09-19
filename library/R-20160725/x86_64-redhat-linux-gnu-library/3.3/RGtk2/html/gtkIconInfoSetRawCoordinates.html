@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIconInfoSetRawCoordinates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIconInfoSetRawCoordinates {RGtk2}"><tr><td>gtkIconInfoSetRawCoordinates {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIconInfoSetRawCoordinates</h2>
+
+<h3>Description</h3>
+
+<p>Sets whether the coordinates returned by <code><a href="gtkIconInfoGetEmbeddedRect.html">gtkIconInfoGetEmbeddedRect</a></code>
+and <code><a href="gtkIconInfoGetAttachPoints.html">gtkIconInfoGetAttachPoints</a></code> should be returned in their
+original form as specified in the icon theme, instead of scaled
+appropriately for the pixbuf returned by <code><a href="gtkIconInfoLoadIcon.html">gtkIconInfoLoadIcon</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIconInfoSetRawCoordinates(object, raw.coordinates)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkIconTheme.html">GtkIconInfo</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">raw.coordinates</code></code></td>
+<td>
+<p>whether the coordinates of embedded rectangles
+and attached points should be returned in their original
+(unscaled) form.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Raw coordinates are somewhat strange; they are specified to be with
+respect to the unscaled pixmap for PNG and XPM icons, but for SVG
+icons, they are in a 1000x1000 coordinate space that is scaled
+to the final size of the icon.  You can determine if the icon is an SVG
+icon by using <code><a href="gtkIconInfoGetFilename.html">gtkIconInfoGetFilename</a></code>, and seeing if it is non-<code>NULL</code>
+and ends in '.svg'.
+</p>
+<p>This function is provided primarily to allow compatibility wrappers
+for older API's, and is not expected to be useful for applications.
+Since 2.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

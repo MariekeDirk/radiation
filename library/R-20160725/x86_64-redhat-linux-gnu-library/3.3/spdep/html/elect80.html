@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: 1980 Presidential election results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for elect80 {spdep}"><tr><td>elect80 {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>1980 Presidential election results</h2>
+
+<h3>Description</h3>
+
+<p>A data set for 1980 Presidential election results covering 3,107 US counties using geographical coordinates. In addition, three spatial neighbour objects, <code>k4</code> not using Great Circle distances, <code>dll</code> using Great Circle distances, and <code>e80_queen</code> of Queen contiguities for equivalent County polygons taken from file <code>co1980p020.tar.gz</code> on the USGS National Atlas site, and a spatial weights object imported from <code>elect.ford</code> - a 4-nearest neighbour non-GC row-standardised object, but with coercion to symmetry.</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(elect80)</pre>
+
+
+<h3>Format</h3>
+
+<p>A SpatialPointsDataFrame with 3107 observations on the following 7 variables.
+</p>
+
+<dl>
+<dt><code>FIPS</code></dt><dd><p>a factor of county FIPS codes</p>
+</dd>
+<dt><code>long</code></dt><dd><p>a numeric vector of longitude values</p>
+</dd>
+<dt><code>lat</code></dt><dd><p>a numeric vector of latitude values</p>
+</dd>
+<dt><code>pc_turnout</code></dt><dd><p>Votes cast as proportion of population over age 19 eligible to vote</p>
+</dd>
+<dt><code>pc_college</code></dt><dd><p>Population with college degrees as proportion of population over age 19 eligible to vote</p>
+</dd>
+<dt><code>pc_homeownership</code></dt><dd><p>Homeownership as proportion of population over age 19 eligible to vote</p>
+</dd>
+<dt><code>pc_income</code></dt><dd><p>Income per capita of population over age 19 eligible to vote</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>Pace, R. Kelley and Ronald Barry. 1997. &quot;Quick Computation of Spatial Autoregressive Estimators&quot;, in Geographical Analysis; sourced from the data folder in the Spatial Econometrics Toolbox for Matlab, <a href="http://www.spatial-econometrics.com/html/jplv7.zip">http://www.spatial-econometrics.com/html/jplv7.zip</a>, files <code>elect.dat</code> and <code>elect.ford</code> (with the final line dropped).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(elect80)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

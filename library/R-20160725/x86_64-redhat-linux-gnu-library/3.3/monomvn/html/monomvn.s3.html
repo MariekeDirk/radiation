@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summarizing monomvn output</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for monomvn.s3 {monomvn}"><tr><td>monomvn.s3 {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Summarizing monomvn output </h2>
+
+<h3>Description</h3>
+
+<p>Summarizing, printing, and plotting the contents of a
+<code>"monomvn"</code>-class object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'monomvn'
+summary(object, Si = FALSE, ...)
+## S3 method for class 'summary.monomvn'
+print(x, ...)
+## S3 method for class 'summary.monomvn'
+plot(x, gt0 = FALSE, main = NULL,
+     xlab = "number of zeros", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p> a <code>"monomvn"</code>-class object that must be named
+<code>object</code> for the generic methods <code><a href="monomvn.s3.html">summary.monomvn</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> a <code>"monomvn"</code>-class object that must be named <code>x</code>
+for generic printing and plotting via
+<code><a href="monomvn.s3.html">print.summary.monomvn</a></code> and
+<code><a href="monomvn.s3.html">plot.summary.monomvn</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>Si</code></td>
+<td>
+<p> boolean indicating whether <code>object$S</code> should be
+inverted and inspected for zeros within
+<code><a href="monomvn.s3.html">summary.monomvn</a></code>, indicating pairwise independence;
+default is <code>FALSE</code> </p>
+</td></tr>
+<tr valign="top"><td><code>gt0</code></td>
+<td>
+<p> boolean indicating whether the histograms in
+<code><a href="monomvn.s3.html">plot.summary.monomvn</a></code> should exclude columns
+of <code>object$S</code> or <code>Si</code> without any zero entries </p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p> optional text to be added to the main title of the histograms
+produced by the generic <code><a href="monomvn.s3.html">plot.summary.monomvn</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+<p>label for the x-axes of the histograms produced by
+<code><a href="monomvn.s3.html">plot.summary.monomvn</a></code>; otherwise default
+automatically-generated text is used </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> passed to <code><a href="monomvn.s3.html">print.monomvn</a></code>, or
+<code><a href="../../graphics/html/plot.default.html">plot.default</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions work on the output from both <code><a href="monomvn.html">monomvn</a></code>
+and <code><a href="bmonomvn.html">bmonomvn</a></code>.
+</p>
+<p><code><a href="monomvn.s3.html">print.monomvn</a></code> prints the <code>call</code> followed by a
+summary of the regression  method used at each iteration of the
+algorithm.  It also indicates how many completely observed features
+(columns) there were in the data.
+For non-least-squares regressions (i.e., <span class="pkg">plsr</span>, <span class="pkg">lars</span>
+and <code><a href="../../MASS/html/lm.ridge.html">lm.ridge</a></code> methods)
+and indication of the method used for selecting the
+number of components (i.e., <code>CV</code>, <code>LOO</code>, etc., or
+<code>none</code>) is provided
+</p>
+<p><code><a href="monomvn.s3.html">summary.monomvn</a></code> summarizes information about the
+number of zeros in the estimated covariance matrix <code>object$S</code>
+and its inverse
+</p>
+<p><code><a href="monomvn.s3.html">print.summary.monomvn</a></code> calls <code><a href="monomvn.s3.html">print.monomvn</a></code>
+on the <code>object</code> and then prints the result of
+<code><a href="monomvn.s3.html">summary.monomvn</a></code>
+</p>
+<p><code><a href="monomvn.s3.html">plot.summary.monomvn</a></code> makes histograms of the number of
+zeros in the columns of <code>object$S</code> and its inverse
+</p>
+
+
+<h3>Value</h3>
+
+<p><code><a href="monomvn.s3.html">summary.monomvn</a></code> returns a
+<code>"summary.monomvn"</code>-class object, which is a <code>list</code>
+containing (a subset of) the items below.  The other
+functions do not return values.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p> the <code>"monomvn"</code>-class <code>object</code> </p>
+</td></tr>
+<tr valign="top"><td><code>marg</code></td>
+<td>
+<p> the proportion of zeros in <code>object$S</code> </p>
+</td></tr>
+<tr valign="top"><td><code>S0</code></td>
+<td>
+<p> a vector containing the number of zeros in each column
+of <code>object$S</code> </p>
+</td></tr>
+<tr valign="top"><td><code>cond</code></td>
+<td>
+<p> if input <code>Si = TRUE</code> this field contains the
+proportion of zeros in the inverse of <code>object$S</code> </p>
+</td></tr>
+<tr valign="top"><td><code>Si0</code></td>
+<td>
+<p> if input <code>Si = TRUE</code> this field contains a
+vector with the number of zeros in each column of the inverse
+of <code>object$S</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>There is one further S3 function for <code>"monomvn"</code>-class
+objects that has its own help file: <code><a href="plot.monomvn.html">plot.monomvn</a></code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert B. Gramacy <a href="mailto:rbgramacy@chicagobooth.edu">rbgramacy@chicagobooth.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p><a href="http://bobby.gramacy.com/r_packages/monomvn">http://bobby.gramacy.com/r_packages/monomvn</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="bmonomvn.html">bmonomvn</a></code>, <code><a href="monomvn.html">monomvn</a></code>,
+<code><a href="plot.monomvn.html">plot.monomvn</a></code> </p>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

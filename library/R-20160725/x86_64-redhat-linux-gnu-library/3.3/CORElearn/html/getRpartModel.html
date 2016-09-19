@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion of a CoreModel tree into a rpart.object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getRpartModel {CORElearn}"><tr><td>getRpartModel {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Conversion of a CoreModel tree into a rpart.object </h2>
+
+<h3>Description</h3>
+
+<p> The function converts a given CoreModel model (decision or regression tree) 
+into a <code>rpart.object</code> prepared for visualization with <code>plot</code> function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  getRpartModel(model, dataset)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p> A tree model produced by <code><a href="CoreModel.html">CoreModel</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>dataset</code></td>
+<td>
+<p> A data set which was used in learning of the <code>model</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The conversion creates <code>rpart.object</code> and copies CORElearn internal structures contained in memory controlled by 
+dynamic link library written in C++. 
+</p>
+<p>An alternative visualization is accessible via function <code><a href="display.CoreModel.html">display</a></code>, which outputs tree structure formatted 
+for screen or in dot format.
+</p>
+
+
+<h3>Value</h3>
+
+<p> Function returns a <code><a href="../../rpart/html/rpart.object.html">rpart.object</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Initial version by John Adeyanju Alao, improvements by Marko Robnik-Sikonja.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CoreModel.html">CoreModel</a></code>, <code><a href="plot.CoreModel.html">plot.CoreModel</a></code>,<code><a href="../../rpart/html/rpart.object.html">rpart.object</a></code>, <code><a href="display.CoreModel.html">display</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# plot a decision tree directly
+dataset &lt;- CO2
+md&lt;-CoreModel(Plant ~ ., dataset, model="tree")
+plot(md, dataset)
+
+# or indirectly 
+rpm &lt;- getRpartModel(md, dataset)
+# set angle to tan(0.5)=45 (degrees) and length of branches at least 5 
+plot(rpm, branch=0.5, minbranch=5, compress=TRUE)
+# pretty=0 prints full names of attributes, 
+# numbers to 3 decimals, try to make a dendrogram more compact
+text(rpm, pretty=0, digits=3)
+destroyModels(md) # clean up
+
+# an alternative is to use fancier rpart.plot package
+# rpart.plot(rpm) # rpart.plot has many parameters controlling the output
+# but it cannot plot models in tree leaves 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

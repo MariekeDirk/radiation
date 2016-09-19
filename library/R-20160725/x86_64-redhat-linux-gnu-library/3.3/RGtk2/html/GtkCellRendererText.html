@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellRendererText</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellRendererText {RGtk2}"><tr><td>GtkCellRendererText {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellRendererText</h2>
+
+<h3>Description</h3>
+
+<p>Renders text in a cell</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellRendererTextNew.html">gtkCellRendererTextNew</a>()</code><br />
+<code><a href="gtkCellRendererTextSetFixedHeightFromFont.html">gtkCellRendererTextSetFixedHeightFromFont</a>(object, number.of.rows)</code><br />
+<code>gtkCellRendererText()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkCellRenderer
+                     +----GtkCellRendererText
+                           +----GtkCellRendererAccel
+                           +----GtkCellRendererCombo
+                           +----GtkCellRendererSpin</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> renders a given text in its cell, using the font, color and
+style information provided by its properties. The text will be ellipsized if it is
+too long and the ellipsize
+property allows it.
+</p>
+<p>If the mode is <code>GTK_CELL_RENDERER_MODE_EDITABLE</code>,
+the <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> allows to edit its text using an entry.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellRendererText</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCellRendererText</code> is the equivalent of <code><a href="gtkCellRendererTextNew.html">gtkCellRendererTextNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>edited(renderer, path, new.text, user.data)</code></dt><dd>
+<p>This signal is emitted after <code>renderer</code> has been edited.
+</p>
+<p>It is the responsibility of the application to update the model
+and store <code>new.text</code> at the position indicated by <code>path</code>.
+</p>
+
+<dl>
+<dt><code>renderer</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>path</code></dt><dd><p>the path identifying the edited cell</p>
+</dd>
+<dt><code>new.text</code></dt><dd><p>the new text</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">align-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the alignment mode.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">alignment</code> [<code><a href="pango-Layout-Objects.html">PangoAlignment</a></code> : Read / Write]</dt><dd>
+<p>Specifies how to align the lines of text with respect to each other.
+</p>
+<p>Note that this property describes how to align the lines of text in
+case there are several of them. The &quot;xalign&quot; property of <code><a href="GtkCellRenderer.html">GtkCellRenderer</a></code>,
+on the other hand, sets the horizontal alignment of the whole text.
+Default value: PANGO_ALIGN_LEFT  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">attributes</code> [<code><a href="pango-Text-Attributes.html">PangoAttrList</a></code> : *        : Read / Write]</dt><dd>
+<p>A list of style attributes to apply to the text of the renderer.
+</p>
+</dd>
+<dt><code style="white-space: pre;">background</code> [character : *                : Write]</dt><dd>
+<p>Background color as a string.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">background-gdk</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read / Write]</dt><dd>
+<p>Background color as a GdkColor.
+</p>
+</dd>
+<dt><code style="white-space: pre;">background-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the background color.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">editable</code> [logical : Read / Write]</dt><dd>
+<p>Whether the text can be modified by the user.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">editable-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects text editability.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">ellipsize</code> [<code><a href="pango-Layout-Objects.html">PangoEllipsizeMode</a></code> : Read / Write]</dt><dd>
+<p>Specifies the preferred place to ellipsize the string, if the cell renderer
+does not have enough room to display the entire string. Setting it to
+<code>PANGO_ELLIPSIZE_NONE</code> turns off ellipsizing. See the wrap-width property
+for another way of making the text fit into a given width.
+Default value: PANGO_ELLIPSIZE_NONE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">ellipsize-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the ellipsize mode.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">family</code> [character : *                : Read / Write]</dt><dd>
+<p>Name of the font family, e.g. Sans, Helvetica, Times, Monospace.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">family-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font family.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">font</code> [character : *                : Read / Write]</dt><dd>
+<p>Font description as a string, e.g. &quot;Sans Italic 12&quot;.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">font-desc</code> [<code><a href="pango-Fonts.html">PangoFontDescription</a></code> : *  : Read / Write]</dt><dd>
+<p>Font description as a PangoFontDescription struct.
+</p>
+</dd>
+<dt><code style="white-space: pre;">foreground</code> [character : *                : Write]</dt><dd>
+<p>Foreground color as a string.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">foreground-gdk</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read / Write]</dt><dd>
+<p>Foreground color as a GdkColor.
+</p>
+</dd>
+<dt><code style="white-space: pre;">foreground-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the foreground color.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">language</code> [character : *                : Read / Write]</dt><dd>
+<p>The language this text is in, as an ISO code. Pango can use this as a hint when rendering the text. If you don't understand this parameter, you probably don't need it.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">language-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the language the text is rendered as.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">markup</code> [character : *                : Write]</dt><dd>
+<p>Marked up text to render.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">rise</code> [integer : Read / Write]</dt><dd>
+<p>Offset of text above the baseline (below the baseline if rise is negative).  Allowed values: &gt;= -2147483647  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">rise-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the rise.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">scale</code> [numeric : Read / Write]</dt><dd>
+<p>Font scaling factor.  Allowed values: &gt;= 0  Default value: 1
+</p>
+</dd>
+<dt><code style="white-space: pre;">scale-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag scales the font size by a factor.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">single-paragraph-mode</code> [logical : Read / Write]</dt><dd>
+<p>Whether or not to keep all text in a single paragraph.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">size</code> [integer : Read / Write]</dt><dd>
+<p>Font size.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">size-points</code> [numeric : Read / Write]</dt><dd>
+<p>Font size in points.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">size-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font size.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">stretch</code> [<code><a href="pango-Fonts.html">PangoStretch</a></code> : Read / Write]</dt><dd>
+<p>Font stretch.  Default value: PANGO_STRETCH_NORMAL
+</p>
+</dd>
+<dt><code style="white-space: pre;">stretch-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font stretch.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">strikethrough</code> [logical : Read / Write]</dt><dd>
+<p>Whether to strike through the text.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">strikethrough-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects strikethrough.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">style</code> [<code><a href="pango-Fonts.html">PangoStyle</a></code> : Read / Write]</dt><dd>
+<p>Font style.  Default value: PANGO_STYLE_NORMAL
+</p>
+</dd>
+<dt><code style="white-space: pre;">style-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font style.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">text</code> [character : *                : Read / Write]</dt><dd>
+<p>Text to render.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">underline</code> [<code><a href="pango-Text-Attributes.html">PangoUnderline</a></code> : Read / Write]</dt><dd>
+<p>Style of underline for this text.  Default value: PANGO_UNDERLINE_NONE
+</p>
+</dd>
+<dt><code style="white-space: pre;">underline-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects underlining.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">variant</code> [<code><a href="pango-Fonts.html">PangoVariant</a></code> : Read / Write]</dt><dd>
+<p>Font variant.  Default value: PANGO_VARIANT_NORMAL
+</p>
+</dd>
+<dt><code style="white-space: pre;">variant-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font variant.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">weight</code> [integer : Read / Write]</dt><dd>
+<p>Font weight.  Allowed values: &gt;= 0  Default value: 400
+</p>
+</dd>
+<dt><code style="white-space: pre;">weight-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the font weight.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">width-chars</code> [integer : Read / Write]</dt><dd>
+<p>The desired width of the cell, in characters. If this property is set to
+-1, the width will be calculated automatically, otherwise the cell will
+request either 3 characters or the property value, whichever is greater.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">wrap-mode</code> [<code><a href="pango-Layout-Objects.html">PangoWrapMode</a></code> : Read / Write]</dt><dd>
+<p>Specifies how to break the string into multiple lines, if the cell
+renderer does not have enough room to display the entire string.
+This property has no effect unless the wrap-width property is set.
+Default value: PANGO_WRAP_CHAR  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">wrap-width</code> [integer : Read / Write]</dt><dd>
+<p>Specifies the width at which the text is wrapped. The wrap-mode property can
+be used to influence at what character positions the line breaks can be placed.
+Setting wrap-width to -1 turns wrapping off.
+Allowed values: &gt;= -1  Default value: -1  Since 2.8
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellRendererText.html">http://library.gnome.org/devel//gtk/GtkCellRendererText.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

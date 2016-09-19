@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Time series of MODIS LST images</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for LST {plotKML}"><tr><td>LST {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Time series of MODIS LST images</h2>
+
+<h3>Description</h3>
+
+<p><code>LST</code> contains a spatial sub-sample (Istra region in Croatia) of 46 time series of MODIS LST images (estimated Land Surface Temperature in degrees C) at 1 km resolution. The temporal support size of these images is 8-days.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(LST)</pre>
+
+
+<h3>Format</h3>
+
+<p>The <code>LST</code> data frame contains the following layers:
+</p>
+
+<dl>
+<dt><code>LST2008_01_01</code></dt><dd><p>8-day MODIS LST mosaick for period 2007-12-29 to 2008-01-04</p>
+</dd>
+<dt><code>LST2008_01_09</code></dt><dd><p>8-day MODIS LST mosaick for period 2008-01-05 to 2008-01-13</p>
+</dd>
+<dt><code>...</code></dt><dd><p>subsequent bands</p>
+</dd>
+<dt><code>lon</code></dt><dd><p>a numeric vector; x-coordinate (m) in the WGS84 system </p>
+</dd>
+<dt><code>lat</code></dt><dd><p>a numeric vector; y-coordinate (m) in the WGS84 system </p>
+</dd>
+</dl>
+
+
+
+<h3>Note</h3>
+
+<p>Time series of 46 day-time and night-time 8-day composite LST images (<a href="https://lpdaac.usgs.gov/products/modis_products_table/mod11a2">MOD11A2</a> product bands <code>1</code> and <code>5</code>) was obtained from the NASA's FTP server (<a href="ftp://ladsftp.nascom.nasa.gov">ftp://ladsftp.nascom.nasa.gov</a>). The original 8-day composite images were created by patching together images from a period of ±4 days, so that the proportion of clouds can be reduced to a minimum. The <code>"zvalue"</code> slot in the <code>"RasterBrick"</code> object can be used as the dateTime column expressed as:<br /> 
+</p>
+<p><code>yyyy-mm-ddThh:mm:sszzzzzz</code><br />
+</p>
+<p>where T is the separator between the date and the time, and the time zone is either Z (for UTC) or zzzzzz, which represents ±hh:mm in relation to UTC.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl and Melita Percec Tadic </p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Hengl, T., Heuvelink, G.B.M., Percec Tadic, M., Pebesma, E., (2011) <a href="http://dx.doi.org/10.1007/s00704-011-0464-2">Spatio-temporal prediction of daily temperatures using time-series of MODIS LST images</a>. Theoretical and Applied Climatology, 107(1-2): 265-277.
+</p>
+</li>
+<li><p> MODIS products (<a href="https://lpdaac.usgs.gov/products/modis_products_table">https://lpdaac.usgs.gov/products/modis_products_table</a>)
+</p>
+</li></ul>
+
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

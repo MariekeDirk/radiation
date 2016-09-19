@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Saves/loads random forests model to/from file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for saveRF {CORElearn}"><tr><td>saveRF {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Saves/loads random forests model to/from file </h2>
+
+<h3>Description</h3>
+
+<p><code>saveRF</code>: the internal structure of given random forests model is saved to file.
+<code>loadRF</code>: the internal structure of random forests model is loaded from given file and a model is created and returned.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+saveRF(model, fileName) 
+loadRF(fileName) 
+ </pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p> The model structure as returned by <code><a href="CoreModel.html">CoreModel</a></code>. </p>
+</td></tr>
+<tr valign="top"><td><code>fileName</code></td>
+<td>
+<p> Name of the file to save/load the model to/from. </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>saveRF</code> saves the internal structure of given random forests model to file. 
+The structures from C++ code are stored to the file with specified file, while internal structures
+from R are stored to file named <code>fileName.Rda</code>.   
+The <code>model</code> must be a valid structure returned by <code><a href="CoreModel.html">CoreModel</a></code>.
+</p>
+<p>The function <code>loadRF</code> loads the internal structure of random forests saved in a specified files and
+returns access to it. 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>saveRF</code> invisibly returns some debugging information, while <code>loadRF</code>
+returns a loaded model as a list, similarly to <code><a href="CoreModel.html">CoreModel</a></code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>,
+<code><a href="CoreModel.html">CoreModel</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# use iris data set
+
+# build random forests model with certain parameters
+modelRF &lt;- CoreModel(Species ~ ., iris, model="rf", 
+              selectionEstimator="MDL",minNodeWeightRF=5,
+              rfNoTrees=100, maxThreads=1)
+print(modelRF)
+
+# prediction with node distribution
+pred &lt;- predict(modelRF, iris, rfPredictClass=FALSE, type="both")
+# print(pred)
+
+
+# saves the random forests model to file
+saveRF(modelRF, "tempRF.txt")
+
+# restore the model to another model
+loadedRF = loadRF("tempRF.txt")
+
+# prediction should be the same
+predLoaded &lt;- predict(loadedRF, iris, rfPredictClass=FALSE, type="both")
+# print(predLoaded)
+# sum of differences should be zero subject to numeric imprecision 
+sum(pred$probabilities - predLoaded$probabilities) 
+
+cat("Are predicted classes of original and retrieved models equal? ", 
+                           all(pred$class == predLoaded$class), "\n" ) 
+# cat("Are predicted probabilities of original and retrieved model equal? ", 
+#                 all(pred$probabilities == predLoaded$probabilities), "\n" ) 
+
+# clean up the models when no longer needed
+destroyModels(modelRF) 
+destroyModels(loadedRF) 
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

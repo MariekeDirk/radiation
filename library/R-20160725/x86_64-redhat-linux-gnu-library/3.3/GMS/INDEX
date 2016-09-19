@@ -1,0 +1,10 @@
+add                     Add together two numbers
+crossvalidate           This function performs crossvalidation in the
+                        style of krige.cv
+gapsfilter              Filter data series based on gaps
+hello                   Prints hello hello
+metadataGMS             Write metadata GMS stations classes: rijbaan,
+                        rijstrook, spitsstrook, oprit, afrit,
+                        viaduct/brug
+splitnumbers            Split numbers
+timesTwo                First cpp function

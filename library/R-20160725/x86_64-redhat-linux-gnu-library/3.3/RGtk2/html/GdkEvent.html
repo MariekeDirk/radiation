@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The GdkEvent Framework</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GdkEvent {RGtk2}"><tr><td>GdkEvent {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The GdkEvent Framework</h2>
+
+<h3>Description</h3>
+
+<p>A <code>GdkEvent</code> represents a hardware-level event in <code><a href="GDK.html">GDK</a></code>.</p>
+
+
+<h3>Details</h3>
+
+<p>In RGtk2, R objects corresponding to <code>GdkEvent</code>s inherit from the <em>GdkEvent</em> class.
+A <code>GdkEvent</code> is <em>not</em> a <code>GObject</code>, but there are many specific 
+event types that extend from the <em>GdkEvent</em> base S3 class. Specific event fields may 
+be accessed in the same way as the fields of any external object in RGtk2 (via the 
+<code>[[</code> operator).
+</p>
+
+
+<h3>Note</h3>
+
+ 
+<p>While functions exist to create <code>GdkEvent</code>s, there is currently no way 
+in RGtk2 to set the event fields, so the functions are useless. If the user has 
+some strange motivation to create hardware events in R, please contact the author.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="gdk-Event-Structures.html">gdk-Event-Structures</a></code>
+<code><a href="gdk-Events.html">gdk-Events</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

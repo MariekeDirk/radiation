@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkDragSetIconName</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkDragSetIconName {RGtk2}"><tr><td>gtkDragSetIconName {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkDragSetIconName</h2>
+
+<h3>Description</h3>
+
+<p>Sets the icon for a given drag from a named themed icon. See
+the docs for <code><a href="GtkIconTheme.html">GtkIconTheme</a></code> for more details. Note that the
+size of the icon depends on the icon theme (the icon is
+loaded at the symbolic size <code style="white-space: pre;">GTK_ICON_SIZE_DND</code>), thus 
+<code>hot.x</code> and <code>hot.y</code> have to be used with care.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkDragSetIconName(object, icon.name, hot.x, hot.y)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the context for a drag. (This must be called
+with a context for the source side of a drag)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">icon.name</code></code></td>
+<td>
+<p>name of icon to use</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hot.x</code></code></td>
+<td>
+<p>the X offset of the hotspot within the icon</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hot.y</code></code></td>
+<td>
+<p>the Y offset of the hotspot within the icon</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.8</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

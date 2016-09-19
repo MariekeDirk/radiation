@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufGetOption</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufGetOption {RGtk2}"><tr><td>gdkPixbufGetOption {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufGetOption</h2>
+
+<h3>Description</h3>
+
+<p>Looks up <code>key</code> in the list of options that may have been attached to the
+<code>pixbuf</code> when it was loaded, or that may have been attached by another
+function using <code><a href="gdkPixbufSetOption.html">gdkPixbufSetOption</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufGetOption(object, key)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">key</code></code></td>
+<td>
+<p>a string.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For instance, the ANI loader provides &quot;Title&quot; and &quot;Artist&quot; options. 
+The ICO, XBM, and XPM loaders provide &quot;x_hot&quot; and &quot;y_hot&quot; hot-spot 
+options for cursor definitions. The PNG loader provides the tEXt ancillary
+chunk key/value pairs as options. Since 2.12, the TIFF and JPEG loaders
+return an &quot;orientation&quot; option string that corresponds to the embedded 
+TIFF/Exif orientation tag (if present).</p>
+
+
+<h3>Value</h3>
+
+<p>[character] the value associated with <code>key</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

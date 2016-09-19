@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prediction for spatial simultaneous autoregressive linear...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.sarlm {spdep}"><tr><td>predict.sarlm {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prediction for spatial simultaneous autoregressive linear
+model objects</h2>
+
+<h3>Description</h3>
+
+<p><code>predict.sarlm()</code> calculates predictions as far as is at present possible for for spatial simultaneous autoregressive linear
+model objects, using Haining's terminology for decomposition into
+trend, signal, and noise, or other types of predictors &mdash; see references.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'sarlm'
+predict(object, newdata = NULL, listw = NULL, pred.type = "TS", all.data = FALSE,
+ zero.policy = NULL, legacy = TRUE, legacy.mixed = FALSE, power = NULL, order = 250,
+ tol = .Machine$double.eps^(3/5), spChk = NULL, ...)
+## S3 method for class 'SLX'
+predict(object, newdata, listw, zero.policy=NULL, ...)
+## S3 method for class 'sarlm.pred'
+print(x, ...)
+## S3 method for class 'sarlm.pred'
+as.data.frame(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p><code>sarlm</code> object returned by <code>lagsarlm</code>, 
+<code>errorsarlm</code> or <code>sacsarlm</code>, the method for SLX objects takes the output of <code>lmSLX</code></p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p>data frame in which to predict &mdash; if NULL, predictions are
+for the data on which the model was fitted. Should have row names corresponding to region.id. If row names are exactly the same than the ones used for training, it uses in-sample predictors for forecast.  See &lsquo;Details&rsquo;</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code>. In the out-of-sample prediction case (ie. if newdata is not NULL), if <code>legacy.mixed=FALSE</code> or if <code>pred.type!="TS"</code>, it should include both in-sample and out-of-sample spatial units. In this case, if regions of the listw are not in the correct order, they are reordered.  See &lsquo;Details&rsquo;</p>
+</td></tr>
+<tr valign="top"><td><code>pred.type</code></td>
+<td>
+<p>predictor type &mdash; default &ldquo;TS&rdquo;, use decomposition into  
+trend, signal, and noise ; other types available depending on <code>newdata</code>. If <code>newdata=NULL</code> (in-sample prediction), &ldquo;TS&rdquo;, &ldquo;trend&rdquo;, &ldquo;TC&rdquo; and &ldquo;BP&rdquo; are available. If <code>newdata</code> is not NULL and its row names are the same than the <code>data</code> used to fit the model (forecast case), &ldquo;TS&rdquo;, &ldquo;trend&rdquo; and &ldquo;TC&rdquo; are available. In other cases (out-of-sample prediction), &ldquo;TS&rdquo;, &ldquo;trend&rdquo;, &ldquo;KP1&rdquo;, &ldquo;KP2&rdquo;, &ldquo;KP3&rdquo;, &ldquo;KP4&rdquo;, &ldquo;KP5&rdquo;, &ldquo;TC&rdquo;, &ldquo;BP&rdquo;, &ldquo;BPW&rdquo;, &ldquo;BPN&rdquo;, &ldquo;TS1&rdquo;, &ldquo;TC1&rdquo;, &ldquo;BP1&rdquo;, &ldquo;BPW1&rdquo; and &ldquo;BPN1&rdquo; are available.  See &lsquo;Details&rsquo; and references</p>
+</td></tr>
+<tr valign="top"><td><code>all.data</code></td>
+<td>
+<p>(only applies to <code>pred.type="TC"</code> and newdata is not NULL) default FALSE: return predictions only for newdata units, if TRUE return predictions for all data units.  See &lsquo;Details&rsquo;</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without 
+neighbours, if FALSE (default) assign NA - causing the function to 
+terminate with an error</p>
+</td></tr>
+<tr valign="top"><td><code>legacy</code></td>
+<td>
+<p>(only applies to lag and Durbin (mixed) models for <code>pred.type="TS"</code>) default TRUE: use ad-hoc predictor, if FALSE use DGP-based predictor</p>
+</td></tr>
+<tr valign="top"><td><code>legacy.mixed</code></td>
+<td>
+<p>(only applies to mixed models if newdata is not NULL) default FALSE: compute lagged variables from both in-sample and out-of-sample units with <i>[WX]o</i> and <i>[WX]s</i> where <code>X=cbind(Xs, Xo)</code>, if TRUE compute lagged variables independantly between in-sample and out-of-sample units with <i>Woo Xo</i> and <i>Wss Xs</i> </p>
+</td></tr>
+<tr valign="top"><td><code>power</code></td>
+<td>
+<p>(only applies to lag and Durbin (mixed) models for &ldquo;TS&rdquo;, &ldquo;KP1&rdquo;, &ldquo;KP2&rdquo;, &ldquo;KP3&rdquo;, &ldquo;TC&rdquo;, &ldquo;TC1&rdquo;, &ldquo;BP&rdquo;, &ldquo;BP1&rdquo;, &ldquo;BPN&rdquo;, &ldquo;BPN1&rdquo;, &ldquo;BPW&rdquo; and &ldquo;BPW1&rdquo; types) use <code>powerWeights</code>, if default NULL, set FALSE if <code>object$method</code> is &ldquo;eigen&rdquo;, otherwise TRUE</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+<p>power series maximum limit if <code>power</code> is TRUE</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>tolerance for convergence of power series if <code>power</code> is TRUE</p>
+</td></tr>
+<tr valign="top"><td><code>spChk</code></td>
+<td>
+<p>should the row names of data frames be checked against the spatial objects for identity integrity, TRUE, or FALSE, default NULL to use <code>get.spChkOption()</code></p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>the object to be printed</p>
+</td></tr>
+</table>
+
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed through</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function supports three types of prediction.  In-sample prediction is the computation of predictors on the data used to fit the model (<code>newdata=NULL</code>).  Prevision, also called forecast, is the computation of some predictors (&ldquo;trend&rdquo;, in-sample &ldquo;TC&rdquo; and out-of-sample &ldquo;TS&rdquo;) on the same spatial units than the ones used to fit the model, but with different observations of the variables in the model (row names of <code>newdata</code> should have the same row names than the data frame used to fit the model).  And out-of-sample prediction is the computation of predictors on other spatial units than the ones used to fit the model (<code>newdata</code> has different row names).  For extensive definitions, see Thomas-Agnan et al. (2015). 
+</p>
+<p><code>pred.type</code> of predictors are available according to the model of <code>object</code> an to the type of prediction.  In the two following tables, &ldquo;yes&rdquo; means that the predictor can be used with the model, &ldquo;no&rdquo; means that <code>predict.sarlm()</code> will stop with an error, and &ldquo;yes*&rdquo; means that the predictor is not designed for the specified model, but it can be used with <code>predict.sarlm()</code>.  In the last case, be careful with the computation of a inappropriate predictor.
+</p>
+<p><em>In-sample predictors by models</em>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  pred.type </td><td style="text-align: center;"> sem (mixed) </td><td style="text-align: center;"> lag (mixed) </td><td style="text-align: center;"> sac (mixed) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+        </td><td style="text-align: center;">     </td><td style="text-align: center;">  </td><td style="text-align: center;">  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;trend&rdquo; </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TS&rdquo;   </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  no </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TC&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BP&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>Note that only &ldquo;trend&rdquo; and &ldquo;TC&rdquo; are available for prevision.
+</p>
+<p><em>Out-of-sample predictors by models</em>
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+  pred.type </td><td style="text-align: center;"> sem (mixed) </td><td style="text-align: center;"> lag (mixed) </td><td style="text-align: center;"> sac (mixed) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+        </td><td style="text-align: center;">     </td><td style="text-align: center;">  </td><td style="text-align: center;">  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;trend&rdquo; </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TS&rdquo;   </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  no </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TS1&rdquo; or &ldquo;KP4&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TC&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;TC1&rdquo; or &ldquo;KP1&rdquo;  </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BP&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BP1&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BPW&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BPW1&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BN&rdquo;     </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;BPN1&rdquo;   </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;KP2&rdquo;   </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;KP3&rdquo;   </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  yes </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  &ldquo;KP5&rdquo;   </td><td style="text-align: center;">  yes </td><td style="text-align: center;">  no </td><td style="text-align: center;">  yes* </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+<p>Values for <code>pred.type=</code> include &ldquo;TS1&rdquo;, &ldquo;TC&rdquo;, &ldquo;TC1&rdquo;, &ldquo;BP&rdquo;, &ldquo;BP1&rdquo;, &ldquo;BPW&rdquo;, &ldquo;BPW1&rdquo;, &ldquo;BPN&rdquo;, &ldquo;BPN1&rdquo;, following the notation in Thomas-Agnan et al. (2015), and for <code>pred.type=</code> &ldquo;KP1&rdquo;, &ldquo;KP2&rdquo;, &ldquo;KP3&rdquo;, &ldquo;KP4&rdquo;, &ldquo;KP5&rdquo;, following the notation in Kelejian et al. (2007).  <code>pred.type="TS"</code> is described bellow and in Bivand (2002).  
+</p>
+<p>In the following, the trend is the non-spatial smooth, the signal is the
+spatial smooth, and the noise is the residual.  The fit returned by <code>pred.type="TS"</code> is the
+sum of the trend and the signal.  
+</p>
+<p>When <code>pred.type="TS"</code>, the function approaches prediction first by dividing invocations between 
+those with or without newdata.  When no newdata is present, the response 
+variable may be reconstructed as the sum of the trend, the signal, and the
+noise (residuals).  Since the values of the response variable are known,
+their spatial lags are used to calculate signal components (Cressie 1993, p. 564).  For the error
+model, trend = <i>X beta</i>, and signal = <i>lambda W y - lambda W X beta</i>. For the lag and mixed
+models, trend = <i>X beta</i>, and signal = <i>rho W y</i>.
+</p>
+<p>This approach differs from the design choices made in other software, for
+example GeoDa, which does not use observations of the response variable,
+and corresponds to the newdata situation described below.  
+</p>
+<p>When however newdata is used for prediction, no observations of the response 
+variable being predicted are available.  Consequently, while the trend
+components are the same, the signal cannot take full account of the spatial
+smooth.  In the error model and Durbin error model, the signal is set to zero, since the spatial smooth is expressed in terms of the error: 
+<i>inv(I - lambda W) e</i>.
+</p>
+<p>In the lag model, the signal can be expressed in the following way (for legacy=TRUE):
+</p>
+<p style="text-align: center;"><i>(I - rho W) y = X beta + e</i></p>
+
+<p style="text-align: center;"><i>y = inv(I - rho W) X beta + inv(I - rho W) e</i></p>
+
+<p>giving a feasible signal component of:
+</p>
+<p style="text-align: center;"><i>rho W y = rho W inv(I - rho W) X beta</i></p>
+
+<p>For legacy=FALSE, the trend is computed first as:
+</p>
+<p style="text-align: center;"><i>X beta</i></p>
+
+<p>next the prediction using the DGP:
+</p>
+<p style="text-align: center;"><i>inv(I - rho W) X beta</i></p>
+
+<p>and the signal is found as the difference between prediction and trend. The numerical results for the legacy and DGP methods are identical.  
+</p>
+
+<p>setting the error term to zero.  This also means that predictions of the
+signal component for lag and mixed models require the inversion of an 
+n-by-n matrix.  
+</p>
+<p>Because the outcomes of the spatial smooth on the error term are
+unobservable, this means that the signal values for newdata are
+incomplete.  In the mixed model, the spatially lagged RHS variables
+influence both the trend and the signal, so that the root mean square
+prediction error in the examples below for this case with newdata is
+smallest, although the model was not the best fit.  
+</p>
+<p>If <code>newdata</code> has more than one row, leave-one-out predictors (<code>pred.type=</code> include &ldquo;TS1&rdquo;, &ldquo;TC1&rdquo;, &ldquo;BP1&rdquo;, &ldquo;BPW1&rdquo;, &ldquo;BPN1&rdquo;, &ldquo;KP1&rdquo;, &ldquo;KP2&rdquo;, &ldquo;KP3&rdquo;, &ldquo;KP4&rdquo;, &ldquo;KP5&rdquo;) are computed separatly on each out-of-sample unit.  
+</p>
+<p><code>listw</code> should be provided except if <code>newdata=NULL</code> and <code>pred.type=</code> include &ldquo;TS&rdquo;, &ldquo;trend&rdquo;, or if <code>newdata</code> is not <code>NULL</code>, <code>pred.type="trend"</code> and <code>object</code> is not a mixed model.  
+</p>
+<p><code>all.data</code> is useful when some out-of-sample predictors return different predictions for in-sample units, than the same predictor type computed only on in-sample data.  
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>predict.sarlm()</code> returns a vector of predictions with three attribute 
+vectors of trend, signal (only for <code>pred.type="TS"</code>) and region.id values and two other attributes
+of pred.type and call with class <code>sarlm.pred</code>. 
+</p>
+<p><code>print.sarlm.pred()</code> is a print function for this class, printing and
+returning a data frame with columns: &quot;fit&quot;, &quot;trend&quot; and &quot;signal&quot; (when available) and with region.id as row names.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a> and Martin Gubri</p>
+
+
+<h3>References</h3>
+
+<p>Haining, R. 1990 <em>Spatial data analysis in the social and environmental sciences</em>, Cambridge: Cambridge University Press, p. 258; Cressie, N. A. C. 1993 <em>Statistics for spatial data</em>, Wiley, New York; Thomas-Agnan, C., Laurent, T. and Goulard, M. 2015 <em>About predictions in spatial autoregressive models: Optimal and almost optimal strategies</em>, TSE Working Paper, n. 13-452; Kelejian, H. H. and Prucha, I. R. 2007 <em>The relative efficiencies of various predictors in spatial econometric models containing spatial lags</em>, Regional Science and Urban Economics, Volume 37, Issue 3, 363&ndash;374; Bivand, R. 2002 <em>Spatial econometrics functions in R: Classes and methods</em>, Journal of Geographical Systems, Volume 4, No. 4, 405&ndash;421</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="errorsarlm.html">errorsarlm</a></code>, <code><a href="lagsarlm.html">lagsarlm</a></code>, <code><a href="sacsarlm.html">sacsarlm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+lw &lt;- nb2listw(COL.nb)
+COL.lag.eig &lt;- lagsarlm(CRIME ~ INC + HOVAL, data=COL.OLD, lw)
+
+COL.mix.eig &lt;- lagsarlm(CRIME ~ INC + HOVAL, data=COL.OLD, lw,
+  type="mixed")
+print(p1 &lt;- predict(COL.mix.eig))
+print(p2 &lt;- predict(COL.mix.eig, newdata=COL.OLD, listw=lw, pred.type = "TS",
+ legacy.mixed = TRUE))
+AIC(COL.mix.eig)
+sqrt(deviance(COL.mix.eig)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(p1))^2)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(p2))^2)/length(COL.nb))
+
+COL.err.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD, lw)
+AIC(COL.err.eig)
+sqrt(deviance(COL.err.eig)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.err.eig)))^2)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.err.eig, newdata=COL.OLD,
+  listw=lw, pred.type = "TS")))^2)/length(COL.nb))
+
+COL.SDerr.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD, lw,
+ etype="emixed")
+AIC(COL.SDerr.eig)
+sqrt(deviance(COL.SDerr.eig)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.SDerr.eig)))^2)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.SDerr.eig, newdata=COL.OLD,
+  listw=lw, pred.type = "TS")))^2)/length(COL.nb))
+
+AIC(COL.lag.eig)
+sqrt(deviance(COL.lag.eig)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.lag.eig)))^2)/length(COL.nb))
+sqrt(sum((COL.OLD$CRIME - as.vector(predict(COL.lag.eig, newdata=COL.OLD,
+  listw=lw, pred.type = "TS")))^2)/length(COL.nb))
+
+p3 &lt;- predict(COL.mix.eig, newdata=COL.OLD, listw=lw, pred.type = "TS",
+ legacy=FALSE, legacy.mixed = TRUE)
+all.equal(p2, p3, check.attributes=FALSE)
+p4 &lt;- predict(COL.mix.eig, newdata=COL.OLD, listw=lw, pred.type = "TS",
+ legacy=FALSE, power=TRUE, legacy.mixed = TRUE)
+all.equal(p2, p4, check.attributes=FALSE)
+p5 &lt;- predict(COL.mix.eig, newdata=COL.OLD, listw=lw, pred.type = "TS",
+ legacy=TRUE, power=TRUE, legacy.mixed = TRUE)
+all.equal(p2, p5, check.attributes=FALSE)
+
+COL.SLX &lt;- lmSLX(CRIME ~ INC + HOVAL, data=COL.OLD, listw=lw)
+pslx0 &lt;- predict(COL.SLX)
+pslx1 &lt;- predict(COL.SLX, newdata=COL.OLD, listw=lw)
+all.equal(pslx0, pslx1)
+COL.OLD1 &lt;- COL.OLD
+COL.OLD1$INC &lt;- COL.OLD1$INC + 1
+pslx2 &lt;- predict(COL.SLX, newdata=COL.OLD1, listw=lw)
+sum(coef(COL.SLX)[c(2,4)])
+mean(pslx2-pslx1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

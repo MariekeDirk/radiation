@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bayesian generalized linear models.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for bayesglm {arm}"><tr><td>bayesglm {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Bayesian generalized linear models.</h2>
+
+<h3>Description</h3>
+
+<p>Bayesian functions for generalized linear modeling
+with independent normal, t, or Cauchy prior distribution
+for the coefficients.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bayesglm (formula, family = gaussian, data,
+    weights, subset, na.action,
+    start = NULL, etastart, mustart,
+    offset, control = list(...),
+    model = TRUE, method = "glm.fit",
+    x = FALSE, y = TRUE, contrasts = NULL,
+    drop.unused.levels = TRUE,
+    prior.mean = 0,
+    prior.scale = NULL,
+    prior.df = 1,
+    prior.mean.for.intercept = 0,
+    prior.scale.for.intercept = NULL,
+    prior.df.for.intercept = 1,
+    min.prior.scale=1e-12,
+    scaled = TRUE, keep.order=TRUE,
+    drop.baseline=TRUE,
+    maxit=100, 
+    print.unnormalized.log.posterior=FALSE,
+    Warning=TRUE,...)
+
+bayesglm.fit (x, y, weights = rep(1, nobs),
+    start = NULL, etastart = NULL,
+    mustart = NULL, offset = rep(0, nobs), family = gaussian(),
+    control = list(), intercept = TRUE,
+    prior.mean = 0,
+    prior.scale = NULL,
+    prior.df = 1,
+    prior.mean.for.intercept = 0,
+    prior.scale.for.intercept = NULL,
+    prior.df.for.intercept = 1,
+    min.prior.scale=1e-12, scaled = TRUE,
+    print.unnormalized.log.posterior=FALSE, Warning=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a symbolic description of the model to be fit.
+The details of model specification are given below.</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+<p>a description of the error distribution and link
+function to be used in the model. This can be a character string
+naming a family function, a family function or the result of a call
+to a family function.  (See <code><a href="../../stats/html/family.html">family</a></code> for details of
+family functions.)</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>an optional data frame, list or environment (or object
+coercible by <code><a href="../../base/html/as.data.frame.html">as.data.frame</a></code> to a data frame) containing
+the variables in the model.  If not found in <code>data</code>, the
+variables are taken from <code>environment(formula)</code>,
+typically the environment from which <code>glm</code> is called.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>an optional vector of weights to be used in the fitting
+process.  Should be <code>NULL</code> or a numeric vector.</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+<p>an optional vector specifying a subset of observations
+to be used in the fitting process.</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>a function which indicates what should happen
+when the data contain <code>NA</code>s.  The default is set by
+the <code>na.action</code> setting of <code><a href="../../base/html/options.html">options</a></code>, and is
+<code><a href="../../stats/html/na.fail.html">na.fail</a></code> if that is unset.  The &ldquo;factory-fresh&rdquo;
+default is <code><a href="../../stats/html/na.fail.html">na.omit</a></code>.  Another possible value is
+<code>NULL</code>, no action.  Value <code><a href="../../stats/html/na.fail.html">na.exclude</a></code> can be useful.</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>starting values for the parameters in the linear predictor.</p>
+</td></tr>
+<tr valign="top"><td><code>etastart</code></td>
+<td>
+<p>starting values for the linear predictor.</p>
+</td></tr>
+<tr valign="top"><td><code>mustart</code></td>
+<td>
+<p>starting values for the vector of means.</p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+<p>this can be used to specify an <em>a priori</em>
+known component to be included in the linear predictor
+during fitting.  This should be <code>NULL</code> or a numeric vector of
+length either one or equal to the number of cases.
+One or more <code><a href="../../stats/html/offset.html">offset</a></code> terms can be included in the
+formula instead or as well, and if both are specified their sum is
+used.  See <code><a href="../../stats/html/model.extract.html">model.offset</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>a list of parameters for controlling the fitting
+process.  See the documentation for <code><a href="../../stats/html/glm.control.html">glm.control</a></code>
+for details.</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>a logical value indicating whether <em>model frame</em>
+should be included as a component of the returned value.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>the method to be used in fitting the model.
+The default method <code>"glm.fit"</code> uses iteratively reweighted
+least squares (IWLS).  The only current alternative is
+<code>"model.frame"</code> which returns the model frame and does no fitting.</p>
+</td></tr>
+<tr valign="top"><td><code>x, y</code></td>
+<td>
+<p>For <code>glm</code>:
+logical values indicating whether the response vector and model
+matrix used in the fitting process should be returned as components
+of the returned value.
+</p>
+<p>For <code>glm.fit</code>: <code>x</code> is a design matrix of dimension <code>n
+      * p</code>, and <code>y</code> is a vector of observations of length <code>n</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>contrasts</code></td>
+<td>
+<p>an optional list. See the <code>contrasts.arg</code>
+of <code>model.matrix.default</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>drop.unused.levels</code></td>
+<td>
+<p>default TRUE, if FALSE, it interpolates the
+intermediate values if the data have integer levels.</p>
+</td></tr>
+<tr valign="top"><td><code>intercept</code></td>
+<td>
+<p>logical. Should an intercept be included in the
+<em>null</em> model?</p>
+</td></tr>
+<tr valign="top"><td><code>prior.mean</code></td>
+<td>
+<p>prior mean for the coefficients: default is 0. Can be a vector
+of length equal to the number of predictors
+(not counting the intercept, if any). If it is a scalar, it is
+expanded to the length of this vector.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.scale</code></td>
+<td>
+<p>prior scale for the coefficients: default is NULL; if is NULL, for
+a logit model, prior.scale is 2.5; for a probit model, prior scale is 2.5*1.6.
+Can be a vector of length equal to the number of predictors
+(not counting the intercept, if any). If it is a scalar, it is
+expanded to the length of this vector.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.df</code></td>
+<td>
+<p>prior degrees of freedom for the coefficients.
+For t distribution: default is 1 (Cauchy). Set to Inf to
+get normal prior distributions. Can be a vector of length equal to
+the number of predictors (not counting the intercept, if any).
+If it is a scalar, it is expanded to the length of this vector.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.mean.for.intercept</code></td>
+<td>
+<p>prior mean for the intercept: default
+is 0. See &lsquo;Details&rsquo;.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.scale.for.intercept</code></td>
+<td>
+<p>prior scale for the intercept: default is NULL; for
+a logit model, prior scale for intercept is 10;
+for probit model, prior scale for intercept is rescaled as 10*1.6.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.df.for.intercept</code></td>
+<td>
+<p>prior degrees of freedom for the intercept: default is 1.</p>
+</td></tr>
+<tr valign="top"><td><code>min.prior.scale</code></td>
+<td>
+<p>Minimum prior scale for the coefficients: default is 1e-12.</p>
+</td></tr>
+<tr valign="top"><td><code>scaled</code></td>
+<td>
+<p>scaled=TRUE, the scales for the prior distributions of the coefficients
+are determined as follows: For a predictor with only one value,
+we just use prior.scale. For a predictor with two values,
+we use prior.scale/range(x). For a predictor with more than two values,
+we use prior.scale/(2*sd(x)). If the response is Gaussian, prior.scale is also
+multiplied by 2 * sd(y). Default is TRUE</p>
+</td></tr>
+<tr valign="top"><td><code>keep.order</code></td>
+<td>
+<p>a logical value indicating whether the terms should
+keep their positions. If <code>FALSE</code> the terms are reordered so
+that main effects come first, followed by the interactions,
+all second-order, all third-order and so on.  Effects of a given
+order are kept in the order specified. Default is TRUE.</p>
+</td></tr>
+<tr valign="top"><td><code>drop.baseline</code></td>
+<td>
+<p>Drop the base level of categorical x's, default is TRUE.</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>integer giving the maximal number of IWLS iterations, default is 100. This can also be controlled by <code>control</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>print.unnormalized.log.posterior</code></td>
+<td>
+<p>display the unnormalized log posterior likelihood for bayesglm, default=FALSE</p>
+</td></tr>
+<tr valign="top"><td><code>Warning</code></td>
+<td>
+<p>default is TRUE, which will show the error messages of not convergence and separation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The program is a simple alteration of <code>glm()</code> that uses an approximate EM
+algorithm to update the betas at each step using an augmented regression
+to represent the prior information.
+</p>
+<p>We use Student-t prior distributions for the coefficients. The prior
+distribution for the constant term is set so it applies to the value
+when all predictors are set to their mean values.
+</p>
+<p>If scaled=TRUE, the scales for the prior distributions of the
+coefficients are determined as follows: For a predictor with only one
+value, we just use prior.scale. For a predictor with two values, we use
+prior.scale/range(x). For a predictor with more than two values, we use
+prior.scale/(2*sd(x)).
+</p>
+<p>We include all the <code>glm()</code> arguments but we haven't tested that all the
+options (e.g., <code>offsets</code>, <code>contrasts</code>,
+<code>deviance</code> for the null model) all work.
+</p>
+<p>The new arguments here are: <code>prior.mean</code>, <code>prior.scale</code>,
+<code>prior.scale.for.intercept</code>, <code>prior.df</code>, <code>prior.df.for.intercept</code>and
+<code>scaled</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>See <code><a href="../../stats/html/glm.html">glm</a></code> for details.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>prior.mean</code></td>
+<td>
+<p>prior means for the coefficients and the intercept.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.scale</code></td>
+<td>
+<p>prior scales for the coefficients</p>
+</td></tr>
+<tr valign="top"><td><code>prior.df</code></td>
+<td>
+<p>prior dfs for the coefficients.</p>
+</td></tr>
+<tr valign="top"><td><code>prior.scale.for.intercept</code></td>
+<td>
+<p>prior scale for the intercept</p>
+</td></tr>
+<tr valign="top"><td><code>prior.df.for.intercept</code></td>
+<td>
+<p>prior df for the intercept</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Gelman <a href="mailto:gelman@stat.columbia.edu">gelman@stat.columbia.edu</a>;
+Yu-Sung Su <a href="mailto:suyusung@tsinghua.edu.cn">suyusung@tsinghua.edu.cn</a>;
+Daniel Lee <a href="mailto:bearlee@alum.mit.edu">bearlee@alum.mit.edu</a>;
+Aleks Jakulin <a href="mailto:Jakulin@stat.columbia.edu">Jakulin@stat.columbia.edu</a></p>
+
+
+<h3>References</h3>
+
+<p>Andrew Gelman, Aleks Jakulin, Maria Grazia Pittau and Yu-Sung Su. (2009).
+&ldquo;A Weakly Informative Default Prior Distribution For
+Logistic And Other Regression Models.&rdquo;
+<em>The Annals of Applied Statistics</em> 2 (4): 1360&ndash;1383.
+<a href="http://www.stat.columbia.edu/~gelman/research/published/priors11.pdf">http://www.stat.columbia.edu/~gelman/research/published/priors11.pdf</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/glm.html">glm</a></code>,
+<code><a href="bayespolr.html">bayespolr</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  n &lt;- 100
+  x1 &lt;- rnorm (n)
+  x2 &lt;- rbinom (n, 1, .5)
+  b0 &lt;- 1
+  b1 &lt;- 1.5
+  b2 &lt;- 2
+  y &lt;- rbinom (n, 1, invlogit(b0+b1*x1+b2*x2))
+
+  M1 &lt;- glm (y ~ x1 + x2, family=binomial(link="logit"))
+  display (M1)
+
+  M2 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=Inf, prior.df=Inf)
+  display (M2)  # just a test:  this should be identical to classical logit
+
+  M3 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"))
+    # default Cauchy prior with scale 2.5
+  display (M3)
+
+  M4 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.df=1)
+    # Same as M3, explicitly specifying Cauchy prior with scale 2.5
+  display (M4)
+
+  M5 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.df=7)   # t_7 prior with scale 2.5
+  display (M5)
+
+  M6 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.df=Inf)  # normal prior with scale 2.5
+  display (M6)
+
+# Create separation:  set y=1 whenever x2=1
+# Now it should blow up without the prior!
+
+  y &lt;- ifelse (x2==1, 1, y)
+
+  M1 &lt;- glm (y ~ x1 + x2, family=binomial(link="logit"))
+  display (M1)
+
+  M2 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=Inf, prior.scale.for.intercept=Inf) # Same as M1
+  display (M2)
+
+  M3 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"))
+  display (M3)
+
+  M4 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.scale.for.intercept=10)  # Same as M3
+  display (M4)
+
+  M5 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.df=7)
+  display (M5)
+
+  M6 &lt;- bayesglm (y ~ x1 + x2, family=binomial(link="logit"),
+    prior.scale=2.5, prior.df=Inf)
+  display (M6)
+
+  # bayesglm with gaussian family (bayes lm)
+  sigma &lt;- 5
+  y2 &lt;- rnorm (n, b0+b1*x1+b2*x2, sigma)
+  M7 &lt;- bayesglm (y2 ~ x1 + x2, prior.scale=Inf, prior.df=Inf)
+  display (M7)
+
+
+  # bayesglm with categorical variables
+  z1 &lt;- trunc(runif(n, 4, 9))
+  levels(factor(z1))
+  z2 &lt;- trunc(runif(n, 15, 19))
+  levels(factor(z2))
+
+  ## drop the base level (R default)
+  M8 &lt;- bayesglm (y ~ x1 + factor(z1) + factor(z2),
+    family=binomial(link="logit"), prior.scale=2.5, prior.df=Inf)
+  display (M8)
+
+  ## keep all levels with the intercept, keep the variable order
+  M9 &lt;- bayesglm (y ~ x1 + x1:x2 + factor(z1) + x2 + factor(z2),
+    family=binomial(link="logit"),
+    prior.mean=rep(0,12),
+    prior.scale=rep(2.5,12),
+    prior.df=rep(Inf,12),
+    prior.mean.for.intercept=0,
+    prior.scale.for.intercept=10,
+    prior.df.for.intercept=1,
+    drop.baseline=FALSE, keep.order=TRUE)
+  display (M9)
+
+  ## keep all levels without the intercept
+  M10 &lt;- bayesglm (y ~ x1 + factor(z1) + x1:x2 + factor(z2)-1,
+    family=binomial(link="logit"),
+    prior.mean=rep(0,11),
+    prior.scale=rep(2.5,11),
+    prior.df=rep(Inf,11),
+    drop.baseline=FALSE)
+  display (M10)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

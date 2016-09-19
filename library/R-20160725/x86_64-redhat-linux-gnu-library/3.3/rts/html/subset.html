@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Subset layers in a raster time series object</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for subset {rts}"><tr><td>subset {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Subset layers in a raster time series object</h2>
+
+<h3>Description</h3>
+
+<p>Extract layers from a <code>Raster*TS</code> object.   
+</p>
+
+
+<h3>Details</h3>
+
+<p>This function can be used to extract a raster layer or a set of raster lasyers based on the time-index using date-like string. The format must left-specied with respect to the standard ISO:8601 time format &quot;CCYY-MM-DD HH:MM:SS&quot;. It is also possible to specify a range of times via the index-based subsetting, using ISO-recommended &quot;/&quot; as the range operator. The basic form is <em>&quot;from/to&quot;</em>, where both are optional. If either side is missing, it is interpretted as a request to retrieve raster layers from the beginning, or through the end of the raster time series object. Both <code>subset</code> function and <code>'[['</code> operator do the same thing.</p>
+
+
+<h3>Value</h3>
+
+<p><code>RasterStackTS</code> or <code>RasterBrickTS</code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<p><code>subset(x, subset, ...)</code>
+</p>
+<p>Arguments
+</p>
+<p><code>x</code> is a raster time series (<code>Raster*TS</code>) object created by <code><a href="rts.html">rts</a></code>
+</p>
+<p><code>subset</code> is indicates the layers (represented as a vector of numeric or character string relevant to time index, or by a time-based object).
+</p>
+<p><code>...</code>  - same as <code>...</code> in <code><a href="../../raster/html/subset.html">subset</a></code> function in package <span class="pkg">raster</span>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+</p>
+<p><a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+</p>
+<p><a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../raster/html/subset.html">subset</a></code> and <code><a href="../../xts/html/[.xts.html">[.xts</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+file &lt;- system.file("external/ndvi", package="rts")
+
+ndvi &lt;- rts(file) # read the ndvi time series from the specified file
+
+s1 &lt;- subset(ndvi,1:5) # subset the first 5 raster layers into a new raster time series object
+
+s1
+
+plot(s1)
+
+s2 &lt;- subset(ndvi,"/2000") # subset all layers till end of year 2000
+
+s2
+
+plot(s2)
+
+s3 &lt;- subset(ndvi,"2000-01-01/2000-05-31")
+
+s3
+
+plot(s3)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

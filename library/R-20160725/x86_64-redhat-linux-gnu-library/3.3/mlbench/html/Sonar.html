@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sonar, Mines vs. Rocks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Sonar {mlbench}"><tr><td>Sonar {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sonar, Mines vs. Rocks</h2>
+
+<h3>Description</h3>
+
+<p>This is the data set used by Gorman and Sejnowski in their
+study of the classification of sonar signals using a neural network
+[1]. The task is to train a network to discriminate between sonar
+signals bounced off a metal cylinder and those bounced off a roughly
+cylindrical rock.  
+</p>
+<p>Each pattern is a set of 60 numbers in the range 0.0 to 1.0. Each
+number represents the energy within a particular frequency band,
+integrated over a certain period of time. The integration aperture
+for higher frequencies occur later in time, since these frequencies
+are transmitted later during the chirp.
+</p>
+<p>The label associated with each record contains the letter &quot;R&quot; if the
+object is a rock and &quot;M&quot; if it is a mine (metal cylinder). The
+numbers in the labels are in increasing order of aspect angle, but
+they do not encode the angle directly. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(Sonar)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 208 observations on 61 variables, all numerical and one (the Class) nominal.</p>
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Contribution: Terry Sejnowski, Salk Institute and
+University of California, San Deigo.
+</p>
+</li>
+<li><p> Development: R. Paul Gorman, Allied-Signal Aerospace
+Technology Center. 
+</p>
+</li>
+<li><p> Maintainer: Scott E. Fahlman 
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Evgenia Dimitriadou.
+</p>
+
+
+<h3>References</h3>
+
+<p>Gorman, R. P., and Sejnowski, T. J. (1988). &quot;Analysis of Hidden
+Units in a Layered Network Trained to Classify Sonar Targets&quot; in
+Neural Networks, Vol. 1, pp. 75-89.
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Sonar)
+summary(Sonar)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A class for Spatial PhotoOverlay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SpatialPhotoOverlay-class {plotKML}"><tr><td>SpatialPhotoOverlay-class {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A class for Spatial PhotoOverlay</h2>
+
+<h3>Description</h3>
+
+<p>A class for spatial photographs (spatially and geometrically defined) that can be plotted in Google Earth.</p>
+
+
+<h3>Slots</h3>
+
+   
+
+<dl>
+<dt><code>filename</code></dt><dd><p>object of class &quot;character&quot;; URI of the filename location (typically a URL)</p>
+</dd>
+<dt><code>pixmap</code></dt><dd><p>object of class &quot;pixmapRGB&quot;; RGB bands of a bitmapped images</p>
+</dd>    
+<dt><code>exif.info</code></dt><dd><p>object of class &quot;list&quot;; <a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html">EXIF</a> photo metadata</p>
+</dd>
+<dt><code>PhotoOverlay</code></dt><dd><p>object of class &quot;list&quot;; list of the camera geometry parameters (KML specifications)</p>
+</dd>
+<dt><code>sp</code></dt><dd><p>object of class &quot;SpatialPoints&quot;; location of the camera</p>
+</dd>
+</dl>
+
+
+
+<h3>Extends</h3>
+
+<p>Class <code>"pixmapRGB"</code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>summary</dt><dd><p><code>signature(obj = "SpatialMetadata")</code>: summarize object</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="plotKML.html">plotKML-method</a></code>, <code><a href="spPhoto.html">spPhoto</a></code> </p>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

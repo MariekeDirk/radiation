@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial Join of Points with Raster Grids</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for extract.data {SDMTools}"><tr><td>extract.data {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial Join of Points with Raster Grids</h2>
+
+<h3>Description</h3>
+
+<p><code>extract.data</code> extracts data from raster object of
+class 'asc' (this and the adehabitat package),
+'RasterLayer' (raster package) or 'SpatialGridDataFrame'
+(sp package) at specified locations. This represents a
+faster version of 'join.asc' of the adehabitat package that
+assumes all locations are within the map extents. <br /> <br />
+<b>Note:</b> there is no interpolation done here. The
+values reported are simply the values of the raster cell
+the point falls into.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'data'
+extract(pts, x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>a two-column data frame or matrix with the x
+and y coordinates of the locations of interest.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a raster matrix of class 'asc' (this and the
+adehabitat package), 'RasterLayer' (raster package) or
+'SpatialGridDataFrame' (sp package)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Implements a faster version of 'join.asc' from the
+adehabitat package. <br /> <br /> <b>NOTE:</b> this assumes all
+locations are within the extent of the raster map. Values
+outside the extent will be given a value of NA.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a vector equal in length to the number of locations
+in pnts.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#create a simple object of class 'asc'
+tasc = as.asc(matrix(1:50,nr=50,nc=50)); print(tasc)
+
+#define some point locations
+points = data.frame(x=runif(25,1,50),y=runif(25,1,50))
+
+#extract the data
+points$values = extract.data(points,tasc)
+
+#show the data
+print(points)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

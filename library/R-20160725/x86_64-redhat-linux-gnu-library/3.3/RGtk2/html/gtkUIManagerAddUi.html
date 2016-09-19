@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkUIManagerAddUi</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkUIManagerAddUi {RGtk2}"><tr><td>gtkUIManagerAddUi {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkUIManagerAddUi</h2>
+
+<h3>Description</h3>
+
+<p>Adds a UI element to the current contents of <code>self</code>. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkUIManagerAddUi(object, merge.id, path, name, action = NULL, 
+    type, top)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkUIManager.html">GtkUIManager</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">merge.id</code></code></td>
+<td>
+<p>the merge id for the merged UI, see <code><a href="gtkUIManagerNewMergeId.html">gtkUIManagerNewMergeId</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">path</code></code></td>
+<td>
+<p>a path</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">name</code></code></td>
+<td>
+<p>the name for the added UI element</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">action</code></code></td>
+<td>
+<p>the name of the action to be proxied, or <code>NULL</code> to add a separator. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>the type of UI element to add.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">top</code></code></td>
+<td>
+<p>if <code>TRUE</code>, the UI element is added before its siblings, otherwise it
+is added after its siblings.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>type</code> is <code>GTK_UI_MANAGER_AUTO</code>, GTK+ inserts a menuitem, toolitem or 
+separator if such an element can be inserted at the place determined by 
+<code>path</code>. Otherwise <code>type</code> must indicate an element that can be inserted at 
+the place determined by <code>path</code>.
+</p>
+<p>If <code>path</code> points to a menuitem or toolitem, the new element will be inserted
+before or after this item, depending on <code>top</code>.
+Since 2.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

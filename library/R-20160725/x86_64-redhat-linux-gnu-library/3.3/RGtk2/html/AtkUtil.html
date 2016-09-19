@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkUtil</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkUtil {RGtk2}"><tr><td>AtkUtil {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkUtil</h2>
+
+<h3>Description</h3>
+
+<p>A set of ATK utility functions for event and toolkit support.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkAddFocusTracker.html">atkAddFocusTracker</a>(focus.tracker)</code><br />
+<code><a href="atkRemoveFocusTracker.html">atkRemoveFocusTracker</a>(tracker.id)</code><br />
+<code><a href="atkFocusTrackerInit.html">atkFocusTrackerInit</a>(add.function)</code><br />
+<code><a href="atkFocusTrackerNotify.html">atkFocusTrackerNotify</a>(object)</code><br />
+<code><a href="atkAddGlobalEventListener.html">atkAddGlobalEventListener</a>(listener, event.type)</code><br />
+<code><a href="atkRemoveGlobalEventListener.html">atkRemoveGlobalEventListener</a>(listener.id)</code><br />
+<code><a href="atkAddKeyEventListener.html">atkAddKeyEventListener</a>(listener, data)</code><br />
+<code><a href="atkRemoveKeyEventListener.html">atkRemoveKeyEventListener</a>(listener.id)</code><br />
+<code><a href="atkGetRoot.html">atkGetRoot</a>()</code><br />
+<code><a href="atkGetFocusObject.html">atkGetFocusObject</a>()</code><br />
+<code><a href="atkGetToolkitName.html">atkGetToolkitName</a>()</code><br />
+<code><a href="atkGetToolkitVersion.html">atkGetToolkitVersion</a>()</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----AtkUtil</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A set of ATK utility functions which are used to support event registration of
+various types, and obtaining the 'root' accessible of a process and
+information about the current ATK implementation and toolkit version.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">AtkUtil</code></dt><dd>
+<p>The AtkUtil struct does not contain any fields.
+</p>
+</dd>
+<dt><code style="white-space: pre;">AtkKeyEventStruct</code></dt><dd>
+<p>Encapsulates information about a key event.  
+<strong><code style="white-space: pre;">AtkKeyEventStruct</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[integer]  An AtkKeyEventType, generally one of ATK_KEY_EVENT_PRESS or ATK_KEY_EVENT_RELEASE</p>
+</dd>
+<dt><code style="white-space: pre;">state</code></dt><dd><p>[numeric]  A bitmask representing the state of the modifier keys immediately after the event takes place.   
+The meaning of the bits is currently defined to match the bitmask used by GDK in
+GdkEventType.state, see 
+http://developer.gnome.org/doc/API/2.0/gdk/gdk-Event-Structures.html<code><a href="gdk-Event-Structures.html">GdkEventKey</a></code></p>
+</dd>
+<dt><code style="white-space: pre;">keyval</code></dt><dd><p>[numeric]  A guint representing a keysym value corresponding to those used by GDK and X11: see
+/usr/X11/include/keysymdef.h.</p>
+</dd>
+<dt><code style="white-space: pre;">length</code></dt><dd><p>[integer]  The length of member <code style="white-space: pre;">string</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">string</code></dt><dd><p>[character]  A string containing one of the following: either a string approximating the text that would 
+result from this keypress, if the key is a control or graphic character, or a symbolic name for this keypress.
+Alphanumeric and printable keys will have the symbolic key name in this string member, for instance &quot;A&quot;. &quot;0&quot;, 
+&quot;semicolon&quot;, &quot;aacute&quot;.  Keypad keys have the prefix &quot;KP&quot;.</p>
+</dd>
+<dt><code style="white-space: pre;">keycode</code></dt><dd><p>[integer]  The raw hardware code that generated the key event.  This field is raraly useful.</p>
+</dd>
+<dt><code style="white-space: pre;">timestamp</code></dt><dd><p>[numeric]  A timestamp in milliseconds indicating when the event occurred.  
+These timestamps are relative to a starting point which should be considered arbitrary, 
+and only used to compare the dispatch times of events to one another.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">AtkCoordType</code></dt><dd>
+<p>Specifies how xy coordinates are to be interpreted. Used by functions such
+as <code><a href="atkComponentGetPosition.html">atkComponentGetPosition</a></code> and <code><a href="atkTextGetCharacterExtents.html">atkTextGetCharacterExtents</a></code>  
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">screen</code></dt><dd><p> specifies xy coordinates relative to the screen</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p> specifies xy coordinates relative to the widget's 
+top-level window</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">AtkKeyEventType</code></dt><dd>
+<p>Specifies the type of a keyboard evemt.  
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">press</code></dt><dd><p> specifies a key press event</p>
+</dd>
+<dt><code style="white-space: pre;">release</code></dt><dd><p> specifies a key release event</p>
+</dd>
+<dt><code style="white-space: pre;">last-defined</code></dt><dd><p> Not a valid value; specifies end of enumeration</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>AtkEventListener(obj)</code></dt><dd>
+<p>A function which is called when an object emits a matching event,
+as used in <code><a href="atkAddFocusTracker.html">atkAddFocusTracker</a></code>.
+Currently the only events for which object-specific handlers are
+supported are events of type &quot;focus:&quot;.  Most clients of ATK will prefer to 
+attach signal handlers for the various ATK signals instead.
+<code>see</code>: atk_add_focus_tracker.  
+</p>
+<dl>
+<dt><code>obj</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>]  An <code><a href="AtkObject.html">AtkObject</a></code> instance for whom the callback will be called when
+the specified event (e.g. 'focus:') takes place.</p>
+</dd></dl>
+
+</dd>
+<dt><code>AtkEventListenerInit()</code></dt><dd>
+<p>An <code style="white-space: pre;">AtkEventListenerInit</code> function is a special function that is
+called in order to initialize the per-object event registration system
+used by <code style="white-space: pre;">AtkEventListener</code>, if any preparation is required.  
+<code>see</code>: atk_focus_tracker_init.  
+</p>
+</dd>
+<dt><code>AtkKeySnoopFunc(event, func.data)</code></dt><dd>
+<p>An <code><a href="AtkUtil.html">AtkKeySnoopFunc</a></code> is a type of callback which is called whenever a key event occurs, 
+if registered via atk_add_key_event_listener.  It allows for pre-emptive 
+interception of key events via the return code as described below.  
+</p>
+
+<dl>
+<dt><code>event</code></dt><dd><p>[<code><a href="AtkUtil.html">AtkKeyEventStruct</a></code>]  an AtkKeyEventStruct containing information about the key event for which
+notification is being given.</p>
+</dd>
+<dt><code>func.data</code></dt><dd><p>[R object]  a block of data which will be passed to the event listener, on notification.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [integer]  TRUE (nonzero) if the event emission should be stopped and the event 
+discarded without being passed to the normal GUI recipient; FALSE (zero) if the 
+event dispatch to the client application should proceed as normal.
+<code>see</code>: atk_add_key_event_listener.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkUtil.html">http://library.gnome.org/devel//atk/AtkUtil.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GCancellable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GCancellable {RGtk2}"><tr><td>GCancellable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GCancellable</h2>
+
+<h3>Description</h3>
+
+<p>Thread-safe Operation Cancellation Stack</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gCancellableNew.html">gCancellableNew</a>()</code><br />
+<code><a href="gCancellableIsCancelled.html">gCancellableIsCancelled</a>(object)</code><br />
+<code><a href="gCancellableSetErrorIfCancelled.html">gCancellableSetErrorIfCancelled</a>(object, .errwarn = TRUE)</code><br />
+<code><a href="gCancellableGetFd.html">gCancellableGetFd</a>(object)</code><br />
+<code><a href="gCancellableReleaseFd.html">gCancellableReleaseFd</a>(object)</code><br />
+<code><a href="gCancellableGetCurrent.html">gCancellableGetCurrent</a>()</code><br />
+<code><a href="gCancellablePopCurrent.html">gCancellablePopCurrent</a>(object)</code><br />
+<code><a href="gCancellablePushCurrent.html">gCancellablePushCurrent</a>(object)</code><br />
+<code><a href="gCancellableReset.html">gCancellableReset</a>(object)</code><br />
+<code><a href="gCancellableDisconnect.html">gCancellableDisconnect</a>(object, handler.id)</code><br />
+<code><a href="gCancellableCancel.html">gCancellableCancel</a>(object)</code><br />
+<code>gCancellable()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GCancellable</pre>
+
+<h3>Detailed Description</h3>
+
+<p>GCancellable is a thread-safe operation cancellation stack used 
+throughout GIO to allow for cancellation of synchronous and
+asynchronous operations.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GCancellable</code></dt><dd>
+<p>Allows actions to be cancelled.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gCancellable</code> is the equivalent of <code><a href="gCancellableNew.html">gCancellableNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>cancelled(cancellable, user.data)</code></dt><dd>
+<p>Emitted when the operation has been cancelled.
+</p>
+<p>Can be used by implementations of cancellable operations. If the
+operation is cancelled from another thread, the signal will be
+emitted in the thread that cancelled the operation, not the
+thread that is running the operation.
+</p>
+<p>Note that disconnecting from this signal (or any signal) in a
+multi-threaded program is prone to race conditions. For instance
+it is possible that a signal handler may be invoked even
+<em>after</em> a call to
+<code><a href="GSignal.html">gSignalHandlerDisconnect</a></code> for that handler has already
+returned.
+</p>
+<p>There is also a problem when cancellation happen
+right before connecting to the signal. If this happens the
+signal will unexpectedly not be emitted, and checking before
+connecting to the signal leaves a race condition where this is
+still happening.
+</p>
+<p>In order to make it safe and easy to connect handlers there
+are two helper functions: <code>gCancellableConnect()</code> and
+<code><a href="gCancellableDisconnect.html">gCancellableDisconnect</a></code> which protect against problems
+like this.
+</p>
+<p>An example of how to us this:
+</p>
+<pre>
+## Make sure we don't do any unnecessary work if already cancelled
+if (cancellable$setErrorIfCancelled())
+  return()
+## Set up all the data needed to be able to
+## handle cancellation of the operation
+my_data &lt;- myData(...)
+
+id &lt;- 0
+if (!is.null(cancellable))
+  id &lt;- cancellable$connect(cancelled_handler, data, NULL)
+
+## cancellable operation here...
+
+cancellable$disconnect(id)
+</pre>
+<p>Note that the cancelled signal is emitted in the thread that
+the user cancelled from, which may be the main thread. So, the
+cancellable signal should not do something that can block.
+</p>
+
+<dl>
+<dt><code>cancellable</code></dt><dd><p>a <code><a href="GCancellable.html">GCancellable</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GCancellable.html">http://library.gnome.org/devel//gio/GCancellable.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

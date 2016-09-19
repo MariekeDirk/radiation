@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Artificial data for testing regression algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for regDataGen {CORElearn}"><tr><td>regDataGen {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Artificial data for testing regression algorithms</h2>
+
+<h3>Description</h3>
+
+<p>The generator produces regression data data with 4 discrete and 7 numeric attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  regDataGen(noInst, t1=0.8, t2=0.5, noise=0.1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>noInst</code></td>
+<td>
+<p>Number of instances to generate.</p>
+</td></tr>
+<tr valign="top"><td><code>t1, t2</code></td>
+<td>
+<p> Parameters controlling the shape of the distribution.</p>
+</td></tr>
+<tr valign="top"><td><code>noise</code></td>
+<td>
+<p>Parameter controlling the amount of noise. If <code>noise=0</code>, there is no noise. If noise = 1, then the level
+of the signal and noise are the same.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The response variable is derived from x4, x5, x6 using two different
+functions. The choice depends on a hidden variable, which determines weather the 
+response value would follow a linear dependency <i>f=x_4-2x_5+3x_6</i>,
+or a nonlinear one <i>f=cos(4&pi; x_4)(2x_5-3x_6)</i>.
+</p>
+<p>Attributes a1, a2, x1, x2 carry some information on the hidden
+variables depending on parameters t1, t2. Extreme values of the
+parameters are t1=0.5 and t2=1, when there is no information.
+On the other hand, if t1=0 or t1=1 then each of the attributes
+a1, a2 carries full information. If t2=0, then each of x1, x2
+carries full information on the hidden variable.
+</p>
+<p>The attributes x4, x5, x6 are available with a noise level depending
+on parameter <code>noise</code>. If <code>noise=0</code>, there is no noise. If <code>noise=1</code>, then the level
+of the signal and noise are the same.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a <code><a href="../../base/html/data.frame.html">data.frame</a></code> with <code>noInst</code> rows and 11 columns. 
+Range of values of the attributes and response are
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>a1</code></td>
+<td>
+<p>0,1</p>
+</td></tr>
+<tr valign="top"><td><code>a2</code></td>
+<td>
+<p> a,b,c,d</p>
+</td></tr>
+<tr valign="top"><td><code>a3</code></td>
+<td>
+<p> 0,1 (irrelevant)</p>
+</td></tr>
+<tr valign="top"><td><code>a4</code></td>
+<td>
+<p> a,b,c,d (irrelevant)</p>
+</td></tr>
+<tr valign="top"><td><code>x1</code></td>
+<td>
+<p> numeric (gaussian with different sd for each class)</p>
+</td></tr>
+<tr valign="top"><td><code>x2</code></td>
+<td>
+<p> numeric (gaussian with different sd for each class)</p>
+</td></tr>
+<tr valign="top"><td><code>x3</code></td>
+<td>
+<p> numeric (gaussian, irrelevant)</p>
+</td></tr>
+<tr valign="top"><td><code>x4</code></td>
+<td>
+<p> numeric from [0,1]</p>
+</td></tr>
+<tr valign="top"><td><code>x5</code></td>
+<td>
+<p> numeric from [0,1]</p>
+</td></tr>
+<tr valign="top"><td><code>x6</code></td>
+<td>
+<p> numeric from [0,1]</p>
+</td></tr>
+<tr valign="top"><td><code>response</code></td>
+<td>
+<p> numeric</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Petr Savicky </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="classDataGen.html">classDataGen</a></code>,<code><a href="ordDataGen.html">ordDataGen</a></code>,<code><a href="CoreModel.html">CoreModel</a></code>,
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#prepare a regression data set
+regData &lt;-regDataGen(noInst=200)
+
+# build regression tree similar to CART
+modelRT &lt;- CoreModel(response ~ ., regData, model="regTree", modelTypeReg=1)
+print(modelRT)
+
+destroyModels(modelRT) # clean up
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

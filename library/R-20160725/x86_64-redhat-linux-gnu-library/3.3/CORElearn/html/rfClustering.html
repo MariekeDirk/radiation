@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random forest based clustering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rfClustering {CORElearn}"><tr><td>rfClustering {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random forest based clustering</h2>
+
+<h3>Description</h3>
+
+<p>Creates a clustering of random forest training instances. Random forest provides proximity of its training instances based on their out-of-bag classification.
+This information is usually passed to visualizations (e.g., scaling) and attribute importance measures.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rfClustering(model, noClusters=4)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p> a random forest model returned by <code><a href="CoreModel.html">CoreModel</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>noClusters</code></td>
+<td>
+<p>number of clusters</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The method calls <code><a href="../../cluster/html/pam.html">pam</a></code> function for clustering, initializing its distance matrix with random forest based similarity by calling
+<code><a href="rfProximity.html">rfProximity</a></code> with argument <code>model</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>pam</code> representing the clustering (see <code>?pam.object</code> for details),
+the most important being a vector of cluster assignments (named <code>cluster</code>) to training instances used to generate the <code>model</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> John Adeyanju Alao (as a part of his BSc thesis) and Marko Robnik-Sikonja (thesis supervisor)</p>
+
+
+<h3>References</h3>
+
+<p>Leo Breiman: Random Forests. <em>Machine Learning Journal</em>, 45:5-32, 2001
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CoreModel.html">CoreModel</a></code>
+<code><a href="rfProximity.html">rfProximity</a></code>
+<code><a href="../../cluster/html/pam.html">pam</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set&lt;-iris
+md&lt;-CoreModel(Species ~ ., set, model="rf", rfNoTrees=30, maxThreads=1)
+mdCluster&lt;-rfClustering(md, 5)
+
+destroyModels(md) # clean up
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

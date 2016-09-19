@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRangeSetUpdatePolicy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRangeSetUpdatePolicy {RGtk2}"><tr><td>gtkRangeSetUpdatePolicy {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRangeSetUpdatePolicy</h2>
+
+<h3>Description</h3>
+
+<p>Sets the update policy for the range. <code style="white-space: pre;">GTK_UPDATE_CONTINUOUS</code> means that
+anytime the range slider is moved, the range value will change and the
+value_changed signal will be emitted. <code style="white-space: pre;">GTK_UPDATE_DELAYED</code> means that
+the value will be updated after a brief timeout where no slider motion
+occurs, so updates are spaced by a short time rather than
+continuous. <code style="white-space: pre;">GTK_UPDATE_DISCONTINUOUS</code> means that the value will only
+be updated when the user releases the button and ends the slider
+drag operation.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRangeSetUpdatePolicy(object, policy)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkRange.html">GtkRange</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">policy</code></code></td>
+<td>
+<p>update policy</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

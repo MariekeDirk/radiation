@@ -1,0 +1,8 @@
+brainCancer             The brain cancer data set
+mini                    An example data set derived from the brain
+                        cancer data set
+predict.randomGLM       Prediction from a random generalized linear
+                        model predictor
+randomGLM               Random generalized linear model predictor
+thinRandomGLM           Random generalized linear model predictor
+                        thinning

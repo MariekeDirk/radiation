@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Confidence Intervals</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ci {gmodels}"><tr><td>ci {gmodels}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Confidence Intervals</h2>
+
+<h3>Description</h3>
+
+<p> Compute and display confidence intervals for model
+estimates.  Methods are provided for the mean of a numeric vector
+<code>ci.default</code>, the probability of a binomial vector
+<code>ci.binom</code>, and for <code>lm</code>, and <code>lme</code>
+
+objects are
+provided. </p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ci(x, confidence=0.95, alpha=1 - confidence, ...)
+  ## S3 method for class 'numeric'
+ci(x, confidence=0.95, alpha=1-confidence, na.rm=FALSE, ...)
+  ## S3 method for class 'binom'
+ci(x, confidence=0.95, alpha=1-confidence, ...)
+  ## S3 method for class 'lm'
+ci(x, confidence=0.95, alpha=1-confidence, ...)
+  ## S3 method for class 'lme'
+ci(x, confidence=0.95, alpha=1-confidence, ...)
+  
+  ## S3 method for class 'estimable'
+ci(x, confidence=0.95, alpha=1-confidence, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> object from which to compute confidence intervals. </p>
+</td></tr>
+<tr valign="top"><td><code>confidence</code></td>
+<td>
+<p> confidence level. Defaults to 0.95. </p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>type one error rate.  Defaults to 1.0-<code>confidence</code> </p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>boolean indicating whether missing values should be
+removed. Defaults to <code>FALSE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments for methods</p>
+</td></tr>
+</table>
+
+
+
+<h3>Details</h3>
+
+<p><code>ci.binom</code> computes binomial confidence intervals using the
+Clopper-Pearson 'exact' method based on the binomial quantile
+function.  Due to the discrete nature of the binomial distribution,
+this interval is conservative.
+</p>
+
+
+<h3>Value</h3>
+
+<p>vector or matrix with one row per model parameter and elements/columns
+<code>Estimate</code>, <code>CI lower</code>, <code>CI upper</code>, <code>Std. Error</code>,
+<code>DF</code> (for lme objects only), and <code>p-value</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Gregory R. Warnes <a href="mailto:greg@warnes.net">greg@warnes.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/confint.html">confint</a></code>,
+<code><a href="../../stats/html/lm.html">lm</a></code>,
+<code><a href="../../stats/html/summary.lm.html">summary.lm</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# mean and confidence interval
+ci( rnorm(10) )
+
+# binomial proportion and exact confidence interval
+b &lt;- rbinom( prob=0.75, size=1, n=20 )
+ci.binom(b) # direct call
+class(b) &lt;- 'binom'
+ci(b)       # indirect call
+
+# confidence intervals for regression parameteres
+data(state)
+reg  &lt;-  lm(Area ~ Population, data=as.data.frame(state.x77))
+ci(reg)
+
+# mer example
+library(nlme)
+Orthodont$AgeGroup &lt;- gtools::quantcut(Orthodont$age)
+fm2 &lt;- lme(distance ~ Sex + AgeGroup, data = Orthodont,random=~1|Subject)
+ci(fm2)
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>gmodels</em> version 2.16.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

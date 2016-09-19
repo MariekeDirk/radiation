@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Writes raster objects to KML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kml_layer.Raster {plotKML}"><tr><td>kml_layer.Raster {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Writes raster objects to KML</h2>
+
+<h3>Description</h3>
+
+<p>Writes rasters to PNG images and makes a KML code (ground overlays). Works with <code>"RasterLayer"</code> and <code>"RasterStack"</code> class objects. Target attributes can be specified using aesthetics arguments (e.g. <code>"colour"</code>).</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kml_layer.Raster(obj, subfolder.name = paste(class(obj)), plot.legend = TRUE, 
+     metadata = NULL, raster_name, 
+     png.width = ncol(obj), png.height = nrow(obj), 
+     min.png.width = 800, TimeSpan.begin, TimeSpan.end,
+     layer.name, png.type = "cairo-png", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>object of class <code>"RasterLayer"</code>, <code>"SpatialPixelsDataFrame"</code> or <code>"SpatialGridDataFrame"</code></p>
+</td></tr>
+<tr valign="top"><td><code>subfolder.name</code></td>
+<td>
+<p>character; optional subfolder name</p>
+</td></tr> 
+<tr valign="top"><td><code>plot.legend</code></td>
+<td>
+<p>logical; specify whether a map legend should be generated automatically</p>
+</td></tr>
+<tr valign="top"><td><code>metadata</code></td>
+<td>
+<p>(optional) specify the metadata object</p>
+</td></tr>
+<tr valign="top"><td><code>raster_name</code></td>
+<td>
+<p>(optional) specify the output file name (PNG)</p>
+</td></tr>
+<tr valign="top"><td><code>png.width</code></td>
+<td>
+<p>(optional) width of the PNG file</p>
+</td></tr>
+<tr valign="top"><td><code>png.height</code></td>
+<td>
+<p>(optional) height of the PNG file</p>
+</td></tr>
+<tr valign="top"><td><code>min.png.width</code></td>
+<td>
+<p>(optional) minimum width of the PNG file</p>
+</td></tr>
+<tr valign="top"><td><code>TimeSpan.begin</code></td>
+<td>
+<p>object of class <code>"POSIXct"</code>; (optional) begin of the sampling period</p>
+</td></tr>
+<tr valign="top"><td><code>TimeSpan.end</code></td>
+<td>
+<p>object of class <code>"POSIXct"</code>; (optional) end of the sampling period</p>
+</td></tr>
+<tr valign="top"><td><code>layer.name</code></td>
+<td>
+<p>character; optional layer name</p>
+</td></tr>
+<tr valign="top"><td><code>png.type</code></td>
+<td>
+<p>character; PNG type</p>
+</td></tr> 
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional <code><a href="aesthetics.html">aesthetics</a></code> arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Google Earth does not properly handle a 24-bit PNG file which has a single transparent color (read more at <a href="http://groups.google.com/group/earth-help/">Google Earth Help</a>). To force transparency, plotKML will try to set it using the <code>-matte -transparent "\#FFFFFF"</code> option in the <a href="http://www.imagemagick.org/Usage/masking/">ImageMagick convert program</a> (ImageMagick needs to be installed separately and located using <code>plotKML.env()</code>). On some Unix run machines the <code>png.type</code> argument has to be set manually to avoid producing empty PNGs.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl, Pierre Roudier and Dylan Beaudette</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="kml.html">kml-methods</a></code>, <code><a href="kml_open.html">kml_open</a></code>, <code><a href="layer.RasterBrick.html">kml_layer.RasterBrick</a></code>, <code><a href="plotKML.html">plotKML-method</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(eberg_grid)
+library(sp)
+coordinates(eberg_grid) &lt;- ~x+y
+gridded(eberg_grid) &lt;- TRUE
+proj4string(eberg_grid) &lt;- CRS("+init=epsg:31467")
+data(SAGA_pal)
+library(raster)
+r &lt;- raster(eberg_grid["TWISRT6"])
+## Not run: # KML plot with a single raster:
+kml(r, colour_scale = SAGA_pal[[1]], colour = TWISRT6) 
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Vowel Recognition (Deterding data)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Vowel {mlbench}"><tr><td>Vowel {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Vowel Recognition (Deterding data)</h2>
+
+<h3>Description</h3>
+
+<p>Speaker independent recognition of the eleven steady state
+vowels of British English using a specified training set of lpc
+derived log area ratios. The vowels are indexed by integers
+0-10. For each utterance, there are ten floating-point input values,
+with array indices 0-9. The vowels are the following: hid, hId, hEd,
+hAd, hYd, had, hOd, hod, hUd, hud, hed. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(Vowel)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 990 observations on 10 independent variables, one
+nominal and the other numerical, and 1 as the target class.</p>
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Creator: Tony Robinson 
+</p>
+</li>
+<li><p> Maintainer: Scott E. Fahlman, CMU
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Evgenia Dimitriadou.
+</p>
+
+
+<h3>References</h3>
+
+<p>D. H. Deterding, 1989, University of Cambridge, &quot;Speaker
+Normalisation for Automatic Speech Recognition&quot;, submitted for PhD.
+</p>
+<p>M. Niranjan and F. Fallside, 1988, Cambridge University Engineering
+Department, &quot;Neural Networks and Radial Basis Functions in
+Classifying Static Speech Patterns&quot;, CUED/F-INFENG/TR.22.
+</p>
+<p>Steve Renals and Richard Rohwer, &quot;Phoneme Classification Experiments
+Using Radial Basis Functions&quot;, Submitted to the International Joint
+Conference on Neural Networks, Washington, 1989.
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Vowel)
+summary(Vowel)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

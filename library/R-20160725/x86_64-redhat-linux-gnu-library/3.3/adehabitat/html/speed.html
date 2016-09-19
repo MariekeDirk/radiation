@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Computes the Speed Between Successive Relocations of an...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for speed {adehabitat}"><tr><td>speed {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Computes the Speed Between Successive Relocations of an Animal
+- Deprecated</h2>
+
+<h3>Description</h3>
+
+<p><code>speed</code> measures the speed between successive relocations of
+animals, using objects of class <code>traj</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+speed(x, id = levels(x$id), burst = levels(x$burst), date = NULL,
+      units = c("seconds", "hours", "days"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>traj</code></p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>a character vector giving the identity of the animals for
+which the speed is to be computed</p>
+</td></tr>
+<tr valign="top"><td><code>burst</code></td>
+<td>
+<p>a character vector giving the identity of the circuits
+for which the speed is to be computed (see <code>traj</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>date</code></td>
+<td>
+<p>a vector of class <code>POSIXct</code> of length 2 (beginning, end)
+delimiting the period of interest</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>a character string. It determines how the
+speeds are computed.  For example, if the coordinates are given in
+meters, and if <code>units = "seconds"</code>, speeds are returned in
+meters per second.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a data frame with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>the identity of the animal</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>if the speed is computed between the relocation 1 and 2,
+the x coordinate of the relocation 1.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>if the speed is computed between the relocation 1 and 2,
+the y coordinate of the relocation 1.</p>
+</td></tr>
+<tr valign="top"><td><code>date</code></td>
+<td>
+<p>a vector of class <code>POSIXct</code>, giving the date of
+relocation 1.</p>
+</td></tr>
+<tr valign="top"><td><code>burst</code></td>
+<td>
+<p>the identity of the circuit</p>
+</td></tr>
+<tr valign="top"><td><code>sp.x</code></td>
+<td>
+<p>the computed speed of the animal in the x direction</p>
+</td></tr>
+<tr valign="top"><td><code>sp.y</code></td>
+<td>
+<p>the computed speed of the animal in the y direction</p>
+</td></tr>
+<tr valign="top"><td><code>speed</code></td>
+<td>
+<p>the computed speed of the animal on the plane.</p>
+</td></tr>
+<tr valign="top"><td><code>dt</code></td>
+<td>
+<p>the duration between the two relocations (in the units given
+by the parameter <code>units</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The function <code>speed</code> is deprecated.  The class <code>ltraj</code>
+computes the speeds automatically (see <code>ltraj</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.traj.html">traj</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+#### Computes the speed for each wild boar
+#### monitored at Puechabon
+data(puechcirc)
+puechcirc &lt;- ltraj2traj(puechcirc)
+puechcirc
+
+plot(puechcirc)
+sp &lt;- speed(puechcirc)
+sp[1:4,]
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

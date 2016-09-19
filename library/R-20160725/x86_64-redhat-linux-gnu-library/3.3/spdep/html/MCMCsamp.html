@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: MCMC sample from fitted spatial regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for MCMCsamp {spdep}"><tr><td>MCMCsamp {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>MCMC sample from fitted spatial regression</h2>
+
+<h3>Description</h3>
+
+<p>The <code>MCMCsamp</code> method uses <code><a href="../../LearnBayes/html/rwmetrop.html">rwmetrop</a></code>, a random walk Metropolis algorithm, from <span class="pkg">LearnBayes</span> to make MCMC samples from fitted maximum likelihood spatial regression models.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+MCMCsamp(object, mcmc = 1L, verbose = NULL, ...)
+## S3 method for class 'spautolm'
+MCMCsamp(object, mcmc = 1L, verbose = NULL, ...,
+ burnin = 0L, scale=1, listw, control = list())
+## S3 method for class 'sarlm'
+MCMCsamp(object, mcmc = 1L, verbose = NULL, ...,
+    burnin=0L, scale=1, listw, listw2=NULL, control=list())</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>A spatial regression model object fitted by maximum likelihood with <code><a href="spautolm.html">spautolm</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>mcmc</code></td>
+<td>
+<p>The number of MCMC iterations after burnin</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE, reports progress</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Arguments passed through</p>
+</td></tr>
+<tr valign="top"><td><code>burnin</code></td>
+<td>
+<p>The number of burn-in iterations for the sampler</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>a positive scale parameter</p>
+</td></tr>
+<tr valign="top"><td><code>listw, listw2</code></td>
+<td>
+<p><code>listw</code> objects created for example by <code>nb2listw</code>; should be the same object(s) used for fitting the model</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>list of extra control arguments - see <code><a href="spautolm.html">spautolm</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class &ldquo;mcmc&rdquo; suited to <span class="pkg">coda</span>, with attributes: &ldquo;accept&rdquo; acceptance rate; &ldquo;type&rdquo; input ML fitted model type &ldquo;SAR&rdquo;, &ldquo;CAR&rdquo;, &ldquo;SMA&rdquo;, &ldquo;lag&rdquo;, &ldquo;mixed&rdquo;, &ldquo;error&rdquo;, &ldquo;sac&rdquo;, &ldquo;sacmixed&rdquo;; &ldquo;timings&rdquo; run times</p>
+
+
+<h3>Note</h3>
+
+<p>If the acceptance rate is below 0.05, a warning will be issued; consider increasing mcmc.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Jim Albert (2007) Bayesian Computation with R, Springer, New York, pp. 104-105.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../LearnBayes/html/rwmetrop.html">rwmetrop</a></code>, <code><a href="spautolm.html">spautolm</a></code>, <code><a href="lagsarlm.html">lagsarlm</a></code>, <code><a href="errorsarlm.html">errorsarlm</a></code>, <code><a href="sacsarlm.html">sacsarlm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(NY_data)
+## Not run: 
+esar1f &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, family="SAR", method="eigen")
+summary(esar1f)
+res &lt;- MCMCsamp(esar1f, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+esar1fw &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, weights=POP8, family="SAR", method="eigen")
+summary(esar1fw)
+res &lt;- MCMCsamp(esar1fw, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+ecar1f &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, family="CAR", method="eigen")
+summary(ecar1f)
+res &lt;- MCMCsamp(ecar1f, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+esar1fw &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, weights=POP8, family="SAR", method="eigen")
+summary(esar1fw)
+res &lt;- MCMCsamp(esar1fw, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+ecar1fw &lt;- spautolm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, weights=POP8, family="CAR", method="eigen")
+summary(ecar1fw)
+res &lt;- MCMCsamp(ecar1fw, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+
+## End(Not run)
+esar0 &lt;- errorsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY)
+summary(esar0)
+res &lt;- MCMCsamp(esar0, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+## Not run: 
+esar0w &lt;- errorsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, weights=POP8)
+summary(esar0)
+res &lt;- MCMCsamp(esar0w, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+esar1 &lt;- errorsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, etype="emixed")
+summary(esar1)
+res &lt;- MCMCsamp(esar1, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+lsar0 &lt;- lagsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY)
+summary(lsar0)
+res &lt;- MCMCsamp(lsar0, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+lsar1 &lt;- lagsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, type="mixed")
+summary(lsar1)
+res &lt;- MCMCsamp(lsar1, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+ssar0 &lt;- sacsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY)
+summary(ssar0)
+res &lt;- MCMCsamp(ssar0, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+ssar1 &lt;- sacsarlm(Z ~ PEXPOSURE + PCTAGE65P + PCTOWNHOME, data=nydata,
+ listw=listw_NY, type="sacmixed")
+summary(ssar1)
+res &lt;- MCMCsamp(ssar1, mcmc=5000, burnin=500, listw=listw_NY)
+summary(res)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

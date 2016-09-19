@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial 'K'luster Analysis by Tree Edge Removal</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for skater {spdep}"><tr><td>skater {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial 'K'luster Analysis by Tree Edge Removal</h2>
+
+<h3>Description</h3>
+
+<p>This function implements a SKATER procedure for spatial clustering
+analysis. This procedure essentialy begins with an edges set, a data set and
+a number of cuts. The output is an object of 'skater' class and is
+valid for input again.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+skater(edges, data, ncuts, crit, vec.crit, method = c("euclidean", 
+    "maximum", "manhattan", "canberra", "binary", "minkowski", 
+    "mahalanobis"), p = 2, cov, inverted = FALSE) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>edges</code></td>
+<td>
+<p>A matrix with 2 colums with each row is an edge</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A data.frame with data observed over nodes.</p>
+</td></tr>
+<tr valign="top"><td><code>ncuts</code></td>
+<td>
+<p>The number of cuts</p>
+</td></tr>
+<tr valign="top"><td><code>crit</code></td>
+<td>
+<p>A scalar ow two dimensional vector with with
+criteria for groups. Examples: limits of group size or
+limits of population size. If scalar, is the minimum
+criteria for groups.</p>
+</td></tr>
+<tr valign="top"><td><code>vec.crit</code></td>
+<td>
+<p>A vector for evaluating criteria.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Character or function to declare distance method.
+If <code>method</code> is character, method must be &quot;mahalanobis&quot; or
+&quot;euclidean&quot;, &quot;maximum&quot;, &quot;manhattan&quot;, &quot;canberra&quot;, &quot;binary&quot;
+or &quot;minkowisk&quot;.
+If <code>method</code> is one of &quot;euclidean&quot;, &quot;maximum&quot;,
+&quot;manhattan&quot;, &quot;canberra&quot;, &quot;binary&quot; or &quot;minkowski&quot;, see
+<code><a href="../../stats/html/dist.html">dist</a></code> for details,
+because this function as used to compute the distance.
+If <code>method="mahalanobis"</code>, the mahalanobis distance
+is computed between neighbour areas.
+If <code>method</code> is a <code>function</code>, this function is
+used to compute the distance.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>The power of the Minkowski distance.</p>
+</td></tr>
+<tr valign="top"><td><code>cov</code></td>
+<td>
+<p>The covariance matrix used to compute the mahalanobis
+distance.</p>
+</td></tr>
+<tr valign="top"><td><code>inverted</code></td>
+<td>
+<p>logical.  If 'TRUE', 'cov' is supposed to contain the
+inverse of the covariance matrix.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A object of <code>skater</code> class with:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>groups</code></td>
+<td>
+<p>A vector with length equal the number of nodes. Each
+position identifies the group of node</p>
+</td></tr> 
+<tr valign="top"><td><code>edges.groups</code></td>
+<td>
+<p>A list of length equal the number of groups with
+each element is a set of edges</p>
+</td></tr> 
+<tr valign="top"><td><code>not.prune</code></td>
+<td>
+<p>A vector identifying the groups with are not
+candidates to partition.</p>
+</td></tr>
+<tr valign="top"><td><code>candidates</code></td>
+<td>
+<p>A vector identifying the groups with are candidates
+to partition.</p>
+</td></tr> 
+<tr valign="top"><td><code>ssto</code></td>
+<td>
+<p>The total dissimilarity in each step of edge removal.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Renato M. Assuncao and Elias T. Krainski</p>
+
+
+<h3>References</h3>
+
+<p>Assuncao, R.M., Lage J.P., and Reis, E.A. (2002). Analise de
+conglomerados espaciais via arvore geradora minima. Revista Brasileira
+de Estatistica, 62, 1-23. 
+</p>
+<p>Assuncao, R. M, Neves, M. C., Camara, G. and Freitas, C. da
+C. (2006). Efficient regionalization techniques for socio-economic
+geographical units using minimum spanning trees. International Journal
+of Geographical Information Science Vol. 20, No. 7, August 2006,
+797-811 
+</p>
+
+
+<h3>See Also</h3>
+
+<p>See Also as <code><a href="mstree.html">mstree</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+### loading data
+require(maptools)
+bh &lt;- readShapePoly(system.file("etc/shapes/bhicv.shp",
+      package="spdep")[1])
+### data standardized 
+dpad &lt;- data.frame(scale(bh@data[,5:8]))
+
+### neighboorhod list
+bh.nb &lt;- poly2nb(bh)
+
+### calculating costs
+lcosts &lt;- nbcosts(bh.nb, dpad)
+
+### making listw
+nb.w &lt;- nb2listw(bh.nb, lcosts, style="B")
+
+### find a minimum spanning tree
+mst.bh &lt;- mstree(nb.w,5)
+
+### the mstree plot
+par(mar=c(0,0,0,0))
+plot(mst.bh, coordinates(bh), col=2,       
+     cex.lab=.7, cex.circles=0.035, fg="blue")
+plot(bh, border=gray(.5), add=TRUE)
+
+### three groups with no restriction
+res1 &lt;- skater(mst.bh[,1:2], dpad, 2)
+
+### groups size
+table(res1$groups)
+
+### the skater plot
+par(mar=c(0,0,0,0))
+plot(res1, coordinates(bh), cex.circles=0.035, cex.lab=.7)
+
+### the skater plot, using other colors
+plot(res1, coordinates(bh), cex.circles=0.035, cex.lab=.7,
+     groups.colors=rainbow(length(res1$ed)))
+
+### the Spatial Polygons plot
+plot(bh, col=heat.colors(length(res1$edg))[res1$groups])
+
+### EXPERT OPTIONS
+
+### more one partition
+res1b &lt;- skater(res1, dpad, 1)
+
+### length groups frequency
+table(res1$groups)
+table(res1b$groups)
+
+### thee groups with minimum population 
+res2 &lt;- skater(mst.bh[,1:2], dpad, 2, 200000, bh@data$Pop)
+
+### thee groups with minimun number of areas
+res3 &lt;- skater(mst.bh[,1:2], dpad, 2, 3, rep(1,nrow(bh@data)))
+
+### thee groups with minimun and maximun number of areas
+res4 &lt;- skater(mst.bh[,1:2], dpad, 2, c(20,50), rep(1,nrow(bh@data)))
+
+table(res2$groups)
+table(res3$groups)
+table(res4$groups)
+
+### if I want to get groups with 20 to 40 elements
+res5 &lt;- skater(mst.bh[,1:2], dpad, 2,
+   c(20,40), rep(1,nrow(bh@data))) ## DON'T MAKE DIVISIONS 
+table(res5$groups)
+
+### In this MST don't have groups with this restrictions
+### In this case, first I do one division
+### with the minimun criteria
+res5a &lt;- skater(mst.bh[,1:2], dpad, 1, 20, rep(1,nrow(bh@data))) 
+table(res5a$groups)
+
+### and do more one division with the full criteria
+res5b &lt;- skater(res5a, dpad, 1, c(20, 40), rep(1,nrow(bh@data)))
+table(res5b$groups)
+
+### and do more one division with the full criteria
+res5c &lt;- skater(res5b, dpad, 1, c(20, 40), rep(1,nrow(bh@data)))
+table(res5c$groups)
+
+### It don't have another divison with this criteria
+res5d &lt;- skater(res5c, dpad, 1, c(20, 40), rep(1,nrow(bh@data)))
+table(res5d$groups)
+
+
+data(boston)
+bh.nb &lt;- boston.soi
+dpad &lt;- data.frame(scale(boston.c[,c(7:10)]))
+### calculating costs
+system.time(lcosts &lt;- nbcosts(bh.nb, dpad))
+### making listw
+nb.w &lt;- nb2listw(bh.nb, lcosts, style="B")
+### find a minimum spanning tree
+mst.bh &lt;- mstree(nb.w,5)
+### three groups with no restriction
+system.time(res1 &lt;- skater(mst.bh[,1:2], dpad, 2))
+library(parallel)
+nc &lt;- detectCores(logical=FALSE)
+# set nc to 1L here
+if (nc &gt; 1L) nc &lt;- 1L
+coresOpt &lt;- get.coresOption()
+invisible(set.coresOption(nc))
+if(!get.mcOption()) {
+# no-op, "snow" parallel calculation not available
+  cl &lt;- makeCluster(get.coresOption())
+  set.ClusterOption(cl)
+}
+### calculating costs
+system.time(plcosts &lt;- nbcosts(bh.nb, dpad))
+all.equal(lcosts, plcosts, check.attributes=FALSE)
+### making listw
+pnb.w &lt;- nb2listw(bh.nb, plcosts, style="B")
+### find a minimum spanning tree
+pmst.bh &lt;- mstree(pnb.w,5)
+### three groups with no restriction
+system.time(pres1 &lt;- skater(pmst.bh[,1:2], dpad, 2))
+if(!get.mcOption()) {
+  set.ClusterOption(NULL)
+  stopCluster(cl)
+}
+all.equal(res1, pres1, check.attributes=FALSE)
+invisible(set.coresOption(coresOpt))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

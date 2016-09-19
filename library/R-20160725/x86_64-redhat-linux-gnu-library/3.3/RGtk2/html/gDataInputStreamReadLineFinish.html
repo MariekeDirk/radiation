@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gDataInputStreamReadLineFinish</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gDataInputStreamReadLineFinish {RGtk2}"><tr><td>gDataInputStreamReadLineFinish {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gDataInputStreamReadLineFinish</h2>
+
+<h3>Description</h3>
+
+<p>Finish an asynchronous call started by
+<code><a href="gDataInputStreamReadLineAsync.html">gDataInputStreamReadLineAsync</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gDataInputStreamReadLineFinish(object, result, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a given <code><a href="GDataInputStream.html">GDataInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">result</code></code></td>
+<td>
+<p>the <code><a href="GAsyncResult.html">GAsyncResult</a></code> that was provided to the callback.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.20</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[char] a string with the line that was read in (without the newlines).
+Set <code>length</code> to a <code style="white-space: pre;">numeric</code> to get the length of the read line.
+On an error, it will return <code>NULL</code> and <code>error</code> will be set. If there's no
+content to read, it will still return <code>NULL</code>, but <code>error</code> won't be set.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">length</code></code></td>
+<td>
+<p>a <code style="white-space: pre;">numeric</code> to get the length of the data read in.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p><code><a href="GError.html">GError</a></code> for error reporting.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

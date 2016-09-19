@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Profile Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SoilProfileCollection-plotting-methods {aqp}"><tr><td>SoilProfileCollection-plotting-methods {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Profile Plot
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate a simple diagram of a soil profile, with annotated horizon names.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plotSPC(x, color='soil_color', width=0.2, name=NULL, label=idname(x),
+alt.label=NULL, alt.label.col='black', cex.names=0.5, 
+cex.depth.axis=cex.names, cex.id=cex.names+(0.2*cex.names), 
+print.id=TRUE, id.style='auto', plot.order=1:length(x), add=FALSE, 
+scaling.factor=1, y.offset=0, x.idx.offset=0, n=length(x),
+max.depth=max(x), n.depth.ticks=5, shrink=FALSE, 
+shrink.cutoff=3, abbr=FALSE, abbr.cutoff=5, divide.hz=TRUE, 
+hz.distinctness.offset=NULL, hz.distinctness.offset.col='black', 
+hz.distinctness.offset.lty=2, axis.line.offset=-2.5, 
+plot.depth.axis=TRUE, density=NULL, col.label=color, 
+col.palette = rev(brewer.pal(10, 'Spectral')), col.legend.cex=1,
+lwd=1, lty=1, 
+default.color=grey(0.95), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a SoilProfileCollection object</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>the name of the column containing R-compatible color descriptions, or a column containing numeric or categorical data; see details</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>scaling of profile widths</p>
+</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>the name of the (horizon-level) attribute containing horizon designation labels</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>the name of the (site-level) attribute used to identify profiles in the plot</p>
+</td></tr>
+<tr valign="top"><td><code>alt.label</code></td>
+<td>
+<p>the name of a (site-level) attribute used for seconary annotation</p>
+</td></tr>
+<tr valign="top"><td><code>alt.label.col</code></td>
+<td>
+<p>color used when printing secondary annotation</p>
+</td></tr>
+<tr valign="top"><td><code>cex.names</code></td>
+<td>
+<p>character scaling applied to horizon names</p>
+</td></tr>
+<tr valign="top"><td><code>cex.depth.axis</code></td>
+<td>
+<p>character scaling applied to depth scale</p>
+</td></tr>
+<tr valign="top"><td><code>cex.id</code></td>
+<td>
+<p>character scaling applied to profile id</p>
+</td></tr>
+<tr valign="top"><td><code>print.id</code></td>
+<td>
+<p>should the profile id be printed above each profile? (TRUE)</p>
+</td></tr>
+<tr valign="top"><td><code>id.style</code></td>
+<td>
+<p>profile ID printing style: 'auto' (default) = simple heuristic used to select from: 'top' = centered above each profile, 'side' = 'along the top-left edge of profiles'</p>
+</td></tr>
+<tr valign="top"><td><code>plot.order</code></td>
+<td>
+<p>a vector describing the order in which individual SoilProfile objects from the parent should be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>add to an existing figure</p>
+</td></tr> 
+<tr valign="top"><td><code>scaling.factor</code></td>
+<td>
+<p>vertical scaling of the profile heights</p>
+</td></tr> 
+<tr valign="top"><td><code>y.offset</code></td>
+<td>
+<p>vertical offset for top of profiles</p>
+</td></tr> 
+<tr valign="top"><td><code>x.idx.offset</code></td>
+<td>
+<p>integer specifying horizontal offset from 0</p>
+</td></tr> 
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>integer describing amount of space along x-axis to allocate, defaults to length(x)</p>
+</td></tr>
+<tr valign="top"><td><code>max.depth</code></td>
+<td>
+<p>suggested lower depth boundary of plot</p>
+</td></tr>
+<tr valign="top"><td><code>n.depth.ticks</code></td>
+<td>
+<p>suggested number of ticks in depth scale</p>
+</td></tr>
+<tr valign="top"><td><code>shrink</code></td>
+<td>
+<p>should long horizon names be shrunk by 80% ?</p>
+</td></tr>
+<tr valign="top"><td><code>shrink.cutoff</code></td>
+<td>
+<p>character length defining long horizon names</p>
+</td></tr>
+<tr valign="top"><td><code>abbr</code></td>
+<td>
+<p>should the profile ID be abbreviated?</p>
+</td></tr>
+<tr valign="top"><td><code>abbr.cutoff</code></td>
+<td>
+<p>suggested minimum length for abbreviated IDs</p>
+</td></tr>
+<tr valign="top"><td><code>divide.hz</code></td>
+<td>
+<p>should horizons be divided with a thin black line? (default is TRUE)</p>
+</td></tr>
+<tr valign="top"><td><code>hz.distinctness.offset</code></td>
+<td>
+<p>column name containing vertical offsets used to depict horizon boundary distinctness (same units as profiles)</p>
+</td></tr>
+<tr valign="top"><td><code>hz.distinctness.offset.col</code></td>
+<td>
+<p>color used to encode horizon distinctness (default is 'black')</p>
+</td></tr>
+<tr valign="top"><td><code>hz.distinctness.offset.lty</code></td>
+<td>
+<p>line style used to encode horizon distinctness (default is 2)</p>
+</td></tr>
+<tr valign="top"><td><code>axis.line.offset</code></td>
+<td>
+<p>horizonatal offset applied to depth axis (default is -2.5)</p>
+</td></tr>
+<tr valign="top"><td><code>plot.depth.axis</code></td>
+<td>
+<p>plot depth axis? (default is TRUE)</p>
+</td></tr>
+<tr valign="top"><td><code>density</code></td>
+<td>
+<p>fill density used for horizon color shading, either a single integer or a column name containing integer values (default is NULL, no shading)</p>
+</td></tr>
+<tr valign="top"><td><code>col.label</code></td>
+<td>
+<p>text printed above the color-coded legend</p>
+</td></tr>
+<tr valign="top"><td><code>col.palette</code></td>
+<td>
+<p>color palette used to plot numeric data</p>
+</td></tr>
+<tr valign="top"><td><code>col.legend.cex</code></td>
+<td>
+<p>scaling of color legend</p>
+</td></tr>
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+<p>single numeric value: line width multiplier</p>
+</td></tr>
+<tr valign="top"><td><code>lty</code></td>
+<td>
+<p>single integert: line style</p>
+</td></tr>
+<tr valign="top"><td><code>default.color</code></td>
+<td>
+<p>default horizon fill color used when 'color' attribute is NA</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments passed into lower level plotting functions</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Depth limits (<code>max.depth</code>) and number of depth ticks (<code>n.depth.ticks</code>) are *suggestions* to the <code><a href="../../base/html/pretty.html">pretty</a></code> function. You may have to tinker with both parameters to get what you want. 
+</p>
+<p>The 'side' <code>id.style</code> is useful when plotting a large collection of profiles, and/or, when profile IDs are long. 
+</p>
+<p>If the column containing horizon designations is not specified (the <code>name</code> argument), a column (presumed to contain horizon designation labels) is guessed based on regular expression matching of the pattern 'name'&ndash; this usually works, but it is best to manual specify the name of the column containing horizon designations. 
+</p>
+<p>The <code>color</code> argument can either name a column containing R-compatible colors, possibly created via <code><a href="munsell2rgb.html">munsell2rgb</a></code>, or column containing either numeric or categorical (either factor or character) values. In the second case, values are converted into colors and displayed along with a simple legend above the plot. Note that this functionality makes several assumptions about plot geometry and is most useful in an interactive setting.
+</p>
+<p>The <code>x.idx.offset</code> argument can be used to shift a collection of pedons from left to right in the figure. This can be useful when plotting several different <code>SoilProfileCollection</code> objects within the same figure. Space must be pre-allocated in the first plotting call, with an offset specified in the second call. See examples below.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A new plot of soil profiles is generated, or optionally added to an existing plot.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt><code>signature(x = "SoilProfileCollection")</code></dt><dd>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Dylan E. Beaudette</p>
+
+
+<h3>References</h3>
+
+<p>http://casoilresource.lawr.ucdavis.edu/</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="SoilProfileCollection-class.html">SoilProfileCollection-class</a>, <a href="../../base/html/pretty.html">pretty</a>, <a href="hzDistinctnessCodeToOffset.html">hzDistinctnessCodeToOffset</a>, <a href="addBracket.html">addBracket</a>, <a href="profileGroupLabels.html">profileGroupLabels</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(sp1)
+
+# usually best to adjust margins
+par(mar=c(0,0,3,0))
+
+# add color vector
+sp1$soil_color &lt;- with(sp1, munsell2rgb(hue, value, chroma))
+
+# promote to SoilProfileCollection
+depths(sp1) &lt;- id ~ top + bottom
+
+# plot profiles
+plot(sp1, id.style='side')
+
+# title, note line argument:
+title('Sample Data 1', line=1, cex.main=0.75)
+
+# plot profiles without horizon-line divisions
+plot(sp1, divide.hz=FALSE)
+
+# add dashed lines illustrating horizon boundary distinctness
+sp1$hzD &lt;- hzDistinctnessCodeToOffset(sp1$bound_distinct)
+plot(sp1, hz.distinctness.offset='hzD')
+
+# plot horizon color according to some property
+data(sp4)
+depths(sp4) &lt;- id ~ top + bottom
+plot(sp4, color='clay')
+
+# another example
+data(sp2)
+depths(sp2) &lt;- id ~ top + bottom
+site(sp2) &lt;- ~ surface
+
+# label with site-level attribute: `surface`
+plot(sp2, label='surface', plot.order=order(sp2$surface))
+
+# example using a categorical attribute
+plot(sp2, color = "plasticity")
+
+# plot two SPC objects in the same figure
+par(mar=c(1,1,1,1))
+# plot the first SPC object and 
+# allocate space for the second SPC object
+plot(sp1, n=length(sp1) + length(sp2))
+# plot the second SPC, starting from the first empty space
+plot(sp2, x.idx.offset=length(sp1), add=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

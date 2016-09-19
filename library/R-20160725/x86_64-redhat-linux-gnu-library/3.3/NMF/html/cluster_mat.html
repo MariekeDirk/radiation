@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cluster Matrix Rows in Annotated Heatmaps</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cluster_mat {NMF}"><tr><td>cluster_mat {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cluster Matrix Rows in Annotated Heatmaps</h2>
+
+<h3>Description</h3>
+
+<p>Cluster Matrix Rows in Annotated Heatmaps
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  cluster_mat(mat, param, distfun, hclustfun, reorderfun,
+    na.rm = TRUE, subset = NULL, verbose = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>original input matrix that has already been
+appropriately subset in the caller function
+(<code>aheatmap</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>param</code></td>
+<td>
+<p>clustering specifications</p>
+</td></tr>
+<tr valign="top"><td><code>distfun</code></td>
+<td>
+<p>Default distance method/function</p>
+</td></tr>
+<tr valign="top"><td><code>hclustfun</code></td>
+<td>
+<p>Default clustering (linkage)
+method/function</p>
+</td></tr>
+<tr valign="top"><td><code>reorderfun</code></td>
+<td>
+<p>Default reordering function</p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>Logical that specifies if NA values should
+be removed</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+<p>index (integer) vector specifying the
+subset indexes used to subset mat. This is required to be
+able to return the original indexes.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

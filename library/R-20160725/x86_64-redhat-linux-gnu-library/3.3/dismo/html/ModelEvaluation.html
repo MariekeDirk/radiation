@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class &quot;ModelEvaluation&quot;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ModelEvaluation {dismo}"><tr><td>ModelEvaluation {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class &quot;ModelEvaluation&quot;</h2>
+
+<h3>Description</h3>
+
+<p>Class to store results of model cross-validation with presence/absence (0/1) data
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>presence</code>:</dt><dd><p>presence data used </p>
+</dd>
+<dt><code>absence</code>:</dt><dd><p>absence data used</p>
+</dd>
+<dt><code>np</code>:</dt><dd><p>number of presence points</p>
+</dd>
+<dt><code>na</code>:</dt><dd><p>number of absence points</p>
+</dd>
+<dt><code>auc</code>:</dt><dd><p>Area under the receiver operator (ROC) curve</p>
+</dd>
+<dt><code>pauc</code>:</dt><dd><p> p-value for the AUC (for the Wilcoxon test W statistic</p>
+</dd>
+<dt><code>cor</code>:</dt><dd><p> Correlation coefficient</p>
+</dd>
+<dt><code>pcor</code>:</dt><dd><p>p-value for correlation coefficient </p>
+</dd>
+<dt><code>t</code>:</dt><dd><p> vector of thresholds used to compute confusion matrices </p>
+</dd>
+<dt><code>confusion</code>:</dt><dd><p> confusion matrices </p>
+</dd>
+<dt><code>prevalence</code>:</dt><dd><p> Prevalence </p>
+</dd>
+<dt><code>ODP</code>:</dt><dd><p> Overall diagnostic power </p>
+</dd>
+<dt><code>CCR</code>:</dt><dd><p> Correct classification rate </p>
+</dd>
+<dt><code>TPR</code>:</dt><dd><p> True positive rate </p>
+</dd>
+<dt><code>TNR</code>:</dt><dd><p> True negative rate </p>
+</dd>
+<dt><code>FPR</code>:</dt><dd><p> False positive rate </p>
+</dd>
+<dt><code>FNR</code>:</dt><dd><p> False negative rate </p>
+</dd>
+<dt><code>PPP</code>:</dt><dd><p> Positive predictive power </p>
+</dd>
+<dt><code>NPP</code>:</dt><dd><p> Negative predictive power </p>
+</dd>
+<dt><code>MCR</code>:</dt><dd><p> Misclassification rate </p>
+</dd>
+<dt><code>OR</code>:</dt><dd><p> Odds-ratio </p>
+</dd>
+<dt><code>kappa</code>:</dt><dd><p> Cohen's kappa </p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>References</h3>
+
+<p>Fielding, A. H. &amp; J.F. Bell, 1997. A review of methods for the assessment of prediction errors in conservation presence/absence models. Environmental Conservation 24: 38-49
+</p>
+<p>Liu, C., M. White &amp; G. Newell, 2011. Measuring and comparing the accuracy of species distribution models with presence-absence data. Ecography 34: 232-243.
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="evaluate.html">evaluate</a></code> 
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

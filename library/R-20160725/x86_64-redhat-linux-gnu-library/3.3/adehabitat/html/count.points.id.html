@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Number of Points in Each Pixel of a Raster Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for count.points.id {adehabitat}"><tr><td>count.points.id {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Number of Points in Each Pixel of a Raster Map</h2>
+
+<h3>Description</h3>
+
+<p><code>count.points</code> counts the number of points in
+each pixel of a raster map of class <code>kasc</code> or <code>asc</code>.<br />
+<code>count.points.id</code> counts the number of points in
+each pixel of a raster map of class <code>kasc</code> or <code>asc</code>, for
+different sets of points (e.g. the relocations of several animals
+monitored using radio-tracking) 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+count.points(xy, w)
+count.points.id(xy, id, w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>a data frame with 2 columns containing the x and y
+coordinates of the points.</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>a factor giving, for each point, the membership of a point
+to a set.</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>an object of class <code>asc</code>, <code>kasc</code> or <code>mapattr</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>count.points</code> returns an object of class <code>asc</code>
+containing the number of points in each cell of the raster
+map.<br />
+<code>count.points.id</code> returns an object of class <code>kasc</code>,
+with one column per level of the factor <code>id</code>,
+containing the number of points numbered in each cell of the raster
+map.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.kasc.html">kasc</a></code> for additionnal information on objects
+of class <code>kasc</code>, and <code><a href="storemapattr.html">storemapattr</a></code> for further
+information on objects of class <code>mapattr</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+kasc &lt;- puechabon$kasc
+locs &lt;-  puechabon$locs
+
+## Counts the number of relocations of each wild boar
+## per pixel of the raster map
+(nlocrast &lt;- count.points.id(locs[,4:5], locs[,1], kasc))
+image(nlocrast)
+
+## Counts the number of all relocations
+## per pixel of the raster map
+(nlocrast &lt;- count.points(locs[,c("X","Y")], kasc))
+image(nlocrast)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

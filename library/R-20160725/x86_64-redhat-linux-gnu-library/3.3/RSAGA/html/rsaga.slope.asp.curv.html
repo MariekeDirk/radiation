@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Slope, Aspect, Curvature</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsaga.slope.asp.curv {RSAGA}"><tr><td>rsaga.slope.asp.curv {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Slope, Aspect, Curvature</h2>
+
+<h3>Description</h3>
+
+<p>Calculates local morphometric terrain attributes (i.e. slope, aspect, and curvatures). Intended for use with SAGA v 2.1.1+. For older versions use <code><a href="rsaga.local.morphometry.html">rsaga.local.morphometry</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsaga.slope.asp.curv(in.dem, out.slope, out.aspect, out.cgene, out.cprof,
+  out.cplan, out.ctang, out.clong, out.ccros, out.cmini, out.cmaxi, out.ctota,
+  out.croto, method = "poly2zevenbergen", unit.slope = "radians",
+  unit.aspect = "radians", env = rsaga.env(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>in.dem</code></td>
+<td>
+<p>input: digital elevation model as SAGA grid file (<code>.sgrd</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>out.slope</code></td>
+<td>
+<p>optional output: slope</p>
+</td></tr>
+<tr valign="top"><td><code>out.aspect</code></td>
+<td>
+<p>optional output: aspect</p>
+</td></tr>
+<tr valign="top"><td><code>out.cgene</code></td>
+<td>
+<p>optional output: general curvature</p>
+</td></tr>
+<tr valign="top"><td><code>out.cprof</code></td>
+<td>
+<p>optional output: profile curvature (vertical curvature; degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.cplan</code></td>
+<td>
+<p>optional output: plan curvature (horizontal curvature; degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.ctang</code></td>
+<td>
+<p>optional output: tangential curvature (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.clong</code></td>
+<td>
+<p>optional output: longitudinal curvature (degrees) Zevenbergen &amp; Thorne (1987) refer to this as profile curvature</p>
+</td></tr>
+<tr valign="top"><td><code>out.ccros</code></td>
+<td>
+<p>optional output: cross-sectional curvature (degrees) Zevenbergen &amp; Thorne (1987) refer to this as the plan curvature</p>
+</td></tr>
+<tr valign="top"><td><code>out.cmini</code></td>
+<td>
+<p>optional output: minimal curvature (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.cmaxi</code></td>
+<td>
+<p>optional output: maximal curvature (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.ctota</code></td>
+<td>
+<p>optional output: total curvature (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>out.croto</code></td>
+<td>
+<p>optional output: flow line curvature (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character algorithm (see References):
+</p>
+
+<ul>
+<li><p> [0] Maximum Slope - Travis et al. (1975) (<code>"maxslope"</code>)
+</p>
+</li>
+<li><p> [1] Max. Triangle Slope - Tarboton (1997) (<code>"maxtriangleslope"</code>)
+</p>
+</li>
+<li><p> [2] Least Squares Fit Plane - Costa-Cabral &amp; Burgess (1996) (<code>"lsqfitplane"</code>)
+</p>
+</li>
+<li><p> [3] Fit 2nd Degree Polynomial - Evans (1979) (<code>"poly2evans"</code>)
+</p>
+</li>
+<li><p> [4] Fit 2nd Degree Polynomial - Heerdegen and Beran (1982) (<code>"poly2heerdegen"</code>)
+</p>
+</li>
+<li><p> [5] Fit 2nd Degree Polynomial - Bauer et al. (1985) (<code>"poly2bauer"</code>)
+</p>
+</li>
+<li><p> [6] default: Fit 2nd Degree Polynomial - Zevenbergen &amp; Thorne (1987) (<code>"poly2zevenbergen"</code>)
+</p>
+</li>
+<li><p> [7] Fit 3rd Degree Polynomial - Haralick (1983) (<code>"poly3haralick"</code>)</p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>unit.slope</code></td>
+<td>
+<p>character or numeric (default <code>"radians"</code>):
+</p>
+
+<ul>
+<li><p> [0] <code>"radians"</code>
+</p>
+</li>
+<li><p> [1] <code>"degrees"</code>
+</p>
+</li>
+<li><p> [2] <code>"percent"</code></p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>unit.aspect</code></td>
+<td>
+<p>character or numeric (default is 0, or <code>"radians"</code>):
+</p>
+
+<ul>
+<li><p> [0] <code>"radians"</code>
+</p>
+</li>
+<li><p> [1] <code>"degrees"</code></p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>list, setting up a SAGA geoprocessing environment as created by <code><a href="rsaga.env.html">rsaga.env</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments to <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Profile and plan curvature calculation (<code>out.cprof</code>, <code>out.cplan</code>) changed in SAGA GIS 2.1.1+ compared to earlier versions. See the following thread on sourceforge.net for an ongoing discussion: <a href="http://sourceforge.net/p/saga-gis/discussion/354013/thread/e9d07075/#5727">http://sourceforge.net/p/saga-gis/discussion/354013/thread/e9d07075/#5727</a>
+</p>
+
+
+<h3>Value</h3>
+
+<p>The type of object returned depends on the <code>intern</code> argument passed to the <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code>. For <code>intern=FALSE</code> it is a numerical error code (0: success), or otherwise (default) a character vector with the module's console output.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning and Donovan Bangs (R interface), Olaf Conrad (SAGA module)
+</p>
+
+
+<h3>References</h3>
+
+<p>General references:
+</p>
+<p>Jones KH (1998) A comparison of algorithms used to compute hill slope as a property of the DEM. Computers and Geosciences. 24 (4): 315-323.
+</p>
+<p>References on specific methods:
+</p>
+<p>Maximum Slope:
+</p>
+<p>Travis, M.R., Elsner, G.H., Iverson, W.D., Johnson, C.G. (1975): VIEWIT: computation of seen areas, slope, and aspect for land-use planning. USDA F.S. Gen. Tech. Rep. PSW-11/1975, 70 p. Berkeley, California, U.S.A.
+</p>
+<p>Maximum Triangle Slope:
+</p>
+<p>Tarboton, D.G. (1997): A new method for the determination of flow directions and upslope areas in grid digital elevation models. Water Ressources Research, 33(2): 309-319.
+</p>
+<p>Least Squares or Best Fit Plane:
+</p>
+<p>Beasley, D.B., Huggins, L.F. (1982): ANSWERS: User's manual. U.S. EPA-905/9-82-001, Chicago, IL, 54 pp.
+</p>
+<p>Costa-Cabral, M., Burges, S.J. (1994): Digital Elevation Model Networks (DEMON): a model of flow over hillslopes for computation of contributing and dispersal areas. Water Resources Research, 30(6): 1681-1692.
+</p>
+<p>Fit 2nd Degree Polynomial:
+</p>
+<p>Evans, I.S. (1979): An integrated system of terrain analysis and slope mapping. Final Report on grant DA-ERO-591-73-G0040. University of Durham, England.
+</p>
+<p>Bauer, J., Rohdenburg, H., Bork, H.-R. (1985): Ein Digitales Reliefmodell als Vorraussetzung fuer ein deterministisches  Modell der Wasser- und Stoff-Fluesse. Landschaftsgenese und Landschaftsoekologie, H. 10, Parameteraufbereitung fuer deterministische Gebiets-Wassermodelle, Grundlagenarbeiten zur Analyse von Agrar-Oekosystemen, eds.: Bork, H.-R., Rohdenburg, H., p. 1-15.
+</p>
+<p>Heerdegen, R.G., Beran, M.A. (1982): Quantifying source areas through land surface curvature. Journal of Hydrology, 57.
+</p>
+<p>Zevenbergen, L.W., Thorne, C.R. (1987): Quantitative analysis of land surface topography. Earth Surface Processes and Landforms, 12: 47-56.
+</p>
+<p>Fit 3.Degree Polynomial:
+</p>
+<p>Haralick, R.M. (1983): Ridge and valley detection on digital images. Computer Vision, Graphics and Image Processing, 22(1): 28-38.
+</p>
+<p>For a discussion on the calculation of slope by ArcGIS check these links:
+</p>
+<p><a href="http://forums.esri.com/Thread.asp?c=93&amp;f=1734&amp;t=239914">http://forums.esri.com/Thread.asp?c=93&amp;f=1734&amp;t=239914</a>
+</p>
+<p><a href="http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?topicname=how_slope_works">http://webhelp.esri.com/arcgisdesktop/9.2/index.cfm?topicname=how_slope_works</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="rsaga.local.morphometry.html">rsaga.local.morphometry</a></code>, <code><a href="rsaga.parallel.processing.html">rsaga.parallel.processing</a></code>, <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code>,  <code><a href="rsaga.env.html">rsaga.env</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Simple slope, aspect, and general curvature in degrees:
+rsaga.slope.asp.curv("lican.sgrd", "slope", "aspect", "curvature",
+                     method = "maxslope", unit.slope = "degrees", unit.aspect = "degrees")
+# same for ASCII grids (default extension .asc):
+rsaga.esri.wrapper(rsaga.slope.asp.curv,
+                   in.dem="lican", out.slope="slope",
+                   out.aspect = "aspect", out.cgene = "curvature",
+                   method="maxslope", unit.slope = "degrees", unit.aspect = "degrees")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

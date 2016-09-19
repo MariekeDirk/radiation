@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkSocket</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkSocket {RGtk2}"><tr><td>GtkSocket {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkSocket</h2>
+
+<h3>Description</h3>
+
+<p>Container for widgets from other processes</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkSocketNew.html">gtkSocketNew</a>(show = TRUE)</code><br />
+<code><a href="gtkSocketSteal.html">gtkSocketSteal</a>(object, wid)</code><br />
+<code><a href="gtkSocketAddId.html">gtkSocketAddId</a>(object, window.id)</code><br />
+<code><a href="gtkSocketGetId.html">gtkSocketGetId</a>(object)</code><br />
+<code><a href="gtkSocketGetPlugWindow.html">gtkSocketGetPlugWindow</a>(object)</code><br />
+<code>gtkSocket(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkSocket</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkSocket implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Together with <code><a href="GtkPlug.html">GtkPlug</a></code>, <code><a href="GtkSocket.html">GtkSocket</a></code> provides the ability
+to embed widgets from one process into another process
+in a fashion that is transparent to the user. One
+process creates a <code><a href="GtkSocket.html">GtkSocket</a></code> widget and, passes the
+that widget's window ID to the other process,
+which then creates a <code><a href="GtkPlug.html">GtkPlug</a></code> with that window ID.
+Any widgets contained in the <code><a href="GtkPlug.html">GtkPlug</a></code> then will appear
+inside the first applications window.
+</p>
+<p>The socket's window ID is obtained by using
+<code><a href="gtkSocketGetId.html">gtkSocketGetId</a></code>. Before using this function,
+the socket must have been realized, and for hence,
+have been added to its parent.
+</p>
+<p><em>Obtaining the window ID of a socket.</em>
+</p>
+<pre>
+socket &lt;- gtkSocket()
+parent$add(socket)
+
+## The following call is only necessary if one of
+## the ancestors of the socket is not yet visible.
+socket$realize()
+print(paste("The ID of the sockets window is", socket$getId()))
+</pre>
+<p>Note that if you pass the window ID of the socket to another
+process that will create a plug in the socket, you
+must make sure that the socket widget is not destroyed
+until that plug is created. Violating this rule will
+cause unpredictable consequences, the most likely
+consequence being that the plug will appear as a
+separate toplevel window. You can check if the plug
+has been created by examining the
+<code>plug_window</code> field of the
+<code><a href="GtkSocket.html">GtkSocket</a></code> structure. If this field is non-<code>NULL</code>,
+then the plug has been successfully created inside
+of the socket.
+</p>
+<p>When GTK+ is notified that the embedded window has been
+destroyed, then it will destroy the socket as well. You
+should always, therefore, be prepared for your sockets
+to be destroyed at any time when the main event loop
+is running. To prevent this from happening, you can
+connect to the <code style="white-space: pre;">"plug-removed"</code> signal.
+</p>
+<p>The communication between a <code><a href="GtkSocket.html">GtkSocket</a></code> and a <code><a href="GtkPlug.html">GtkPlug</a></code> follows the
+XEmbed (<a href="http://www.freedesktop.org/standards/xembed-spec">http://www.freedesktop.org/standards/xembed-spec</a>)
+protocol. This protocol has also been implemented in other toolkits, e.g.
+<code>Qt</code>, allowing the same level of integration
+when embedding a <code>Qt</code> widget in GTK or vice versa.  
+A socket can also be used to swallow arbitrary
+pre-existing top-level windows using <code><a href="gtkSocketSteal.html">gtkSocketSteal</a></code>,
+though the integration when this is done will not be as close
+as between a <code><a href="GtkPlug.html">GtkPlug</a></code> and a <code><a href="GtkSocket.html">GtkSocket</a></code>.  <strong>PLEASE NOTE:</strong> The <code><a href="GtkPlug.html">GtkPlug</a></code> and <code><a href="GtkSocket.html">GtkSocket</a></code> widgets are currently not available
+on all platforms supported by GTK+.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkSocket</code></dt><dd>
+<p>The <code><a href="GtkSocket.html">GtkSocket</a></code> structure contains the <code>plug_window</code>
+field.  (This field should be considered read-only. It should
+never be set by an application.)
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkSocket</code> is the equivalent of <code><a href="gtkSocketNew.html">gtkSocketNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>plug-added(socket., user.data)</code></dt><dd>
+<p>This signal is emitted when a client is successfully
+added to the socket.
+</p>
+
+<dl>
+<dt><code>socket.</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>plug-removed(socket., user.data)</code></dt><dd>
+<p>This signal is emitted when a client is removed from the socket.
+The default action is to destroy the <code><a href="GtkSocket.html">GtkSocket</a></code> widget, so if you
+want to reuse it you must add a signal handler that returns <code>TRUE</code>.
+</p>
+
+<dl>
+<dt><code>socket.</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> to stop other handlers from being invoked.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkSocket.html">http://library.gnome.org/devel//gtk/GtkSocket.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

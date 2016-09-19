@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Test a neighbours list for symmetry</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for is.symmetric.nb {spdep}"><tr><td>is.symmetric.nb {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Test a neighbours list for symmetry</h2>
+
+<h3>Description</h3>
+
+<p>Checks a neighbours list for symmetry/transitivity (if i is a neighbour of j,
+then j is a neighbour of i). This holds for distance and contiguity based
+neighbours, but not for k-nearest neighbours. The helper function
+<code>sym.attr.nb()</code> calls <code>is.symmetric.nb()</code> to set the <code>sym</code>
+attribute if needed, and <code>make.sym.nb</code> makes a non-symmetric list symmetric by adding neighbors. <code>is.symmetric.glist</code> checks a list of general weights corresponding to neighbours for symmetry for symmetric neighbours.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.symmetric.nb(nb, verbose = NULL, force = FALSE)
+sym.attr.nb(nb)
+make.sym.nb(nb)
+old.make.sym.nb(nb)
+is.symmetric.glist(nb, glist)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nb</code></td>
+<td>
+<p>an object of class <code>nb</code> with a list of integer vectors containing neighbour region number ids.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE prints non-matching pairs</p>
+</td></tr>
+<tr valign="top"><td><code>force</code></td>
+<td>
+<p>do not respect a neighbours list <code>sym</code> attribute and test anyway</p>
+</td></tr>
+<tr valign="top"><td><code>glist</code></td>
+<td>
+<p>list of general weights corresponding to neighbours</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>TRUE if symmetric, FALSE if not; is.symmetric.glist returns a value with an attribute, &quot;d&quot;, indicating for failed symmetry the largest failing value.
+</p>
+
+
+<h3>Note</h3>
+
+<p>A new version of <code>make.sym.nb</code> by Bjarke Christensen is now included. The older version has been renamed <code>old.make.sym.nb</code>, and their comparison constitutes a nice demonstration of vectorising speedup using <code>sapply</code> and <code>lapply</code> rather than loops. When any no-neighbour observations are present, <code>old.make.sym.nb</code> is used.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="read.gal.html">read.gal</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+ind &lt;- sapply(slot(columbus, "polygons"), function(x) slot(x, "ID"))
+print(is.symmetric.nb(col.gal.nb, verbose=TRUE, force=TRUE))
+k4 &lt;- knn2nb(knearneigh(coords, k=4), row.names=ind)
+k4 &lt;- sym.attr.nb(k4)
+print(is.symmetric.nb(k4))
+k4.sym &lt;- make.sym.nb(k4)
+print(is.symmetric.nb(k4.sym))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

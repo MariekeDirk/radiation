@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute cost of prune each edge</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for prunecost {spdep}"><tr><td>prunecost {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute cost of prune each edge</h2>
+
+<h3>Description</h3>
+
+<p>If any edge are dropped, the MST are pruned. This generate a two
+subgraphs. So, it makes a tree graphs and tree dissimilarity values
+are computed, one for each graph. The dissimilarity is the sum over
+sqared differences between the observactions in the nodes and mean
+vector of observations in the graph. The dissimilarity of original
+graph and the sum of dissimilarity of subgraphs are returned.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+prunecost(edges, data, method = c("euclidean", "maximum", "manhattan", 
+    "canberra", "binary", "minkowski", "mahalanobis"), 
+    p = 2, cov, inverted = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>edges</code></td>
+<td>
+<p>A matrix with 2 colums with each row is one edge</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A data.frame with observations in the nodes.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Character or function to declare distance method.
+If <code>method</code> is character, method must be &quot;mahalanobis&quot; or
+&quot;euclidean&quot;, &quot;maximum&quot;, &quot;manhattan&quot;, &quot;canberra&quot;, &quot;binary&quot;
+or &quot;minkowisk&quot;.
+If <code>method</code> is one of &quot;euclidean&quot;, &quot;maximum&quot;,
+&quot;manhattan&quot;, &quot;canberra&quot;, &quot;binary&quot; or &quot;minkowisk&quot;, see
+<code><a href="../../stats/html/dist.html">dist</a></code> for details,
+because this function as used to compute the distance.
+If <code>method="mahalanobis"</code>, the mahalanobis distance
+is computed between neighbour areas.
+If <code>method</code> is a <code>function</code>, this function is
+used to compute the distance.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>The power of the Minkowski distance.</p>
+</td></tr>
+<tr valign="top"><td><code>cov</code></td>
+<td>
+<p>The covariance matrix used to compute the mahalanobis
+distance.</p>
+</td></tr>
+<tr valign="top"><td><code>inverted</code></td>
+<td>
+<p>logical.  If 'TRUE', 'cov' is supposed to contain the
+inverse of the covariance matrix.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A vector with the differences between the dissimilarity of all nodes
+and the dissimilarity sum of all subgraphs obtained by pruning one
+edge each time.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Elias T. Krainski and Renato M. Assuncao</p>
+
+
+<h3>See Also</h3>
+
+<p>See Also as <code><a href="prunemst.html">prunemst</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+d &lt;- data.frame(a=-2:2, b=runif(5))
+e &lt;- matrix(c(1,2, 2,3, 3,4, 4,5), ncol=2, byrow=TRUE)
+
+sum(sweep(d, 2, colMeans(d))^2)
+
+prunecost(e, d)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

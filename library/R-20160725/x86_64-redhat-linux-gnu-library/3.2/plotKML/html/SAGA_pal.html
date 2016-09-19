@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Colour palettes for numeric variables</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SAGA_pal {plotKML}"><tr><td>SAGA_pal {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Colour palettes for numeric variables</h2>
+
+<h3>Description</h3>
+
+<p><code>SAGA_pal</code> contains 22 colour palettes imported from SAGA GIS (<a href="http://webdoc.sub.gwdg.de/diss/2007/conrad/conrad.pdf">Conrad, 2007</a>). <code>R_pal</code> 12 standard colour palettes used in R to visualize continuous and binary variables. Each colour palette consists of 20 colours in the hexadecimal system. Use <code>display.pal</code> function to plot different sets of palettes.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(SAGA_pal)
+data(R_pal)
+</pre>
+
+
+<h3>Note</h3>
+
+<p><code>rainbow_75</code>, <code>heat colors</code>, <code>terrain_colors</code>, <code>topo_colors</code>, and <code>bpy_colors</code> are the standard color palettes used in R to visualize numeric/continuous variables. <code>soc_pal</code>, <code>pH_pal</code>, <code>tex_pal</code>, <code>BS_pal</code> and <code>CEC_pal</code> palettes are suitable for visualization of soil variables (soil organic carbon, pH, soil texture fractions, Base Saturation and Cation Exchange Capacity). <code>blue_grey_red</code> palette is recommended for visualization of binary variables (values in the range 0-1), and <code>grey_black</code> is a white-to-black type color palette that contains no white color (hence it will not confuse low values with NA values in the PNG/GIF files).<br /> 
+Possibly the most used palettes for visualization of numeric variables are <code>rev(rainbow(65)[1:48])</code> and <code>SAGA_pal[[1]]</code> (the SAGA GIS default palette). It is however worth mentioning that in the data visualization literature (and the cartography literature in particular), the rainbow (sometimes also called spectral) color ramp is generally recognized as a <em>bad choice</em> for visualization of sequential/continuous variables (<a href="http://dx.doi.org/10.1109/6.736450">Rogowitz and Treinish, 1998</a>; <a href="http://dx.doi.org/10.1109/MCG.2007.323435">Borland and Russell, 2007</a>).  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p><a href="http://www.saga-gis.org">SAGA GIS</a> has been created by the SAGA GIS development team (lead by J. Böhner and O. Conrad, from the Institute of Geography, University of Hamburg, Germany). The colour palettes have been exported from SAGA (as <code>".sprm"</code> SAGA parameter files) and ported to R. All palletes described here were prepared for R by Tomislav Hengl (<a href="mailto:tom.hengl@wur.nl">tom.hengl@wur.nl</a>).</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Conrad, O., (2007). <a href="http://webdoc.sub.gwdg.de/diss/2007/conrad/conrad.pdf">SAGA &mdash; Entwurf, Funktionsumfang und Anwendung eines Systems für Automatisierte Geowissenschaftliche Analysen</a>. Electronic doctoral dissertation, University of Göttingen.
+</p>
+</li>
+<li><p> Rogowitz, B.E., Treinish, L.A., (1998, December). <a href="http://dx.doi.org/10.1109/6.736450">Data visualization: the end of the rainbow</a>. Spectrum, IEEE, 35(12):52-59 
+</p>
+</li>
+<li><p> Borland, D. and Russell, M. T. II, (2007). <a href="http://dx.doi.org/10.1109/MCG.2007.323435">Rainbow Color Map (Still) Considered Harmful</a>. Computer Graphics and Applications, IEEE, 27(2):14-17.
+</p>
+</li>
+<li> <p><a href="http://cran.r-project.org/package=RColorBrewer">http://cran.r-project.org/package=RColorBrewer</a>
+</p>
+</li>
+<li> <p><a href="http://cran.r-project.org/package=colorspace">http://cran.r-project.org/package=colorspace</a>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="worldgrids_pal.html">worldgrids_pal</a></code>, <code>RColorBrewer::display.brewer.all</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(SAGA_pal)
+data(R_pal)
+## Not run: # visualize SAGA GIS palettes:
+display.pal(pal=SAGA_pal, sel=c(1,2,7,8,10,11,17,18,19,21,22))
+dev.off()
+display.pal(R_pal)
+names(R_pal)
+dev.off()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

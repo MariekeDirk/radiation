@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ranger prediction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.ranger {ranger}"><tr><td>predict.ranger {ranger}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ranger prediction</h2>
+
+<h3>Description</h3>
+
+<p>Prediction with new data and a saved forest from Ranger.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ranger'
+predict(object, data, predict.all = FALSE, seed = NULL,
+  num.threads = NULL, verbose = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>Ranger <code>ranger</code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>New test data of class <code>data.frame</code> or <code>gwaa.data</code> (GenABEL).</p>
+</td></tr>
+<tr valign="top"><td><code>predict.all</code></td>
+<td>
+<p>Return a matrix with individual predictions for each tree instead of aggregated predictions for all trees (classification and regression only).</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>Random seed used in Ranger.</p>
+</td></tr>
+<tr valign="top"><td><code>num.threads</code></td>
+<td>
+<p>Number of threads. Default is number of CPUs available.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>Verbose output on or off.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For classification and predict.all = TRUE, a matrix of factor levels is returned. 
+To retrieve the corresponding factor levels, use rf$forest$levels, if rf is the ranger object.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Object of class <code>ranger.prediction</code> with elements
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+      <code>predictions</code>    </td><td style="text-align: left;"> Predicted classes/values (only for classification and regression)  </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>unique.death.times</code> </td><td style="text-align: left;"> Unique death times (only for survival). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>chf</code> </td><td style="text-align: left;"> Estimated cumulative hazard function for each sample (only for survival). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>survival</code> </td><td style="text-align: left;"> Estimated survival function for each sample (only for survival). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>num.trees</code>   </td><td style="text-align: left;"> Number of trees. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>num.independent.variables</code> </td><td style="text-align: left;"> Number of independent variables. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>treetype</code>    </td><td style="text-align: left;"> Type of forest/tree. Classification, regression or survival. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+      <code>num.samples</code>     </td><td style="text-align: left;"> Number of samples.
+  </td>
+</tr>
+
+</table>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Marvin N. Wright
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ranger.html">ranger</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ranger</em> version 0.5.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

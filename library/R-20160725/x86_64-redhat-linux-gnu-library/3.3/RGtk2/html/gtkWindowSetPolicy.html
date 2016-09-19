@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowSetPolicy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowSetPolicy {RGtk2}"><tr><td>gtkWindowSetPolicy {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowSetPolicy</h2>
+
+<h3>Description</h3>
+
+<p>Changes how a toplevel window deals with its size request and user resize
+attempts. There are really only two reasonable ways to call this function:
+</p>
+
+<ol>
+<li> <p><code>gtk_window_set_policy (GTK_WINDOW (window), FALSE, TRUE, FALSE)</code>
+means that the window is user-resizable.
+</p>
+</li>
+<li> <p><code>gtk_window_set_policy (GTK_WINDOW (window), FALSE, FALSE, TRUE)</code>
+means that the window's size is program-controlled, and should simply match
+the current size request of the window's children.
+</p>
+</li></ol>
+
+<p>The first policy is the default, that is, by default windows are designed to
+be resized by users.
+<strong>WARNING: <code>gtk_window_set_policy</code> is deprecated and should not be used in newly-written code. Use <code><a href="gtkWindowSetResizable.html">gtkWindowSetResizable</a></code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowSetPolicy(object, allow.shrink, allow.grow, auto.shrink)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the window</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">allow.shrink</code></code></td>
+<td>
+<p>whether the user can shrink the window below its size request</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">allow.grow</code></code></td>
+<td>
+<p>whether the user can grow the window larger than its size request</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">auto.shrink</code></code></td>
+<td>
+<p>whether the window automatically snaps back to its size request
+if it's larger</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The basic ugly truth of this function is that it should be simply:
+<code> void gtk_window_set_resizable (GtkWindow* window, gboolean setting);</code>
+...which is why GTK+ 2.0 introduces <code><a href="gtkWindowSetResizable.html">gtkWindowSetResizable</a></code>, which you
+should use instead of <code><a href="gtkWindowSetPolicy.html">gtkWindowSetPolicy</a></code>.
+</p>
+<p>If set to <code>TRUE</code>, the <code>allow.grow</code> parameter allows the user to expand the window
+beyond the size request of its child widgets. If <code>allow.grow</code> is <code>TRUE</code>, be sure to
+check that your child widgets work properly as the window is resized.
+</p>
+<p>A toplevel window will always change size to ensure its child widgets receive
+their requested size. This means that if you add child widgets, the toplevel
+window will expand to contain them. However, normally the toplevel will not
+shrink to fit the size request of its children if it's too large; the
+<code>auto.shrink</code> parameter causes the window to shrink when child widgets have too
+much space. <code>auto.shrink</code> is normally used with the second of the two window
+policies mentioned above.  That is, set <code>auto.shrink</code> to <code>TRUE</code> if you want the
+window to have a fixed, always-optimal size determined by your program.
+</p>
+<p>Note that <code>auto.shrink</code> doesn't do anything if <code>allow.shrink</code> and <code>allow.grow</code> are
+both set to <code>FALSE</code>.
+</p>
+<p>Neither of the two suggested window policies set the <code>allow.shrink</code> parameter to
+<code>TRUE</code>.  If <code>allow.shrink</code> is <code>TRUE</code>, the user can shrink the window so that its
+children do not receive their full size request; this is basically a bad thing,
+because most widgets will look wrong if this happens. Furthermore GTK+ has a
+tendency to re-expand the window if size is recalculated for any reason. The
+upshot is that <code>allow.shrink</code> should always be set to <code>FALSE</code>.
+</p>
+<p>Sometimes when you think you want to use <code>allow.shrink</code>, the real problem is that
+some specific child widget is requesting too much space, so the user can't
+shrink the window sufficiently. Perhaps you are calling <code><a href="gtkWidgetSetSizeRequest.html">gtkWidgetSetSizeRequest</a></code>
+on a child widget, and forcing its size request to be too large. Instead of
+setting the child's usize, consider using <code><a href="gtkWindowSetDefaultSize.html">gtkWindowSetDefaultSize</a></code> so that
+the child gets a larger allocation than it requests.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

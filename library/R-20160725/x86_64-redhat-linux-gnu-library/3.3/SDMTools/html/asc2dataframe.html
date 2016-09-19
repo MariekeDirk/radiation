@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ascii Grid Files to Dataframe and Dataframe to Ascii Grid...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for asc2dataframe {SDMTools}"><tr><td>asc2dataframe {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ascii Grid Files to Dataframe and Dataframe to Ascii Grid Files</h2>
+
+<h3>Description</h3>
+
+<p><code>asc2dataframe</code> converts a list of Esri ascii grid
+formatted files to a data.frame consisting of only
+locations with data.<br /><br /> <code>dataframe2asc</code> converts a
+data.frame or matrix with spatial data to Esri ascii grid
+formatted files.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+asc2dataframe(filenames, varnames = NULL, gz = FALSE)
+
+dataframe2asc(tdata, filenames = NULL, outdir = getwd(), gz = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filenames</code></td>
+<td>
+<p>is a vector of file names</p>
+</td></tr>
+<tr valign="top"><td><code>varnames</code></td>
+<td>
+<p>is a vector of names for the output
+columns, and must be the same length as files</p>
+</td></tr>
+<tr valign="top"><td><code>tdata</code></td>
+<td>
+<p>is the data.frame which has y, x coordinates
+(OR lat,lon) and columns for the data to be output (MUST
+be in that order)</p>
+</td></tr>
+<tr valign="top"><td><code>outdir</code></td>
+<td>
+<p>is the output directory, the default is the
+current working directory</p>
+</td></tr>
+<tr valign="top"><td><code>gz</code></td>
+<td>
+<p>boolean defining if the ascii grid files are
+gzip compressed</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>asc2dataframe: The ascii grid files can be read in gzip
+compress format. The dataframe returned contains the X and
+Y coordinate columns followed by columns of data.
+</p>
+<p>dataframe2asc: If filenames is null, column names will be
+used. The data.frame has to contain the Y and X coordinates
+and the data as columns. The ascii grid files can be
+created as gzip compress format and would be saved in the
+outdir.
+</p>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>asc2dataframe </code></td>
+<td>
+<p>Returns a dataframe with XY
+coordinates and the data of each ascii grid files, as
+columns.</p>
+</td></tr> <tr valign="top"><td><code>dataframe2asc </code></td>
+<td>
+<p> Returns an asc grid file
+for each data column within the data.frame.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Lorena Falconi <a href="mailto:lorefalconi@gmail.com">lorefalconi@gmail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#Create 2 ascii files
+y=seq(10,50,0.5)
+x=seq(140,180,0.5)
+cellsize=0.5
+data1=sample(160,140)
+data2=sample(158,140)
+out1.asc=as.asc(matrix(data1,nc=y, nr=x), xll=min(x), yll=min(y), cellsize=cellsize)
+out2.asc=as.asc(matrix(data2,nc=y, nr=x), xll=min(x), yll=min(y), cellsize=cellsize)
+#write the ascii files to the work directory
+write.asc(out1.asc, 'out1.asc')
+write.asc(out2.asc, 'out2.asc')
+#list the ascii files
+ascfiles=c('out1.asc', 'out2.asc')
+#generate a dataframe from the ascii files
+tdata=asc2dataframe(ascfiles)
+tdata
+
+#remove the files
+unlink('out1.asc'); unlink('out2.asc')
+
+#convert the dataframe tdata to ascii grid files
+dataframe2asc(tdata)
+
+#remove the files
+unlink('var.1.asc'); unlink('var.2.asc')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

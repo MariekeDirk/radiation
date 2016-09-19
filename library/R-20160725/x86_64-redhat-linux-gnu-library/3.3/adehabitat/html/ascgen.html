@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Creation of Raster Maps</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ascgen {adehabitat}"><tr><td>ascgen {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Creation of Raster Maps</h2>
+
+<h3>Description</h3>
+
+<p><code>ascgen</code> creates an object of class <code>asc</code> using
+a set of points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ascgen(xy = NULL, cellsize = NULL, nrcol = 10, count = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>a data frame with two columns containing the x and y
+coordinates of the points</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>the <code>cellsize</code> attribute
+of the object of class <code>asc</code> to be created</p>
+</td></tr>
+<tr valign="top"><td><code>nrcol</code></td>
+<td>
+<p>the size of the square raster map to
+be created (number of rows and columns)</p>
+</td></tr>
+<tr valign="top"><td><code>count</code></td>
+<td>
+<p>logical.  If <code>TRUE</code>, the object of class <code>asc</code>
+contains the number of points in each cell.  If <code>FALSE</code>, all
+the cells are set to zero</p>
+</td></tr> 
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>asc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="import.asc.html">asc</a></code> for additional information on objects
+of class <code>asc</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+lo &lt;- puechabon$locs[,c("X","Y")]
+plot(lo, asp = 1, pch = 16)
+
+## lo contains the relocations of wild boars
+rast &lt;- ascgen(lo, cellsize = 100)
+image(rast)
+
+## Alternatively, one can specify the size of the square raster map
+rast &lt;- ascgen(lo, nrcol = 10)
+rast
+image(rast)
+
+## can be used for further analyses
+## (e.g. correspondence analyses)
+locs &lt;- puechabon$locs[, c("Name", "X", "Y")]
+o &lt;- count.points.id(locs[,2:3], locs[,1], rast)
+image(o)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

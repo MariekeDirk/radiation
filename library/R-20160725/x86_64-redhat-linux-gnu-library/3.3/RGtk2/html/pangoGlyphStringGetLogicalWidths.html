@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoGlyphStringGetLogicalWidths</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoGlyphStringGetLogicalWidths {RGtk2}"><tr><td>pangoGlyphStringGetLogicalWidths {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoGlyphStringGetLogicalWidths</h2>
+
+<h3>Description</h3>
+
+<p>Given a <code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code> resulting from <code><a href="pangoShape.html">pangoShape</a></code> and the corresponding
+text, determine the screen width corresponding to each character. When
+multiple characters compose a single cluster, the width of the entire
+cluster is divided equally among the characters.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoGlyphStringGetLogicalWidths(object, text, embedding.level)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code>]  a <code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">text</code></code></td>
+<td>
+<p>[char]  the text corresponding to the glyphs</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">embedding.level</code></code></td>
+<td>
+<p>[integer]  the embedding level of the string</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See also <code><a href="pangoGlyphItemGetLogicalWidths.html">pangoGlyphItemGetLogicalWidths</a></code>.  </p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">logical.widths</code></code></td>
+<td>
+<p>[integer]  a list whose length is the number of characters in
+text (equal to g_utf8_strlen (text, length) unless
+text has NUL bytes)
+to be filled in with the resulting character widths.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

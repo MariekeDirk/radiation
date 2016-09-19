@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Registry for NMF Algorithms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for methods-NMF {NMF}"><tr><td>methods-NMF {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Registry for NMF Algorithms</h2>
+
+<h3>Description</h3>
+
+<p>Registry for NMF Algorithms
+</p>
+<p><code>selectNMFMethod</code> tries to select an appropriate NMF
+algorithm that is able to fit a given the NMF model.
+</p>
+<p><code>getNMFMethod</code> retrieves NMF algorithm objects from
+the registry.
+</p>
+<p><code>existsNMFMethod</code> tells if an NMF algorithm is
+registered under the
+</p>
+<p><code>removeNMFMethod</code> removes an NMF algorithm from the
+registry.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  selectNMFMethod(name, model, load = FALSE, exact = FALSE,
+    all = FALSE, quiet = FALSE)
+
+  getNMFMethod(...)
+
+  existsNMFMethod(name, exact = TRUE)
+
+  removeNMFMethod(name, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>name of a registered NMF algorithm</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>class name of an NMF model, i.e. a class
+that inherits from class <code><a href="NMF-class.html">NMF</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>load</code></td>
+<td>
+<p>a logical that indicates if the selected
+algorithms should be loaded into <code>NMFStrategy</code>
+objects</p>
+</td></tr>
+<tr valign="top"><td><code>all</code></td>
+<td>
+<p>a logical that indicates if all algorithms
+that can fit <code>model</code> should be returned or only the
+default or first found.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>a logical that indicates if the operation
+should be performed quietly, without throwing errors or
+warnings.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to
+<code><a href="../../pkgmaker/html/pkgreg_fetch.html">pkgreg_fetch</a></code> or
+<code><a href="../../pkgmaker/html/pkgreg_remove.html">pkgreg_remove</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+<p>a logical that indicates if the access key
+should be matched exactly (<code>TRUE</code>) or partially
+(<code>FALSE</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>selectNMFMethod</code> returns a character vector or
+<code>NMFStrategy</code> objects, or NULL if no suitable
+algorithm was found.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

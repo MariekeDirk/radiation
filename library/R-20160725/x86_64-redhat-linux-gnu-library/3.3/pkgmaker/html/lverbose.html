@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal verbosity option</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lverbose {pkgmaker}"><tr><td>lverbose {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal verbosity option</h2>
+
+<h3>Description</h3>
+
+<p>Internal verbosity option
+</p>
+<p>Tells if all verbose messages should be
+</p>
+<p>Tells if verbosity is on.
+</p>
+<p>Prints out a message (on sdtout) if verbose mode is on.
+</p>
+<p>Prints out a message (on sdtout) if the verbosity level
+is greater than a given value.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  lverbose(val)
+
+  lsilent()
+
+  is.verbose()
+
+  vmessage(...)
+
+  lmessage(..., level = 1L, appendLF = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>val</code></td>
+<td>
+<p>logical that sets the verbosity level.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments passed to <code>...</code>
+<code><a href="../../base/html/cat.html">cat</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>appendLF</code></td>
+<td>
+<p>logical indicating if an endline
+character should be appended at the end of the message.
+Passed to <code><a href="../../base/html/cat.html">cat</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>level</code></td>
+<td>
+<p>verbosity level threshold (numeric value)
+above which the message should be printed out. This
+threshold is compared with the current verbosity level as
+returned by <code>lverbose</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments passed to <code>...</code>
+<code><a href="lverbose.html">lmessage</a></code> or <code><a href="../../base/html/cat.html">cat</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>appendLF</code></td>
+<td>
+<p>logical indicating if an endline
+character should be appended at the end of the message.
+Passed to <code><a href="../../base/html/cat.html">cat</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>the old verbose level
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

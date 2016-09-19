@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoFontDescriptionFromString</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoFontDescriptionFromString {RGtk2}"><tr><td>pangoFontDescriptionFromString {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoFontDescriptionFromString</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new font description from a string representation in the
+form &quot;[FAMILY-LIST] [STYLE-OPTIONS] [SIZE]&quot;, where FAMILY-LIST is a
+comma separated list of families optionally terminated by a comma,
+STYLE_OPTIONS is a whitespace separated list of words where each WORD
+describes one of style, variant, weight, stretch, or gravity, and SIZE
+is a decimal number (size in points) or optionally followed by the
+unit modifier &quot;px&quot; for absolute size. Any one of the options may
+be absent.  If FAMILY-LIST is absent, then the family_name field of
+the resulting font description will be initialized to <code>NULL</code>.  If
+STYLE-OPTIONS is missing, then all style options will be set to the
+default values. If SIZE is missing, the size in the resulting font
+description will be set to 0.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoFontDescriptionFromString(str)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">str</code></code></td>
+<td>
+<p>[char]  string representation of a font description.</p>
+</td></tr></table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="pango-Fonts.html">PangoFontDescription</a></code>]  a new <code><a href="pango-Fonts.html">PangoFontDescription</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetSetUposition</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetSetUposition {RGtk2}"><tr><td>gtkWidgetSetUposition {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetSetUposition</h2>
+
+<h3>Description</h3>
+
+<p>Sets the position of a widget. The funny &quot;u&quot; in the name comes from
+the &quot;user position&quot; hint specified by the X Window System, and
+exists for legacy reasons. This function doesn't work if a widget
+is inside a container; it's only really useful on <code><a href="GtkWindow.html">GtkWindow</a></code>.
+<strong>WARNING: <code>gtk_widget_set_uposition</code> is deprecated and should not be used in newly-written code.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetSetUposition(object, x, y)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>x position; -1 to unset x; -2 to leave x unchanged</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>y position; -1 to unset y; -2 to leave y unchanged</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Don't use this function to center dialogs over the main application
+window; most window managers will do the centering on your behalf
+if you call <code><a href="gtkWindowSetTransientFor.html">gtkWindowSetTransientFor</a></code>, and it's really not
+possible to get the centering to work correctly in all cases from
+application code. But if you insist, use <code><a href="gtkWindowSetPosition.html">gtkWindowSetPosition</a></code>
+to set <code style="white-space: pre;">GTK_WIN_POS_CENTER_ON_PARENT</code>, don't do the centering
+manually.
+</p>
+<p>Note that although <code>x</code> and <code>y</code> can be individually unset, the position
+is not honoured unless both <code>x</code> and <code>y</code> are set.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

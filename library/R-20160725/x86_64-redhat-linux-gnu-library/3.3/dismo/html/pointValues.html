@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: point values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pointValues {dismo}"><tr><td>pointValues {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+point values
+</h2>
+
+<h3>Description</h3>
+
+<p>Extract values from a Raster* object for point locations. This function adds a few options that can be useful in the context of species distribution modeling to <code><a href="../../raster/html/extract.html">extract</a></code> function in the raster package.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pointValues(x, p, a, uniquecells = TRUE, na.rm = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A Raster* object</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Points. Two-colum matrix or data.frame; or a SpatialPoints* object</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>Additional points (absences). Two-colum matrix or data.frame; or a SpatialPoints* object</p>
+</td></tr>
+<tr valign="top"><td><code>uniquecells</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, each cell can be included only once (i.e. 'duplicate' points are removed) </p>
+</td></tr>
+<tr valign="top"><td><code>na.rm</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, cell values of NA are not returned</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>matrix
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../raster/html/extract.html">extract</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

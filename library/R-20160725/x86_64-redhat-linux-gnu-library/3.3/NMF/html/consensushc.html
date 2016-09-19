@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Hierarchical Clustering of a Consensus Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for consensushc {NMF}"><tr><td>consensushc {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Hierarchical Clustering of a Consensus Matrix</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>consensushc</code> computes the hierarchical
+clustering of a consensus matrix, using the matrix itself
+as a similarity matrix and average linkage. It is
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  consensushc(object, ...)
+
+  ## S4 method for signature 'matrix'
+consensushc(object,
+    method = "average", dendrogram = TRUE)
+
+  ## S4 method for signature 'NMFfitX'
+consensushc(object,
+    what = c("consensus", "fit"), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>a matrix or an <code>NMFfitX</code> object, as
+returned by multiple NMF runs.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to next method calls</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>linkage method passed to
+<code><a href="../../stats/html/hclust.html">hclust</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>dendrogram</code></td>
+<td>
+<p>a logical that specifies if the result
+of the hierarchical clustering (en <code>hclust</code> object)
+should be converted into a dendrogram. Default value is
+<code>TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+<p>character string that indicates which matrix
+to use in the computation.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>an object of class <code>dendrogram</code> or <code>hclust</code>
+depending on the value of argument <code>dendrogram</code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>consensushc</dt><dd><p><code>signature(object = "matrix")</code>:
+Workhorse method for matrices. </p>
+</dd>
+<dt>consensushc</dt><dd><p><code>signature(object = "NMF")</code>:
+Compute the hierarchical clustering on the connectivity
+matrix of <code>object</code>. </p>
+</dd>
+<dt>consensushc</dt><dd><p><code>signature(object = "NMFfitX")</code>:
+Compute the hierarchical clustering on the consensus
+matrix of <code>object</code>, or on the connectivity matrix of
+the best fit in <code>object</code>. </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

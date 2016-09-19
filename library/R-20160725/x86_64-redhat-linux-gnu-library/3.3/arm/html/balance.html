@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Functions to compute the balance statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for balance {arm}"><tr><td>balance {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Functions to compute the balance statistics</h2>
+
+<h3>Description</h3>
+
+<p>This function computes the balance statistics before and after matching.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+balance(rawdata, matched, pscore.fit, factor=TRUE)
+
+## S3 method for class 'balance'
+print(x, ..., digits = 2)
+
+## S3 method for class 'balance'
+plot(x, longcovnames = NULL, 
+    main = "Standardized Difference in Means",
+    v.axis=TRUE, cex.main = 1, 
+    cex.vars = 0.8, cex.pts = 0.8, 
+    mar=c(0,3,5.1,2), plot=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rawdata</code></td>
+<td>
+<p>data before using <code>matching</code> function, see the example below.</p>
+</td></tr>
+<tr valign="top"><td><code>matched</code></td>
+<td>
+<p>matched data using <code>matching</code> function, see the example below.</p>
+</td></tr>
+<tr valign="top"><td><code>pscore.fit</code></td>
+<td>
+<p>glm.fit object to get propensity scores.</p>
+</td></tr>
+<tr valign="top"><td><code>factor</code></td>
+<td>
+<p>default is <code>TRUE</code> which will display the factorized categorical variables. In
+a situation where no equal levels of factorized categorical variables is observed,
+use factor=FALSE to proceed.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object return by the balance function.</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>minimal number of <em>significant</em> digits, default is 2.</p>
+</td></tr>
+<tr valign="top"><td><code>longcovnames</code></td>
+<td>
+<p>long covariate names.  If not provided, plot will 
+use covariate variable name by default</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>The main title (on top) using font and size (character
+expansion) <code>par("font.main")</code> and color <code>par("col.main")</code>;
+default title is <code>Standardized Difference in Means</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>v.axis</code></td>
+<td>
+<p>default is <code>TRUE</code>, which shows the top axis&ndash;axis(3).</p>
+</td></tr>
+<tr valign="top"><td><code>cex.main</code></td>
+<td>
+<p>font size of main title</p>
+</td></tr>
+<tr valign="top"><td><code>cex.vars</code></td>
+<td>
+<p>font size of variabel names</p>
+</td></tr>
+<tr valign="top"><td><code>cex.pts</code></td>
+<td>
+<p>point size of the estimates</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>A numerical vector of the form <code>c(bottom, left, top, right)</code>
+which gives the number of lines of margin to be specified on
+the four sides of the plot. The default is <code>c(0,3,5.1,2)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p>default is <code>TRUE</code>, which will plot the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other plot options may be passed to this function</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function plots the balance statistics before and after matching.  
+The open circle dots represent the unmatched balance statistics.  The 
+solid dots represent the matched balance statistics. The closer the value
+of the estimates to the zero, the better the treated and control groups are 
+balanced after matching.
+</p>
+
+
+<h3>Note</h3>
+
+ 
+<p>The function does not work with predictors that contain factor(x), log(x) or all
+other data transformation. Create new objects for these variables.  Attach
+them into the original dataset before doing the matching procedure.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jennifer Hill <a href="mailto:jh1030@columbia.edu">jh1030@columbia.edu</a>; 
+Yu-Sung Su <a href="mailto:suyusung@tsinghua.edu.cn">suyusung@tsinghua.edu.cn</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Andrew Gelman and Jennifer Hill. (2006).
+<em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>.
+Cambridge University Press. (Chapter 10)</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="matching.html">matching</a></code>,
+<code><a href="../../graphics/html/par.html">par</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# matching first
+old.par &lt;- par(no.readonly = TRUE)
+data(lalonde)
+attach(lalonde)
+fit &lt;- glm(treat ~ re74 + re75 + age + factor(educ) + 
+            black + hisp + married + nodegr + u74 + u75, 
+            family=binomial(link="logit"))
+pscores &lt;- predict(fit, type="link")
+matches &lt;- matching(z=lalonde$treat, score=pscores)
+matched &lt;- lalonde[matches$matched,]
+
+# balance check
+b.stats &lt;- balance(lalonde, matched, fit)
+print(b.stats)
+plot(b.stats)
+par(old.par)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

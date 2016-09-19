@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkScale</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkScale {RGtk2}"><tr><td>GtkScale {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkScale</h2>
+
+<h3>Description</h3>
+
+<p>Base class for GtkHScale and GtkVScale</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkScaleSetDigits.html">gtkScaleSetDigits</a>(object, digits)</code><br />
+<code><a href="gtkScaleSetDrawValue.html">gtkScaleSetDrawValue</a>(object, draw.value)</code><br />
+<code><a href="gtkScaleSetValuePos.html">gtkScaleSetValuePos</a>(object, pos)</code><br />
+<code><a href="gtkScaleGetDigits.html">gtkScaleGetDigits</a>(object)</code><br />
+<code><a href="gtkScaleGetDrawValue.html">gtkScaleGetDrawValue</a>(object)</code><br />
+<code><a href="gtkScaleGetValuePos.html">gtkScaleGetValuePos</a>(object)</code><br />
+<code><a href="gtkScaleGetLayout.html">gtkScaleGetLayout</a>(object)</code><br />
+<code><a href="gtkScaleGetLayoutOffsets.html">gtkScaleGetLayoutOffsets</a>(object)</code><br />
+<code><a href="gtkScaleAddMark.html">gtkScaleAddMark</a>(object, value, position, markup = NULL)</code><br />
+<code><a href="gtkScaleClearMarks.html">gtkScaleClearMarks</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkRange
+                           +----GtkScale
+                                 +----GtkHScale
+                                 +----GtkVScale</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkScale implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkScale.html">GtkScale</a></code> is a slider control used to select a numeric value.
+To use it, you'll probably want to investigate the methods on
+its base class, <code><a href="GtkRange.html">GtkRange</a></code>, in addition to the methods for <code><a href="GtkScale.html">GtkScale</a></code> itself.
+To set the value of a scale, you would normally use <code><a href="gtkRangeSetValue.html">gtkRangeSetValue</a></code>.
+To detect changes to the value, you would normally use the &quot;value_changed&quot;
+signal.
+</p>
+<p>The <code><a href="GtkScale.html">GtkScale</a></code> widget is an abstract class, used only for deriving the
+subclasses <code><a href="GtkHScale.html">GtkHScale</a></code> and <code><a href="GtkVScale.html">GtkVScale</a></code>. To create a scale widget,
+call <code><a href="gtkHScaleNewWithRange.html">gtkHScaleNewWithRange</a></code> or <code><a href="gtkVScaleNewWithRange.html">gtkVScaleNewWithRange</a></code>.</p>
+
+
+<h3>GtkScale as GtkBuildable</h3>
+
+<p>GtkScale supports a custom &lt;marks&gt; element, which
+can contain multiple &lt;mark&gt; elements. The &quot;value&quot; and &quot;position&quot;
+attributes have the same meaning as <code><a href="gtkScaleAddMark.html">gtkScaleAddMark</a></code> parameters of the
+same name. If the element is not empty, its content is taken as the markup
+to show at the mark. It can be translated with the usual &quot;translatable and
+&quot;context&quot; attributes.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkScale</code></dt><dd>
+<p>The fields of the <code><a href="GtkScale.html">GtkScale</a></code> struct should only be accessed via
+the accessor functions.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>format-value(scale, value, user.data)</code></dt><dd>
+<p>Signal which allows you to change how the scale value is displayed.
+Connect a signal handler which returns an allocated string representing
+<code>value</code>. That string will then be used to display the scale's value.
+</p>
+<p>Here's an example signal handler which displays a value 1.0 as
+with &quot;&ndash;&gt;1.0&lt;&ndash;&quot;.
+</p>
+<pre>
+format_value_callback &lt;- function(scale, value)
+{
+  return(paste("--&gt;", format(value, nsmall=scale$getDigits()), "&lt;--"), sep="")
+}
+</pre>
+
+<dl>
+<dt><code>scale</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>value</code></dt><dd><p>the value to format</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [character] allocated string representing <code>value</code>
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">digits</code> [integer : Read / Write]</dt><dd>
+<p>The number of decimal places that are displayed in the value.  Allowed values: [-1,64]  Default value: 1
+</p>
+</dd>
+<dt><code style="white-space: pre;">draw-value</code> [logical : Read / Write]</dt><dd>
+<p>Whether the current value is displayed as a string next to the slider.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">value-pos</code> [<code><a href="gtk-Standard-Enumerations.html">GtkPositionType</a></code> : Read / Write]</dt><dd>
+<p>The position in which the current value is displayed.  Default value: GTK_POS_TOP
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">slider-length</code> [integer : Read]</dt><dd>
+<p>Length of scale's slider.  Allowed values: &gt;= 0  Default value: 31
+</p>
+</dd>
+<dt><code style="white-space: pre;">value-spacing</code> [integer : Read]</dt><dd>
+<p>Space between value text and the slider/trough area.  Allowed values: &gt;= 0  Default value: 2
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkScale.html">http://library.gnome.org/devel//gtk/GtkScale.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowSetStartupId</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowSetStartupId {RGtk2}"><tr><td>gtkWindowSetStartupId {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowSetStartupId</h2>
+
+<h3>Description</h3>
+
+<p>Startup notification identifiers are used by desktop environment to 
+track application startup, to provide user feedback and other 
+features. This function changes the corresponding property on the
+underlying GdkWindow. Normally, startup identifier is managed 
+automatically and you should only use this function in special cases
+like transferring focus from other processes. You should use this
+function before calling <code><a href="gtkWindowPresent.html">gtkWindowPresent</a></code> or any equivalent
+function generating a window map event.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowSetStartupId(object, startup.id)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">startup.id</code></code></td>
+<td>
+<p>a string with startup-notification identifier</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is only useful on X11, not with other GTK+ targets.
+Since 2.12</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Waveform Database Generator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mlbench.waveform {mlbench}"><tr><td>mlbench.waveform {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Waveform Database Generator</h2>
+
+<h3>Description</h3>
+
+<p>The generated data set consists of 21 attributes with continuous
+values and a variable showing the 3 classes (33% for each of 3
+classes). Each class is generated from a combination of 2 of 3
+&quot;base&quot; waves. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  mlbench.waveform(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of patterns to create</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>"mlbench.waveform"</code> with components
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>input values</p>
+</td></tr>
+<tr valign="top"><td><code>classes</code></td>
+<td>
+<p>factor vector of length <code>n</code> with target classes</p>
+</td></tr>
+</table>
+
+
+<h3>Source</h3>
+
+<p>The original C code for the waveform generator hase been taken
+from the UCI Repository
+of Machine Learning Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>The C code has been modified to use R's random number generator
+by Friedrich Leisch, who also wrote the R interface.
+</p>
+
+
+<h3>References</h3>
+
+<p>Breiman, L. (1996). Bias, variance, and arcing
+classifiers. Tech. Rep. 460, Statistics Department, University of
+California, Berkeley, CA, USA.
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  p&lt;-mlbench.waveform(100)
+  plot(p)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

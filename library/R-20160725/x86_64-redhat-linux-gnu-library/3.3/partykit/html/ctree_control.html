@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Control for Conditional Inference Trees</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ctree_control {partykit}"><tr><td>ctree_control {partykit}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Control for Conditional Inference Trees </h2>
+
+<h3>Description</h3>
+
+<p>Various parameters that control aspects of the &lsquo;ctree&rsquo; fit.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ctree_control(teststat = c("quad", "max"),
+    testtype = c("Bonferroni", "Univariate", "Teststatistic"),
+    mincriterion = 0.95, minsplit = 20L, minbucket = 7L, 
+    minprob = 0.01, stump = FALSE, maxsurrogate = 0L, mtry = Inf, 
+    maxdepth = Inf, multiway = FALSE, splittry = 2L, majority = FALSE,
+    applyfun = NULL, cores = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>teststat</code></td>
+<td>
+<p> a character specifying the type of the test statistic
+to be applied. </p>
+</td></tr>
+<tr valign="top"><td><code>testtype</code></td>
+<td>
+<p> a character specifying how to compute the distribution of
+the test statistic. </p>
+</td></tr>
+<tr valign="top"><td><code>mincriterion</code></td>
+<td>
+<p> the value of the test statistic or 1 - p-value that
+must be exceeded in order to implement a split. </p>
+</td></tr>
+<tr valign="top"><td><code>minsplit</code></td>
+<td>
+<p> the minimum sum of weights in a node in order to be considered
+for splitting. </p>
+</td></tr>
+<tr valign="top"><td><code>minbucket</code></td>
+<td>
+<p> the minimum sum of weights in a terminal node. </p>
+</td></tr>
+<tr valign="top"><td><code>minprob</code></td>
+<td>
+<p> proportion of observations needed to establish a terminal node.</p>
+</td></tr>
+<tr valign="top"><td><code>stump</code></td>
+<td>
+<p> a logical determining whether a stump (a tree with three
+nodes only) is to be computed. </p>
+</td></tr>
+<tr valign="top"><td><code>maxsurrogate</code></td>
+<td>
+<p> number of surrogate splits to evaluate. Note the
+currently only surrogate splits in ordered
+covariables are implemented. </p>
+</td></tr>
+<tr valign="top"><td><code>mtry</code></td>
+<td>
+<p> number of input variables randomly sampled as candidates
+at each node for random forest like algorithms. The default
+<code>mtry = Inf</code> means that no random selection takes place.</p>
+</td></tr>
+<tr valign="top"><td><code>maxdepth</code></td>
+<td>
+<p> maximum depth of the tree. The default <code>maxdepth = Inf</code>
+means that no restrictions are applied to tree sizes.</p>
+</td></tr>
+<tr valign="top"><td><code>multiway</code></td>
+<td>
+<p> a logical indicating if multiway splits for all factor levels
+are implemented for unordered factors.</p>
+</td></tr>
+<tr valign="top"><td><code>splittry</code></td>
+<td>
+<p> number of variables that are inspected for admissible splits
+if the best split doesn't meet the sample size constraints.</p>
+</td></tr>
+<tr valign="top"><td><code>majority</code></td>
+<td>
+<p> if <code>FALSE</code>, observations which can't be classified to a
+daughter node because of missing information are randomly
+assigned (following the node distribution). If <code>FALSE</code>,
+they go with the majority (the default in <code><a href="../../party/html/ctree.html">ctree</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>applyfun</code></td>
+<td>
+<p>an optional <code><a href="../../base/html/lapply.html">lapply</a></code>-style function with arguments
+<code>function(X, FUN, ...)</code>. It is used for computing the variable selection criterion. 
+The default is to use the basic <code>lapply</code>
+function unless the <code>cores</code> argument is specified (see below).</p>
+</td></tr>
+<tr valign="top"><td><code>cores</code></td>
+<td>
+<p>numeric. If set to an integer the <code>applyfun</code> is set to
+<code><a href="../../parallel/html/mclapply.html">mclapply</a></code> with the desired number of <code>cores</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The arguments <code>teststat</code>, <code>testtype</code> and <code>mincriterion</code>
+determine how the global null hypothesis of independence between all input
+variables and the response is tested (see <code><a href="ctree.html">ctree</a></code>). 
+The variable with most extreme p-value or test statistic is selected
+for splitting. If this isn't possible due to sample size constraints
+explained in the next paragraph, up to <code>splittry</code> other variables
+are inspected for possible splits.
+</p>
+<p>A split is established when all of the following criteria are met:
+1) the sum of the weights in the current node 
+is larger than <code>minsplit</code>, 2) a fraction of the sum of weights of more than 
+<code>minprob</code> will be contained in all daughter nodes, 3) the sum of 
+the weights in all daughter nodes exceeds <code>minbucket</code>, and 4)
+the depth of the tree is smaller than <code>maxdepth</code>.
+This avoids pathological splits deep down the tree. 
+When <code>stump = TRUE</code>, a tree with at most two terminal nodes is computed.
+</p>
+<p>The argument <code>mtry &gt; 0</code> means that a random forest like 'variable
+selection', i.e., a random selection of <code>mtry</code> input variables, is
+performed in each node.
+</p>
+<p>In each inner node, <code>maxsurrogate</code> surrogate splits are computed 
+(regardless of any missing values in the learning sample). Factors
+in test samples whose levels were empty in the learning sample 
+are treated as missing when computing predictions (in contrast
+to <code><a href="../../party/html/ctree.html">ctree</a></code>. Note also the different behaviour of
+<code>majority</code> in the two implementations.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>partykit</em> version 1.1-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

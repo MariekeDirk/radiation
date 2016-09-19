@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Delaunay triangulation and Dirichlet tessellation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for deldir {deldir}"><tr><td>deldir {deldir}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Delaunay triangulation and Dirichlet tessellation
+</h2>
+
+<h3>Description</h3>
+
+<p>This function computes the Delaunay triangulation (and hence the
+Dirichlet or Voronoi tesselation) of a planar point set according
+to the second (iterative) algorithm of Lee and Schacter &mdash;
+see REFERENCES.  The triangulation is made to be with respect to
+the whole plane by <code>suspending</code> it from so-called ideal points
+(-Inf,-Inf), (Inf,-Inf) (Inf,Inf), and (-Inf,Inf).  The triangulation
+is also enclosed in a finite rectangular window.  A set of dummy
+points may be added, in various ways, to the set of data points
+being triangulated.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+deldir(x, y, dpl=NULL, rw=NULL, eps=1e-09, sort=TRUE, plotit=FALSE,
+       digits=6, z=NULL, zdum=NULL, suppressMsge=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,y</code></td>
+<td>
+
+<p>These arguments specify the coordinates of the point set being
+triangulated or tessellated. These can be given by two separate
+arguments x and y which are vectors or by a single argument x
+which is either a data frame or a generic list, possibly one of
+class <code>ppp</code>.  (See package <code>spatstat</code>.)
+</p>
+<p>If <code>x</code> is a data frame then the <code>x</code> coordinates of the
+points to be triangulated or tessellated are taken to be the column
+of this data frame which is named &ldquo;x&rdquo; if there is one,
+else the first column of the data frame which is not named either
+&ldquo;y&rdquo; or &ldquo;z&rdquo;. The <code>y</code> coordinates are taken to be
+the column of this data frame which is named &ldquo;y&rdquo; if there is
+one.  If there is no column named &ldquo;y&rdquo; but there are columns
+named &ldquo;x&rdquo; and &ldquo;z&rdquo; then the <code>y</code> coordinates
+are taken to be the first &ldquo;other&rdquo; column.  If there no
+columns named either &ldquo;x&rdquo; or &ldquo;y&rdquo;, then the <code>x</code>
+coordinates are taken to be the first column not named &ldquo;z&rdquo;
+and the <code>y</code> coordinates are taken to be the <em>second</em>
+column not named &ldquo;z&rdquo;.
+</p>
+<p>If there is a column named &ldquo;z&rdquo; and if the argument <code>z</code>
+(see below) is NULL, then this the column named &ldquo;z&rdquo; is taken
+to be the value of <code>z</code>.
+</p>
+<p>If <code>x</code> is a list (but not a data frame) then it must have
+components named <code>x</code> and <code>y</code>, and possibly a component
+named <code>z</code>.  The <code>x</code> and <code>y</code> components give the
+<code>x</code> and <code>y</code> coordinates respectively of the points to
+be triangulated or tessellated. If <code>x</code> is <em>not</em> of class
+<code>ppp</code>, if it has a component <code>z</code> and if argument <code>z</code>
+is <code>NULL</code>, then the <code>z</code> argument is set equal to this
+component <code>z</code>.  If <code>x</code> <em>is</em> of class &ldquo;ppp&rdquo;, if
+the argument <code>z</code> is <code>NULL</code>, if <code>x</code> is &ldquo;marked&rdquo;
+(see package <code>spatstat</code>) and if the marks of <code>x</code> are a
+vector or a factor (as opposed to a data frame) then the <code>z</code>
+argument is set equal to these marks.  In this case <code>x</code>
+should <em>not</em> have a component <code>z</code>, and at any rate such
+a component would be ignored.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dpl</code></td>
+<td>
+
+<p>A list describing the structure of the dummy points to be added to
+the data being triangulated.  The addition of these dummy points
+is effected by the auxiliary function dumpts().  The list may
+have components:
+</p>
+
+<ul>
+<li> <p><code>ndx</code>: The x-dimension of a rectangular grid; if either
+ndx or ndy is null, no grid is constructed.
+</p>
+</li>
+<li> <p><code>ndy</code>: The y-dimension of the aforementioned rectangular
+grid.
+</p>
+</li>
+<li> <p><code>nrad</code>: The number of radii or &ldquo;spokes&rdquo;, emanating from
+each data point, along which dummy points are to be added.
+</p>
+</li>
+<li> <p><code>nper</code>: The number of dummy points per spoke.
+</p>
+</li>
+<li> <p><code>fctr</code>: A numeric &ldquo;multiplicative factor&rdquo;
+determining the length of each spoke; each spoke is of length equal
+to fctr times the mean nearest neighbour distance of the data.
+(This distance is calculated by the auxiliary function mnnd().)
+</p>
+</li>
+<li> <p><code>x</code>: A vector of x-coordinates of &ldquo;ad hoc&rdquo; dummy points
+</p>
+</li>
+<li> <p><code>y</code>: A vector of the corresponding y-coordinates of
+&ldquo;ad hoc&rdquo; dummy points
+</p>
+</li></ul>
+
+</td></tr>
+<tr valign="top"><td><code>rw</code></td>
+<td>
+
+<p>The coordinates of the corners of the rectangular window enclosing
+the triangulation, in the order (xmin, xmax, ymin, ymax).  Any data
+points (including dummy points) outside this window are discarded.
+If this argument is omitted, it defaults to values given by the range
+of the data, plus and minus 10 percent.
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>A value of epsilon used in testing whether a quantity is zero, mainly
+in the context of whether points are collinear.  If anomalous errors
+arise, it is possible that these may averted by adjusting the value
+of eps upward or downward.
+</p>
+</td></tr>
+<tr valign="top"><td><code>sort</code></td>
+<td>
+
+<p>Logical argument; if <code>TRUE</code> (the default) the data (including dummy
+points) are sorted into a sequence of &ldquo;bins&rdquo; prior to triangulation;
+this makes the algorithm slightly more efficient.  Normally one would
+set <code>sort</code> equal to <code>FALSE</code> only if one wished to observe some of the
+fine detail of the way in which adding a point to a data set affected
+the triangulation, and therefore wished to make sure that the point
+in question was added last.  Essentially this argument would get used
+only in a de-bugging process.
+</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+
+<p>Logical argument; if <code>TRUE</code> a plot is produced.  The nature
+of the plot may be controlled by using the <code>...</code> argument
+to pass appropriate arguments to <code>plot.deldir()</code>.  Without
+&ldquo;further instruction&rdquo; a plot of the points being triangulated
+and of both the triangulation and the tessellation is produced;
+</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+<p>The number of decimal places to which all numeric values in the
+returned list should be rounded.  Defaults to 6.
+</p>
+</td></tr>
+<tr valign="top"><td><code>z</code></td>
+<td>
+
+<p>An optional vector of &ldquo;auxiliary&rdquo; values or &ldquo;weights&rdquo;
+associated with the respective points. (<b>NOTE:</b> These
+&ldquo;weights&rdquo; are values associated with the points and hence
+with the tiles of the tessellation produced.  They <b>DO NOT</b>
+affect the tessellation, i.e.  the tessellation produced is the
+same as is it would be if there were no weights.  The <code>deldir</code>
+package <b>DOES NOT</b> do weighted tessellation.  The so-called
+weights in fact need not be numeric.)
+</p>
+<p>If <code>z</code> is left <code>NULL</code> then it is taken to be the third
+column of <code>x</code>, if <code>x</code> is a data frame or to be the <code>z</code>
+component of <code>x</code> if <code>x</code> is a generic list. If <code>z</code>
+is left <code>NULL</code> and if <code>x</code> is of class &ldquo;ppp&rdquo; and is
+&ldquo;marked&rdquo; (see package <code>spatstat</code>) and if in addition
+the marks are atomic (i.e. <em>not</em> a data frame) then <code>z</code>
+is taken to be the marks of <code>x</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zdum</code></td>
+<td>
+
+<p>Values of <code>z</code> to be associated with any dummy points that are
+created. See <b>Warnings</b>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>suppressMsge</code></td>
+<td>
+
+<p>Logical scalar indicating whether a message (alerting the user to
+changes from previous versions of <code>deldir</code>) should be
+suppressed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Auxiliary arguments <code>add</code>, <code>wlines</code>, <code>wpoints</code>,
+<code>number</code>, <code>nex</code>, <code>col</code>, <code>lty</code>, <code>pch</code>,
+<code>xlim</code>, and <code>ylim</code> (and possibly other plotting parameters)
+may be passed to <code><a href="plot.deldir.html">plot.deldir</a>()</code> through <code>...</code>
+if <code>plotit=TRUE</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This package is a (straightforward) adaptation of the Splus library
+section &ldquo;delaunay&rdquo; to R.  That library section is an implementation
+of the Lee-Schacter algorithm, which was originally written as a
+stand-alone Fortran program in 1987/88 by Rolf Turner, while with the
+Division of Mathematics and Statistics, CSIRO, Sydney, Australia.  It
+was re-written as an Splus function (using dynamically loaded Fortran
+code), by Rolf Turner while visiting the University of Western
+Australia, May, 1995.
+</p>
+<p>Further revisions were made December 1996. The author gratefully
+acknowledges the contributions, assistance, and guidance of Mark
+Berman, of D.M.S., CSIRO, in collaboration with whom this project
+was originally undertaken.  The author also acknowledges much useful
+advice from Adrian Baddeley, formerly of D.M.S., CSIRO (now
+Professor of Statistics at Curtin University).
+Daryl Tingley of the Department of Mathematics
+and Statistics, University of New Brunswick provided some helpful
+insight.  Special thanks are extended to Alan Johnson, of the
+Alaska Fisheries Science Centre, who supplied two data sets which
+were extremely valuable in tracking down some errors in the code.
+</p>
+<p>Don MacQueen, of Lawrence Livermore National Lab, wrote an Splus
+driver function for the old stand-alone version of this software.
+That driver, which was available on Statlib, is now deprecated in
+favour of the current package &ldquo;delaunay&rdquo; package.  Don also
+collaborated in the preparation of that package.
+</p>
+<p>See the <code>ChangeLog</code> for information about further revisions
+and bug-fixes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list (of class <code>deldir</code>), invisible if <code>plotit=TRUE</code>, with components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>delsgs</code></td>
+<td>
+
+<p>A data frame with 6 columns.  The first 4 entries of each row are the
+coordinates of the points joined by an edge of a Delaunay triangle,
+in the order <code>(x1,y1,x2,y2)</code>.  The last two entries are the indices
+of the two points which are joined.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dirsgs</code></td>
+<td>
+
+<p>A data frame with 10 columns.  The first 4 entries of each
+row are the coordinates of the endpoints of one the edges of a
+Dirichlet tile, in the order <code>(x1,y1,x2,y2)</code>.  The fifth and
+sixth entries, in the columns named <code>ind1</code> and <code>ind2</code>,
+are the indices of the two points, in the set being triangulated,
+which are separated by that edge. The seventh and eighth entries,
+in the columns named <code>bp1</code> and <code>bp2</code> are logical values.
+The entry in column <code>bp1</code> indicates whether the first endpoint
+of the corresponding edge of a Dirichlet tile is a boundary point
+(a point on the boundary of the rectangular window).  Likewise for
+the entry in column <code>bp2</code> and the second endpoint of the edge.
+</p>
+<p>The nineth and tenth entries, in columns named <code>thirdv1</code> and
+<code>thirdv2</code> are the indices of the third vertex of the Delaunay
+triangle whose circumcentre constitutes the corresponding vertex of
+the edge under consideration.  (The other two vertices are indexed
+by the entries of columns <code>ind1</code> and <code>ind2</code>.)
+</p>
+<p>The entries of columns <code>thirdv1</code> and <code>thirdv2</code> may (also)
+take the values $-1, -2, -3$, and $-4$.  This will be the case
+if the circumcentre in question lies outside of the rectangular
+window <code>rw</code>.  In these circumstances the corresponding endpoint
+of the tile edge is the intersection of the line joining the two
+circumcentres with the boundary of <code>rw</code>, and the numeric
+value of the entry of column &ldquo;vi3&rdquo; indicates which side.
+The numbering follows the convention for numbering the sides of a
+plot region in <code>R</code>: 1 for the bottom side, 2 for the left side,
+3 for the top side and 4 for the right side.
+</p>
+<p>Note that the entry in column <code>thirdv1</code> will be negative if and
+only if the corresponding entry in column <code>bp1</code> is <code>TRUE</code>.
+Similarly for columns <code>thirdv2</code> and <code>bp2</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>summary</code></td>
+<td>
+
+<p>a data frame with 9, 10 or 11 columns and <code>n.data + n.dum</code> rows
+(see below).  The rows correspond to the points in the set being
+triangulated.  The columns are:
+</p>
+
+<ul>
+<li> <p><code>x</code> (the <i>x</i>-coordinate of the point)
+</p>
+</li>
+<li> <p><code>y</code> (the <i>y</i>-coordinate of the point)
+</p>
+</li>
+<li> <p><code>pt.type</code> (a character vector with entries &ldquo;data&rdquo;
+and &ldquo;dummy&rdquo;; present only if <code>n.dum &gt; 0</code>)
+</p>
+</li>
+<li> <p><code>z</code> (the auxiliary values or weights; present only if
+these were specified)
+</p>
+</li>
+<li> <p><code>n.tri</code> (the number of Delaunay triangles emanating from
+the point)
+</p>
+</li>
+<li> <p><code>del.area</code> (1/3 of the total area of all the Delaunay
+triangles emanating from the point)
+</p>
+</li>
+<li> <p><code>del.wts</code> (the corresponding entry of the <code>del.area</code>
+column divided by the sum of this column)
+</p>
+</li>
+<li> <p><code>n.tside</code> (the number of sides &mdash; within the rectangular
+window &mdash; of the Dirichlet tile surrounding the point)
+</p>
+</li>
+<li> <p><code>nbpt</code> (the number of points in which the Dirichlet tile
+intersects the boundary of the rectangular window)
+</p>
+</li>
+<li> <p><code>dir.area</code> (the area of the Dirichlet tile surrounding
+the point)
+</p>
+</li>
+<li> <p><code>dir.wts</code> (the corresponding entry of the <code>dir.area</code>
+column divided by the sum of this column).
+</p>
+</li></ul>
+
+<p>Note that the factor of 1/3 associated with the del.area column
+arises because each triangle occurs three times &mdash; once for
+each corner.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n.data</code></td>
+<td>
+
+<p>the number of real (as opposed to dummy) points in the set which was
+triangulated, with any duplicate points eliminated.  The first n.data
+rows of <code>summary</code> correspond to real points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n.dum</code></td>
+<td>
+
+<p>the number of dummy points which were added to the set being triangulated,
+with any duplicate points (including any which duplicate real points)
+eliminated.  The last n.dum rows of <code>summary</code> correspond to dummy
+points.
+</p>
+</td></tr>
+<tr valign="top"><td><code>del.area</code></td>
+<td>
+
+<p>the area of the convex hull of the set of points being triangulated,
+as formed by summing the <code>del.area</code> column of <code>summary</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dir.area</code></td>
+<td>
+
+<p>the area of the rectangular window enclosing the points being triangulated,
+as formed by summing the <code>dir.area</code> column of <code>summary</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>rw</code></td>
+<td>
+
+<p>the specification of the corners of the rectangular window enclosing
+the data, in the order (xmin, xmax, ymin, ymax).
+</p>
+</td></tr>
+<tr valign="top"><td><code>ind.orig</code></td>
+<td>
+<p>A vector of the indices of the points (x,y) in the
+set of coordinates initially supplied (as data points or as dummy
+points) to <code>deldir()</code> before duplicate points (if any) were
+removed.  These indices are used by <code><a href="triang.list.html">triang.list</a>()</code>.
+</p>
+</td></tr></table>
+
+
+<h3>Remark:</h3>
+
+<p>If ndx &gt;= 2 and ndy &gt;= 2, then the rectangular window IS the convex
+hull, and so the values of del.area and dir.area (if the latter is
+not <code>NULL</code>) are identical.
+</p>
+
+
+<h3>Side Effects</h3>
+
+<p>If <code>plotit=TRUE</code> a plot of the triangulation and/or tessellation
+is produced or added to an existing plot.
+</p>
+
+
+<h3>Warnings</h3>
+
+
+<ol>
+<li><p> The process for determining if points are duplicated
+changed between versions 0.1-9 and 0.1-10.  Previously there
+was an argument <code>frac</code> for this function, which defaulted
+to 0.0001.  Points were deemed to be duplicates if the difference
+in <code>x</code>-coordinates was less than <code>frac</code> times the width
+of <code>rw</code> and <code>y</code>-coordinates was less than <code>frac</code>
+times the height of <code>rw</code>.  This process has been changed to
+one which uses <code><a href="../../base/html/duplicated.html">duplicated</a>()</code> on the data frame whose
+columns are <code>x</code> and <code>y</code>.
+</p>
+<p>As a result it may happen that points which were previously
+eliminated as duplicates will no longer be eliminated.  (And
+possibly vice-versa.)
+</p>
+</li>
+<li><p> The components <code>delsgs</code> and <code>summary</code> of the value
+returned by <code>deldir()</code> are now <em>data frames</em> rather than
+matrices.  The component <code>summary</code> was changed to allow the
+&ldquo;auxiliary&rdquo; values <code>z</code> to be of arbitrary mode (i.e.
+not necessarily numeric).  The component <code>delsgs</code> was then
+changed for consistency.  Note that the other &ldquo;matrix-like&rdquo;
+component <code>dirsgs</code> has been a data frame since time immemorial.
+</p>
+<p>A message alerting the user to the foregoing two items is printed
+out the first time that <code>deldir()</code> is called with
+<code>suppressMsge=FALSE</code> in a given session.  In succeeding
+calls to <code>deldir()</code> in the same session, no message is printed.
+(I.e. the &ldquo;alerting&rdquo; message is printed <em>at most once</em>
+in any given session.)
+</p>
+<p>The &ldquo;alerting&rdquo; message is <em>not</em> produced via the
+<code>warning()</code> function, so <code>suppressWarnings()</code> will
+<em>not</em> suppress its appearance.  To effect such suppression
+(necessary only on the first call to <code>deldir()</code> in a
+given session) one must set the <code>suppressMsge</code> argument of
+<code>deldir</code> equal to <code>TRUE</code>.
+</p>
+</li>
+<li><p> If any dummy points are created, and if a vector <code>z</code>, of
+&ldquo;auxiliary&rdquo; values or &ldquo;weights&rdquo; associated with the
+points being triangulated, is supplied, then it is up to the user to
+supply the corresponding auxiliary values or weights associated with
+the dummy points.  These values should be supplied as <code>zdum</code>.
+If <code>zdum</code> is not supplied then the auxiliary values or weights
+associated with the dummy points are all taken to be missing values
+(i.e. <code>NA</code>).
+</p>
+</li></ol>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Rolf Turner
+<a href="mailto:r.turner@auckland.ac.nz">r.turner@auckland.ac.nz</a>
+
+</p>
+
+
+<h3>References</h3>
+
+<p>Lee, D. T., and Schacter, B. J.  Two algorithms for constructing a
+Delaunay triangulation, Int. J. Computer and Information Sciences,
+Vol. 9, No. 3, 1980, pp. 219 &ndash; 242.
+</p>
+<p>Ahuja, N. and Schacter, B. J. (1983). Pattern Models.  New York: Wiley.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="plot.deldir.html">plot.deldir</a>()</code>, <code><a href="tile.list.html">tile.list</a>()</code>, <code><a href="triang.list.html">triang.list</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x    &lt;- c(2.3,3.0,7.0,1.0,3.0,8.0)
+y    &lt;- c(2.3,3.0,2.0,5.0,8.0,9.0)
+# An "alerting note" is printed.; let deldir() choose the
+# rectangular window.
+dxy1 &lt;- deldir(x,y)
+
+# User chooses the rectangular window.
+dxy2 &lt;- deldir(x,y,rw=c(0,10,0,10))
+
+# Put dummy points at the corners of the rectangular
+# window, i.e. at (0,0), (10,0), (10,10), and (0,10)
+dxy3 &lt;- deldir(x,y,dpl=list(ndx=2,ndy=2),rw=c(0,10,0,10))
+
+# Plot the triangulation created (but not the tesselation).
+## Not run: 
+dxy2 &lt;- deldir(x,y,rw=c(0,10,0,10),plot=TRUE,wl='tr')
+
+## End(Not run)
+
+# Auxiliary values associated with points; 4 dummy points to be
+# added so 4 dummy "z-values" provided.
+z    &lt;- c(1.63,0.79,2.84,1.56,0.22,1.07)
+zdum &lt;- rep(42,4)
+dxy4 &lt;- deldir(x,y,dpl=list(ndx=2,ndy=2),rw=c(0,10,0,10),z=z,zdum=zdum)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>deldir</em> version 0.1-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gMemoryOutputStreamNew</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gMemoryOutputStreamNew {RGtk2}"><tr><td>gMemoryOutputStreamNew {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gMemoryOutputStreamNew</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new <code><a href="GMemoryOutputStream.html">GMemoryOutputStream</a></code>. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gMemoryOutputStreamNew(len)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">len</code></code></td>
+<td>
+<p>the size of <code>data</code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>If <code>data</code> is non-<code>NULL</code>, the stream  will use that for its internal storage.
+If <code>realloc.fn</code> is non-<code>NULL</code>, it will be used for resizing the internal
+storage when necessary. To construct a fixed-size output stream, 
+pass <code>NULL</code> as <code>realloc.fn</code>.
+</p>
+<pre>
+## a stream that can grow
+stream &lt;- gMemoryOutputStream(0)
+
+## fixed-size streams are not supported
+</pre>
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="GOutputStream.html">GOutputStream</a></code>] A newly created <code><a href="GMemoryOutputStream.html">GMemoryOutputStream</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>pointer to a chunk of memory to use, or <code>NULL</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

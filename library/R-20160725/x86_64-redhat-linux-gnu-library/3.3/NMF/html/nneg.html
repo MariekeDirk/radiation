@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Transforming from Mixed-sign to Nonnegative Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nneg {NMF}"><tr><td>nneg {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Transforming from Mixed-sign to Nonnegative Data</h2>
+
+<h3>Description</h3>
+
+<p><code>nneg</code> is a generic function to transform a data
+objects that contains negative values into a similar
+object that only contains values that are nonnegative or
+greater than a given threshold.
+</p>
+<p><code>posneg</code> is a shortcut for <code>nneg(...,
+  method='posneg')</code>, to split mixed-sign data into its
+positive and negative part. See description for method
+<code>"posneg"</code>, in <code><a href="nneg.html">nneg</a></code>.
+</p>
+<p><code>rposneg</code> performs the &quot;reverse&quot; transformation of
+the <code><a href="nneg.html">posneg</a></code> function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nneg(object, ...)
+
+  ## S4 method for signature 'matrix'
+nneg(object,
+    method = c("pmax", "posneg", "absolute", "min"),
+    threshold = 0, shift = TRUE)
+
+  posneg(...)
+
+  rposneg(object, ...)
+
+  ## S4 method for signature 'matrix'
+rposneg(object, unstack = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>The data object to transform</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extension or passed
+down to <code>nneg,matrix</code> or <code>rposneg,matrix</code> in
+subsequent calls.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Name of the transformation method to use,
+that is partially matched against the following possible
+methods: </p>
+ <dl>
+<dt>pmax</dt><dd><p>Each entry is constrained
+to be above threshold <code>threshold</code>.</p>
+</dd>
+<dt>posneg</dt><dd><p>The matrix is split into its &quot;positive&quot; and
+&quot;negative&quot; parts, with the entries of each part
+constrained to be above threshold <code>threshold</code>. The
+result consists in these two parts stacked in rows (i.e.
+<code><a href="../../base/html/cbind.html">rbind</a></code>-ed) into a single matrix, which has
+double the number of rows of the input matrix
+<code>object</code>.</p>
+</dd>
+<dt>absolute</dt><dd><p>The absolute value of each entry is
+constrained to be above threshold <code>threshold</code>.</p>
+</dd>
+<dt>min</dt><dd><p>Global shift by adding the minimum entry to
+each entry, only if it is negative, and then apply
+threshold. </p>
+</dd>
+</dl>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>Nonnegative lower threshold value
+(single numeric). See argument <code>shit</code> for details on
+how the threshold is used and affects the result.</p>
+</td></tr>
+<tr valign="top"><td><code>shift</code></td>
+<td>
+<p>a logical indicating whether the entries
+below the threshold value <code>threshold</code> should be
+forced (shifted) to 0 (default) or to the threshold value
+itself. In other words, if <code>shift=TRUE</code> (default)
+all entries in the result matrix are either 0 or strictly
+greater than <code>threshold</code>. They are all greater or
+equal than <code>threshold</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code>unstack</code></td>
+<td>
+<p>Logical indicating whether the positive
+and negative parts should be unstacked and combined into
+a matrix as <code>pos - neg</code>, which contains half the
+number of rows of <code>object</code> (default), or left
+stacked as <code>[pos; -neg]</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>an object of the same class as argument <code>object</code>.
+</p>
+<p>an object of the same type of <code>object</code>
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>nneg</dt><dd><p><code>signature(object = "matrix")</code>:
+Transforms a mixed-sign matrix into a nonnegative matrix,
+optionally apply a lower threshold. This is the workhorse
+method, that is eventually called by all other methods
+defined in the <code><a href="NMF-package.html">NMF</a></code> package. </p>
+</dd>
+<dt>nneg</dt><dd><p><code>signature(object = "NMF")</code>: Apply
+<code>nneg</code> to the basis matrix of an <code><a href="NMF-package.html">NMF</a></code>
+object (i.e. <code>basis(object)</code>). All extra arguments
+in <code>...</code> are passed to the method
+<code>nneg,matrix</code>. </p>
+</dd>
+<dt>rposneg</dt><dd><p><code>signature(object = "NMF")</code>: Apply
+<code>rposneg</code> to the basis matrix of an
+<code><a href="NMF-package.html">NMF</a></code> object. </p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/Extremes.html">pmax</a></code>
+</p>
+<p>Other transforms: <code><a href="t.NMF.html">t.NMF</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# nneg,matrix-method
+#----------
+# random mixed sign data (normal distribution)
+set.seed(1)
+x &lt;- rmatrix(5,5, rnorm, mean=0, sd=5)
+x
+
+# pmax (default)
+nneg(x)
+# using a threshold
+nneg(x, threshold=2)
+# without shifting the entries lower than threshold
+nneg(x, threshold=2, shift=FALSE)
+
+# posneg: split positive and negative part
+nneg(x, method='posneg')
+nneg(x, method='pos', threshold=2)
+
+# absolute
+nneg(x, method='absolute')
+nneg(x, method='abs', threshold=2)
+
+# min
+nneg(x, method='min')
+nneg(x, method='min', threshold=2)
+
+#----------
+# nneg,NMF-method
+#----------
+# random
+M &lt;- nmfModel(x, rmatrix(ncol(x), 3))
+nnM &lt;- nneg(M)
+basis(nnM)
+# mixture coefficients are not affected
+identical( coef(M), coef(nnM) )
+
+#----------
+# posneg
+#----------
+# shortcut for the "posneg" transformation
+posneg(x)
+posneg(x, 2)
+
+#----------
+# rposneg,matrix-method
+#----------
+# random mixed sign data (normal distribution)
+set.seed(1)
+x &lt;- rmatrix(5,5, rnorm, mean=0, sd=5)
+x
+
+# posneg-transform: split positive and negative part
+y &lt;- posneg(x)
+dim(y)
+# posneg-reverse
+z &lt;- rposneg(y)
+identical(x, z)
+rposneg(y, unstack=FALSE)
+
+# But posneg-transformation with a non zero threshold is not reversible
+y1 &lt;- posneg(x, 1)
+identical(rposneg(y1), x)
+
+#----------
+# rposneg,NMF-method
+#----------
+# random mixed signed NMF model
+M &lt;- nmfModel(rmatrix(10, 3, rnorm), rmatrix(3, 4))
+# split positive and negative part
+nnM &lt;- posneg(M)
+M2 &lt;- rposneg(nnM)
+identical(M, M2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

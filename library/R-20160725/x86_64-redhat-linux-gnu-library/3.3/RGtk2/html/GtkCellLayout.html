@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellLayout</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellLayout {RGtk2}"><tr><td>GtkCellLayout {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellLayout</h2>
+
+<h3>Description</h3>
+
+<p>An interface for packing cells</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellLayoutPackStart.html">gtkCellLayoutPackStart</a>(object, cell, expand = TRUE)</code><br />
+<code><a href="gtkCellLayoutPackEnd.html">gtkCellLayoutPackEnd</a>(object, cell, expand = TRUE)</code><br />
+<code><a href="gtkCellLayoutGetCells.html">gtkCellLayoutGetCells</a>(object)</code><br />
+<code><a href="gtkCellLayoutReorder.html">gtkCellLayoutReorder</a>(object, cell, position)</code><br />
+<code><a href="gtkCellLayoutClear.html">gtkCellLayoutClear</a>(object)</code><br />
+<code><a href="gtkCellLayoutSetAttributes.html">gtkCellLayoutSetAttributes</a>(object, cell, ...)</code><br />
+<code><a href="gtkCellLayoutAddAttribute.html">gtkCellLayoutAddAttribute</a>(object, cell, attribute, column)</code><br />
+<code><a href="gtkCellLayoutSetCellDataFunc.html">gtkCellLayoutSetCellDataFunc</a>(object, cell, func, func.data = NULL)</code><br />
+<code><a href="gtkCellLayoutClearAttributes.html">gtkCellLayoutClearAttributes</a>(object, cell)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GtkCellLayout</pre>
+
+<h3>Implementations</h3>
+
+<p>GtkCellLayout is implemented by
+<code><a href="GtkCellView.html">GtkCellView</a></code>,  <code><a href="GtkComboBox.html">GtkComboBox</a></code>,  <code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>,  <code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code>,  <code><a href="GtkIconView.html">GtkIconView</a></code> and  <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkCellLayout.html">GtkCellLayout</a></code> is an interface to be implemented by all objects which
+want to provide a <code style="white-space: pre;">GtkTreeViewColumn-like</code> API for packing cells, setting
+attributes and data funcs.
+</p>
+<p>One of the notable features provided by implementations of GtkCellLayout
+are <em>attributes</em>. Attributes let you set the properties
+in flexible ways. They can just be set to constant values like regular
+properties. But they can also be mapped to a column of the underlying
+tree model with <code><a href="gtkCellLayoutSetAttributes.html">gtkCellLayoutSetAttributes</a></code>, which means that the value
+of the attribute can change from cell to cell as they are rendered by the
+cell renderer. Finally, it is possible to specify a function with
+<code><a href="gtkCellLayoutSetCellDataFunc.html">gtkCellLayoutSetCellDataFunc</a></code> that is called to determine the value
+of the attribute for each cell that is rendered.</p>
+
+
+<h3>GtkCellLayouts as GtkBuildable</h3>
+
+<p>Implementations of GtkCellLayout which also implement the GtkBuildable
+interface (<code><a href="GtkCellView.html">GtkCellView</a></code>, <code><a href="GtkIconView.html">GtkIconView</a></code>, <code><a href="GtkComboBox.html">GtkComboBox</a></code>, <code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>,
+<code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code>, <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code>) accept GtkCellRenderer objects
+as &lt;child&gt; elements in UI definitions. They support a custom
+&lt;attributes&gt; element for their children, which can contain
+multiple &lt;attribute&gt; elements. Each &lt;attribute&gt; element has
+a name attribute which specifies a property of the cell renderer; the
+content of the element is the attribute value.
+</p>
+<p><em>A UI definition fragment specifying attributes</em></p>
+<pre>&lt;object class="GtkCellView"&gt;
+  &lt;child&gt;
+    &lt;object class="GtkCellRendererText"/&gt;
+    &lt;attributes&gt;
+      &lt;attribute name="text"&gt;0&lt;/attribute&gt;
+    &lt;/attributes&gt;
+  &lt;/child&gt;"
+&lt;/object&gt;
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellLayout</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkCellLayoutDataFunc(cell.layout, cell, tree.model, iter, data)</code></dt><dd>
+<p>A function which should set the value of <code>cell.layout</code>'s cell renderer(s)
+as appropriate.
+</p>
+
+<dl>
+<dt><code>cell.layout</code></dt><dd><p>a <code><a href="GtkCellLayout.html">GtkCellLayout</a></code></p>
+</dd>
+<dt><code>cell</code></dt><dd><p>the cell renderer whose value is to be set</p>
+</dd>
+<dt><code>tree.model</code></dt><dd><p>the model</p>
+</dd>
+<dt><code>iter</code></dt><dd><p>a <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> indicating the row to set the value for</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data passed to <code><a href="gtkCellLayoutSetCellDataFunc.html">gtkCellLayoutSetCellDataFunc</a></code></p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellLayout.html">http://library.gnome.org/devel//gtk/GtkCellLayout.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

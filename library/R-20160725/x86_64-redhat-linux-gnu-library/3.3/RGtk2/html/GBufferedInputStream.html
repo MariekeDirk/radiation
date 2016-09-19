@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GBufferedInputStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GBufferedInputStream {RGtk2}"><tr><td>GBufferedInputStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GBufferedInputStream</h2>
+
+<h3>Description</h3>
+
+<p>Buffered Input Stream</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gBufferedInputStreamNew.html">gBufferedInputStreamNew</a>(base.stream = NULL)</code><br />
+<code><a href="gBufferedInputStreamNewSized.html">gBufferedInputStreamNewSized</a>(base.stream, size)</code><br />
+<code><a href="gBufferedInputStreamGetBufferSize.html">gBufferedInputStreamGetBufferSize</a>(object)</code><br />
+<code><a href="gBufferedInputStreamSetBufferSize.html">gBufferedInputStreamSetBufferSize</a>(object, size)</code><br />
+<code><a href="gBufferedInputStreamGetAvailable.html">gBufferedInputStreamGetAvailable</a>(object)</code><br />
+<code><a href="gBufferedInputStreamPeekBuffer.html">gBufferedInputStreamPeekBuffer</a>(object)</code><br />
+<code><a href="gBufferedInputStreamFill.html">gBufferedInputStreamFill</a>(object, count, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gBufferedInputStreamFillAsync.html">gBufferedInputStreamFillAsync</a>(object, count, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gBufferedInputStreamFillFinish.html">gBufferedInputStreamFillFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gBufferedInputStreamReadByte.html">gBufferedInputStreamReadByte</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code>gBufferedInputStream(base.stream, size)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInputStream
+         +----GFilterInputStream
+               +----GBufferedInputStream
+                     +----GDataInputStream</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Buffered input stream implements <code><a href="GFilterInputStream.html">GFilterInputStream</a></code> and provides 
+for buffered reads. 
+</p>
+<p>By default, <code><a href="GBufferedInputStream.html">GBufferedInputStream</a></code>'s buffer size is set at 4 kilobytes.
+</p>
+<p>To create a buffered input stream, use <code><a href="gBufferedInputStreamNew.html">gBufferedInputStreamNew</a></code>, 
+or <code><a href="gBufferedInputStreamNewSized.html">gBufferedInputStreamNewSized</a></code> to specify the buffer's size at 
+construction.
+</p>
+<p>To get the size of a buffer within a buffered input stream, use 
+<code><a href="gBufferedInputStreamGetBufferSize.html">gBufferedInputStreamGetBufferSize</a></code>. To change the size of a 
+buffered input stream's buffer, use
+<code><a href="gBufferedInputStreamSetBufferSize.html">gBufferedInputStreamSetBufferSize</a></code>. Note that the buffer's size 
+cannot be reduced below the size of the data within the buffer.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GBufferedInputStream</code></dt><dd>
+<p>Implements <code><a href="GFilterInputStream.html">GFilterInputStream</a></code> with a sized input buffer.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gBufferedInputStream</code> is the result of collapsing the constructors of <code>GBufferedInputStream</code> (<code><a href="gBufferedInputStreamNew.html">gBufferedInputStreamNew</a></code>, <code><a href="gBufferedInputStreamNewSized.html">gBufferedInputStreamNewSized</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">buffer-size</code> [numeric : Read / Write / Construct]</dt><dd>
+<p>The size of the backend buffer.  Allowed values: &gt;= 1  Default value: 4096
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GBufferedInputStream.html">http://library.gnome.org/devel//gio/GBufferedInputStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

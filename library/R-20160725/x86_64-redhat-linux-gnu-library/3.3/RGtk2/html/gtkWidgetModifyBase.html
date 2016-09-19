@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetModifyBase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetModifyBase {RGtk2}"><tr><td>gtkWidgetModifyBase {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetModifyBase</h2>
+
+<h3>Description</h3>
+
+<p>Sets the base color for a widget in a particular state.
+All other style values are left untouched. The base color
+is the background color used along with the text color
+(see <code><a href="gtkWidgetModifyText.html">gtkWidgetModifyText</a></code>) for widgets such as <code><a href="GtkEntry.html">GtkEntry</a></code>
+and <code><a href="GtkTextView.html">GtkTextView</a></code>. See also <code><a href="gtkWidgetModifyStyle.html">gtkWidgetModifyStyle</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetModifyBase(object, state, color = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">state</code></code></td>
+<td>
+<p>the state for which to set the base color</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">color</code></code></td>
+<td>
+<p>the color to assign (does not need to be allocated),
+or <code>NULL</code> to undo the effect of previous calls to
+of <code><a href="gtkWidgetModifyBase.html">gtkWidgetModifyBase</a></code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that &quot;no window&quot; widgets (which have the <code>GTK_NO_WINDOW</code> flag set)
+draw on their parent container's window and thus may not draw any 
+background themselves. This is the case for e.g. <code><a href="GtkLabel.html">GtkLabel</a></code>. To modify 
+the background of such widgets, you have to set the base color on their 
+parent; if you want to set the background of a rectangular area around 
+a label, try placing the label in a <code><a href="GtkEventBox.html">GtkEventBox</a></code> widget and setting 
+the base color on that.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

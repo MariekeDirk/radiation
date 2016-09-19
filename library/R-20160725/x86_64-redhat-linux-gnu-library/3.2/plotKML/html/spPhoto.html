@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate an object of class '&quot;SpatialPhotoOverlay&quot;'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spPhoto {plotKML}"><tr><td>spPhoto {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate an object of class <code>"SpatialPhotoOverlay"</code></h2>
+
+<h3>Description</h3>
+
+<p><code>spPhoto</code> function can be used to wrap pixel map (<code>pixmapRGB</code>), <a href="http://en.wikipedia.org/wiki/Exchangeable_image_file_format">EXIF</a> (Exchangeable Image File format) data, spatial location information (standing point), and <code>PhotoOverlay</code> (geometry) parameters to create an object of class <code>"SpatialPhotoOverlay"</code>. This object can then be parsed to KML and visualized using Google Earth.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>spPhoto(filename, obj, pixmap, exif.info = NULL, ImageWidth = 0, 
+   ImageHeight = 0, bands = rep(rep(1, ImageHeight*ImageWidth), 3), 
+   bbox = c(0, 0, 3/36000*ImageWidth, 3/36000*ImageHeight),
+   DateTime = "", ExposureTime = "", FocalLength = "50 mm", 
+   Flash = "No Flash", rotation = 0, leftFov = -30, rightFov = 30, 
+   bottomFov = -30, topFov = 30, near = 50, 
+   shape = c("rectangle", "cylinder", "sphere")[1], range = 1000, tilt = 90, 
+   heading = 0, roll = 0, test.filename = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>file name with extension (ideally an URL)</p>
+</td></tr>
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>object of class &quot;SpatialPoints&quot; (requires a single point object)</p>
+</td></tr>
+<tr valign="top"><td><code>pixmap</code></td>
+<td>
+<p>object of class &quot;pixmapRGB&quot; (see package pixmap)</p>
+</td></tr>
+<tr valign="top"><td><code>exif.info</code></td>
+<td>
+<p>named list containing all available <a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html">EXIF</a> metadata</p>
+</td></tr>
+<tr valign="top"><td><code>ImageWidth</code></td>
+<td>
+<p>(optional) image width in pixels</p>
+</td></tr>
+<tr valign="top"><td><code>ImageHeight</code></td>
+<td>
+<p>(optional) image height in pixels</p>
+</td></tr>
+<tr valign="top"><td><code>bands</code></td>
+<td>
+<p>(optional) RGB bands as vectors (see <code>pixmap::pixmapRGB</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>bbox</code></td>
+<td>
+<p>(optional) bounding box coordinates (by default 1 pixel is about 1 m in arc degrees)</p>
+</td></tr>  
+<tr valign="top"><td><code>DateTime</code></td>
+<td>
+<p>(optional) usually available from the camera EXIF data</p>
+</td></tr>
+<tr valign="top"><td><code>ExposureTime</code></td>
+<td>
+<p>(optional) usually available from the camera EXIF data</p>
+</td></tr>
+<tr valign="top"><td><code>FocalLength</code></td>
+<td>
+<p>(optional) usually available from the camera EXIF data</p>
+</td></tr>
+<tr valign="top"><td><code>Flash</code></td>
+<td>
+<p>(optional) usually available from the camera EXIF data</p>
+</td></tr>
+<tr valign="top"><td><code>rotation</code></td>
+<td>
+<p>(optional) rotation angle in 0&ndash;90 degrees</p>
+</td></tr>
+<tr valign="top"><td><code>leftFov</code></td>
+<td>
+<p>(optional) angle, in degrees, between the camera's viewing direction and the left side of the view volume (-180 &ndash; 0)</p>
+</td></tr>
+<tr valign="top"><td><code>rightFov</code></td>
+<td>
+<p>(optional) angle, in degrees, between the camera's viewing direction and the right side of the view volume (0 &ndash; 180)</p>
+</td></tr>
+<tr valign="top"><td><code>bottomFov</code></td>
+<td>
+<p>(optional) angle, in degrees, between the camera's viewing direction and the bottom side of the view volume (-90 &ndash; 0)</p>
+</td></tr>
+<tr valign="top"><td><code>topFov</code></td>
+<td>
+<p>(optional) angle, in degrees, between the camera's viewing direction and the top side of the view volume (0 &ndash; 90)</p>
+</td></tr>
+<tr valign="top"><td><code>near</code></td>
+<td>
+<p>(optional) measurement in meters along the viewing direction from the camera viewpoint to the PhotoOverlay shape</p>
+</td></tr>
+<tr valign="top"><td><code>shape</code></td>
+<td>
+<p>(optional) shape type &mdash; rectangle (standard photograph), cylinder (for panoramas), or sphere (for spherical panoramas)</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+<p>(optional) distance from the camera to the placemark</p>
+</td></tr>
+<tr valign="top"><td><code>tilt</code></td>
+<td>
+<p>(optional) rotation, in degrees, of the camera around the X axis</p>
+</td></tr>
+<tr valign="top"><td><code>heading</code></td>
+<td>
+<p>(optional) direction (azimuth) of the camera, in degrees (0 &ndash; 360)</p>
+</td></tr>
+<tr valign="top"><td><code>roll</code></td>
+<td>
+<p>(optional) rotation about the y axis, in degrees (0 &ndash; 180)</p>
+</td></tr>
+<tr valign="top"><td><code>test.filename</code></td>
+<td>
+<p>logical; species whether a test should be first performed that the file name really exists (recommended)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The most effective way to import a field photograph to <code>SpatialPhotoOverlay</code> for parsing to KML is to: (<strong>a</strong>) use the <a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">EXIF tool</a> (courtesy of Phil Harvey) to add any important tags in the image file, (<strong>b</strong>) once you've added all important tags, you can upload your image either to a local installation of Mediawiki or to a public portal such as the <a href="http://commons.wikimedia.org/wiki/Special:UploadWizard">Wikimedia Commons</a>, (<strong>c</strong>) enter the missing information if necessary and add an image description. Once the image is on the server, you only need to record its unique name and then read all metadata from the Wikimedia server following the examples below.<br /> 
+You can also consider importing images to R by using the <code>pixmap</code> package, and reading the technical information via e.g. the <a href="https://cran.r-project.org/package=exif"><code>exif</code></a> package. If the image is taken using a GPS enabled camera, by getting the EXIF metadata you can generate the complete <code>SpatialPhotoOverlay</code> object with minimum user interaction. Otherwise, you need to at least specify: creation date, file name, and location of the focal point of the camera (e.g. by creating <code>"SpatialPoints"</code> object).
+</p>
+
+
+<h3>Value</h3>
+
+<p> Returns an object of class <code>"SpatialPhotoOverlay"</code>:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>URL location of the original image</p>
+</td></tr>
+<tr valign="top"><td><code>pixmap</code></td>
+<td>
+<p>optional; local copy of the image (<code>"pixmapRGB"</code> class)</p>
+</td></tr>
+<tr valign="top"><td><code>exif.info</code></td>
+<td>
+<p>list of EXIF metadata</p>
+</td></tr>
+<tr valign="top"><td><code>PhotoOverlay</code></td>
+<td>
+<p>list of the camera geometry parameters (KML specifications)</p>
+</td></tr>
+<tr valign="top"><td><code>sp</code></td>
+<td>
+<p>location of the camera (<code>"SpatialPoints"</code> class)</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The <code>spPhoto</code> function will try to automatically fix the aspect ratio of the <code>ViewVolume</code> settings (<code>leftFov</code>, <code>rightFov</code>, <code>bottomFov</code>, <code>topFov</code>), and based on the original aspect ratio as specified in the EXIF data. This might not work for all images, in which case you will have to manually adjust those parameters.<br />
+Dimension of <code>3/36000*ImageWidth</code> in decimal degrees is about 10 m in nature (3-arc seconds is about 100 m, depending on the latitude). 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> EXIF tool (<a href="http://www.sno.phy.queensu.ca/~phil/exiftool/">http://www.sno.phy.queensu.ca/~phil/exiftool/</a>)
+</p>
+</li>
+<li><p> Wikimedia API (<a href="http://www.mediawiki.org/wiki/API">http://www.mediawiki.org/wiki/API</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="getWikimedia.html">getWikiMedia.ImageInfo</a></code>, <code>pixmap::pixmapRGB</code>, <code><a href="spMetadata.html">spMetadata</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: # two examples with images on Wikimedia Commons
+# (1) soil monolith (manually entered coordinates):
+imagename = "Soil_monolith.jpg"
+# import EXIF data using the Wikimedia API:
+x1 &lt;- getWikiMedia.ImageInfo(imagename)
+# create a SpatialPhotoOverlay:
+sm &lt;- spPhoto(filename = x1$url$url, exif.info = x1$metadata)
+# plot it in Google Earth
+kml(sm, method="monolith", kmz=TRUE)
+# (2) PhotoOverlay (geotagged photo):
+imagename = "Africa_Museum_Nijmegen.jpg"
+x2 &lt;- getWikiMedia.ImageInfo(imagename)
+af &lt;- spPhoto(filename = x2$url$url, exif.info = x2$metadata)
+kml(af)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

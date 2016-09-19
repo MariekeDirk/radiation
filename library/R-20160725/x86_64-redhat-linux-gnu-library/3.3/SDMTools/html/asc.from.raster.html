@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Raster conversion functions for adehabitat, raster and sp...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for asc.from.raster {SDMTools}"><tr><td>asc.from.raster {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Raster conversion functions for adehabitat, raster and sp packages</h2>
+
+<h3>Description</h3>
+
+<p><code>asc.from.raster</code> and <code>asc.from.sp</code> extracts data
+from objects of class 'RasterLayer' (raster package) and
+class 'SpatialGridDataFrame' (sp package) into an object of
+class 'asc' (SDMTools &amp; adehabitat packages). <br /> <br />
+<code>raster.from.asc</code> and <code>sp.from.asc</code> does the
+reverse.<br /><br /> <code>as.asc</code> creates an object of class
+'asc' (SDMTools &amp; adehabitat packages) from a matrix of
+data. Code &amp; helpfile associated with <code>as.asc</code> were
+modified from adehabitat package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+asc.from.raster(x)
+
+raster.from.asc(x, projs = NA)
+
+asc.from.sp(x)
+
+sp.from.asc(x, projs = CRS(as.character(NA)))
+
+as.asc(x, xll = 1, yll = 1, cellsize = 1, type = c("numeric", "factor"),
+  lev = levels(factor(x)))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>is an object of class 'asc', 'RasterLayer' or
+'SpatialGridDataFrame'. For the function <code>as.asc</code>, a
+matrix</p>
+</td></tr>
+<tr valign="top"><td><code>projs</code></td>
+<td>
+<p>is a CRS projection string of the Proj4
+package</p>
+</td></tr>
+<tr valign="top"><td><code>xll</code></td>
+<td>
+<p>the x coordinate of the center of the lower
+left pixel of the map</p>
+</td></tr>
+<tr valign="top"><td><code>yll</code></td>
+<td>
+<p>the y coordinate of the center of the lower
+left pixel of the map</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>the size of a pixel on the studied map</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>a character string. Either <code>"numeric"</code>
+or <code>"factor"</code></p>
+</td></tr>
+<tr valign="top"><td><code>lev</code></td>
+<td>
+<p>if <code>type = "factor"</code>, either a vector
+giving the labels of the factor levels, or the name of a
+file giving the correspondence table of the map (see
+adehabitat as.asc helpfile details)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions provide capabilities of using scripts /
+functions from many packages including adehabitat (plus
+e.g, SDMTools), sp (plus e.g., maptools, rgdal) and raster.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class requested.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#create a simple object of class 'asc'
+tasc = as.asc(matrix(rep(x=1:10, times=1000),nr=100)); print(tasc)
+str(tasc)
+
+#convert to RasterLayer
+traster = raster.from.asc(tasc)
+str(traster)
+
+#convert to SpatialGridDataFrame
+tgrid = sp.from.asc(tasc)
+str(tgrid)
+
+#create a basic object of class asc
+tasc = as.asc(matrix(rep(x=1:10, times=1000),nr=100)); print(tasc)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

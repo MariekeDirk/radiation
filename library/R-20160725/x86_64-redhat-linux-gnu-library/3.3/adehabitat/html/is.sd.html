@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Handling of Trajectories of the Same Duration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for is.sd {adehabitat}"><tr><td>is.sd {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Handling of Trajectories of the Same Duration</h2>
+
+<h3>Description</h3>
+
+<p><code>is.sd</code> tests whether the bursts of relocations in an object of
+class <code>ltraj</code> contain the same number of relocations, and cover
+the same duration (&quot;sd&quot; = &quot;same duration&quot;).<br />
+<code>sd2df</code> gets one of the descriptive parameters of a regular &quot;sd&quot;
+trajectory (e.g. <code>"dt"</code>, <code>"dist"</code>, etc.) and returns a data
+frame with one relocation per row, and one burst per column. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+is.sd(ltraj)
+sd2df(ltraj, what)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ltraj</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+<p>a character string indicating the descriptive parameter of
+the trajectory to be exported</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>is.sd</code> returns a logical value.<br />
+<code>sd2df</code> returns a data frame with one column per burst of
+relocations, and one row per relocation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="set.limits.html">set.limits</a></code> for additional information about
+&quot;sd&quot; regular trajectories </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Takes the example from the help page of cutltraj (bear):
+data(bear)
+
+## We want to study the trajectory of the animal at the scale
+## of the day. We define one trajectory per day. The trajectory should begin
+## at 22H00.
+## The following function returns TRUE if the date is comprised between
+## 21H00 and 22H00 and FALSE otherwise (i.e. correspond to the
+## relocation taken at 21H30)
+
+foo &lt;- function(date) {
+     da &lt;- as.POSIXlt(date, "GMT")
+     ho &lt;- da$hour + da$min/60
+     return(ho&gt;21.1&amp;ho&lt;21.9)
+}
+
+## We cut the trajectory into bursts after the relocation taken at 21H30:
+
+bea1 &lt;- cutltraj(bear, "foo(date)", nextr = TRUE)
+bea1
+
+## Remove the first and last burst:
+bea2 &lt;- bea1[-c(1,length(bea1))]
+
+## Is the resulting object "sd" ?
+is.sd(bea2)
+
+## Converts to data frame:
+df &lt;- sd2df(bea2, "dist")
+
+## Plots the average distance per hour
+meandi &lt;- apply(df[-nrow(df),], 1, mean, na.rm = TRUE)
+sedi &lt;- apply(df[-nrow(df),], 1, sd, na.rm = TRUE) / sqrt(ncol(df))
+plot(seq(0, 23.5, length = 47),
+     meandi,
+     ty = "b", pch = 16, xlab = "Hours (time 0 = 22H00)",
+     ylab="Average distance covered by the bear in 30 mins",
+     ylim=c(0, 500))
+lines(seq(0, 23.5, length = 47),
+      meandi+sedi, col="grey")
+lines(seq(0, 23.5, length = 47),
+      meandi-sedi, col="grey")
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

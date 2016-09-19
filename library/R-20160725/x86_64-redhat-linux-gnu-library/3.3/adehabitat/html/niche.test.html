@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Monte-Carlo Test on Parameters of the Ecological Niche</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for niche.test {adehabitat}"><tr><td>niche.test {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Monte-Carlo Test on Parameters of the Ecological Niche</h2>
+
+<h3>Description</h3>
+
+<p><code>niche.test</code> tests for the significance of two parameters of the
+ecological niche of a species (marginality and tolerance), using
+Monte-Carlo methods.  This is a bivariate test.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+niche.test(kasc, points, nrep = 999, o.include = TRUE, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kasc</code></td>
+<td>
+<p>a raster map of class <code>kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>points</code></td>
+<td>
+<p>a data frame with two columns, giving the coordinates of
+the species locations</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+<p>the number of permutations</p>
+</td></tr>
+<tr valign="top"><td><code>o.include</code></td>
+<td>
+<p>logical, passed to <code>biv.test</code>.  If <code>TRUE</code>,
+the origin is included in the plot</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to <code>biv.test</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>niche.test</code> tests the significance of two parameters describing
+the ecological niche: the marginality
+(squared length of the vector linking the average available habitat
+conditions to the average used habitat conditions in the ecological
+space defined by the habitat variables), and the tolerance (inertia of
+the niche in the ecological space, i.e. the sum over all variables of
+the variance of used pixels). <br />
+</p>
+<p>At each step of the randomisation procedure, 
+the test randomly allocates the n points in the pixels of the map.
+The marginality and the tolerance are then recomputed on this
+randomised data set.<br />
+</p>
+<p>Actual values are compared to random values with the help of the
+function <code>biv.test</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a list containing the following
+components: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>dfxy</code></td>
+<td>
+<p>a data frame with the randomized values of marginality
+(first column) and tolerance (second column).</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>the actual value of marginality and tolerance.</p>
+</td></tr>
+</table>
+
+
+<h3>Warning</h3>
+
+<p><code>biv.test</code> uses the function <code>kde2d</code> of the package <code>MASS</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mathieu Basille <a href="mailto:basille@ase-research.org">basille@ase-research.org</a><br />
+Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="biv.test.html">biv.test</a></code> for more details on bivariate tests. 
+<code><a href="histniche.html">histniche</a></code> for the histograms of the variables of the niche.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+data(lynxjura)
+
+## We keep only "wild" indices.
+tmp=lynxjura$loc[,4]!="D"
+niche=niche.test(lynxjura$map,
+                 lynxjura$locs[tmp, c("X", "Y")],
+                 side = "bottom")
+names(niche)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

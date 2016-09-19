@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Make predictions or extract coefficients from a fitted lars...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.lars {lars}"><tr><td>predict.lars {lars}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Make predictions or extract coefficients from a fitted lars model
+</h2>
+
+<h3>Description</h3>
+
+<p>While lars() produces the entire path of solutions, predict.lars
+allows one to extract a prediction at a particular point along the path.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lars'
+predict(object, newx, s, type = c("fit", "coefficients"), mode = c("step", 
+    "fraction", "norm", "lambda"), ...)
+## S3 method for class 'lars'
+coef(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>A fitted lars object
+</p>
+</td></tr>
+<tr valign="top"><td><code>newx</code></td>
+<td>
+
+<p>If type=&quot;fit&quot;, then newx should be the x values at which the fit is
+required. If type=&quot;coefficients&quot;, then newx can be omitted.
+</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+
+<p>a value, or vector of values, indexing the path. Its values depends on the mode= argument. By
+default (mode=&quot;step&quot;), s should take on values between 0 and p (e.g.,
+a step of 1.3 means .3 of the way between step 1 and 2.)
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>If type=&quot;fit&quot;, predict returns the fitted values. If
+type=&quot;coefficients&quot;, predict returns the coefficients.
+Abbreviations allowed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>mode</code></td>
+<td>
+
+<p>Mode=&quot;step&quot; means the s= argument indexes the lars step number, and
+the coefficients will be returned corresponding to the values
+corresponding to step s. If mode=&quot;fraction&quot;, then s should be a number
+between 0 and 1, and it refers to the ratio of the L1 norm of the
+coefficient vector, relative to the norm at the full LS solution.
+Mode=&quot;norm&quot; means s refers to the L1 norm of the coefficient vector.
+Mode=&quot;lambda&quot; uses the lasso regularization parameter for s; for other
+models it is the maximal correlation (does not make sense for
+lars/stepwise models).
+Abbreviations allowed.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Any arguments for <code>predict.lars</code> should work for <code>coef.lars</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>LARS is described in detail in Efron, Hastie, Johnstone and Tibshirani
+(2002). With the &quot;lasso&quot; option, it computes the complete lasso
+solution simultaneously for ALL values of the shrinkage parameter in
+the same computational cost as a least squares fit.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Either a vector/matrix of fitted values, or a vector/matrix of coefficients.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Trevor Hastie</p>
+
+
+<h3>References</h3>
+
+<p>Efron, Hastie, Johnstone and Tibshirani (2002) &quot;Least Angle Regression&quot;
+(with discussion) <em>Annals of Statistics</em>; see also
+<a href="http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf">http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf</a>.
+Hastie, Tibshirani and Friedman (2002) Elements of Statistical Learning, Springer, NY.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>print, plot,  lars, cv.lars
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(diabetes)
+attach(diabetes)
+object &lt;- lars(x,y,type="lasso")
+### make predictions at the values in x, at each of the
+### steps produced in object
+fits &lt;- predict.lars(object, x, type="fit")
+### extract the coefficient vector with L1 norm=4.1
+coef4.1 &lt;- coef(object, s=4.1, mode="norm") # or
+coef4.1 &lt;- predict(object, s=4.1, type="coef", mode="norm")
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>lars</em> version 1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

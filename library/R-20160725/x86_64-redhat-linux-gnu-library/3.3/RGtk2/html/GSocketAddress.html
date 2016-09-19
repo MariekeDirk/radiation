@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GSocketAddress</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GSocketAddress {RGtk2}"><tr><td>GSocketAddress {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GSocketAddress</h2>
+
+<h3>Description</h3>
+
+<p>Abstract base class representing endpoints for
+socket communication</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gSocketAddressNewFromNative.html">gSocketAddressNewFromNative</a>(native, len)</code><br />
+<code><a href="gSocketAddressGetFamily.html">gSocketAddressGetFamily</a>(object)</code><br />
+<code><a href="gSocketAddressToNative.html">gSocketAddressToNative</a>(object, dest, destlen, .errwarn = TRUE)</code><br />
+<code><a href="gSocketAddressGetNativeSize.html">gSocketAddressGetNativeSize</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GObject
+   +----GSocketAddress
+         +----GInetSocketAddress
+         +----GUnixSocketAddress
+GEnum
+   +----GSocketFamily
+</pre>
+
+<h3>Interfaces</h3>
+
+<p>GSocketAddress implements
+<code><a href="GSocketConnectable.html">GSocketConnectable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GSocketAddress.html">GSocketAddress</a></code> is the equivalent of <code style="white-space: pre;">structsockaddr</code>
+in the BSD sockets API. This is an abstract class; use
+<code><a href="GInetSocketAddress.html">GInetSocketAddress</a></code> for internet sockets, or <code style="white-space: pre;">GUnixSocketAddress</code>
+for UNIX domain sockets.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GSocketAddress</code></dt><dd>
+<p>A socket endpoint address, corresponding to <code style="white-space: pre;">structsockaddr</code>
+or one of its subtypes.
+</p>
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GSocketFamily</code></dt><dd>
+<p>The protocol family of a <code><a href="GSocketAddress.html">GSocketAddress</a></code>. (These values are
+identical to the system defines <code>AF_INET</code>, <code>AF_INET6</code> and <code>AF_UNIX</code>,
+if available.)
+Since 2.22
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">invalid</code></dt><dd><p>no address family</p>
+</dd>
+<dt><code style="white-space: pre;">unix</code></dt><dd><p>the UNIX domain family</p>
+</dd>
+<dt><code style="white-space: pre;">ipv4</code></dt><dd><p>the IPv4 family</p>
+</dd>
+<dt><code style="white-space: pre;">ipv6</code></dt><dd><p>the IPv6 family</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">family</code> [<code><a href="GSocketAddress.html">GSocketFamily</a></code> : Read]</dt><dd>
+<p>The family of the socket address.  Default value: G_SOCKET_FAMILY_INVALID
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GSocketAddress.html">http://library.gnome.org/devel//gio/GSocketAddress.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkButton {RGtk2}"><tr><td>GtkButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkButton</h2>
+
+<h3>Description</h3>
+
+<p>A widget that creates a signal when clicked on</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkButtonNew.html">gtkButtonNew</a>(show = TRUE)</code><br />
+<code><a href="gtkButtonNewWithLabel.html">gtkButtonNewWithLabel</a>(label, show = TRUE)</code><br />
+<code><a href="gtkButtonNewWithMnemonic.html">gtkButtonNewWithMnemonic</a>(label, show = TRUE)</code><br />
+<code><a href="gtkButtonNewFromStock.html">gtkButtonNewFromStock</a>(stock.id, show = TRUE)</code><br />
+<code><a href="gtkButtonPressed.html">gtkButtonPressed</a>(object)</code><br />
+<code><a href="gtkButtonReleased.html">gtkButtonReleased</a>(object)</code><br />
+<code><a href="gtkButtonClicked.html">gtkButtonClicked</a>(object)</code><br />
+<code><a href="gtkButtonEnter.html">gtkButtonEnter</a>(object)</code><br />
+<code><a href="gtkButtonLeave.html">gtkButtonLeave</a>(object)</code><br />
+<code><a href="gtkButtonSetRelief.html">gtkButtonSetRelief</a>(object, newstyle)</code><br />
+<code><a href="gtkButtonGetRelief.html">gtkButtonGetRelief</a>(object)</code><br />
+<code><a href="gtkButtonGetLabel.html">gtkButtonGetLabel</a>(object)</code><br />
+<code><a href="gtkButtonSetLabel.html">gtkButtonSetLabel</a>(object, label)</code><br />
+<code><a href="gtkButtonGetUseStock.html">gtkButtonGetUseStock</a>(object)</code><br />
+<code><a href="gtkButtonSetUseStock.html">gtkButtonSetUseStock</a>(object, use.stock)</code><br />
+<code><a href="gtkButtonGetUseUnderline.html">gtkButtonGetUseUnderline</a>(object)</code><br />
+<code><a href="gtkButtonSetUseUnderline.html">gtkButtonSetUseUnderline</a>(object, use.underline)</code><br />
+<code><a href="gtkButtonSetFocusOnClick.html">gtkButtonSetFocusOnClick</a>(object, focus.on.click)</code><br />
+<code><a href="gtkButtonGetFocusOnClick.html">gtkButtonGetFocusOnClick</a>(object)</code><br />
+<code><a href="gtkButtonSetAlignment.html">gtkButtonSetAlignment</a>(object, xalign, yalign)</code><br />
+<code><a href="gtkButtonGetAlignment.html">gtkButtonGetAlignment</a>(object)</code><br />
+<code><a href="gtkButtonSetImage.html">gtkButtonSetImage</a>(object, image)</code><br />
+<code><a href="gtkButtonGetImage.html">gtkButtonGetImage</a>(object)</code><br />
+<code><a href="gtkButtonSetImagePosition.html">gtkButtonSetImagePosition</a>(object, position)</code><br />
+<code><a href="gtkButtonGetImagePosition.html">gtkButtonGetImagePosition</a>(object)</code><br />
+<code>gtkButton(label, stock.id, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkButton
+                                       +----GtkToggleButton
+                                       +----GtkColorButton
+                                       +----GtkFontButton
+                                       +----GtkLinkButton
+                                       +----GtkOptionMenu
+                                       +----GtkScaleButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkButton.html">GtkButton</a></code> widget is generally used to attach a function to that
+is called when the button is pressed.  The various signals and how to use
+them are outlined below.
+</p>
+<p>The <code><a href="GtkButton.html">GtkButton</a></code> widget can hold any valid child widget.  That is it can
+hold most any other standard <code><a href="GtkWidget.html">GtkWidget</a></code>.  The most commonly used child is
+the <code><a href="GtkLabel.html">GtkLabel</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkButton</code></dt><dd>
+<p>This should not be accessed directly.  Use the accessor functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkButton</code> is the result of collapsing the constructors of <code>GtkButton</code> (<code><a href="gtkButtonNew.html">gtkButtonNew</a></code>, <code><a href="gtkButtonNewWithLabel.html">gtkButtonNewWithLabel</a></code>, <code><a href="gtkButtonNewFromStock.html">gtkButtonNewFromStock</a></code>, <code><a href="gtkButtonNewWithMnemonic.html">gtkButtonNewWithMnemonic</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>activate(widget, user.data)</code></dt><dd>
+<p>The ::activate signal on GtkButton is an action signal and
+emitting it causes the button to animate press then release.
+Applications should never connect to this signal, but use the
+<code><a href="gtkButtonClicked.html">gtkButtonClicked</a></code> signal.
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>clicked(button, user.data)</code></dt><dd>
+<p>Emitted when the button has been activated (pressed and released).
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>enter(button, user.data)</code></dt><dd>
+<p>Emitted when the pointer enters the button.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>leave(button, user.data)</code></dt><dd>
+<p>Emitted when the pointer leaves the button.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>pressed(button, user.data)</code></dt><dd>
+<p>Emitted when the button is pressed.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>released(button, user.data)</code></dt><dd>
+<p>Emitted when the button is released.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">focus-on-click</code> [logical : Read / Write]</dt><dd>
+<p>Whether the button grabs focus when it is clicked with the mouse.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">image</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Read / Write]</dt><dd>
+<p>Child widget to appear next to the button text.
+</p>
+</dd>
+<dt><code style="white-space: pre;">image-position</code> [<code><a href="gtk-Standard-Enumerations.html">GtkPositionType</a></code> : Read / Write]</dt><dd>
+<p>The position of the image relative to the text inside the button.
+Default value: GTK_POS_LEFT  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">label</code> [character : *                : Read / Write / Construct]</dt><dd>
+<p>Text of the label widget inside the button, if the button contains a label widget.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">relief</code> [<code><a href="gtk-Standard-Enumerations.html">GtkReliefStyle</a></code> : Read / Write]</dt><dd>
+<p>The border relief style.  Default value: GTK_RELIEF_NORMAL
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-stock</code> [logical : Read / Write / Construct]</dt><dd>
+<p>If set, the label is used to pick a stock item instead of being displayed.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-underline</code> [logical : Read / Write / Construct]</dt><dd>
+<p>If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">xalign</code> [numeric : Read / Write]</dt><dd>
+<p>If the child of the button is a <code><a href="GtkMisc.html">GtkMisc</a></code> or <code><a href="GtkAlignment.html">GtkAlignment</a></code>, this property
+can be used to control it's horizontal alignment. 0.0 is left aligned,
+1.0 is right aligned.
+Allowed values: [0,1]  Default value: 0.5  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">yalign</code> [numeric : Read / Write]</dt><dd>
+<p>If the child of the button is a <code><a href="GtkMisc.html">GtkMisc</a></code> or <code><a href="GtkAlignment.html">GtkAlignment</a></code>, this property
+can be used to control it's vertical alignment. 0.0 is top aligned,
+1.0 is bottom aligned.
+Allowed values: [0,1]  Default value: 0.5  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">child-displacement-x</code> [integer : Read]</dt><dd>
+<p>How far in the x direction to move the child when the button is depressed.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">child-displacement-y</code> [integer : Read]</dt><dd>
+<p>How far in the y direction to move the child when the button is depressed.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">default-border</code> [<code><a href="GtkStyle.html">GtkBorder</a></code> : *            : Read]</dt><dd>
+<p>The &quot;default-border&quot; style property defines the extra space to add
+around a button that can become the default widget of its window.
+For more information about default widgets, see <code><a href="gtkWidgetGrabDefault.html">gtkWidgetGrabDefault</a></code>.
+</p>
+</dd>
+<dt><code style="white-space: pre;">default-outside-border</code> [<code><a href="GtkStyle.html">GtkBorder</a></code> : *            : Read]</dt><dd>
+<p>The &quot;default-outside-border&quot; style property defines the extra outside
+space to add around a button that can become the default widget of its
+window. Extra outside space is always drawn outside the button border.
+For more information about default widgets, see <code><a href="gtkWidgetGrabDefault.html">gtkWidgetGrabDefault</a></code>.
+</p>
+</dd>
+<dt><code style="white-space: pre;">displace-focus</code> [logical : Read]</dt><dd>
+<p>Whether the child_displacement_x/child_displacement_y properties
+should also affect the focus rectangle.
+Default value: FALSE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">image-spacing</code> [integer : Read]</dt><dd>
+<p>Spacing in pixels between the image and label.  Allowed values: &gt;= 0  Default value: 2
+</p>
+</dd>
+<dt><code style="white-space: pre;">inner-border</code> [<code><a href="GtkStyle.html">GtkBorder</a></code> : *            : Read]</dt><dd>
+<p>Sets the border between the button edges and child.
+Since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkButton.html">http://library.gnome.org/devel//gtk/GtkButton.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gbm simplify</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gbm.simplify {dismo}"><tr><td>gbm.simplify {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gbm simplify</h2>
+
+<h3>Description</h3>
+
+<p>The function takes an inital cross-validated model as produced by gbm.step 
+and then assesses the potential to remove predictors using k-fold cross validation. 
+This done for each fold, removing the lowest contributing predictor, 
+and repeating this process for a set number of steps. 
+After the removal of each predictor, the change in predictive deviance 
+is computed relative to that obtained when using all predictors. 
+The function returns a list containing the mean change in deviance and its standard error 
+as a function of the number of variables removed. 
+Having completed the cross validation, it then identifies the sequence 
+of variable to remove when using the full data set, testing this 
+up to the number of steps used in the cross-validation phase of the analysis 
+with results reported to the screen. 
+</p>
+<p>The function returns a table containing the order in which variables are to be removed 
+and some vectors, each of which specifies the predictor column numbers 
+in the original dataframe  - the latter can be used as an argument to gbm.step
+e.g., gbm.step(data = data, gbm.x = simplify.object$pred.list[[4]]...
+would implement a new analysis with the original predictor set, minus its
+four lowest contributing predictors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gbm.simplify(gbm.object, n.folds = 10, n.drops = "auto", alpha = 1, prev.stratify = TRUE, 
+   eval.data = NULL, plot = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>gbm.object</code></td>
+<td>
+<p>a gbm object describing sample intensity </p>
+</td></tr>
+<tr valign="top"><td><code>n.folds</code></td>
+<td>
+<p>number of times to repeat the analysis</p>
+</td></tr>
+<tr valign="top"><td><code>n.drops</code></td>
+<td>
+<p>can be automatic or an integer specifying the number of drops to check</p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>controls stopping when n.drops = &quot;auto&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>prev.stratify</code></td>
+<td>
+<p>use prevalence stratification in selecting evaluation data</p>
+</td></tr>
+<tr valign="top"><td><code>eval.data</code></td>
+<td>
+<p>an independent evaluation data set - leave here for now</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p>plot results</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with these elements: 
+deviance.summary, deviance.matrix, drop.count, final.drops, pred.list, and gbm.call = gbm.call))
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John R. Leathwick and Jane Elith
+</p>
+
+
+<h3>References</h3>
+
+<p>Elith, J., J.R. Leathwick and T. Hastie, 2009. A working guide to boosted regression trees. Journal of Animal Ecology 77: 802-81
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

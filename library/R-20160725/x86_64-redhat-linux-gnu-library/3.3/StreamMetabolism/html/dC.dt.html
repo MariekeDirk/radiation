@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Change in Oxygen per time step</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dC.dt {StreamMetabolism}"><tr><td>dC.dt {StreamMetabolism}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Change in Oxygen per time step </h2>
+
+<h3>Description</h3>
+
+<p>Calculate the rate of change of Dissolved Oxygen
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dC.dt(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Dissolved Oxygen time series </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>input zoo series 
+takes the difference of DOt+1 - DOt 
+</p>
+
+
+<h3>Value</h3>
+
+<p>zoo series of Dissolved Oxygen Differences with an NA for the first value as there is no value before that to subtract 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Stephen A Sefick Jr. </p>
+
+
+<h3>References</h3>
+
+<p> Odum, H. T. (1956). &quot;Primary production in flowing waters.&quot; Limnology and Oceanography, 1: 
+102-117. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(DOTemp)
+Diffconc &lt;- dC.dt(DOTemp[,2])
+plot(Diffconc)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>StreamMetabolism</em> version 1.1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

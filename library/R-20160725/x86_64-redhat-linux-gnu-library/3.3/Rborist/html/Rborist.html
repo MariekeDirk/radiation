@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rapid Decision Tree Construction and Evaluation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Rborist {Rborist}"><tr><td>Rborist {Rborist}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Rapid Decision Tree Construction and Evaluation</h2>
+
+<h3>Description</h3>
+
+<p>Accelerated implementation of the Random Forest (trademarked name)
+algorithm.  Tuned for multicore and GPU hardware.  Bindable with most
+numerical front-end languages in addtion to R.  Invocation is
+similar to that provided by &quot;randomForest&quot; package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## Default S3 method:
+ Rborist(x, y, nTree=500, withRepl = TRUE,
+                ctgCensus = "votes",
+                classWeight = NULL,
+                minInfo = 0.01,
+                minNode = ifelse(is.factor(y), 2, 3),
+                nLevel = 0,
+                noValidate = FALSE,
+                nSamp = 0,
+                predFixed = 0,
+                predProb = 0.0,
+                predWeight = NULL, 
+                quantVec = NULL,
+                quantiles = !is.null(quantVec),
+                qBin = 5000,
+                regMono = NULL,
+                rowWeight = NULL,
+                treeBlock = 1,
+                pvtBlock = 8, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> the design matrix expressed as a <code>PreFormat</code> object, as a
+<code>data.frame</code> object with numeric and/or <code>factor</code> columns or
+as a numeric matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> the response (outcome) vector, either numerical or
+categorical.  Row count must conform with <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nTree</code></td>
+<td>
+<p> the number of trees to train.</p>
+</td></tr>
+<tr valign="top"><td><code>withRepl</code></td>
+<td>
+<p>whether row sampling is by replacement.</p>
+</td></tr>
+<tr valign="top"><td><code>ctgCensus</code></td>
+<td>
+<p>report categorical validation by vote or by probability.</p>
+</td></tr>
+<tr valign="top"><td><code>classWeight</code></td>
+<td>
+<p>proportional weighting of classification categories.</p>
+</td></tr>
+<tr valign="top"><td><code>minInfo</code></td>
+<td>
+<p>information ratio with parent below which node does not split.</p>
+</td></tr>
+<tr valign="top"><td><code>minNode</code></td>
+<td>
+<p>minimum number of distinct row references to split a node.</p>
+</td></tr>
+<tr valign="top"><td><code>nLevel</code></td>
+<td>
+<p>maximum number of tree levels to train.  Zero denotes no
+limit.</p>
+</td></tr>
+<tr valign="top"><td><code>noValidate</code></td>
+<td>
+<p>whether to train without validation.</p>
+</td></tr>
+<tr valign="top"><td><code>nSamp</code></td>
+<td>
+<p>number of rows to sample, per tree.</p>
+</td></tr>
+<tr valign="top"><td><code>predFixed</code></td>
+<td>
+<p>number of trial predictors for a split (<code>mtry</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>predProb</code></td>
+<td>
+<p>probability of selecting individual predictor as trial splitter.</p>
+</td></tr>
+<tr valign="top"><td><code>predWeight</code></td>
+<td>
+<p>relative weighting of individual predictors as trial
+splitters.</p>
+</td></tr>
+<tr valign="top"><td><code>quantVec</code></td>
+<td>
+<p>quantile levels to validate.</p>
+</td></tr>
+<tr valign="top"><td><code>quantiles</code></td>
+<td>
+<p>whether to report quantiles at validation.</p>
+</td></tr>
+<tr valign="top"><td><code>qBin</code></td>
+<td>
+<p>bin size for facilating quantiles at large sample count.</p>
+</td></tr>
+<tr valign="top"><td><code>regMono</code></td>
+<td>
+<p>signed probability constraint for monotonic
+regression.</p>
+</td></tr>
+<tr valign="top"><td><code>rowWeight</code></td>
+<td>
+<p>row weighting for initial sampling of tree.</p>
+</td></tr>
+<tr valign="top"><td><code>treeBlock</code></td>
+<td>
+<p>maximum number of trees to train during a single
+level (e.g., coprocessor computing).</p>
+</td></tr>
+<tr valign="top"><td><code>pvtBlock</code></td>
+<td>
+<p>maximum number of trees to train in a block (e.g.,
+cluster computing).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>not currently used.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p> an object of class <code>Rborist</code>, a list containing the
+following items:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>forest</code></td>
+<td>
+<p> a list containing
+</p>
+<p><code>forestNode</code> a vector of packed structures expressing splitting
+predictors, splitting values, successor node deltas and leaf indices.
+</p>
+<p><code>origin</code> a vector of tree starting positions within <code>forestNode</code>.
+</p>
+<p><code>facSplit</code> a vector of splitting factor values.
+</p>
+<p><code>facOrigin</code> a vector of tree starting positions within the
+splitting factor values.
+</p>
+</td></tr>
+<tr valign="top"><td><code>leaf</code></td>
+<td>
+<p> a list containing either of
+</p>
+<p><code>BagRow</code> a vector of packed data structures, one per unique row
+sample, containing a row index and the number of times the row is sampled.
+</p>
+<p><code>LeafReg</code> a list consisting of regression leaf data:
+</p>
+<p><code>node</code> a packed structure expressing leaf scores and node counts.
+</p>
+<p><code>origin</code> a vector of tree starting positions within
+<code>node</code>.
+</p>
+<p><code>rank</code> a vector, one element per unique row sample, indicating
+the rank of the sampled row.
+
+</p>
+<p><code>yRanked</code> a sorted vector of response values.
+
+or
+<code>LeafCtg</code> a list consisting of classification leaf data:
+</p>
+<p><code>node</code> a packed structure expressing leaf scores and node
+counts.
+</p>
+<p><code>origin</code> a vector of tree starting positions within
+<code>node</code>.
+</p>
+<p><code>weight</code> a matrix of weighted scores, per category per sample.
+</p>
+<p><code>levels</code> a vector of strings containing the training response levels.
+
+</p>
+</td></tr>
+<tr valign="top"><td><code>signature</code></td>
+<td>
+<p> a list consisting of training information needed for
+separate testing and prediction:
+</p>
+<p><code>nRow</code> the number of rows used to train.
+</p>
+<p><code>predMap</code> a vector mapping core predictor indices back to their
+respective front-end positions.
+</p>
+<p><code>level</code> a vector of strings vectors representing the training
+response factor levels.
+</p>
+</td></tr>
+<tr valign="top"><td><code>training</code></td>
+<td>
+<p> a list containing information gleaned during training:
+</p>
+<p><code>predInfo</code> the information contribution of each predictor.
+</p>
+</td></tr>
+<tr valign="top"><td><code>validation</code></td>
+<td>
+<p> a list containing the results of validation:
+</p>
+<p><code>ValidReg</code> a list of validation results for regression:
+</p>
+<p><code>yPred</code> a vector containing the predicted response.
+</p>
+<p><code>mse</code> the mean-square error of prediction.
+</p>
+<p><code>rsq</code> the r-squared statistic.
+</p>
+<p><code>qPred</code> a matrix containing the prediction quantiles, if requested.
+
+</p>
+<p><code>ValidCtg</code> a list of validation results for classification:
+</p>
+<p><code>yPred</code> a vector containing the predicted response.
+</p>
+<p><code>misprediction</code> a vector containing the classwise
+misprediction rates.
+</p>
+<p><code>confusion</code> a confusion matrix.
+</p>
+<p><code>census</code> a matrix of predictions, by category.
+</p>
+<p><code>prob</code> a matrix of prediction probabilities by category, if requested.
+
+</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Mark Seligman at Suiji.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+  # Regression example:
+  nRow &lt;- 5000
+  x &lt;- data.frame(replicate(6, rnorm(nRow)))
+  y &lt;- with(x, X1^2 + sin(X2) + X3 * X4) # courtesy of S. Welling.
+
+  # Classification example:
+  data(iris)
+
+  # Generic invocation:
+  rb &lt;- Rborist(x, y)
+
+
+  # Causes 300 trees to be trained:
+  rb &lt;- Rborist(x, y, nTree = 300)
+
+
+  # Causes rows to be sampled without replacement:
+  rb &lt;- Rborist(x, y, withRepl=FALSE)
+
+
+  # Causes validation census to report class probabilities:
+  rb &lt;- Rborist(iris[-5], iris[5], ctgCensus="prob")
+
+
+  # Applies table-weighting to classification categories:
+  rb &lt;- Rborist(iris[-5], iris[5], classWeight = "balance")
+
+
+  # Weights first category twice as heavily as remaining two:
+  rb &lt;- Rborist(iris[-5], iris[5], classWeight = c(2.0, 1.0, 1.0))
+
+
+  # Does not split nodes when doing so yields less than a 2% gain in
+  # information over the parent node:
+  rb &lt;- Rborist(x, y, minInfo=0.02)
+
+
+  # Does not split nodes representing fewer than 10 unique samples:
+  rb &lt;- Rborist(x, y, minNode=10)
+
+
+  # Trains a maximum of 20 levels:
+  rb &lt;- Rborist(x, y, nLevel = 20)
+
+
+  # Trains, but does not perform subsequent validation:
+  rb &lt;- Rborist(x, y, noValidate=TRUE)
+
+
+  # Chooses 500 rows (with replacement) to root each tree.
+  rb &lt;- Rborist(x, y, nSamp=500)
+
+
+  # Chooses 2 predictors as splitting candidates at each node (or
+  # fewer, when choices exhausted):
+  rb &lt;- Rborist(x, y, predFixed = 2)  
+
+
+  # Causes each predictor to be selected as a splitting candidate with
+  # distribution Bernoulli(0.3):
+  rb &lt;- Rborist(x, y, predProb = 0.3) 
+
+
+  # Causes first three predictors to be selected as splitting candidates
+  # twice as often as the other two:
+  rb &lt;- Rborist(x, y, predWeight=c(2.0, 2.0, 2.0, 1.0, 1.0))
+
+
+  # Causes (default) quantiles to be computed at validation:
+  rb &lt;- Rborist(x, y, quantiles=TRUE)
+  qPred &lt;- rb$validation$qPred
+
+
+  # Causes specfied quantiles (deciles) to be computed at validation:
+  rb &lt;- Rborist(x, y, quantVec = seq(0.1, 1.0, by = 0.10))
+  qPred &lt;- rb$validation$qPred
+
+
+  # Causes (default) quantile computation to be approximated by a
+  # small bin size of 100:  fast, but not as accurate:
+  rb &lt;- Rborist(x, y, quantiles = TRUE, qBin = 100).
+  qPred &lt;- rb$validation$qPred
+
+
+  # Constrains modelled response to be increasing with respect to X1
+  # and decreasing with respect to X5 (both unlikely).
+  rb &lt;- Rborist(x, y, regMono=c(1.0, 0, 0, 0, -1.0, 0))
+
+
+  # Causes rows to be sampled with random weighting:
+  rb &lt;- Rborist(x, y, rowWeight=runif(nRow))
+
+  
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>Rborist</em> version 0.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkMenuShell</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkMenuShell {RGtk2}"><tr><td>GtkMenuShell {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkMenuShell</h2>
+
+<h3>Description</h3>
+
+<p>A base class for menu objects</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkMenuShellAppend.html">gtkMenuShellAppend</a>(object, child)</code><br />
+<code><a href="gtkMenuShellPrepend.html">gtkMenuShellPrepend</a>(object, child)</code><br />
+<code><a href="gtkMenuShellInsert.html">gtkMenuShellInsert</a>(object, child, position)</code><br />
+<code><a href="gtkMenuShellDeactivate.html">gtkMenuShellDeactivate</a>(object)</code><br />
+<code><a href="gtkMenuShellSelectItem.html">gtkMenuShellSelectItem</a>(object, menu.item)</code><br />
+<code><a href="gtkMenuShellSelectFirst.html">gtkMenuShellSelectFirst</a>(object, search.sensitive)</code><br />
+<code><a href="gtkMenuShellDeselect.html">gtkMenuShellDeselect</a>(object)</code><br />
+<code><a href="gtkMenuShellActivateItem.html">gtkMenuShellActivateItem</a>(object, menu.item, force.deactivate)</code><br />
+<code><a href="gtkMenuShellCancel.html">gtkMenuShellCancel</a>(object)</code><br />
+<code><a href="gtkMenuShellSetTakeFocus.html">gtkMenuShellSetTakeFocus</a>(object, take.focus)</code><br />
+<code><a href="gtkMenuShellGetTakeFocus.html">gtkMenuShellGetTakeFocus</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkMenuShell
+                                 +----GtkMenuBar
+                                 +----GtkMenu</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkMenuShell implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkMenuShell.html">GtkMenuShell</a></code> is the abstract base class used to derive the
+<code><a href="GtkMenu.html">GtkMenu</a></code> and <code><a href="GtkMenuBar.html">GtkMenuBar</a></code> subclasses.
+</p>
+<p>A <code><a href="GtkMenuShell.html">GtkMenuShell</a></code> is a container of <code><a href="GtkMenuItem.html">GtkMenuItem</a></code> objects arranged in a
+list which can be navigated, selected, and activated by the user to perform
+application functions.  A <code><a href="GtkMenuItem.html">GtkMenuItem</a></code> can have a submenu associated with it,
+allowing for nested hierarchical menus.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMenuShell</code></dt><dd>
+<p>The <code><a href="GtkMenuShell.html">GtkMenuShell</a></code> struct contains the following fields.
+(These fields should be considered read-only. They should never be set by
+an application.)
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;"><code style="white-space: pre;">list</code>   *children; </td><td style="text-align: left;"> The list of   <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>   objects contained by this   <code><a href="GtkMenuShell.html">GtkMenuShell</a></code>  . </td>
+</tr>
+
+</table>
+
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMenuDirectionType</code></dt><dd>
+<p>An enumeration representing directional movements within a menu.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">parent</code></dt><dd><p>To the parent menu shell.</p>
+</dd>
+<dt><code style="white-space: pre;">child</code></dt><dd><p>To the submenu, if any, associated with the item.</p>
+</dd>
+<dt><code style="white-space: pre;">next</code></dt><dd><p>To the next menu item.</p>
+</dd>
+<dt><code style="white-space: pre;">prev</code></dt><dd><p>To the previous menu item.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>activate-current(menushell, force.hide, user.data)</code></dt><dd>
+<p>An action signal that activates the current menu item within the menu
+shell.
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>force.hide</code></dt><dd><p>if TRUE, hide the menu after activating the menu item.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>cancel(menushell, user.data)</code></dt><dd>
+<p>An action signal which cancels the selection within the menu shell.
+Causes the GtkMenuShell::selection-done signal to be emitted.
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>cycle-focus(menushell, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>deactivate(menushell, user.data)</code></dt><dd>
+<p>This signal is emitted when a menu shell is deactivated.
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-current(menushell, direction, user.data)</code></dt><dd>
+<p>An action signal which moves the current menu item in the direction
+specified by <code>direction</code>.
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>direction</code></dt><dd><p>the direction to move.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-selected(menu.shell, distance, user.data)</code></dt><dd>
+<p>The ::move-selected signal is emitted to move the selection to
+another item.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>menu.shell</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>distance</code></dt><dd><p>+1 to move to the next item, -1 to move to the previous</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> to stop the signal emission, <code>FALSE</code> to continue
+</p>
+</dd>
+<dt><code>selection-done(menushell, user.data)</code></dt><dd>
+<p>This signal is emitted when a selection has been completed within a menu
+shell.
+</p>
+
+<dl>
+<dt><code>menushell</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">take-focus</code> [logical : Read / Write]</dt><dd>
+<p>A boolean that determines whether the menu and its submenus grab the
+keyboard focus. See <code><a href="gtkMenuShellSetTakeFocus.html">gtkMenuShellSetTakeFocus</a></code> and
+<code><a href="gtkMenuShellGetTakeFocus.html">gtkMenuShellGetTakeFocus</a></code>.
+Default value: TRUE  Since 2.8
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkMenuShell.html">http://library.gnome.org/devel//gtk/GtkMenuShell.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

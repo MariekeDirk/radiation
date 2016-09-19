@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion of maps from/to the package &quot;sp&quot;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kasc2spixdf {adehabitat}"><tr><td>kasc2spixdf {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Conversion of maps from/to the package &quot;sp&quot; </h2>
+
+<h3>Description</h3>
+
+<p>These functions convert maps of classes available in adehabitat toward
+classes available in the package <code>sp</code> and conversely.<br />
+<br />
+<code>kasc2spixdf</code> converts an object of class <code>kasc</code> into an
+object of class <code>SpatialPixelsDataFrame</code>.<br />
+<br />
+<code>asc2spixdf</code> converts an object of class <code>asc</code> into an
+object of class <code>SpatialGridDataFrame</code>.<br />
+<br />
+<code>spixdf2kasc</code> converts an object of class
+<code>SpatialPixelsDataFrame</code> or <code>SpatialGridDataFrame</code> into an
+object of class <code>asc</code> or <code>kasc</code>.<br /> 
+<br />
+<code>area2spol</code> converts an object of class <code>area</code> into an
+object of class <code>SpatialPolygons</code>.<br />
+<br />
+<code>spol2area</code> converts an object of class <code>SpatialPolygons</code> or
+<code>SpatialPolygonsDataFrame</code> into an object of class
+<code>area</code>.<br />
+<br />
+<code>attpol2area</code> gets the data attribute of an object of class
+<code>SpatialPolygonsDataFrame</code> and stores it into a data frame.<br />
+<br />
+<code>traj2spdf</code> converts an object of class <code>traj</code> into an
+object of class <code>SpatialPointsDataFrame</code>.<br />
+<br />
+<code>traj2sldf</code> converts an object of class <code>traj</code> into an
+object of class <code>SpatialLinesDataFrame</code>.<br />
+<br />
+<code>ltraj2spdf</code> converts an object of class <code>ltraj</code> into an
+object of class <code>SpatialPointsDataFrame</code>.<br />
+<br />
+<code>ltraj2sldf</code> converts an object of class <code>ltraj</code> into an
+object of class <code>SpatialLinesDataFrame</code>.<br />
+<br />
+<code>kver2spol</code> converts an object of class <code>kver</code> into an
+object of class <code>SpatialPolygons</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kasc2spixdf(ka)
+asc2spixdf(a)
+spixdf2kasc(sg)
+area2spol(ar)
+spol2area(sr)
+attpol2area(srdf)
+traj2spdf(tr)
+traj2sldf(tr, byid = FALSE)
+ltraj2spdf(ltr)
+ltraj2sldf(ltr, byid = FALSE)
+kver2spol(kv)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ka</code></td>
+<td>
+<p>an object of class <code>kasc</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>an object of class <code>asc</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>sg</code></td>
+<td>
+<p>an object of class <code>SpatialPixelsDataFrame</code> or
+<code>SpatialGridDataFrame</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ar</code></td>
+<td>
+<p>an object of class <code>area</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>sr</code></td>
+<td>
+<p>an object of class <code>SpatialPolygons</code> or
+<code>SpatialPolygonsDataFrame</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>srdf</code></td>
+<td>
+<p>an object of class <code>SpatialPolygonsDataFrame</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>tr</code></td>
+<td>
+<p>an object of class <code>traj</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ltr</code></td>
+<td>
+<p>an object of class <code>ltraj</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>kv</code></td>
+<td>
+<p>an object of class <code>kver</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>byid</code></td>
+<td>
+<p>logical.  If <code>TRUE</code>, one objects of class
+<code>Lines</code> correspond to one animal.  if <code>FALSE</code>,
+one object of class <code>Lines</code> correspond to one burst.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>We describe here more in detail the functions <code>spol2area</code> and
+<code>attpol2area</code>.  Objects of class <code>area</code> do not deal with
+holes in the polygons, whereas the objects of class
+<code>SpatialPolygons</code> do.  Therefore, when holes are present in the
+<code>SpatialPolygons</code> object passed as argument, the function
+<code>spol2area</code> ignore them and returns only the external contour of
+the polygon (though a warning is returned).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a>, code
+of <code>spixdf2kasc</code> kindly provided by Roger Bivand
+<a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code> for information on objects of
+class <code>asc</code>, <code><a href="as.kasc.html">kasc</a></code> for info on objects of
+class <code>kasc</code>, <code><a href="as.area.html">area</a></code> for info on objects of
+class <code>area</code>, <code><a href="as.traj.html">traj</a></code> for objects of class
+<code>traj</code>, <code><a href="as.ltraj.html">ltraj</a></code> for objects of class
+<code>ltraj</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+if (require(sp)) {
+
+#########################################
+##
+## Conversion kasc -&gt; SpatialPixelsDataFrame
+##
+
+data(puechabon)
+toto &lt;- kasc2spixdf(puechabon$kasc)
+image(toto)
+summary(toto)
+
+#### and conversely
+toto &lt;- spixdf2kasc(toto)
+image(toto)
+hist(toto)
+
+data(meuse.grid)
+m &lt;- SpatialPixelsDataFrame(points = meuse.grid[c("x", "y")],
+                           data = meuse.grid)
+i &lt;- spixdf2kasc(m)
+image(i)
+
+
+### conversion asc -&gt; SpatialPixelsDataFrame
+cuicui &lt;- asc2spixdf(getkasc(toto,1))
+image(cuicui)
+
+
+#########################################
+##
+## Conversion kver -&gt; SpatialPolygons
+##
+
+hr &lt;- getverticeshr(kernelUD(puechabon$locs[,c("X","Y")], puechabon$locs$Name,
+                    grid=100))
+
+plot(hr)
+class(hr)
+spo &lt;- kver2spol(hr)
+plot(spo)
+class(spo)
+
+#########################################
+##
+## Conversion area -&gt; SpatialPolygons
+##
+
+data(elec88)
+ar &lt;- as.area(elec88$area)
+plot(ar)
+toto &lt;- area2spol(ar)
+plot(toto)
+
+
+#########################################
+##
+## Conversion SpatialPolygons -&gt; area
+##
+
+## First create an object of class "SpatialRingsDataFrame"
+tutu &lt;- SpatialPolygonsDataFrame(toto, elec88$tab)
+
+## and then conversion:
+coincoin &lt;- spol2area(tutu)
+plot(coincoin)
+
+## gets the attributes
+haha &lt;- attpol2area(tutu)
+area.plot(coincoin, values = haha$Waechter)
+
+
+#########################################
+##
+## Conversion ltraj -&gt; SpatialPointsDataFrame
+##
+
+data(puechcirc)
+plot(puechcirc)
+
+toto &lt;- ltraj2spdf(puechcirc)
+plot(toto)
+
+
+
+#########################################
+##
+## Conversion ltraj -&gt; SpatialLinesDataFrame
+##
+
+toto &lt;- ltraj2sldf(puechcirc)
+plot(toto)
+
+
+}
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

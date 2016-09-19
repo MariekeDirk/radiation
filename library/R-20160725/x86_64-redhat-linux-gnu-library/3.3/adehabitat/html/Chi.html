@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Chi Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Chi {adehabitat}"><tr><td>Chi {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Chi Distribution</h2>
+
+<h3>Description</h3>
+
+<p>Density, distribution function, quantile function and random
+generation for the chi distribution with <code>df</code> degrees of
+freedom.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dchi(x, df = 2)
+pchi(q, df = 2, lower.tail = TRUE, ...)
+qchi(p, df = 2, lower.tail = TRUE)
+rchi(n, df = 2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x,q</code></td>
+<td>
+<p>vector of quantiles.</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>vector of probabilities.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of observations. If <code>length(n) &gt; 1</code>, the length
+is taken to be the number required.</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p>degrees of freedom (non-negative, but can be non-integer).</p>
+</td></tr>
+<tr valign="top"><td><code>lower.tail</code></td>
+<td>
+<p>logical; if TRUE (default), probabilities are P[X &lt;= x],
+otherwise, P[X &gt; x].</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to the function
+<code>integrate</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The chi distribution with <code>df</code> = n &gt; 0 degrees of freedom
+has density
+</p>
+<p style="text-align: center;"><i>
+    f_n (x) = 2^(1-n/2) x^(n-1) e^(-(x^2)/2) / Gamma(n/2)</i></p>
+
+<p>for x &gt; 0.  This distribution is used to describe the square root of a
+variable distributed according to a chi-square distribution.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>dchi</code> gives the density, <code>pchisq</code> gives the distribution
+function, <code>qchisq</code> gives the quantile function, and <code>rchisq</code>
+generates random deviates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>References</h3>
+
+<p>Evans, M., Hastings, N. and Peacock, B. (2000) Statistical
+Distributions, 3rd ed. Wiley, New York.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/Chisquare.html">Chisquare</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+opar &lt;- par(mfrow = c(2,2))
+
+hist(rchi(100), ncla = 20, main="The Chi distribution")
+
+plot(tutu &lt;- seq(0, 5, length=20), dchi(tutu, df = 2), xlab = "x",
+     ylab = "probability density", type = "l")
+
+plot(tutu, pchi(tutu), xlab = "x", ylab = "Repartition function",
+     type = "l")
+
+par(opar)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

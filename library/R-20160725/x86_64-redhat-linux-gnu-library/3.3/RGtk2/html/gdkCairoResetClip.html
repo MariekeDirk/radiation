@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkCairoResetClip</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkCairoResetClip {RGtk2}"><tr><td>gdkCairoResetClip {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkCairoResetClip</h2>
+
+<h3>Description</h3>
+
+<p>Resets the clip region for a Cairo context created by <code><a href="gdkCairoCreate.html">gdkCairoCreate</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkCairoResetClip(cr, drawable)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>a <code><a href="cairo-context.html">Cairo</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">drawable</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This resets the clip region to the &quot;empty&quot; state for the given drawable.
+This is required for non-native windows since a direct call to
+<code><a href="cairoResetClip.html">cairoResetClip</a></code> would unset the clip region inherited from the
+drawable (i.e. the window clip region), and thus let you e.g.
+draw outside your window.
+</p>
+<p>This is rarely needed though, since most code just create a new cairo_t
+using <code><a href="gdkCairoCreate.html">gdkCairoCreate</a></code> each time they want to draw something.
+Since 2.18</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

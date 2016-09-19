@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkPrintSettings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkPrintSettings {RGtk2}"><tr><td>GtkPrintSettings {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkPrintSettings</h2>
+
+<h3>Description</h3>
+
+<p>Stores print settings</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkPrintSettingsNew.html">gtkPrintSettingsNew</a>()</code><br />
+<code><a href="gtkPrintSettingsCopy.html">gtkPrintSettingsCopy</a>(object)</code><br />
+<code><a href="gtkPrintSettingsHasKey.html">gtkPrintSettingsHasKey</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsGet.html">gtkPrintSettingsGet</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsSet.html">gtkPrintSettingsSet</a>(object, key, value)</code><br />
+<code><a href="gtkPrintSettingsUnset.html">gtkPrintSettingsUnset</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsForeach.html">gtkPrintSettingsForeach</a>(object, func, user.data = NULL)</code><br />
+<code><a href="gtkPrintSettingsGetBool.html">gtkPrintSettingsGetBool</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsSetBool.html">gtkPrintSettingsSetBool</a>(object, key, value)</code><br />
+<code><a href="gtkPrintSettingsGetDouble.html">gtkPrintSettingsGetDouble</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsGetDoubleWithDefault.html">gtkPrintSettingsGetDoubleWithDefault</a>(object, key, def)</code><br />
+<code><a href="gtkPrintSettingsSetDouble.html">gtkPrintSettingsSetDouble</a>(object, key, value)</code><br />
+<code><a href="gtkPrintSettingsGetLength.html">gtkPrintSettingsGetLength</a>(object, key, unit)</code><br />
+<code><a href="gtkPrintSettingsSetLength.html">gtkPrintSettingsSetLength</a>(object, key, value, unit)</code><br />
+<code><a href="gtkPrintSettingsGetInt.html">gtkPrintSettingsGetInt</a>(object, key)</code><br />
+<code><a href="gtkPrintSettingsGetIntWithDefault.html">gtkPrintSettingsGetIntWithDefault</a>(object, key, def)</code><br />
+<code><a href="gtkPrintSettingsSetInt.html">gtkPrintSettingsSetInt</a>(object, key, value)</code><br />
+<code><a href="gtkPrintSettingsGetPrinter.html">gtkPrintSettingsGetPrinter</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetPrinter.html">gtkPrintSettingsSetPrinter</a>(object, printer)</code><br />
+<code><a href="gtkPrintSettingsGetOrientation.html">gtkPrintSettingsGetOrientation</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetOrientation.html">gtkPrintSettingsSetOrientation</a>(object, orientation)</code><br />
+<code><a href="gtkPrintSettingsGetPaperSize.html">gtkPrintSettingsGetPaperSize</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetPaperSize.html">gtkPrintSettingsSetPaperSize</a>(object, paper.size)</code><br />
+<code><a href="gtkPrintSettingsGetPaperWidth.html">gtkPrintSettingsGetPaperWidth</a>(object, unit)</code><br />
+<code><a href="gtkPrintSettingsSetPaperWidth.html">gtkPrintSettingsSetPaperWidth</a>(object, width, unit)</code><br />
+<code><a href="gtkPrintSettingsGetPaperHeight.html">gtkPrintSettingsGetPaperHeight</a>(object, unit)</code><br />
+<code><a href="gtkPrintSettingsSetPaperHeight.html">gtkPrintSettingsSetPaperHeight</a>(object, height, unit)</code><br />
+<code><a href="gtkPrintSettingsGetUseColor.html">gtkPrintSettingsGetUseColor</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetUseColor.html">gtkPrintSettingsSetUseColor</a>(object, use.color)</code><br />
+<code><a href="gtkPrintSettingsGetCollate.html">gtkPrintSettingsGetCollate</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetCollate.html">gtkPrintSettingsSetCollate</a>(object, collate)</code><br />
+<code><a href="gtkPrintSettingsGetReverse.html">gtkPrintSettingsGetReverse</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetReverse.html">gtkPrintSettingsSetReverse</a>(object, reverse)</code><br />
+<code><a href="gtkPrintSettingsGetDuplex.html">gtkPrintSettingsGetDuplex</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetDuplex.html">gtkPrintSettingsSetDuplex</a>(object, duplex)</code><br />
+<code><a href="gtkPrintSettingsGetQuality.html">gtkPrintSettingsGetQuality</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetQuality.html">gtkPrintSettingsSetQuality</a>(object, quality)</code><br />
+<code><a href="gtkPrintSettingsGetNCopies.html">gtkPrintSettingsGetNCopies</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetNCopies.html">gtkPrintSettingsSetNCopies</a>(object, num.copies)</code><br />
+<code><a href="gtkPrintSettingsGetNumberUp.html">gtkPrintSettingsGetNumberUp</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetNumberUp.html">gtkPrintSettingsSetNumberUp</a>(object, number.up)</code><br />
+<code><a href="gtkPrintSettingsGetNumberUpLayout.html">gtkPrintSettingsGetNumberUpLayout</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetNumberUpLayout.html">gtkPrintSettingsSetNumberUpLayout</a>(object, number.up.layout)</code><br />
+<code><a href="gtkPrintSettingsGetResolution.html">gtkPrintSettingsGetResolution</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetResolution.html">gtkPrintSettingsSetResolution</a>(object, resolution)</code><br />
+<code><a href="gtkPrintSettingsSetResolutionXy.html">gtkPrintSettingsSetResolutionXy</a>(object, resolution.x, resolution.y)</code><br />
+<code><a href="gtkPrintSettingsGetResolutionX.html">gtkPrintSettingsGetResolutionX</a>(object)</code><br />
+<code><a href="gtkPrintSettingsGetResolutionY.html">gtkPrintSettingsGetResolutionY</a>(object)</code><br />
+<code><a href="gtkPrintSettingsGetPrinterLpi.html">gtkPrintSettingsGetPrinterLpi</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetPrinterLpi.html">gtkPrintSettingsSetPrinterLpi</a>(object, lpi)</code><br />
+<code><a href="gtkPrintSettingsGetScale.html">gtkPrintSettingsGetScale</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetScale.html">gtkPrintSettingsSetScale</a>(object, scale)</code><br />
+<code><a href="gtkPrintSettingsGetPrintPages.html">gtkPrintSettingsGetPrintPages</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetPrintPages.html">gtkPrintSettingsSetPrintPages</a>(object, pages)</code><br />
+<code><a href="gtkPrintSettingsGetPageRanges.html">gtkPrintSettingsGetPageRanges</a>(object, num.ranges)</code><br />
+<code><a href="gtkPrintSettingsSetPageRanges.html">gtkPrintSettingsSetPageRanges</a>(object, page.ranges, num.ranges)</code><br />
+<code><a href="gtkPrintSettingsGetPageSet.html">gtkPrintSettingsGetPageSet</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetPageSet.html">gtkPrintSettingsSetPageSet</a>(object, page.set)</code><br />
+<code><a href="gtkPrintSettingsGetDefaultSource.html">gtkPrintSettingsGetDefaultSource</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetDefaultSource.html">gtkPrintSettingsSetDefaultSource</a>(object, default.source)</code><br />
+<code><a href="gtkPrintSettingsGetMediaType.html">gtkPrintSettingsGetMediaType</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetMediaType.html">gtkPrintSettingsSetMediaType</a>(object, media.type)</code><br />
+<code><a href="gtkPrintSettingsGetDither.html">gtkPrintSettingsGetDither</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetDither.html">gtkPrintSettingsSetDither</a>(object, dither)</code><br />
+<code><a href="gtkPrintSettingsGetFinishings.html">gtkPrintSettingsGetFinishings</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetFinishings.html">gtkPrintSettingsSetFinishings</a>(object, finishings)</code><br />
+<code><a href="gtkPrintSettingsGetOutputBin.html">gtkPrintSettingsGetOutputBin</a>(object)</code><br />
+<code><a href="gtkPrintSettingsSetOutputBin.html">gtkPrintSettingsSetOutputBin</a>(object, output.bin)</code><br />
+<code><a href="gtkPrintSettingsNewFromFile.html">gtkPrintSettingsNewFromFile</a>(file.name, .errwarn = TRUE)</code><br />
+<code><a href="gtkPrintSettingsNewFromKeyFile.html">gtkPrintSettingsNewFromKeyFile</a>(key.file, group.name, .errwarn = TRUE)</code><br />
+<code><a href="gtkPrintSettingsLoadFile.html">gtkPrintSettingsLoadFile</a>(object, file.name, .errwarn = TRUE)</code><br />
+<code><a href="gtkPrintSettingsLoadKeyFile.html">gtkPrintSettingsLoadKeyFile</a>(object, key.file, group.name, .errwarn = TRUE)</code><br />
+<code><a href="gtkPrintSettingsToFile.html">gtkPrintSettingsToFile</a>(object, file.name, .errwarn = TRUE)</code><br />
+<code><a href="gtkPrintSettingsToKeyFile.html">gtkPrintSettingsToKeyFile</a>(object, key.file, group.name)</code><br />
+<code>gtkPrintSettings()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkPrintSettings</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A GtkPrintSettings object represents the settings of a print dialog in
+a system-independent way. The main use for this object is that once
+you've printed you can get a settings object that represents the settings
+the user chose, and the next time you print you can pass that object in so
+that the user doesn't have to re-set all his settings.
+</p>
+<p>Its also possible to enumerate the settings so that you can easily save
+the settings for the next time your app runs, or even store them in a
+document. The predefined keys try to use shared values as much as possible
+so that moving such a document between systems still works.
+</p>
+<p>Printing support was added in GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkPrintSettings</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd>
+<dt><code style="white-space: pre;">GtkPageRange</code></dt><dd>
+<p><em>undocumented
+</em>
+<strong><code style="white-space: pre;">GtkPageRange</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">start</code></dt><dd><p>[integer] </p>
+</dd>
+<dt><code style="white-space: pre;">end</code></dt><dd><p>[integer] </p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkPrintSettings</code> is the equivalent of <code><a href="gtkPrintSettingsNew.html">gtkPrintSettingsNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkPageOrientation</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">portrait</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">landscape</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">reverse-portrait</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">reverse-landscape</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkPrintDuplex</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">simplex</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">horizontal</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">vertical</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkPrintQuality</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">low</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">normal</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">high</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">draft</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkNumberUpLayout</code></dt><dd>
+<p>Used to determine the layout of pages on a sheet when printing
+multiple pages per sheet.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">left-to-right-top-to-bottom</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">left-to-right-bottom-to-top</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right-to-left-top-to-bottom</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right-to-left-bottom-to-top</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top-to-bottom-left-to-right</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top-to-bottom-right-to-left</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom-to-top-left-to-right</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom-to-top-right-to-left</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkPrintPages</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">all</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">current</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">ranges</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkPageSet</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">all</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">even</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">odd</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkPrintSettingsFunc()</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkPrintSettings.html">http://library.gnome.org/devel//gtk/GtkPrintSettings.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkButtonBoxSetChildSecondary</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkButtonBoxSetChildSecondary {RGtk2}"><tr><td>gtkButtonBoxSetChildSecondary {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkButtonBoxSetChildSecondary</h2>
+
+<h3>Description</h3>
+
+<p>Sets whether <code>child</code> should appear in a secondary group of children.
+A typical use of a secondary child is the help button in a dialog.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkButtonBoxSetChildSecondary(object, child, is.secondary)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkButtonBox.html">GtkButtonBox</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">child</code></code></td>
+<td>
+<p>a child of <code>widget</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">is.secondary</code></code></td>
+<td>
+<p>if <code>TRUE</code>, the <code>child</code> appears in a secondary group of the
+button box.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This group appears after the other children if the style
+is <code>GTK_BUTTONBOX_START</code>, <code>GTK_BUTTONBOX_SPREAD</code> or
+<code>GTK_BUTTONBOX_EDGE</code>, and before the other children if the style
+is <code>GTK_BUTTONBOX_END</code>. For horizontal button boxes, the definition
+of before/after depends on direction of the widget (see
+<code><a href="gtkWidgetSetDirection.html">gtkWidgetSetDirection</a></code>). If the style is <code>GTK_BUTTONBOX_START</code>
+or <code>GTK_BUTTONBOX_END</code>, then the secondary children are aligned at
+the other end of the button box from the main children. For the
+other styles, they appear immediately next to the main children.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

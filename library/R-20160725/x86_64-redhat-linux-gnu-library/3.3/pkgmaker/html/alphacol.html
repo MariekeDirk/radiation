@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Colour utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for alphacol {pkgmaker}"><tr><td>alphacol {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Colour utilities</h2>
+
+<h3>Description</h3>
+
+<p><code>alphacol</code> adds an alpha value to a colour
+specification and convert to a hexadecimal colour string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  alphacol(col, alpha = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>vector of any of the three kinds of <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> color
+specifications, i.e., either a color name (as listed by
+<code><a href="../../grDevices/html/colors.html">colors</a>()</code>), a hexadecimal string of the form
+<code>"#rrggbb"</code> or <code>"#rrggbbaa"</code> (see
+<code><a href="../../grDevices/html/rgb.html">rgb</a></code>), or a positive integer <code>i</code>
+meaning <code><a href="../../grDevices/html/palette.html">palette</a>()[i]</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>logical value indicating whether the alpha
+channel (opacity) values should be returned.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# Alphas
+alphacol('red') # do nothing
+alphacol('red', 10)
+alphacol('#aabbcc', 5)
+alphacol(4, 5)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

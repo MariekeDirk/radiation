@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Accessing NMF Factors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for basis {NMF}"><tr><td>basis {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Accessing NMF Factors</h2>
+
+<h3>Description</h3>
+
+<p><code>basis</code> and <code>basis&lt;-</code> are S4 generic functions
+which respectively extract and set the matrix of basis
+components of an NMF model (i.e. the first matrix
+factor).
+</p>
+<p>The methods <code>.basis</code>, <code>.coef</code> and their
+replacement versions are implemented as pure virtual
+methods for the interface class <code>NMF</code>, meaning that
+concrete NMF models must provide a definition for their
+corresponding class (i.e. sub-classes of class
+<code>NMF</code>). See <code><a href="NMF-class.html">NMF</a></code> for more
+details.
+</p>
+<p><code>coef</code> and <code>coef&lt;-</code> respectively extract and
+set the coefficient matrix of an NMF model (i.e. the
+second matrix factor). For example, in the case of the
+standard NMF model <i>V ~ W H</i>, the method
+<code>coef</code> will return the matrix <i>H</i>.
+</p>
+<p><code>.coef</code> and <code>.coef&lt;-</code> are low-level S4 generics
+that simply return/set coefficient data in an object,
+leaving some common processing to be performed in
+<code>coef</code> and <code>coef&lt;-</code>.
+</p>
+<p>Methods <code>coefficients</code> and <code>coefficients&lt;-</code> are
+simple aliases for methods <code>coef</code> and <code>coef&lt;-</code>
+respectively.
+</p>
+<p><code>scoef</code> is similar to <code>coef</code>, but returns the
+mixture coefficient matrix of an NMF model, with the
+columns scaled so that they sum up to a given value (1 by
+default).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  basis(object, ...)
+
+  ## S4 method for signature 'NMF'
+basis(object, all = TRUE, ...)
+
+  .basis(object, ...)
+
+  basis(object, ...)&lt;-value
+
+  ## S4 replacement method for signature 'NMF'
+basis(object, use.dimnames = TRUE,
+    ...)&lt;-value
+
+  .basis(object)&lt;-value
+
+  ## S4 method for signature 'NMF'
+loadings(x)
+
+  coef(object, ...)
+
+  ## S4 method for signature 'NMF'
+coef(object, all = TRUE, ...)
+
+  .coef(object, ...)
+
+  coef(object, ...)&lt;-value
+
+  ## S4 replacement method for signature 'NMF'
+coef(object, use.dimnames = TRUE,
+    ...)&lt;-value
+
+  .coef(object)&lt;-value
+
+  coefficients(object, ...)
+
+  ## S4 method for signature 'NMF'
+coefficients(object, all = TRUE, ...)
+
+  scoef(object, ...)
+
+  ## S4 method for signature 'NMF'
+scoef(object, scale = 1)
+
+  ## S4 method for signature 'matrix'
+scoef(object, scale = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object from which to extract the factor
+matrices, typically an object of class
+<code><a href="NMF-class.html">NMF</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extension and passed
+to the low-level access functions <code>.coef</code> and
+<code>.basis</code>.
+</p>
+<p>Note that these throw an error if used in replacement
+functions .</p>
+</td></tr>
+<tr valign="top"><td><code>all</code></td>
+<td>
+<p>a logical that indicates whether the complete
+matrix factor should be returned (<code>TRUE</code>) or only
+the non-fixed part. This is relevant only for
+formula-based NMF models that include fixed basis or
+coefficient terms.</p>
+</td></tr>
+<tr valign="top"><td><code>use.dimnames</code></td>
+<td>
+<p>logical that indicates if the
+object's dim names should be set using those from the new
+value, or left unchanged &ndash; after truncating them to fit
+new dimensions if necessary. This is useful to only set
+the entries of a factor.</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>replacement value</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+<p>scaling factor, which indicates to the value
+the columns of the coefficient matrix should sum up to.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>"<a href="../../stats/html/factanal.html">factanal</a>"</code> or
+<code>"<a href="../../stats/html/princomp.html">princomp</a>"</code> or the <code>loadings</code> component
+of such an object.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For example, in the case of the standard NMF model <i>V ~ W H</i>, the method <code>basis</code> will return
+the matrix <i>W</i>.
+</p>
+<p><code>basis</code> and <code>basis&lt;-</code> are defined for the top
+virtual class <code><a href="NMF-class.html">NMF</a></code> only, and rely
+internally on the low-level S4 generics <code>.basis</code> and
+<code>.basis&lt;-</code> respectively that effectively extract/set
+the coefficient data. These data are post/pre-processed,
+e.g., to extract/set only their non-fixed terms or check
+dimension compatibility.
+</p>
+<p><code>coef</code> and <code>coef&lt;-</code> are S4 methods defined for
+the corresponding generic functions from package
+<code>stats</code> (See <a href="../../stats/html/coef.html">coef</a>). Similarly to
+<code>basis</code> and <code>basis&lt;-</code>, they are defined for the
+top virtual class <code><a href="NMF-class.html">NMF</a></code> only, and rely
+internally on the S4 generics <code>.coef</code> and
+<code>.coef&lt;-</code> respectively that effectively extract/set
+the coefficient data. These data are post/pre-processed,
+e.g., to extract/set only their non-fixed terms or check
+dimension compatibility.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>basis</dt><dd><p><code>signature(object = "ANY")</code>: Default
+method returns the value of S3 slot or attribute
+<code>'basis'</code>. It returns <code>NULL</code> if none of these
+are set.
+</p>
+<p>Arguments <code>...</code> are not used by this method. </p>
+</dd>
+<dt>basis</dt><dd><p><code>signature(object = "NMFfitXn")</code>:
+Returns the basis matrix of the best fit amongst all the
+fits stored in <code>object</code>. It is a shortcut for
+<code>basis(fit(object))</code>. </p>
+</dd>
+<dt>.basis</dt><dd><p><code>signature(object = "NMF")</code>: Pure
+virtual method for objects of class
+<code><a href="NMF-class.html">NMF</a></code>, that should be overloaded by
+sub-classes, and throws an error if called. </p>
+</dd>
+<dt>.basis</dt><dd><p><code>signature(object = "NMFstd")</code>: Get
+the basis matrix in standard NMF models
+</p>
+<p>This function returns slot <code>W</code> of <code>object</code>. </p>
+</dd>
+<dt>.basis</dt><dd><p><code>signature(object = "NMFfit")</code>:
+Returns the basis matrix from an NMF model fitted with
+function <code><a href="nmf.html">nmf</a></code>.
+</p>
+<p>It is a shortcut for <code>.basis(fit(object), ...)</code>,
+dispatching the call to the <code>.basis</code> method of the
+actual NMF model. </p>
+</dd>
+<dt>.basis&lt;-</dt><dd><p><code>signature(object = "NMF", value =
+  "matrix")</code>: Pure virtual method for objects of class
+<code><a href="NMF-class.html">NMF</a></code>, that should be overloaded by
+sub-classes, and throws an error if called. </p>
+</dd>
+<dt>.basis&lt;-</dt><dd><p><code>signature(object = "NMFstd", value
+  = "matrix")</code>: Set the basis matrix in standard NMF models
+</p>
+<p>This function sets slot <code>W</code> of <code>object</code>. </p>
+</dd>
+<dt>.basis&lt;-</dt><dd><p><code>signature(object = "NMFfit", value
+  = "matrix")</code>: Sets the the basis matrix of an NMF model
+fitted with function <code><a href="nmf.html">nmf</a></code>.
+</p>
+<p>It is a shortcut for <code>.basis(fit(object)) &lt;- value</code>,
+dispatching the call to the <code>.basis&lt;-</code> method of the
+actual NMF model. It is not meant to be used by the user,
+except when developing NMF algorithms, to update the
+basis matrix of the seed object before returning it. </p>
+</dd>
+<dt>basis&lt;-</dt><dd><p><code>signature(object = "NMF")</code>: Default
+methods that calls <code>.basis&lt;-</code> and check the validity
+of the updated object. </p>
+</dd>
+<dt>coef</dt><dd><p><code>signature(object = "NMFfitXn")</code>:
+Returns the coefficient matrix of the best fit amongst
+all the fits stored in <code>object</code>. It is a shortcut
+for <code>coef(fit(object))</code>. </p>
+</dd>
+<dt>.coef</dt><dd><p><code>signature(object = "NMF")</code>: Pure
+virtual method for objects of class
+<code><a href="NMF-class.html">NMF</a></code>, that should be overloaded by
+sub-classes, and throws an error if called. </p>
+</dd>
+<dt>.coef</dt><dd><p><code>signature(object = "NMFstd")</code>: Get the
+mixture coefficient matrix in standard NMF models
+</p>
+<p>This function returns slot <code>H</code> of <code>object</code>. </p>
+</dd>
+<dt>.coef</dt><dd><p><code>signature(object = "NMFfit")</code>: Returns
+the the coefficient matrix from an NMF model fitted with
+function <code><a href="nmf.html">nmf</a></code>.
+</p>
+<p>It is a shortcut for <code>.coef(fit(object), ...)</code>,
+dispatching the call to the <code>.coef</code> method of the
+actual NMF model. </p>
+</dd>
+<dt>.coef&lt;-</dt><dd><p><code>signature(object = "NMF", value =
+  "matrix")</code>: Pure virtual method for objects of class
+<code><a href="NMF-class.html">NMF</a></code>, that should be overloaded by
+sub-classes, and throws an error if called. </p>
+</dd>
+<dt>.coef&lt;-</dt><dd><p><code>signature(object = "NMFstd", value =
+  "matrix")</code>: Set the mixture coefficient matrix in
+standard NMF models
+</p>
+<p>This function sets slot <code>H</code> of <code>object</code>. </p>
+</dd>
+<dt>.coef&lt;-</dt><dd><p><code>signature(object = "NMFfit", value =
+  "matrix")</code>: Sets the the coefficient matrix of an NMF
+model fitted with function <code><a href="nmf.html">nmf</a></code>.
+</p>
+<p>It is a shortcut for <code>.coef(fit(object)) &lt;- value</code>,
+dispatching the call to the <code>.coef&lt;-</code> method of the
+actual NMF model. It is not meant to be used by the user,
+except when developing NMF algorithms, to update the
+coefficient matrix in the seed object before returning
+it. </p>
+</dd>
+<dt>coef&lt;-</dt><dd><p><code>signature(object = "NMF")</code>: Default
+methods that calls <code>.coef&lt;-</code> and check the validity
+of the updated object. </p>
+</dd>
+<dt>coefficients</dt><dd><p><code>signature(object = "NMF")</code>:
+Alias to <code>coef,NMF</code>, therefore also pure virtual. </p>
+</dd>
+<dt>loadings</dt><dd><p><code>signature(x = "NMF")</code>: Method
+loadings for NMF Models
+</p>
+<p>The method <code>loadings</code> is identical to <code>basis</code>,
+but do not accept any extra argument.
+</p>
+<p>The method <code>loadings</code> is provided to standardise the
+NMF interface against the one defined in the
+<code><a href="../../stats/html/stats-package.html">stats</a></code> package, and emphasises the
+similarities between NMF and PCA or factorial analysis
+(see <code><a href="../../stats/html/loadings.html">loadings</a></code>). </p>
+</dd>
+</dl>
+
+
+
+<h3>See Also</h3>
+
+<p>Other NMF-interface:
+<code><a href="NMF-class.html">.DollarNames,NMF-method</a></code>,
+<code><a href="NMF-class.html">misc</a></code>, <code><a href="NMF-class.html">NMF-class</a></code>,
+<code><a href="NMF-class.html">$&lt;-,NMF-method</a></code>, <code><a href="NMF-class.html">$,NMF-method</a></code>,
+<code><a href="nmfModel.html">nmfModel</a></code>, <code><a href="nmfModel.html">nmfModels</a></code>,
+<code><a href="rnmf.html">rnmf</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# scoef
+#----------
+# Scaled coefficient matrix
+x &lt;- rnmf(3, 10, 5)
+scoef(x)
+scoef(x, 100)
+
+#----------
+# .basis,NMFstd-method
+#----------
+# random standard NMF model
+x &lt;- rnmf(3, 10, 5)
+basis(x)
+coef(x)
+
+# set matrix factors
+basis(x) &lt;- matrix(1, nrow(x), nbasis(x))
+coef(x) &lt;- matrix(1, nbasis(x), ncol(x))
+# set random factors
+basis(x) &lt;- rmatrix(basis(x))
+coef(x) &lt;- rmatrix(coef(x))
+
+# incompatible matrices generate an error:
+try( coef(x) &lt;- matrix(1, nbasis(x)-1, nrow(x)) )
+# but the low-level method allow it
+.coef(x) &lt;- matrix(1, nbasis(x)-1, nrow(x))
+try( validObject(x) )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

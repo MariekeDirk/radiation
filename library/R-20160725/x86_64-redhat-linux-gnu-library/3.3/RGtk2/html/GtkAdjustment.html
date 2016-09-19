@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkAdjustment</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkAdjustment {RGtk2}"><tr><td>GtkAdjustment {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkAdjustment</h2>
+
+<h3>Description</h3>
+
+<p>A GtkObject representing an adjustable bounded value</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkAdjustmentNew.html">gtkAdjustmentNew</a>(value = NULL, lower = NULL, upper = NULL, step.incr = NULL, page.incr = NULL, page.size = NULL)</code><br />
+<code><a href="gtkAdjustmentGetValue.html">gtkAdjustmentGetValue</a>(object)</code><br />
+<code><a href="gtkAdjustmentSetValue.html">gtkAdjustmentSetValue</a>(object, value)</code><br />
+<code><a href="gtkAdjustmentClampPage.html">gtkAdjustmentClampPage</a>(object, lower, upper)</code><br />
+<code><a href="gtkAdjustmentChanged.html">gtkAdjustmentChanged</a>(object)</code><br />
+<code><a href="gtkAdjustmentValueChanged.html">gtkAdjustmentValueChanged</a>(object)</code><br />
+<code><a href="gtkAdjustmentConfigure.html">gtkAdjustmentConfigure</a>(object, value, lower, upper, step.increment, page.increment, page.size)</code><br />
+<code><a href="gtkAdjustmentGetLower.html">gtkAdjustmentGetLower</a>(object)</code><br />
+<code><a href="gtkAdjustmentGetPageIncrement.html">gtkAdjustmentGetPageIncrement</a>(object)</code><br />
+<code><a href="gtkAdjustmentGetPageSize.html">gtkAdjustmentGetPageSize</a>(object)</code><br />
+<code><a href="gtkAdjustmentGetStepIncrement.html">gtkAdjustmentGetStepIncrement</a>(object)</code><br />
+<code><a href="gtkAdjustmentGetUpper.html">gtkAdjustmentGetUpper</a>(object)</code><br />
+<code><a href="gtkAdjustmentSetLower.html">gtkAdjustmentSetLower</a>(object, lower)</code><br />
+<code><a href="gtkAdjustmentSetPageIncrement.html">gtkAdjustmentSetPageIncrement</a>(object, page.increment)</code><br />
+<code><a href="gtkAdjustmentSetPageSize.html">gtkAdjustmentSetPageSize</a>(object, page.size)</code><br />
+<code><a href="gtkAdjustmentSetStepIncrement.html">gtkAdjustmentSetStepIncrement</a>(object, step.increment)</code><br />
+<code><a href="gtkAdjustmentSetUpper.html">gtkAdjustmentSetUpper</a>(object, upper)</code><br />
+<code>gtkAdjustment(value = NULL, lower = NULL, upper = NULL, step.incr = NULL, page.incr = NULL, page.size = NULL)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkAdjustment</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> object represents a value which has an associated lower
+and upper bound, together with step and page increments, and a page size.
+It is used within several GTK+ widgets, including
+<code><a href="GtkSpinButton.html">GtkSpinButton</a></code>, <code><a href="GtkViewport.html">GtkViewport</a></code>, and <code><a href="GtkRange.html">GtkRange</a></code> (which is a base class for
+<code><a href="GtkHScrollbar.html">GtkHScrollbar</a></code>, <code><a href="GtkVScrollbar.html">GtkVScrollbar</a></code>, <code><a href="GtkHScale.html">GtkHScale</a></code>, and <code><a href="GtkVScale.html">GtkVScale</a></code>).
+</p>
+<p>The <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> object does not update the value itself. Instead
+it is left up to the owner of the <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> to control the value.
+</p>
+<p>The owner of the <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> typically calls the
+<code><a href="gtkAdjustmentValueChanged.html">gtkAdjustmentValueChanged</a></code> and <code><a href="gtkAdjustmentChanged.html">gtkAdjustmentChanged</a></code> functions
+after changing the value and its bounds. This results in the emission of the
+&quot;value_changed&quot; or &quot;changed&quot; signal respectively.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkAdjustment</code></dt><dd>
+<p>The <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> struct contains the following fields.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   lower; </td><td style="text-align: left;"> the minimum value. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   upper; </td><td style="text-align: left;"> the maximum value. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   value; </td><td style="text-align: left;"> the current value. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   step_increment; </td><td style="text-align: left;"> the increment to use to make minor changes to the value.
+In a   <code><a href="GtkScrollbar.html">GtkScrollbar</a></code>   this increment is used when the mouse is clicked on the
+arrows at the top and bottom of the scrollbar, to scroll by a small amount. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   page_increment; </td><td style="text-align: left;"> the increment to use to make major changes to the value.
+In a   <code><a href="GtkScrollbar.html">GtkScrollbar</a></code>   this increment is used when the mouse is clicked in the
+trough, to scroll by a large amount. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">numeric</code>   page_size; </td><td style="text-align: left;"> the page size.
+In a   <code><a href="GtkScrollbar.html">GtkScrollbar</a></code>   this is the size of the area which is currently visible. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkAdjustment</code> is the equivalent of <code><a href="gtkAdjustmentNew.html">gtkAdjustmentNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>changed(adjustment, user.data)</code></dt><dd>
+<p>Emitted when one or more of the <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> fields have been changed,
+other than the value field.
+</p>
+
+<dl>
+<dt><code>adjustment</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>value-changed(adjustment, user.data)</code></dt><dd>
+<p>Emitted when the <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> value field has been changed.
+</p>
+
+<dl>
+<dt><code>adjustment</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">lower</code> [numeric : Read / Write]</dt><dd>
+<p>The minimum value of the adjustment.
+Default value: 0  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">page-increment</code> [numeric : Read / Write]</dt><dd>
+<p>The page increment of the adjustment.
+Default value: 0  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">page-size</code> [numeric : Read / Write]</dt><dd>
+<p>The page size of the adjustment.
+Note that the page-size is irrelevant and should be set to zero
+if the adjustment is used for a simple scalar value, e.g. in a
+<code><a href="GtkSpinButton.html">GtkSpinButton</a></code>.
+Default value: 0  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">step-increment</code> [numeric : Read / Write]</dt><dd>
+<p>The step increment of the adjustment.
+Default value: 0  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">upper</code> [numeric : Read / Write]</dt><dd>
+<p>The maximum value of the adjustment.
+Note that values will be restricted by
+<code>upper - page-size</code> if the page-size
+property is nonzero.
+Default value: 0  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">value</code> [numeric : Read / Write]</dt><dd>
+<p>The value of the adjustment.
+Default value: 0  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkAdjustment.html">http://library.gnome.org/devel//gtk/GtkAdjustment.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

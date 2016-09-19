@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot predicted values from a model against one of the...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for TkPredict {TeachingDemos}"><tr><td>TkPredict {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot predicted values from a model against one of the predictors
+for a given value of the othe predictors</h2>
+
+<h3>Description</h3>
+
+<p>These functions create a plot of predicted values vs. one of the
+predictors for given values of the other predictors.  TkPredict
+further creates a Tk gui to allow you to change the values of the
+other predictors.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Predict.Plot(model, pred.var, ..., type='response', add=FALSE,
+plot.args=list(), n.points=100, ref.val, ref.col='green', ref.lty=1,
+data)
+TkPredict(model, data, pred.var, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>A model of class 'lm' or 'glm' (or possibly others) from
+which to plot predictions.</p>
+</td></tr>
+<tr valign="top"><td><code>pred.var</code></td>
+<td>
+<p>A character string indicating which predictor variable
+to put on the x-axis of the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>for <code>Predict.Plot</code> The predictor variables and their
+values for the predictions.  See below for detail.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>The type value passed on to the predict function.</p>
+</td></tr>
+<tr valign="top"><td><code>add</code></td>
+<td>
+<p>Whether to add a line to the existing plot or start a new
+plot.</p>
+</td></tr>
+<tr valign="top"><td><code>plot.args</code></td>
+<td>
+<p>A list of additional options passed on to the
+plotting function.</p>
+</td></tr>
+<tr valign="top"><td><code>n.points</code></td>
+<td>
+<p>The number of points to use in the approximation of
+the curve.</p>
+</td></tr>
+<tr valign="top"><td><code>ref.val</code></td>
+<td>
+<p>A reference value for the <code>pred.var</code>, a reference
+line will be drawn at this value to the corresponding predicted value.</p>
+</td></tr>
+<tr valign="top"><td><code>ref.col, ref.lty</code></td>
+<td>
+<p>The color and line type of the reference line
+if plotted.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>The data frame or environment where the variables that the
+model was fit to are found.  If missing, the model will be examined
+for an attempt find the needed data.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions plot the predicted values from a regression model
+(<code>lm</code> or <code>glm</code>) against one of the predictor variables for
+given values of the other predictors.  The values of the other
+predictors are passed as the <code>...</code> argument to
+<code>Predict.Plot</code> or are set using gui controls in <code>TkPredict</code>
+(initial values are the medians).
+</p>
+<p>If the variable for the x axis (name put in <code>pred.var</code>) is not
+included with the <code>...</code> variables, then the range will be
+computed from the <code>data</code> argument or the data component of the
+<code>model</code> argument.
+</p>
+<p>If the variable passed as <code>pred.var</code> is also included in the
+<code>...</code> arguments and contains a single value, then this value will
+be used as the <code>ref.val</code> argument.
+</p>
+<p>If it contains 2 or more values, then the range of these values will
+be used as the x-limits for the predictions.
+</p>
+<p>When running <code>TkPredict</code> you can click on the &quot;Print Call&quot; button
+to print out the call of <code>Predict.Plot</code> that will recreate the
+same plot.  Doing this for different combinations of predictor values
+and editing the <code>plot.args</code> and <code>add</code> arguments will give
+you a script that will create a static version of the predictions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>These functions are run for their side effects of creating plots and
+do not return anything.
+</p>
+
+
+<h3>Note</h3>
+
+<p> The GUI currently allows you to select a factor as the
+x-variable.  If you do this it will generate some errors and you will
+not see the plot, just choose a different variable as the x-variable
+and the plot will return. </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+ <p><code>tkrplot</code>, <code><a href="tkexamp.html">tkexamp</a></code>, <code><a href="../../stats/html/predict.html">predict</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+library(splines)
+
+fit.lm1 &lt;- lm( Sepal.Width ~ ns(Petal.Width,3)*ns(Petal.Length,3)+Species,
+	data=iris)
+
+Predict.Plot(fit.lm1, pred.var = "Petal.Width", Petal.Width = 1.22,
+      Petal.Length = 4.3, Species = "versicolor",
+ 	plot.args = list(ylim=range(iris$Sepal.Width), col='blue'),
+      type = "response")
+Predict.Plot(fit.lm1, pred.var = "Petal.Width", Petal.Width = 1.22,
+      Petal.Length = 4.3, Species = "virginica",
+	plot.args = list(col='red'),
+      type = "response", add=TRUE)
+Predict.Plot(fit.lm1, pred.var = "Petal.Width", Petal.Width = 1.22,
+      Petal.Length = 4.4, Species = "virginica",
+	plot.args = list(col='purple'),
+      type = "response", add=TRUE)
+
+fit.glm1 &lt;- glm( Species=='virginica' ~ Sepal.Width+Sepal.Length,
+	data=iris, family=binomial)
+
+Predict.Plot(fit.glm1, pred.var = "Sepal.Length", Sepal.Width = 1.99,
+      Sepal.Length = 6.34, plot.args = list(ylim=c(0,1), col='blue'),
+ 	type = "response")
+Predict.Plot(fit.glm1, pred.var = "Sepal.Length", Sepal.Width = 4.39,
+      Sepal.Length = 6.34, plot.args = list(col='red'),
+	type = "response", add=TRUE)
+
+
+
+
+if(interactive()){
+TkPredict(fit.lm1)
+
+TkPredict(fit.glm1)
+}
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

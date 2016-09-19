@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Snow's Correctly Sized But Otherwise Useless Test of Anything</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SnowsCorrectlySizedButOtherwiseUselessTestOfAnything {TeachingDemos}"><tr><td>SnowsCorrectlySizedButOtherwiseUselessTestOfAnything {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Snow's Correctly Sized But Otherwise Useless Test of Anything
+</h2>
+
+<h3>Description</h3>
+
+<p>This is a hypothesis test designed to be correctly sized in that the
+probability of rejecting the null when it is true will be equal to your
+alpha level.  Other than that it is a pretty useless test mainly
+intended for when people say something like &quot;I just need a p-value&quot;.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+SnowsCorrectlySizedButOtherwiseUselessTestOfAnything(x,
+  data.name = deparse(substitute(x)),
+  alternative = "You Are Lucky", ..., seed)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> The data, or nothing, or something equally irrelevant</p>
+</td></tr>
+<tr valign="top"><td><code>data.name</code></td>
+<td>
+<p> The name of  the data for the output</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>The phrase for the alternate hypothesis in the output</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional arguments that will be silently ignored (like
+<code>x</code>), future versions may mockingly ignore these instead</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p> A seed (numeric or character) used to seed the random
+number generator.  Use this or manually set the seed if you want
+reproducible (but still meaningless) results</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Some of the advantages/disadvantages of this test include:
+</p>
+
+<ul>
+<li><p>The probability of a Type I error is alpha
+</p>
+</li>
+<li><p>Power can be easily computed (it is alpha)
+</p>
+</li>
+<li><p>Power is independent of the sample size
+</p>
+</li>
+<li><p>Power is independent of the hypotheses
+</p>
+</li>
+<li><p>This test is not affected by missing data (present data
+either)
+</p>
+</li>
+<li><p>This test does not depend on any distributional or
+independence assumptions
+</p>
+</li></ul>
+
+
+
+<h3>Value</h3>
+
+<p>An object of class htest with the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>p.value</code></td>
+<td>
+<p>The p-value</p>
+</td></tr>
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+<p>The test statistic (identical to the p-value)</p>
+</td></tr>
+<tr valign="top"><td><code>data.name</code></td>
+<td>
+<p>The name of the data (if any)</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>The name of the test</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>a phrase representing the alternative hypothesis</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>optionally the seed that was used</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>If someone has suggested that you consider this test, they most likely
+do not intend for you to actually use the test, rather to reconsider
+your question or the assumptions that you are making or trying to
+avoid.  This test should only be used to illustrate a point and
+decisions (other than maybe who should pay for lunch) should never be
+made based on the results of this test.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>The author is unlikely to be willing to publish in any &quot;journal&quot; that
+would be willing to publish this test.
+</p>
+<p>fortune(264)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/Uniform.html">runif</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  SnowsCorrectlySizedButOtherwiseUselessTestOfAnything(log(rnorm(100)))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

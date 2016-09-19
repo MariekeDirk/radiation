@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Verification of the CORElearn installation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for testCore {CORElearn}"><tr><td>testCore {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Verification of the CORElearn installation</h2>
+
+<h3>Description</h3>
+
+<p>Performs a partial check of the classification part of CORElearn.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+testCoreClass(continue=TRUE)
+testCoreAttrEval(continue=TRUE)
+testCoreReg(continue=TRUE)
+testCoreOrdEval(continue=TRUE)
+testCoreNA(continue=TRUE)
+testCoreRPORT(continue=TRUE)
+testCoreRand(continue=TRUE)
+allTests(continue=TRUE, timed=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>continue</code></td>
+<td>
+<p> Logical. Whether a warning or an error should be generated
+when a test fails.</p>
+</td></tr>
+<tr valign="top"><td><code>timed</code></td>
+<td>
+<p>Logical. Whether the time usage should be printed.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Functions <code>testCoreClass()</code>, <code>testCoreAttrEval()</code>, <code>testCoreReg()</code> run
+functions <code>CoreModel()</code>, <code>predict.CoreModel()</code>, <code>modelEval()</code>, and
+<code>attrEval()</code> and perform a partial check of the obtained results.
+</p>
+<p>Function <code>testNA()</code> performs a test of consistency NA and NaN between R and CORElearn.
+</p>
+<p>Functions <code>testCoreRPORT()</code> and <code>testCoreRand()</code> test, whether the
+<code>R_PORT</code> directive is defined in C code and whether R random number
+generator is used. These tests are mostly for debugging.
+</p>
+<p>Function <code>allTests()</code> calls all the above functions and prints a table
+of the results. If an error is found, a more detailed information
+is printed and the continuation of the tests depends on the argument
+<code>continue</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The functions have no output value. The result OK or FAILED is printed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja, Petr Savicky </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+allTests() # run all tests and generate an error, if any of the tests fails
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

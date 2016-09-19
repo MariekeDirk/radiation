@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRuler</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRuler {RGtk2}"><tr><td>GtkRuler {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRuler</h2>
+
+<h3>Description</h3>
+
+<p>Base class for horizontal or vertical rulers</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRulerSetMetric.html">gtkRulerSetMetric</a>(object, metric)</code><br />
+<code><a href="gtkRulerSetRange.html">gtkRulerSetRange</a>(object, lower, upper, position, max.size)</code><br />
+<code><a href="gtkRulerGetMetric.html">gtkRulerGetMetric</a>(object)</code><br />
+<code><a href="gtkRulerGetRange.html">gtkRulerGetRange</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkRuler
+                           +----GtkHRuler
+                           +----GtkVRuler</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRuler implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><strong>PLEASE NOTE:</strong>  This widget is considered too specialized/little-used for
+GTK+, and will in the future be moved to some other package.  If
+your application needs this widget, feel free to use it, as the
+widget does work and is useful in some applications; it's just not
+of general interest. However, we are not accepting new features for
+the widget, and it will eventually move out of the GTK+
+distribution.  
+The GTKRuler widget is a base class for horizontal and vertical rulers. Rulers
+are used to show the mouse pointer's location in a window. The ruler can either
+be horizontal or vertical on the window. Within the ruler a small triangle
+indicates the location of the mouse relative to the horizontal or vertical
+ruler. See <code><a href="GtkHRuler.html">GtkHRuler</a></code> to learn how to create a new horizontal ruler. See
+<code><a href="GtkVRuler.html">GtkVRuler</a></code> to learn how to create a new vertical ruler.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRuler</code></dt><dd>
+<p>All distances are in 1/72nd's of an inch. (According to Adobe thats a point, but
+points are really 1/72.27 in.)
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">lower</code> [numeric : Read / Write]</dt><dd>
+<p>Lower limit of ruler.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">max-size</code> [numeric : Read / Write]</dt><dd>
+<p>Maximum size of the ruler.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">metric</code> [<code><a href="gtk-Standard-Enumerations.html">GtkMetricType</a></code> : Read / Write]</dt><dd>
+<p>The metric used for the ruler.
+Default value: GTK_PIXELS  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">position</code> [numeric : Read / Write]</dt><dd>
+<p>Position of mark on the ruler.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">upper</code> [numeric : Read / Write]</dt><dd>
+<p>Upper limit of ruler.  Default value: 0
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRuler.html">http://library.gnome.org/devel//gtk/GtkRuler.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkHRuler.html">GtkHRuler</a></code>
+<code><a href="GtkVRuler.html">GtkVRuler</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

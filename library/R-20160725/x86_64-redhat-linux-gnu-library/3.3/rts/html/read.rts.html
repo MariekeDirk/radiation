@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read raster time Series data from a file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read.rts {rts}"><tr><td>read.rts {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read raster time Series data from a file</h2>
+
+<h3>Description</h3>
+
+<p>Read a raster time series object from a file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read.rts(filename)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p> Filename (character)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function reads a raster time series object which has been writen by <code><a href="write.rts.html">write.rts</a></code>. Instead of <code>read.rts</code>, the <code>rts</code> function can be used (usage: <code>rts(filename)</code>). 
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>RasterBrickTS</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+</p>
+<p><a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+</p>
+<p><a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="write.rts.html">write.rts</a>, <a href="rts.html">rts</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+file &lt;- system.file("external/ndvi", package="rts")
+
+rt &lt;- read.rts(file)
+
+rt
+
+# or alternatively:
+rt &lt;- rts(file)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

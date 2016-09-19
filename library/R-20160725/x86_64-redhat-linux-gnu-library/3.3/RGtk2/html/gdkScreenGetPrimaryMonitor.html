@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkScreenGetPrimaryMonitor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkScreenGetPrimaryMonitor {RGtk2}"><tr><td>gdkScreenGetPrimaryMonitor {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkScreenGetPrimaryMonitor</h2>
+
+<h3>Description</h3>
+
+<p>Gets the primary monitor for <code>screen</code>.  The primary monitor
+is considered the monitor where the 'main desktop' lives.
+While normal application windows typically allow the window
+manager to place the windows, specialized desktop applications
+such as panels should place themselves on the primary monitor.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkScreenGetPrimaryMonitor(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GdkScreen.html">GdkScreen</a></code>.</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>If no primary monitor is configured by the user, the return value
+will be 0, defaulting to the first monitor.
+Since 2.20</p>
+
+
+<h3>Value</h3>
+
+<p>[integer] An integer index for the primary monitor, or 0 if none is configured.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

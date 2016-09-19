@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Labelling Connected Features</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for labcon {adehabitat}"><tr><td>labcon {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Labelling Connected Features </h2>
+
+<h3>Description</h3>
+
+<p>This function attributes unique labels to pixels belonging to connected
+features on a map of class <code>asc</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+labcon(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>asc</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a matrix of class <code>asc</code>, of type <code>"factor"</code>, with a
+number of levels equals to the number of connected components
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="import.asc.html">asc</a></code> for further information on the class <code>asc</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+hr &lt;- getsahrlocs(puechabon$sahr, "hr")
+u &lt;- getkasc(hr, "Jean")
+image(u)
+
+## numbering of the connected components
+p &lt;- labcon(u)
+nlevels(p)
+image(p)
+
+##  stores the first component
+c1 &lt;- p
+c1[c1 != 1] &lt;- NA
+image(c1)
+
+##  stores the second component
+c2 &lt;- p
+c2[c2 != 2] &lt;- NA
+image(c2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

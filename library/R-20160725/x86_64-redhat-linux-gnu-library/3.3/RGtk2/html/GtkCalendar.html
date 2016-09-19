@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCalendar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCalendar {RGtk2}"><tr><td>GtkCalendar {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCalendar</h2>
+
+<h3>Description</h3>
+
+<p>Displays a calendar and allows the user to select a date</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCalendarNew.html">gtkCalendarNew</a>(show = TRUE)</code><br />
+<code><a href="gtkCalendarSelectMonth.html">gtkCalendarSelectMonth</a>(object, month, year)</code><br />
+<code><a href="gtkCalendarSelectDay.html">gtkCalendarSelectDay</a>(object, day)</code><br />
+<code><a href="gtkCalendarMarkDay.html">gtkCalendarMarkDay</a>(object, day)</code><br />
+<code><a href="gtkCalendarUnmarkDay.html">gtkCalendarUnmarkDay</a>(object, day)</code><br />
+<code><a href="gtkCalendarClearMarks.html">gtkCalendarClearMarks</a>(object)</code><br />
+<code><a href="gtkCalendarGetDisplayOptions.html">gtkCalendarGetDisplayOptions</a>(object)</code><br />
+<code><a href="gtkCalendarSetDisplayOptions.html">gtkCalendarSetDisplayOptions</a>(object, flags)</code><br />
+<code><a href="gtkCalendarGetDate.html">gtkCalendarGetDate</a>(object)</code><br />
+<code><a href="gtkCalendarSetDetailFunc.html">gtkCalendarSetDetailFunc</a>(object, func, data)</code><br />
+<code><a href="gtkCalendarGetDetailWidthChars.html">gtkCalendarGetDetailWidthChars</a>(object)</code><br />
+<code><a href="gtkCalendarSetDetailWidthChars.html">gtkCalendarSetDetailWidthChars</a>(object, chars)</code><br />
+<code><a href="gtkCalendarGetDetailHeightRows.html">gtkCalendarGetDetailHeightRows</a>(object)</code><br />
+<code><a href="gtkCalendarSetDetailHeightRows.html">gtkCalendarSetDetailHeightRows</a>(object, rows)</code><br />
+<code><a href="gtkCalendarDisplayOptions.html">gtkCalendarDisplayOptions</a>(object, flags)</code><br />
+<code><a href="gtkCalendarFreeze.html">gtkCalendarFreeze</a>(object)</code><br />
+<code><a href="gtkCalendarThaw.html">gtkCalendarThaw</a>(object)</code><br />
+<code>gtkCalendar(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkCalendar</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkCalendar implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkCalendar.html">GtkCalendar</a></code> is a widget that displays a calendar, one month at a time.
+It can be created with <code><a href="gtkCalendarNew.html">gtkCalendarNew</a></code>.
+</p>
+<p>The month and year currently displayed can be altered with
+<code><a href="gtkCalendarSelectMonth.html">gtkCalendarSelectMonth</a></code>. The exact day can be selected from the displayed
+month using <code><a href="gtkCalendarSelectDay.html">gtkCalendarSelectDay</a></code>.
+</p>
+<p>To place a visual marker on a particular day, use <code><a href="gtkCalendarMarkDay.html">gtkCalendarMarkDay</a></code>
+and to remove the marker, <code><a href="gtkCalendarUnmarkDay.html">gtkCalendarUnmarkDay</a></code>.
+Alternative, all marks can be cleared with <code><a href="gtkCalendarClearMarks.html">gtkCalendarClearMarks</a></code>.
+</p>
+<p>The way in which the calendar itself is displayed can be altered using
+<code><a href="gtkCalendarSetDisplayOptions.html">gtkCalendarSetDisplayOptions</a></code>.
+</p>
+<p>The selected date can be retrieved from a <code><a href="GtkCalendar.html">GtkCalendar</a></code> using
+<code><a href="gtkCalendarGetDate.html">gtkCalendarGetDate</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCalendar</code></dt><dd>
+<p><code>num_marked_dates</code> is an integer containing the
+number of days that have a mark over them.
+<code>marked_date</code> is a list containing the day numbers
+that currently have a mark over them.
+<code>month</code>, <code>year</code>, and
+<code>selected_day</code> contain the currently visible month,
+year, and selected day respectively.
+</p>
+<p>All of these fields should be considered read only, and everything in this
+struct should only be modified using the functions provided below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCalendar</code> is the equivalent of <code><a href="gtkCalendarNew.html">gtkCalendarNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCalendarDisplayOptions</code></dt><dd>
+<p>These options can be used to influence the display and behaviour of a <code><a href="GtkCalendar.html">GtkCalendar</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">show-heading</code></dt><dd><p>Specifies that the month and year should be displayed.</p>
+</dd>
+<dt><code style="white-space: pre;">show-day-names</code></dt><dd><p>Specifies that three letter day descriptions should be present.</p>
+</dd>
+<dt><code style="white-space: pre;">no-month-change</code></dt><dd><p>Prevents the user from switching months with the calendar.</p>
+</dd>
+<dt><code style="white-space: pre;">show-week-numbers</code></dt><dd><p>Displays each week numbers of the current year, down the
+left side of the calendar.</p>
+</dd>
+<dt><code style="white-space: pre;">week-start-monday</code></dt><dd><p>Since GTK+ 2.4, this option is deprecated and ignored by GTK+.
+The information on which day the calendar week starts is derived from the locale.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkCalendarDetailFunc(calendar, year, month, day, user.data)</code></dt><dd>
+<p>This kind of functions provide Pango markup with detail information for the
+specified day. Examples for such details are holidays or appointments. The
+function returns <code>NULL</code> when no information is available.
+Since 2.14
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>a <code><a href="GtkCalendar.html">GtkCalendar</a></code>.</p>
+</dd>
+<dt><code>year</code></dt><dd><p>the year for which details are needed.</p>
+</dd>
+<dt><code>month</code></dt><dd><p>the month for which details are needed.</p>
+</dd>
+<dt><code>day</code></dt><dd><p>the day of <code>month</code> for which details are needed.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>the data passed with <code><a href="gtkCalendarSetDetailFunc.html">gtkCalendarSetDetailFunc</a></code>.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [character] Newly allocated string with Pango markup with details
+for the specified day, or <code>NULL</code>.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>day-selected(calendar, user.data)</code></dt><dd>
+<p>Emitted when the user selects a day.
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>day-selected-double-click(calendar, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>month-changed(calendar, user.data)</code></dt><dd>
+<p>Emitted when the user clicks a button to change the selected month on a
+calendar.
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>next-month(calendar, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>next-year(calendar, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>prev-month(calendar, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>prev-year(calendar, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>calendar</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">day</code> [integer : Read / Write]</dt><dd>
+<p>The selected day (as a number between 1 and 31, or 0
+to unselect the currently selected day).
+This property gets initially set to the current day.
+Allowed values: [0,31]  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">detail-height-rows</code> [integer : Read / Write]</dt><dd>
+<p>Height of a detail cell, in rows.
+A value of 0 allows any width. See <code><a href="gtkCalendarSetDetailFunc.html">gtkCalendarSetDetailFunc</a></code>.
+Allowed values: [0,127]  Default value: 0  Since 2.14
+</p>
+</dd>
+<dt><code style="white-space: pre;">detail-width-chars</code> [integer : Read / Write]</dt><dd>
+<p>Width of a detail cell, in characters.
+A value of 0 allows any width. See <code><a href="gtkCalendarSetDetailFunc.html">gtkCalendarSetDetailFunc</a></code>.
+Allowed values: [0,127]  Default value: 0  Since 2.14
+</p>
+</dd>
+<dt><code style="white-space: pre;">month</code> [integer : Read / Write]</dt><dd>
+<p>The selected month (as a number between 0 and 11).
+This property gets initially set to the current month.
+Allowed values: [0,11]  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">no-month-change</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the selected month can be changed.
+Default value: FALSE  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">show-day-names</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether day names are displayed.
+Default value: TRUE  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">show-details</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether details are shown directly in the widget, or if they are
+available only as tooltip. When this property is set days with details are
+marked.
+Default value: TRUE  Since 2.14
+</p>
+</dd>
+<dt><code style="white-space: pre;">show-heading</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether a heading is displayed.
+Default value: TRUE  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">show-week-numbers</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether week numbers are displayed.
+Default value: FALSE  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">year</code> [integer : Read / Write]</dt><dd>
+<p>The selected year.
+This property gets initially set to the current year.
+Allowed values: [0,4194303]  Default value: 0
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCalendar.html">http://library.gnome.org/devel//gtk/GtkCalendar.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

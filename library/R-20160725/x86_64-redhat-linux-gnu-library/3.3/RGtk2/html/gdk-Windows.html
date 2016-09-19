@@ -1,0 +1,873 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Windows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Windows {RGtk2}"><tr><td>gdk-Windows {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Windows</h2>
+
+<h3>Description</h3>
+
+<p>Onscreen display areas in the target window system</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkWindowNew.html">gdkWindowNew</a>(parent = NULL, attributes)</code><br />
+<code><a href="gdkWindowDestroy.html">gdkWindowDestroy</a>(object)</code><br />
+<code><a href="gdkWindowGetWindowType.html">gdkWindowGetWindowType</a>(object)</code><br />
+<code><a href="gdkWindowAtPointer.html">gdkWindowAtPointer</a>()</code><br />
+<code><a href="gdkWindowShow.html">gdkWindowShow</a>(object)</code><br />
+<code><a href="gdkWindowShowUnraised.html">gdkWindowShowUnraised</a>(object)</code><br />
+<code><a href="gdkWindowHide.html">gdkWindowHide</a>(object)</code><br />
+<code><a href="gdkWindowIsDestroyed.html">gdkWindowIsDestroyed</a>(object)</code><br />
+<code><a href="gdkWindowIsVisible.html">gdkWindowIsVisible</a>(object)</code><br />
+<code><a href="gdkWindowIsViewable.html">gdkWindowIsViewable</a>(object)</code><br />
+<code><a href="gdkWindowGetState.html">gdkWindowGetState</a>(object)</code><br />
+<code><a href="gdkWindowWithdraw.html">gdkWindowWithdraw</a>(object)</code><br />
+<code><a href="gdkWindowIconify.html">gdkWindowIconify</a>(object)</code><br />
+<code><a href="gdkWindowDeiconify.html">gdkWindowDeiconify</a>(object)</code><br />
+<code><a href="gdkWindowStick.html">gdkWindowStick</a>(object)</code><br />
+<code><a href="gdkWindowUnstick.html">gdkWindowUnstick</a>(object)</code><br />
+<code><a href="gdkWindowMaximize.html">gdkWindowMaximize</a>(object)</code><br />
+<code><a href="gdkWindowUnmaximize.html">gdkWindowUnmaximize</a>(object)</code><br />
+<code><a href="gdkWindowFullscreen.html">gdkWindowFullscreen</a>(object)</code><br />
+<code><a href="gdkWindowUnfullscreen.html">gdkWindowUnfullscreen</a>(object)</code><br />
+<code><a href="gdkWindowSetKeepAbove.html">gdkWindowSetKeepAbove</a>(object, setting)</code><br />
+<code><a href="gdkWindowSetKeepBelow.html">gdkWindowSetKeepBelow</a>(object, setting)</code><br />
+<code><a href="gdkWindowSetOpacity.html">gdkWindowSetOpacity</a>(object, opacity)</code><br />
+<code><a href="gdkWindowSetComposited.html">gdkWindowSetComposited</a>(object, composited)</code><br />
+<code><a href="gdkWindowMove.html">gdkWindowMove</a>(object, x, y)</code><br />
+<code><a href="gdkWindowResize.html">gdkWindowResize</a>(object, width, height)</code><br />
+<code><a href="gdkWindowMoveResize.html">gdkWindowMoveResize</a>(object, x, y, width, height)</code><br />
+<code><a href="gdkWindowScroll.html">gdkWindowScroll</a>(object, dx, dy)</code><br />
+<code><a href="gdkWindowMoveRegion.html">gdkWindowMoveRegion</a>(object, region, x, y)</code><br />
+<code><a href="gdkWindowFlush.html">gdkWindowFlush</a>(object)</code><br />
+<code><a href="gdkWindowEnsureNative.html">gdkWindowEnsureNative</a>(object)</code><br />
+<code><a href="gdkWindowReparent.html">gdkWindowReparent</a>(object, new.parent, x, y)</code><br />
+<code><a href="gdkWindowClear.html">gdkWindowClear</a>(object)</code><br />
+<code><a href="gdkWindowClearArea.html">gdkWindowClearArea</a>(object, x, y, width, height)</code><br />
+<code><a href="gdkWindowClearAreaE.html">gdkWindowClearAreaE</a>(object, x, y, width, height)</code><br />
+<code><a href="gdkWindowRaise.html">gdkWindowRaise</a>(object)</code><br />
+<code><a href="gdkWindowLower.html">gdkWindowLower</a>(object)</code><br />
+<code><a href="gdkWindowRestack.html">gdkWindowRestack</a>(object, sibling, above)</code><br />
+<code><a href="gdkWindowFocus.html">gdkWindowFocus</a>(object, timestamp = "GDK_CURRENT_TIME")</code><br />
+<code><a href="gdkWindowRegisterDnd.html">gdkWindowRegisterDnd</a>(object)</code><br />
+<code><a href="gdkWindowBeginResizeDrag.html">gdkWindowBeginResizeDrag</a>(object, edge, button, root.x, root.y, timestamp)</code><br />
+<code><a href="gdkWindowBeginMoveDrag.html">gdkWindowBeginMoveDrag</a>(object, button, root.x, root.y, timestamp)</code><br />
+<code><a href="gdkWindowConstrainSize.html">gdkWindowConstrainSize</a>(geometry, width, height)</code><br />
+<code><a href="gdkWindowBeep.html">gdkWindowBeep</a>(object)</code><br />
+<code><a href="gdkWindowBeginPaintRect.html">gdkWindowBeginPaintRect</a>(object, rectangle)</code><br />
+<code><a href="gdkWindowBeginPaintRegion.html">gdkWindowBeginPaintRegion</a>(object, region)</code><br />
+<code><a href="gdkWindowEndPaint.html">gdkWindowEndPaint</a>(object)</code><br />
+<code><a href="gdkWindowInvalidateRect.html">gdkWindowInvalidateRect</a>(object, rect = NULL, invalidate.children)</code><br />
+<code><a href="gdkWindowInvalidateRegion.html">gdkWindowInvalidateRegion</a>(object, region, invalidate.children)</code><br />
+<code><a href="gdkWindowInvalidateMaybeRecurse.html">gdkWindowInvalidateMaybeRecurse</a>(object, region, child.func, user.data)</code><br />
+<code><a href="gdkWindowGetUpdateArea.html">gdkWindowGetUpdateArea</a>(object)</code><br />
+<code><a href="gdkWindowFreezeUpdates.html">gdkWindowFreezeUpdates</a>(object)</code><br />
+<code><a href="gdkWindowThawUpdates.html">gdkWindowThawUpdates</a>(object)</code><br />
+<code><a href="gdkWindowProcessAllUpdates.html">gdkWindowProcessAllUpdates</a>()</code><br />
+<code><a href="gdkWindowProcessUpdates.html">gdkWindowProcessUpdates</a>(object, update.children)</code><br />
+<code><a href="gdkWindowSetDebugUpdates.html">gdkWindowSetDebugUpdates</a>(setting)</code><br />
+<code><a href="gdkWindowGetInternalPaintInfo.html">gdkWindowGetInternalPaintInfo</a>(object)</code><br />
+<code><a href="gdkWindowEnableSynchronizedConfigure.html">gdkWindowEnableSynchronizedConfigure</a>(object)</code><br />
+<code><a href="gdkWindowConfigureFinished.html">gdkWindowConfigureFinished</a>(object)</code><br />
+<code><a href="gdkWindowSetUserData.html">gdkWindowSetUserData</a>(object, user.data = NULL)</code><br />
+<code><a href="gdkWindowSetOverrideRedirect.html">gdkWindowSetOverrideRedirect</a>(object, override.redirect)</code><br />
+<code><a href="gdkWindowSetAcceptFocus.html">gdkWindowSetAcceptFocus</a>(object, accept.focus)</code><br />
+<code><a href="gdkWindowSetFocusOnMap.html">gdkWindowSetFocusOnMap</a>(object, focus.on.map)</code><br />
+<code><a href="gdkWindowAddFilter.html">gdkWindowAddFilter</a>(object, fun, data)</code><br />
+<code><a href="gdkWindowRemoveFilter.html">gdkWindowRemoveFilter</a>(object, fun, data)</code><br />
+<code><a href="gdkWindowShapeCombineMask.html">gdkWindowShapeCombineMask</a>(object, shape.mask = NULL, offset.x, offset.y)</code><br />
+<code><a href="gdkWindowShapeCombineRegion.html">gdkWindowShapeCombineRegion</a>(object, shape.region = NULL, offset.x, offset.y)</code><br />
+<code><a href="gdkWindowSetChildShapes.html">gdkWindowSetChildShapes</a>(object)</code><br />
+<code><a href="gdkWindowMergeChildShapes.html">gdkWindowMergeChildShapes</a>(object)</code><br />
+<code><a href="gdkWindowInputShapeCombineMask.html">gdkWindowInputShapeCombineMask</a>(object, mask, x, y)</code><br />
+<code><a href="gdkWindowInputShapeCombineRegion.html">gdkWindowInputShapeCombineRegion</a>(object, shape.region, offset.x, offset.y)</code><br />
+<code><a href="gdkWindowSetChildInputShapes.html">gdkWindowSetChildInputShapes</a>(object)</code><br />
+<code><a href="gdkWindowMergeChildInputShapes.html">gdkWindowMergeChildInputShapes</a>(object)</code><br />
+<code><a href="gdkWindowSetStaticGravities.html">gdkWindowSetStaticGravities</a>(object, use.static)</code><br />
+<code><a href="gdkWindowSetHints.html">gdkWindowSetHints</a>(object, x, y, min.width, min.height, max.width, max.height, flags)</code><br />
+<code><a href="gdkWindowSetTitle.html">gdkWindowSetTitle</a>(object, title)</code><br />
+<code><a href="gdkWindowSetBackground.html">gdkWindowSetBackground</a>(object, color)</code><br />
+<code><a href="gdkWindowSetBackPixmap.html">gdkWindowSetBackPixmap</a>(object, pixmap = NULL, parent.relative)</code><br />
+<code><a href="gdkWindowSetCursor.html">gdkWindowSetCursor</a>(object, cursor = NULL)</code><br />
+<code><a href="gdkWindowGetCursor.html">gdkWindowGetCursor</a>(object)</code><br />
+<code><a href="gdkWindowGetUserData.html">gdkWindowGetUserData</a>(object)</code><br />
+<code><a href="gdkWindowGetGeometry.html">gdkWindowGetGeometry</a>(object)</code><br />
+<code><a href="gdkWindowSetGeometryHints.html">gdkWindowSetGeometryHints</a>(object, geometry)</code><br />
+<code><a href="gdkWindowSetIconList.html">gdkWindowSetIconList</a>(object, pixbufs)</code><br />
+<code><a href="gdkWindowSetModalHint.html">gdkWindowSetModalHint</a>(object, modal)</code><br />
+<code><a href="gdkWindowSetTypeHint.html">gdkWindowSetTypeHint</a>(object, hint)</code><br />
+<code><a href="gdkWindowGetTypeHint.html">gdkWindowGetTypeHint</a>(object)</code><br />
+<code><a href="gdkWindowSetSkipTaskbarHint.html">gdkWindowSetSkipTaskbarHint</a>(object, modal)</code><br />
+<code><a href="gdkWindowSetSkipPagerHint.html">gdkWindowSetSkipPagerHint</a>(object, modal)</code><br />
+<code><a href="gdkWindowSetUrgencyHint.html">gdkWindowSetUrgencyHint</a>(object, urgent)</code><br />
+<code><a href="gdkWindowGetPosition.html">gdkWindowGetPosition</a>(object)</code><br />
+<code><a href="gdkWindowGetRootOrigin.html">gdkWindowGetRootOrigin</a>(object)</code><br />
+<code><a href="gdkWindowGetFrameExtents.html">gdkWindowGetFrameExtents</a>(object)</code><br />
+<code><a href="gdkWindowGetOrigin.html">gdkWindowGetOrigin</a>(object)</code><br />
+<code><a href="gdkWindowGetDeskrelativeOrigin.html">gdkWindowGetDeskrelativeOrigin</a>(object)</code><br />
+<code><a href="gdkWindowGetRootCoords.html">gdkWindowGetRootCoords</a>(object, x, y)</code><br />
+<code><a href="gdkWindowGetPointer.html">gdkWindowGetPointer</a>(object)</code><br />
+<code><a href="gdkWindowGetParent.html">gdkWindowGetParent</a>(object)</code><br />
+<code><a href="gdkWindowGetToplevel.html">gdkWindowGetToplevel</a>(object)</code><br />
+<code><a href="gdkWindowGetChildren.html">gdkWindowGetChildren</a>(object)</code><br />
+<code><a href="gdkWindowPeekChildren.html">gdkWindowPeekChildren</a>(object)</code><br />
+<code><a href="gdkWindowGetEvents.html">gdkWindowGetEvents</a>(object)</code><br />
+<code><a href="gdkWindowSetEvents.html">gdkWindowSetEvents</a>(object, event.mask)</code><br />
+<code><a href="gdkWindowSetIcon.html">gdkWindowSetIcon</a>(object, icon.window, pixmap, mask)</code><br />
+<code><a href="gdkWindowSetIconName.html">gdkWindowSetIconName</a>(object, name)</code><br />
+<code><a href="gdkWindowSetTransientFor.html">gdkWindowSetTransientFor</a>(object, leader)</code><br />
+<code><a href="gdkWindowSetRole.html">gdkWindowSetRole</a>(object, role)</code><br />
+<code><a href="gdkWindowSetStartupId.html">gdkWindowSetStartupId</a>(object, startup.id)</code><br />
+<code><a href="gdkWindowSetGroup.html">gdkWindowSetGroup</a>(object, leader)</code><br />
+<code><a href="gdkWindowGetGroup.html">gdkWindowGetGroup</a>(object)</code><br />
+<code><a href="gdkWindowSetDecorations.html">gdkWindowSetDecorations</a>(object, decorations)</code><br />
+<code><a href="gdkWindowGetDecorations.html">gdkWindowGetDecorations</a>(object)</code><br />
+<code><a href="gdkWindowSetFunctions.html">gdkWindowSetFunctions</a>(object, functions)</code><br />
+<code><a href="gdkWindowGetToplevels.html">gdkWindowGetToplevels</a>()</code><br />
+<code><a href="gdkGetDefaultRootWindow.html">gdkGetDefaultRootWindow</a>()</code><br />
+<code><a href="gdkSetPointerHooks.html">gdkSetPointerHooks</a>(object, new.hooks)</code><br />
+<code><a href="gdkOffscreenWindowGetPixmap.html">gdkOffscreenWindowGetPixmap</a>(window)</code><br />
+<code><a href="gdkOffscreenWindowSetEmbedder.html">gdkOffscreenWindowSetEmbedder</a>(window, embedder)</code><br />
+<code><a href="gdkOffscreenWindowGetEmbedder.html">gdkOffscreenWindowGetEmbedder</a>(window)</code><br />
+<code><a href="gdkWindowGeometryChanged.html">gdkWindowGeometryChanged</a>(object)</code><br />
+<code><a href="gdkWindowRedirectToDrawable.html">gdkWindowRedirectToDrawable</a>(object, drawable, src.x, src.y, dest.x, dest.y, width, height)</code><br />
+<code><a href="gdkWindowRemoveRedirection.html">gdkWindowRemoveRedirection</a>(object)</code><br />
+<code>gdkWindow(parent = NULL, attributes)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GdkDrawable
+         +----GdkWindow</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="gdk-Windows.html">GdkWindow</a></code> is a rectangular region on the screen. It's a low-level object,
+used to implement high-level objects such as <code><a href="GtkWidget.html">GtkWidget</a></code> and <code><a href="GtkWindow.html">GtkWindow</a></code> on the
+GTK+ level. A <code><a href="GtkWindow.html">GtkWindow</a></code> is a toplevel window, the thing a user might think of
+as a &quot;window&quot; with a titlebar and so on; a <code><a href="GtkWindow.html">GtkWindow</a></code> may contain many <code><a href="gdk-Windows.html">GdkWindow</a></code>.
+For example, each <code><a href="GtkButton.html">GtkButton</a></code> has a <code><a href="gdk-Windows.html">GdkWindow</a></code> associated with it.</p>
+
+
+<h3>Composited Windows</h3>
+
+<p>Normally, the windowing system takes care of rendering the contents of a child
+window onto its parent window. This mechanism can be intercepted by calling
+<code><a href="gdkWindowSetComposited.html">gdkWindowSetComposited</a></code> on the child window. For a
+<dfn>composited</dfn> window it is the responsibility of the
+application to render the window contents at the right spot.
+</p>
+<p><em>Composited windows</em>
+</p>
+<pre>
+# The expose event handler for the event box.
+# 
+# This function simply draws a transparency onto a widget on the area
+# for which it receives expose events.  This is intended to give the
+# event box a "transparent" background.
+# 
+# In order for this to work properly, the widget must have an RGBA
+# colormap.  The widget should also be set as app-paintable since it
+# doesn't make sense for GTK+ to draw a background if we are drawing it
+# (and because GTK+ might actually replace our transparency with its
+# default background color).
+# 
+transparent_expose &lt;- function(widget, event)
+{
+  cr &lt;- gdkCairoCreate(widget$window)
+  cr$setOperator("clear")
+  gdkCairoRegion(cr, event$region)
+  cr$fill()
+
+  return(FALSE)
+}
+
+# The expose event handler for the window.
+# 
+# This function performs the actual compositing of the event box onto
+# the already-existing background of the window at 50% normal opacity.
+# 
+# In this case we do not want app-paintable to be set on the widget
+# since we want it to draw its own (red) background. Because of this,
+# however, we must ensure that we set after = TRUE when connecting to the signal
+# so that this handler is called after the red has been drawn. If it was
+# called before then GTK would just blindly paint over our work.
+# 
+# Note: if the child window has children, then you need a cairo 1.16
+# feature to make this work correctly.
+# 
+
+window_expose_event &lt;- function(widget, event)
+{
+  # get our child (in this case, the event box) 
+  child &lt;- widget$getChild()
+
+  # create a cairo context to draw to the window 
+  cr &lt;- gdkCairoCreate(widget$window)
+
+  # the source data is the (composited) event box
+  gdkCairoSetSourcePixmap(cr, child$window, child$allocation$x, 
+                          child$allocation$y)
+
+  # draw no more than our expose event intersects our child
+  region &lt;- gdkRegionRectangle(child$allocation)
+  region$intersect(event$region)
+  gdkCairoRegion(cr, region)
+  cr$clip()
+
+  # composite, with a 50% opacity
+  cr$setOperator("over")
+  cr$paintWithAlpha(0.5)
+
+  return(FALSE)
+}
+
+# Make the widgets
+button &lt;- gtkButton("A Button")
+event &lt;- gtkEventBox()
+window &lt;- gtkWindow()
+
+# Put a red background on the window
+red &lt;- gdkColorParse("red")$color
+window$modifyBg("normal", red)
+
+# Set the colormap for the event box.
+# Must be done before the event box is realized.
+#
+screen &lt;- event$getScreen()
+rgba &lt;- screen$getRgbaColormap()
+event$setColormap(rgba)
+
+# Set our event box to have a fully-transparent background
+# drawn on it. Currently there is no way to simply tell GTK+
+# that "transparency" is the background color for a widget.
+#
+event$setAppPaintable(TRUE)
+gSignalConnect(event, "expose-event", transparent_expose)
+
+# Put them inside one another
+window$setBorderWidth(10)
+window$add(event)
+event$add(button)
+
+# Set the event box GdkWindow to be composited.
+# Obviously must be performed after event box is realized.
+#
+event$window$setComposited(TRUE)
+
+# Set up the compositing handler.
+# Note that we do _after_ so that the normal (red) background is drawn
+# by gtk before our compositing occurs.
+#
+gSignalConnect(window, "expose-event", window_expose_event, after = TRUE)
+</pre>  
+<p>In the example , a button is
+placed inside of an event box inside of a window. The event box is
+set as composited and therefore is no longer automatically drawn to
+the screen.
+</p>
+<p>When the contents of the event box change, an expose event is
+generated on its parent window (which, in this case, belongs to
+the toplevel <code><a href="GtkWindow.html">GtkWindow</a></code>). The expose handler for this widget is
+responsible for merging the changes back on the screen in the way
+that it wishes.
+</p>
+<p>In our case, we merge the contents with a 50% transparency. We
+also set the background colour of the window to red. The effect is
+that the background shows through the button.</p>
+
+
+<h3>Offscreen Windows</h3>
+
+<p>Offscreen windows are more general than composited windows, since they
+allow not only to modify the rendering of the child window onto its parent,
+but also to apply coordinate transformations.
+</p>
+<p>To integrate an offscreen window into a window hierarchy, one has to call
+<code>gdkWindowSetEmbedder()</code> and handle a number of signals. The
+<code><a href="gdkOffscreenWindowSetEmbedder.html">gdkOffscreenWindowSetEmbedder</a></code> and handle a number of signals. The
+<code style="white-space: pre;">"pick-embedded-child"</code> signal on the embedder window is used to
+select an offscreen child at given coordinates, and the <code style="white-space: pre;">"to-embedder"</code>
+and <code style="white-space: pre;">"from-embedder"</code> signals on the offscreen window are used to
+translate coordinates between the embedder and the offscreen window.
+</p>
+<p>For rendering an offscreen window onto its embedder, the contents of the
+offscreen window are available as a pixmap, via
+<code><a href="gdkOffscreenWindowGetPixmap.html">gdkOffscreenWindowGetPixmap</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkWindow</code></dt><dd>
+<p>An opaque structure representing an onscreen drawable.
+Pointers to structures of type <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code>, <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkBitmap</a></code>,
+and <code><a href="gdk-Windows.html">GdkWindow</a></code>, can often be used interchangeably.
+The type <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code> refers generically to any of
+these types.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GdkGeometry</code></dt><dd>
+<p>The <code><a href="gdk-Windows.html">GdkGeometry</a></code> struct gives the window manager information about
+a window's geometry constraints. Normally you would set these on
+the GTK+ level using <code><a href="gtkWindowSetGeometryHints.html">gtkWindowSetGeometryHints</a></code>. <code><a href="GtkWindow.html">GtkWindow</a></code>
+then sets the hints on the <code><a href="gdk-Windows.html">GdkWindow</a></code> it creates.
+<code><a href="gdkWindowSetGeometryHints.html">gdkWindowSetGeometryHints</a></code> expects the hints to be fully valid already and
+simply passes them to the window manager; in contrast,
+<code><a href="gtkWindowSetGeometryHints.html">gtkWindowSetGeometryHints</a></code> performs some interpretation. For example,
+<code><a href="GtkWindow.html">GtkWindow</a></code> will apply the hints to the geometry widget instead of the toplevel
+window, if you set a geometry widget. Also, the
+<code>min.width</code>/<code>min.height</code>/<code>max.width</code>/<code>max.height</code> fields may be set to -1, and
+<code><a href="GtkWindow.html">GtkWindow</a></code> will substitute the size request of the window or geometry widget. If
+the minimum size hint is not provided, <code><a href="GtkWindow.html">GtkWindow</a></code> will use its requisition as
+the minimum size.  If the minimum size is provided and a geometry widget is set,
+<code><a href="GtkWindow.html">GtkWindow</a></code> will take the minimum size as the minimum size of the geometry widget
+rather than the entire window. The base size is treated similarly.
+</p>
+<p>The canonical use-case for <code><a href="gtkWindowSetGeometryHints.html">gtkWindowSetGeometryHints</a></code> is to get a terminal
+widget to resize properly. Here, the terminal text area should be the geometry
+widget; <code><a href="GtkWindow.html">GtkWindow</a></code> will then automatically set the base size to the size of
+other widgets in the terminal window, such as the menubar and scrollbar.  Then,
+the <code>width.inc</code> and <code>height.inc</code> fields should be set to the size of one character
+in the terminal. Finally, the base size should be set to the size of one
+character. The net effect is that the minimum size of the terminal
+will have a 1x1 character terminal area, and only terminal sizes on
+the &quot;character grid&quot; will be allowed.
+</p>
+<p>Here's an example of how the terminal example would be implemented, assuming
+a terminal area widget called &quot;terminal&quot; and a toplevel window &quot;toplevel&quot;:
+</p>
+<pre>
+fields &lt;- c("base.width", "base.height", "min.width", "min.height", "width.inc",
+            "height.inc")
+hints[fields] &lt;- char_width
+toplevel$setGeometryHints(terminal, hints)
+</pre>
+<p>The other useful fields are the <code>min.aspect</code> and <code>max.aspect</code> fields; these
+contain a width/height ratio as a floating point number. If a geometry widget is
+set, the aspect applies to the geometry widget rather than the entire window.
+The most common use of these hints is probably to set <code>min.aspect</code> and
+<code>max.aspect</code> to the same value, thus forcing the window to keep a constant aspect
+ratio.
+<strong><code style="white-space: pre;">GdkGeometry</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code>min_width</code></dt><dd><p>minimum width of window (or -1 to use requisition, with <code><a href="GtkWindow.html">GtkWindow</a></code> only)</p>
+</dd>
+<dt><code>min_height</code></dt><dd><p>minimum height of window (or -1 to use requisition, with <code><a href="GtkWindow.html">GtkWindow</a></code> only)</p>
+</dd>
+<dt><code>max_width</code></dt><dd><p>maximum width of window (or -1 to use requisition, with <code><a href="GtkWindow.html">GtkWindow</a></code> only)</p>
+</dd>
+<dt><code>max_height</code></dt><dd><p>maximum height of window (or -1 to use requisition, with <code><a href="GtkWindow.html">GtkWindow</a></code> only)</p>
+</dd>
+<dt><code>base_width</code></dt><dd><p>allowed window widths are <code>base.width</code> + <code>width.inc</code> * N where N is any integer (-1 allowed with <code><a href="GtkWindow.html">GtkWindow</a></code>)</p>
+</dd>
+<dt><code>base_height</code></dt><dd><p>allowed window widths are <code>base.height</code> + <code>height.inc</code> * N where N is any integer (-1 allowed with <code><a href="GtkWindow.html">GtkWindow</a></code>)</p>
+</dd>
+<dt><code>width_inc</code></dt><dd><p>width resize increment</p>
+</dd>
+<dt><code>height_inc</code></dt><dd><p>height resize increment</p>
+</dd>
+<dt><code>min_aspect</code></dt><dd><p>minimum width/height ratio</p>
+</dd>
+<dt><code>max_aspect</code></dt><dd><p>maximum width/height ratio</p>
+</dd>
+<dt><code>win_gravity</code></dt><dd><p>window gravity, see <code><a href="gtkWindowSetGravity.html">gtkWindowSetGravity</a></code></p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowAttr</code></dt><dd>
+<p>Attributes to use for a newly-created window.
+<strong><code style="white-space: pre;">GdkWindowAttr</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code>title</code></dt><dd><p>title of the window (for toplevel windows)</p>
+</dd>
+<dt><code>event_mask</code></dt><dd><p>event mask (see <code><a href="gdkWindowSetEvents.html">gdkWindowSetEvents</a></code>)</p>
+</dd>
+<dt><code>x</code></dt><dd><p>X coordinate relative to parent window (see <code><a href="gdkWindowMove.html">gdkWindowMove</a></code>)</p>
+</dd>
+<dt><code>y</code></dt><dd><p>Y coordinate relative to parent window (see <code><a href="gdkWindowMove.html">gdkWindowMove</a></code>)</p>
+</dd>
+<dt><code>width</code></dt><dd><p>width of window</p>
+</dd>
+<dt><code>height</code></dt><dd><p>height of window</p>
+</dd>
+<dt><code>wclass</code></dt><dd><p><code style="white-space: pre;">GDK_INPUT_OUTPUT</code> (normal window) or <code style="white-space: pre;">GDK_INPUT_ONLY</code> (invisible window that receives events)</p>
+</dd>
+<dt><code>visual</code></dt><dd><p><code><a href="gdk-Visuals.html">GdkVisual</a></code> for window</p>
+</dd>
+<dt><code>colormap</code></dt><dd><p><code><a href="gdk-Colormaps-and-Colors.html">GdkColormap</a></code> for window</p>
+</dd>
+<dt><code>window_type</code></dt><dd><p>type of window</p>
+</dd>
+<dt><code>cursor</code></dt><dd><p>cursor for the window (see <code><a href="gdkWindowSetCursor.html">gdkWindowSetCursor</a></code>)</p>
+</dd>
+<dt><code>wmclass_name</code></dt><dd><p>don't use (see <code><a href="gtkWindowSetWmclass.html">gtkWindowSetWmclass</a></code>)</p>
+</dd>
+<dt><code>wmclass_class</code></dt><dd><p>don't use (see <code><a href="gtkWindowSetWmclass.html">gtkWindowSetWmclass</a></code>)</p>
+</dd>
+<dt><code>override_redirect</code></dt><dd><p><code>TRUE</code> to bypass the window manager</p>
+</dd>
+<dt><code>type_hint</code></dt><dd><p>a hint of the function of the window</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkFilterReturn</code></dt><dd>
+<p>Specifies the result of applying a <code><a href="gdk-Windows.html">GdkFilterFunc</a></code> to a native event.
+</p>
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gdkWindow</code> is the equivalent of <code><a href="gdkWindowNew.html">gdkWindowNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkWindowType</code></dt><dd>
+<p>Describes the kind of window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">root</code></dt><dd><p>root window; this window has no parent, covers the entire screen, and is created by the window system</p>
+</dd>
+<dt><code style="white-space: pre;">toplevel</code></dt><dd><p>toplevel window (used to implement <code><a href="GtkWindow.html">GtkWindow</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">child</code></dt><dd><p>child window (used to implement e.g. <code><a href="GtkEntry.html">GtkEntry</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">dialog</code></dt><dd><p>useless/deprecated compatibility type</p>
+</dd>
+<dt><code style="white-space: pre;">temp</code></dt><dd><p>override redirect temporary window (used to implement <code><a href="GtkMenu.html">GtkMenu</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">foreign</code></dt><dd><p>foreign window (see <code>gdkWindowForeignNew()</code>)</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowClass</code></dt><dd>
+<p><code>GDK.INPUT.OUTPUT</code> windows are the standard kind of window you might expect.
+<code>GDK.INPUT.ONLY</code> windows are invisible; they are used to trap events, but
+you can't draw on them.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">output</code></dt><dd><p>window for graphics and events</p>
+</dd>
+<dt><code style="white-space: pre;">only</code></dt><dd><p>window for events only</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowHints</code></dt><dd>
+<p>Used to indicate which fields of a <code><a href="gdk-Windows.html">GdkGeometry</a></code> struct should be paid attention
+to. Also, the presence/absence of <code>GDK.HINT.POS</code>, <code>GDK.HINT.USER.POS</code>, and
+<code>GDK.HINT.USER.SIZE</code> is significant, though they don't directly refer to
+<code><a href="gdk-Windows.html">GdkGeometry</a></code> fields.  <code>GDK.HINT.USER.POS</code> will be set automatically by <code><a href="GtkWindow.html">GtkWindow</a></code>
+if you call <code><a href="gtkWindowMove.html">gtkWindowMove</a></code>. <code>GDK.HINT.USER.POS</code> and <code>GDK.HINT.USER.SIZE</code>
+should be set if the user specified a size/position using a &ndash;geometry
+command-line argument; <code>gtkWindowParseGeometry()</code> automatically sets these
+flags.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">pos</code></dt><dd><p>indicates that the program has positioned the window</p>
+</dd>
+<dt><code style="white-space: pre;">min-size</code></dt><dd><p>min size fields are set</p>
+</dd>
+<dt><code style="white-space: pre;">max-size</code></dt><dd><p>max size fields are set</p>
+</dd>
+<dt><code style="white-space: pre;">base-size</code></dt><dd><p>base size fields are set</p>
+</dd>
+<dt><code style="white-space: pre;">aspect</code></dt><dd><p>aspect ratio fields are set</p>
+</dd>
+<dt><code style="white-space: pre;">resize-inc</code></dt><dd><p>resize increment fields are set</p>
+</dd>
+<dt><code style="white-space: pre;">win-gravity</code></dt><dd><p>window gravity field is set</p>
+</dd>
+<dt><code style="white-space: pre;">user-pos</code></dt><dd><p>indicates that the window's position was explicitly set by the user</p>
+</dd>
+<dt><code style="white-space: pre;">user-size</code></dt><dd><p>indicates that the window's size was explicitly set by the user</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkGravity</code></dt><dd>
+<p>Defines the reference point of a window and the meaning of coordinates
+passed to <code><a href="gtkWindowMove.html">gtkWindowMove</a></code>. See <code><a href="gtkWindowMove.html">gtkWindowMove</a></code> and the &quot;implementation
+notes&quot; section of the
+Extended
+Window Manager Hints (<a href="http://www.freedesktop.org/Standards/wm-spec">http://www.freedesktop.org/Standards/wm-spec</a>) specification for more details.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">north-west</code></dt><dd><p>the reference point is at the top left corner.</p>
+</dd>
+<dt><code style="white-space: pre;">north</code></dt><dd><p>the reference point is in the middle of the top edge.</p>
+</dd>
+<dt><code style="white-space: pre;">north-east</code></dt><dd><p>the reference point is at the top right corner.</p>
+</dd>
+<dt><code style="white-space: pre;">west</code></dt><dd><p>the reference point is at the middle of the left edge.</p>
+</dd>
+<dt><code style="white-space: pre;">center</code></dt><dd><p>the reference point is at the center of the window.</p>
+</dd>
+<dt><code style="white-space: pre;">east</code></dt><dd><p>the reference point is at the middle of the right edge.</p>
+</dd>
+<dt><code style="white-space: pre;">south-west</code></dt><dd><p>the reference point is at the lower left corner.</p>
+</dd>
+<dt><code style="white-space: pre;">south</code></dt><dd><p>the reference point is at the middle of the lower edge.</p>
+</dd>
+<dt><code style="white-space: pre;">south-east</code></dt><dd><p>the reference point is at the lower right corner.</p>
+</dd>
+<dt><code style="white-space: pre;">static</code></dt><dd><p>the reference point is at the top left corner of the 
+window itself, ignoring window manager decorations.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowEdge</code></dt><dd>
+<p>Determines a window edge or corner.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">north-west</code></dt><dd><p>the top left corner.</p>
+</dd>
+<dt><code style="white-space: pre;">north</code></dt><dd><p>the top edge.</p>
+</dd>
+<dt><code style="white-space: pre;">north-east</code></dt><dd><p>the top right corner.</p>
+</dd>
+<dt><code style="white-space: pre;">west</code></dt><dd><p>the left edge.</p>
+</dd>
+<dt><code style="white-space: pre;">east</code></dt><dd><p>the right edge.</p>
+</dd>
+<dt><code style="white-space: pre;">south-west</code></dt><dd><p>the lower left corner.</p>
+</dd>
+<dt><code style="white-space: pre;">south</code></dt><dd><p>the lower edge.</p>
+</dd>
+<dt><code style="white-space: pre;">south-east</code></dt><dd><p>the lower right corner.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowTypeHint</code></dt><dd>
+<p>These are hints for the window manager that indicate what type of function
+the window has. The window manager can use this when determining decoration
+and behaviour of the window. The hint must be set before mapping the window.
+</p>
+<p>See the
+Extended
+Window Manager Hints (<a href="http://www.freedesktop.org/Standards/wm-spec">http://www.freedesktop.org/Standards/wm-spec</a>) specification for more details about
+window types.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">normal</code></dt><dd><p>Normal toplevel window.</p>
+</dd>
+<dt><code style="white-space: pre;">dialog</code></dt><dd><p>Dialog window.</p>
+</dd>
+<dt><code style="white-space: pre;">menu</code></dt><dd><p>Window used to implement a menu; GTK+ uses 
+this hint only for torn-off menus, see <code><a href="GtkTearoffMenuItem.html">GtkTearoffMenuItem</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">toolbar</code></dt><dd><p>Window used to implement toolbars.</p>
+</dd>
+<dt><code style="white-space: pre;">splashscreen</code></dt><dd><p>Window used to display a splash 
+screen during application startup.</p>
+</dd>
+<dt><code style="white-space: pre;">utility</code></dt><dd><p>Utility windows which are not detached 
+toolbars or dialogs.</p>
+</dd>
+<dt><code style="white-space: pre;">dock</code></dt><dd><p>Used for creating dock or panel windows.</p>
+</dd>
+<dt><code style="white-space: pre;">desktop</code></dt><dd><p>Used for creating the desktop background 
+window.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWindowAttributesType</code></dt><dd>
+<p>Used to indicate which fields in the <code><a href="gdk-Windows.html">GdkWindowAttr</a></code> struct should be
+honored. For example, if you filled in the &quot;cursor&quot; and &quot;x&quot; fields of
+<code><a href="gdk-Windows.html">GdkWindowAttr</a></code>, pass &quot;<code>GDK.WA.X</code> | <code>GDK.WA.CURSOR</code>&quot; to <code><a href="gdkWindowNew.html">gdkWindowNew</a></code>.  Fields
+in <code><a href="gdk-Windows.html">GdkWindowAttr</a></code> not covered by a bit in this enum are required; for example,
+the <code>width</code>/<code>height</code>, <code>wclass</code>, and <code>window.type</code> fields are required, they have no
+corresponding flag in <code><a href="gdk-Windows.html">GdkWindowAttributesType</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">title</code></dt><dd><p>Honor the title field</p>
+</dd>
+<dt><code style="white-space: pre;">x</code></dt><dd><p>Honor the X coordinate field</p>
+</dd>
+<dt><code style="white-space: pre;">y</code></dt><dd><p>Honor the Y coordinate field</p>
+</dd>
+<dt><code style="white-space: pre;">cursor</code></dt><dd><p>Honor the cursor field</p>
+</dd>
+<dt><code style="white-space: pre;">colormap</code></dt><dd><p>Honor the colormap field</p>
+</dd>
+<dt><code style="white-space: pre;">visual</code></dt><dd><p>Honor the visual field</p>
+</dd>
+<dt><code style="white-space: pre;">wmclass</code></dt><dd><p>Honor the wmclass_class and wmclass_name fields</p>
+</dd>
+<dt><code style="white-space: pre;">noredir</code></dt><dd><p>Honor the override_redirect field</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkFilterReturn</code></dt><dd>
+<p>Specifies the result of applying a <code><a href="gdk-Windows.html">GdkFilterFunc</a></code> to a native event.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">continue</code></dt><dd><p>event not handled, continue processing.</p>
+</dd>
+<dt><code style="white-space: pre;">translate</code></dt><dd><p>native event translated into a GDK event and stored
+in the <code>event</code> structure that was passed in.</p>
+</dd>
+<dt><code style="white-space: pre;">remove</code></dt><dd><p>event handled, terminate processing.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkModifierType</code></dt><dd>
+<p>A set of bit-flags to indicate the state of modifier keys and mouse buttons
+in various event types. Typical modifier keys are Shift, Control, Meta, Super,
+Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.
+</p>
+<p>Like the X Window System, GDK supports 8 modifier keys and 5 mouse buttons.
+</p>
+<p>Since 2.10, GDK recognizes which of the Meta, Super or Hyper keys are mapped
+to Mod2 - Mod5, and indicates this by setting <code>GDK_SUPER_MASK</code>, <code>GDK_HYPER_MASK</code>
+or <code>GDK_META_MASK</code> in the state field of key events.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">shift-mask</code></dt><dd><p>the Shift key.</p>
+</dd>
+<dt><code style="white-space: pre;">lock-mask</code></dt><dd><p>a Lock key (depending on the modifier mapping of the 
+X server this may either be CapsLock or ShiftLock).</p>
+</dd>
+<dt><code style="white-space: pre;">control-mask</code></dt><dd><p>the Control key.</p>
+</dd>
+<dt><code style="white-space: pre;">mod1-mask</code></dt><dd><p>the fourth modifier key (it depends on the modifier 
+mapping of the X server which key is interpreted as this modifier, but
+normally it is the Alt key).</p>
+</dd>
+<dt><code style="white-space: pre;">mod2-mask</code></dt><dd><p>the fifth modifier key (it depends on the modifier 
+mapping of the X server which key is interpreted as this modifier).</p>
+</dd>
+<dt><code style="white-space: pre;">mod3-mask</code></dt><dd><p>the sixth modifier key (it depends on the modifier 
+mapping of the X server which key is interpreted as this modifier).</p>
+</dd>
+<dt><code style="white-space: pre;">mod4-mask</code></dt><dd><p>the seventh modifier key (it depends on the modifier 
+mapping of the X server which key is interpreted as this modifier).</p>
+</dd>
+<dt><code style="white-space: pre;">mod5-mask</code></dt><dd><p>the eighth modifier key (it depends on the modifier 
+mapping of the X server which key is interpreted as this modifier).</p>
+</dd>
+<dt><code style="white-space: pre;">button1-mask</code></dt><dd><p>the first mouse button.</p>
+</dd>
+<dt><code style="white-space: pre;">button2-mask</code></dt><dd><p>the second mouse button.</p>
+</dd>
+<dt><code style="white-space: pre;">button3-mask</code></dt><dd><p>the third mouse button.</p>
+</dd>
+<dt><code style="white-space: pre;">button4-mask</code></dt><dd><p>the fourth mouse button.</p>
+</dd>
+<dt><code style="white-space: pre;">button5-mask</code></dt><dd><p>the fifth mouse button.</p>
+</dd>
+<dt><code style="white-space: pre;">release-mask</code></dt><dd><p>the Super modifier. Since 2.10</p>
+</dd>
+<dt><code style="white-space: pre;">modifier-mask</code></dt><dd><p>the Hyper modifier. Since 2.10</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWMDecoration</code></dt><dd>
+<p>These are hints originally defined by the Motif toolkit.
+The window manager can use them when determining how to decorate
+the window. The hint must be set before mapping the window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">all</code></dt><dd><p>all decorations should be applied.</p>
+</dd>
+<dt><code style="white-space: pre;">border</code></dt><dd><p>a frame should be drawn around the window.</p>
+</dd>
+<dt><code style="white-space: pre;">resizeh</code></dt><dd><p>the frame should have resize handles.</p>
+</dd>
+<dt><code style="white-space: pre;">title</code></dt><dd><p>a titlebar should be placed above the window.</p>
+</dd>
+<dt><code style="white-space: pre;">menu</code></dt><dd><p>a button for opening a menu should be included.</p>
+</dd>
+<dt><code style="white-space: pre;">minimize</code></dt><dd><p>a minimize button should be included.</p>
+</dd>
+<dt><code style="white-space: pre;">maximize</code></dt><dd><p>a maximize button should be included.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkWMFunction</code></dt><dd>
+<p>These are hints originally defined by the Motif toolkit.
+The window manager can use them when determining the functions
+to offer for the window.
+The hint must be set before mapping the window.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">all</code></dt><dd><p>all functions should be offered.</p>
+</dd>
+<dt><code style="white-space: pre;">resize</code></dt><dd><p>the window should be resizable.</p>
+</dd>
+<dt><code style="white-space: pre;">move</code></dt><dd><p>the window should be movable.</p>
+</dd>
+<dt><code style="white-space: pre;">minimize</code></dt><dd><p>the window should be minimizable.</p>
+</dd>
+<dt><code style="white-space: pre;">maximize</code></dt><dd><p>the window should be maximizable.</p>
+</dd>
+<dt><code style="white-space: pre;">close</code></dt><dd><p>the window should be closable.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GdkFilterFunc(xevent, event, data)</code></dt><dd>
+<p>Specifies the type of function used to filter native events before they are
+converted to GDK events.
+</p>
+<p>When a filter is called, <code>event</code> is unpopulated, except for
+<code>event-&gt;window</code>. The filter may translate the native
+event to a GDK event and store the result in <code>event</code>, or handle it without
+translation. If the filter translates the event and processing should
+continue, it should return <code>GDK_FILTER_TRANSLATE</code>.
+</p>
+
+<dl>
+<dt><code>xevent</code></dt><dd><p>the native event to filter.</p>
+</dd>
+<dt><code>event</code></dt><dd><p>the GDK event to which the X event will be translated.</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data set when the filter was installed.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="gdk-Windows.html">GdkFilterReturn</a></code>] a <code><a href="gdk-Windows.html">GdkFilterReturn</a></code> value.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>from-embedder(window, embedder-x, embedder-y, offscreen-x, offscreen-y, user.data)</code></dt><dd>
+<p>The ::from-embedder signal is emitted to translate coordinates
+in the embedder of an offscreen window to the offscreen window.
+</p>
+<p>See also <code style="white-space: pre;">"to-embedder"</code>.
+Since 2.18
+</p>
+
+<dl>
+<dt><code>window</code></dt><dd><p>the offscreen window on which the signal is emitted</p>
+</dd>
+<dt><code>embedder-x</code></dt><dd><p>x coordinate in the embedder window</p>
+</dd>
+<dt><code>embedder-y</code></dt><dd><p>y coordinate in the embedder window</p>
+</dd>
+<dt><code>offscreen-x</code></dt><dd><p>return location for the x coordinate in the offscreen window</p>
+</dd>
+<dt><code>offscreen-y</code></dt><dd><p>return location for the y coordinate in the offscreen window</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>pick-embedded-child(window, x, y, user.data)</code></dt><dd>
+<p>The ::pick-embedded-child signal is emitted to find an embedded
+child at the given position.
+Since 2.18
+</p>
+
+<dl>
+<dt><code>window</code></dt><dd><p>the window on which the signal is emitted</p>
+</dd>
+<dt><code>x</code></dt><dd><p>x coordinate in the window</p>
+</dd>
+<dt><code>y</code></dt><dd><p>y coordinate in the window</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [<code><a href="gdk-Windows.html">GdkWindow</a></code>] the <code><a href="gdk-Windows.html">GdkWindow</a></code> of the embedded child at <code>x</code>, <code>y</code>, or <code>NULL</code>
+</p>
+</dd>
+<dt><code>to-embedder(window, offscreen-x, offscreen-y, embedder-x, embedder-y, user.data)</code></dt><dd>
+<p>The ::to-embedder signal is emitted to translate coordinates
+in an offscreen window to its embedder.
+</p>
+<p>See also <code style="white-space: pre;">"from-embedder"</code>.
+Since 2.18
+</p>
+
+<dl>
+<dt><code>window</code></dt><dd><p>the offscreen window on which the signal is emitted</p>
+</dd>
+<dt><code>offscreen-x</code></dt><dd><p>x coordinate in the offscreen window</p>
+</dd>
+<dt><code>offscreen-y</code></dt><dd><p>y coordinate in the offscreen window</p>
+</dd>
+<dt><code>embedder-x</code></dt><dd><p>return location for the x coordinate in the embedder window</p>
+</dd>
+<dt><code>embedder-y</code></dt><dd><p>return location for the y coordinate in the embedder window</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">cursor</code> [<code><a href="gdk-Cursors.html">GdkCursor</a></code> : *            : Read / Write]</dt><dd>
+<p>The mouse pointer for a <code><a href="gdk-Windows.html">GdkWindow</a></code>. See <code><a href="gdkWindowSetCursor.html">gdkWindowSetCursor</a></code> and
+<code><a href="gdkWindowGetCursor.html">gdkWindowGetCursor</a></code> for details.
+Since 2.18
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Windows.html">http://library.gnome.org/devel//gdk/gdk-Windows.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

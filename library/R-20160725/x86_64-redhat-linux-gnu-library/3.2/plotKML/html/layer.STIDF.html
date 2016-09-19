@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Write irregular spatio-temporal observations (points, lines...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kml_layer.STIDF {plotKML}"><tr><td>kml_layer.STIDF {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Write irregular spatio-temporal observations (points, lines and polygons) to KML</h2>
+
+<h3>Description</h3>
+
+<p>Writes an object of class <code>"STIDF"</code> (unstructured/irregular spatio-temporal data) to a KML file with a possibility to parse attribute variables using several aesthetics arguments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kml_layer.STIDF(obj, dtime, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>space-time object of class <code>"STIDF"</code> (spatio-temporal irregular data frame) or class <code>"STFDF"</code> (spatio-temporal full data frame)</p>
+</td></tr>
+<tr valign="top"><td><code>dtime</code></td>
+<td>
+<p>temporal support (point or block) expressed in seconds</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments that can be passed to the <code>kml_layer.Spatial</code> method</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An object of class <code>"STIDF"</code> contains a slot of type <code>"Spatial*"</code>, which is parsed via the <code>kml_layer</code> method depending on the type of spatial object (points, lines, polygons). The dateTime is defined as:<br /> 
+</p>
+<p><code>yyyy-mm-ddThh:mm:sszzzzzz</code><br />
+</p>
+<p>where <code>T</code> is the separator between the date and the time, and the time zone is either <code>Z</code> (for UTC) or <code>zzzzzz</code>, which represents ?hh:mm in relation to UTC. For more info on how Time Stamps work see <a href="http://kml-samples.googlecode.com">http://kml-samples.googlecode.com</a>. If the time is measured at block support, then:<br /> 
+</p>
+<p><code>&lt;TimeStamp&gt;&lt;begin&gt; &lt;/begin&gt;&lt;end&gt; &lt;/end&gt;&lt;/TimeStamp&gt;</code><br />
+</p>
+<p>tags will be inserted. Temporal support for any spacetime class, if not specified by the user, is determined as a difference between the <code>"time"</code> (indicating begin time) and <code>"endTime"</code> slots.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl and Benedikt Gräler</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Pebesma, E. (2012) <a href="http://www.jstatsoft.org/v51/i07">Classes and Methods for Spatio-Temporal Data in R</a>. Journal of Statistical Software. 51(7): 1-30.
+</p>
+</li>
+<li><p> spacetime package (<a href="http://CRAN.R-project.org/package=spacetime">http://CRAN.R-project.org/package=spacetime</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="layer.STTDF.html">kml_layer.STTDF</a></code>, <code><a href="plotKML.html">plotKML-method</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+data(HRtemp08)
+
+# format the time column:
+HRtemp08$ctime &lt;- as.POSIXct(HRtemp08$DATE, format="%Y-%m-%dT%H:%M:%SZ")
+
+# create a STIDF object:
+library(spacetime)
+sp &lt;- SpatialPoints(HRtemp08[,c("Lon","Lat")])
+proj4string(sp) &lt;- CRS("+proj=longlat +datum=WGS84")
+HRtemp08.st &lt;- STIDF(sp, time = HRtemp08$ctime, data = HRtemp08[,c("NAME","TEMP")])
+
+# write to a KML file:
+HRtemp08_jan &lt;- HRtemp08.st[1:500]
+shape &lt;- "http://maps.google.com/mapfiles/kml/pal2/icon18.png"
+kml(HRtemp08_jan, dtime = 24*3600, colour = TEMP, shape = shape, labels = "", kmz=TRUE)
+
+## North Carolina SIDS data set:
+library(maptools)
+fname &lt;- system.file("shapes/sids.shp", package="maptools")[1]
+nc &lt;- readShapePoly(fname, proj4string=CRS("+proj=longlat +datum=NAD27"))
+time &lt;- as.POSIXct(strptime(c(rep("1974-01-01", length(nc)), 
+   rep("1979-01-01", length(nc))), format="%Y-%m-%d"), tz = "GMT")
+data &lt;- data.frame(BIR = c(nc$BIR74, nc$BIR79), NWBIR = c(nc$NWBIR74, nc$NWBIR79), 
+   SID = c(nc$SID74, nc$SID79))
+# copy polygons:
+nc.poly &lt;- rep(slot(nc, "polygons"), 2)
+# fix the polygon IDs:
+for(i in 1:length(row.names(data))) { nc.poly[[i]]@ID = row.names(data)[i] }
+sp &lt;- SpatialPolygons(nc.poly, proj4string=CRS("+proj=longlat +datum=NAD27"))
+# create a STIDF object:
+nct &lt;- STIDF(sp, time = time, data = data)
+# write to a KML file:
+kml(nct, colour = SID)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

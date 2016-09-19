@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDrawGlyphsTransformed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDrawGlyphsTransformed {RGtk2}"><tr><td>gdkDrawGlyphsTransformed {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDrawGlyphsTransformed</h2>
+
+<h3>Description</h3>
+
+<p>Renders a <code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code> onto a drawable, possibly
+transforming the layed-out coordinates through a transformation
+matrix. Note that the transformation matrix for <code>font</code> is not
+changed, so to produce correct rendering results, the <code>font</code>
+must have been loaded using a <code><a href="pango-Text-Processing.html">PangoContext</a></code> with an identical
+transformation matrix to that passed in to this function.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDrawGlyphsTransformed(drawable, gc, matrix, font, x, y, glyphs)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">drawable</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">gc</code></code></td>
+<td>
+<p>a <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">matrix</code></code></td>
+<td>
+<p>a <code><a href="pango-Glyph-Storage.html">PangoMatrix</a></code>, or <code>NULL</code> to use an identity transformation. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">font</code></code></td>
+<td>
+<p>the font in which to draw the string</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>the x position of the start of the string (in Pango
+units in user space coordinates)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>the y position of the baseline (in Pango units
+in user space coordinates)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">glyphs</code></code></td>
+<td>
+<p>the glyph string to draw</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>See also <code><a href="gdkDrawGlyphs.html">gdkDrawGlyphs</a></code>, <code><a href="gdkDrawLayout.html">gdkDrawLayout</a></code>.
+Since 2.6</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

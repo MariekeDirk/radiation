@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal Grid Extension</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tryViewport {NMF}"><tr><td>tryViewport {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal Grid Extension</h2>
+
+<h3>Description</h3>
+
+<p>These functions enable mixing base and grid graphics in
+<code><a href="aheatmap.html">aheatmap</a></code>, by avoiding calls to the grid
+internal function <code>'L_gridDirty'</code>. They are not
+exported (i.e. not tampering core functions) and are only
+meant for internal use within the <span class="pkg">NMF</span> package.
+</p>
+<p><code>tryViewport</code> tries to go down to a viewport in the
+current tree, given its name.
+</p>
+<p><code>current.vpPath_patched</code> aims at substituting
+<code><a href="../../grid/html/current.vpPath.html">current.vpPath</a></code>, so that the graphic
+engine is not reset. This is essentially to prevent
+outputting a blank page at the beginning of PDF graphic
+engines.
+</p>
+<p><code>.use.grid.patch</code> tells if the user enabled patching
+grid.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  tryViewport(name, verbose = FALSE)
+
+  current.vpPath_patched()
+
+  .use.grid.patch()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>name</code></td>
+<td>
+<p>viewport name</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>toggle verbosity</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>tryViewport</code> uses <code><a href="../../grid/html/grid.ls.html">grid.ls</a></code> and
+not <code><a href="../../grid/html/viewports.html">seekViewport</a></code> as the latter would reset
+the graphic device and break the mix grid/base graphic
+capability.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

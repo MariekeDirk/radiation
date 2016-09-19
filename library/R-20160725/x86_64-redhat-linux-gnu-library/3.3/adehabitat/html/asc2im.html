@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Conversion of Maps of Class 'asc' and 'im' (Package spatstat)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for asc2im {adehabitat}"><tr><td>asc2im {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Conversion of Maps of Class 'asc' and 'im' (Package spatstat)</h2>
+
+<h3>Description</h3>
+
+<p>These functions convert maps of class <code>asc</code> to objects of
+class <code>im</code> (package spatstats) and conversely.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+asc2im(x)
+im2asc(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>asc</code> or <code>im</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code> for additionnal information on
+objects of class <code>asc</code>, and <code><a href="../../spatstat/html/im.html">im</a></code> for
+additionnal information on objects of class <code>im</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if (require(spatstat)) {
+  
+#######################
+### Conversion asc -&gt; im
+
+  data(puechabon)
+  el &lt;- getkasc(puechabon$kasc, "Elevation")
+  image(el, main = "An object of class \"asc\"")
+  elim &lt;- asc2im(el)
+  image(elim, main = "An object of class \"im\"")
+
+#######################
+### Conversion im -&gt; asc
+  u &lt;- matrix(rnorm(10000), 100, 100)
+  haha &lt;- im(u)
+  image(haha, main = "class im")
+  hihi &lt;- im2asc(haha)
+  image(hihi, main = "class asc")
+
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

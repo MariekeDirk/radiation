@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Converts a Polygon to Raster</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for area2asc {adehabitat}"><tr><td>area2asc {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Converts a Polygon to Raster</h2>
+
+<h3>Description</h3>
+
+<p><code>area2asc</code> converts a polygon map to a raster map of class
+<code>asc</code>. It is an alias for <code>mcp.rast</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  area2asc(poly, w, border=c("include", "exclude"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>poly</code></td>
+<td>
+<p>a data frame with 2 columns giving the coordinates
+of a polygon object</p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>an object of class <code>kasc</code>, or of class <code>asc</code></p>
+</td></tr>
+<tr valign="top"><td><code>border</code></td>
+<td>
+<p>a character string indicating what happens when the
+center of the pixel is located exactly on the limit of the polygon
+(<code>"include"</code> indicates that the pixel is considered to be
+inside the polygon). </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The raster map is needed to pass the format for the output raster
+object to the function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>asc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="hr.rast.html">hr.rast</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+toto &lt;- puechabon$kasc
+loc &lt;- puechabon$locs
+
+## gets the coordinates of the relocations for the wild boar #1
+wb1 &lt;- loc[loc$Name == "Chou",]
+wb1 &lt;- cbind(wb1$X, wb1$Y)
+nbpol &lt;- chull(wb1)
+xycoord &lt;- wb1[nbpol,]
+
+## rasterization of wb1
+tutu &lt;- area2asc(xycoord, toto)
+image(tutu)
+
+polygon(xycoord, lwd = 2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

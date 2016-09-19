@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetModifyStyle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetModifyStyle {RGtk2}"><tr><td>gtkWidgetModifyStyle {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetModifyStyle</h2>
+
+<h3>Description</h3>
+
+<p>Modifies style values on the widget. Modifications made using this
+technique take precedence over style values set via an RC file,
+however, they will be overriden if a style is explicitely set on
+the widget using <code><a href="gtkWidgetSetStyle.html">gtkWidgetSetStyle</a></code>. The <code><a href="gtk-Resource-Files.html">GtkRcStyle</a></code> structure
+is designed so each field can either be set or unset, so it is
+possible, using this function, to modify some style values and
+leave the others unchanged.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetModifyStyle(object, style)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">style</code></code></td>
+<td>
+<p>the <code><a href="gtk-Resource-Files.html">GtkRcStyle</a></code> holding the style modifications</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that modifications made with this function are not cumulative
+with previous calls to <code><a href="gtkWidgetModifyStyle.html">gtkWidgetModifyStyle</a></code> or with such
+functions as <code><a href="gtkWidgetModifyFg.html">gtkWidgetModifyFg</a></code>. If you wish to retain
+previous values, you must first call <code><a href="gtkWidgetGetModifierStyle.html">gtkWidgetGetModifierStyle</a></code>,
+make your modifications to the returned style, then call
+<code><a href="gtkWidgetModifyStyle.html">gtkWidgetModifyStyle</a></code> with that style. On the other hand,
+if you first call <code><a href="gtkWidgetModifyStyle.html">gtkWidgetModifyStyle</a></code>, subsequent calls
+to such functions <code><a href="gtkWidgetModifyFg.html">gtkWidgetModifyFg</a></code> will have a cumulative
+effect with the initial modifications.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

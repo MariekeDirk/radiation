@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate all points on a hypercuboid lattice.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hcube {combinat}"><tr><td>hcube {combinat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Generate all points on a hypercuboid lattice. </h2>
+
+<h3>Description</h3>
+
+<p>Generate all points on a hypercuboid lattice.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hcube(x, scale, translation)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+ 
+<p>Argument x is an integer vector giving the extent of each dimension;
+the number of dimensions is length(x).
+</p>
+</td></tr>
+<tr valign="top"><td><code>scale</code></td>
+<td>
+ 
+<p>Argument scale is a vector of real numbers giving an amount by which
+to multiply the points in each dimension;  it will be replicated as
+necessary to have the same length as x.
+</p>
+</td></tr>
+<tr valign="top"><td><code>translation</code></td>
+<td>
+ 
+<p>Argument translate is a vector of real numbers giving an amount to
+translate (from the &quot;origin&quot;, rep(1,length(x))) the points in each
+dimension;  it will be replicated as necessary to have the same
+length as x.  To use rep(0,length(x)) as the origin,  use
+translation = -1.  Scaling,  if any,  is done BEFORE translation.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A prod(x) by length(x) numeric matrix;  element (i,j) gives the
+location of point i in the jth dimension.  The first column
+(dimension) varies most rapidly.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> code by Scott Chasalow, R pack and maint by VJ Carey &lt;stvjc@channing.harvard.edu&gt;</p>
+
+
+<h3>References</h3>
+
+<p> ~put references to the literature/web site here ~ </p>
+
+
+<h3>See Also</h3>
+
+ 
+<p>fac.design, expand.grid </p>
+
+<hr /><div style="text-align: center;">[Package <em>combinat</em> version 0.0-8 <a href="00Index.html">Index</a>]</div>
+</body></html>

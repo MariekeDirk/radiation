@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert a character string into a random seed</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for char2seed {TeachingDemos}"><tr><td>char2seed {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Convert a character string into a random seed </h2>
+
+<h3>Description</h3>
+
+<p>This function creates a seed for the random number generator from a
+character string.  Character strings can be based on student names so
+that every student has a different random sample, but the teacher can
+generate the same datasets.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+char2seed(x, set = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> A character string </p>
+</td></tr>
+<tr valign="top"><td><code>set</code></td>
+<td>
+<p> Logical, should the seed be set or just returned </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional parameters passed on to <code>set.seed</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Simulations or other situations call for the need to have repeatable
+random numbers, it is easier to remember a word or string than a
+number, so this function converts words or character strings to an
+integer and optionally sets the seed based on this.
+</p>
+<p>Teachers can assign students to generate a random dataset using their
+name to seed the rng, this way each student will have a different
+dataset, but the teacher can generate the same set of data to check
+values.
+</p>
+<p>Any characters other than letters (a-zA-Z) or digits (0-9) will be
+silently removed.  This function is not case sensitive, so &quot;ABC&quot; and
+&quot;abc&quot; will generate the same seed.
+</p>
+<p>This is a many to one function, so it is possible to find different
+words that generate the same seed, but this is unlikely by chance alone.
+</p>
+
+
+<h3>Value</h3>
+
+<p>This returns an integer (but mode numeric) to use as a seed for the
+RNG.  If <code>set</code> is true then it is returned invisibly.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../base/html/Random.html">set.seed</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+char2seed('Snow')
+x &lt;- rnorm(100)
+rnorm(10)
+tmp &lt;- char2seed('Snow',set=FALSE)
+set.seed(tmp)
+y &lt;- rnorm(100)
+
+all.equal(x,y) # should be true
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

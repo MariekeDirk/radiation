@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoAttrListSplice</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoAttrListSplice {RGtk2}"><tr><td>pangoAttrListSplice {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoAttrListSplice</h2>
+
+<h3>Description</h3>
+
+<p>This function opens up a hole in <code>list</code>, fills it in with attributes from
+the left, and then merges <code>other</code> on top of the hole.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoAttrListSplice(object, other, pos, len)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Text-Attributes.html">PangoAttrList</a></code>]  a <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">other</code></code></td>
+<td>
+<p>[<code><a href="pango-Text-Attributes.html">PangoAttrList</a></code>]  another <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">pos</code></code></td>
+<td>
+<p>[integer]  the position in <code>list</code> at which to insert <code>other</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">len</code></code></td>
+<td>
+<p>[integer]  the length of the spliced segment. (Note that this
+must be specified since the attributes in <code>other</code>
+may only be present at some subsection of this range)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This operation is equivalent to stretching every attribute
+that applies at position <code>pos</code> in <code>list</code> by an amount <code>len</code>,
+and then calling <code><a href="pangoAttrListChange.html">pangoAttrListChange</a></code> with a copy
+of each attribute in <code>other</code> in sequence (offset in position by <code>pos</code>).
+</p>
+<p>This operation proves useful for, for instance, inserting
+a pre-edit string in the middle of an edit buffer.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

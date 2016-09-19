@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkContainerSetBorderWidth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkContainerSetBorderWidth {RGtk2}"><tr><td>gtkContainerSetBorderWidth {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkContainerSetBorderWidth</h2>
+
+<h3>Description</h3>
+
+<p>Sets the border width of the container.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkContainerSetBorderWidth(object, border.width)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkContainer.html">GtkContainer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">border.width</code></code></td>
+<td>
+<p>amount of blank space to leave <em>outside</em>
+the container. Valid values are in the range 0-65535 pixels.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The border width of a container is the amount of space to leave
+around the outside of the container. The only exception to this is
+<code><a href="GtkWindow.html">GtkWindow</a></code>; because toplevel windows can't leave space outside,
+they leave the space inside. The border is added on all sides of
+the container. To add space to only one side, one approach is to
+create a <code><a href="GtkAlignment.html">GtkAlignment</a></code> widget, call <code><a href="gtkWidgetSetSizeRequest.html">gtkWidgetSetSizeRequest</a></code>
+to give it a size, and place it on the side of the container as
+a spacer.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

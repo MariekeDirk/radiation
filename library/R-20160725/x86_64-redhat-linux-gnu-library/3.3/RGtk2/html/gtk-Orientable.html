@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkOrientable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-Orientable {RGtk2}"><tr><td>gtk-Orientable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkOrientable</h2>
+
+<h3>Description</h3>
+
+<p>An interface for flippable widgets</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkOrientableGetOrientation.html">gtkOrientableGetOrientation</a>(object)</code><br />
+<code><a href="gtkOrientableSetOrientation.html">gtkOrientableSetOrientation</a>(object, orientation)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GtkOrientable</pre>
+
+<h3>Implementations</h3>
+
+<p>GtkOrientable is implemented by
+<code><a href="GtkBox.html">GtkBox</a></code>,  <code><a href="GtkButtonBox.html">GtkButtonBox</a></code>,  <code><a href="GtkColorSelection.html">GtkColorSelection</a></code>,  <code><a href="GtkCombo.html">GtkCombo</a></code>,  <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code>,  <code><a href="GtkFileChooserWidget.html">GtkFileChooserWidget</a></code>,  <code><a href="GtkFontSelection.html">GtkFontSelection</a></code>,  <code><a href="GtkGammaCurve.html">GtkGammaCurve</a></code>,  <code><a href="GtkHBox.html">GtkHBox</a></code>,  <code><a href="GtkHButtonBox.html">GtkHButtonBox</a></code>,  <code><a href="GtkHPaned.html">GtkHPaned</a></code>,  <code><a href="GtkHRuler.html">GtkHRuler</a></code>,  <code><a href="GtkHScale.html">GtkHScale</a></code>,  <code><a href="GtkHScrollbar.html">GtkHScrollbar</a></code>,  <code><a href="GtkHSeparator.html">GtkHSeparator</a></code>,  <code><a href="GtkInfoBar.html">GtkInfoBar</a></code>,  <code><a href="GtkPaned.html">GtkPaned</a></code>,  <code><a href="GtkRange.html">GtkRange</a></code>,  <code><a href="GtkRecentChooserWidget.html">GtkRecentChooserWidget</a></code>,  <code><a href="GtkRuler.html">GtkRuler</a></code>,  <code><a href="GtkScale.html">GtkScale</a></code>,  <code><a href="GtkScaleButton.html">GtkScaleButton</a></code>,  <code><a href="GtkScrollbar.html">GtkScrollbar</a></code>,  <code><a href="GtkSeparator.html">GtkSeparator</a></code>,  <code><a href="GtkStatusbar.html">GtkStatusbar</a></code>,  <code><a href="GtkToolPalette.html">GtkToolPalette</a></code>,  <code><a href="GtkToolbar.html">GtkToolbar</a></code>,  <code><a href="GtkVBox.html">GtkVBox</a></code>,  <code><a href="GtkVButtonBox.html">GtkVButtonBox</a></code>,  <code><a href="GtkVPaned.html">GtkVPaned</a></code>,  <code><a href="GtkVRuler.html">GtkVRuler</a></code>,  <code><a href="GtkVScale.html">GtkVScale</a></code>,  <code><a href="GtkVScrollbar.html">GtkVScrollbar</a></code>,  <code><a href="GtkVSeparator.html">GtkVSeparator</a></code> and  <code><a href="GtkVolumeButton.html">GtkVolumeButton</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="gtk-Orientable.html">GtkOrientable</a></code> interface is implemented by all widgets that can be
+oriented horizontally or vertically. Historically, such widgets have been
+realized as subclasses of a common base class (e.g <code><a href="GtkBox.html">GtkBox</a></code>/<code><a href="GtkHBox.html">GtkHBox</a></code>/<code><a href="GtkVBox.html">GtkVBox</a></code>
+and <code><a href="GtkScale.html">GtkScale</a></code>/<code><a href="GtkHScale.html">GtkHScale</a></code>/<code><a href="GtkVScale.html">GtkVScale</a></code>). GtkOrientable is more flexible in that
+it allows the orientation to be changed at runtime, allowing the widgets
+to 'flip'.
+</p>
+<p>GtkOrientable was introduced in GTK+ 2.16.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkOrientable</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">orientation</code> [<code><a href="gtk-Standard-Enumerations.html">GtkOrientation</a></code> : Read / Write]</dt><dd>
+<p>The orientation of the orientable.
+Default value: GTK_ORIENTATION_HORIZONTAL  Since 2.16
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-Orientable.html">http://library.gnome.org/devel//gtk/gtk-Orientable.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

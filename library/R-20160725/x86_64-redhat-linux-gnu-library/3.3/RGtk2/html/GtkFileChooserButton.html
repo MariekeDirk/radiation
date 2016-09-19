@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkFileChooserButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkFileChooserButton {RGtk2}"><tr><td>GtkFileChooserButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkFileChooserButton</h2>
+
+<h3>Description</h3>
+
+<p>A button to launch a file selection dialog</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkFileChooserButtonNew.html">gtkFileChooserButtonNew</a>(title, action, show = TRUE)</code><br />
+<code><a href="gtkFileChooserButtonNewWithBackend.html">gtkFileChooserButtonNewWithBackend</a>(title, action, backend, show = TRUE)</code><br />
+<code><a href="gtkFileChooserButtonNewWithBackend.html">gtkFileChooserButtonNewWithBackend</a>(title, action, backend, show = TRUE)</code><br />
+<code><a href="gtkFileChooserButtonNewWithDialog.html">gtkFileChooserButtonNewWithDialog</a>(dialog)</code><br />
+<code><a href="gtkFileChooserButtonGetTitle.html">gtkFileChooserButtonGetTitle</a>(object)</code><br />
+<code><a href="gtkFileChooserButtonSetTitle.html">gtkFileChooserButtonSetTitle</a>(object, title)</code><br />
+<code><a href="gtkFileChooserButtonGetWidthChars.html">gtkFileChooserButtonGetWidthChars</a>(object)</code><br />
+<code><a href="gtkFileChooserButtonSetWidthChars.html">gtkFileChooserButtonSetWidthChars</a>(object, n.chars)</code><br />
+<code><a href="gtkFileChooserButtonGetFocusOnClick.html">gtkFileChooserButtonGetFocusOnClick</a>(object)</code><br />
+<code><a href="gtkFileChooserButtonSetFocusOnClick.html">gtkFileChooserButtonSetFocusOnClick</a>(object, focus.on.click)</code><br />
+<code>gtkFileChooserButton(title, action, backend, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBox
+                                 +----GtkHBox
+                                       +----GtkFileChooserButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkFileChooserButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>,  <code><a href="gtk-Orientable.html">GtkOrientable</a></code> and  <code><a href="GtkFileChooser.html">GtkFileChooser</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code> is a widget that lets the user select a
+file.  It implements the <code><a href="GtkFileChooser.html">GtkFileChooser</a></code> interface.  Visually, it is a
+file name with a button to bring up a <code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code>.
+The user can then use that dialog to change the file associated with
+that button.  This widget does not support setting the &quot;select-multiple&quot;
+property to <code>TRUE</code>.
+</p>
+<p><em>Create a button to let the user select a file in /etc</em>
+</p>
+<pre>
+# Create a button to let the user select a file in /etc
+button &lt;- gtkFileChooserButton("Select a file", "open")
+button$setCurrentFolder("/etc")
+</pre>  
+<p>The <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code> supports the <code><a href="GtkFileChooser.html">GtkFileChooserAction</a></code>s <code>GTK_FILE_CHOOSER_ACTION_OPEN</code> and <code>GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</code>.
+<strong>PLEASE NOTE:</strong> The <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code> will ellipsize the label,
+and thus will thus request little horizontal space.  To give the button
+more space, you should call <code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code>,
+<code><a href="gtkFileChooserButtonSetWidthChars.html">gtkFileChooserButtonSetWidthChars</a></code>, or pack the button in
+such a way that other interface elements give space to the widget.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkFileChooserButton</code></dt><dd>
+<p>This should not be accessed directly.  Use the accessor functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkFileChooserButton</code> is the result of collapsing the constructors of <code>GtkFileChooserButton</code> (<code><a href="gtkFileChooserButtonNew.html">gtkFileChooserButtonNew</a></code>, <code><a href="gtkFileChooserButtonNewWithBackend.html">gtkFileChooserButtonNewWithBackend</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>file-set(widget, user.data)</code></dt><dd>
+<p>The ::file-set signal is emitted when the user selects a file.
+</p>
+<p>Note that this signal is only emitted when the <em>user</em>
+changes the file.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">dialog</code> [<code><a href="GtkFileChooser.html">GtkFileChooser</a></code> : *       : Write / Construct Only]</dt><dd>
+<p>Instance of the <code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code> associated with the button.
+Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">focus-on-click</code> [logical : Read / Write]</dt><dd>
+<p>Whether the <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code> button grabs focus when it is clicked
+with the mouse.
+Default value: TRUE  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">title</code> [character : *                : Read / Write]</dt><dd>
+<p>Title to put on the <code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code> associated with the button.
+Default value: &quot;Select A File&quot;  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">width-chars</code> [integer : Read / Write]</dt><dd>
+<p>The width of the entry and label inside the button, in characters.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkFileChooserButton.html">http://library.gnome.org/devel//gtk/GtkFileChooserButton.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

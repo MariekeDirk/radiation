@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkDragFinish</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkDragFinish {RGtk2}"><tr><td>gtkDragFinish {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkDragFinish</h2>
+
+<h3>Description</h3>
+
+<p>Informs the drag source that the drop is finished, and
+that the data of the drag will no longer be required.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkDragFinish(object, success, del, time = "GDK_CURRENT_TIME")</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the drag context.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">success</code></code></td>
+<td>
+<p>a flag indicating whether the drop was successful</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">del</code></code></td>
+<td>
+<p>a flag indicating whether the source should delete the
+original data. (This should be <code>TRUE</code> for a move)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">time</code></code></td>
+<td>
+<p>the timestamp from the &quot;drag_data_drop&quot; signal.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

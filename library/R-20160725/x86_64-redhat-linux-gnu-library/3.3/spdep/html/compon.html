@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Depth First Search on Neighbor Lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Graph Components {spdep}"><tr><td>Graph Components {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Depth First Search on Neighbor Lists</h2>
+
+<h3>Description</h3>
+
+<p><code>n.comp.nb()</code> finds the number of disjoint connected subgraphs in the graph depicted by <code>nb.obj</code> - a spatial neighbours list object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+n.comp.nb(nb.obj)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nb.obj</code></td>
+<td>
+<p>a neighbours list object of class <code>nb</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list of:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>nc</code></td>
+<td>
+<p>number of disjoint connected subgraphs</p>
+</td></tr>
+<tr valign="top"><td><code>comp.id</code></td>
+<td>
+<p>vector with the indices of the disjoint connected subgraphs that
+the nodes in <code>nb.obj</code> belong to</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas Lewin-Koh <a href="mailto:nikko@hailmail.net">nikko@hailmail.net</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="plot.nb.html">plot.nb</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+plot(col.gal.nb, coords, col="grey")
+col2 &lt;- droplinks(col.gal.nb, 21)
+plot(col2, coords, add=TRUE)
+res &lt;- n.comp.nb(col2)
+table(res$comp.id)
+points(coords, col=res$comp.id, pch=16)
+if (require(igraph)) {
+B &lt;- as(nb2listw(col2, style="B", zero.policy=TRUE), "CsparseMatrix")
+g1 &lt;- graph.adjacency(B, mode="undirected")
+c1 &lt;- clusters(g1)
+print(c1$no == res$nc)
+print(all.equal(c1$membership, res$comp.id))
+print(all.equal(c1$csize, c(table(res$comp.id)), check.attributes=FALSE))
+W &lt;- as(nb2listw(col2, style="W", zero.policy=TRUE), "CsparseMatrix")
+g1W &lt;- graph.adjacency(W, mode="directed", weighted="W")
+c1W &lt;- clusters(g1W)
+print(all.equal(c1W$membership, res$comp.id))
+B1 &lt;- get.adjacency(g1)
+print(all.equal(B, B1))
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

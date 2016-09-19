@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkActivatableDoSetRelatedAction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkActivatableDoSetRelatedAction {RGtk2}"><tr><td>gtkActivatableDoSetRelatedAction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkActivatableDoSetRelatedAction</h2>
+
+<h3>Description</h3>
+
+<p>This is a utility function for <code><a href="GtkActivatable.html">GtkActivatable</a></code> implementors.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkActivatableDoSetRelatedAction(object, action)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkActivatable.html">GtkActivatable</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">action</code></code></td>
+<td>
+<p>the <code><a href="GtkAction.html">GtkAction</a></code> to set</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>When implementing <code><a href="GtkActivatable.html">GtkActivatable</a></code> you must call this when
+handling changes of the <code style="white-space: pre;">"related-action"</code>, and
+you must also use this to break references in <code><a href="GObject.html">GObject</a></code>-&gt;<code>dispose()</code>.
+</p>
+<p>This function adds a reference to the currently set related
+action for you, it also makes sure the <code><a href="GtkActivatable.html">GtkActivatable</a></code>-&gt;<code>update()</code>
+method is called when the related <code><a href="GtkAction.html">GtkAction</a></code> properties change
+and registers to the action's proxy list.
+<strong>PLEASE NOTE:</strong> Be careful to call this before setting the local
+copy of the <code><a href="GtkAction.html">GtkAction</a></code> property, since this function uses 
+<code>gtkActivatableGetAction()</code> to retrieve the previous action  Since 2.16</p>
+
+
+<h3>Note</h3>
+
+<p>Be careful to call this before setting the local
+copy of the <code><a href="GtkAction.html">GtkAction</a></code> property, since this function uses 
+<code>gtkActivatableGetAction()</code> to retrieve the previous action</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generate a JWT signature given credentials.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for jwt_signature {httr}"><tr><td>jwt_signature {httr}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generate a JWT signature given credentials.</h2>
+
+<h3>Description</h3>
+
+<p>As described in
+<a href="https://developers.google.com/accounts/docs/OAuth2ServiceAccount">https://developers.google.com/accounts/docs/OAuth2ServiceAccount</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+jwt_signature(credentials, scope, aud, duration = 60L * 60L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>credentials</code></td>
+<td>
+<p>Parsed contents of the credentials file.</p>
+</td></tr>
+<tr valign="top"><td><code>scope</code></td>
+<td>
+<p>A space-delimited list of the permissions that the application
+requests.</p>
+</td></tr>
+<tr valign="top"><td><code>duration</code></td>
+<td>
+<p>Duration of token, in seconds.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+cred &lt;- jsonlite::fromJSON("~/Desktop/httrtest-45693cbfac92.json")
+jwt_signature(cred, "https://www.googleapis.com/auth/userinfo.profile")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>httr</em> version 1.2.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

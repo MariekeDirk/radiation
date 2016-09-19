@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit a Classification or Regression Tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for tree {tree}"><tr><td>tree {tree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Fit a Classification or Regression Tree</h2>
+
+<h3>Description</h3>
+
+<p>A tree is grown by binary recursive partitioning using the response in
+the specified formula and choosing splits from the terms of the
+right-hand-side.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+tree(formula, data, weights, subset,
+     na.action = na.pass, control = tree.control(nobs, ...),
+     method = "recursive.partition",
+     split = c("deviance", "gini"),
+     model = FALSE, x = FALSE, y = TRUE, wts = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>A formula expression. The left-hand-side (response)
+should be either a numerical vector when a regression tree will be
+fitted or a factor, when a classification tree is produced. The
+right-hand-side should be a series of numeric or factor
+variables separated by <code>+</code>; there should be no interaction
+terms. Both <code>.</code> and <code>-</code> are allowed: regression trees can
+have <code>offset</code> terms.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>A data frame in which to preferentially interpret
+<code>formula</code>, <code>weights</code> and <code>subset</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>Vector of non-negative observational weights; fractional
+weights are allowed.</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+<p>An expression specifying the subset of cases to be used.</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>A function to filter missing data from the model
+frame. The default is <code>na.pass</code> (to do nothing) as <code>tree</code>
+handles missing values (by dropping them down the tree as far
+as possible).</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>A list as returned by <code>tree.control</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character string giving the method to use. The only other
+useful value is <code>"model.frame"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>split</code></td>
+<td>
+<p>Splitting criterion to use.</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>If this argument is itself a model frame, then the
+<code>formula</code> and <code>data</code> arguments are ignored, and
+<code>model</code> is used to define the model.  If the argument is
+logical and true, the model frame is stored as component
+<code>model</code> in the result.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>logical. If true, the matrix of variables for each case
+is returned.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>logical. If true, the response variable is returned.</p>
+</td></tr>
+<tr valign="top"><td><code>wts</code></td>
+<td>
+<p>logical. If true, the weights are returned.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments that are passed to
+<code>tree.control</code>. Normally used for <code>mincut</code>, <code>minsize</code>
+or <code>mindev</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A tree is grown by binary recursive partitioning using the response in
+the specified formula and choosing splits from the terms of the
+right-hand-side. Numeric variables are divided into
+<i>X &lt; a</i> and <i>X &gt; a</i>; the levels of an unordered factor
+are divided into
+two non-empty groups. The split which maximizes the reduction in
+impurity is chosen, the data set split and the process
+repeated. Splitting continues until the terminal nodes are too small or
+too few to be split.
+</p>
+<p>Tree growth is limited to a depth of 31 by the use of integers to
+label nodes.
+</p>
+<p>Factor predictor variables can have up to 32 levels. This limit is
+imposed for ease of labelling, but since their use in a classification
+tree with three or more levels in a response involves a search over
+<i>2^(k-1) - 1</i> groupings for <i>k</i> levels,
+the practical limit is much less.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value is an object of class <code>"tree"</code> which has components
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>frame</code></td>
+<td>
+<p>A data frame with a row for each node, and
+<code>row.names</code> giving the node numbers. The columns include
+<code>var</code>, the variable used at the split (or <code>"&lt;leaf&gt;"</code> for a
+terminal node), <code>n</code>, the (weighted) number of cases reaching
+that node, <code>dev</code> the deviance of the node, <code>yval</code>, the
+fitted value at the node (the mean for regression trees, a majority
+class for classification trees) and <code>split</code>, a two-column
+matrix of the labels for the left and right splits at the
+node. Classification trees also have <code>yprob</code>, a matrix of
+fitted probabilities for each response level.</p>
+</td></tr>
+<tr valign="top"><td><code>where</code></td>
+<td>
+<p>An integer vector giving the row number of the frame
+detailing the node to which each case is assigned.</p>
+</td></tr>
+<tr valign="top"><td><code>terms</code></td>
+<td>
+<p>The terms of the formula.</p>
+</td></tr>
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>The matched call to <code>Tree</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>If <code>model = TRUE</code>, the model frame.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>If <code>x = TRUE</code>, the model matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>If <code>y = TRUE</code>, the response.</p>
+</td></tr>
+<tr valign="top"><td><code>wts</code></td>
+<td>
+<p>If <code>wts = TRUE</code>, the weights.</p>
+</td></tr>
+</table>
+<p>and attributes <code>xlevels</code> and, for classification trees,
+<code>ylevels</code>.
+</p>
+<p>A tree with no splits is of class <code>"singlenode"</code> which inherits
+from class <code>"tree"</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>B. D. Ripley</p>
+
+
+<h3>References</h3>
+
+<p>Breiman L., Friedman J. H., Olshen R. A., and  Stone,  C. J. (1984)
+<em>Classification  and Regression Trees.</em>  Wadsworth.
+</p>
+<p>Ripley, B. D. (1996)
+<em>Pattern Recognition and Neural Networks.</em>
+Cambridge University Press, Cambridge. Chapter 7.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="tree.control.html">tree.control</a></code>, <code><a href="prune.tree.html">prune.tree</a></code>,
+<code><a href="predict.tree.html">predict.tree</a></code>, <code><a href="snip.tree.html">snip.tree</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(cpus, package="MASS")
+cpus.ltr &lt;- tree(log10(perf) ~ syct+mmin+mmax+cach+chmin+chmax, cpus)
+cpus.ltr
+summary(cpus.ltr)
+plot(cpus.ltr);  text(cpus.ltr)
+
+ir.tr &lt;- tree(Species ~., iris)
+ir.tr
+summary(ir.tr)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tree</em> version 1.0-37 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Save a transcript of commands and/or output to a text file.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for txtStart {TeachingDemos}"><tr><td>txtStart {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Save a transcript of commands and/or output to a text file. </h2>
+
+<h3>Description</h3>
+
+<p>These functions save a transcript of your commands and their output to
+a script file, possibly for later processing with the &quot;enscript&quot; or
+&quot;pandoc&quot;
+program.
+</p>
+<p>They work as a combinations of <code>sink</code> and <code>history</code> with a
+couple extra bells and whistles.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+txtStart(file, commands=TRUE, results=TRUE, append=FALSE, cmdfile,
+          visible.only=TRUE)
+
+txtStop()
+
+txtComment(txt,cmdtxt)
+
+txtSkip(expr)
+
+etxtStart(dir = tempfile("etxt"), file = "transcript.txt",
+           commands = TRUE, results = TRUE, append = FALSE,
+           cmdbg = "white", cmdcol = "red", resbg = "white",
+           rescol = "navy", combg = "cyan", comcol = "black",
+           cmdfile, visible.only = TRUE)
+
+etxtStop()
+
+etxtComment(txt, cmdtxt)
+
+etxtSkip(expr)
+
+etxtPlot(file=paste(tempfile('plot',R2txt.vars$dir),'.eps',sep=''),
+         width=4, height=4)
+
+wdtxtStart(commands=TRUE, results=TRUE, fontsize=9, cmdfile,
+          visible.only=TRUE)
+
+wdtxtStop()
+
+wdtxtComment(txt,cmdtxt)
+
+wdtxtSkip(expr)
+
+wdtxtPlot(height=5, width=5, pointsize=10)
+
+mdtxtStart(dir=tempfile('mdtxt'), file='transcript.md',
+           commands=TRUE, results=TRUE, append=FALSE,
+           cmdfile, visible.only=TRUE)
+
+mdtxtStop()
+
+mdtxtComment(txt,cmdtxt)
+
+mdtxtSkip(expr)
+
+mdtxtPlot(file=tempfile('plot',R2txt.vars$dir,'.png'),
+                     width=4, height=4)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dir</code></td>
+<td>
+<p> Directory to store transcript file and any graphics file in </p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p> Text file to save transcript in </p>
+</td></tr>
+<tr valign="top"><td><code>commands</code></td>
+<td>
+<p> Logical, should the commands be echoed to the
+transcript file </p>
+</td></tr>
+<tr valign="top"><td><code>results</code></td>
+<td>
+<p> Logical, should the results be saved in the transcript
+file </p>
+</td></tr>
+<tr valign="top"><td><code>append</code></td>
+<td>
+<p> Logical, should we append to <code>file</code> or replace it </p>
+</td></tr>
+<tr valign="top"><td><code>cmdbg</code></td>
+<td>
+<p> Background color for command lines in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>cmdcol</code></td>
+<td>
+<p> Color of text for command lines in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>resbg</code></td>
+<td>
+<p> Background color for results sections in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>rescol</code></td>
+<td>
+<p> Text color of results sections in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>combg</code></td>
+<td>
+<p> Background color for comments in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>comcol</code></td>
+<td>
+<p> Text color of comments in <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>cmdfile</code></td>
+<td>
+<p> A filename to store commands such that it can be
+<code>source</code>d or copied and pasted from </p>
+</td></tr>
+<tr valign="top"><td><code>visible.only</code></td>
+<td>
+<p> Should non-printed output be included, not
+currently implemented.</p>
+</td></tr>
+<tr valign="top"><td><code>txt</code></td>
+<td>
+<p>Text of a comment to be inserted into <code>file</code> </p>
+</td></tr>
+<tr valign="top"><td><code>cmdtxt</code></td>
+<td>
+<p>Text of a comment to be inserted into <code>cmdfile</code> </p>
+</td></tr>
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>An expression to be executed without being included in
+<code>file</code> or <code>cmdfile</code> </p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>Width of plot, passed to <code>dev.copy2eps</code>,
+<code>wdPlot</code>, or <code>dev.copy</code></p>
+</td></tr>
+<tr valign="top"><td><code>height</code></td>
+<td>
+<p>Height of plot, passed to <code>dev.copy2eps</code>,
+<code>wdPlot</code>, or <code>dev.copy</code></p>
+</td></tr>
+<tr valign="top"><td><code>fontsize</code></td>
+<td>
+<p>Size of font to use in MSWord</p>
+</td></tr>
+<tr valign="top"><td><code>pointsize</code></td>
+<td>
+<p> passed to <code>wdPlot</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are used to create transcript/command files of your R
+session.  There are 4 sets of functions, those starting with
+&quot;txt&quot;,those starting with &quot;etxt&quot;, and those starting with
+&quot;wdtxt&quot; and those starting with &quot;mdtxt&quot;.  The &quot;txt&quot; functions
+create a plain text transcript while the &quot;etxt&quot; functions
+create a text file with extra escapes and commands so that it
+can be post processed with enscript (an external program) to
+create a postscript file and can include graphics as well.  The
+postscript file can be converted to pdf or other format file.
+</p>
+<p>The &quot;wdtxt&quot; functions will insert the commands and results into
+a Microsoft Word document.
+</p>
+<p>The &quot;mdtxt&quot; functions create a text file but with MarkDown
+escapes so that it can be post processed with &quot;pandoc&quot; (an
+external program) to create other formats such as html, pdf, MS
+Word documents, etc.  If the command starts with the string
+&quot;pander&quot; or &quot;pandoc&quot; (after optional whitespace) then the
+results will be inserted directly, without escapes, into the
+transcript file.  This assumes that you are using code from the
+&quot;pander&quot; package which generates markdown formatted output.
+This will create nicer looking tables and other output.
+</p>
+<p>If <code>results</code> is TRUE and <code>commands</code> is FALSE then the result
+is similar to the results of <code>sink</code>.  If <code>commands</code>
+is true as well then the transcript file will show both the commands
+and results similar to the output on the screen.  If both
+<code>commands</code> and <code>results</code> are FALSE then pretty much
+the only thing these functions will accomplish is to waste some
+computing time.
+</p>
+<p>If <code>cmdfile</code> is
+specified then an additional file is created with the commands
+used (similar to the <code>history</code> command), this file can be
+used with <code>source</code> or copied and
+pasted to the terminal.
+</p>
+<p>The Start functions specify the file/directory to create and
+start the transcript, <code>wdtxtStart</code> will open Word if it is
+not already open or create a connection to an open word window.
+The prompts are changed to remind you
+that the commands/results are being copied to the transcript.
+The Stop functions stop the recording and reset the prompts.
+</p>
+<p>The R parser strips comments and does some reformatting so the
+transcript file may not match exactly with the terminal
+output.  Use the <code>txtComment</code>, <code>etxtComment</code>,
+<code>wdtxtComment</code>, or <code>mdtxtComment</code>
+functions to add a comment.  This will show up as a line offset
+by whitespace in the transcript file, highlighted in the
+etxt version, and the default font in Word.
+If <code>cmdtxt</code> is specified then that line
+will be inserted into <code>cmdfile</code> preceded by a \# so it
+will be skipped if sourced or copied.
+</p>
+<p>The <code>txtSkip</code>, <code>etxtSkip</code>, <code>wdtxtSkip</code>, and
+<code>mdtxtSkip</code> functions will run the code in <code>expr</code> but
+will not include the commands or results in the transcript file
+(this can be used for side computations, or requests for help,
+etc.).
+</p>
+<p>The <code>etxtPlot</code> function calls <code>dev.copy2eps</code> to
+create a copy of the current plot and inserts the proper command
+into the transcript file so that the eps file will be included
+in the final postscript file after processing.
+</p>
+<p>The <code>wdtxtPlot</code> function calls <code>wdPlot</code> to send a
+copy of the current graph to MS Word.
+</p>
+<p>The <code>mdtxtPlot</code> function calls <code>dev.copy</code> to create a
+copy of the current plot as a .png file and inserts the proper
+command into the transcript file so that the .png file will be
+included when processing with pandoc.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Most of these commands do not return anything of use.  The exceptions
+are:
+</p>
+<p><code>etxtStop</code> returns the name of the transcript file (including the
+directory path).
+</p>
+<p><code>txtSkip</code>, <code>etxtSkip</code>, <code>wdtxtSkip</code>, and
+<code>mdtxtSkip</code> return the value of <code>expr</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>These commands do not do any fancy formatting of output, just what you
+see in the regular terminal window.  If you want more formatted output
+then you should look into <code>Sweave</code>, <code>knitr</code>, or the R2HTML package.
+</p>
+<p>The MS word functions will insert into the current word document at the
+location of the cursor.  This means that if you look at the document and
+move the current location to somewhere in the middle (or have another
+word document open with the location in the middle), when you go back to
+R, the new transcript will be inserted into the middle of the document.
+So be careful to position the cursor at the end of the correct document
+before going back to R.  Note that the &quot;wdtxt&quot; functions depend on the
+&quot;R2wd&quot; package which in turn depends on tools that are not free.
+</p>
+<p>Do not use these functions in combination with R2HTML or <code>sink</code>.
+Only one of these sets of functions will work at a time.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/sink.html">sink</a></code>, <code><a href="../../utils/html/savehistory.html">history</a></code>,
+<code><a href="../../utils/html/Sweave.html">Sweave</a></code>, the odfWeave package, the R2HTML package, the
+R2wd package, the pander package </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+etxtStart()
+etxtComment('This is todays transcript')
+date()
+x &lt;- rnorm(25)
+summary(x)
+stem(x)
+etxtSkip(?hist)
+hist(x)
+etxtPlot()
+Sys.Date()
+Sys.time()
+my.file &lt;- etxtStop()
+
+# assumes enscript and ps2pdf are on your path
+system(paste('enscript -e -B -p transcript.ps ', my.file) )
+system('ps2pdf transcript.ps')
+
+# if the above commands used mdtxt instead of etxt and the pandoc
+# program is installed and on your path (and dependent programs) then use:
+system(paste('pandoc -o transcript.docx ', my.file))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Package Specific Options</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for setupPackageOptions {pkgmaker}"><tr><td>setupPackageOptions {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Package Specific Options</h2>
+
+<h3>Description</h3>
+
+<p>The following functions to access/set the options from
+the set are assigned in <code>envir</code>: </p>
+
+<dl>
+<dt>&lt;subset&gt;Options</dt><dd></dd> <dt>&lt;subset&gt;GetOption</dt><dd></dd> </dl>
+
+
+
+<h3>Usage</h3>
+
+<pre>
+  setupPackageOptions(..., NAME = NULL,
+    ENVIR = topenv(parent.frame()),
+    RESET = isLoadingNamespace())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>a single named list or named arguments that
+provide the default options and their values.</p>
+</td></tr>
+<tr valign="top"><td><code>NAME</code></td>
+<td>
+<p>name of the set of options. This is used as a
+prefix for the name of the associated global option:
+<code>package:&lt;name&gt;</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>ENVIR</code></td>
+<td>
+<p>environment where the option wrapper
+functions will be defined. No function is defined if
+<code>ENVIR=NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>RESET</code></td>
+<td>
+<p>a logical that indicates whether the option
+set should overwrite one that already exists if
+necessary. The default is <code>FALSE</code> (i.e. no reset),
+except when loading a namespace, either from an installed
+package or a development package &ndash; with devtools. If
+<code>FALSE</code>, an error is thrown if trying to setup
+options with the same name.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

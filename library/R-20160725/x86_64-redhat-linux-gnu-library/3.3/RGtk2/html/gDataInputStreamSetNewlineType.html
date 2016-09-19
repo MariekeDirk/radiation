@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gDataInputStreamSetNewlineType</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gDataInputStreamSetNewlineType {RGtk2}"><tr><td>gDataInputStreamSetNewlineType {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gDataInputStreamSetNewlineType</h2>
+
+<h3>Description</h3>
+
+<p>Sets the newline type for the <code>stream</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gDataInputStreamSetNewlineType(object, type)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GDataInputStream.html">GDataInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>the type of new line return as <code><a href="GDataInputStream.html">GDataStreamNewlineType</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that using G_DATA_STREAM_NEWLINE_TYPE_ANY is slightly unsafe. If a read
+chunk ends in &quot;CR&quot; we must read an additional byte to know if this is &quot;CR&quot; or
+&quot;CR LF&quot;, and this might block if there is no more data availible.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

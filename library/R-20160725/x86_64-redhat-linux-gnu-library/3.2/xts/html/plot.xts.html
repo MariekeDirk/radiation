@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plotting xts Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.xts {xts}"><tr><td>plot.xts {xts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Plotting xts Objects </h2>
+
+<h3>Description</h3>
+
+<p>Plotting methods for xts objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'xts'
+plot(x, y = NULL,
+         type = "l", 
+         auto.grid = TRUE,
+         major.ticks = "auto",
+         minor.ticks = TRUE,
+         major.format = TRUE,
+         bar.col = "grey",
+         candle.col = "white",
+         ann = TRUE, axes = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> an <code>xts</code> object </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> an <code>xts</code> object or NULL </p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p> type of plot to produce </p>
+</td></tr>
+<tr valign="top"><td><code>auto.grid</code></td>
+<td>
+<p> should grid lines be drawn </p>
+</td></tr>
+<tr valign="top"><td><code>major.ticks</code></td>
+<td>
+<p> should major tickmarks be drawn and labeled </p>
+</td></tr>
+<tr valign="top"><td><code>minor.ticks</code></td>
+<td>
+<p> should minor tickmarks be drawn </p>
+</td></tr>
+<tr valign="top"><td><code>major.format</code></td>
+<td>
+<p> passed along to axTicksByTime. See also </p>
+</td></tr>
+<tr valign="top"><td><code>bar.col</code></td>
+<td>
+<p> the color of the bars when type is &lsquo;bars&rsquo; or &lsquo;candles&rsquo; </p>
+</td></tr>
+<tr valign="top"><td><code>candle.col</code></td>
+<td>
+<p> the color of the candles when type is &lsquo;candles&rsquo; </p>
+</td></tr>
+<tr valign="top"><td><code>ann</code></td>
+<td>
+<p> passed &lsquo;par&rsquo; graphical parameter </p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+<p>passed &lsquo;par&rsquo; graphical parameter </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> additional graphical arguments </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Mainly used to draw time-series plots with sensible x-axis labels, it
+can also plot basic OHLC series using <code>type='candles'</code> or <code>type='bars'</code>.
+</p>
+<p>Better financial plots can be found in the <span class="pkg">quantmod</span> package, though
+these are generally incompatible with standard R graphics tools.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Plots an xts object to the current device.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Jeffrey A. Ryan </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(sample_matrix)
+plot(sample_matrix)
+plot(as.xts(sample_matrix))
+plot(as.xts(sample_matrix), type='candles')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>xts</em> version 0.9-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

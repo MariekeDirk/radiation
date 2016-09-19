@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufCompositeColorSimple</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufCompositeColorSimple {RGtk2}"><tr><td>gdkPixbufCompositeColorSimple {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufCompositeColorSimple</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code> by scaling <code>src</code> to <code>dest.width</code> x
+<code>dest.height</code> and compositing the result with a checkboard of colors
+<code>color1</code> and <code>color2</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufCompositeColorSimple(object, dest.width, dest.height, 
+    interp.type, overall.alpha, check.size, color1, color2)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.width</code></code></td>
+<td>
+<p>the width of destination image</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.height</code></code></td>
+<td>
+<p>the height of destination image</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">interp.type</code></code></td>
+<td>
+<p>the interpolation type for the transformation.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">overall.alpha</code></code></td>
+<td>
+<p>overall alpha for source image (0..255)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">check.size</code></code></td>
+<td>
+<p>the size of checks in the checkboard (must be a power of two)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">color1</code></code></td>
+<td>
+<p>the color of check at upper left</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">color2</code></code></td>
+<td>
+<p>the color of the other check</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>] the new <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>, or <code>NULL</code> if not enough memory could be
+allocated for it.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

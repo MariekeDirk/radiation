@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoScriptGetSampleLanguage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoScriptGetSampleLanguage {RGtk2}"><tr><td>pangoScriptGetSampleLanguage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoScriptGetSampleLanguage</h2>
+
+<h3>Description</h3>
+
+<p>Given a script, finds a language tag that is reasonably
+representative of that script. This will usually be the
+most widely spoken or used language written in that script:
+for instance, the sample language for <code>PANGO_SCRIPT_CYRILLIC</code>
+is <code>ru</code> (Russian), the sample language
+for <code>PANGO_SCRIPT_ARABIC</code> is <code>ar</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoScriptGetSampleLanguage(script)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">script</code></code></td>
+<td>
+<p>[<code><a href="pango-Scripts-and-Languages.html">PangoScript</a></code>]  a <code><a href="pango-Scripts-and-Languages.html">PangoScript</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>For some
+scripts, no sample language will be returned because there
+is no language that is sufficiently representative. The best
+example of this is <code>PANGO_SCRIPT_HAN</code>, where various different
+variants of written Chinese, Japanese, and Korean all use
+significantly different sets of Han characters and forms
+of shared characters. No sample language can be provided
+for many historical scripts as well.
+</p>
+<p>As of 1.18, this function checks the environment variables
+PANGO_LANGUAGE and LANGUAGE (checked in that order) first.
+If one of them is set, it is parsed as a list of language tags
+separated by colons or other separators.  This function
+will return the first language in the parsed list that Pango
+believes may use <code>script</code> for writing.  This last predicate
+is tested using <code><a href="pangoLanguageIncludesScript.html">pangoLanguageIncludesScript</a></code>.  This can
+be used to control Pango's font selection for non-primary
+languages.  For example, a PANGO_LANGUAGE enviroment variable
+set to &quot;en:fa&quot; makes Pango choose fonts suitable for Persian (fa) 
+instead of Arabic (ar) when a segment of Arabic text is found
+in an otherwise non-Arabic text.  The same trick can be used to
+choose a default language for <code>PANGO_SCRIPT_HAN</code> when setting
+context language is not feasible.  
+Since 1.4</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="pango-Scripts-and-Languages.html">PangoLanguage</a></code>]  a <code><a href="pango-Scripts-and-Languages.html">PangoLanguage</a></code> that is representative
+of the script, or <code>NULL</code> if no such language exists.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

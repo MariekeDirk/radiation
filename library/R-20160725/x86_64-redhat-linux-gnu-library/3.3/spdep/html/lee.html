@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Lee's statistic</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lee {spdep}"><tr><td>lee {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Lee's statistic</h2>
+
+<h3>Description</h3>
+
+<p>A simple function to compute Lee's L statistic for bivariate spatial data;
+
+</p>
+<p style="text-align: center;"><i>L(x,y) = (n sum_i (sum_j w_ij (x_i - xbar)) (sum_j w_ij (y_j - ybar))) / (S2 sqrt(sum_i (x_i - xbar)^2)) sqrt(sum_i (x_i - xbar)^2))</i></p>
+
+
+
+<h3>Usage</h3>
+
+<pre>
+lee(x, y, listw, n, S2, zero.policy=NULL, NAOK=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric vector the same length as the neighbours list in listw</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>a numeric vector the same length as the neighbours list in listw</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of zones</p>
+</td></tr>
+<tr valign="top"><td><code>S2</code></td>
+<td>
+<p>Sum of squared sum of weights by rows.</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without neighbours, if FALSE assign NA</p>
+</td></tr>
+<tr valign="top"><td><code>NAOK</code></td>
+<td>
+<p>if 'TRUE' then any 'NA' or 'NaN' or 'Inf' values in x are passed on to the foreign function.  If 'FALSE', the presence of 'NA' or 'NaN' or 'Inf' values is regarded as an error.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a list of
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>L</code></td>
+<td>
+<p>Lee's L statistic</p>
+</td></tr>
+<tr valign="top"><td><code>local L</code></td>
+<td>
+<p>Lee's local L statistic</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand and Virgiio GÃ³mez-Rubio <a href="mailto:Virgilio.Gomez@uclm.es">Virgilio.Gomez@uclm.es</a></p>
+
+
+<h3>References</h3>
+
+<p>Lee (2001). Developing a bivariate spatial association measure:
+An integration of Pearson's r and Moran's I. J Geograph Syst  3: 369-385</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lee.mc.html">lee.mc</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(boston)
+lw&lt;-nb2listw(boston.soi)
+
+x&lt;-boston.c$CMEDV
+y&lt;-boston.c$CRIM
+z&lt;-boston.c$RAD
+
+Lxy&lt;-lee(x, y, lw, length(x), zero.policy=TRUE)
+Lxz&lt;-lee(x, z, lw, length(x), zero.policy=TRUE)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

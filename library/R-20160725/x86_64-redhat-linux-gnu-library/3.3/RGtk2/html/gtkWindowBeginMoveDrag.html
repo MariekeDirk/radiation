@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowBeginMoveDrag</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowBeginMoveDrag {RGtk2}"><tr><td>gtkWindowBeginMoveDrag {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowBeginMoveDrag</h2>
+
+<h3>Description</h3>
+
+<p>Starts moving a window. This function is used if an application has
+window movement grips. When GDK can support it, the window movement
+will be done using the standard mechanism for the window manager or windowing
+system. Otherwise, GDK will try to emulate window movement,
+potentially not all that well, depending on the windowing system.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowBeginMoveDrag(object, button, root.x, root.y, timestamp)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">button</code></code></td>
+<td>
+<p>mouse button that initiated the drag</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">root.x</code></code></td>
+<td>
+<p>X position where the user clicked to initiate the drag, in root window coordinates</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">root.y</code></code></td>
+<td>
+<p>Y position where the user clicked to initiate the drag</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">timestamp</code></code></td>
+<td>
+<p>timestamp from the click event that initiated the drag</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

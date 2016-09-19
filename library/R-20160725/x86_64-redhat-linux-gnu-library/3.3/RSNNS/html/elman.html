@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create and train an Elman network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for elman {RSNNS}"><tr><td>elman {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create and train an Elman network</h2>
+
+<h3>Description</h3>
+
+<p>Elman networks are partially recurrent networks and similar to Jordan
+networks (function <code><a href="jordan.html">jordan</a></code>). For details, see explanations
+there.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+elman(x, ...)
+
+## Default S3 method:
+elman(x, y, size = c(5), maxit = 100,
+  initFunc = "JE_Weights", initFuncParams = c(1, -1, 0.3, 1, 0.5),
+  learnFunc = "JE_BP", learnFuncParams = c(0.2), updateFunc = "JE_Order",
+  updateFuncParams = c(0), shufflePatterns = FALSE, linOut = TRUE,
+  outContext = FALSE, inputsTest = NULL, targetsTest = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix with training inputs for the network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional function parameters (currently not used)</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the corresponding targets values</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>number of units in the hidden layer(s)</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>maximum of iterations to learn</p>
+</td></tr>
+<tr valign="top"><td><code>initFunc</code></td>
+<td>
+<p>the initialization function to use</p>
+</td></tr>
+<tr valign="top"><td><code>initFuncParams</code></td>
+<td>
+<p>the parameters for the initialization function</p>
+</td></tr>
+<tr valign="top"><td><code>learnFunc</code></td>
+<td>
+<p>the learning function to use</p>
+</td></tr>
+<tr valign="top"><td><code>learnFuncParams</code></td>
+<td>
+<p>the parameters for the learning function</p>
+</td></tr>
+<tr valign="top"><td><code>updateFunc</code></td>
+<td>
+<p>the update function to use</p>
+</td></tr>
+<tr valign="top"><td><code>updateFuncParams</code></td>
+<td>
+<p>the parameters for the update function</p>
+</td></tr>
+<tr valign="top"><td><code>shufflePatterns</code></td>
+<td>
+<p>should the patterns be shuffled?</p>
+</td></tr>
+<tr valign="top"><td><code>linOut</code></td>
+<td>
+<p>sets the activation function of the output units to linear or logistic</p>
+</td></tr>
+<tr valign="top"><td><code>outContext</code></td>
+<td>
+<p>if TRUE, the context units are also output units (untested)</p>
+</td></tr>
+<tr valign="top"><td><code>inputsTest</code></td>
+<td>
+<p>a matrix with inputs to test the network</p>
+</td></tr>
+<tr valign="top"><td><code>targetsTest</code></td>
+<td>
+<p>the corresponding targets for the test input</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Learning in Elman networks:
+Same as in Jordan networks (see <code><a href="jordan.html">jordan</a></code>).
+</p>
+<p>Network architecture: The difference between Elman and Jordan networks is
+that in an Elman network the context units get input not from the output
+units, but from the hidden units. Furthermore, there is no direct feedback in
+the context units. In an Elman net, the number of context units and hidden
+units has to be the same. The main advantage of Elman nets is that the number
+of context units is not directly determined by the output dimension (as in
+Jordan nets), but by the number of hidden units, which is more flexible, as
+it is easy to add/remove hidden units, but not output units.
+</p>
+<p>A detailed description of the theory and the parameters is available, as
+always, from the SNNS documentation and the other referenced literature.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="rsnnsObjectFactory.html">rsnns</a></code> object.
+</p>
+
+
+<h3>References</h3>
+
+<p>Elman, J. L. (1990), 'Finding structure in time', Cognitive Science 14(2),
+179&ndash;211.
+</p>
+<p>Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual,
+Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
+<a href="http://www.ra.cs.uni-tuebingen.de/SNNS/">http://www.ra.cs.uni-tuebingen.de/SNNS/</a>
+</p>
+<p>Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="jordan.html">jordan</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: demo(iris)
+## Not run: demo(laser)
+## Not run: demo(eight_elman)
+## Not run: demo(eight_elmanSnnsR)
+
+
+data(snnsData)
+inputs &lt;- snnsData$eight_016.pat[,inputColumns(snnsData$eight_016.pat)]
+outputs &lt;- snnsData$eight_016.pat[,outputColumns(snnsData$eight_016.pat)]
+
+par(mfrow=c(1,2))
+
+modelElman &lt;- elman(inputs, outputs, size=8, learnFuncParams=c(0.1), maxit=1000)
+modelElman
+modelJordan &lt;- jordan(inputs, outputs, size=8, learnFuncParams=c(0.1), maxit=1000)
+modelJordan
+
+plotIterativeError(modelElman)
+plotIterativeError(modelJordan)
+
+summary(modelElman)
+summary(modelJordan)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

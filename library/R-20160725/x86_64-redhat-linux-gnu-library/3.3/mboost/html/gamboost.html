@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Gradient Boosting with Smooth Components</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gamboost {mboost}"><tr><td>gamboost {mboost}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Gradient Boosting with Smooth Components </h2>
+
+<h3>Description</h3>
+
+<p>Gradient boosting for optimizing arbitrary loss functions, where component-wise
+smoothing procedures are utilized as base-learners.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gamboost(formula, data = list(),
+         baselearner = c("bbs", "bols", "btree", "bss", "bns"),
+         dfbase = 4, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p> a symbolic description of the model to be fit. </p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p> a data frame containing the variables in the model. </p>
+</td></tr>
+<tr valign="top"><td><code>baselearner</code></td>
+<td>
+<p> a character specifying the component-wise base
+learner to be used: <code><a href="baselearners.html">bbs</a></code> means P-splines with a
+B-spline basis (see Schmid and Hothorn 2008), <code><a href="baselearners.html">bols</a></code>
+linear models and <code><a href="baselearners.html">btree</a></code> boosts stumps.
+<code>bss</code> and <code>bns</code> are deprecated.
+Component-wise smoothing splines have been considered in Buehlmann
+and Yu (2003) and Schmid and Hothorn (2008) investigate P-splines
+with a B-spline basis. Kneib, Hothorn and Tutz (2009) also utilize
+P-splines with a B-spline basis, supplement them with their
+bivariate tensor product version to estimate interaction surfaces
+and spatial effects and also consider random effects base
+learners.</p>
+</td></tr>
+<tr valign="top"><td><code>dfbase</code></td>
+<td>
+<p> an integer vector giving the degrees of freedom for the smoothing
+spline, either globally for all variables (when its length is one)
+or separately for each single covariate. </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> additional arguments passed to <code><a href="mboost.html">mboost_fit</a></code>,
+including <code>weights</code>, <code>offset</code>, <code>family</code> and
+<code>control</code>. For default values see <code><a href="mboost.html">mboost_fit</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>A (generalized) additive model is fitted using a boosting algorithm based on
+component-wise univariate base-learners. The base-learners can either be
+specified via the <code>formula</code> object or via the <code>baselearner</code> argument
+(see <code><a href="baselearners.html">bbs</a></code> for an example). If the base-learners specified in
+<code>formula</code> differ from <code>baselearner</code>, the latter argument will be
+ignored. Furthermore, two additional base-learners can be specified in
+<code>formula</code>: <code><a href="baselearners.html">bspatial</a></code> for bivariate tensor product
+penalized splines and <code><a href="baselearners.html">brandom</a></code> for random effects.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>mboost</code> with <code><a href="../../base/html/print.html">print</a></code>,
+<code><a href="../../stats/html/AIC.html">AIC</a></code>, <code><a href="plot.html">plot</a></code> and <code><a href="../../stats/html/predict.html">predict</a></code>
+methods being available.
+</p>
+
+
+<h3>References</h3>
+
+<p>Peter Buehlmann and Bin Yu (2003),
+Boosting with the L2 loss: regression and classification.
+<em>Journal of the American Statistical Association</em>, <b>98</b>,
+324&ndash;339.
+</p>
+<p>Peter Buehlmann and Torsten Hothorn (2007),
+Boosting algorithms: regularization, prediction and model fitting.
+<em>Statistical Science</em>, <b>22</b>(4), 477&ndash;505.
+</p>
+<p>Thomas Kneib, Torsten Hothorn and Gerhard Tutz (2009), Variable selection and
+model choice in geoadditive regression models, <em>Biometrics</em>, <b>65</b>(2),
+626&ndash;634.
+</p>
+<p>Matthias Schmid and Torsten Hothorn (2008),
+Boosting additive models using component-wise P-splines as
+base-learners. <em>Computational Statistics \&amp; Data Analysis</em>,
+<b>53</b>(2), 298&ndash;311.
+</p>
+<p>Torsten Hothorn, Peter Buehlmann, Thomas Kneib, Mattthias Schmid
+and Benjamin Hofner (2010),
+Model-based Boosting 2.0.
+<em>Journal of Machine Learning Research</em>, <b>11</b>, 2109 &ndash; 2113.
+</p>
+<p>Benjamin Hofner, Andreas Mayr, Nikolay Robinzonov and Matthias Schmid
+(2014). Model-based Boosting in R: A Hands-on Tutorial Using the R
+Package mboost. <em>Computational Statistics</em>, <b>29</b>, 3&ndash;35.<br />
+<a href="http://dx.doi.org/10.1007/s00180-012-0382-5">http://dx.doi.org/10.1007/s00180-012-0382-5</a>
+</p>
+<p>Available as vignette via: <code>vignette(package = "mboost", "mboost_tutorial")</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="mboost.html">mboost</a></code> for the generic boosting function and
+<code><a href="glmboost.html">glmboost</a></code> for boosted linear models and
+<code><a href="blackboost.html">blackboost</a></code> for boosted trees. See e.g. <code><a href="baselearners.html">bbs</a></code>
+for possible base-learners. See <code><a href="cvrisk.html">cvrisk</a></code> for
+cross-validated stopping iteration. Furthermore see
+<code><a href="control.html">boost_control</a></code>, <code><a href="Family.html">Family</a></code> and
+<code><a href="methods.html">methods</a></code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+    ### a simple two-dimensional example: cars data
+    cars.gb &lt;- gamboost(dist ~ speed, data = cars, dfbase = 4,
+                        control = boost_control(mstop = 50))
+    cars.gb
+    AIC(cars.gb, method = "corrected")
+
+    ### plot fit for mstop = 1, ..., 50
+    plot(dist ~ speed, data = cars)
+    tmp &lt;- sapply(1:mstop(AIC(cars.gb)), function(i)
+        lines(cars$speed, predict(cars.gb[i]), col = "red"))
+    lines(cars$speed, predict(smooth.spline(cars$speed, cars$dist),
+                              cars$speed)$y, col = "green")
+
+    ### artificial example: sinus transformation
+    x &lt;- sort(runif(100)) * 10
+    y &lt;- sin(x) + rnorm(length(x), sd = 0.25)
+    plot(x, y)
+    ### linear model
+    lines(x, fitted(lm(y ~ sin(x) - 1)), col = "red")
+    ### GAM
+    lines(x, fitted(gamboost(y ~ x,
+                    control = boost_control(mstop = 500))),
+          col = "green")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mboost</em> version 2.6-0 <a href="00Index.html">Index</a>]</div>
+</body></html>

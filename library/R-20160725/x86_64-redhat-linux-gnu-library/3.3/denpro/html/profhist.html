@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculates the level set tree of a histogram</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for profhist {denpro}"><tr><td>profhist {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculates the level set tree of a histogram
+</h2>
+
+<h3>Description</h3>
+
+<p>Given a data matrix, 
+returns the level set tree of a histogram, 
+which is constructed from bins of equal size.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+profhist(dendat, binlkm, cvol=TRUE, ccen=TRUE, cfre=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dendat</code></td>
+<td>
+<p>n*d data matrix</p>
+</td></tr>
+<tr valign="top"><td><code>binlkm</code></td>
+<td>
+<p>positive integer;
+number of bins of the histogram estimate in one direction. 
+We use the same number of bins for every direction, thus the total
+number of bins is binlkm to the power of d</p>
+</td></tr>
+<tr valign="top"><td><code>cvol</code></td>
+<td>
+<p>TRUE if one wants that the volumes of
+the separated parts of the level sets are returned, 
+note that one needs volumes for drawing the volume plot</p>
+</td></tr>
+<tr valign="top"><td><code>ccen</code></td>
+<td>
+<p>TRUE if one wants that the barycenters of the 
+separated parts of the level sets are returned</p>
+</td></tr>
+<tr valign="top"><td><code>cfre</code></td>
+<td>
+<p>TRUE if one wants that the frequencies of the
+separated parts of the level sets are returned </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An augmented level set tree.  The level set tree is a list of
+vectors.  The elements of the vectors supply information for each
+node of the tree.  Below we denote with &quot;nodenum&quot; the number of
+nodes of the tree.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>parent</code></td>
+<td>
+<p>&quot;nodenum&quot;-vector of integers in range 0,..., nodenum-1;
+links to the parent of each node. Root nodes are marked with 0.</p>
+</td></tr>
+<tr valign="top"><td><code>level</code></td>
+<td>
+<p>&quot;nodenum&quot;-vector of positive real numbers;
+level of the level set from which the set corresponding to the node
+is a part of.</p>
+</td></tr>
+<tr valign="top"><td><code>invalue</code></td>
+<td>
+<p>&quot;nodenum&quot;-vector of positive integers;
+level of the level set in terms of the original frequencies 
+(these values are not normalized so that estimate would integrate to one</p>
+</td></tr>
+<tr valign="top"><td><code>volume</code></td>
+<td>
+<p>&quot;nodenum&quot;-vector of positive real numbers; 
+gives volumes for sets corresponding to each node</p>
+</td></tr>
+<tr valign="top"><td><code>center</code></td>
+<td>
+<p>d*nodenum-matrix; gives the barycenter for sets 
+corresponding to each node</p>
+</td></tr>
+<tr valign="top"><td><code>nodefrek</code></td>
+<td>
+<p>&quot;nodenum&quot;-vector of positive integers;
+number of observations in the set corresponding to the node. 
+This is useful in cluster analysis applications.</p>
+</td></tr>
+<tr valign="top"><td><code>recs</code></td>
+<td>
+<p>atomnum*(2*d)-matrix, where atomnum is the number of
+non-empty bins. Matrix defines the non-empty bins,
+these are the &quot;atoms&quot; of level sets</p>
+</td></tr>
+<tr valign="top"><td><code>hisfrek</code></td>
+<td>
+<p>atomnum-vector of  positive integers;
+number of observations in non-empty bins</p>
+</td></tr>
+<tr valign="top"><td><code>lsets</code></td>
+<td>
+<p>nodenum*atomnum-matrix: describes the sets associated
+with the nodes. We have 1 in column &quot;c&quot; if the atom described in c:th 
+row of recs is a part of the set associated with this node </p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p> Applies the naive algorithm of pairwise comparison of the 
+separated components of the level sets, to find which components 
+touch each other.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Jussi Klemela </p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="plotvolu.html">plotvolu</a></code>,
+<code><a href="plotbary.html">plotbary</a></code>, 
+<code><a href="plottree.html">plottree</a></code>, 
+<code><a href="profgene.html">profgene</a></code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+dendat&lt;-matrix(rnorm(20),10)   #10*2 data-matrix
+ph&lt;-profhist(dendat,binlkm=3,cfre=TRUE)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

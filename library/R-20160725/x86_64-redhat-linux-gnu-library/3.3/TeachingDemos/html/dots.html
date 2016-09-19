@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a quick dotchart (histogram)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dots {TeachingDemos}"><tr><td>dots {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Create a quick dotchart (histogram)</h2>
+
+<h3>Description</h3>
+
+<p>Create a quick dotchart of 1 or 2 datasets.  These dotcharts are a poor
+man's histogram, not the trellis dotplot.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dots(x,...)
+dots2(x, y, colx = "green", coly = "blue", lab1 =
+deparse(substitute(x)), lab2 = deparse(substitute(y)),...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Vector, data to be plotted (should be rounded). </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> Vector, second dataset to be plotted. </p>
+</td></tr>
+<tr valign="top"><td><code>colx</code></td>
+<td>
+<p> Color of points for <code>x</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>coly</code></td>
+<td>
+<p> Color of points for <code>y</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>lab1</code></td>
+<td>
+<p> Label for <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>lab2</code></td>
+<td>
+<p> Label for <code>y</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional arguments passed to plotting functions. </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions create basic dotcharts that are quick &quot;back of the
+envelope&quot; approximations to histograms.  Mainly intended for demonstration.
+</p>
+
+
+<h3>Value</h3>
+
+<p>No meaninful value.  These functions are run for the side effect of
+creating a plot.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com ">538280@gmail.com </a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../lattice/html/xyplot.html">dotplot</a></code> in the lattice package, <code><a href="../../graphics/html/hist.html">hist</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+dots( round( rnorm(50, 10,3) ) )
+dots2( round( rnorm(20, 10,3) ), round(rnorm(20,12,2)) )
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

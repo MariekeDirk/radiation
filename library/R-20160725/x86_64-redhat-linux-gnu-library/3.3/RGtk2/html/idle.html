@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Control a background/idle function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for idle {RGtk2}"><tr><td>idle {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Control a background/idle function</h2>
+
+<h3>Description</h3>
+
+<p><strong>DEPRECATED!! (compatibility wrappers for RGtk 1!)</strong> 
+</p>
+<p>These functions allow one to register and
+remove a function that is called whenever
+Gtk has nothing else to do. In other words,
+these are background tasks that have less priority
+than timers and user interface events.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gtkAddIdle(f, data=NULL)
+gtkRemoveIdle(id)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>f</code></td>
+<td>
+<p> the function should take one or zero arguments
+depending on whether the argument <code>data</code> is given.
+The function should return a logical value.
+If it returns <code>FALSE</code>, the timer is removed.
+If it returns <code>TRUE</code>, the timer  is re-registered and will be called
+after <code>interval</code> milliseconds.
+</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>a value, which if specified, will be passed to the
+function <code>f</code> when it is invoked. This can be used to
+parameterize the function to have different functions.
+The same effect can be obtained using closures.
+</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>the object identifying the idle function in Gtk
+that was returned by a call to <code>gtkAddTimeout</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>gtkAddTimeout</code> returns an object
+of class <code>"GtkIdleId"</code>.
+This is an integer giving the identifier
+returned by the low-level Gtk interface.
+</p>
+
+
+<h3>Note</h3>
+
+<p>THIS STUFF IS VERY OLD AND DEPRECATED (compatibility wrappers for RGtk 1)
+</p>
+<p>This does not currently work when running directly
+in R. However, when running R inside another application
+such as GGobi, Gnumeric, etc. it and other event-loop
+facilities will work.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Duncan Temple Lang &lt;duncan@research.bell-labs.com&gt;
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="timeout.html">gtkAddTimeout</a></code>
+<code><a href="timeout.html">gtkRemoveTimeout</a></code>
+<code><a href="gtkAddCallback.html">gtkAddCallback</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

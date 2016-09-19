@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute Buffers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for buffer {adehabitat}"><tr><td>buffer {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute Buffers</h2>
+
+<h3>Description</h3>
+
+<p><code>buffer</code> compute buffers around a set of
+locations. <br />
+<code>buffer.ani</code> is to be used when the
+points can be grouped into several categories  (e.g. the relocations
+of several animals monitored using radio-tracking; the function
+<code>buffer</code> is then applied to each animal).<br />
+<code>buffer.line</code> compute buffers around a line.
+<code>buffer.ltraj</code> compute buffers around one or several animals
+trajectories.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+buffer(pts, x, dist)
+buffer.ani(pts, fac, x, dist)
+buffer.line(xy, x, dist)
+buffer.ltraj(ltraj, x, dist, perani=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>a data frame with two columns (x and y coordinates of the
+points)</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>either an object of class <code>asc</code> or <code>kasc</code> with the same
+attributes as those desired for the output, or an object of class
+<code>mapattr</code> (see <code>storemapattr</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>dist</code></td>
+<td>
+<p>a value of distance</p>
+</td></tr>
+<tr valign="top"><td><code>fac</code></td>
+<td>
+<p>a factor defining the categories of the points</p>
+</td></tr>
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>a data frame containing the coordinates of the vertices of
+the lines</p>
+</td></tr>
+<tr valign="top"><td><code>ltraj</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>perani</code></td>
+<td>
+<p>logical.  If <code>FALSE</code>, one buffer is computed for
+each burst of relocation.  If <code>TRUE</code>, the buffers are computed
+per levels of the attribute <code>id</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>buffer</code> and <code>buffer.line</code> return an object of class
+<code>asc</code>, with 1 for pixels 
+located within a specified distance of given points, and <code>NA</code>
+otherwise.<br /> 
+<code>buffer.ani</code> returns a data frame of class <code>kasc</code>,
+with each column corresponding to one level of the factor
+<code>fac</code>.<br />
+<code>buffer.ltraj</code> returns a data frame of class <code>kasc</code>,
+with each column corresponding to one level of the attribute <code>id</code>
+of the object of class <code>ltraj</code> passed as argument.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.kasc.html">kasc</a></code> for additionnal information on
+objects of class <code>kasc</code>, <code><a href="import.asc.html">asc</a></code> for further
+information on objects of class <code>asc</code>, <code><a href="storemapattr.html">storemapattr</a></code>
+for further information on objects of class <code>mapattr</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+
+# locs is the data frame containing the
+# relocations of wild boars monitored by radio-tracking 
+locs &lt;- puechabon$locs
+
+# sa is the "kasc" object of maps of the study area
+sa &lt;- puechabon$kasc
+
+# Buffer of 500 m around all relocations
+bu &lt;- buffer(locs[,4:5], sa, 500)
+image(bu)
+
+# displays all the pixels of the study area within 500 m
+# of a relocation of each monitored wild boar
+buani &lt;- buffer.ani(locs[,4:5], locs[,1], sa, 500)
+image(buani)
+
+
+## buffer around a trajectory
+data(puechcirc)
+image(buffer.ltraj(puechcirc,sa, 100))
+
+## buffer around a line
+gc &lt;- getcontour(getkasc(sa,1))
+out &lt;- buffer.line(gc[,2:3], sa, 300)
+image(out)
+lines(gc[,2:3], lwd=2)
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

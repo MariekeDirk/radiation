@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get cell number from row, column or XY</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cellFromXY {rts}"><tr><td>cellFromXY {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get cell number from row, column or XY</h2>
+
+<h3>Description</h3>
+
+<p>Get cell number(s) of a Raster*TS object from row and column numbers or X and Y coordinates.   
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cellFromRowCol(object, rownr, colnr)
+cellFromXY(object, xy)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p> a raster time series (<code>Raster*TS</code>) object created by <code><a href="rts.html">rts</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>colnr</code></td>
+<td>
+<p>column number; or vector of column numbers</p>
+</td></tr>
+<tr valign="top"><td><code>rownr</code></td>
+<td>
+<p>row number; or vector of row numbers</p>
+</td></tr>
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>matrix of x and y coordinates, or a SpatialPoints or SpatialPointsDataFrame object</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions are essentially a wrapper to <code><a href="../../raster/html/cellFromRowCol.html">cellFromRowCol</a></code> and  <code><a href="../../raster/html/cellFromXY.html">cellFromXY</a></code>
+in <span class="pkg">raster</span> package, work with <code>Raster*TS</code> objects.
+</p>
+
+
+<h3>Value</h3>
+
+<p>row, column or cell number(s). cellFromLine and cellFromPolygon return a list.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+<a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+<a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+file &lt;- system.file("external/ndvi", package="rts")
+
+rt &lt;- rts(file) # read the ndvi time series from the specified file
+cellFromRowCol(rt,15,20)
+
+cellFromRowCol(rt,c(16:20),c(11:15))
+
+cellFromXY(rt,c(645000,57345000))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

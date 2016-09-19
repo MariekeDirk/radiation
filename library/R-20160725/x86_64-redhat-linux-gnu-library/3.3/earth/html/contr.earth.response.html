@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Please ignore</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for contr.earth.response {earth}"><tr><td>contr.earth.response {earth}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Please ignore</h2>
+
+<h3>Description</h3>
+
+<p>Contrasts function for factors in the <code><a href="earth.html">earth</a></code> response.
+For internal use by earth.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+contr.earth.response(x, base, contrasts)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>a factor
+</p>
+</td></tr>
+<tr valign="top"><td><code>base</code></td>
+<td>
+
+<p>unused
+</p>
+</td></tr>
+<tr valign="top"><td><code>contrasts</code></td>
+<td>
+
+<p>unused
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a diagonal matrix.
+An example for a 3 level factor with levels <code>A</code>, <code>B</code>, and <code>C</code>:
+</p>
+<pre>
+      A B C
+    A 1 0 0
+    B 0 1 0
+    C 0 0 1
+</pre>
+
+
+<h3>Note</h3>
+
+<p>Earth uses this function internally.
+You shouldn't need it.
+It is made publicly available only because it seems that is necessary
+for <code>model.matrix</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/contrasts.html">contrasts</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>earth</em> version 4.4.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

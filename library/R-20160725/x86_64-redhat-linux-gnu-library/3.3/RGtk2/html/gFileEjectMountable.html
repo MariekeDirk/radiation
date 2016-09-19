@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileEjectMountable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileEjectMountable {RGtk2}"><tr><td>gFileEjectMountable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileEjectMountable</h2>
+
+<h3>Description</h3>
+
+<p>Starts an asynchronous eject on a mountable.  
+When this operation has completed, <code>callback</code> will be called with
+<code>user.user</code> data, and the operation can be finalized with 
+<code><a href="gFileEjectMountableFinish.html">gFileEjectMountableFinish</a></code>.
+<strong>WARNING: <code>g_file_eject_mountable</code> has been deprecated since version 2.22 and should not be used in newly-written code. Use <code><a href="gFileEjectMountableWithOperation.html">gFileEjectMountableWithOperation</a></code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileEjectMountable(object, flags = "G_MOUNT_UNMOUNT_NONE", cancellable = NULL, 
+    callback, user.data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">flags</code></code></td>
+<td>
+<p>flags affecting the operation</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">callback</code></code></td>
+<td>
+<p>a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code> to call when the request is satisfied, or <code>NULL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">user.data</code></code></td>
+<td>
+<p>the data to pass to callback function</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

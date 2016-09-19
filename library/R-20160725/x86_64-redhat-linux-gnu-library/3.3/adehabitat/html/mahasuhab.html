@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Habitat Suitability Mapping with Mahalanobis Distances.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mahasuhab {adehabitat}"><tr><td>mahasuhab {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Habitat Suitability Mapping with Mahalanobis Distances.</h2>
+
+<h3>Description</h3>
+
+<p>This function computes the habitat suitability map of an area
+for a species, given a set of locations of the species occurences (Clark
+et al. 1993).  This function is
+to be used in habitat selection studies, when animals are not
+identified.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mahasuhab(kasc, pts, type = c("distance", "probability"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>kasc</code></td>
+<td>
+<p>a raster map of class <code>kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>a data frame with two columns, giving the coordinates
+of the species locations</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>a character string. Whether the raw <code>"distance"</code> should be
+returned, or rather the <code>"probability"</code> (see details). </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Let assume that a set of locations of the species on an area is available
+(gathered on transects, or during the monitoring of the population,
+etc.).  If we assume that the probability of detecting an individual
+is independent from the habitat variables, then we can consider that
+the habitat found at these sites reflects the habitat use by the animals.<br />
+</p>
+<p>The Mahalanobis distances method has become more and more popular
+during the past few years to derive habitat suitability maps.  The
+niche of a species is defined as the probability density function of
+presence of a species in the multidimensionnal space defined by the
+habitat variables.  If this function can be assumed to
+be multivariate normal, then the mean vector of this distribution
+corresponds to the optimum for the species.<br />
+</p>
+<p>The function <code>mahasuhab</code> first computes this mean vector as well
+as the variance-covariance matrix of the niche density function, based
+on the value of habitat variables in the sample of locations.
+Then, the *squared* Mahalanobis distance from this optimum is computed
+for each pixel of the map.  Thus, the smaller this squared
+distance is for a given pixel, and the better is the habitat in this
+pixel.
+</p>
+<p>Assuming multivariate normality, squared Mahalanobis distances are
+approximately distributed as Chi-square with n-1 degrees of freedom,
+where n equals the number of habitat characteristics.  If the
+argument <code>type = "probability"</code>, maps of these p-values are
+returned by the function. As such these are the probabilities of a
+larger squared Mahalanobis distance than that observed when x is
+sampled from the niche.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a raster map of class <code>asc</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The computation of the squared Mahalanobis distances inverts the
+variance-covariance matrix of the niche density function (see
+<code>?mahalanobis</code>).
+It is therefore important that the habitat variables considered
+are not too correlated among each other.  When the habitat variables
+are too correlated, the variance-covariance matrix is singular and
+cannot be inverted. <br />
+</p>
+<p>Note also that it is recommended to scale the variables before the
+computation, so that they all have the same variance, and therefore
+the same weight in the analysis (see examples below).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Clark, J.D., Dunn, J.E. and Smith, K.G. (1993) A multivariate model of
+female black bear habitat use for a geographic information
+system. <em>Journal of Wildlife Management</em>, <b>57</b>, 519&ndash;526.
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code> for further information on objects of
+class <code>asc</code>, <code><a href="as.kasc.html">kasc</a></code> for additional information on
+objects of class <code>kasc</code>, <code><a href="domain.html">domain</a></code> for another method
+of habitat suitability mapping, and <code><a href="../../stats/html/mahalanobis.html">mahalanobis</a></code> for
+information on the computation of Mahalanobis distances. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## loads the data
+data(lynxjura)
+ka &lt;- lynxjura$map
+lo &lt;- lynxjura$locs[,1:2]
+
+## We first scale the maps
+df &lt;- kasc2df(ka)
+pc &lt;- dudi.pca(df$tab, scannf=FALSE)
+tab &lt;- pc$tab
+ka &lt;- df2kasc(tab, df$index, ka)
+
+## habitat suitability mapping
+hsm &lt;- mahasuhab(ka, lo, type = "probability")
+plot(hsm, main = "Habitat suitability map for the Lynx",
+     plot.axes = { points(lo, pch = 16, cex=0.5)})
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

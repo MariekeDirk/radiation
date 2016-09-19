@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIdleAddFull</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIdleAddFull {RGtk2}"><tr><td>gtkIdleAddFull {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIdleAddFull</h2>
+
+<h3>Description</h3>
+
+<p>Like <code><a href="gtkIdleAdd.html">gtkIdleAdd</a></code> this function allows you to have a function called
+when the event loop is idle. The difference is that you can give a
+priority different from <code>GTK_PRIORITY_DEFAULT</code> to the idle function.
+<strong>WARNING: <code>gtk_idle_add_full</code> has been deprecated since version 2.4 and should not be used in newly-written code. Use <code>gIdleAddFull()</code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIdleAddFull(priority, fun, data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">priority</code></code></td>
+<td>
+<p>The priority which should not be above <code>G_PRIORITY_HIGH_IDLE</code>.
+Note that you will interfere with GTK+ if you use a priority above
+<code>GTK_PRIORITY_RESIZE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>Data to pass to that function.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[numeric] A unique id for the event source.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

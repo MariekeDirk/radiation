@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellRendererSpin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellRendererSpin {RGtk2}"><tr><td>GtkCellRendererSpin {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellRendererSpin</h2>
+
+<h3>Description</h3>
+
+<p>Renders a spin button in a cell</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellRendererSpinNew.html">gtkCellRendererSpinNew</a>()</code><br />
+<code>gtkCellRendererSpin()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkCellRenderer
+                     +----GtkCellRendererText
+                           +----GtkCellRendererSpin</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkCellRendererSpin.html">GtkCellRendererSpin</a></code> renders text in a cell like <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> from
+which it is derived. But while <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> offers a simple entry to
+edit the text, <code><a href="GtkCellRendererSpin.html">GtkCellRendererSpin</a></code> offers a <code><a href="GtkSpinButton.html">GtkSpinButton</a></code> widget. Of course,
+that means that the text has to be parseable as a floating point number.
+</p>
+<p>The range of the spinbutton is taken from the adjustment property of the
+cell renderer, which can be set explicitly or mapped to a column in the
+tree model, like all properties of cell renders. <code><a href="GtkCellRendererSpin.html">GtkCellRendererSpin</a></code>
+also has properties for the climb rate and the number of digits to
+display. Other <code><a href="GtkSpinButton.html">GtkSpinButton</a></code> properties can be set in a handler for the
+start-editing signal.
+</p>
+<p>The <code><a href="GtkCellRendererSpin.html">GtkCellRendererSpin</a></code> cell renderer was added in GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellRendererSpin</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCellRendererSpin</code> is the equivalent of <code><a href="gtkCellRendererSpinNew.html">gtkCellRendererSpinNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">adjustment</code> [<code><a href="GtkAdjustment.html">GtkAdjustment</a></code> : *        : Read / Write]</dt><dd>
+<p>The adjustment that holds the value of the spinbutton.
+This must be non-<code>NULL</code> for the cell renderer to be editable.
+Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">climb-rate</code> [numeric : Read / Write]</dt><dd>
+<p>The acceleration rate when you hold down a button.
+Allowed values: &gt;= 0  Default value: 0  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">digits</code> [numeric : Read / Write]</dt><dd>
+<p>The number of decimal places to display.
+Allowed values: &lt;= 20  Default value: 0  Since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellRendererSpin.html">http://library.gnome.org/devel//gtk/GtkCellRendererSpin.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code>
+<code><a href="GtkSpinButton.html">GtkSpinButton</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

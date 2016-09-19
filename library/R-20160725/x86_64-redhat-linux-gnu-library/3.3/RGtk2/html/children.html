@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get child widgets of a Gtk container</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for children {RGtk2}"><tr><td>children {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get child widgets of a Gtk container</h2>
+
+<h3>Description</h3>
+
+<p><strong>DEPRECATED!! (compatibility wrappers for RGtk 1!)</strong> 
+</p>
+<p>This returns a list of the widgets that
+are currently contained or managed by 
+a particular Gtk container widget.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gtkChildren(object)
+gtkParent(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>the Gtk widget object whose children or parent
+widget(s) are to be retrieved.
+For <code>gtkChildren</code>, the object should be an object
+that inherits from the class <code>GtkContainer</code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>For <code>gtkChildren</code>,
+a list with each element corresponding
+to a child in the container widget.
+</p>
+
+
+<h3>Note</h3>
+
+<p>THIS STUFF IS VERY OLD AND DEPRECATED (compatibility wrappers for RGtk 1)
+</p>
+<p>This is a slightly modified function from Duncan's original. It now always behaves 
+as if the former argument <code>FULL</code> is <code>TRUE</code>.
+</p>
+<p>This is an extra-ordinarily early release 
+intended to encourage others to contribute code, etc.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Duncan Temple Lang</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.gtk.org">http://www.gtk.org</a>
+<a href="http://www.omegahat.org/RGtk">http://www.omegahat.org/RGtk</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="children.html">gtkParent</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

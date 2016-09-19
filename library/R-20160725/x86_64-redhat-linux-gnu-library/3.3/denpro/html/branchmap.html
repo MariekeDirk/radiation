@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Computes a branching map from a sequence of level set trees</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for branchmap {denpro}"><tr><td>branchmap {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Computes a branching map from a sequence of level set trees</h2>
+
+<h3>Description</h3>
+
+<p>Branching map visualizes the levels of branching of level set trees
+of estimates belonging to a scale of estimates.
+It visualizes also the excess masses of the roots of the branches. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+branchmap(estiseq, hseq = NULL, levnum = 80, paletti = NULL, 
+rootpaletti = NULL, type = "jump")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>estiseq</code></td>
+<td>
+<p>A sequence of estimates and level set trees of the estimates.
+Output of function lstseq.kern or function lstseq.carthisto.</p>
+</td></tr>
+<tr valign="top"><td><code>hseq</code></td>
+<td>
+<p>The sequence of smoothing parameters of the scale of estimates.</p>
+</td></tr>
+<tr valign="top"><td><code>levnum</code></td>
+<td>
+<p>The number of level sets used to approximate the 
+level set trees.</p>
+</td></tr>
+<tr valign="top"><td><code>paletti</code></td>
+<td>
+<p>A sequence of color names; colors for each branch,
+other than the root branches.</p>
+</td></tr>
+<tr valign="top"><td><code>rootpaletti</code></td>
+<td>
+<p>A sequence of color names; colors for the root branches.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>internal</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A representation as a list of a 2D function
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>level</code></td>
+<td>
+<p>x-coordinate is the level of the level sets</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>y-coordinate is the smoothing parameter</p>
+</td></tr>
+<tr valign="top"><td><code>z</code></td>
+<td>
+<p>z-coordinate is the excess mass</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>colors for the graph of the 2D function</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="lstseq.kern.html">lstseq.kern</a></code>,
+<code><a href="plotbranchmap.html">plotbranchmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dendat&lt;-sim.data(n=200,type="mulmod")
+
+h1&lt;-0.9
+h2&lt;-2.2
+lkm&lt;-5
+hseq&lt;-hgrid(h1,h2,lkm)
+
+N&lt;-c(16,16)
+estiseq&lt;-lstseq.kern(dendat,hseq,N,lstree=TRUE)
+
+bm&lt;-branchmap(estiseq)
+
+plotbranchmap(bm)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Encode a matrix of (decoded) class labels</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for encodeClassLabels {RSNNS}"><tr><td>encodeClassLabels {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Encode a matrix of (decoded) class labels</h2>
+
+<h3>Description</h3>
+
+<p>Applies <code>analyzeClassification</code> row-wise to a matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+encodeClassLabels(x, method = "WTA", l = 0, h = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>inputs</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>see <code>analyzeClassification</code></p>
+</td></tr>
+<tr valign="top"><td><code>l</code></td>
+<td>
+<p>idem</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>idem</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a numeric vector, each number represents a different class. A zero means
+that no class was assigned to the pattern.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="analyzeClassification.html">analyzeClassification</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(iris)
+labels &lt;- decodeClassLabels(iris[,5])
+encodeClassLabels(labels)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

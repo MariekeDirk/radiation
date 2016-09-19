@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Correlations in NMF Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for basiscor {NMF}"><tr><td>basiscor {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Correlations in NMF Models</h2>
+
+<h3>Description</h3>
+
+<p><code>basiscor</code> computes the correlation matrix between
+basis vectors, i.e. the <em>columns</em> of its basis
+matrix &ndash; which is the model's first matrix factor.
+</p>
+<p><code>profcor</code> computes the correlation matrix between
+basis profiles, i.e. the <em>rows</em> of the coefficient
+matrix &ndash; which is the model's second matrix factor.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  basiscor(x, y, ...)
+
+  profcor(x, y, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix or an object with suitable methods
+<code><a href="basis-coef-methods.html">basis</a></code> or <code><a href="basis-coef-methods.html">coef</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>a matrix or an object with suitable methods
+<code><a href="basis-coef-methods.html">basis</a></code> or <code><a href="basis-coef-methods.html">coef</a></code>, and dimensions
+compatible with <code>x</code>. If missing the correlations are
+computed between <code>x</code> and <code>y=x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to <code><a href="../../stats/html/cor.html">cor</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Each generic has methods defined for computing
+correlations between NMF models and/or compatible
+matrices. The computation is performed by the base
+function <code><a href="../../stats/html/cor.html">cor</a></code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>basiscor</dt><dd><p><code>signature(x = "NMF", y =
+  "matrix")</code>: Computes the correlations between the basis
+vectors of <code>x</code> and the columns of <code>y</code>. </p>
+</dd>
+<dt>basiscor</dt><dd><p><code>signature(x = "matrix", y =
+  "NMF")</code>: Computes the correlations between the columns of
+<code>x</code> and the the basis vectors of <code>y</code>. </p>
+</dd>
+<dt>basiscor</dt><dd><p><code>signature(x = "NMF", y = "NMF")</code>:
+Computes the correlations between the basis vectors of
+<code>x</code> and <code>y</code>. </p>
+</dd>
+<dt>basiscor</dt><dd><p><code>signature(x = "NMF", y =
+  "missing")</code>: Computes the correlations between the basis
+vectors of <code>x</code>. </p>
+</dd>
+<dt>profcor</dt><dd><p><code>signature(x = "NMF", y = "matrix")</code>:
+Computes the correlations between the basis profiles of
+<code>x</code> and the rows of <code>y</code>. </p>
+</dd>
+<dt>profcor</dt><dd><p><code>signature(x = "matrix", y = "NMF")</code>:
+Computes the correlations between the rows of <code>x</code>
+and the basis profiles of <code>y</code>. </p>
+</dd>
+<dt>profcor</dt><dd><p><code>signature(x = "NMF", y = "NMF")</code>:
+Computes the correlations between the basis profiles of
+<code>x</code> and <code>y</code>. </p>
+</dd>
+<dt>profcor</dt><dd><p><code>signature(x = "NMF", y =
+  "missing")</code>: Computes the correlations between the basis
+profiles of <code>x</code>. </p>
+</dd>
+</dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# generate two random NMF models
+a &lt;- rnmf(3, 100, 20)
+b &lt;- rnmf(3, 100, 20)
+
+# Compute auto-correlations
+basiscor(a)
+profcor(a)
+# Compute correlations with b
+basiscor(a, b)
+profcor(a, b)
+
+# try to recover the underlying NMF model 'a' from noisy data
+res &lt;- nmf(fitted(a) + rmatrix(a), 3)
+
+# Compute correlations with the true model
+basiscor(a, res)
+profcor(a, res)
+
+# Compute correlations with a random compatible matrix
+W &lt;- rmatrix(basis(a))
+basiscor(a, W)
+identical(basiscor(a, W), basiscor(W, a))
+
+H &lt;- rmatrix(coef(a))
+profcor(a, H)
+identical(profcor(a, H), profcor(H, a))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extracting and replacing the index of raster time series</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for index {rts}"><tr><td>index {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extracting and replacing the index of raster time series</h2>
+
+<h3>Description</h3>
+
+<p><code>index</code> is a generic function for extracting the index of a raster time series (<code>Raster*TS</code>) object and replacing it.
+</p>
+<p><code>index(x) &lt;- value</code>, can be used to replace index with <code>value</code>, a vector of the same length as the number of raster layers in <code>Raster*TS</code> object .</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'RasterStackBrickTS'
+index(x, ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A <code>RasterStack</code> or <code>RasterBrick</code> object </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to methods</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+</p>
+<p><a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+</p>
+<p><a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../xts/html/index.xts.html">index.xts</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+file &lt;- system.file("external/ndvi", package="rts")
+
+ndvi &lt;- rts(file) # read the ndvi time series from the specified file
+
+index(ndvi)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

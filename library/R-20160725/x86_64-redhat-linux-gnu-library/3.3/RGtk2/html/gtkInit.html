@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkInit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkInit {RGtk2}"><tr><td>gtkInit {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkInit</h2>
+
+<h3>Description</h3>
+
+<p>Call this function before using any other GTK+ functions in your GUI
+applications.  It will initialize everything needed to operate the
+toolkit and parses some standard command line options. <code>argc</code> and 
+<code>argv</code> are adjusted accordingly so your own code will 
+never see those standard arguments. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkInit(args = "R")</pre>
+
+
+<h3>Details</h3>
+
+<p>Note that there are some alternative ways to initialize GTK+: 
+if you are calling <code>gtkParseArgs()</code>, <code>gtkInitCheck()</code>, 
+<code>gtkInitWithArgs()</code> or <code>gOptionContextParse()</code> with 
+the option group returned by <code>gtkGetOptionGroup()</code>, you 
+<em>don't</em> have to call <code><a href="gtkInit.html">gtkInit</a></code>.
+<strong>PLEASE NOTE:</strong> This function will terminate your program if it was unable to initialize 
+the GUI for some reason. If you want your program to fall back to a 
+textual interface you want to call <code>gtkInitCheck()</code> instead.  <strong>PLEASE NOTE:</strong> Since 2.18, GTK+ calls <code>signal (SIGPIPE, SIG_IGN)</code>
+during initialization, to ignore SIGPIPE signals, since these are
+almost never wanted in graphical applications. If you do need to
+handle SIGPIPE for some reason, reset the handler after <code><a href="gtkInit.html">gtkInit</a></code>,
+but notice that other libraries (e.g. libdbus or gvfs) might do
+similar things.  </p>
+
+
+<h3>Note</h3>
+
+<p>This function will terminate your program if it was unable to initialize 
+the GUI for some reason. If you want your program to fall back to a 
+textual interface you want to call <code>gtkInitCheck()</code> instead.
+Since 2.18, GTK+ calls <code>signal (SIGPIPE, SIG_IGN)</code>
+during initialization, to ignore SIGPIPE signals, since these are
+almost never wanted in graphical applications. If you do need to
+handle SIGPIPE for some reason, reset the handler after <code><a href="gtkInit.html">gtkInit</a></code>,
+but notice that other libraries (e.g. libdbus or gvfs) might do
+similar things.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

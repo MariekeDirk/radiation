@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Model testing with the ROCR package</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for evaluateROCR {dismo}"><tr><td>evaluateROCR {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Model testing with the ROCR package
+</h2>
+
+<h3>Description</h3>
+
+<p>Preparing data for model testing with the ROCR package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+evaluateROCR(model, p, a, x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>any fitted model, including objects inherting from 'DistModel'</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>presence points (x and y coordinates or SpatialPoints* object). 
+</p>
+<p>Or, if <code>x</code> is missing, values at presence points
+</p>
+<p>Or, a matrix with values to compute predictions for</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>absence points (x and y coordinates or SpatialPoints* object). 
+</p>
+<p>Or, if <code>x</code> is missing, values at presence points.
+</p>
+<p>Or, a matrix with values to compute predictions for</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>optional. predictor variables, if present, <code>p</code> and <code>a</code> are considered </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class &quot;prediction&quot; (defined in the ROCR package)
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

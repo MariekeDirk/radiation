@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkCellRendererStartEditing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkCellRendererStartEditing {RGtk2}"><tr><td>gtkCellRendererStartEditing {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkCellRendererStartEditing</h2>
+
+<h3>Description</h3>
+
+<p>Passes an activate event to the cell renderer for possible processing.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkCellRendererStartEditing(object, event, widget, path, background.area, 
+    cell.area, flags)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkCellRenderer.html">GtkCellRenderer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">event</code></code></td>
+<td>
+<p>a <code><a href="GdkEvent.html">GdkEvent</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">widget</code></code></td>
+<td>
+<p>widget that received the event</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">path</code></code></td>
+<td>
+<p>widget-dependent string representation of the event location;
+e.g. for <code><a href="GtkTreeView.html">GtkTreeView</a></code>, a string representation of <code><a href="GtkTreeModel.html">GtkTreePath</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">background.area</code></code></td>
+<td>
+<p>background area as passed to <code><a href="gtkCellRendererRender.html">gtkCellRendererRender</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cell.area</code></code></td>
+<td>
+<p>cell area as passed to <code><a href="gtkCellRendererRender.html">gtkCellRendererRender</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">flags</code></code></td>
+<td>
+<p>render flags</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkCellEditable.html">GtkCellEditable</a></code>] A new <code><a href="GtkCellEditable.html">GtkCellEditable</a></code>, or <code>NULL</code></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

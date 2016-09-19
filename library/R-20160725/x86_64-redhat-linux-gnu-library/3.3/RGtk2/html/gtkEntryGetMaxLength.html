@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkEntryGetMaxLength</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkEntryGetMaxLength {RGtk2}"><tr><td>gtkEntryGetMaxLength {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkEntryGetMaxLength</h2>
+
+<h3>Description</h3>
+
+<p>Retrieves the maximum allowed length of the text in
+<code>entry</code>. See <code><a href="gtkEntrySetMaxLength.html">gtkEntrySetMaxLength</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkEntryGetMaxLength(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkEntry.html">GtkEntry</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>This is equivalent to:
+</p>
+<pre>gtk_entry_buffer_get_max_length (gtk_entry_get_buffer (entry));
+</pre>
+
+<h3>Value</h3>
+
+<p>[integer] the maximum allowed number of characters
+in <code><a href="GtkEntry.html">GtkEntry</a></code>, or 0 if there is no maximum.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

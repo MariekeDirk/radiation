@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Glyph Storage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pango-Glyph-Storage {RGtk2}"><tr><td>pango-Glyph-Storage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Glyph Storage</h2>
+
+<h3>Description</h3>
+
+<p>Structures for storing information about glyphs</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="pangoUnitsToDouble.html">pangoUnitsToDouble</a>(i)</code><br />
+<code><a href="pangoUnitsFromDouble.html">pangoUnitsFromDouble</a>(d)</code><br />
+<code><a href="pangoExtentsToPixels.html">pangoExtentsToPixels</a>(inclusive, nearest)</code><br />
+<code><a href="pangoMatrixCopy.html">pangoMatrixCopy</a>(object)</code><br />
+<code><a href="pangoMatrixTranslate.html">pangoMatrixTranslate</a>(object, tx, ty)</code><br />
+<code><a href="pangoMatrixScale.html">pangoMatrixScale</a>(object, scale.x, scale.y)</code><br />
+<code><a href="pangoMatrixRotate.html">pangoMatrixRotate</a>(object, degrees)</code><br />
+<code><a href="pangoMatrixConcat.html">pangoMatrixConcat</a>(object, new.matrix)</code><br />
+<code><a href="pangoMatrixTransformPoint.html">pangoMatrixTransformPoint</a>(object, x, y)</code><br />
+<code><a href="pangoMatrixTransformDistance.html">pangoMatrixTransformDistance</a>(object, dx, dy)</code><br />
+<code><a href="pangoMatrixTransformRectangle.html">pangoMatrixTransformRectangle</a>(object, rect)</code><br />
+<code><a href="pangoMatrixTransformPixelRectangle.html">pangoMatrixTransformPixelRectangle</a>(object, rect)</code><br />
+<code><a href="pangoMatrixGetFontScaleFactor.html">pangoMatrixGetFontScaleFactor</a>(object)</code><br />
+<code><a href="pangoGlyphStringNew.html">pangoGlyphStringNew</a>()</code><br />
+<code><a href="pangoGlyphStringCopy.html">pangoGlyphStringCopy</a>(object)</code><br />
+<code><a href="pangoGlyphStringSetSize.html">pangoGlyphStringSetSize</a>(object, new.len)</code><br />
+<code><a href="pangoGlyphStringExtents.html">pangoGlyphStringExtents</a>(object, font)</code><br />
+<code><a href="pangoGlyphStringExtentsRange.html">pangoGlyphStringExtentsRange</a>(object, start, end, font)</code><br />
+<code><a href="pangoGlyphStringGetWidth.html">pangoGlyphStringGetWidth</a>(object)</code><br />
+<code><a href="pangoGlyphStringIndexToX.html">pangoGlyphStringIndexToX</a>(object, text, analysis, index, trailing)</code><br />
+<code><a href="pangoGlyphStringXToIndex.html">pangoGlyphStringXToIndex</a>(object, text, analysis, x.pos)</code><br />
+<code><a href="pangoGlyphStringGetLogicalWidths.html">pangoGlyphStringGetLogicalWidths</a>(object, text, embedding.level)</code><br />
+<code><a href="pangoGlyphItemSplit.html">pangoGlyphItemSplit</a>(orig, text, split.index)</code><br />
+<code><a href="pangoGlyphItemApplyAttrs.html">pangoGlyphItemApplyAttrs</a>(glyph.item, text, list)</code><br />
+<code><a href="pangoGlyphItemLetterSpace.html">pangoGlyphItemLetterSpace</a>(glyph.item, text, log.attrs)</code><br />
+<code><a href="pangoGlyphItemGetLogicalWidths.html">pangoGlyphItemGetLogicalWidths</a>(glyph.item, text)</code><br />
+<code><a href="pangoGlyphItemIterInitStart.html">pangoGlyphItemIterInitStart</a>(object, glyph.item, text)</code><br />
+<code><a href="pangoGlyphItemIterInitEnd.html">pangoGlyphItemIterInitEnd</a>(object, glyph.item, text)</code><br />
+<code><a href="pangoGlyphItemIterNextCluster.html">pangoGlyphItemIterNextCluster</a>(object)</code><br />
+<code><a href="pangoGlyphItemIterPrevCluster.html">pangoGlyphItemIterPrevCluster</a>(object)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="pangoShape.html">pangoShape</a></code> produces a string of glyphs which
+can be measured or drawn to the screen. The following
+structures are used to store information about
+glyphs.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">PangoRectangle</code></dt><dd>
+<p>The <code><a href="pango-Glyph-Storage.html">PangoRectangle</a></code> structure represents a rectangle. It is frequently
+used to represent the logical or ink extents of a single glyph or section
+of text. (See, for instance, <code><a href="pangoFontGetGlyphExtents.html">pangoFontGetGlyphExtents</a></code>)
+<strong><code style="white-space: pre;">PangoRectangle</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code>x</code></dt><dd><p>[integer] X coordinate of the left side of the rectangle.</p>
+</dd>
+<dt><code>y</code></dt><dd><p>[integer] Y coordinate of the the top side of the rectangle.</p>
+</dd>
+<dt><code>width</code></dt><dd><p>[integer] width of the rectangle.</p>
+</dd>
+<dt><code>height</code></dt><dd><p>[integer] height of the rectangle.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoMatrix</code></dt><dd>
+<p>A structure specifying a transformation between user-space
+coordinates and device coordinates. The transformation
+is given by
+</p>
+<pre>x_device = x_user * matrix-&gt;xx + y_user * matrix-&gt;xy + matrix-&gt;x0;
+y_device = x_user * matrix-&gt;yx + y_user * matrix-&gt;yy + matrix-&gt;y0;
+</pre>  
+<p>Since 1.6
+</p>
+
+<dl>
+<dt><code>xx</code></dt><dd><p>[numeric]  1st component of the transformation matrix</p>
+</dd>
+<dt><code>xy</code></dt><dd><p>[numeric]  2nd component of the transformation matrix</p>
+</dd>
+<dt><code>yx</code></dt><dd><p>[numeric]  3rd component of the transformation matrix</p>
+</dd>
+<dt><code>yy</code></dt><dd><p>[numeric]  4th component of the transformation matrix</p>
+</dd>
+<dt><code>x0</code></dt><dd><p>[numeric]  x translation</p>
+</dd>
+<dt><code>y0</code></dt><dd><p>[numeric]  y translation</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphInfo</code></dt><dd>
+<p>The <code><a href="pango-Glyph-Storage.html">PangoGlyphInfo</a></code> structure represents a single glyph together with
+positioning information and visual attributes.
+It contains the following fields.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">glyph</code></dt><dd><p>[numeric] the glyph itself.</p>
+</dd>
+<dt><code style="white-space: pre;">geometry</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphGeometry</a></code>] the positional information about the glyph.</p>
+</dd>
+<dt><code style="white-space: pre;">attr</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphVisAttr</a></code>] the visual attributes of the glyph.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphGeometry</code></dt><dd>
+<p>The <code><a href="pango-Glyph-Storage.html">PangoGlyphGeometry</a></code> structure contains width and positioning
+information for a single glyph.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">width</code></dt><dd><p>[integer] the logical width to use for the the character.</p>
+</dd>
+<dt><code style="white-space: pre;">xOffset</code></dt><dd><p>[integer] horizontal offset from nominal character position.</p>
+</dd>
+<dt><code style="white-space: pre;">yOffset</code></dt><dd><p>[integer] vertical offset from nominal character position.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphVisAttr</code></dt><dd>
+<p>The PangoGlyphVisAttr is used to communicate information between
+the shaping phase and the rendering phase.  More attributes may be
+added in the future.
+</p>
+<dl>
+<dt><code style="white-space: pre;">isClusterStart</code></dt><dd><p>[numeric] set for the first logical glyph in each cluster. (Clusters
+are stored in visual order, within the cluster, glyphs
+are always ordered in logical order, since visual
+order is meaningless; that is, in Arabic text, accent glyphs
+follow the glyphs for the base character.)</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphString</code></dt><dd>
+<p>The <code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code> structure is used to store strings
+of glyphs with geometry and visual attribute information.
+The storage for the glyph information is owned
+by the structure which simplifies memory management.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">numGlyphs</code></dt><dd><p>[integer] the number of glyphs in the string.</p>
+</dd>
+<dt><code style="white-space: pre;">glyphs</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphInfo</a></code>] a list of <code><a href="pango-Glyph-Storage.html">PangoGlyphInfo</a></code> structures of length <code>num_glyphs</code>.</p>
+</dd>
+<dt><code style="white-space: pre;">logClusters</code></dt><dd><p>[integer] for each glyph, byte index of the starting character for the
+cluster. The indices are relative to the start of the text
+corresponding to the PangoGlyphString.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphItem</code></dt><dd>
+<p>A <code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code> is a pair of a <code><a href="pango-Text-Processing.html">PangoItem</a></code> and the glyphs
+resulting from shaping the text corresponding to an item.
+As an example of the usage of <code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code>, the results
+of shaping text with <code><a href="pango-Layout-Objects.html">PangoLayout</a></code> is a list of <code><a href="pango-Layout-Objects.html">PangoLayoutLine</a></code>,
+each of which contains a list of <code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">item</code></dt><dd><p>[<code><a href="pango-Text-Processing.html">PangoItem</a></code>] a <code><a href="pango-Text-Processing.html">PangoItem</a></code> structure that provides information
+about a segment of text.</p>
+</dd>
+<dt><code style="white-space: pre;">glyphs</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphString</a></code>] the glyphs obtained by shaping the text
+corresponding to <code>item</code>.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoGlyphItemIter</code></dt><dd>
+<p>A <code><a href="pango-Glyph-Storage.html">PangoGlyphItemIter</a></code> is an iterator over the clusters in a
+<code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code>.  The <dfn>forward direction</dfn> of the
+iterator is the logical direction of text.  That is, with increasing
+<code>start.index</code> and <code>start.char</code> values.  If <code>glyph.item</code> is right-to-left
+(that is, if <code>glyph_item-&gt;item-&gt;analysis.level</code> is odd),
+then <code>start.glyph</code> decreases as the iterator moves forward.  Moreover,
+in right-to-left cases, <code>start.glyph</code> is greater than <code>end.glyph</code>.
+An iterator should be initialized using either of
+<code><a href="pangoGlyphItemIterInitStart.html">pangoGlyphItemIterInitStart</a></code> and
+<code><a href="pangoGlyphItemIterInitEnd.html">pangoGlyphItemIterInitEnd</a></code>, for forward and backward iteration
+respectively, and walked over using any desired mixture of
+<code><a href="pangoGlyphItemIterNextCluster.html">pangoGlyphItemIterNextCluster</a></code> and
+<code><a href="pangoGlyphItemIterPrevCluster.html">pangoGlyphItemIterPrevCluster</a></code>.  A common idiom for doing a
+forward iteration over the clusters is:
+</p>
+<pre>PangoGlyphItemIter cluster_iter;
+gboolean have_cluster;
+for (have_cluster = pango_glyph_item_iter_init_start (&amp;cluster_iter,
+                                                      glyph_item, text);
+     have_cluster;
+     have_cluster = pango_glyph_item_iter_next_cluster (&amp;cluster_iter))
+{
+  ...
+}
+</pre>
+<p>Note that <code>text</code> is the start of the text for layout, which is then
+indexed by <code>glyph_item-&gt;item-&gt;offset</code> to get to the
+text of <code>glyph.item</code>.  The <code>start.index</code> and <code>end.index</code> values can directly
+index into <code>text</code>.  The <code>start.glyph</code>, <code>end.glyph</code>, <code>start.char</code>, and <code>end.char</code>
+values however are zero-based for the <code>glyph.item</code>.  For each cluster, the
+item pointed at by the start variables is included in the cluster while
+the one pointed at by end variables is not.
+None of the members of a <code><a href="pango-Glyph-Storage.html">PangoGlyphItemIter</a></code> should be modified manually.
+Since 1.22
+</p>
+
+<dl>
+<dt><code>glyph_item</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code>] the <code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code> this iterator iterates over</p>
+</dd>
+<dt><code>text</code></dt><dd><p>[character] the UTF-8 text that <code>glyph.item</code> refers to</p>
+</dd>
+<dt><code>start_glyph</code></dt><dd><p>[integer] starting glyph of the cluster</p>
+</dd>
+<dt><code>start_index</code></dt><dd><p>[integer] starting text index of the cluster</p>
+</dd>
+<dt><code>start_char</code></dt><dd><p>[integer] starting number of characters of the cluster</p>
+</dd>
+<dt><code>end_glyph</code></dt><dd><p>[integer] ending glyph of the cluster</p>
+</dd>
+<dt><code>end_index</code></dt><dd><p>[integer] ending text index of the cluster</p>
+</dd>
+<dt><code>end_char</code></dt><dd><p>[integer] ending number of characters of the cluster</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//pango/pango-Glyph-Storage.html">http://library.gnome.org/devel//pango/pango-Glyph-Storage.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

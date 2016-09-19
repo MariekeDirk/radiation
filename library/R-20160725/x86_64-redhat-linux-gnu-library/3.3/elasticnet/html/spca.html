@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sparse Principal Components Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spca {elasticnet}"><tr><td>spca {elasticnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sparse Principal Components Analysis</h2>
+
+<h3>Description</h3>
+
+<p>Using an alternating minimization algorithm to minimize the SPCA criterion.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spca(x,K,para,type=c("predictor","Gram"),sparse=c("penalty","varnum"),use.corr=FALSE,lambda=1e-6,max.iter=200,trace=FALSE,eps.conv=1e-3)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A matrix. It can be the predictor matrix or the sample
+covariance/correlation matrix. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+
+<p>Number of components
+</p>
+</td></tr>
+<tr valign="top"><td><code>para</code></td>
+<td>
+<p>A vector of length K. All elements should be positive. If sparse=&quot;varnum&quot;, the elements integers.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>If type=&quot;predictor&quot;, x is the predictor matrix.
+If type=&quot;Gram&quot;, the function asks the user to provide the sample covariance or correlation matrix.  
+</p>
+</td></tr>
+<tr valign="top"><td><code>sparse</code></td>
+<td>
+<p>If sparse=&quot;penalty&quot;, para is a vector of 1-norm
+penalty parameters. If sparse=&quot;varnum&quot;, para defines the number of
+sparse loadings to be obtained. This option is not discussed in the
+paper given below, but it is convenient in practice.</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>Quadratic penalty parameter. Default value is 1e-6.</p>
+</td></tr>
+<tr valign="top"><td><code>use.corr</code></td>
+<td>
+<p>Perform PCA on the correlation matrix? This option is
+only effective when the argument type is set &quot;data&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>max.iter</code></td>
+<td>
+<p>Maximum number of iterations.</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+<p>If TRUE, prints out its progress.</p>
+</td></tr>
+<tr valign="top"><td><code>eps.conv</code></td>
+<td>
+<p>Convergence criterion.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>PCA is shown to be equivalent to a regression-type optimization problem,
+then sparse loadings are obtained by imposing the 1-norm constraint on
+the regression coefficients. If x is a microarray matrix, use arrayspc().
+</p>
+
+
+<h3>Value</h3>
+
+<p>A &quot;spca&quot; object is returned. 
+The below are some quantities which the user may be interested in: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>loadings</code></td>
+<td>
+
+<p>The loadings of the sparse PCs
+</p>
+</td></tr>
+<tr valign="top"><td><code>pev</code></td>
+<td>
+ 
+<p>Percentage of explained variance
+</p>
+</td></tr>
+<tr valign="top"><td><code>var.all</code></td>
+<td>
+ 
+<p>Total variance of the predictors
+</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Hui Zou, Trevor Hastie and Robert Tibshirani</p>
+
+
+<h3>References</h3>
+
+<p>Zou, H., Hastie, T. and Tibshirani, R. (2004) &quot;Sparse principal component
+analysis&quot; <em>Technical report, Statistics Dept. Stanford University</em>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>princomp, arrayspc
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(pitprops)
+out1&lt;-spca(pitprops,K=6,type="Gram",sparse="penalty",trace=TRUE,para=c(0.06,0.16,0.1,0.5,0.5,0.5))
+## print the object out1
+out1
+out2&lt;-spca(pitprops,K=6,type="Gram",sparse="varnum",trace=TRUE,para=c(7,4,4,1,1,1))
+out2
+## to see the contents of out2
+names(out2) 
+## to get the loadings
+out2$loadings
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>elasticnet</em> version 1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Projection pursuit regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pp.regression {regpro}"><tr><td>pp.regression {regpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Projection pursuit regression
+</h2>
+
+<h3>Description</h3>
+
+<p>Computes the value of a projection pursuit regression estimator at one point.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pp.regression(x, y=NULL, arg=NULL, residu=NULL, teet=NULL, h=1, kernel="gauss",
+M=2, method="poid", argd=NULL, vect=FALSE, seed=1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>n*d data matrix; the matrix of the values of the explanatory variables</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>n vector or NULL; the values of the response variable</p>
+</td></tr>
+<tr valign="top"><td><code>arg</code></td>
+<td>
+<p>d vector or NULL; the point where the value of the regression
+function is estimated</p>
+</td></tr> 
+<tr valign="top"><td><code>residu</code></td>
+<td>
+<p>NULL or n*M matrix of residuals; for each step the n vector of 
+residuals is given; the first residual is the vector of y-observations</p>
+</td></tr>
+<tr valign="top"><td><code>teet</code></td>
+<td>
+<p>NULL or M*d matrix; for each step the direction vector 
+chosen by the optimizer</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>a positive real number; the smoothing parameter of the kernel estimate</p>
+</td></tr>
+<tr valign="top"><td><code>kernel</code></td>
+<td>
+<p>a character; determines the kernel function; 
+either &quot;gauss&quot; or &quot;uniform&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>M</code></td>
+<td>
+<p>integer &gt;=2; the number of iterations</p>
+</td></tr> 
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>character string; &quot;poid&quot;, &quot;aved&quot;, &quot;iter&quot;, or &quot;nume&quot;; 
+if method=&quot;poid&quot;, then the direction vector is estimated using the reference 
+point optionally given in the argument &quot;argd&quot;;
+if method=&quot;aved&quot;, then the average derivative method is used;
+if method=&quot;iter&quot;, then an iterative algorithm is used;
+if method=&quot;nume&quot;, then numerical optimization is used</p>
+</td></tr>
+<tr valign="top"><td><code>argd</code></td>
+<td>
+<p>d vector; the point optionally used in the estimation of the 
+direction vector</p>
+</td></tr>
+<tr valign="top"><td><code>vect</code></td>
+<td>
+<p>TRUE or FALSE; internal parameter</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>real number; the seed for the random number generator</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>list of eval, residu, teet, and value;
+&quot;eval&quot; is a n*d matrix of the evaluations of the estimated component functions
+at the data points; 
+&quot;residu&quot; is n*M matrix which contains the sequence of estimates evaluated
+at the observations;
+&quot;teet&quot; is M*d matrix which gives for each iteration step the direction chosen 
+by the optimization  procedure;
+&quot;value&quot; is a real number giving the estimated value 
+of the regression function at one point</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="single.index.html">single.index</a></code>,
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+n&lt;-100
+d&lt;-2 
+x&lt;-8*matrix(runif(n*d),n,d)-3
+C&lt;-(2*pi)^(-d/2)
+phi&lt;-function(x){ return( C*exp(-sum(x^2)/2) ) }
+D&lt;-3; c1&lt;-c(0,0); c2&lt;-D*c(1,0); c3&lt;-D*c(1/2,sqrt(3)/2)
+func&lt;-function(x){phi(x-c1)+phi(x-c2)+phi(x-c3)}
+y&lt;-matrix(0,n,1)
+for (i in 1:n) y[i]&lt;-func(x[i,])+0.01*rnorm(1)
+
+pp.regression(x,y)
+
+arg&lt;-c(0,0)
+pp.regression(x,y,arg=arg)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>regpro</em> version 0.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

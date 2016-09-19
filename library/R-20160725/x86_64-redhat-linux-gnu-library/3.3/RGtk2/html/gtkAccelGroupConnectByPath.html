@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkAccelGroupConnectByPath</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkAccelGroupConnectByPath {RGtk2}"><tr><td>gtkAccelGroupConnectByPath {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkAccelGroupConnectByPath</h2>
+
+<h3>Description</h3>
+
+<p>Installs an accelerator in this group, using an accelerator path to look
+up the appropriate key and modifiers (see <code><a href="gtkAccelMapAddEntry.html">gtkAccelMapAddEntry</a></code>).
+When <code>accel.group</code> is being activated in response to a call to
+<code><a href="gtkAccelGroupsActivate.html">gtkAccelGroupsActivate</a></code>, <code>closure</code> will be invoked if the <code>accel.key</code> and
+<code>accel.mods</code> from <code><a href="gtkAccelGroupsActivate.html">gtkAccelGroupsActivate</a></code> match the key and modifiers
+for the path.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkAccelGroupConnectByPath(object, accel.path, closure)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the accelerator group to install an accelerator in</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.path</code></code></td>
+<td>
+<p>path used for determining key and modifiers.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">closure</code></code></td>
+<td>
+<p>closure to be executed upon accelerator activation</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The signature used for the <code>closure</code> is that of <code><a href="gtk-Keyboard-Accelerators.html">GtkAccelGroupActivate</a></code>.
+</p>
+<p>Note that <code>accel.path</code> string will be stored in a <code><a href="GQuark.html">GQuark</a></code>. Therefore, if you
+pass a static string, you can save some memory by interning it first with 
+<code>gInternStaticString()</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get the spanning tree of the SOM</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SnnsRObject$somPredictCurrPatSetWinnersSpanTree {RSNNS}"><tr><td>SnnsRObject$somPredictCurrPatSetWinnersSpanTree {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get the spanning tree of the SOM</h2>
+
+<h3>Description</h3>
+
+<p>SnnsR low-level function to get the spanning tree of the SOM, This function
+calls directly the corresponding SNNS kernel function (the only one available for SOM).
+Advantage are faster computation, disadvantage is somewhat limited information in
+the output.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S4 method for signature 'SnnsR'
+somPredictCurrPatSetWinnersSpanTree()
+</pre>
+
+
+<h3>Value</h3>
+
+<p>the spanning tree, which is the som, showing for each unit a number identifying
+the last pattern for which this unit won. (We note that, also if there are more than
+one patterns, only the last one is saved)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="som.html">som</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileMakeDirectory</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileMakeDirectory {RGtk2}"><tr><td>gFileMakeDirectory {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileMakeDirectory</h2>
+
+<h3>Description</h3>
+
+<p>Creates a directory. Note that this will only create a child directory of
+the immediate parent directory of the path or URI given by the <code><a href="GFile.html">GFile</a></code>. To 
+recursively create directories, see <code><a href="gFileMakeDirectoryWithParents.html">gFileMakeDirectoryWithParents</a></code>.
+This function will fail if the parent directory does not exist, setting 
+<code>error</code> to <code>G_IO_ERROR_NOT_FOUND</code>. If the file system doesn't support creating
+directories, this function will fail, setting <code>error</code> to 
+<code>G_IO_ERROR_NOT_SUPPORTED</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileMakeDirectory(object, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For a local <code><a href="GFile.html">GFile</a></code> the newly created directory will have the default
+(current) ownership and permissions of the current process.
+</p>
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> on successful creation, <code>FALSE</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code>, or <code>NULL</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

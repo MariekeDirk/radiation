@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Transformation NMF Model Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for t.NMF {NMF}"><tr><td>t.NMF {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Transformation NMF Model Objects</h2>
+
+<h3>Description</h3>
+
+<p><code>t</code> transpose an NMF model, by transposing and
+swapping its basis and coefficient matrices:
+<i>t([W,H]) = [t(H), t(W)]</i>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S3 method for class 'NMF'
+ t(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>NMF model object.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>t</code> is a generic defined in the
+<span class="pkg">base</span> package. The method <code>t.NMF</code> defines the
+trasnformation for the general NMF interface. This method
+may need to be overloaded for NMF models, whose structure
+requires specific handling.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other transforms: <code><a href="nneg.html">nneg</a></code>,
+<code><a href="nneg.html">posneg</a></code>, <code><a href="nneg.html">rposneg</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+x &lt;- rnmf(3, 100, 20)
+x
+# transpose
+y &lt;- t(x)
+y
+
+# factors are swapped-transposed
+stopifnot( identical(basis(y), t(coef(x))) )
+stopifnot( identical(coef(y), t(basis(x))) )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

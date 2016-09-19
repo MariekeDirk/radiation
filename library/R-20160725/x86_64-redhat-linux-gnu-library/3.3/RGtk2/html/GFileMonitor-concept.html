@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFileMonitor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFileMonitor-concept {RGtk2}"><tr><td>GFileMonitor-concept {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFileMonitor</h2>
+
+<h3>Description</h3>
+
+<p>File Monitor</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileMonitorCancel.html">gFileMonitorCancel</a>(object)</code><br />
+<code><a href="gFileMonitorIsCancelled.html">gFileMonitorIsCancelled</a>(object)</code><br />
+<code><a href="gFileMonitorSetRateLimit.html">gFileMonitorSetRateLimit</a>(object, limit.msecs)</code><br />
+<code><a href="gFileMonitorEmitEvent.html">gFileMonitorEmitEvent</a>(object, file, other.file, event.type)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GEnum
+   +----GFileMonitorEvent
+GObject
+   +----GFileMonitor
+</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Monitors a file or directory for changes.
+</p>
+<p>To obtain a <code><a href="GFileMonitor-concept.html">GFileMonitor</a></code> for a file or directory, use
+<code><a href="gFileMonitor.html">gFileMonitor</a></code>, <code><a href="gFileMonitorFile.html">gFileMonitorFile</a></code>, or
+<code><a href="gFileMonitorDirectory.html">gFileMonitorDirectory</a></code>.
+</p>
+<p>To get informed about changes to the file or directory you are
+monitoring, connect to the <code style="white-space: pre;">"changed"</code> signal. The
+signal will be emitted in the thread-default main
+context of the thread that the monitor was created in
+(though if the global default main context is blocked, this may
+cause notifications to be blocked even if the thread-default
+context is still running).</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileMonitor</code></dt><dd>
+<p>Watches for changes to a file.
+</p>
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileMonitorEvent</code></dt><dd>
+<p>Specifies what type of event a monitor event is.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">changed</code></dt><dd><p>a file changed.</p>
+</dd>
+<dt><code style="white-space: pre;">changes-done-hint</code></dt><dd><p>a hint that this was probably the last change in a set of changes.</p>
+</dd>
+<dt><code style="white-space: pre;">deleted</code></dt><dd><p>a file was deleted.</p>
+</dd>
+<dt><code style="white-space: pre;">created</code></dt><dd><p>a file was created.</p>
+</dd>
+<dt><code style="white-space: pre;">attribute-changed</code></dt><dd><p>a file attribute was changed.</p>
+</dd>
+<dt><code style="white-space: pre;">pre-unmount</code></dt><dd><p>the file location will soon be unmounted.</p>
+</dd>
+<dt><code style="white-space: pre;">unmounted</code></dt><dd><p>the file location was unmounted.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(monitor, file, other.file, event.type, user.data)</code></dt><dd>
+<p>Emitted when a file has been changed.
+</p>
+
+<dl>
+<dt><code>monitor</code></dt><dd><p>a <code><a href="GFileMonitor-concept.html">GFileMonitor</a></code>.</p>
+</dd>
+<dt><code>file</code></dt><dd><p>a <code><a href="GFile.html">GFile</a></code>.</p>
+</dd>
+<dt><code>other.file</code></dt><dd><p>a <code><a href="GFile.html">GFile</a></code>.</p>
+</dd>
+<dt><code>event.type</code></dt><dd><p>a <code><a href="GFileMonitor-concept.html">GFileMonitorEvent</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">cancelled</code> [logical : Read]</dt><dd>
+<p>Whether the monitor has been cancelled.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">rate-limit</code> [integer : Read / Write]</dt><dd>
+<p>The limit of the monitor to watch for changes, in milliseconds.  Allowed values: &gt;= 0  Default value: 800
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFileMonitor.html">http://library.gnome.org/devel//gio/GFileMonitor.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

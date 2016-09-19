@@ -1,0 +1,34 @@
+NLpol                   The Netherlands border polygon from WCAB
+dprec                   Daily precipitation amount in mm for July 2011
+dslp                    Mean sea level pressure in hPa for July 2011
+dsndp                   Daily snow depth in cm for July 2011
+dtemp_maxc              Maximum daily temperature in degrees Celsius
+                        for July 2011
+dtemp_minc              Minimum daily temperature in degrees Celsius
+                        for July 2011
+dtempc                  Mean daily temperature in degrees Celsius for
+                        July 2011
+dwdsp                   Daily mean wind speed in m/s for July 2011
+meteo2STFDF             Create an object of STFDF class from two data
+                        frames (observation and stations)
+nlmodis20110704         MODIS LST 8 day images image for the
+                        Netherlands ('2011-07-04')
+nlmodis20110712         MODIS LST 8 day images image for the
+                        Netherlands ('2011-07-12')
+pred.strk               Spatio-temporal regression kriging
+pred.strk1              Spatio-temporal regression kriging
+regdata                 Dynamic and static covariates for
+                        spatio-temporal regression kriging
+rfillspgaps             Close gaps of a grid or raster Layer data
+rfilltimegaps           Disaggregation in the time dimension through
+                        the use of splines for each pixel
+rm.dupl                 Find point pairs with equal spatial coordinates
+                        from STFDF object.
+stations                Data frame containing stations' information
+tgeom2STFDF             Calculate geometrical temperature trend
+tiling                  Tiling raster or Spatial-class Grid or Pixels
+                        object
+tregcoef                Multiple linear regression coefficients for
+                        global daily air temperatures
+tvgms                   Spatio-temporal variogram models for global
+                        daily air temperatures

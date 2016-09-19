@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Servo Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Servo {mlbench}"><tr><td>Servo {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Servo Data</h2>
+
+<h3>Description</h3>
+
+<p>This data set is from a simulation of a servo system
+involving a servo amplifier, a motor, a lead screw/nut, and a
+sliding carriage of some sort. It may have been on of the
+translational axes of a robot on the 9th floor of the AI lab. In any
+case, the output value is almost certainly a rise time, or the time
+required for the system to respond to a step change in a position
+set point. The variables that describe the data set and their values
+are the following:
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: center;">
+	[,1] </td><td style="text-align: left;"> Motor </td><td style="text-align: left;"> A,B,C,D,E</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+	[,2] </td><td style="text-align: left;"> Screw </td><td style="text-align: left;"> A,B,C,D,E</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,3] </td><td style="text-align: left;"> Pgain </td><td style="text-align: left;"> 3,4,5,6</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,4] </td><td style="text-align: left;"> Vgain </td><td style="text-align: left;"> 1,2,3,4,5</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,5] </td><td style="text-align: left;"> Class </td><td style="text-align: left;"> 0.13 to 7.10
+    </td>
+</tr>
+
+</table>
+
+
+
+<h3>Usage</h3>
+
+<pre>data(Servo)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 167 observations on 5 variables, 4 nominal and
+1 as the target class.</p>
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Creator: Karl Ulrich (MIT) in 1986
+</p>
+</li>
+<li><p> Donor: Ross Quinlan 
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Evgenia Dimitriadou.
+</p>
+
+
+<h3>References</h3>
+
+<p>1. Quinlan, J.R., &quot;Learning with continuous classes&quot;, Proc. 5th
+Australian Joint Conference on AI (eds A. Adams and L. Sterling),
+Singapore: World Scientific, 1992 
+2. Quinlan, J.R., &quot;Combining instance-based and model-based
+learning&quot;, Proc. ML'93 (ed P.E. Utgoff), San Mateo: Morgan Kaufmann
+1993
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Servo)
+summary(Servo)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

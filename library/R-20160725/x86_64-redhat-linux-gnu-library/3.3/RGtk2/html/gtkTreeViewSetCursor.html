@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeViewSetCursor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeViewSetCursor {RGtk2}"><tr><td>gtkTreeViewSetCursor {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeViewSetCursor</h2>
+
+<h3>Description</h3>
+
+<p>Sets the current keyboard focus to be at <code>path</code>, and selects it.  This is
+useful when you want to focus the user's attention on a particular row.  If
+<code>focus.column</code> is not <code>NULL</code>, then focus is given to the column specified by 
+it. Additionally, if <code>focus.column</code> is specified, and <code>start.editing</code> is 
+<code>TRUE</code>, then editing should be started in the specified cell.  
+This function is often followed by <code>gtk.widget.grab.focus</code> (<code>tree.view</code>) 
+in order to give keyboard focus to the widget.  Please note that editing 
+can only happen when the widget is realized.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeViewSetCursor(object, path, focus.column = NULL, start.editing = FALSE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeView.html">GtkTreeView</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">path</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeModel.html">GtkTreePath</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">focus.column</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code>, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">start.editing</code></code></td>
+<td>
+<p><code>TRUE</code> if the specified cell should start being edited.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If <code>path</code> is invalid for <code>model</code>, the current cursor (if any) will be unset
+and the function will return without failing.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: NMF Model - Nonsmooth Nonnegative Matrix Factorization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFns-class {NMF}"><tr><td>NMFns-class {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>NMF Model - Nonsmooth Nonnegative Matrix Factorization</h2>
+
+<h3>Description</h3>
+
+<p>This class implements the <em>Nonsmooth Nonnegative
+Matrix Factorization</em> (nsNMF) model, required by the
+Nonsmooth NMF algorithm.
+</p>
+<p>The Nonsmooth NMF algorithm is defined by
+<cite>Pascual-Montano et al. (2006)</cite> as a modification of
+the standard divergence based NMF algorithm (see section
+Details and references below).  It aims at obtaining
+sparser factor matrices, by the introduction of a
+smoothing matrix.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The Nonsmooth NMF algorithm is a modification of the
+standard divergence based NMF algorithm (see
+<code><a href="NMF-class.html">NMF</a></code>). Given a non-negative <i>n x p</i> matrix <i>V</i> and a factorization rank
+<i>r</i>, it fits the following model:
+</p>
+<p style="text-align: center;"><i>V &amp;#126; W S(theta) H,</i></p>
+
+<p>where: </p>
+
+<ul>
+<li> <p><i>W</i> and <i>H</i> are such as in the standard
+model, i.e. non-negative matrices of dimension <i>n x r</i> and <i>r x p</i>
+respectively;
+</p>
+</li>
+<li> <p><i>S</i> is a <i>r \times r</i> square matrix whose
+entries depends on an extra parameter <i>0&le;q &theta;
+  &le;q 1</i> in the following way: </p>
+<p style="text-align: center;"><i>S = (1-&theta;)I +
+  \frac{&theta;}{r} 11^T ,</i></p>
+<p> where <i>I</i> is the identity
+matrix and <i>1</i> is a vector of ones.
+</p>
+</li></ul>
+
+<p>The interpretation of S as a smoothing matrix can be
+explained as follows: Let <i>X</i> be a positive, nonzero,
+vector. Consider the transformed vector <i>Y = S X</i>. If
+<i>&theta; = 0</i>, then <i>Y = X</i> and no smoothing on
+<i>X</i> has occurred.  However, as <i>theta tends to 1</i>, the vector <i>Y</i> tends to the
+constant vector with all elements almost equal to the
+average of the elements of <i>X</i>. This is the smoothest
+possible vector in the sense of non-sparseness because
+all entries are equal to the same nonzero value, instead
+of having some values close to zero and others clearly
+nonzero.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>fitted</dt><dd><p><code>signature(object = "NMFns")</code>: Compute
+estimate for an NMFns object, according to the Nonsmooth
+NMF model (cf. <code><a href="NMFns-class.html">NMFns-class</a></code>).
+</p>
+<p>Extra arguments in <code>...</code> are passed to method
+<code>smoothing</code>, and are typically used to pass a value
+for <code>theta</code>, which is used to compute the smoothing
+matrix instead of the one stored in <code>object</code>. </p>
+</dd>
+<dt>show</dt><dd><p><code>signature(object = "NMFns")</code>: Show
+method for objects of class <code>NMFns</code> </p>
+</dd>
+</dl>
+
+
+
+<h3>Creating objects from the Class</h3>
+
+<p>Object of class <code>NMFns</code> can be created using the
+standard way with operator <code><a href="../../methods/html/new.html">new</a></code>
+</p>
+<p>However, as for all NMF model classes &ndash; that extend
+class <code><a href="NMF-class.html">NMF</a></code>, objects of class
+<code>NMFns</code> should be created using factory method
+<code><a href="nmfModel.html">nmfModel</a></code> :
+</p>
+<p><code>new('NMFns')</code>
+</p>
+<p><code>nmfModel(model='NMFns')</code>
+</p>
+<p><code>nmfModel(model='NMFns', W=w, theta=0.3</code>
+</p>
+<p>See <code><a href="nmfModel.html">nmfModel</a></code> for more details on how to use
+the factory method.
+</p>
+
+
+<h3>Algorithm</h3>
+
+<p>The Nonsmooth NMF algorithm uses a modified version of
+the multiplicative update equations in Lee &amp; Seung's
+method for Kullback-Leibler divergence minimization. The
+update equations are modified to take into account the &ndash;
+constant &ndash; smoothing matrix. The modification reduces to
+using matrix <i>W S</i> instead of matrix <i>W</i> in the
+update of matrix <i>H</i>, and similarly using matrix
+<i>S H</i> instead of matrix <i>H</i> in the update of
+matrix <i>W</i>.
+</p>
+<p>After the matrix <i>W</i> has been updated, each of its
+columns is scaled so that it sums up to 1.
+</p>
+
+
+<h3>References</h3>
+
+<p>Pascual-Montano A, Carazo JM, Kochi K, Lehmann D and
+Pascual-marqui RD (2006). &quot;Nonsmooth nonnegative matrix
+factorization (nsNMF).&quot; _IEEE Trans. Pattern Anal. Mach.
+Intell_, *28*, pp. 403-415.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other NMF-model:
+<code><a href="NMFOffset-class.html">initialize,NMFOffset-method</a></code>,
+<code><a href="NMFOffset-class.html">NMFOffset-class</a></code>, <code><a href="NMFstd-class.html">NMFstd-class</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# create a completely empty NMFns object
+new('NMFns')
+
+# create a NMF object based on random (compatible) matrices
+n &lt;- 50; r &lt;- 3; p &lt;- 20
+w &lt;- rmatrix(n, r)
+h &lt;- rmatrix(r, p)
+nmfModel(model='NMFns', W=w, H=h)
+
+# apply Nonsmooth NMF algorithm to a random target matrix
+V &lt;- rmatrix(n, p)
+## Not run: nmf(V, r, 'ns')
+
+# random nonsmooth NMF model
+rnmf(3, 10, 5, model='NMFns', theta=0.3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

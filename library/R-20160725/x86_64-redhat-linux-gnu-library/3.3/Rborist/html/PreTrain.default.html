@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Preformatting for Training with Warm Starts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for PreTrain {Rborist}"><tr><td>PreTrain {Rborist}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Preformatting for Training with Warm Starts</h2>
+
+<h3>Description</h3>
+
+<p>Presorts and formats training input into a form suitable for
+subsequent training by <code>Rborist</code> command.  Saves unnecessary
+recomputation of this form when iteratively retraining.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## Default S3 method:
+PreTrain(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>the design matrix expressed as either a <code>data.frame</code>
+object with numeric and/or <code>factor</code> columns or as a numeric matrix.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>PreTrain</code></td>
+<td>
+<p> a list of presorted and formatted predictor
+information:
+</p>
+<p><code>colNames</code> a vector of strings containing the training column
+names.
+</p>
+<p><code>rowNames</code> a vector of strings containing the training row
+names.
+</p>
+<p><code>blockNum</code> a matrix containing all numeric predictor values.
+</p>
+<p><code>blockFac</code> a matrix containing all factor predictor values.
+</p>
+<p><code>nPredFac</code> the number of factor predictors.
+</p>
+<p><code>nRow</code> the number of training rows.
+</p>
+<p><code>facCard</code> a vector of the factor cardinalities.
+</p>
+<p><code>signature</code> a list consisting of training information needed
+for separate testing and prediction:
+</p>
+<p><code>nRow</code> the number of training rows.
+</p>
+<p><code>predMap</code> a vector mapping core predictor indices back to
+their respective front-end positions.
+</p>
+<p><code>level</code> a vector of strings containing the training response
+factor levels.
+</p>
+
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Mark Seligman at Suiji.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  ## Not run: 
+    data(iris)
+    pt &lt;- PreTrain(iris[,-5])
+
+    ppTry &lt;- seq(0.2, 0.5, by= 0.3/10)
+    nIter &lt;- length(ppTry)
+    rsq &lt;- numeric(nIter)
+    for (i in 1:nIter) {
+      rb &lt;- Rborist(pt, iris[,5], predProb=ppTry[i])
+      rsq[i] = rb$validiation$rsq
+    }
+  
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>Rborist</em> version 0.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

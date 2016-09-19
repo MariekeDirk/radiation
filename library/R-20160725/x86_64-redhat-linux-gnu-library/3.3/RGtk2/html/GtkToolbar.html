@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkToolbar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkToolbar {RGtk2}"><tr><td>GtkToolbar {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkToolbar</h2>
+
+<h3>Description</h3>
+
+<p>Create bars of buttons and other widgets</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkToolbarNew.html">gtkToolbarNew</a>(show = TRUE)</code><br />
+<code><a href="gtkToolbarInsert.html">gtkToolbarInsert</a>(object, item, pos)</code><br />
+<code><a href="gtkToolbarGetItemIndex.html">gtkToolbarGetItemIndex</a>(object, item)</code><br />
+<code><a href="gtkToolbarGetNItems.html">gtkToolbarGetNItems</a>(object)</code><br />
+<code><a href="gtkToolbarGetNthItem.html">gtkToolbarGetNthItem</a>(object, n)</code><br />
+<code><a href="gtkToolbarGetDropIndex.html">gtkToolbarGetDropIndex</a>(object, x, y)</code><br />
+<code><a href="gtkToolbarSetDropHighlightItem.html">gtkToolbarSetDropHighlightItem</a>(object, tool.item = NULL, index)</code><br />
+<code><a href="gtkToolbarSetShowArrow.html">gtkToolbarSetShowArrow</a>(object, show.arrow)</code><br />
+<code><a href="gtkToolbarSetOrientation.html">gtkToolbarSetOrientation</a>(object, orientation)</code><br />
+<code><a href="gtkToolbarSetTooltips.html">gtkToolbarSetTooltips</a>(object, enable)</code><br />
+<code><a href="gtkToolbarUnsetIconSize.html">gtkToolbarUnsetIconSize</a>(object)</code><br />
+<code><a href="gtkToolbarGetShowArrow.html">gtkToolbarGetShowArrow</a>(object)</code><br />
+<code><a href="gtkToolbarGetOrientation.html">gtkToolbarGetOrientation</a>(object)</code><br />
+<code><a href="gtkToolbarGetStyle.html">gtkToolbarGetStyle</a>(object)</code><br />
+<code><a href="gtkToolbarGetIconSize.html">gtkToolbarGetIconSize</a>(object)</code><br />
+<code><a href="gtkToolbarGetTooltips.html">gtkToolbarGetTooltips</a>(object)</code><br />
+<code><a href="gtkToolbarGetReliefStyle.html">gtkToolbarGetReliefStyle</a>(object)</code><br />
+<code><a href="gtkToolbarAppendItem.html">gtkToolbarAppendItem</a>(object, text, tooltip.text, tooltip.private.text, icon, callback, user.data = NULL)</code><br />
+<code><a href="gtkToolbarPrependItem.html">gtkToolbarPrependItem</a>(object, text, tooltip.text, tooltip.private.text, icon, callback, user.data)</code><br />
+<code><a href="gtkToolbarInsertItem.html">gtkToolbarInsertItem</a>(object, text, tooltip.text, tooltip.private.text, icon, callback, user.data, position)</code><br />
+<code><a href="gtkToolbarAppendSpace.html">gtkToolbarAppendSpace</a>(object)</code><br />
+<code><a href="gtkToolbarPrependSpace.html">gtkToolbarPrependSpace</a>(object)</code><br />
+<code><a href="gtkToolbarInsertSpace.html">gtkToolbarInsertSpace</a>(object, position)</code><br />
+<code><a href="gtkToolbarAppendElement.html">gtkToolbarAppendElement</a>(object, type, widget, text, tooltip.text, tooltip.private.text, icon, callback, user.data = NULL)</code><br />
+<code><a href="gtkToolbarPrependElement.html">gtkToolbarPrependElement</a>(object, type, widget, text, tooltip.text, tooltip.private.text, icon, callback, user.data = NULL)</code><br />
+<code><a href="gtkToolbarInsertElement.html">gtkToolbarInsertElement</a>(object, type, widget, text, tooltip.text, tooltip.private.text, icon, callback, user.data = NULL, position)</code><br />
+<code><a href="gtkToolbarAppendWidget.html">gtkToolbarAppendWidget</a>(object, widget, tooltip.text = NULL, tooltip.private.text = NULL)</code><br />
+<code><a href="gtkToolbarPrependWidget.html">gtkToolbarPrependWidget</a>(object, widget, tooltip.text = NULL, tooltip.private.text = NULL)</code><br />
+<code><a href="gtkToolbarInsertWidget.html">gtkToolbarInsertWidget</a>(object, widget, tooltip.text = NULL, tooltip.private.text = NULL, position)</code><br />
+<code><a href="gtkToolbarSetStyle.html">gtkToolbarSetStyle</a>(object, style)</code><br />
+<code><a href="gtkToolbarInsertStock.html">gtkToolbarInsertStock</a>(object, stock.id, tooltip.text, tooltip.private.text, callback, user.data, position)</code><br />
+<code><a href="gtkToolbarSetIconSize.html">gtkToolbarSetIconSize</a>(object, icon.size)</code><br />
+<code><a href="gtkToolbarRemoveSpace.html">gtkToolbarRemoveSpace</a>(object, position)</code><br />
+<code><a href="gtkToolbarUnsetStyle.html">gtkToolbarUnsetStyle</a>(object)</code><br />
+<code>gtkToolbar(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkToolbar</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkToolbar implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>,  <code><a href="GtkToolShell.html">GtkToolShell</a></code> and  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A toolbar is created with a call to <code><a href="gtkToolbarNew.html">gtkToolbarNew</a></code>.
+</p>
+<p>A toolbar can contain instances of a subclass of <code><a href="GtkToolItem.html">GtkToolItem</a></code>. To add
+a <code><a href="GtkToolItem.html">GtkToolItem</a></code> to the a toolbar, use <code><a href="gtkToolbarInsert.html">gtkToolbarInsert</a></code>. To remove
+an item from the toolbar use <code><a href="gtkContainerRemove.html">gtkContainerRemove</a></code>. To add a button
+to the toolbar, add an instance of <code><a href="GtkToolButton.html">GtkToolButton</a></code>.
+</p>
+<p>Toolbar items can be visually grouped by adding instances of
+<code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code> to the toolbar. If a <code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code> has
+the &quot;expand&quot; property set to <code style="white-space: pre;">TRUE</code> and the &quot;draw&quot; property set to
+<code style="white-space: pre;">FALSE</code> the effect is to force all following items to the end of the
+toolbar.
+</p>
+<p>Creating a context menu for the toolbar can be done by connecting to
+the <code style="white-space: pre;">"popup-context-menu"</code> signal.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkToolbar</code></dt><dd>
+<p>The <code><a href="GtkToolbar.html">GtkToolbar</a></code> struct only contains private data and should only be
+accessed through the function described below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkToolbar</code> is the equivalent of <code><a href="gtkToolbarNew.html">gtkToolbarNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkToolbarChildType</code></dt><dd>
+<p><strong>WARNING: <code>GtkToolbarChildType</code> is deprecated and should not be used in newly-written code.</strong>
+<code><a href="GtkToolbar.html">GtkToolbarChildType</a></code> is used to set the type of new elements that are added
+to a <code><a href="GtkToolbar.html">GtkToolbar</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">space</code></dt><dd><p>a space in the style of the toolbar's <code><a href="GtkToolbar.html">GtkToolbarSpaceStyle</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">button</code></dt><dd><p>a <code><a href="GtkButton.html">GtkButton</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">togglebutton</code></dt><dd><p>a <code><a href="GtkToggleButton.html">GtkToggleButton</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">radiobutton</code></dt><dd><p>a <code><a href="GtkRadioButton.html">GtkRadioButton</a></code>.</p>
+</dd>
+<dt><code style="white-space: pre;">widget</code></dt><dd><p>a standard <code><a href="GtkWidget.html">GtkWidget</a></code>.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkToolbarSpaceStyle</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">empty</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">line</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>focus-home-or-end(toolbar, focus.home, user.data)</code></dt><dd>
+<p>A keybinding signal used internally by GTK+. This signal can't
+be used in application code
+</p>
+
+<dl>
+<dt><code>toolbar</code></dt><dd><p>the <code><a href="GtkToolbar.html">GtkToolbar</a></code> which emitted the signal</p>
+</dd>
+<dt><code>focus.home</code></dt><dd><p><code>TRUE</code> if the first item should be focused</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal was handled, <code>FALSE</code> if not
+</p>
+</dd>
+<dt><code>orientation-changed(toolbar, orientation, user.data)</code></dt><dd>
+<p>Emitted when the orientation of the toolbar changes.
+</p>
+
+<dl>
+<dt><code>toolbar</code></dt><dd><p>the object which emitted the signal</p>
+</dd>
+<dt><code>orientation</code></dt><dd><p>the new <code><a href="gtk-Standard-Enumerations.html">GtkOrientation</a></code> of the toolbar</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>popup-context-menu(toolbar, x, y, button, user.data)</code></dt><dd>
+<p>Emitted when the user right-clicks the toolbar or uses the
+keybinding to display a popup menu.
+</p>
+<p>Application developers should handle this signal if they want
+to display a context menu on the toolbar. The context-menu should
+appear at the coordinates given by <code>x</code> and <code>y</code>. The mouse button
+number is given by the <code>button</code> parameter. If the menu was popped
+up using the keybaord, <code>button</code> is -1.
+</p>
+
+<dl>
+<dt><code>toolbar</code></dt><dd><p>the <code><a href="GtkToolbar.html">GtkToolbar</a></code> which emitted the signal</p>
+</dd>
+<dt><code>x</code></dt><dd><p>the x coordinate of the point where the menu should appear</p>
+</dd>
+<dt><code>y</code></dt><dd><p>the y coordinate of the point where the menu should appear</p>
+</dd>
+<dt><code>button</code></dt><dd><p>the mouse button the user pressed, or -1</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] return <code>TRUE</code> if the signal was handled, <code>FALSE</code> if not
+</p>
+</dd>
+<dt><code>style-changed(toolbar, style, user.data)</code></dt><dd>
+<p>Emitted when the style of the toolbar changes.
+</p>
+
+<dl>
+<dt><code>toolbar</code></dt><dd><p>The <code><a href="GtkToolbar.html">GtkToolbar</a></code> which emitted the signal</p>
+</dd>
+<dt><code>style</code></dt><dd><p>the new <code><a href="gtk-Standard-Enumerations.html">GtkToolbarStyle</a></code> of the toolbar</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">icon-size</code> [integer : Read / Write]</dt><dd>
+<p>The size of the icons in a toolbar is normally determined by
+the toolbar-icon-size setting. When this property is set, it
+overrides the setting.
+</p>
+<p>This should only be used for special-purpose toolbars, normal
+application toolbars should respect the user preferences for the
+size of icons.
+Allowed values: &gt;= 0  Default value: 3  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">icon-size-set</code> [logical : Read / Write]</dt><dd>
+<p>Is <code>TRUE</code> if the icon-size property has been set.
+Default value: FALSE  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">show-arrow</code> [logical : Read / Write]</dt><dd>
+<p>If an arrow should be shown if the toolbar doesn't fit.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">toolbar-style</code> [<code><a href="gtk-Standard-Enumerations.html">GtkToolbarStyle</a></code> : Read / Write]</dt><dd>
+<p>How to draw the toolbar.  Default value: GTK_TOOLBAR_BOTH
+</p>
+</dd>
+<dt><code style="white-space: pre;">tooltips</code> [logical : Read / Write]</dt><dd>
+<p>If the tooltips of the toolbar should be active or not.
+Default value: TRUE  Since 2.8
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">button-relief</code> [<code><a href="gtk-Standard-Enumerations.html">GtkReliefStyle</a></code> : Read]</dt><dd>
+<p>Type of bevel around toolbar buttons.  Default value: GTK_RELIEF_NONE
+</p>
+</dd>
+<dt><code style="white-space: pre;">internal-padding</code> [integer : Read]</dt><dd>
+<p>Amount of border space between the toolbar shadow and the buttons.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">max-child-expand</code> [integer : Read]</dt><dd>
+<p>Maximum amount of space an expandable item will be given.  Allowed values: &gt;= 0  Default value: 2147483647
+</p>
+</dd>
+<dt><code style="white-space: pre;">shadow-type</code> [<code><a href="gtk-Standard-Enumerations.html">GtkShadowType</a></code> : Read]</dt><dd>
+<p>Style of bevel around the toolbar.  Default value: GTK_SHADOW_OUT
+</p>
+</dd>
+<dt><code style="white-space: pre;">space-size</code> [integer : Read]</dt><dd>
+<p>Size of spacers.  Allowed values: &gt;= 0  Default value: 12
+</p>
+</dd>
+<dt><code style="white-space: pre;">space-style</code> [<code><a href="GtkToolbar.html">GtkToolbarSpaceStyle</a></code> : Read]</dt><dd>
+<p>Whether spacers are vertical lines or just blank.  Default value: GTK_TOOLBAR_SPACE_LINE
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkToolbar.html">http://library.gnome.org/devel//gtk/GtkToolbar.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

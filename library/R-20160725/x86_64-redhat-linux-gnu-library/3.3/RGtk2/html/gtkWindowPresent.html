@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowPresent</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowPresent {RGtk2}"><tr><td>gtkWindowPresent {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowPresent</h2>
+
+<h3>Description</h3>
+
+<p>Presents a window to the user. This may mean raising the window
+in the stacking order, deiconifying it, moving it to the current
+desktop, and/or giving it the keyboard focus, possibly dependent
+on the user's platform, window manager, and preferences.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowPresent(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>If <code>window</code> is hidden, this function calls <code><a href="gtkWidgetShow.html">gtkWidgetShow</a></code>
+as well.
+</p>
+<p>This function should be used when the user tries to open a window
+that's already open. Say for example the preferences dialog is
+currently open, and the user chooses Preferences from the menu
+a second time; use <code><a href="gtkWindowPresent.html">gtkWindowPresent</a></code> to move the already-open dialog
+where the user can see it.
+</p>
+<p>If you are calling this function in response to a user interaction,
+it is preferable to use <code><a href="gtkWindowPresentWithTime.html">gtkWindowPresentWithTime</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

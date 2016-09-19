@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellView {RGtk2}"><tr><td>GtkCellView {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellView</h2>
+
+<h3>Description</h3>
+
+<p>A widget displaying a single row of a GtkTreeModel</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellViewNew.html">gtkCellViewNew</a>(show = TRUE)</code><br />
+<code><a href="gtkCellViewNewWithText.html">gtkCellViewNewWithText</a>(text)</code><br />
+<code><a href="gtkCellViewNewWithMarkup.html">gtkCellViewNewWithMarkup</a>(markup)</code><br />
+<code><a href="gtkCellViewNewWithPixbuf.html">gtkCellViewNewWithPixbuf</a>(pixbuf)</code><br />
+<code><a href="gtkCellViewSetModel.html">gtkCellViewSetModel</a>(object, model = NULL)</code><br />
+<code><a href="gtkCellViewGetModel.html">gtkCellViewGetModel</a>(object)</code><br />
+<code><a href="gtkCellViewSetDisplayedRow.html">gtkCellViewSetDisplayedRow</a>(object, path = NULL)</code><br />
+<code><a href="gtkCellViewGetDisplayedRow.html">gtkCellViewGetDisplayedRow</a>(object)</code><br />
+<code><a href="gtkCellViewGetSizeOfRow.html">gtkCellViewGetSizeOfRow</a>(object, path)</code><br />
+<code><a href="gtkCellViewSetBackgroundColor.html">gtkCellViewSetBackgroundColor</a>(object, color)</code><br />
+<code><a href="gtkCellViewGetCellRenderers.html">gtkCellViewGetCellRenderers</a>(object)</code><br />
+<code><a href="gtkCellViewGetCellRenderers.html">gtkCellViewGetCellRenderers</a>(object)</code><br />
+<code>gtkCellView(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkCellView</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkCellView implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkCellLayout.html">GtkCellLayout</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkCellView.html">GtkCellView</a></code> displays a single row of a <code><a href="GtkTreeModel.html">GtkTreeModel</a></code>, using
+cell renderers just like <code><a href="GtkTreeView.html">GtkTreeView</a></code>. <code><a href="GtkCellView.html">GtkCellView</a></code> doesn't support
+some of the more complex features of <code><a href="GtkTreeView.html">GtkTreeView</a></code>, like cell editing
+and drag and drop.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellView</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCellView</code> is the equivalent of <code><a href="gtkCellViewNew.html">gtkCellViewNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">background</code> [character : *                : Write]</dt><dd>
+<p>Background color as a string.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">background-gdk</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read / Write]</dt><dd>
+<p>Background color as a GdkColor.
+</p>
+</dd>
+<dt><code style="white-space: pre;">background-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether this tag affects the background color.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write]</dt><dd>
+<p>The model for cell view
+</p>
+<p>since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellView.html">http://library.gnome.org/devel//gtk/GtkCellView.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

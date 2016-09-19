@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dispersion of a Matrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dispersion {NMF}"><tr><td>dispersion {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dispersion of a Matrix</h2>
+
+<h3>Description</h3>
+
+<p>Computes the dispersion coefficient of a &ndash; consensus &ndash;
+matrix <code>object</code>, generally obtained from multiple
+NMF runs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  dispersion(object, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an object from which the dispersion is
+computed</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extension</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The dispersion coefficient is based on the consensus
+matrix (i.e. the average of connectivity matrices) and
+was proposed by <cite>Kim et al. (2007)</cite> to measure the
+reproducibility of the clusters obtained from NMF.
+</p>
+<p>It is defined as: </p>
+<p style="text-align: center;"><i>&rho; = &sum;_{i,j=1}^n 4 (C_{ij} -
+  \frac{1}{2})^2 , </i></p>
+<p> where <i>n</i> is the total number of
+samples.
+</p>
+<p>By construction, <i>0 &le;q &rho; &le;q 1</i> and <i>&rho; =
+  1</i> only for a perfect consensus matrix, where all entries
+0 or 1. A perfect consensus matrix is obtained only when
+all the connectivity matrices are the same, meaning that
+the algorithm gave the same clusters at each run. See
+<cite>Kim et al. (2007)</cite>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>dispersion</dt><dd><p><code>signature(object = "matrix")</code>:
+Workhorse method that computes the dispersion on a given
+matrix. </p>
+</dd>
+<dt>dispersion</dt><dd><p><code>signature(object = "NMFfitX")</code>:
+Computes the dispersion on the consensus matrix obtained
+from multiple NMF runs. </p>
+</dd>
+</dl>
+
+
+
+<h3>References</h3>
+
+<p>Kim H and Park H (2007). &quot;Sparse non-negative matrix
+factorizations via alternating non-negativity-constrained
+least squares for microarray data analysis.&quot;
+_Bioinformatics (Oxford, England)_, *23*(12), pp.
+1495-502. ISSN 1460-2059, &lt;URL:
+http://dx.doi.org/10.1093/bioinformatics/btm134&gt;, &lt;URL:
+http://www.ncbi.nlm.nih.gov/pubmed/17483501&gt;.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

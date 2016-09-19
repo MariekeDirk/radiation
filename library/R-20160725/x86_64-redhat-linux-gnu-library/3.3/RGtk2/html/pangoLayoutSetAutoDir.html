@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoLayoutSetAutoDir</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoLayoutSetAutoDir {RGtk2}"><tr><td>pangoLayoutSetAutoDir {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoLayoutSetAutoDir</h2>
+
+<h3>Description</h3>
+
+<p>Sets whether to calculate the bidirectional base direction
+for the layout according to the contents of the layout;
+when this flag is on (the default), then paragraphs in
+<code>layout</code> that begin with strong right-to-left characters
+(Arabic and Hebrew principally), will have right-to-left
+layout, paragraphs with letters from other scripts will
+have left-to-right layout. Paragraphs with only neutral
+characters get their direction from the surrounding paragraphs.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoLayoutSetAutoDir(object, auto.dir)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Layout-Objects.html">PangoLayout</a></code>]  a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">auto.dir</code></code></td>
+<td>
+<p>[logical]  if <code>TRUE</code>, compute the bidirectional base direction
+from the layout's contents.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>When <code>FALSE</code>, the choice between left-to-right and
+right-to-left layout is done according to the base direction
+of the layout's <code><a href="pango-Text-Processing.html">PangoContext</a></code>. (See <code><a href="pangoContextSetBaseDir.html">pangoContextSetBaseDir</a></code>).
+</p>
+<p>When the auto-computed direction of a paragraph differs from the
+base direction of the context, the interpretation of
+<code>PANGO_ALIGN_LEFT</code> and <code>PANGO_ALIGN_RIGHT</code> are swapped.  
+Since 1.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

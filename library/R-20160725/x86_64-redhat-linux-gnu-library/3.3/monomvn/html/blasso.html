@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bayesian Lasso/NG, Horseshoe, and Ridge Regression</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for blasso {monomvn}"><tr><td>blasso {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Bayesian Lasso/NG, Horseshoe, and Ridge Regression </h2>
+
+<h3>Description</h3>
+
+<p>Inference for ordinary least squares, lasso/NG, horseshoe and ridge 
+regression models by (Gibbs) sampling from the Bayesian posterior 
+distribution, augmented with Reversible Jump for model selection
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+bhs(X, y, T=1000, thin=NULL, RJ=TRUE, M=NULL, beta=NULL,
+         lambda2=1, s2=var(y-mean(y)), mprior=0, ab=NULL,
+         theta=0, rao.s2=TRUE, icept=TRUE, normalize=TRUE, verb=1)
+bridge(X, y, T = 1000, thin = NULL, RJ = TRUE, M = NULL,
+       beta = NULL, lambda2 = 1, s2 = var(y-mean(y)), mprior = 0,
+       rd = NULL, ab = NULL, theta=0, rao.s2 = TRUE, icept = TRUE,
+       normalize = TRUE, verb = 1)
+blasso(X, y, T = 1000, thin = NULL, RJ = TRUE, M = NULL,
+       beta = NULL, lambda2 = 1, s2 = var(y-mean(y)),
+       case = c("default", "ridge", "hs", "ng"), mprior = 0, rd = NULL,
+       ab = NULL, theta = 0, rao.s2 = TRUE, icept = TRUE, 
+       normalize = TRUE, verb = 1)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p><code>data.frame</code>, <code>matrix</code>, or vector of inputs <code>X</code> </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> vector of output responses <code>y</code> of length equal to the
+leading dimension (rows) of <code>X</code>, i.e., <code>length(y) == nrow(X)</code></p>
+</td></tr>
+<tr valign="top"><td><code>T</code></td>
+<td>
+<p> total number of MCMC samples to be collected </p>
+</td></tr>
+<tr valign="top"><td><code>thin</code></td>
+<td>
+<p> number of MCMC samples to skip before a sample is
+collected (via thinning).  If <code>NULL</code> (default), then
+<code>thin</code> is determined based on the regression model implied
+by <code>RJ</code>, <code>lambda2</code>, and <code>ncol(X)</code>; and also
+on the errors model implied by <code>theta</code> and <code>nrow(X)</code> </p>
+</td></tr>
+<tr valign="top"><td><code>RJ</code></td>
+<td>
+<p> if <code>TRUE</code> then model selection on the columns of the
+design matrix (and thus the parameter <code>beta</code> in the model) is
+performed by Reversible Jump (RJ) MCMC.  The initial model is
+specified by the <code>beta</code> input, described below, and the maximal
+number of covariates in the model is specified by <code>M</code> </p>
+</td></tr>
+<tr valign="top"><td><code>M</code></td>
+<td>
+<p> the maximal number of allowed covariates (columns of
+<code>X</code>) in the model.  If input <code>lambda2 &gt; 0</code> then any
+<code>M &lt;= ncol(X)</code> is allowed.  Otherwise it must be that
+<code>M &lt;= min(ncol(X), length(y)-1)</code>, which is default value
+when a <code>NULL</code> argument is given </p>
+</td></tr>
+<tr valign="top"><td><code>beta</code></td>
+<td>
+<p> initial setting of the regression coefficients.  Any
+zero-components will imply that the corresponding covariate (column
+of <code>X</code>) is not in the initial model.  When input <code>RJ =
+      FALSE</code> (no RJ) and <code>lambda2 &gt; 0</code> (use lasso) then no
+components are allowed to be exactly zero.  The default setting is
+therefore contextual; see below for details </p>
+</td></tr>
+<tr valign="top"><td><code>lambda2</code></td>
+<td>
+<p> square of the initial lasso penalty parameter.  If
+zero, then least squares regressions are used </p>
+</td></tr>
+<tr valign="top"><td><code>s2</code></td>
+<td>
+<p> initial variance parameter </p>
+</td></tr>
+<tr valign="top"><td><code>case</code></td>
+<td>
+<p> specifies if ridge regression, the
+Normal-Gamma, or the horseshoe prior should be done instead
+of the lasso; only meaningful when <code>lambda2 &gt; 0</code> </p>
+</td></tr>
+<tr valign="top"><td><code>mprior</code></td>
+<td>
+<p> prior on the number of non-zero regression coefficients
+(and therefore covariates) <code>m</code> in the model. The default
+(<code>mprior = 0</code>) encodes the uniform prior on <code>0 &lt;= m &lt;= M</code>.
+A scalar value <code>0 &lt; mprior &lt; 1</code> implies a Binomial prior
+<code>Bin(m|n=M,p=mprior)</code>. A 2-vector <code>mprior=c(g,h)</code>
+of positive values <code>g</code> and <code>h</code> represents
+gives <code>Bin(m|n=M,p)</code> prior where <code>p~Beta(g,h)</code> </p>
+</td></tr>
+<tr valign="top"><td><code>rd</code></td>
+<td>
+ <p><code>=c(r, delta)</code>, the alpha (shape) parameter and
+<i>beta</i> (rate) parameter to the gamma distribution prior
+<code>G(r,delta)</code> for the <i>lambda2</i> parameter under
+the lasso model; or, the <i>alpha</i> (shape) parameter and
+<i>beta</i> (scale) parameter to the
+inverse-gamma distribution <code>IG(r/2, delta/2)</code> prior for
+the <i>lambda2</i>
+parameter under the ridge regression model. A default of <code>NULL</code>
+generates appropriate non-informative values depending on the
+nature of the regression.  Specifying <code>rd=FALSE</code> causes
+<code>lambda2</code> values to be fixed at their starting value, i.e., not
+sampled.  See the details below for information
+on the special settings for ridge regression </p>
+</td></tr>
+<tr valign="top"><td><code>ab</code></td>
+<td>
+ <p><code>=c(a, b)</code>, the <i>alpha</i> (shape)
+parameter and the <i>beta</i> (scale) parameter for the
+inverse-gamma distribution prior <code>IG(a,b)</code> for the variance
+parameter <code>s2</code>.  A default of <code>NULL</code> generates appropriate
+non-informative values depending on the nature of the regression </p>
+</td></tr>
+<tr valign="top"><td><code>theta</code></td>
+<td>
+<p> the rate parameter (<code>&gt; 0</code>) to the exponential prior
+on the degrees of freedom paramter <code>nu</code> under a model with
+Student-t errors implemented by a scale-mixture prior.
+The default setting of <code>theta = 0</code> turns off this prior,
+defaulting to a normal errors prior </p>
+</td></tr>
+<tr valign="top"><td><code>rao.s2</code></td>
+<td>
+<p>indicates whether Rao-Blackwellized samples for
+<i>s^2</i> should be used (default <code>TRUE</code>); see
+below for more details </p>
+</td></tr>
+<tr valign="top"><td><code>icept</code></td>
+<td>
+<p> if <code>TRUE</code>, an implicit intercept term is fit
+in the model, otherwise the the intercept is zero; default is
+<code>TRUE</code> </p>
+</td></tr>
+<tr valign="top"><td><code>normalize</code></td>
+<td>
+<p> if <code>TRUE</code>, each variable is standardized
+to have unit L2-norm, otherwise it is left alone; default is
+<code>TRUE</code> </p>
+</td></tr>
+<tr valign="top"><td><code>verb</code></td>
+<td>
+<p> verbosity level; currently only <code>verb = 0</code> and
+<code>verb = 1</code> are supported </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Bayesian lasso model and Gibbs Sampling algorithm is described
+in detail in Park &amp; Casella (2008).  The algorithm implemented
+by this function is identical to that described therein, with
+the exception of an added &ldquo;option&rdquo; to use a Rao-Blackwellized
+sample of <i>s^2</i> (with <i>beta</i> integrated out)
+for improved mixing, and the model selections by RJ described below.
+When input argument <code>lambda2 = 0</code> is
+supplied, the model is a simple hierarchical linear model where
+<i>(beta,s2)</i> is given a Jeffrey's prior
+</p>
+<p>Specifying <code>RJ = TRUE</code> causes Bayesian model selection and
+averaging to commence for choosing which of the columns of the
+design matrix <code>X</code> (and thus parameters <code>beta</code>) should be
+included in the model.  The zero-components of the <code>beta</code> input
+specify which columns are in the initial model, and
+<code>M</code> specifies the maximal number of columns.
+</p>
+<p>The RJ mechanism implemented here for the Bayesian lasso model
+selection differs from the one described by Hans (2009),
+which is based on an idea from Geweke (1996).
+Those methods require departing from the Park &amp; Casella
+(2008) latent-variable model and requires sampling from each conditional
+<i>beta[i] | beta[-i], ...</i> for all
+<i>i</i>, since a mixture prior with a point-mass at zero is
+placed on each <i>beta[i]</i>.  Out implementation
+here requires no such special prior and retains the joint sampling
+from the full <i>beta</i> vector of non-zero entries, which
+we believe yields better mixing in the Markov chain.  RJ
+proposals to increase/decrease the number of non-zero entries
+does proceed component-wise, but the acceptance rates are high due
+due to marginalized between-model moves (Troughton &amp; Godsill, 1997).
+</p>
+<p>When the lasso prior or RJ is used, the automatic thinning level
+(unless <code>thin != NULL</code>) is determined by the number of columns
+of <code>X</code> since this many latent variables are introduced
+</p>
+<p>Bayesian ridge regression is implemented as a special case via the
+<code>bridge</code> function.  This essentially calls <code>blasso</code>
+with <code>case = "ridge"</code>. A default setting of <code>rd = c(0,0)</code> is
+implied by <code>rd = NULL</code>, giving the Jeffery's prior for the
+penalty parameter <i>lambda^2</i> unless <code>ncol(X) &gt;=
+    length(y)</code> in which case the proper specification of <code>rd =
+    c(5,10)</code> is used instead.
+</p>
+<p>The Normal&ndash;Gamma prior (Griffin &amp; Brown, 2009) is implemented as
+an extension to the Bayesian lasso with <code>case = "ng"</code>.  Many
+thanks to James Scott for providing the code needed to extend the
+method(s) to use the horseshoe prior (Carvalho, Polson, Scott, 2010).
+</p>
+<p>When <code>theta &gt; 0</code> then the Student-t errors via scale mixtures
+(and thereby extra latent variables <code>omega2</code>) of Geweke (1993)
+is applied as an extension to the Bayesian lasso/ridge model.
+If Student-t errors are used the automatic thinning level
+is augmented (unless <code>thin != NULL</code>) by the number of rows
+in <code>X</code> since this many latent variables are introduced
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>blasso</code> returns an object of class <code>"blasso"</code>, which is a
+<code>list</code> containing a copy of all of the input arguments as well as
+of the components listed below.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>call </code></td>
+<td>
+<p>a copy of the function call as used</p>
+</td></tr>
+<tr valign="top"><td><code>mu </code></td>
+<td>
+<p> a vector of <code>T</code> samples of the (un-penalized)
+&ldquo;intercept&rdquo; parameter </p>
+</td></tr>
+<tr valign="top"><td><code>beta </code></td>
+<td>
+<p> a <code>T*ncol(X)</code> <code>matrix</code> of <code>T</code> samples from
+the (penalized) regression coefficients</p>
+</td></tr>
+<tr valign="top"><td><code>m </code></td>
+<td>
+<p> the number of non-zero entries in each vector of <code>T</code>
+samples of <code>beta</code></p>
+</td></tr>
+<tr valign="top"><td><code>s2 </code></td>
+<td>
+<p> a vector of <code>T</code> samples of the variance parameter</p>
+</td></tr>
+<tr valign="top"><td><code>lambda2 </code></td>
+<td>
+<p> a vector of <code>T</code> samples of the penalty
+parameter</p>
+</td></tr>
+<tr valign="top"><td><code>gamma </code></td>
+<td>
+<p> a vector of <code>T</code> with the gamma parameter
+when <code>case = "ng"</code> </p>
+</td></tr>
+<tr valign="top"><td><code>tau2i</code></td>
+<td>
+<p> a <code>T*ncol(X)</code> <code>matrix</code> of <code>T</code> samples from
+the (latent) inverse diagonal of the prior covariance matrix for
+<code>beta</code>, obtained for Lasso regressions </p>
+</td></tr>
+<tr valign="top"><td><code>omega2</code></td>
+<td>
+<p> a <code>T*nrow(X)</code> <code>matrix</code> of <code>T</code> samples
+from the (latent) diagonal of the covariance matrix of the response
+providing a scale-mixture implementation of Student-t errors with
+degrees of freedom <code>nu</code> when active (input <code>theta &gt; 0</code>) </p>
+</td></tr>
+<tr valign="top"><td><code>nu</code></td>
+<td>
+<p> a vector of <code>T</code> samples of the degrees of freedom
+parameter to the Student-t errors mode when active
+(input <code>theta &gt; 0</code>) </p>
+</td></tr>
+<tr valign="top"><td><code>pi</code></td>
+<td>
+<p> a vector of <code>T</code> samples of the Binomial proportion
+<code>p</code> that was given a Beta prior, as described above for the
+2-vector version of the <code>mprior</code> input</p>
+</td></tr>
+<tr valign="top"><td><code>lpost</code></td>
+<td>
+<p> the log posterior probability of each (saved) sample of the
+joint parameters </p>
+</td></tr>
+<tr valign="top"><td><code>llik</code></td>
+<td>
+<p> the log likelihood of each (saved) sample of the
+parameters </p>
+</td></tr>
+<tr valign="top"><td><code>llik.norm</code></td>
+<td>
+<p> the log likelihood of each (saved) sample of the
+parameters under the Normal errors model when sampling under the
+Student-t model; i.e., it is not present
+unless <code>theta &gt; 0</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>Whenever <code>ncol(X) &gt;= nrow(X)</code> it must be that either <code>RJ = TRUE</code>
+with <code>M &lt;= nrow(X)-1</code> (the default) or that the lasso is turned
+on with <code>lambda2 &gt; 0</code>.  Otherwise the regression problem is ill-posed.
+</p>
+<p>Since the starting values are considered to be first sample (of
+<code>T</code>), the total number of (new) samples obtained by Gibbs
+Sampling will be <code>T-1</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Robert B. Gramacy <a href="mailto:rbgramacy@chicagobooth.edu">rbgramacy@chicagobooth.edu</a> </p>
+
+
+<h3>References</h3>
+
+<p>Park, T., Casella, G. (2008). <em>The Bayesian Lasso.</em><br />
+Journal of the American Statistical Association, 103(482),
+June 2008, pp. 681-686<br />
+<a href="http://www.stat.ufl.edu/~casella/Papers/Lasso.pdf">http://www.stat.ufl.edu/~casella/Papers/Lasso.pdf</a>
+</p>
+<p>Griffin, J.E. and Brown, P.J. (2009).
+<em>Inference with Normal-Gamma prior distributions in
+regression problems.</em> Bayesian Analysis, 5, pp. 171-188.<br />
+<a href="http://projecteuclid.org/euclid.ba/1340369797">http://projecteuclid.org/euclid.ba/1340369797</a>
+</p>
+<p>Hans, C. (2009). <em>Bayesian Lasso regression.</em>
+Biometrika 96, pp. 835-845.<br />
+<a href="http://biomet.oxfordjournals.org/content/96/4/835.abstract">http://biomet.oxfordjournals.org/content/96/4/835.abstract</a>
+</p>
+<p>Carvalho, C.M., Polson, N.G., and Scott, J.G. (2010) <em>The
+horseshoe estimator for sparse signals.</em> Biometrika 97(2):
+pp. 465-480.<br />
+<a href="http://ftp.stat.duke.edu/WorkingPapers/08-31.pdf">http://ftp.stat.duke.edu/WorkingPapers/08-31.pdf</a>
+</p>
+<p>Geweke, J. (1996). <em>Variable selection and model comparison
+in regression.</em> In Bayesian Statistics 5.  Editors: J.M. Bernardo,
+J.O. Berger, A.P. Dawid and A.F.M. Smith, 609-620. Oxford Press.
+</p>
+<p>Paul T. Troughton and Simon J. Godsill (1997).
+<em>A reversible jump sampler for autoregressive time series,
+employing full conditionals to achieve efficient model space moves.</em>
+Technical Report CUED/F-INFENG/TR.304, Cambridge University
+Engineering Department.
+</p>
+<p>Geweke, J. (1993) <em>Bayesian treatment of the independent
+Student-t linear model.</em> Journal of Applied Econometrics, Vol. 8,
+S19-S40
+</p>
+<p><a href="http://bobby.gramacy.com/r_packages/monomvn">http://bobby.gramacy.com/r_packages/monomvn</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/lm.html">lm</a></code> ,
+<code><a href="../../lars/html/lars.html">lars</a></code> in the <span class="pkg">lars</span> package,
+<code><a href="regress.html">regress</a></code>,
+<code><a href="../../MASS/html/lm.ridge.html">lm.ridge</a></code> in the <span class="pkg">MASS</span> package
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## following the lars diabetes example
+data(diabetes)
+attach(diabetes)
+
+## Ordinary Least Squares regression
+reg.ols &lt;- regress(x, y)
+
+## Lasso regression
+reg.las &lt;- regress(x, y, method="lasso")
+
+## Bayesian Lasso regression
+reg.blas &lt;- blasso(x, y)
+
+## summarize the beta (regression coefficients) estimates
+plot(reg.blas, burnin=200)
+points(drop(reg.las$b), col=2, pch=20)
+points(drop(reg.ols$b), col=3, pch=18)
+legend("topleft", c("blasso-map", "lasso", "lsr"),
+       col=c(2,2,3), pch=c(21,20,18))
+
+## plot the size of different models visited
+plot(reg.blas, burnin=200, which="m")
+
+## get the summary
+s &lt;- summary(reg.blas, burnin=200)
+
+## calculate the probability that each beta coef != zero
+s$bn0
+
+## summarize s2
+plot(reg.blas, burnin=200, which="s2")
+s$s2
+
+## summarize lambda2
+plot(reg.blas, burnin=200, which="lambda2")
+s$lambda2
+
+
+## Not run: 
+## fit with Student-t errors
+## (~400-times slower due to automatic thinning level)
+regt.blas &lt;- blasso(x, y, theta=0.1)
+
+## plotting some information about nu, and quantiles
+plot(regt.blas, "nu", burnin=200)
+quantile(regt.blas$nu[-(1:200)], c(0.05, 0.95))
+
+## Bayes Factor shows strong evidence for Student-t model
+mean(exp(regt.blas$llik[-(1:200)] - regt.blas$llik.norm[-(1:200)]))
+
+## End(Not run)
+
+## clean up
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

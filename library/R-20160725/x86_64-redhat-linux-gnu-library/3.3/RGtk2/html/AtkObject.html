@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkObject</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkObject {RGtk2}"><tr><td>AtkObject {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkObject</h2>
+
+<h3>Description</h3>
+
+<p>The base object class for the Accessibility Toolkit API.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkRoleRegister.html">atkRoleRegister</a>(name)</code><br />
+<code><a href="atkImplementorRefAccessible.html">atkImplementorRefAccessible</a>(object)</code><br />
+<code><a href="atkObjectGetName.html">atkObjectGetName</a>(object)</code><br />
+<code><a href="atkObjectGetDescription.html">atkObjectGetDescription</a>(object)</code><br />
+<code><a href="atkObjectGetParent.html">atkObjectGetParent</a>(object)</code><br />
+<code><a href="atkObjectGetNAccessibleChildren.html">atkObjectGetNAccessibleChildren</a>(object)</code><br />
+<code><a href="atkObjectRefAccessibleChild.html">atkObjectRefAccessibleChild</a>(object, i)</code><br />
+<code><a href="atkObjectRefRelationSet.html">atkObjectRefRelationSet</a>(object)</code><br />
+<code><a href="atkObjectGetLayer.html">atkObjectGetLayer</a>(object)</code><br />
+<code><a href="atkObjectGetMdiZorder.html">atkObjectGetMdiZorder</a>(object)</code><br />
+<code><a href="atkObjectGetRole.html">atkObjectGetRole</a>(object)</code><br />
+<code><a href="atkObjectRefStateSet.html">atkObjectRefStateSet</a>(object)</code><br />
+<code><a href="atkObjectGetIndexInParent.html">atkObjectGetIndexInParent</a>(object)</code><br />
+<code><a href="atkObjectSetName.html">atkObjectSetName</a>(object, name)</code><br />
+<code><a href="atkObjectSetDescription.html">atkObjectSetDescription</a>(object, description)</code><br />
+<code><a href="atkObjectSetParent.html">atkObjectSetParent</a>(object, parent)</code><br />
+<code><a href="atkObjectSetRole.html">atkObjectSetRole</a>(object, role)</code><br />
+<code><a href="atkObjectConnectPropertyChangeHandler.html">atkObjectConnectPropertyChangeHandler</a>(object, handler)</code><br />
+<code><a href="atkObjectRemovePropertyChangeHandler.html">atkObjectRemovePropertyChangeHandler</a>(object, handler.id)</code><br />
+<code><a href="atkObjectNotifyStateChange.html">atkObjectNotifyStateChange</a>(object, state, value)</code><br />
+<code><a href="atkObjectInitialize.html">atkObjectInitialize</a>(object, data)</code><br />
+<code><a href="atkObjectAddRelationship.html">atkObjectAddRelationship</a>(object, relationship, target)</code><br />
+<code><a href="atkObjectRemoveRelationship.html">atkObjectRemoveRelationship</a>(object, relationship, target)</code><br />
+<code><a href="atkObjectGetAttributes.html">atkObjectGetAttributes</a>(object)</code><br />
+<code><a href="atkRoleGetName.html">atkRoleGetName</a>(role)</code><br />
+<code><a href="atkRoleGetLocalizedName.html">atkRoleGetLocalizedName</a>(role)</code><br />
+<code><a href="atkRoleForName.html">atkRoleForName</a>(name)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----AtkObject
+         +----AtkGObjectAccessible
+         +----AtkNoOpObject</pre>
+
+<h3>Detailed Description</h3>
+
+<p>This class is the primary class for accessibility support via
+the Accessibility ToolKit (ATK).  Objects which are instances
+of <code><a href="AtkObject.html">AtkObject</a></code> (or instances of AtkObject-derived types) are
+queried for properties which relate basic (and generic) properties of a
+UI component such as name and description.  Instances of <code><a href="AtkObject.html">AtkObject</a></code>
+may also be queried as to whether they implement other ATK interfaces
+(e.g. <code><a href="AtkAction.html">AtkAction</a></code>, <code><a href="AtkComponent.html">AtkComponent</a></code>, etc.), as appropriate to the role
+which a given UI component plays in a user interface.
+All UI components in an application which provide useful
+information or services to the user must provide corresponding
+<code><a href="AtkObject.html">AtkObject</a></code> instances on request (in GTK+, for instance, usually
+on a call to #<code><a href="gtkWidgetGetAccessible.html">gtkWidgetGetAccessible</a></code>), either via ATK support
+built into the toolkit for the widget class or ancestor class, or in
+the case of custom widgets, if the inherited <code><a href="AtkObject.html">AtkObject</a></code> implementation
+is insufficient, via instances of a new <code><a href="AtkObject.html">AtkObject</a></code> subclass.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">AtkObject</code></dt><dd>
+<p>The AtkObject structure should not be accessed directly.
+</p>
+</dd>
+<dt><code style="white-space: pre;">AtkImplementor</code></dt><dd>
+<p>The AtkImplementor interface is implemented by objects for which AtkObject peers may be obtained via calls to iface-&gt;(ref_accessible)(implementor);
+</p>
+</dd>
+</dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">AtkRole</code></dt><dd>
+<p>Describes the role of an object
+</p>
+<p>These are the built-in enumerated roles that UI components can have in
+ATK.  Other roles may be added at runtime, so an AtkRole &gt;=
+ATK_ROLE_LAST_DEFINED is not necessarily an error.  
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">invalid</code></dt><dd><p> Invalid role</p>
+</dd>
+<dt><code style="white-space: pre;">accel-label</code></dt><dd><p> A label which represents an accelerator</p>
+</dd>
+<dt><code style="white-space: pre;">alert</code></dt><dd><p> An object which is an alert to the user. Assistive Technologies typically respond to ATK_ROLE_ALERT by reading the entire onscreen contents of containers advertising this role.  Should be used for warning dialogs, etc.</p>
+</dd>
+<dt><code style="white-space: pre;">animation</code></dt><dd><p> An object which is an animated image</p>
+</dd>
+<dt><code style="white-space: pre;">arrow</code></dt><dd><p> An arrow in one of the four cardinal directions</p>
+</dd>
+<dt><code style="white-space: pre;">calendar</code></dt><dd><p>  An object that displays a calendar and allows the user to select a date</p>
+</dd>
+<dt><code style="white-space: pre;">canvas</code></dt><dd><p> An object that can be drawn into and is used to trap events</p>
+</dd>
+<dt><code style="white-space: pre;">check-box</code></dt><dd><p> A choice that can be checked or unchecked and provides a separate indicator for the current state</p>
+</dd>
+<dt><code style="white-space: pre;">check-menu-item</code></dt><dd><p> A menu item with a check box</p>
+</dd>
+<dt><code style="white-space: pre;">color-chooser</code></dt><dd><p> A specialized dialog that lets the user choose a color</p>
+</dd>
+<dt><code style="white-space: pre;">column-header</code></dt><dd><p> The header for a column of data</p>
+</dd>
+<dt><code style="white-space: pre;">combo-box</code></dt><dd><p> A list of choices the user can select from</p>
+</dd>
+<dt><code style="white-space: pre;">date-editor</code></dt><dd><p> An object whose purpose is to allow a user to edit a date</p>
+</dd>
+<dt><code style="white-space: pre;">desktop-icon</code></dt><dd><p> An inconifed internal frame within a DESKTOP_PANE</p>
+</dd>
+<dt><code style="white-space: pre;">desktop-frame</code></dt><dd><p> A pane that supports internal frames and iconified versions of those internal frames</p>
+</dd>
+<dt><code style="white-space: pre;">dial</code></dt><dd><p> An object whose purpose is to allow a user to set a value</p>
+</dd>
+<dt><code style="white-space: pre;">dialog</code></dt><dd><p> A top level window with title bar and a border</p>
+</dd>
+<dt><code style="white-space: pre;">directory-pane</code></dt><dd><p> A pane that allows the user to navigate through and select the contents of a directory</p>
+</dd>
+<dt><code style="white-space: pre;">drawing-area</code></dt><dd><p> An object used for drawing custom user interface elements</p>
+</dd>
+<dt><code style="white-space: pre;">file-chooser</code></dt><dd><p> A specialized dialog that lets the user choose a file</p>
+</dd>
+<dt><code style="white-space: pre;">filler</code></dt><dd><p> A object that fills up space in a user interface</p>
+</dd>
+<dt><code style="white-space: pre;">font-chooser</code></dt><dd><p> A specialized dialog that lets the user choose a font</p>
+</dd>
+<dt><code style="white-space: pre;">frame</code></dt><dd><p> A top level window with a title bar, border, menubar, etc.</p>
+</dd>
+<dt><code style="white-space: pre;">glass-pane</code></dt><dd><p> A pane that is guaranteed to be painted on top of all panes beneath it</p>
+</dd>
+<dt><code style="white-space: pre;">html-container</code></dt><dd><p> A document container for HTML, whose children represent the document content</p>
+</dd>
+<dt><code style="white-space: pre;">icon</code></dt><dd><p> A small fixed size picture, typically used to decorate components</p>
+</dd>
+<dt><code style="white-space: pre;">image</code></dt><dd><p> An object whose primary purpose is to display an image</p>
+</dd>
+<dt><code style="white-space: pre;">internal-frame</code></dt><dd><p> A frame-like object that is clipped by a desktop pane</p>
+</dd>
+<dt><code style="white-space: pre;">label</code></dt><dd><p> An object used to present an icon or short string in an interface</p>
+</dd>
+<dt><code style="white-space: pre;">layered-pane</code></dt><dd><p> A specialized pane that allows its children to be drawn in layers, providing a form of stacking order</p>
+</dd>
+<dt><code style="white-space: pre;">list</code></dt><dd><p> An object that presents a list of objects to the user and allows the user to select one or more of them </p>
+</dd>
+<dt><code style="white-space: pre;">list-item</code></dt><dd><p> An object that represents an element of a list </p>
+</dd>
+<dt><code style="white-space: pre;">menu</code></dt><dd><p> An object usually found inside a menu bar that contains a list of actions the user can choose from</p>
+</dd>
+<dt><code style="white-space: pre;">menu-bar</code></dt><dd><p> An object usually drawn at the top of the primary dialog box of an application that contains a list of menus the user can choose from </p>
+</dd>
+<dt><code style="white-space: pre;">menu-item</code></dt><dd><p> An object usually contained in a menu that presents an action the user can choose</p>
+</dd>
+<dt><code style="white-space: pre;">option-pane</code></dt><dd><p> A specialized pane whose primary use is inside a DIALOG</p>
+</dd>
+<dt><code style="white-space: pre;">page-tab</code></dt><dd><p> An object that is a child of a page tab list</p>
+</dd>
+<dt><code style="white-space: pre;">page-tab-list</code></dt><dd><p> An object that presents a series of panels (or page tabs), one at a time, through some mechanism provided by the object </p>
+</dd>
+<dt><code style="white-space: pre;">panel</code></dt><dd><p> A generic container that is often used to group objects</p>
+</dd>
+<dt><code style="white-space: pre;">password-text</code></dt><dd><p> A text object uses for passwords, or other places where the text content is not shown visibly to the user</p>
+</dd>
+<dt><code style="white-space: pre;">popup-menu</code></dt><dd><p> A temporary window that is usually used to offer the user a list of choices, and then hides when the user selects one of those choices</p>
+</dd>
+<dt><code style="white-space: pre;">progress-bar</code></dt><dd><p> An object used to indicate how much of a task has been completed</p>
+</dd>
+<dt><code style="white-space: pre;">push-button</code></dt><dd><p> An object the user can manipulate to tell the application to do something</p>
+</dd>
+<dt><code style="white-space: pre;">radio-button</code></dt><dd><p> A specialized check box that will cause other radio buttons in the same group to become unchecked when this one is checked</p>
+</dd>
+<dt><code style="white-space: pre;">radio-menu-item</code></dt><dd><p> A check menu item which belongs to a group. At each instant exactly one of the radio menu items from a group is selected</p>
+</dd>
+<dt><code style="white-space: pre;">root-pane</code></dt><dd><p> A specialized pane that has a glass pane and a layered pane as its children</p>
+</dd>
+<dt><code style="white-space: pre;">row-header</code></dt><dd><p> The header for a row of data</p>
+</dd>
+<dt><code style="white-space: pre;">scroll-bar</code></dt><dd><p> An object usually used to allow a user to incrementally view a large amount of data.</p>
+</dd>
+<dt><code style="white-space: pre;">scroll-pane</code></dt><dd><p> An object that allows a user to incrementally view a large amount of information</p>
+</dd>
+<dt><code style="white-space: pre;">separator</code></dt><dd><p> An object usually contained in a menu to provide a visible and logical separation of the contents in a menu</p>
+</dd>
+<dt><code style="white-space: pre;">slider</code></dt><dd><p> An object that allows the user to select from a bounded range</p>
+</dd>
+<dt><code style="white-space: pre;">split-pane</code></dt><dd><p> A specialized panel that presents two other panels at the same time</p>
+</dd>
+<dt><code style="white-space: pre;">spin-button</code></dt><dd><p> An object used to get an integer or floating point number from the user</p>
+</dd>
+<dt><code style="white-space: pre;">statusbar</code></dt><dd><p> An object which reports messages of minor importance to the user</p>
+</dd>
+<dt><code style="white-space: pre;">table</code></dt><dd><p> An object used to represent information in terms of rows and columns</p>
+</dd>
+<dt><code style="white-space: pre;">table-cell</code></dt><dd><p> A cell in a table</p>
+</dd>
+<dt><code style="white-space: pre;">table-column-header</code></dt><dd><p> The header for a column of a table</p>
+</dd>
+<dt><code style="white-space: pre;">table-row-header</code></dt><dd><p> The header for a row of a table</p>
+</dd>
+<dt><code style="white-space: pre;">tear-off-menu-item</code></dt><dd><p> A menu item used to tear off and reattach its menu</p>
+</dd>
+<dt><code style="white-space: pre;">terminal</code></dt><dd><p> An object that represents an accessible terminal.  <code>Since</code>: ATK-0.6</p>
+</dd>
+<dt><code style="white-space: pre;">text</code></dt><dd><p> An object that presents text to the user</p>
+</dd>
+<dt><code style="white-space: pre;">toggle-button</code></dt><dd><p> A specialized push button that can be checked or unchecked, but does not provide a separate indicator for the current state</p>
+</dd>
+<dt><code style="white-space: pre;">tool-bar</code></dt><dd><p> A bar or palette usually composed of push buttons or toggle buttons</p>
+</dd>
+<dt><code style="white-space: pre;">tool-tip</code></dt><dd><p> An object that provides information about another object</p>
+</dd>
+<dt><code style="white-space: pre;">tree</code></dt><dd><p> An object used to represent hierarchical information to the user</p>
+</dd>
+<dt><code style="white-space: pre;">tree-table</code></dt><dd><p> An object capable of expanding and collapsing rows as well as showing multiple columns of data.   <code>Since</code>: ATK-0.7</p>
+</dd>
+<dt><code style="white-space: pre;">unknown</code></dt><dd><p> The object contains some Accessible information, but its role is not known</p>
+</dd>
+<dt><code style="white-space: pre;">viewport</code></dt><dd><p> An object usually used in a scroll pane</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p> A top level window with no title or border.</p>
+</dd>
+<dt><code style="white-space: pre;">header</code></dt><dd><p> An object that serves as a document header. <code>Since</code>: ATK-1.1.1</p>
+</dd>
+<dt><code style="white-space: pre;">footer</code></dt><dd><p> An object that serves as a document footer.  <code>Since</code>: ATK-1.1.1</p>
+</dd>
+<dt><code style="white-space: pre;">paragraph</code></dt><dd><p> An object which is contains a paragraph of text content.   <code>Since</code>: ATK-1.1.1</p>
+</dd>
+<dt><code style="white-space: pre;">ruler</code></dt><dd><p> An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such).   <code>Since</code>: ATK-1.1.1</p>
+</dd>
+<dt><code style="white-space: pre;">application</code></dt><dd><p> The object is an application object, which may contain <code>ATK.ROLE.FRAME</code> objects or other types of accessibles.  The root accessible of any application's ATK hierarchy should have ATK_ROLE_APPLICATION.   <code>Since</code>: ATK-1.1.4</p>
+</dd>
+<dt><code style="white-space: pre;">autocomplete</code></dt><dd><p> The object is a dialog or list containing items for insertion into an entry widget, for instance a list of words for completion of a text entry.   <code>Since</code>: ATK-1.3</p>
+</dd>
+<dt><code style="white-space: pre;">editbar</code></dt><dd><p> The object is an editable text object in a toolbar.  <code>Since</code>: ATK-1.5</p>
+</dd>
+<dt><code style="white-space: pre;">embedded</code></dt><dd><p> The object is an embedded container within a document or panel.  This role is a grouping &quot;hint&quot; indicating that the contained objects share a context.  <code>Since</code>: ATK-1.7.2</p>
+</dd>
+<dt><code style="white-space: pre;">form</code></dt><dd><p> The object is a component whose textual content may be entered or modified by the user, provided <code>ATK.STATE.EDITABLE</code> is present.   <code>Since</code>: ATK-1.11</p>
+</dd>
+<dt><code style="white-space: pre;">last-defined</code></dt><dd><p> The object is a graphical depiction of quantitative data. It may contain multiple subelements whose attributes and/or description may be queried to obtain both the quantitative data and information about how the data is being presented. The LABELLED_BY relation is particularly important in interpreting objects of this type, as is the accessible-description property.  <code>Since</code>: ATK-1.11</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">AtkLayer</code></dt><dd>
+<p>Describes the layer of a component
+</p>
+<p>These enumerated &quot;layer values&quot; are used when determining which UI
+rendering layer a component is drawn into, which can help in making
+determinations of when components occlude one another.  
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">invalid</code></dt><dd><p> The object does not have a layer</p>
+</dd>
+<dt><code style="white-space: pre;">background</code></dt><dd><p> This layer is reserved for the desktop background</p>
+</dd>
+<dt><code style="white-space: pre;">canvas</code></dt><dd><p> This layer is used for Canvas components</p>
+</dd>
+<dt><code style="white-space: pre;">widget</code></dt><dd><p> This layer is normally used for components</p>
+</dd>
+<dt><code style="white-space: pre;">mdi</code></dt><dd><p> This layer is used for layered components</p>
+</dd>
+<dt><code style="white-space: pre;">popup</code></dt><dd><p> This layer is used for popup components, such as menus</p>
+</dd>
+<dt><code style="white-space: pre;">overlay</code></dt><dd><p> This layer is reserved for future use.</p>
+</dd>
+<dt><code style="white-space: pre;">window</code></dt><dd><p> This layer is used for toplevel windows.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>AtkFunction(data)</code></dt><dd>
+<p>An AtkFunction is a function definition used for padding which has been added
+to class and interface structures to allow for expansion in the future.
+</p>
+<dl>
+<dt><code>data</code></dt><dd><p>[R object] a gpointer to parameter data.</p>
+</dd></dl>
+
+<p><em>Returns:</em> [logical] Nothing useful, this is only a dummy prototype.
+</p>
+</dd>
+<dt><code>AtkPropertyChangeHandler(Param1, Param2)</code></dt><dd>
+<p>An AtkPropertyChangeHandler is a function which is executed when an AtkObject's property changes value. It is specified in a call to
+<code><a href="atkObjectConnectPropertyChangeHandler.html">atkObjectConnectPropertyChangeHandler</a></code>.
+</p>
+
+<dl>
+<dt><code>Param1</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>]  an <code><a href="AtkObject.html">AtkObject</a></code></p>
+</dd>
+<dt><code>Param2</code></dt><dd><p>[AtkPropertyValues]  an <code style="white-space: pre;">AtkPropertyValues</code></p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>active-descendant-changed(atkobject, arg1, user.data)</code></dt><dd>
+<p>The &quot;active-descendant-changed&quot; signal is emitted by an object which has
+the state ATK_STATE_MANAGES_DESCENDANTS when the focus object in the
+object changes. For instance, a table will emit the signal when the cell
+in the table which has focus changes.
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[R object] the newly focused object.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>children-changed(atkobject, arg1, arg2, user.data)</code></dt><dd>
+<p>The signal &quot;children-changed&quot; is emitted when a child is added or
+removed form an object. It supports two details: &quot;add&quot; and &quot;remove&quot;
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[numeric] The index of the added or removed child</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[R object] A gpointer to the child AtkObject which was added or removed</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>focus-event(atkobject, arg1, user.data)</code></dt><dd>
+<p>The signal &quot;focus-event&quot; is emitted when an object gains or loses focus.
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[logical] A boolean value which indicates whether the object gained or lost focus.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>property-change(atkobject, arg1, user.data)</code></dt><dd>
+<p>The signal &quot;property-change&quot; is emitted when an object's property
+value changes. The detail identifies the name of the property whose
+value has changed.
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[R object] The new value of the property which changed.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>state-change(atkobject, arg1, arg2, user.data)</code></dt><dd>
+<p>The &quot;state-change&quot; signal is emitted  when an object's state changes.
+The detail value identifies the state type which has changed.
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[character] The name of the state which has changed</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[logical] A boolean which indicates whether the state has been set or unset.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>visible-data-changed(atkobject, user.data)</code></dt><dd>
+<p>The &quot;visible-data-changed&quot; signal is emitted when the visual appearance of
+the object changed.
+</p>
+
+<dl>
+<dt><code>atkobject</code></dt><dd><p>[<code><a href="AtkObject.html">AtkObject</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">accessible-component-layer</code> [integer : Read]</dt><dd>
+<p>The accessible layer of this object.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-component-mdi-zorder</code> [integer : Read]</dt><dd>
+<p>The accessible MDI value of this object.  Default value: -2147483648
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-description</code> [character : *                : Read / Write]</dt><dd>
+<p>Description of an object, formatted for assistive technology access.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-hypertext-nlinks</code> [integer : Read]</dt><dd>
+<p>The number of links which the current AtkHypertext has.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-name</code> [character : *                : Read / Write]</dt><dd>
+<p>Object instance's name formatted for assistive technology access.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-parent</code> [<code><a href="AtkObject.html">AtkObject</a></code> : *            : Read / Write]</dt><dd>
+<p>Is used to notify that the parent has changed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-role</code> [integer : Read / Write]</dt><dd>
+<p>The accessible role of this object.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-caption</code> [character : *                : Read / Write]</dt><dd>
+<p>Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-caption-object</code> [<code><a href="AtkObject.html">AtkObject</a></code> : *            : Read / Write]</dt><dd>
+<p>Is used to notify that the table caption has changed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-column-description</code> [character : *                : Read / Write]</dt><dd>
+<p>Is used to notify that the table column description has changed.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-column-header</code> [<code><a href="AtkObject.html">AtkObject</a></code> : *            : Read / Write]</dt><dd>
+<p>Is used to notify that the table column header has changed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-row-description</code> [character : *                : Read / Write]</dt><dd>
+<p>Is used to notify that the table row description has changed.  Default value: NULL
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-row-header</code> [<code><a href="AtkObject.html">AtkObject</a></code> : *            : Read / Write]</dt><dd>
+<p>Is used to notify that the table row header has changed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-table-summary</code> [<code><a href="AtkObject.html">AtkObject</a></code> : *            : Read / Write]</dt><dd>
+<p>Is used to notify that the table summary has changed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">accessible-value</code> [numeric : Read / Write]</dt><dd>
+<p>Is used to notify that the value has changed.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkObject.html">http://library.gnome.org/devel//atk/AtkObject.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="AtkObjectFactory.html">AtkObjectFactory</a></code>
+<code><a href="AtkRegistry.html">AtkRegistry</a></code>
+<code><a href="GtkAccessible.html">GtkAccessible</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gContentTypeGuessForTree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gContentTypeGuessForTree {RGtk2}"><tr><td>gContentTypeGuessForTree {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gContentTypeGuessForTree</h2>
+
+<h3>Description</h3>
+
+<p>Tries to guess the type of the tree with root <code>root</code>, by
+looking at the files it contains. The result is a list
+of content types, with the best guess coming first.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gContentTypeGuessForTree(root)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">root</code></code></td>
+<td>
+<p>the root of the tree to guess a type for</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>The types returned all have the form x-content/foo, e.g.
+x-content/audio-cdda (for audio CDs) or x-content/image-dcf 
+(for a camera memory card). See the shared-mime-info (<a href="http://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec">http://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec</a>)
+specification for more on x-content types.
+</p>
+<p>This function is useful in the implementation of <code><a href="gMountGuessContentType.html">gMountGuessContentType</a></code>.
+Since 2.18</p>
+
+
+<h3>Value</h3>
+
+<p>[char] a list of zero or more content types, or <code>NULL</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

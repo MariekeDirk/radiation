@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextIterGetAttributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextIterGetAttributes {RGtk2}"><tr><td>gtkTextIterGetAttributes {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextIterGetAttributes</h2>
+
+<h3>Description</h3>
+
+<p>Computes the effect of any tags applied to this spot in the
+text. The <code>values</code> parameter should be initialized to the default
+settings you wish to use if no tags are in effect. You'd typically
+obtain the defaults from <code><a href="gtkTextViewGetDefaultAttributes.html">gtkTextViewGetDefaultAttributes</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextIterGetAttributes(object, values)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>an iterator</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">values</code></code></td>
+<td>
+<p>a <code><a href="GtkTextTag.html">GtkTextAttributes</a></code> to be filled in</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code><a href="gtkTextIterGetAttributes.html">gtkTextIterGetAttributes</a></code> will modify <code>values</code>, applying the
+effects of any tags present at <code>iter</code>. If any tags affected <code>values</code>,
+the function returns <code>TRUE</code>.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if <code>values</code> was modified</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

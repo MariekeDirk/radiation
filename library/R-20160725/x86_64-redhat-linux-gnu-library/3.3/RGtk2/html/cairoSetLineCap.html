@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoSetLineCap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoSetLineCap {RGtk2}"><tr><td>cairoSetLineCap {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoSetLineCap</h2>
+
+<h3>Description</h3>
+
+<p>Sets the current line cap style within the cairo context. See
+<code><a href="cairo-context.html">CairoLineCap</a></code> for details about how the available line cap
+styles are drawn.</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoSetLineCap(cr, line.cap)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">line.cap</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">CairoLineCap</a></code>]  a line cap style</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>As with the other stroke parameters, the current line cap style is
+examined by <code><a href="cairoStroke.html">cairoStroke</a></code>, <code><a href="cairoStrokeExtents.html">cairoStrokeExtents</a></code>, and
+<code>cairoStrokeToPath()</code>, but does not have any effect during path
+construction.
+</p>
+<p>The default line cap style is <code>CAIRO_LINE_CAP_BUTT</code>.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

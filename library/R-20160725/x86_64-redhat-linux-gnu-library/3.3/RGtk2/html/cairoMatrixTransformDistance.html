@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoMatrixTransformDistance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoMatrixTransformDistance {RGtk2}"><tr><td>cairoMatrixTransformDistance {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoMatrixTransformDistance</h2>
+
+<h3>Description</h3>
+
+<p>Transforms the distance vector (<code>dx</code>,<code>dy</code>) by <code>matrix</code>. This is
+similar to <code><a href="cairoMatrixTransformPoint.html">cairoMatrixTransformPoint</a></code> except that the translation
+components of the transformation are ignored. The calculation of
+the returned vector is as follows:</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoMatrixTransformDistance(matrix, dx, dy)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">matrix</code></code></td>
+<td>
+<p>[<code><a href="cairo-matrix.html">CairoMatrix</a></code>]  a <code><a href="cairo-matrix.html">CairoMatrix</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dx</code></code></td>
+<td>
+<p>[numeric]  X component of a distance vector. An in/out parameter</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dy</code></code></td>
+<td>
+<p>[numeric]  Y component of a distance vector. An in/out parameter</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<pre>dx2 = dx1 * a + dy1 * c;
+dy2 = dx1 * b + dy1 * d;
+</pre>  
+<p>Affine transformations are position invariant, so the same vector
+always transforms to the same vector. If (<code>x1</code>,<code>y1</code>) transforms
+to (<code>x2</code>,<code>y2</code>) then (<code>x1</code>+<code>dx1</code>,<code>y1</code>+<code>dy1</code>) will transform to
+(<code>x1</code>+<code>dx2</code>,<code>y1</code>+<code>dy2</code>) for all values of <code>x1</code> and <code>x2</code>.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

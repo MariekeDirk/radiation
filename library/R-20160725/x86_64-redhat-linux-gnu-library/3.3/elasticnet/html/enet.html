@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fits Elastic Net regression models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for enet {elasticnet}"><tr><td>enet {elasticnet}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fits Elastic Net regression models
+</h2>
+
+<h3>Description</h3>
+
+<p>Starting from zero, the LARS-EN algorithm provides the entire sequence of coefficients and fits.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+enet(x, y, lambda, max.steps, normalize=TRUE, intercept=TRUE, trace = FALSE, eps = .Machine$double.eps)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>matrix of predictors
+</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>response 
+</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+
+<p>Quadratic penalty parameter. lambda=0 performs the Lasso fit.
+</p>
+</td></tr>
+<tr valign="top"><td><code>max.steps</code></td>
+<td>
+
+<p>Limit the number of steps taken; the default is <code>50 * min(m,
+    n-1)</code>, with m the number of variables, and n the number of samples.
+One can use this option to perform early stopping.
+</p>
+</td></tr>
+<tr valign="top"><td><code>trace</code></td>
+<td>
+
+<p>If TRUE, prints out its progress
+</p>
+</td></tr>
+<tr valign="top"><td><code>normalize</code></td>
+<td>
+<p> Standardize the predictors?
+</p>
+</td></tr>
+<tr valign="top"><td><code>intercept</code></td>
+<td>
+<p> Center the predictors?
+</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+
+<p>An effective zero
+</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>The Elastic Net methodology is described in detail in Zou and Hastie (2004).
+The LARS-EN algorithm computes the complete elastic net
+solution simultaneously for ALL values of the shrinkage parameter in
+the same computational cost as a least squares fit. 
+The structure of enet() is based on lars() coded by Efron and Hastie.  
+Some internel functions from the lars package are called. 
+The user should install lars before using elasticnet functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An &quot;enet&quot; object is returned, for which print, plot and predict methods exist.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Hui Zou and Trevor Hastie</p>
+
+
+<h3>References</h3>
+
+<p>Zou and Hastie (2005) &quot;Regularization and
+Variable Selection via the Elastic Net&quot;
+<em>Journal of the Royal Statistical Society, Series B, 67, 301-320</em>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>print, plot, and predict methods for enet
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(diabetes)
+attach(diabetes)
+##fit the lasso model (treated as a special case of the elastic net)
+object1 &lt;- enet(x,y,lambda=0)
+plot(object1)
+##fit the elastic net model with lambda=1.
+object2 &lt;- enet(x,y,lambda=1) 
+plot(object2)
+##early stopping after 50 LARS-EN steps
+object4 &lt;- enet(x2,y,lambda=0.5,max.steps=50)
+plot(object4)
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>elasticnet</em> version 1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

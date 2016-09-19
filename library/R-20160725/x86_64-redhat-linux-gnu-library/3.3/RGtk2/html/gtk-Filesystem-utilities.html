@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Filesystem utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-Filesystem-utilities {RGtk2}"><tr><td>gtk-Filesystem-utilities {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Filesystem utilities</h2>
+
+<h3>Description</h3>
+
+<p>Functions for working with GIO</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkMountOperationNew.html">gtkMountOperationNew</a>(parent = NULL)</code><br />
+<code><a href="gtkMountOperationIsShowing.html">gtkMountOperationIsShowing</a>(object)</code><br />
+<code><a href="gtkMountOperationSetParent.html">gtkMountOperationSetParent</a>(object, parent)</code><br />
+<code><a href="gtkMountOperationGetParent.html">gtkMountOperationGetParent</a>(object)</code><br />
+<code><a href="gtkMountOperationSetScreen.html">gtkMountOperationSetScreen</a>(object, screen)</code><br />
+<code><a href="gtkMountOperationGetScreen.html">gtkMountOperationGetScreen</a>(object)</code><br />
+<code><a href="gtkShowUri.html">gtkShowUri</a>(screen = NULL, uri, timestamp, .errwarn = TRUE)</code><br />
+<code>gtkMountOperation(parent = NULL)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GMountOperation
+         +----GtkMountOperation</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The functions and objects described here make working with GTK+ and
+GIO more convenient.
+<code><a href="gtk-Filesystem-utilities.html">GtkMountOperation</a></code> is needed when mounting volumes:
+It is an implementation of <code><a href="GMountOperation.html">GMountOperation</a></code> that can be used with
+GIO functions for mounting volumes such as
+<code><a href="gFileMountEnclosingVolume.html">gFileMountEnclosingVolume</a></code>, <code><a href="gFileMountMountable.html">gFileMountMountable</a></code>,
+<code><a href="gVolumeMount.html">gVolumeMount</a></code>, <code><a href="gMountUnmountWithOperation.html">gMountUnmountWithOperation</a></code> and others.
+</p>
+<p>When necessary, <code><a href="gtk-Filesystem-utilities.html">GtkMountOperation</a></code> shows dialogs to ask for
+passwords, questions or show processes blocking unmount.
+<code><a href="gtkShowUri.html">gtkShowUri</a></code> is a convenient way to launch applications for URIs.
+</p>
+<p>Another object that is worth mentioning in this context is
+<code><a href="gdk-Application-launching.html">GdkAppLaunchContext</a></code>, which provides visual feedback when lauching
+applications.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMountOperation</code></dt><dd>
+<p>This should not be accessed directly. Use the accessor functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkMountOperation</code> is the equivalent of <code><a href="gtkMountOperationNew.html">gtkMountOperationNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">is-showing</code> [logical : Read]</dt><dd>
+<p>Are we showing a dialog.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">parent</code> [<code><a href="GtkWindow.html">GtkWindow</a></code> : *            : Read / Write]</dt><dd>
+<p>The parent window.
+</p>
+</dd>
+<dt><code style="white-space: pre;">screen</code> [<code><a href="GdkScreen.html">GdkScreen</a></code> : *            : Read / Write]</dt><dd>
+<p>The screen where this window will be displayed.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-Filesystem-utilities.html">http://library.gnome.org/devel//gtk/gtk-Filesystem-utilities.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

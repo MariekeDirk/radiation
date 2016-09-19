@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prediction using constructed model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.CoreModel {CORElearn}"><tr><td>predict.CoreModel {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Prediction using constructed model </h2>
+
+<h3>Description</h3>
+
+<p>Using a previously built model and new data, predicts the class value and probabilities for 
+classification problem and function value for regression problem.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'CoreModel'
+predict(object, newdata, ..., costMatrix=NULL, 
+                            type=c("both","class","probability"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p> The model structure as returned by <code><a href="CoreModel.html">CoreModel</a></code>. </p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p> Data frame with fresh data. </p>
+</td></tr>
+<tr valign="top"><td><code>costMatrix</code></td>
+<td>
+<p> Optional cost matrix can provide nonuniform costs for classification problems. </p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p> Controls what will be return value in case of classification. </p>
+</td></tr> 
+<tr valign="top"><td><code>... </code></td>
+<td>
+<p> Other model dependent options for prediction. See <code><a href="helpCore.html">helpCore</a></code>. </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function uses the <code>object</code> structure as returned by <code><a href="CoreModel.html">CoreModel</a></code> and
+applies it on the data frame <code>newdata</code>. The <code>newdata</code> must be transformable
+using the formula specified for building  the model (with dependent variable removed). If the dependent
+variable is present in <code>newdata</code>, it is ignored. 
+</p>
+<p>Optional cost matrix can provide nonuniform costs for classification problems. For regression
+problem this parameter is ignored. The costs can be different from the ones used for building the model 
+in <code><a href="CoreModel.html">CoreModel</a></code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For regression model a vector of predicted values for given input instances. For classification
+problem the parameter <code>type</code> controls what is returned. With default value <code>"both"</code> 
+function returns a list with two components <code>class</code>
+and <code>probabilities</code> containing predicted class values and probabilities for all class values, respectively.
+With <code>type</code> set to  <code>"class"</code> or <code>"probability"</code> the function returns only the selected component 
+as vector or matrix.   
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Marko Robnik-Sikonja, Petr Savicky </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CORElearn-package.html">CORElearn</a></code>,
+<code><a href="CoreModel.html">CoreModel</a></code>,
+<code><a href="modelEval.html">modelEval</a></code>,
+<code><a href="helpCore.html">helpCore</a></code>, 
+<code><a href="paramCoreIO.html">paramCoreIO</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# use iris data set
+
+# build random forests model with certain parameters
+modelRF &lt;- CoreModel(Species ~ ., iris, model="rf", 
+              selectionEstimator="MDL",minNodeWeightRF=5,rfNoTrees=100)
+print(modelRF)
+
+# prediction with node distribution
+pred &lt;- predict(modelRF, iris, rfPredictClass=FALSE, type="both")
+# print(pred)
+
+destroyModels(modelRF) # clean up
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

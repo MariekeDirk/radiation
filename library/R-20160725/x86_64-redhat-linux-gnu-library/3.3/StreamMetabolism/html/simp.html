@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Numeric Integration Using Simpson's method</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for simp {StreamMetabolism}"><tr><td>simp {StreamMetabolism}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Numeric Integration Using Simpson's method </h2>
+
+<h3>Description</h3>
+
+<p>Numeric Integration using the Simpson Method
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+simp(y, a = NULL, b = NULL, x = NULL, n = 200)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> y values to integrate </p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> x values to integrate over </p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>NULL</p>
+</td></tr>
+<tr valign="top"><td><code>b</code></td>
+<td>
+<p>NULL</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p> number of divisions defaults to 200 </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p> Numeric Value of the integration  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Rolf Turner </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# 4-x^2-y^2
+fun &lt;- function(x, y){
+	a &lt;- 4
+	b &lt;- x^2
+	d &lt;- y^2
+	z &lt;- a-b-d
+	return(z)
+	}
+	
+a &lt;- fun(seq(-1000,1000,1), seq(-1000,1000,1))
+simp(a, x=-1000:1000, n=1000)	
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>StreamMetabolism</em> version 1.1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

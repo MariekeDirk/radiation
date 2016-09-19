@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pango Convenience Macros</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoMacros {RGtk2}"><tr><td>pangoMacros {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pango Convenience Macros</h2>
+
+<h3>Description</h3>
+
+<p>These macros and constants help you layout text with Pango.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pangoAscent(x)
+pangoDescent(x)
+pangoLbearing(x)
+pangoRbearing(x)
+PANGO_SCALE
+pangoPixels(size)
+PANGO_SCALE_LARGE
+PANGO_SCALE_MEDIUM
+PANGO_SCALE_SMALL
+PANGO_SCALE_X_LARGE
+PANGO_SCALE_X_SMALL
+PANGO_SCALE_XX_LARGE
+PANGO_SCALE_XX_SMALL
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>A rectangle describing the glyph extents</p>
+</td></tr>
+<tr valign="top"><td><code>size</code></td>
+<td>
+<p>A size on the Pango scale</p>
+</td></tr></table>
+<p>.
+</p>
+
+
+<h3>Details</h3>
+
+<p>When positioning text, it is beneficial to know the extents of
+the glyphs being drawn. The macros <code>pangoAscent</code>, <code>pangoDescent</code>,
+<code>pangoLbearing</code>, and <code>pangoRbearing</code> perform simple math on the 
+given rectangle (representing the glyph extents) to determine the corresponding
+properties. The &quot;ascent&quot; and &quot;descent&quot; are how high the glyph extends above and 
+below the baseline, respectively. The &quot;lbearing&quot; and &quot;rbearing&quot; describe the 
+left-most and right-most extents of the glyph.
+</p>
+<p>The rest are merely constants for scaling. <code>PANGO_SCALE</code> is the factor by 
+which device units are scaled to Pango units. To return to device units, use 
+the <code>pangoPixels</code>. The rest are pre-fab factors 
+for scaling by different degrees.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The requested quantity in the units of the provided rectangle.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

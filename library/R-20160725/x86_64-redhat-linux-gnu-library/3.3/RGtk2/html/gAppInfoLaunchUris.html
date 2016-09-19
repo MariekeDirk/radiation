@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gAppInfoLaunchUris</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gAppInfoLaunchUris {RGtk2}"><tr><td>gAppInfoLaunchUris {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gAppInfoLaunchUris</h2>
+
+<h3>Description</h3>
+
+<p>Launches the application. Passes <code>uris</code> to the launched application 
+as arguments, using the optional <code>launch.context</code> to get information
+about the details of the launcher (like what screen it is on).
+On error, <code>error</code> will be set accordingly.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gAppInfoLaunchUris(object, uris, launch.context, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GAppInfo.html">GAppInfo</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">uris</code></code></td>
+<td>
+<p>a <code style="white-space: pre;">list</code> containing URIs to launch.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">launch.context</code></code></td>
+<td>
+<p>a <code><a href="GAppInfo.html">GAppLaunchContext</a></code> or <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>To lauch the application without arguments pass a <code>NULL</code> <code>uris</code> list.
+</p>
+<p>Note that even if the launch is successful the application launched
+can fail to start if it runs into problems during startup. There is
+no way to detect this.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> on successful launch, <code>FALSE</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

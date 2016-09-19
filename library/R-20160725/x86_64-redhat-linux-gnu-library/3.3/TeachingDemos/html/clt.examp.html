@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot Examples of the Central Limit Theorem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clt.examp {TeachingDemos}"><tr><td>clt.examp {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot Examples of the Central Limit Theorem</h2>
+
+<h3>Description</h3>
+
+<p>Takes samples of size <code>n</code> from 4 different distributions and
+plots histograms of the means along with a normal curve with matching
+mean and standard deviation.  Creating the plots for different values
+of <code>n</code> demonstrates the Central Limit Theorem.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clt.examp(n = 1, reps = 10000, nclass = 16, norm.param=list(mean=0,sd=1),
+          gamma.param=list(shape=1, rate=1/3), unif.param=list(min=0,max=1),
+          beta.param=list(shape1=0.35, shape2=0.25))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>size of the individual samples</p>
+</td></tr>
+<tr valign="top"><td><code>reps</code></td>
+<td>
+<p>number of samples to take from each distribution</p>
+</td></tr>
+<tr valign="top"><td><code>nclass</code></td>
+<td>
+<p>number of bars in the histograms</p>
+</td></tr>
+<tr valign="top"><td><code>norm.param</code></td>
+<td>
+<p>List with parameters passed to <code>rnorm</code></p>
+</td></tr>
+<tr valign="top"><td><code>gamma.param</code></td>
+<td>
+<p>List with parameters passed to <code>rgamma</code></p>
+</td></tr>
+<tr valign="top"><td><code>unif.param</code></td>
+<td>
+<p>List with parameters passed to <code>runif</code></p>
+</td></tr>
+<tr valign="top"><td><code>beta.param</code></td>
+<td>
+<p>List with parameters passed to <code>rbeta</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The 4 distributions sampled from are a Normal with defaults mean 0 and
+standard deviation 1, a gamma with defaults shape 1 (exponential) and
+lambda 1/3 (mean = 3), a uniform
+distribution from 0 to 1 (default), and a beta distribution with
+default
+alpha 0.35 and beta 0.25 (U shaped left skewed).
+</p>
+<p>The <code>norm.param</code>, <code>gamma.param</code>, <code>unif.param</code>, and
+<code>beta.param</code> arguments can be used to change the parameters of
+the generating distributions.
+</p>
+<p>Running the function with <code>n</code>=1 will show the populations.  Run
+the function again with <code>n</code> at higher values to show that the
+sampling distribution of the uniform quickly becomes normal and the
+exponential and beta distributions eventually become normal (but much
+slower than the uniform).
+</p>
+
+
+<h3>Value</h3>
+
+<p>This function is run for its side effect of creating plots.  It
+returns NULL invisibly.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/Normal.html">rnorm</a></code>, <code><a href="../../stats/html/Exponential.html">rexp</a></code>, <code><a href="../../stats/html/Uniform.html">runif</a></code>,
+<code><a href="../../stats/html/Beta.html">rbeta</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+clt.examp()
+clt.examp(5)
+clt.examp(30)
+clt.examp(50)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

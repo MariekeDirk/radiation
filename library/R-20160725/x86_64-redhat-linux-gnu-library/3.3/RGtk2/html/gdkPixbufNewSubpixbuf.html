@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufNewSubpixbuf</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufNewSubpixbuf {RGtk2}"><tr><td>gdkPixbufNewSubpixbuf {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufNewSubpixbuf</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new pixbuf which represents a sub-region of
+<code>src.pixbuf</code>. The new pixbuf shares its pixels with the
+original pixbuf, so writing to one affects both.
+The new pixbuf holds a reference to <code>src.pixbuf</code>, so
+<code>src.pixbuf</code> will not be finalized until the new pixbuf
+is finalized.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufNewSubpixbuf(object, src.x, src.y, width, height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">src.x</code></code></td>
+<td>
+<p>X coord in <code>src.pixbuf</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">src.y</code></code></td>
+<td>
+<p>Y coord in <code>src.pixbuf</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>width of region in <code>src.pixbuf</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>height of region in <code>src.pixbuf</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>] a new pixbuf</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

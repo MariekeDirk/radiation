@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exit Error Checks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for exitCheck {pkgmaker}"><tr><td>exitCheck {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exit Error Checks</h2>
+
+<h3>Description</h3>
+
+<p><code>exitCheck</code> provides a mechanism to distinguish the
+exit status in <code><a href="../../base/html/on.exit.html">on.exit</a></code> expressions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  exitCheck()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>It generates a function that is used wihtin a function's
+body to &quot;flag&quot; normal exits and in its
+<code><a href="../../base/html/on.exit.html">on.exit</a></code> expression to check the exit status
+of a function. Note that it will correctly detect errors
+only if all normal exit are wrapped into a call to it.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# define some function
+f &lt;- function(err){
+
+ # initialise an error checker
+	success &lt;- exitCheck()
+
+ # do something on exit that depends on the error status
+	on.exit({
+		if(success()) cat("Exit with no error: do nothing\n")
+		else cat("Exit with error: cleaning up the mess ...\n")
+	})
+
+ # throw an error here
+	if( err ) stop('There is an error')
+
+	success(1+1)
+}
+
+# without error
+f(FALSE)
+# with error
+try( f(TRUE) )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

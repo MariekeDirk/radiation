@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Alternative S4 Constructor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for new2 {pkgmaker}"><tr><td>new2 {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Alternative S4 Constructor</h2>
+
+<h3>Description</h3>
+
+<p>An alternative version of <code><a href="../../methods/html/new.html">new</a></code> to create
+objects based on a list of values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  new2(class, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>class</code></td>
+<td>
+<p>Class name to instanciate</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments from which slot values are
+extracted by exact matching of names.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+setClass('A', contain='character', representation(x='numeric', y='character'))
+
+# identical behaviour with standard calls
+identical(new('A'), new2('A'))
+identical(new('A', x=1), new2('A', x=1))
+
+# but if passing that are names not slots
+identical(new('A'), new2('A', b=1))
+identical(new('A', x=1), new2('A', x=1, b=3))
+identical(new('A', x=1), new2('A', x=1, b=3))
+
+# standard `new` would coerce first unnamed argument into parent of 'A' (i.e. 'character')
+new('A', list(x=1))
+new('A', list(x=1, y='other'))
+# `new2` rather use it to initialise the slots it can find in the list
+identical(new('A', x=1), new2('A', list(x=1)))
+identical(new('A', x=1, y='other'), new2('A', list(x=1, y='other')))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

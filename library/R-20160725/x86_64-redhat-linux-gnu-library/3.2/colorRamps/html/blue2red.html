@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Returns a gradient color map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for blue2red {colorRamps}"><tr><td>blue2red {colorRamps}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Returns a gradient color map</h2>
+
+<h3>Description</h3>
+
+<p><code>blue2red</code> makes a color map that runs from blue -&gt; cyan -&gt;
+yellow -&gt; red.
+<code>blue2green</code> makes a color map that runs from blue -&gt; magenta -&gt;
+yellow -&gt; green.
+<code>green2red</code> makes a color map that runs from green -&gt; cyan -&gt;
+magenta -&gt; red
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+blue2red(n)
+blue2green(n)
+green2red(n)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of colors</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These are double-ramp maps with a sharp transition from cooler colors 
+to
+warmer colors at the midpoint. With proper scaling, this will
+highlight the mean, median, etc.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A colormap
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tim Keitt &lt;tkeitt@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Keitt, T. H. (2008) Coherent ecological dynamics induced by large scale disturbance. <em>Nature</em> 454:331-334</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../grDevices/html/rgb.html">rgb</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+image(matrix(1:400, 20), col = blue2red(400))
+image(matrix(1:400, 20), col = blue2green(400))
+image(matrix(1:400, 20), col = green2red(400))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>colorRamps</em> version 2.3 <a href="00Index.html">Index</a>]</div>
+</body></html>

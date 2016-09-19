@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRecentChooserDialog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRecentChooserDialog {RGtk2}"><tr><td>GtkRecentChooserDialog {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRecentChooserDialog</h2>
+
+<h3>Description</h3>
+
+<p>Displays recently used files in a dialog</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRecentChooserDialogNew.html">gtkRecentChooserDialogNew</a>(title = NULL, parent = NULL, ..., show = TRUE)</code><br />
+<code><a href="gtkRecentChooserDialogNewForManager.html">gtkRecentChooserDialogNewForManager</a>(title = NULL, parent = NULL, manager, ..., show = TRUE)</code><br />
+<code>gtkRecentChooserDialog(title = NULL, parent = NULL, ..., show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkWindow
+                                       +----GtkDialog
+                                             +----GtkRecentChooserDialog</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRecentChooserDialog implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkRecentChooserDialog.html">GtkRecentChooserDialog</a></code> is a dialog box suitable for displaying the recently
+used documents.  This widgets works by putting a <code><a href="GtkRecentChooserWidget.html">GtkRecentChooserWidget</a></code> inside
+a <code><a href="GtkDialog.html">GtkDialog</a></code>.  It exposes the <code style="white-space: pre;">GtkRecentChooserIface</code> interface, so you can use
+all the <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code> functions on the recent chooser dialog as well as
+those for <code><a href="GtkDialog.html">GtkDialog</a></code>.
+</p>
+<p>Note that <code><a href="GtkRecentChooserDialog.html">GtkRecentChooserDialog</a></code> does not have any methods of its own.
+Instead, you should use the functions that work on a <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code>.
+</p>
+<p><em>Typical usage</em>
+</p>
+<pre>
+dialog &lt;- gtkRecentChooserDialog("Recent Documents", parent_window,
+                                 "gtk-cancel", GtkResponseType["cancel"],
+                                 "gtk-open", GtkResponseType["accept"])
+					
+if (dialog$run() == GtkResponseType["accept"])
+{
+  info &lt;- dialog$getCurrentItem()
+  open_file(info$getUri())
+}
+</pre>  
+<p>Recently used files are supported since GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRecentChooserDialog</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRecentChooserDialog</code> is the equivalent of <code><a href="gtkRecentChooserDialogNew.html">gtkRecentChooserDialogNew</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRecentChooserDialog.html">http://library.gnome.org/devel//gtk/GtkRecentChooserDialog.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code>
+<code><a href="GtkDialog.html">GtkDialog</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Write raster time Series data to a file</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for write.rts {rts}"><tr><td>write.rts {rts}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Write raster time Series data to a file</h2>
+
+<h3>Description</h3>
+
+<p>Write an entire (<code>Raster*TS</code>) object to a file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+write.rts(x, filename, overwrite=FALSE, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a raster time series (<code>Raster*TS</code>) object created by <code><a href="rts.html">rts</a></code> </p>
+</td></tr>
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>Output filename</p>
+</td></tr>
+<tr valign="top"><td><code>overwrite</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, &quot;filename&quot; will be overwritten if it exists </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments as for <code><a href="../../raster/html/writeRaster.html">writeRaster</a></code>:
+</p>
+<p><code>datatype </code> Character. utput data type (e.g. 'INT2S' or 'FLT4S'). See <code><a href="../../raster/html/dataType.html">dataType</a></code>. If no datatype is specified, 'FLT4S' is used.
+</p>
+<p><code>bandorder</code>: Character. 'BIL', 'BIP', or 'BSQ'.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function writes a raster time series object into a directory which named as is specified in the <code>filename</code> argument. To write the raster data, <code><a href="../../raster/html/writeRaster.html">writeRaster</a></code> in the package <span class="pkg">raster</span> is used. The function writes the time information into a separate ascii file.
+</p>
+
+
+<h3>Value</h3>
+
+<p>This function is used for writing values to a series of files.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Babak Naimi
+</p>
+<p><a href="mailto:naimi.b@gmail.com">naimi.b@gmail.com</a>
+</p>
+<p><a href="http://r-gis.net">http://r-gis.net</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="read.rts.html">read.rts</a></code>, <code><a href="../../raster/html/writeRaster.html">writeRaster</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+path &lt;- system.file("external", package="rts") # location of files
+
+lst &lt;- list.files(path=path,pattern='.asc$',full.names=TRUE)
+lst # list of raster files
+
+
+r &lt;- stack(lst) # creating a RasterStack object
+
+d &lt;- c("2000-02-01","2000-03-01","2000-04-01","2000-05-01") # corresponding dates to 4 rasters
+d &lt;- as.Date(d) # or d &lt;- as.POSIXct(d) 
+
+n &lt;- rts(r,as.Date(d)) # creating a RasterStackTS object
+
+write.rts(n,"nf") # writing n into the working directory
+
+rt &lt;- read.rts("nf") # reading nf from the working directory
+
+rt
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rts</em> version 1.0-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

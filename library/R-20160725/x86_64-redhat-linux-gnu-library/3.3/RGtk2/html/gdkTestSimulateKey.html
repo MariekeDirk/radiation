@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkTestSimulateKey</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkTestSimulateKey {RGtk2}"><tr><td>gdkTestSimulateKey {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkTestSimulateKey</h2>
+
+<h3>Description</h3>
+
+<p>This function is intended to be used in Gtk+ test programs.
+If (<code>x</code>,<code>y</code>) are &gt; (-1,-1), it will warp the mouse pointer to
+the given (<code>x</code>,<code>y</code>) corrdinates within <code>window</code> and simulate a
+key press or release event.
+When the mouse pointer is warped to the target location, use
+of this function outside of test programs that run in their
+own virtual windowing system (e.g. Xvfb) is not recommended.
+If (<code>x</code>,<code>y</code>) are passed as (-1,-1), the mouse pointer will not
+be warped and <code>window</code> origin will be used as mouse pointer
+location for the event.
+Also, <code>gtkTestSimulateKey()</code> is a fairly low level function,
+for most testing purposes, <code><a href="gtkTestWidgetSendKey.html">gtkTestWidgetSendKey</a></code> is the
+right function to call which will generate a key press event
+followed by its accompanying key release event.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkTestSimulateKey(window, x, y, keyval, modifiers, key.pressrelease)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">window</code></code></td>
+<td>
+<p>Gdk window to simulate a key event for.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>x coordinate within <code>window</code> for the key event.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>y coordinate within <code>window</code> for the key event.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keyval</code></code></td>
+<td>
+<p>A Gdk keyboard value.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">modifiers</code></code></td>
+<td>
+<p>Keyboard modifiers the event is setup with.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">key.pressrelease</code></code></td>
+<td>
+<p>either <code>GDK_KEY_PRESS</code> or <code>GDK_KEY_RELEASE</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] wether all actions neccessary for a key event simulation were carried out successfully.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

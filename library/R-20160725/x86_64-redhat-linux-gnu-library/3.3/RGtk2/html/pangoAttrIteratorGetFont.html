@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoAttrIteratorGetFont</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoAttrIteratorGetFont {RGtk2}"><tr><td>pangoAttrIteratorGetFont {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoAttrIteratorGetFont</h2>
+
+<h3>Description</h3>
+
+<p>Get the font and other attributes at the current iterator position.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoAttrIteratorGetFont(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Text-Attributes.html">PangoAttrIterator</a></code>]  a <code><a href="pango-Text-Attributes.html">PangoAttrIterator</a></code></p>
+</td></tr></table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">desc</code></code></td>
+<td>
+<p>[<code><a href="pango-Fonts.html">PangoFontDescription</a></code>]  a <code><a href="pango-Fonts.html">PangoFontDescription</a></code> to fill in with the current values.
+The family name in this structure will be set using
+<code><a href="pangoFontDescriptionSetFamilyStatic.html">pangoFontDescriptionSetFamilyStatic</a></code> using values from
+an attribute in the <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code> associated with the iterator,
+so if you plan to keep it around, you must call:
+<code>pango_font_description_set_family (desc, pango_font_description_get_family (desc))</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">language</code></code></td>
+<td>
+<p>[<code><a href="pango-Scripts-and-Languages.html">PangoLanguage</a></code>]  if non-<code>NULL</code>, location to store language tag for item, or <code>NULL</code>
+if none is found.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">extra.attrs</code></code></td>
+<td>
+<p>[list] element type Pango.Attribute): (transfer full. <acronym><span class="acronym">element type Pango.Attribute): (transfer</span></acronym> full. </p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

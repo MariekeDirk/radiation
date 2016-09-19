@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimation of Home Range by Clustering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for clusthr {adehabitat}"><tr><td>clusthr {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Estimation of Home Range by Clustering</h2>
+
+<h3>Description</h3>
+
+<p><code>clusthr</code> allows the estimation of the home range by clustering
+(see details).<br />
+<code>plot.clusthr</code> plots the results.<br />
+<code>clusthr.area</code> computes the home-range size for given percents of
+relocations included in the home range, and plots the results.<br />
+<code>getverticesclusthr</code> computes the coordinates of the vertices of
+the home ranges (<code>kver.rast</code> and <code>kver2shapefile</code> can be
+used to export the results toward GIS, see the help page of these
+functions).<br />
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+clusthr(xy, id = NULL)
+## S3 method for class 'clusthr'
+print(x, ...)
+## S3 method for class 'clusthr'
+plot(x, whi = names(x), pch = 21,
+             bgpts = "white", colpts = "black", cex = 0.7,
+             plotit = TRUE, colpol = "grey", ...)
+clusthr.area(x, percent = seq(20, 100, by = 5),
+             unin = c("m", "km"), unout = c("ha", "km2", "m2"),
+             plotit = TRUE)
+getverticesclusthr(x, whi = names(x), lev=95)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>a data frame with two columns containing the coordinates of
+the relocation of the monitored animals</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>a factor giving the identity of the animal for each
+relocation</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>clusthr</code> returned by the function
+<code>clusthr</code></p>
+</td></tr>
+<tr valign="top"><td><code>whi</code></td>
+<td>
+<p>a vector of character indicating the animals to be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>pch</code></td>
+<td>
+<p>either an integer specifying a symbol or a single character
+to be used as the default in plotting points.  See <code>points</code>
+for possible values and their interpretation.</p>
+</td></tr>
+<tr valign="top"><td><code>bgpts</code></td>
+<td>
+<p>background (&quot;fill&quot;) color for the open plot symbols given by
+<code>pch=21:25</code></p>
+</td></tr>
+<tr valign="top"><td><code>colpts</code></td>
+<td>
+<p>character. The color of the points</p>
+</td></tr>
+<tr valign="top"><td><code>cex</code></td>
+<td>
+<p>The size of the points (see <code>help(par)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+<p>logical.  Whether the plot should be drawn.</p>
+</td></tr>
+<tr valign="top"><td><code>colpol</code></td>
+<td>
+<p>a character string indicating the colors to be used. Can
+be set to <code>"grey"</code>, <code>"terrain.colors"</code>,
+<code>"heat.colors"</code>, <code>"cm.colors"</code>, or <code>NA</code></p>
+</td></tr>
+<tr valign="top"><td><code>percent,lev</code></td>
+<td>
+<p>100 minus the proportion of outliers to be excluded
+from the home range </p>
+</td></tr>
+<tr valign="top"><td><code>unin</code></td>
+<td>
+<p>the units of the relocations coordinates.  Either
+<code>"m"</code> (default) for
+meters or <code>"km"</code> for kilometers</p>
+</td></tr>
+<tr valign="top"><td><code>unout</code></td>
+<td>
+<p>the units of the output areas.  Either <code>"m2"</code> for
+square meters, <code>"km2"</code> for square kilometers or <code>"ha"</code> for
+hectares (default)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed to the functions
+<code>plot</code> and <code>print</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This method estimates home range using a modification of
+single-linkage cluster analysis developped by Kenward et
+al. (2001). The clustering process is described hereafter: the three
+locations with the minimum mean of nearest-neighbour joining distances
+(NNJD) form the first cluster. At each step, two distances are
+computed: (i) the minimum mean NNJD between three locations (which
+corresponds to the next potential cluster) and (ii) the minimum of the
+NNJD between a cluster &quot;c&quot; and the closest location.  If (i) is smaller
+that (ii), another cluster is defined with these three locations.
+If (ii) is smaller than (i), the cluster &quot;c&quot; gains a new location.  If
+this new location belong to another cluster, the two cluster
+fuses. The process stop when all relocations are assigned to the same
+cluster.<br />
+</p>
+<p>At each step of the clustering process, the proportion of all
+relocations which are assigned to a cluster is computed (so that the
+home range can be defined to enclose a given proportion of the
+relocations at hand, i.e. to an uncomplete process).
+At a given step, the home range is defined as
+the set of minimum convex polygon enclosing the relocations in the
+clusters.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>clusthr</code> returns a list of class <code>clusthr</code>. This list has one
+component per animal (named as the levels of argument <code>id</code>). Each
+component is itself a list, with the following sub-components: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>the animals' relocations</p>
+</td></tr>
+<tr valign="top"><td><code>results</code></td>
+<td>
+<p>a data.frame with three columns: <code>step</code>
+indicates the step number of the algorithm, <code>clust</code> corresponds
+to the cluster assigned to some relocations, and <code>reloc</code>
+indicates the relocation(s) which is (are) assigned to the cluster
+&quot;clust&quot; at step &quot;step&quot;</p>
+</td></tr>
+</table>
+<p><code>plot.clusthr</code> returns an invisible list (see <code>invisible</code>),
+with one component per animal.  Each component is itself a list with
+one component per step of the clustering process. At each step, an
+object of class <code>area</code> describes the home range of the animal
+</p>
+<p><code>clusthr.area</code> returns a data.frame of class <code>hrsize</code>, which
+can be plotted using the generic function <code>plot</code>.
+</p>
+<p><code>getverticesclusthr</code> returns a list of class <code>kver</code>, where each
+element is an object of class <code>area</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>References</h3>
+
+<p>Kenwward R.E., Clarke R.T., Hodder K.H. and Walls S.S. (2001) Density
+and linkage estimators of homre range: nearest neighbor clustering
+defines multinuclear cores. <em>Ecology</em>, <b>82</b>, 1905-1920.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="kver.html">kver</a></code> for further information on objects
+of class <code>kver</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+data(puechabon)
+lo&lt;-puechabon$locs[,c("X","Y")]
+
+## Home Range Estimation
+res &lt;- clusthr(lo, puechabon$locs$Name)
+
+## Displays the home range
+plot(res)
+
+## Computes the home range size
+clusthr.area(res)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

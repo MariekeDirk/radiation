@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Nee and May's optimizing process</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for optimEH {ade4}"><tr><td>optimEH {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Nee and May's optimizing process
+</h2>
+
+<h3>Description</h3>
+
+<p>performs Nee and May's optimizing scheme. When branch lengths in an ultrametric phylogenetic 
+tree are expressed as divergence times, the total sum of branch lengths in that 
+tree expresses the amount of evolutionary history. Nee and May's algorithm 
+optimizes the amount of evolutionary history preserved if only k species out 
+of n were to be saved. The k-1 closest-to-root nodes are selected, which 
+defines k clades; one species from each clade is picked. At this last step, 
+we decide to select the most original species of each from the k clades. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+optimEH(phyl, nbofsp, tol = 1e-8, give.list = TRUE) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>phyl</code></td>
+<td>
+<p>an object of class phylog</p>
+</td></tr>
+<tr valign="top"><td><code>nbofsp</code></td>
+<td>
+<p>an integer indicating the number of species saved (k).</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>a tolerance threshold for null values (a value less than <code>tol</code> in absolute terms is considered as NULL). </p>
+</td></tr>
+<tr valign="top"><td><code>give.list</code></td>
+<td>
+<p>logical value indicating whether a list of optimizing species should be provided. If <code>give.list = TRUE</code>, 
+<code>optimEH</code> provides the list of the k species which optimize the amount of evolutionary history preserved 
+and are the most original species in their clades. If <code>give.list = FALSE</code>, <code>optimEH</code> returns directly the real 
+value giving the amount of evolutionary history preserved.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list containing: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>a real value providing the amount of evolutionary history preserved.</p>
+</td></tr>
+<tr valign="top"><td><code>selected.sp</code></td>
+<td>
+<p>a data frame containing the list of the k species which optimize the amount of evolutionary history preserved 
+and are the most original species in their clades.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Sandrine Pavoine <a href="mailto:pavoine@mnhn.fr">pavoine@mnhn.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Nee, S. and May, R.M. (1997) Extinction and the loss of evolutionary history. <em>Science</em> 
+<b>278</b>, 692&ndash;694.
+</p>
+<p>Pavoine, S., Ollier, S. and Dufour, A.-B. (2005)  
+Is the originality of a species measurable? 
+<em>Ecology Letters</em>, <b>8</b>, 579&ndash;586.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="randEH.html">randEH</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(carni70)
+carni70.phy &lt;- newick2phylog(carni70$tre)
+optimEH(carni70.phy, nbofsp = 7, give.list = TRUE) 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

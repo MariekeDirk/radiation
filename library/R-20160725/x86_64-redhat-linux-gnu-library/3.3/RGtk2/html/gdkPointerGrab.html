@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPointerGrab</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPointerGrab {RGtk2}"><tr><td>gdkPointerGrab {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPointerGrab</h2>
+
+<h3>Description</h3>
+
+<p>Grabs the pointer (usually a mouse) so that all events are passed to this
+application until the pointer is ungrabbed with <code><a href="gdkPointerUngrab.html">gdkPointerUngrab</a></code>, or
+the grab window becomes unviewable.
+This overrides any previous pointer grab by this client.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPointerGrab(window, owner.events = FALSE, event.mask = 0, 
+    confine.to = NULL, cursor = NULL, time = "GDK_CURRENT_TIME")</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">window</code></code></td>
+<td>
+<p>the <code><a href="gdk-Windows.html">GdkWindow</a></code> which will own the grab (the grab window).</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">owner.events</code></code></td>
+<td>
+<p>if <code>FALSE</code> then all pointer events are reported with respect to
+<code>window</code> and are only reported if selected by <code>event.mask</code>. If <code>TRUE</code> then pointer
+events for this application are reported as normal, but pointer events outside
+this application are reported with respect to <code>window</code> and only if selected by
+<code>event.mask</code>. In either mode, unreported events are discarded.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">event.mask</code></code></td>
+<td>
+<p>specifies the event mask, which is used in accordance with
+<code>owner.events</code>. Note that only pointer events (i.e. button and motion events)
+may be selected.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">confine.to</code></code></td>
+<td>
+<p>If non-<code>NULL</code>, the pointer will be confined to this
+window during the grab. If the pointer is outside <code>confine.to</code>, it will
+automatically be moved to the closest edge of <code>confine.to</code> and enter
+and leave events will be generated as necessary.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cursor</code></code></td>
+<td>
+<p>the cursor to display while the grab is active. If this is <code>NULL</code> then
+the normal cursors are used for <code>window</code> and its descendants, and the cursor
+for <code>window</code> is used for all other windows.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">time</code></code></td>
+<td>
+<p>the timestamp of the event which led to this pointer grab. This usually
+comes from a <code><a href="gdk-Event-Structures.html">GdkEventButton</a></code> struct, though <code>GDK_CURRENT_TIME</code> can be used if
+the time isn't known.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Pointer grabs are used for operations which need complete control over mouse
+events, even if the mouse leaves the application.
+For example in GTK+ it is used for Drag and Drop, for dragging the handle in
+the <code><a href="GtkHPaned.html">GtkHPaned</a></code> and <code><a href="GtkVPaned.html">GtkVPaned</a></code> widgets, and for resizing columns in <code><a href="GtkCList.html">GtkCList</a></code>
+widgets.
+</p>
+<p>Note that if the event mask of an X window has selected both button press and
+button release events, then a button press event will cause an automatic
+pointer grab until the button is released.
+X does this automatically since most applications expect to receive button
+press and release events in pairs.
+It is equivalent to a pointer grab on the window with <code>owner.events</code> set to
+<code>TRUE</code>.
+</p>
+<p>If you set up anything at the time you take the grab that needs to be cleaned
+up when the grab ends, you should handle the <code><a href="gdk-Event-Structures.html">GdkEventGrabBroken</a></code> events that
+are emitted when the grab ends unvoluntarily.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-General.html">GdkGrabStatus</a></code>] <code>GDK_GRAB_SUCCESS</code> if the grab was successful.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

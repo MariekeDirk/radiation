@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkListStoreInsertWithValues</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkListStoreInsertWithValues {RGtk2}"><tr><td>gtkListStoreInsertWithValues {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkListStoreInsertWithValues</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new row at <code>position</code>.  <code>iter</code> will be changed to point to this new
+row.  If <code>position</code> is larger than the number of rows on the list, then the
+new row will be appended to the list. The row will be filled with the 
+values given to this function. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkListStoreInsertWithValues(object, position, ...)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkListStore.html">GtkListStore</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">position</code></code></td>
+<td>
+<p>position to insert the new row</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">...</code></code></td>
+<td>
+<p><em>undocumented
+</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Calling
+<code>gtk_list_store_insert_with_values(list_store, iter, position...)</code> 
+has the same effect as calling 
+</p>
+<pre>
+list_store$insert(iter, position)
+list_store$set(iter, ...)
+</pre>
+<p>with the difference that the former will only emit a row_inserted signal,
+while the latter will emit row_inserted, row_changed and, if the list store
+is sorted, rows_reordered. Since emitting the rows_reordered signal
+repeatedly can affect the performance of the program, 
+<code><a href="gtkListStoreInsertWithValues.html">gtkListStoreInsertWithValues</a></code> should generally be preferred when
+inserting rows in a sorted list store.
+Since 2.6</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">iter</code></code></td>
+<td>
+<p>An unset <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> to set to the new row, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

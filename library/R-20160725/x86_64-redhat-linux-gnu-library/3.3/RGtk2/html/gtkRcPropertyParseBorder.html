@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRcPropertyParseBorder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRcPropertyParseBorder {RGtk2}"><tr><td>gtkRcPropertyParseBorder {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRcPropertyParseBorder</h2>
+
+<h3>Description</h3>
+
+<p>A <code style="white-space: pre;">GtkRcPropertyParser</code> for use with <code><a href="gtkSettingsInstallPropertyParser.html">gtkSettingsInstallPropertyParser</a></code>
+or <code><a href="gtkWidgetClassInstallStylePropertyParser.html">gtkWidgetClassInstallStylePropertyParser</a></code> which parses
+borders in the form 
+<code>"{ left, right, top, bottom }"</code> for integers 
+<code>left</code>, <code>right</code>, <code>top</code> and <code>bottom</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRcPropertyParseBorder(pspec, gstring)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">pspec</code></code></td>
+<td>
+<p>a <code><a href="GParamSpec.html">GParamSpec</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">gstring</code></code></td>
+<td>
+<p>the <code style="white-space: pre;">character</code> to be parsed</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if <code>gstring</code> could be parsed and <code>property.value</code>
+has been set to the resulting <code><a href="GtkStyle.html">GtkBorder</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">property.value</code></code></td>
+<td>
+<p>a <code style="white-space: pre;">R object</code> which must hold boxed values.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

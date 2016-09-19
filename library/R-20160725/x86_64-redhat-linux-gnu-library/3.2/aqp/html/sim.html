@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Simulate Soil Profiles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sim {aqp}"><tr><td>sim {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Simulate Soil Profiles</h2>
+
+<h3>Description</h3>
+
+<p>Simulate a collection of soil profiles based on the horizonation of a single soil profile.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+	sim(x, n=1, iterations=25, hz.sd=2, min.thick=2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a SoilProfileCollection object containing a single profile from which to draw simulated data</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>the number of requested simulations</p>
+</td></tr>
+<tr valign="top"><td><code>iterations</code></td>
+<td>
+<p>sampling iterations used to determine each horizon thickness</p>
+</td></tr>
+<tr valign="top"><td><code>hz.sd</code></td>
+<td>
+<p>standard deviation used to simulate horizon thickness, can be a vector but must divide evenly into the number of horizons found in <code>x</code></p>
+</td></tr>
+<tr valign="top"><td><code>min.thick</code></td>
+<td>
+<p>minumum horizon thickness allowed in simulation results</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function generates a collection of simulated soil profiles based on the horizon thickness data associated with a single &quot;template&quot; profile. Simulation is based on sampling from a family of gaussian distribution with means defined by the &quot;template&quot; profile and standard deviation defined by the user.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A SoilProfileCollection object with <code>n</code> simulated profiles, each containing the same number of horizons and same data as <code>x</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>D. E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="random_profile.html">random_profile</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load sample data and convert into SoilProfileCollection
+data(sp3)
+depths(sp3) &lt;- id ~ top + bottom
+
+# select a profile to use as the basis for simulation
+s &lt;- sp3[3, ]
+
+# reset horizon names
+s$name &lt;- paste('H', seq_along(s$name), sep='')
+
+# simulate 25 new profiles, using 's' and function defaults
+sim.1 &lt;- sim(s, n=25)
+
+# simulate 25 new profiles using 's' and variable SD for each horizon
+sim.2 &lt;- sim(s, n=25, hz.sd=c(1, 2, 5, 5, 5, 10, 2))
+
+# plot
+par(mfrow=c(2,1), mar=c(0, 0, 0, 0))
+plot(sim.1)
+mtext('SD = 2', side=2, line=-1.5, font=2, cex=0.75)
+plot(sim.2)
+mtext('SD = c(1, 2, 5, 5, 5, 10, 2)', side=2, line=-1.5, font=2, cex=0.75)
+
+# aggregate horizonation of simulated data
+# note: set class_prob_mode=2 as profiles were not defined to a constant depth
+sim.2$name &lt;- factor(sim.2$name)
+a &lt;- slab(sim.2, ~ name, class_prob_mode=2)
+
+# convert to long format for plotting simplicity
+library(reshape)
+a.long &lt;- melt(a, id.vars=c('top','bottom'), measure.vars=levels(sim.2$name))
+
+# plot horizon probabilities derived from simulated data
+# dashed lines are the original horizon boundaries
+library(lattice)
+xyplot(top ~ value, groups=variable, data=a.long, subset=value &gt; 0,
+ylim=c(100, -5), type=c('l','g'), asp=1.5,
+ylab='Depth (cm)', xlab='Probability', 
+auto.key=list(columns=4, lines=TRUE, points=FALSE),
+panel=function(...) {
+panel.xyplot(...)
+panel.abline(h=s$top, lty=2, lwd=2)
+})
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.3 <a href="00Index.html">Index</a>]</div>
+</body></html>

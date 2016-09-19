@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gVolumeMonitorAdoptOrphanMount</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gVolumeMonitorAdoptOrphanMount {RGtk2}"><tr><td>gVolumeMonitorAdoptOrphanMount {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gVolumeMonitorAdoptOrphanMount</h2>
+
+<h3>Description</h3>
+
+<p>This function should be called by any <code><a href="GVolumeMonitor.html">GVolumeMonitor</a></code>
+implementation when a new <code><a href="GMount.html">GMount</a></code> object is created that is not
+associated with a <code><a href="GVolume.html">GVolume</a></code> object. It must be called just before
+emitting the <code>mount.added</code> signal.
+<strong>WARNING: <code>g_volume_monitor_adopt_orphan_mount</code> has been deprecated since version 2.20 and should not be used in newly-written code. Instead of using this function, <code><a href="GVolumeMonitor.html">GVolumeMonitor</a></code>
+implementations should instead create shadow mounts with the URI of
+the mount they intend to adopt. See the proxy volume monitor in
+gvfs for an example of this. Also see <code><a href="gMountIsShadowed.html">gMountIsShadowed</a></code>,
+<code><a href="gMountShadow.html">gMountShadow</a></code> and <code><a href="gMountUnshadow.html">gMountUnshadow</a></code> functions.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gVolumeMonitorAdoptOrphanMount(mount)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">mount</code></code></td>
+<td>
+<p>a <code><a href="GMount.html">GMount</a></code> object to find a parent for</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>If the return value is not <code>NULL</code>, the caller must associate the
+returned <code><a href="GVolume.html">GVolume</a></code> object with the <code><a href="GMount.html">GMount</a></code>. This involves returning
+it in its <code><a href="gMountGetVolume.html">gMountGetVolume</a></code> implementation. The caller must
+also listen for the &quot;removed&quot; signal on the returned object
+and give up its reference when handling that signal
+</p>
+<p>Similary, if implementing <code><a href="gVolumeMonitorAdoptOrphanMount.html">gVolumeMonitorAdoptOrphanMount</a></code>,
+the implementor must take a reference to <code>mount</code> and return it in
+its <code><a href="gVolumeGetMount.html">gVolumeGetMount</a></code> implemented. Also, the implementor must
+listen for the &quot;unmounted&quot; signal on <code>mount</code> and give up its
+reference upon handling that signal.
+</p>
+<p>There are two main use cases for this function.
+</p>
+<p>One is when implementing a user space file system driver that reads
+blocks of a block device that is already represented by the native
+volume monitor (for example a CD Audio file system driver). Such
+a driver will generate its own <code><a href="GMount.html">GMount</a></code> object that needs to be
+assoicated with the <code><a href="GVolume.html">GVolume</a></code> object that represents the volume.
+</p>
+<p>The other is for implementing a <code><a href="GVolumeMonitor.html">GVolumeMonitor</a></code> whose sole purpose
+is to return <code><a href="GVolume.html">GVolume</a></code> objects representing entries in the users
+&quot;favorite servers&quot; list or similar.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GVolume.html">GVolume</a></code>] the <code><a href="GVolume.html">GVolume</a></code> object that is the parent for <code>mount</code> or <code>NULL</code>
+if no wants to adopt the <code><a href="GMount.html">GMount</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

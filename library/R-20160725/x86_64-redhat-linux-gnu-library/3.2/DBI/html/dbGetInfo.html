@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get DBMS metadata.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dbGetInfo {DBI}"><tr><td>dbGetInfo {DBI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get DBMS metadata.</h2>
+
+<h3>Description</h3>
+
+<p>Get DBMS metadata.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dbGetInfo(dbObj, ...)
+
+## S4 method for signature 'DBIResult'
+dbGetInfo(dbObj, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dbObj</code></td>
+<td>
+<p>An object inheriting from <code><a href="DBIObject-class.html">DBIObject</a></code>,
+i.e. <code><a href="DBIDriver-class.html">DBIDriver</a></code>, <code><a href="DBIConnection-class.html">DBIConnection</a></code>,
+or a <code><a href="DBIResult-class.html">DBIResult</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Other arguments to methods.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a named list
+</p>
+
+
+<h3>Implementation notes</h3>
+
+<p>For <code>DBIDriver</code> subclasses, this should include the version of the
+package (<code>driver.version</code>), the version of the underlying client
+library (<code>client.version</code>), and the maximum number of connections
+(<code>max.connections</code>).
+</p>
+<p>For <code>DBIConnection</code> objects this should report the version of
+the DBMS engine (<code>db.version</code>), database name (<code>dbname</code>),
+username, (<code>username</code>), host (<code>host</code>), port (<code>port</code>), etc.
+It MAY also include any other arguments related to the connection
+(e.g., thread id, socket or TCP connection type). It MUST NOT include the
+password.
+</p>
+<p>For <code>DBIResult</code> objects, this should include the statement
+being executed (<code>statement</code>), how many rows have been fetched so far
+(in the case of queries, <code>row.count</code>), how many rows were affected
+(deleted, inserted, changed,
+(<code>rows.affected</code>), and if the query is complete (<code>has.completed</code>).
+</p>
+<p>The default implementation for <code>DBIResult objects</code>
+constructs such a list from the return values of the corresponding methods,
+<code><a href="dbGetStatement.html">dbGetStatement</a></code>, <code><a href="dbGetRowCount.html">dbGetRowCount</a></code>,
+<code><a href="dbGetRowsAffected.html">dbGetRowsAffected</a></code>, and <code><a href="dbHasCompleted.html">dbHasCompleted</a></code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other DBObject methods: <code><a href="dbIsValid.html">dbIsValid</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>DBI</em> version 0.4-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

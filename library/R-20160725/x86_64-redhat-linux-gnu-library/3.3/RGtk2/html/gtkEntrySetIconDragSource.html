@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkEntrySetIconDragSource</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkEntrySetIconDragSource {RGtk2}"><tr><td>gtkEntrySetIconDragSource {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkEntrySetIconDragSource</h2>
+
+<h3>Description</h3>
+
+<p>Sets up the icon at the given position so that GTK+ will start a drag
+operation when the user clicks and drags the icon.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkEntrySetIconDragSource(object, icon.pos, target.list, actions)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code style="white-space: pre;">GtkIconEntry</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">icon.pos</code></code></td>
+<td>
+<p>icon position</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">target.list</code></code></td>
+<td>
+<p>the targets (data formats) in which the data can be provided</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">actions</code></code></td>
+<td>
+<p>a bitmask of the allowed drag actions</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>To handle the drag operation, you need to connect to the usual
+<code style="white-space: pre;">"drag-data-get"</code> (or possibly <code style="white-space: pre;">"drag-data-delete"</code>)
+signal, and use <code><a href="gtkEntryGetCurrentIconDragSource.html">gtkEntryGetCurrentIconDragSource</a></code> in
+your signal handler to find out if the drag was started from
+an icon.
+</p>
+<p>By default, GTK+ uses the icon as the drag icon. You can use the 
+<code style="white-space: pre;">"drag-begin"</code> signal to set a different icon. Note that you 
+have to use <code>gSignalConnectAfter()</code> to ensure that your signal handler
+gets executed after the default handler.
+Since 2.16</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

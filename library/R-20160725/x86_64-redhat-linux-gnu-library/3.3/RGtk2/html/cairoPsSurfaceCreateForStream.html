@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoPsSurfaceCreateForStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoPsSurfaceCreateForStream {RGtk2}"><tr><td>cairoPsSurfaceCreateForStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoPsSurfaceCreateForStream</h2>
+
+<h3>Description</h3>
+
+<p>Creates a PostScript surface of the specified size in points to be
+written incrementally to the stream represented by <code>write.func</code> and
+<code>closure</code>. See <code><a href="cairoPsSurfaceCreate.html">cairoPsSurfaceCreate</a></code> for a more convenient way
+to simply direct the PostScript output to a named file.</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoPsSurfaceCreateForStream(write.func, closure, width.in.points, 
+    height.in.points)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">write.func</code></code></td>
+<td>
+<p>[<code><a href="cairoWriteFunc.html">CairoWriteFunc</a></code>]  a <code><a href="cairoWriteFunc.html">CairoWriteFunc</a></code> to accept the output data, may be <code>NULL</code>
+to indicate a no-op <code>write.func</code>. With a no-op <code>write.func</code>,
+the surface may be queried or used as a source without
+generating any temporary files.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">closure</code></code></td>
+<td>
+<p>[R object]  the closure argument for <code>write.func</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width.in.points</code></code></td>
+<td>
+<p>[numeric]  width of the surface, in points (1 point == 1/72.0 inch)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height.in.points</code></code></td>
+<td>
+<p>[numeric]  height of the surface, in points (1 point == 1/72.0 inch)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that the size of individual pages of the PostScript
+output can vary. See <code><a href="cairoPsSurfaceSetSize.html">cairoPsSurfaceSetSize</a></code>.  
+Since 1.2</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="cairo-surface.html">CairoSurface</a></code>]  a pointer to the newly created surface. The caller
+owns the surface and should call <code><a href="cairoSurfaceDestroy.html">cairoSurfaceDestroy</a></code> when done
+with it.
+This function always returns a valid pointer, but it will return a
+pointer to a &quot;nil&quot; surface if an error such as out of memory
+occurs. You can use <code><a href="cairoSurfaceStatus.html">cairoSurfaceStatus</a></code> to check for this.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

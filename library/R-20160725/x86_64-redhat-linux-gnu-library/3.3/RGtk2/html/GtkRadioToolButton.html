@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRadioToolButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRadioToolButton {RGtk2}"><tr><td>GtkRadioToolButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRadioToolButton</h2>
+
+<h3>Description</h3>
+
+<p>A toolbar item that contains a radio button</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRadioToolButtonNew.html">gtkRadioToolButtonNew</a>(group = NULL, show = TRUE)</code><br />
+<code><a href="gtkRadioToolButtonNewFromStock.html">gtkRadioToolButtonNewFromStock</a>(group = NULL, stock.id, show = TRUE)</code><br />
+<code><a href="gtkRadioToolButtonNewFromWidget.html">gtkRadioToolButtonNewFromWidget</a>(group = NULL, show = TRUE)</code><br />
+<code><a href="gtkRadioToolButtonNewWithStockFromWidget.html">gtkRadioToolButtonNewWithStockFromWidget</a>(group = NULL, stock.id, show = TRUE)</code><br />
+<code><a href="gtkRadioToolButtonGetGroup.html">gtkRadioToolButtonGetGroup</a>(object)</code><br />
+<code><a href="gtkRadioToolButtonSetGroup.html">gtkRadioToolButtonSetGroup</a>(object, group)</code><br />
+<code>gtkRadioToolButton(group = NULL, stock.id, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkToolItem
+                                       +----GtkToolButton
+                                             +----GtkToggleToolButton
+                                                   +----GtkRadioToolButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRadioToolButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code> is a <code><a href="GtkToolItem.html">GtkToolItem</a></code> that contains a radio button,
+that is, a button that is part of a group of toggle buttons where only
+one button can be active at a time.
+</p>
+<p>Use <code><a href="gtkRadioToolButtonNew.html">gtkRadioToolButtonNew</a></code> to create a new
+<code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code>. use <code><a href="gtkRadioToolButtonNewFromWidget.html">gtkRadioToolButtonNewFromWidget</a></code> to
+create a new <code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code> that is part of the same group as an
+existing <code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code>. Use
+<code><a href="gtkRadioToolButtonNewFromStock.html">gtkRadioToolButtonNewFromStock</a></code> or
+<code>gtkRadioToolButtonNewFromWidgetWithStock()</code> to create a new
+<code style="white-space: pre;">GtkRAdioToolButton</code> containing a stock item.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRadioToolButton</code></dt><dd>
+<p>The <code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code> contains only private data and should only
+be accessed through the functions described below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRadioToolButton</code> is the result of collapsing the constructors of <code>GtkRadioToolButton</code> (<code><a href="gtkRadioToolButtonNew.html">gtkRadioToolButtonNew</a></code>, <code><a href="gtkRadioToolButtonNewFromStock.html">gtkRadioToolButtonNewFromStock</a></code>, <code><a href="gtkRadioToolButtonNewFromWidget.html">gtkRadioToolButtonNewFromWidget</a></code>, <code><a href="gtkRadioToolButtonNewWithStockFromWidget.html">gtkRadioToolButtonNewWithStockFromWidget</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">group</code> [<code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code> : *   : Write]</dt><dd>
+<p>Sets a new group for a radio tool button.
+Since 2.4
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRadioToolButton.html">http://library.gnome.org/devel//gtk/GtkRadioToolButton.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

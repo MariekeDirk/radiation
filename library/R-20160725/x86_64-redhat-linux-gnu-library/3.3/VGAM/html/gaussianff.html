@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Gaussian (Normal) Family Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gaussianff {VGAM}"><tr><td>gaussianff {VGAM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Gaussian (Normal) Family Function </h2>
+
+<h3>Description</h3>
+
+<p>Fits a generalized linear model to a response with Gaussian (normal)
+errors.  The dispersion parameter may be known or unknown.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gaussianff(dispersion = 0, parallel = FALSE, zero = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>parallel</code></td>
+<td>
+
+<p>A logical or formula. If a formula, the response of the formula should
+be a logical and the terms of the formula indicates whether or not
+those terms are parallel.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dispersion</code></td>
+<td>
+
+<p>Dispersion parameter.
+If 0 then it is estimated and the moment estimate is put in
+<code>object@misc$dispersion</code>; it is assigned the value
+</p>
+<p style="text-align: center;"><i>
+          sum_{i=1}^n    (y_i -  eta_i)^T W_i (y_i - &eta;_i) / (nM-p) </i></p>
+
+<p>where <i>p</i> is the total number of parameters estimated
+(for RR-VGLMs the value used is the number of columns in the large
+<i>X</i> model matrix; this may not be correct).
+If the argument is assigned a positive quantity then it is assumed to
+be known with that value.
+</p>
+
+
+
+
+
+</td></tr>
+<tr valign="top"><td><code>zero</code></td>
+<td>
+
+<p>An integer-valued vector specifying which linear/additive predictors
+are modelled as intercepts only.  The values must be from the set
+{1,2,...,<i>M</i>} where <i>M</i> is the number of columns of the
+matrix response.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is usually used in conjunction with <code><a href="vglm.html">vglm</a></code>, else
+<code>vlm</code> is recommended instead.  
+The notation <i>M</i> is used to denote the number of
+linear/additive predictors.
+This function can handle any finite <i>M</i>, and the default is to
+use ordinary least squares.
+A vector linear/additive model can be fitted by minimizing
+</p>
+<p style="text-align: center;"><i>
+          sum_{i=1}^n    (y_i -  eta_i)^T W_i (y_i - &eta;_i) </i></p>
+
+<p>where <i>y_i</i> is a <i>M</i>-vector,
+<i>eta_i</i> is the vector of linear/additive predictors.
+The <i>W_i</i> is any positive-definite matrix, and the default is the
+order-<i>M</i> identity matrix.
+The <i>W_i</i> can be inputted using the <code>weights</code> argument of
+<code>vlm</code>/<code><a href="vglm.html">vglm</a></code>/<code><a href="vgam.html">vgam</a></code> etc., and the
+format is the <em>matrix-band</em> format whereby it is a <i>n * A</i> matrix with the diagonals are passed first, followed by next
+the upper band, all the way to the <i>(1,M)</i> element. Here, <i>A</i>
+has maximum value of <i>M(M+1)/2</i> and a minimum value of <i>M</i>.
+Usually the <code>weights</code> argument of
+<code>vlm</code>/<code><a href="vglm.html">vglm</a></code>/<code><a href="vgam.html">vgam</a></code>/<code><a href="rrvglm.html">rrvglm</a></code>
+is just a vector,
+in which case each element is multiplied by a order-<i>M</i>
+identity matrix.
+If in doubt, type something like <code>weights(object, type="working")</code>
+after the model has been fitted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"vglmff"</code> (see <code><a href="vglmff-class.html">vglmff-class</a></code>).
+The object is used by modelling functions such as <code><a href="vglm.html">vglm</a></code>,
+<code><a href="rrvglm.html">rrvglm</a></code>
+and <code><a href="vgam.html">vgam</a></code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This <span class="pkg">VGAM</span> family function is supposed to be similar to
+<code><a href="../../stats/html/gaussian.html">gaussian</a></code> but is is not compatible with
+<code><a href="../../stats/html/glm.html">glm</a></code>.
+The <code>"ff"</code> in the name is added to avoid any masking problems.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Thomas W. Yee </p>
+
+
+<h3>References</h3>
+
+<p>McCullagh, P. and Nelder, J. A. (1989)
+<em>Generalized Linear Models</em>, 2nd ed. London: Chapman &amp; Hall.
+</p>
+<p>Yee, T. W. and Wild, C. J. (1996)
+Vector generalized additive models.
+<em>Journal of the Royal Statistical Society, Series B, Methodological</em>,
+<b>58</b>, 481&ndash;493.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="uninormal.html">uninormal</a></code>,
+<code><a href="huber.html">huber2</a></code>,
+<code><a href="lqnorm.html">lqnorm</a></code>,
+<code><a href="binormal.html">binormal</a></code>,
+<code><a href="SURff.html">SURff</a></code>.
+<code>vlm</code>,
+<code><a href="vglm.html">vglm</a></code>,
+<code><a href="vgam.html">vgam</a></code>,
+<code><a href="rrvglm.html">rrvglm</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+gdata &lt;- data.frame(x2 = sort(runif(n &lt;- 40)))
+gdata &lt;- transform(gdata, y1 = 1 + 2*x2 + rnorm(n, sd = 0.1),
+                          y2 = 3 + 4*x2 + rnorm(n, sd = 0.1),
+                          y3 = 7 + 4*x2 + rnorm(n, sd = 0.1))
+fit &lt;- vglm(cbind(y1,y2) ~ x2, gaussianff, data = gdata)
+coef(fit, matrix = TRUE)
+
+# For comparison:
+coef( lmfit &lt;-  lm(y1 ~ x2, data = gdata))
+coef(glmfit &lt;- glm(y2 ~ x2, data = gdata, gaussian))
+vcov(fit)
+vcov(lmfit)
+
+t(weights(fit, type = "prior"))       # Unweighted observations
+head(weights(fit, type = "working"))  # Identity matrices
+
+# Reduced-rank VLM (rank-1)
+fit2 &lt;- rrvglm(cbind(y1, y2, y3) ~ x2, gaussianff, data = gdata)
+Coef(fit2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>VGAM</em> version 1.0-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Functions for handling ASN.1 format (typically DER)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ASN1 {PKI}"><tr><td>ASN1 {PKI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Functions for handling ASN.1 format (typically DER)
+</h2>
+
+<h3>Description</h3>
+
+<p><code>ASN1.decode</code> decodes <code>ASN.1</code> binary format into
+raw format chunks tagged with class types.
+</p>
+<p><code>ASN1.encode</code> converts structured objects into
+<code>ASN.1</code> binary format.
+</p>
+<p><code>ASN1.item</code> creates an item - basic object in
+structures that can be encoded using <code>ASN1.encode</code>.
+</p>
+<p><code>ASN1.type</code> extracts the class type from an
+<code>ASN.1</code> item
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ASN1.decode(what)
+ASN1.encode(what)
+ASN1.item(what, type)
+ASN1.type(what)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>what</code></td>
+<td>
+<p>object to decode/encode/query</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>class type of the item (integer value)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a suite of low-level tools to deal with ASN.1 (Abstract Syntax
+Notation One) binary formats DER, BER and CER. The tools were written
+specifically to handle the various DER-encoded key structures so it
+provides only a subset of the ASN.1 specification. They are used
+internally by the <code>PKI</code> poackage.
+</p>
+<p><code>ASN1.decode</code> decodes the binary representation (as raw vector)
+into individual items. Sequences are convered into lists, all other
+objects are retained in their binary form and tagged with the integer
+class type - which can be obtained using <code>ASN1.type</code> function.
+</p>
+<p><code>ASN1.encode</code> expects item (or a list of items) either created
+using <code>ASN1.decode</code> or <code>ASN1.item</code> and converts them into
+<code>DER</code> binary format.
+</p>
+<p>The result of <code>ASN1.encode(ASN1.decode(x))</code> will be <code>x</code> if
+<code>x</code> was in <code>DER</code> format.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>ASN1.decode</code> returns either one item or a list.
+</p>
+<p><code>ASN1.encode</code> returns a raw vector in DER format.
+</p>
+<p><code>ASN1.type</code> returns an integer class type
+</p>
+<p><code>ASN1.item</code> returns an ASN.1 item object
+</p>
+
+
+<h3>Note</h3>
+
+<p><code>ASN1.encode</code> uses a fixed buffer for encoding which currently
+limits the total size of the resulting structure to 1MB.
+</p>
+<p>Only definite length forms are supported. The validity of individual
+items is not checked.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simon Urbanek
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# generate a small key
+key &lt;- PKI.genRSAkey(bits = 512L)
+
+# extract private and public parts in DER format
+prv &lt;- PKI.save.key(key, format="DER")
+pub &lt;- PKI.save.key(key, private=FALSE, format="DER")
+
+# parse the public key
+x &lt;- ASN1.decode(pub)
+x
+# the second element is the actual key
+# as a bit string that's itself in DER
+# two integers - modulus and exponent
+# Note that this is in fact the pure PKCS#1 key format
+ASN1.decode(x[[2]])
+
+# encoding it back should yield the same representation since it is DER
+stopifnot(identical(ASN1.encode(x), as.raw(pub)))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>PKI</em> version 0.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

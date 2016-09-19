@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Concatenating NMF Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for c,NMF-method {NMF}"><tr><td>c,NMF-method {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Concatenating NMF Models</h2>
+
+<h3>Description</h3>
+
+<p>Binds compatible matrices and NMF models together.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  ## S4 method for signature 'NMF'
+c(x, ..., margin = 3, recursive = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an NMF model</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other objects to concatenate. Currently only
+two objects at a time can be concatenated (i.e. <code>x</code>
+and <code>..1</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>margin</code></td>
+<td>
+<p>integer that indicates the margin along
+which to concatenate (only used when <code>..1</code> is a
+matrix): </p>
+ <dl>
+<dt>1L</dt><dd></dd> <dt>2L</dt><dd></dd> <dt>3L</dt><dd></dd>
+<dt>4L</dt><dd></dd> </dl>
+<p> If missing the margin is heuristically
+determined by looking at common dimensions between the
+objects.</p>
+</td></tr>
+<tr valign="top"><td><code>recursive</code></td>
+<td>
+<p>logical.  If <code>recursive = TRUE</code>,
+the function recursively descends through lists (and
+pairlists) combining all their elements into a vector.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

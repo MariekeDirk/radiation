@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkHypertext</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkHypertext {RGtk2}"><tr><td>AtkHypertext {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkHypertext</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface which provides standard mechanism for manipulating hyperlinks.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkHypertextGetLink.html">atkHypertextGetLink</a>(object, link.index)</code><br />
+<code><a href="atkHypertextGetNLinks.html">atkHypertextGetNLinks</a>(object)</code><br />
+<code><a href="atkHypertextGetLinkIndex.html">atkHypertextGetLinkIndex</a>(object, char.index)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkHypertext</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkHypertext is implemented by
+<code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>An interface used for objects which implement linking between multiple
+resource or content locations, or multiple 'markers' within a single
+document.  A Hypertext instance is associated with one or more Hyperlinks,
+which are associated with particular offsets within the Hypertext's included
+content.  While this interface is derived from Text, there is no requirement that Hypertext instances have textual content; they may implement Image as well, and Hyperlinks need not have non-zero text offsets.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkHypertext</code></dt><dd>
+<p>The AtkHypertext structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>link-selected(atkhypertext, arg1, user.data)</code></dt><dd>
+<p>The &quot;link-selected&quot; signal is emitted by an AtkHyperText object when one of
+the hyperlinks associated with the object is selected.
+</p>
+
+<dl>
+<dt><code>atkhypertext</code></dt><dd><p>[<code><a href="AtkHypertext.html">AtkHypertext</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[integer] the index of the hyperlink which is selected</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkHypertext.html">http://library.gnome.org/devel//atk/AtkHypertext.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

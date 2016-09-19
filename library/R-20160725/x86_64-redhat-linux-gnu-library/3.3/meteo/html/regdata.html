@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Dynamic and static covariates for spatio-temporal regression...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for regdata {meteo}"><tr><td>regdata {meteo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Dynamic and static covariates for spatio-temporal regression kriging</h2>
+
+<h3>Description</h3>
+
+<p>Dynamic and static covariates for spatio-temporal regression kriging of <a href="../../spacetime/html/STFDF-class.html">STFDF-class</a>. The <code>regdata</code> contains geometrical temperature trend, MODIS LST 8-day splined at daily resolution, elevation and topographic wetness index. </p>
+
+
+<h3>Usage</h3>
+
+<pre>data(regdata)</pre>
+
+
+<h3>Format</h3>
+
+<p>The <code>regdata</code> contains the following dynamic and static covariates:
+</p>
+
+<dl>
+<dt><code>regdata$temp_geo</code></dt><dd><p>numeric; geometrical temperature trend for mean temperature, calculated with <code><a href="tgeom2STFDF.html">tgeom2STFDF</a></code> ; from 2011-07-05 to 2011-07-09, in degree Celsius  </p>
+</dd>
+<dt><code>regdata$modis</code></dt><dd><p>numeric;  MODIS LST 8-day splined at daily resolution, missing pixels are filtered by spatial splines and 8-day values are splined at daily level; from 2011-07-05 to 2011-07-09, in degree Celsius  </p>
+</dd>
+<dt><code>regdata@sp$dem</code></dt><dd><p>numeric; elevation data obtained from Worldgrids (<a href="http://worldgrids.org/">http://worldgrids.org/</a>)</p>
+</dd>
+<dt><code>regdata@sp$twi</code></dt><dd><p>numeric; SAGA Topographic Wetness Index (TWI) from Worldgrids (<a href="http://worldgrids.org/">http://worldgrids.org/</a>)</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Milan Kilibarda <a href="mailto:kili@grf.bg.ac.rs">kili@grf.bg.ac.rs</a></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(regdata)
+str(regdata)
+library(sp) # spplot
+library(spacetime) # stplot
+
+stplot(regdata[,,'modis']) # plot modis data
+
+spplot(regdata@sp,zcol='twi', col.regions = bpy.colors() ) # plot TWI
+
+spplot(regdata@sp,zcol='dem', col.regions = bpy.colors() ) # plot dem
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>meteo</em> version 0.1-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

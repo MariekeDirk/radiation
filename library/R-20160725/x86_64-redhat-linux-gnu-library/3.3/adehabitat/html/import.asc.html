@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Arcview ASCII Raster File Importation And Exportation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for import.asc {adehabitat}"><tr><td>import.asc {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Arcview ASCII Raster File Importation And Exportation </h2>
+
+<h3>Description</h3>
+
+<p><code>import.asc</code> imports ESRI ArcInfo ASCII raster file ; conversely,
+<code>export.asc</code> allows to export an asc object to a ESRI ArcInfo ASCII
+raster file.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+import.asc(file, type = c("numeric", "factor"), lev = NULL,
+           levnb = 1, labnb = 3)
+export.asc(x, file)
+as.asc(x, xll = 1, yll = 1, cellsize = 1, type = c("numeric", "factor"),
+       lev = levels(factor(x)))
+## S3 method for class 'asc'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>a character string. The name of an Arcview ASCII Raster file</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>a character string. Either <code>"numeric"</code> or <code>"factor"</code></p>
+</td></tr>
+<tr valign="top"><td><code>lev</code></td>
+<td>
+<p>if <code>type = "factor"</code>, either a vector giving the
+labels of the factor levels, or the name of a file giving the
+correspondence table of the map (see details)</p>
+</td></tr>
+<tr valign="top"><td><code>levnb</code></td>
+<td>
+<p>if <code>lev</code> is the name of a file containing a
+correspondence table exported from Arcview, the column number in
+this table where the factor levels are stored (i.e. the numbers indicating
+the levels of the factor)</p>
+</td></tr>
+<tr valign="top"><td><code>labnb</code></td>
+<td>
+<p>if <code>lev</code> is the name of a file containing a
+correspondence table exported from Arcview, the column number in
+this table where the factor labels are stored (i.e. the character
+strings indicating the labels associated with each level of the factor)</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix of class <code>asc</code>.  For the function <code>as.asc</code>, a
+matrix</p>
+</td></tr>
+<tr valign="top"><td><code>xll</code></td>
+<td>
+<p>the x coordinate of the center of the lower left pixel of the map</p>
+</td></tr>
+<tr valign="top"><td><code>yll</code></td>
+<td>
+<p>the y coordinate of the center of the lower left pixel of the map</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>the size of a pixel on the studied map</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additionnal arguments to be passed to the function
+<code>print</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>With Arcview 3.x: ASCII raster files are created using the command
+<code>"File -&gt; Export data source"</code><br />
+With Arcview 8/9: ASCII raster files are created by the command
+<code>"Arc Toolbox -&gt; Conversion tools -&gt; From raster -&gt; Raster to
+    ASCII"</code>.<br />
+With GRASS, the best way to import a raster map within R is to use the
+package <code>spgrass6</code>, and then to use the function
+<code>spixdf2kasc</code> to convert the files to format that can be managed
+by adehabitat.<br />
+ASCII raster files may also be created using other free programs, such
+as landserf (<a href="http://www.soi.city.ac.uk/~jwo/landserf/">http://www.soi.city.ac.uk/~jwo/landserf/</a>).<br />
+</p>
+<p>Raster maps are stored as matrices of class <code>asc</code> with
+adehabitat. They may be of type <code>"numeric"</code> (e.g. elevation on an
+area) or <code>"factor"</code> (e.g. the type of vegetation on an area).  If
+the map is of type <code>factor</code>, the levels should be indicated.  The
+<code>".asc"</code> files store the values of the mapped variable  with
+numeric values.  Each level of the factor is coded on the map by a
+number.  The argument <code>lev</code> of <code>import.asc</code> or <code>as.asc</code>
+gives the labels corresponding to each number.  Alternatively, these
+levels may be specified using a correspondence table exported from
+Arcview (with this software, command <code>"Theme -&gt; table"</code>, then
+<code>"File -&gt; Export"</code>, and finally export in delimited text
+format). An example of such file is provided in the directory
+&quot;ascfiles&quot; of the package, see the examples below. <code>export.asc</code>
+allows only exportation of numeric maps.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a raster matrix of the class <code>asc</code>, with the following
+attributes : 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>xll</code></td>
+<td>
+<p>the x coordinate of the center of the lower left pixel of
+the map</p>
+</td></tr>
+<tr valign="top"><td><code>yll</code></td>
+<td>
+<p>the y coordinate of the center of the lower left pixel of
+the map</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>the size of a pixel on the studied map</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>either <code>"numeric"</code> or <code>"factor"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>levels</code></td>
+<td>
+<p>if <code>type = "factor"</code>, the levels of the factor.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Arcview: <a href="http://www.esri.com">http://www.esri.com</a><br />
+Landserf: <a href="http://www.soi.city.ac.uk/~jwo/landserf/">http://www.soi.city.ac.uk/~jwo/landserf/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="image.asc.html">image.asc</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+## Importation of asc files: numeric
+## Path of the file to be imported
+(file1 &lt;-  paste(system.file(package = "adehabitat"),
+               "ascfiles/elevation.asc", sep = "/"))
+el &lt;- import.asc(file1)
+image(el)
+el
+
+
+## Importation of asc files: factor
+(file2 &lt;- paste(system.file(package = "adehabitat"),
+              "ascfiles/aspect.asc", sep = "/"))
+(levelfile &lt;- paste(system.file(package = "adehabitat"),
+              "ascfiles/aspect.txt", sep = "/"))
+asp &lt;- import.asc(file2, lev = levelfile, type = "factor")
+image(asp)
+asp
+
+
+## map of white noise
+wafwaf &lt;- matrix(rnorm(10000), 100, 100)
+wafwaf &lt;- as.asc(wafwaf)
+image(wafwaf)
+
+## exportation of a map
+export.asc(wafwaf, "foo.asc")
+
+## remove the created file:
+file.remove("foo.asc")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

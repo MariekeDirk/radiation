@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoCurveTo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoCurveTo {RGtk2}"><tr><td>cairoCurveTo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoCurveTo</h2>
+
+<h3>Description</h3>
+
+<p>Adds a cubic B&lt;U+00E9&gt;zier spline to the path from the current point to
+position (<code>x3</code>, <code>y3</code>) in user-space coordinates, using (<code>x1</code>, <code>y1</code>) and
+(<code>x2</code>, <code>y2</code>) as the control points. After this call the current point
+will be (<code>x3</code>, <code>y3</code>).</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoCurveTo(cr, x1, y1, x2, y2, x3, y3)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x1</code></code></td>
+<td>
+<p>[numeric]  the X coordinate of the first control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y1</code></code></td>
+<td>
+<p>[numeric]  the Y coordinate of the first control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x2</code></code></td>
+<td>
+<p>[numeric]  the X coordinate of the second control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y2</code></code></td>
+<td>
+<p>[numeric]  the Y coordinate of the second control point</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x3</code></code></td>
+<td>
+<p>[numeric]  the X coordinate of the end of the curve</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y3</code></code></td>
+<td>
+<p>[numeric]  the Y coordinate of the end of the curve</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If there is no current point before the call to <code><a href="cairoCurveTo.html">cairoCurveTo</a></code>
+this function will behave as if preceded by a call to
+cairo_move_to(<code>cr</code>, <code>x1</code>, <code>y1</code>).  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRcGetStyleByPaths</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRcGetStyleByPaths {RGtk2}"><tr><td>gtkRcGetStyleByPaths {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRcGetStyleByPaths</h2>
+
+<h3>Description</h3>
+
+<p>Creates up a <code><a href="GtkStyle.html">GtkStyle</a></code> from styles defined in a RC file by providing
+the raw components used in matching. This function may be useful
+when creating pseudo-widgets that should be themed like widgets but
+don't actually have corresponding GTK+ widgets. An example of this
+would be items inside a GNOME canvas widget.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRcGetStyleByPaths(settings, widget.path, class.path, type)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">settings</code></code></td>
+<td>
+<p>a <code><a href="GtkSettings.html">GtkSettings</a></code> object</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">widget.path</code></code></td>
+<td>
+<p>the widget path to use when looking up the style, or <code>NULL</code>
+if no matching against the widget path should be done. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">class.path</code></code></td>
+<td>
+<p>the class path to use when looking up the style, or <code>NULL</code>
+if no matching against the class path should be done. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>a type that will be used along with parent types of this type
+when matching against class styles, or <code style="white-space: pre;">G_TYPE_NONE</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The action of <code><a href="gtkRcGetStyle.html">gtkRcGetStyle</a></code> is similar to:
+</p>
+<pre>
+path &lt;- widget$path()$path
+class_path &lt;- widget$classPath()$path
+gtkRcGetStyleByPaths(widget$getSettings(), path, class_path, class(widget)[1])
+</pre>
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkStyle.html">GtkStyle</a></code>] A style created by matching with the supplied paths,
+or <code>NULL</code> if nothing matching was specified and the default style should
+be used.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

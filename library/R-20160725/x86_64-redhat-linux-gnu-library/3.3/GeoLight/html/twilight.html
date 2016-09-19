@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Times of Sunrise and Sunset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for twilight {GeoLight}"><tr><td>twilight {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Times of Sunrise and Sunset</h2>
+
+<h3>Description</h3>
+
+<p>Estimate time of sunrsie or sunset for a given day and location
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+twilight(tm, lon, lat, rise, zenith = 96, iters = 3)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tm</code></td>
+<td>
+<p>vector of approximate times of twilight.</p>
+</td></tr>
+<tr valign="top"><td><code>lon</code></td>
+<td>
+<p>vector of longitudes.</p>
+</td></tr>
+<tr valign="top"><td><code>lat</code></td>
+<td>
+<p>vector of latitudes.</p>
+</td></tr>
+<tr valign="top"><td><code>rise</code></td>
+<td>
+<p>logical vector indicating whether to compute rise or set.</p>
+</td></tr>
+<tr valign="top"><td><code>zenith</code></td>
+<td>
+<p>the solar zenith angle that defines twilight.</p>
+</td></tr>
+<tr valign="top"><td><code>iters</code></td>
+<td>
+<p>number of iteratve refinements made to the initial
+approximation.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>twilight</code> uses an iterative algorithm to estimate times of
+sunrise and sunset.
+</p>
+<p>Note that these functions return the twilight that occurs on the
+same date GMT as <code>tm</code>, and so sunset may occur before
+sunrise, depending upon latitude.
+</p>
+<p>Solar declination and equation of time vary slowly over the day,
+and so the values of the Solar declination and equation of time at
+sunrise/sunset are well approximated by their values at 6AM/6PM
+local time. The sun's hour angle and hence sunrise/sunset for the
+required zenith can then be caclulates from these approximations.
+The calculation is then repeated using the approximate
+sunrise/sunset times to derive more accurate values of the Solar
+declination and equation of time and hence better approximations
+of sunrise/sunset.  The process is repreated and is accurate to
+less than 2 seconds within 2 or 3 iterations.
+</p>
+<p><code>sunrise</code> and <code>sunset</code> are simple wrappers for <code>twilight</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a vector of twilight times.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

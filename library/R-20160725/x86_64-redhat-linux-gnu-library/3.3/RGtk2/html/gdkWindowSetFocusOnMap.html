@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkWindowSetFocusOnMap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkWindowSetFocusOnMap {RGtk2}"><tr><td>gdkWindowSetFocusOnMap {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkWindowSetFocusOnMap</h2>
+
+<h3>Description</h3>
+
+<p>Setting <code>focus.on.map</code> to <code>FALSE</code> hints the desktop environment that the
+window doesn't want to receive input focus when it is mapped.  
+focus_on_map should be turned off for windows that aren't triggered
+interactively (such as popups from network activity).</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkWindowSetFocusOnMap(object, focus.on.map)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a toplevel <code><a href="gdk-Windows.html">GdkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">focus.on.map</code></code></td>
+<td>
+<p><code>TRUE</code> if the window should receive input focus when mapped</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>On X, it is the responsibility of the window manager to interpret
+this hint. Window managers following the freedesktop.org window
+manager extension specification should respect it.
+Since 2.6</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert SAGA grids to ESRI ASCII/binary grids</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsaga.sgrd.to.esri {RSAGA}"><tr><td>rsaga.sgrd.to.esri {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert SAGA grids to ESRI ASCII/binary grids</h2>
+
+<h3>Description</h3>
+
+<p><code>rsaga.sgrd.to.esri</code> converts grid files from SAGA's (version 2) grid format (.sgrd) to ESRI's ASCII (.asc)  and binary (.flt) format.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsaga.sgrd.to.esri(in.sgrds, out.grids, out.path, format = "ascii",
+  georef = "corner", prec = 5, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>in.sgrds</code></td>
+<td>
+<p>character vector of SAGA grid files (<code>.sgrd</code>) to be converted;  files are expected to be found in folder <code><a href="rsaga.env.html">rsaga.env</a>()$workspace</code>, or, if an optional <code>env</code> argument is provided, in <code>env$workspace</code></p>
+</td></tr>
+<tr valign="top"><td><code>out.grids</code></td>
+<td>
+<p>character vector of ESRI ASCII/float output file names; defaults to <code>in.sgrds</code> with the file extension being replaced by <code>.asc</code> or <code>.flt</code>, depending on <code>format</code>. Files will be placed in folder <code>out.path</code>, existing files will be overwritten</p>
+</td></tr>
+<tr valign="top"><td><code>out.path</code></td>
+<td>
+<p>folder for <code>out.grids</code></p>
+</td></tr>
+<tr valign="top"><td><code>format</code></td>
+<td>
+<p>output file format, either <code>"ascii"</code> (default; equivalent: <code>format=1</code>) for ASCII grids or <code>"binary"</code> (equivalent: <code>0</code>) for binary ESRI grids (<code>.flt</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>georef</code></td>
+<td>
+<p>character: <code>"corner"</code> (equivalent numeric code: <code>0</code>) or <code>"center"</code> (default; equivalent: <code>1</code>). Determines whether the georeference will be related to the center or corner of its extreme lower left grid cell.</p>
+</td></tr>
+<tr valign="top"><td><code>prec</code></td>
+<td>
+<p>number of digits when writing floating point values to ASCII grid files; either a single number (to be replicated if necessary), or a numeric vector of length <code>length(in.grids)</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>optional arguments to be passed to <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code>, including the <code>env</code> RSAGA geoprocessing environment</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The type of object returned depends on the <code>intern</code> argument passed to the <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code>. For <code>intern=FALSE</code> it is a numerical error code (0: success), or otherwise (default) a character vector with the module's console output.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function uses module 0 from the SAGA library <code>io_grid</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning (R interface), Olaf Conrad (SAGA module)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="rsaga.esri.wrapper.html">rsaga.esri.wrapper</a></code> for an efficient way of applying RSAGA to ESRI ASCII/binary grids; <code><a href="rsaga.env.html">rsaga.env</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIconSetRenderIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIconSetRenderIcon {RGtk2}"><tr><td>gtkIconSetRenderIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIconSetRenderIcon</h2>
+
+<h3>Description</h3>
+
+<p>Renders an icon using <code><a href="gtkStyleRenderIcon.html">gtkStyleRenderIcon</a></code>. In most cases,
+<code><a href="gtkWidgetRenderIcon.html">gtkWidgetRenderIcon</a></code> is better, since it automatically provides
+most of the arguments from the current widget settings.  This
+function never returns <code>NULL</code>; if the icon can't be rendered
+(perhaps because an image file fails to load), a default &quot;missing
+image&quot; icon will be returned instead.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIconSetRenderIcon(object, style, direction, state, size, widget = NULL, 
+    detail = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gtk-Themeable-Stock-Images.html">GtkIconSet</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">style</code></code></td>
+<td>
+<p>a <code><a href="GtkStyle.html">GtkStyle</a></code> associated with <code>widget</code>, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">direction</code></code></td>
+<td>
+<p>text direction</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">state</code></code></td>
+<td>
+<p>widget state</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">size</code></code></td>
+<td>
+<p>icon size. A size of (GtkIconSize)-1
+means render at the size of the source and don't scale. <em>[  <acronym><span class="acronym">type</span></acronym>   int]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">widget</code></code></td>
+<td>
+<p>widget that will display the icon, or <code>NULL</code>.
+The only use that is typically made of this
+is to determine the appropriate <code><a href="GdkScreen.html">GdkScreen</a></code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">detail</code></code></td>
+<td>
+<p>detail to pass to the theme engine, or <code>NULL</code>.
+Note that passing a detail of anything but <code>NULL</code>
+will disable caching. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>] a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code> to be displayed</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

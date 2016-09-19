@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufAnimationIterAdvance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufAnimationIterAdvance {RGtk2}"><tr><td>gdkPixbufAnimationIterAdvance {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufAnimationIterAdvance</h2>
+
+<h3>Description</h3>
+
+<p>Possibly advances an animation to a new frame. Chooses the frame based
+on the start time passed to <code><a href="gdkPixbufAnimationGetIter.html">gdkPixbufAnimationGetIter</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufAnimationIterAdvance(object, current.time)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-animation.html">GdkPixbufAnimationIter</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">current.time</code></code></td>
+<td>
+<p>current time</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>current.time</code> would normally come from <code>gGetCurrentTime()</code>, and
+must be greater than or equal to the time passed to
+<code><a href="gdkPixbufAnimationGetIter.html">gdkPixbufAnimationGetIter</a></code>, and must increase or remain
+unchanged each time <code><a href="gdkPixbufAnimationIterGetPixbuf.html">gdkPixbufAnimationIterGetPixbuf</a></code> is
+called. That is, you can't go backward in time; animations only
+play forward.
+</p>
+<p>As a shortcut, pass <code>NULL</code> for the current time and <code>gGetCurrentTime()</code>
+will be invoked on your behalf. So you only need to explicitly pass
+<code>current.time</code> if you're doing something odd like playing the animation
+at double speed.
+</p>
+<p>If this function returns <code>FALSE</code>, there's no need to update the animation
+display, assuming the display had been rendered prior to advancing;
+if <code>TRUE</code>, you need to call <code>gdkAnimationIterGetPixbuf()</code> and update the
+display with the new pixbuf.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the image may need updating</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

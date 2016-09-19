@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Zipf Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Zipf {VGAM}"><tr><td>Zipf {VGAM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Zipf Distribution</h2>
+
+<h3>Description</h3>
+
+<p>Density, and cumulative distribution function 
+for the Zipf distribution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dzipf(x, N, s, log = FALSE)
+pzipf(q, N, s, log.p = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x, q</code></td>
+<td>
+<p>vector of quantiles.</p>
+</td></tr>
+</table>
+
+
+
+<table summary="R argblock">
+<tr valign="top"><td><code>N, s </code></td>
+<td>
+
+<p>the number of elements, and the exponent characterizing the
+distribution.
+See <code><a href="zipf.html">zipf</a></code> for more details.
+</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+
+<p>Logical.
+If <code>log = TRUE</code> then the logarithm of the density is returned.
+</p>
+</td></tr>
+<tr valign="top"><td><code>log.p</code></td>
+<td>
+
+<p>Same meaning as in <code><a href="../../stats/html/Normal.html">pnorm</a></code>
+or <code><a href="../../stats/html/Normal.html">qnorm</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a finite version of the zeta distribution.
+See <code><a href="zipf.html">zipf</a></code> for more details.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>dzipf</code> gives the density, and
+<code>pzipf</code> gives the cumulative distribution function.
+</p>
+
+
+
+
+<h3>Author(s)</h3>
+
+<p> T. W. Yee </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="zipf.html">zipf</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+N &lt;- 10; s &lt;- 0.5; y &lt;- 1:N
+proby &lt;- dzipf(y, N = N, s = s)
+## Not run:  plot(proby ~ y, type = "h", col = "blue", ylab = "Probability",
+     ylim = c(0, 0.2), main = paste("Zipf(N = ",N,", s = ",s,")", sep = ""),
+     lwd = 2, las = 1) 
+## End(Not run)
+sum(proby)  # Should be 1
+max(abs(cumsum(proby) - pzipf(y, N = N, s = s)))  # Should be 0
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>VGAM</em> version 1.0-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetGetSnapshot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetGetSnapshot {RGtk2}"><tr><td>gtkWidgetGetSnapshot {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetGetSnapshot</h2>
+
+<h3>Description</h3>
+
+<p>Create a <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code> of the contents of the widget and its children.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetGetSnapshot(object, clip.rect = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">clip.rect</code></code></td>
+<td>
+<p>a <code><a href="gdk-Points-Rectangles-and-Regions.html">GdkRectangle</a></code> or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Works even if the widget is obscured. The depth and visual of the
+resulting pixmap is dependent on the widget being snapshot and likely
+differs from those of a target widget displaying the pixmap.
+The function <code><a href="gdkPixbufGetFromDrawable.html">gdkPixbufGetFromDrawable</a></code> can be used to convert
+the pixmap to a visual independant representation.
+</p>
+<p>The snapshot area used by this function is the <code>widget</code>'s allocation plus
+any extra space occupied by additional windows belonging to this widget
+(such as the arrows of a spin button).
+Thus, the resulting snapshot pixmap is possibly larger than the allocation.
+</p>
+<p>If <code>clip.rect</code> is non-<code>NULL</code>, the resulting pixmap is shrunken to
+match the specified clip_rect. The (x,y) coordinates of <code>clip.rect</code> are
+interpreted widget relative. If width or height of <code>clip.rect</code> are 0 or
+negative, the width or height of the resulting pixmap will be shrunken
+by the respective amount.
+For instance a <code>clip.rect</code> <code>{ +5, +5, -10, -10 }</code> will
+chop off 5 pixels at each side of the snapshot pixmap.
+If non-<code>NULL</code>, <code>clip.rect</code> will contain the exact widget-relative snapshot
+coordinates upon return. A <code>clip.rect</code> of <code>{ -1, -1, 0, 0 }</code>
+can be used to preserve the auto-grown snapshot area and use <code>clip.rect</code>
+as a pure output parameter.
+</p>
+<p>The returned pixmap can be <code>NULL</code>, if the resulting <code>clip.area</code> was empty.
+Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code>] <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code> snapshot of the widget</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

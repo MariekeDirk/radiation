@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generates all points on a (p,n) simplex lattice (i.e. a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for xsimplex {combinat}"><tr><td>xsimplex {combinat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>  Generates all points on a (p,n) simplex lattice (i.e. a p-part
+composition of n).</h2>
+
+<h3>Description</h3>
+
+<p>Generates all points on a p,n simplex lattice (i.e. a p-part
+composition of n).  Each point is represented as x, a
+p-dimensional vector of nonnegative integers that sum to n.
+If argument &quot;fun&quot; is not null,  applies a function given
+by the argument to each point.  If simplify is FALSE,  returns
+a list; else returns a vector or an array.  &quot;...&quot; are passed
+unchanged to function given by argument fun,  if any. </p>
+
+
+<h3>Usage</h3>
+
+<pre>
+xsimplex(p, n, fun=NULL, simplify=TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p> first parameter of lattice description </p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>  second parameter of lattice description</p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+<p> function to be applied pointwise </p>
+</td></tr>
+<tr valign="top"><td><code>simplify</code></td>
+<td>
+<p> logical: if FALSE, value is a list, otherwise a vector or
+array</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> parameters to be passed to <code>fun</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+#Compute Multinomial(n = 4, pi = rep(1/3, 3)) p.f.:
+   xsimplex(3, 4, dmnom, prob=1/3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>combinat</em> version 0.0-8 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkWindowProcessUpdates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkWindowProcessUpdates {RGtk2}"><tr><td>gdkWindowProcessUpdates {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkWindowProcessUpdates</h2>
+
+<h3>Description</h3>
+
+<p>Sends one or more expose events to <code>window</code>. The areas in each
+expose event will cover the entire update area for the window (see
+<code><a href="gdkWindowInvalidateRegion.html">gdkWindowInvalidateRegion</a></code> for details). Normally GDK calls
+<code><a href="gdkWindowProcessAllUpdates.html">gdkWindowProcessAllUpdates</a></code> on your behalf, so there's no
+need to call this function unless you want to force expose events
+to be delivered immediately and synchronously (vs. the usual
+case, where GDK delivers them in an idle handler). Occasionally
+this is useful to produce nicer scrolling behavior, for example.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkWindowProcessUpdates(object, update.children)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Windows.html">GdkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">update.children</code></code></td>
+<td>
+<p>whether to also process updates for child windows</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

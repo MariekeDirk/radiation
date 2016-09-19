@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generating Random Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rmatrix {NMF}"><tr><td>rmatrix {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generating Random Matrices</h2>
+
+<h3>Description</h3>
+
+<p>The S4 generic <code>rmatrix</code> generates a random matrix
+from a given object. Methods are provided to generate
+matrices with entries drawn from any given random
+distribution function, e.g. <code><a href="../../stats/html/Uniform.html">runif</a></code> or
+<code><a href="../../stats/html/Normal.html">rnorm</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  rmatrix(x, ...)
+
+  ## S4 method for signature 'numeric'
+rmatrix(x, y = NULL, dist = runif,
+    byrow = FALSE, dimnames = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>object from which to generate a random matrix</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>optional specification of number of columns</p>
+</td></tr>
+<tr valign="top"><td><code>dist</code></td>
+<td>
+<p>a random distribution function or a numeric
+seed (see details of method <code>rmatrix,numeric</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>byrow</code></td>
+<td>
+<p>a logical passed in the internal call to the
+function <code><a href="../../base/html/matrix.html">matrix</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>dimnames</code></td>
+<td>
+<p><code>NULL</code> or a <code>list</code> passed in
+the internal call to the function <code><a href="../../base/html/matrix.html">matrix</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to the distribution
+function <code>dist</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>rmatrix</dt><dd><p><code>signature(x = "numeric")</code>: Generates
+a random matrix of given dimensions, whose entries are
+drawn using the distribution function <code>dist</code>.
+</p>
+<p>This is the workhorse method that is eventually called by
+all other methods. It returns a matrix with: </p>
+
+<ul>
+<li> <p><code>x</code> rows and <code>y</code> columns if <code>y</code> is
+not missing and not <code>NULL</code>; </p>
+</li>
+<li><p> dimension
+<code>x[1]</code> x <code>x[2]</code> if <code>x</code> has at least two
+elements; </p>
+</li>
+<li><p> dimension <code>x</code> (i.e. a square matrix)
+otherwise. </p>
+</li></ul>
+
+<p>The default is to draw its entries from the standard
+uniform distribution using the base function
+<code><a href="../../stats/html/Uniform.html">runif</a></code>, but any other function that
+generates random numeric vectors of a given length may be
+specified in argument <code>dist</code>. All arguments in
+<code>...</code> are passed to the function specified in
+<code>dist</code>.
+</p>
+<p>The only requirement is that the function in <code>dist</code>
+is of the following form:
+</p>
+<p><span class="samp"> function(n, ...){ # return vector of length n ...
+  }</span>
+</p>
+<p>This is the case of all base random draw function such as
+<code><a href="../../stats/html/Normal.html">rnorm</a></code>, <code><a href="../../stats/html/GammaDist.html">rgamma</a></code>, etc... </p>
+</dd>
+<dt>rmatrix</dt><dd><p><code>signature(x = "ANY")</code>: Default
+method which calls <code>rmatrix,vector</code> on the
+dimensions of <code>x</code> that is assumed to be returned by
+a suitable <code>dim</code> method: it is equivalent to
+<code>rmatrix(dim(x), y=NULL, ...)</code>. </p>
+</dd>
+<dt>rmatrix</dt><dd><p><code>signature(x = "NMF")</code>: Returns the
+target matrix estimate of the NMF model <code>x</code>,
+perturbated by adding a random matrix generated using the
+default method of <code>rmatrix</code>: it is a equivalent to
+<code>fitted(x) + rmatrix(fitted(x), ...)</code>.
+</p>
+<p>This method can be used to generate random target
+matrices that depart from a known NMF model to a
+controlled extend. This is useful to test the robustness
+of NMF algorithms to the presence of certain types of
+noise in the data. </p>
+</dd>
+</dl>
+
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# rmatrix,numeric-method
+#----------
+## Generate a random matrix of a given size
+rmatrix(5, 3)
+
+
+## Generate a random matrix of the same dimension of a template matrix
+a &lt;- matrix(1, 3, 4)
+rmatrix(a)
+
+
+## Specificy the distribution to use
+
+# the default is uniform
+a &lt;- rmatrix(1000, 50)
+## Not run:  hist(a) 
+
+# use normal ditribution
+a &lt;- rmatrix(1000, 50, rnorm)
+## Not run:  hist(a) 
+
+# extra arguments can be passed to the random variate generation function
+a &lt;- rmatrix(1000, 50, rnorm, mean=2, sd=0.5)
+## Not run:  hist(a) 
+
+#----------
+# rmatrix,ANY-method
+#----------
+# random matrix of the same dimension as another matrix
+x &lt;- matrix(3,4)
+dim(rmatrix(x))
+
+#----------
+# rmatrix,NMF-method
+#----------
+# generate noisy fitted target from an NMF model (the true model)
+gr &lt;- as.numeric(mapply(rep, 1:3, 3))
+h &lt;- outer(1:3, gr, '==') + 0
+x &lt;- rnmf(10, H=h)
+y &lt;- rmatrix(x)
+## Not run: 
+# show heatmap of the noisy target matrix: block patterns should be clear
+aheatmap(y)
+
+## End(Not run)
+
+
+# test NMF algorithm on noisy data
+# add some noise to the true model (drawn from uniform [0,1])
+res &lt;- nmf(rmatrix(x), 3)
+summary(res)
+
+# add more noise to the true model (drawn from uniform [0,10])
+res &lt;- nmf(rmatrix(x, max=10), 3)
+summary(res)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

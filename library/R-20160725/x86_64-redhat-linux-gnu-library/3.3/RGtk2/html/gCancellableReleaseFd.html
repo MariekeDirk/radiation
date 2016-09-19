@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gCancellableReleaseFd</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gCancellableReleaseFd {RGtk2}"><tr><td>gCancellableReleaseFd {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gCancellableReleaseFd</h2>
+
+<h3>Description</h3>
+
+<p>Releases a resources previously allocated by <code><a href="gCancellableGetFd.html">gCancellableGetFd</a></code>
+or <code>gCancellableMakePollfd()</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gCancellableReleaseFd(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GCancellable.html">GCancellable</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>For compatibility reasons with older releases, calling this function 
+is not strictly required, the resources will be automatically freed
+when the <code>cancellable</code> is finalized. However, the <code>cancellable</code> will
+block scarce file descriptors until it is finalized if this function
+is not called. This can cause the application to run out of file 
+descriptors when many <code style="white-space: pre;">GCancellables</code> are used at the same time.
+Since 2.22</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

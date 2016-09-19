@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkListSetSelectionMode</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkListSetSelectionMode {RGtk2}"><tr><td>gtkListSetSelectionMode {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkListSetSelectionMode</h2>
+
+<h3>Description</h3>
+
+<p>Set the list selection mode. The selection mode can be any value in
+<code><a href="gtk-Standard-Enumerations.html">GtkSelectionMode</a></code>:
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">GTK_SELECTION_SINGLE</code></dt><dd><p>Zero or one element may be selected.</p>
+</dd>
+<dt><code style="white-space: pre;">GTK_SELECTION_BROWSE</code></dt><dd><p>Exactly one element is always selected (this can be false after you have
+changed the selection mode).</p>
+</dd>
+<dt><code style="white-space: pre;">GTK_SELECTION_MULTIPLE</code></dt><dd><p>Any number of elements may be selected. Clicks toggle the state of an
+item.</p>
+</dd>
+<dt><code style="white-space: pre;">GTK_SELECTION_EXTENDED</code></dt><dd><p>Any number of elements may be selected. Click-drag selects a range of
+elements; the Ctrl key may be used to enlarge the selection, and
+Shift key to select between the focus and the child pointed to.</p>
+</dd>
+</dl>
+
+<p><strong>WARNING: <code>gtk_list_set_selection_mode</code> is deprecated and should not be used in newly-written code.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkListSetSelectionMode(object, mode)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the list widget.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">mode</code></code></td>
+<td>
+<p>the new selection mode.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

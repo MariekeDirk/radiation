@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ponds in a nature reserve</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kcponds {ade4}"><tr><td>kcponds {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ponds in a nature reserve</h2>
+
+<h3>Description</h3>
+
+<p>This data set contains informations about 33 ponds in De Maten reserve (Genk, Belgium).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(kcponds)</pre>
+
+
+<h3>Format</h3>
+
+
+<dl>
+<dt>tab</dt><dd><p>: a data frame with 15 environmental variables(columns) on 33 ponds(rows)</p>
+</dd>
+<dt>area</dt><dd><p>: an object of class <code>area</code></p>
+</dd>
+<dt>xy</dt><dd><p>: a data frame with the coordinates of ponds</p>
+</dd>
+<dt>neig</dt><dd><p>: an object of class <code>neig</code></p>
+</dd>  </dl>
+
+
+<h3>Details</h3>
+
+ 
+<p>Variables of <code>kcponds$tab</code> are the following ones : depth, area, O2 (oxygen concentration), 
+cond (conductivity), pH, Fe (Fe concentration), secchi (Secchi disk depth), N (NNO concentration),
+TP (total phosphorus concentration), chla (chlorophyll-a concentration), EM (emergent macrophyte cover),
+FM (floating macrophyte cover), SM (submerged macrophyte cover), denMI (total density of macroinvertebrates),
+divMI (diversity macroinvertebrates)
+</p>
+
+
+<h3>Source</h3>
+
+<p>Cottenie, K. (2002) Local and regional processes in a zooplankton metacommunity. PhD, Katholieke Universiteit Leuven, Leuven, Belgium. <br />
+<a href="http://www.kuleuven.ac.be/bio/eco/phdkarlcottenie.pdf">http://www.kuleuven.ac.be/bio/eco/phdkarlcottenie.pdf</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(kcponds)
+w &lt;- as.numeric(scalewt(kcponds$tab$N))
+
+if(adegraphicsLoaded()) {
+  if(requireNamespace("sp", quiet = TRUE)) {
+    g1 &lt;- s.label(kcponds$xy, Sp = kcponds$Spatial, pSp.col = "white", nb = kcponds$nb, 
+      plab.cex = 0, paxes.asp = "fill", plot = F)
+    g2 &lt;- s.label(kcponds$xy, Sp = kcponds$Spatial, pSp.col = "white", plabels.cex = 0.8, 
+      paxes.asp = "fill", plot = F)
+    g3 &lt;- s.value(kcponds$xy, w, psub.text = "Nitrogen concentration", paxe.asp = "fill", plot = F)
+    G &lt;- rbindADEg(g1, g2, g3, plot = T)
+  }
+
+} else {
+  par(mfrow=c(3, 1))
+  area.plot(kcponds$area)
+  s.label(kcponds$xy, add.p = TRUE, cpoi = 2, clab = 0)
+  s.label(kcponds$xy, add.p = TRUE, cpoi = 3, clab = 0)
+  s.label(kcponds$xy, add.p = TRUE, cpoi = 0, clab = 0, neig = kcponds$neig, cneig = 1)
+  area.plot(kcponds$area)
+  s.label(kcponds$xy, add.p = TRUE, clab = 1.5)
+  s.value(kcponds$xy, w, cleg = 2, sub = "Nitrogen concentration", csub = 4, 
+    possub = "topright", include = FALSE)
+  par(mfrow = c(1, 1))
+}
+
+## Not run: 
+  par(mfrow = c(3, 1))
+  pca1 &lt;- dudi.pca(kcponds$tab, scan = FALSE, nf = 4)
+  if(requireNamespace("maptools", quiet = TRUE) &amp; requireNamespace("spdep", quiet = TRUE)) {
+    multi1 &lt;- multispati(pca1, nb2listw(neig2nb(kcponds$neig)), scan = F, nfposi = 2, nfnega = 1)
+    summary(multi1)
+  }
+  par(mfrow = c(1, 1))
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

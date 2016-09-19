@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIMContextGetSurrounding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIMContextGetSurrounding {RGtk2}"><tr><td>gtkIMContextGetSurrounding {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIMContextGetSurrounding</h2>
+
+<h3>Description</h3>
+
+<p>Retrieves context around the insertion point. Input methods
+typically want context in order to constrain input text based on
+existing text; this is important for languages such as Thai where
+only some sequences of characters are allowed.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIMContextGetSurrounding(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkIMContext.html">GtkIMContext</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>This function is implemented by emitting the
+GtkIMContext::retrieve_surrounding signal on the input method; in
+response to this signal, a widget should provide as much context as
+is available, up to an entire paragraph, by calling
+<code><a href="gtkIMContextSetSurrounding.html">gtkIMContextSetSurrounding</a></code>. Note that there is no obligation
+for a widget to respond to the ::retrieve_surrounding signal, so input
+methods must be prepared to function without context.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if surrounding text was provided; in this case
+you must free the result stored in *text.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">text</code></code></td>
+<td>
+<p>location to store a UTF-8 encoded string of text
+holding context around the insertion point.
+If the function returns <code>TRUE</code>, then you must free
+the result stored in this location with <code>gFree()</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cursor.index</code></code></td>
+<td>
+<p>location to store byte index of the insertion cursor
+within <code>text</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

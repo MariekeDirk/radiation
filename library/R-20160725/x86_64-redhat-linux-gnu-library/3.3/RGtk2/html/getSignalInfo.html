@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Information for all signals for multiple classes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getSignalInfo {RGtk2}"><tr><td>getSignalInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Information for all signals for multiple classes</h2>
+
+<h3>Description</h3>
+
+<p><strong>DEPRECATED!! (compatibility wrappers for RGtk 1!)</strong> 
+</p>
+<p>This retrieves the signal information for
+all of the signals defined for each of the classes
+specified by <code>classes</code>.
+This is just a convenient front-end to
+<code><a href="signalInfo.html">gtkSignalGetInfo</a></code> for a large number of signals.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+getSignalInfo(classes=.GtkClasses, load=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>classes</code></td>
+<td>
+<p>a character vector containing the names of
+different Gtk classes/types</p>
+</td></tr>
+<tr valign="top"><td><code>load</code></td>
+<td>
+<p>This is now ignored. You don't need to worry about whether types are loaded.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with elements for each of the classes.
+Each element is itself a list with an element for
+each of the signals defined for that class.
+Each element within this list is the value returned
+from <code><a href="signalInfo.html">gtkSignalGetInfo</a></code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Duncan Temple Lang &lt;duncan@research.bell-labs.com&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>Information on the package is available
+from <a href="http://www.omegahat.org/RGtk">http://www.omegahat.org/RGtk</a>.
+</p>
+<p>Information on Gtk is available from
+<a href="http://www.gtk.org">http://www.gtk.org</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="signalInfo.html">gtkSignalGetInfo</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+  if (gtkInit())
+    getSignalInfo("GtkButton")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

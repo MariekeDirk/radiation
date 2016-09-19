@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summary method for lars objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for summary.lars {lars}"><tr><td>summary.lars {lars}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summary method for lars objects</h2>
+
+<h3>Description</h3>
+
+<p>Produce an anova-type summary for a lars object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'lars'
+summary(object, sigma2=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>lars object</p>
+</td></tr>
+<tr valign="top"><td><code>sigma2</code></td>
+<td>
+<p>optional variance measure (for p&gt;n)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments for summary generic</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>An anova summary is produced, with Df, RSS and Cp for each step.
+Df is tricky for some models, such as forward stagewise and stepwise,
+and is not likely to be accurate. When p&gt;n, the user is responsible
+for supplying sigma2. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An anova object is returned, with rownames the step number, and with components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>Df </code></td>
+<td>
+<p>Estimated degree of freedom</p>
+</td></tr>
+<tr valign="top"><td><code>Rss</code></td>
+<td>
+<p>The Residual sum of Squares</p>
+</td></tr>
+<tr valign="top"><td><code>Cp</code></td>
+<td>
+<p>The Cp statistic</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Brad Efron and Trevor Hastie</p>
+
+
+<h3>References</h3>
+
+<p>Efron, Hastie, Johnstone and Tibshirani (2003) &quot;Least Angle Regression&quot;
+(with discussion) <em>Annals of Statistics</em>; see also <a href="http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf">http://www-stat.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf</a>.
+Hastie, Tibshirani and Friedman (2002) Elements of Statistical
+Learning, Springer, NY.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>lars, and  print, plot,and predict methods for lars, and  cv.lars
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(diabetes)
+attach(diabetes)
+object &lt;- lars(x,y)
+summary(object)
+detach(diabetes)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>lars</em> version 1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

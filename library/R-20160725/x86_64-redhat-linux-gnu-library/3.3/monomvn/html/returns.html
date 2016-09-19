@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Financial Returns data from NYSE and AMEX</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for returns {monomvn}"><tr><td>returns {monomvn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Financial Returns data from NYSE and AMEX</h2>
+
+<h3>Description</h3>
+
+<p>Monthly returns of common domestic stocks traded on the NYSE and the
+AMEX from April 1968 until 1998; also contains the return to the market
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+data(returns)
+data(returns.test)
+data(market)
+data(market.test)
+</pre>
+
+
+<h3>Format</h3>
+
+<p>The returns provided are collected in a <code>data.frame</code> with
+1168 columns, and 360 rows in the case of <code>returns</code> and 12
+rows for <code>returns.test</code>. The columns are uniquely coded to
+identify the stock traded on NYSE or AMEX.  The market return
+is in two vectors <code>market</code> and <code>market.test</code>
+of length 360 and 12, respectively
+</p>
+
+
+<h3>Details</h3>
+
+<p>The columns contain monthly returns of common domestic stocks traded
+on the NYSE and the AMEX from April 1968 until 1998. <code>returns</code>
+contains returns up until 1997, whereas <code>returns.test</code> has the
+returns for 1997.  Both data sets have been cleaned in the following
+way.  All stocks have a share price greater than \$5 and a market
+capitalization greater than 20% based on the size distribution of
+NYSE firms.  Stocks without completely observed return
+series in 1997 were also discarded.
+</p>
+<p>The market returns provided are essentially the monthly return on the
+S\&amp;P500 during the same period, which is highly correlated with the
+raw monthly returns weighted by their market capitalization
+</p>
+
+
+<h3>Source</h3>
+
+<p>This data is a subset of that originally used by Chan, Karceski,
+and Lakonishok (1999), and subsequently by several others;
+see the references below.  We use it as part of the <span class="pkg">monomvn</span>
+package as an example of a real world data set following a
+nearly monotone missingness pattern
+</p>
+
+
+<h3>References</h3>
+
+<p>Louis K. Chan, Jason Karceski, and Josef Lakonishok (1999).
+<em>On Portfolio Optimization: Forecasting Covariances and
+Choosing the Risk Model</em>. The Review of Financial Studies.
+<b>12</b>(5), 937-974
+</p>
+<p>Ravi Jagannathan and Tongshu Ma (2003).
+<em>Risk Reduction in Large Portfolios: Why Imposing the
+Wrong Constraints Helps</em>. Journal of Finance, American Finance
+Association. <b>58</b>(4), 1641-1684
+</p>
+<p>Robert B. Gramacy, Joo Hee Lee, and Ricardo Silva (2008).
+<em>On estimating covariances between many assets with histories 
+of highly variable length</em>. <br /> Preprint available on arXiv:0710.5837:
+<a href="http://arxiv.org/abs/0710.5837">http://arxiv.org/abs/0710.5837</a>
+</p>
+<p><a href="http://bobby.gramacy.com/r_packages/monomvn">http://bobby.gramacy.com/r_packages/monomvn</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="monomvn.html">monomvn</a></code>, <code><a href="bmonomvn.html">bmonomvn</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(returns)
+
+## investigate the monotone missingness pattern
+returns.na &lt;- is.na(returns)
+image(1:ncol(returns), 1:nrow(returns), t(returns.na))
+
+## for a portfolio balancing exercise, see
+## the example in the bmonomvn help file
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>monomvn</em> version 1.9-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

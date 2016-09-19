@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Average temperatures of 30 French cities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for t3012 {ade4}"><tr><td>t3012 {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Average temperatures of 30 French cities</h2>
+
+<h3>Description</h3>
+
+<p>This data set gives the average temperatures of 30 French cities during 12 months.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(t3012)</pre>
+
+
+<h3>Format</h3>
+
+<p><code>t3012</code> is a list of 3 objects:
+</p>
+
+<dl>
+<dt>xy</dt><dd><p>is a data frame with 30 rows (cities) and 2 coordinates (x,y).</p>
+</dd>
+<dt>temp</dt><dd><p>is a data frame with 30 rows (cities) and 12 columns (months). Each column contains the average temperature in tenth of degree Celsius. </p>
+</dd>
+<dt>contour</dt><dd><p>is a data frame with 4 columns (x1,y1,x2,y2) for the contour display of France.</p>
+</dd>
+</dl>
+
+
+<h3>Source</h3>
+
+<p>Besse, P. (1979)
+<em>Etude descriptive d'un processus; approximation, interpolation</em>.
+Th?se de troisi?me cycle, Universit? Paul Sabatier, Toulouse.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(t3012)
+data(elec88)
+
+if(adegraphicsLoaded()) {
+  if(requireNamespace("sp", quiet = TRUE)) {
+    s.arrow(t3012$xy, pori.ori = as.numeric(t3012$xy["Paris", ]), Sp = t3012$Spatial, 
+      pSp.col = "white", pgrid.draw = F)
+  }
+} else {
+  area.plot(elec88$area)
+  s.arrow(t3012$xy, ori = as.numeric(t3012$xy["Paris", ]), add.p = TRUE)
+}</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

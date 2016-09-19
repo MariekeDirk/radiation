@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: HPC Job Scheduling Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for schedulingData {AppliedPredictiveModeling}"><tr><td>schedulingData {AppliedPredictiveModeling}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>HPC Job Scheduling Data</h2>
+
+<h3>Description</h3>
+
+<p>These data consist of information on 4331 jobs in a high performance computing environment. Seven attributes were recorded for each job along with a discrete class describing the execution time. 
+</p>
+<p>The predictors are: <code>Protocol</code> (the type of computation), <code>Compounds</code> (the number of data points for each jobs), <code>InputFields</code> (the number of characteristic being estimated), <code>Iterations</code> (maximum number of iterations for the computations), <code>NumPending</code> (the number of other jobs pending at the time of launch), <code>Hour</code> (decimal hour of day for launch time) and <code>Day</code> (of launch time).
+</p>
+<p>The classes are: <code>VF</code> (very fast), <code>F</code> (fast), <code>M</code> (moderate) and <code>L</code> (long).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(schedulingData)</pre>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>schedulingData</code></td>
+<td>
+<p>a data frame with 4331 rows and 8 columns</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(schedulingData)
+
+library(caret)
+
+set.seed(1104)
+inTrain &lt;- createDataPartition(schedulingData$Class, p = .8, list = FALSE)
+
+schedulingData$NumPending &lt;- schedulingData$NumPending + 1
+
+trainData &lt;- schedulingData[ inTrain,]
+testData  &lt;- schedulingData[-inTrain,]
+
+modForm &lt;- as.formula(Class ~ Protocol + log10(Compounds) +
+                      log10(InputFields)+ log10(Iterations) +
+                      log10(NumPending) + Hour + Day)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>AppliedPredictiveModeling</em> version 1.1-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

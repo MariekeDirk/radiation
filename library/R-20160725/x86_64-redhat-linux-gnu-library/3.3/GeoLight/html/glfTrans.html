@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Transformation of *.glf files</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for glfTrans {GeoLight}"><tr><td>glfTrans {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Transformation of *.glf files</h2>
+
+<h3>Description</h3>
+
+<p>Transform *.glf files derived by the software GeoLocator for further
+analyses in <b><code>GeoLight</code></b>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+glfTrans(file = "/path/file.glf")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>the full patch and filename with suffix of the *.glf file.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The *.glf files produced by the software GeoLocator (Swiss Ornithological
+Institute) is a table with light intensity measurements over time.
+<code>glfTrans</code> produces a table with these measurements and transfer the
+data and time information into the format required by <b><code>GeoLight</code></b>
+format (see: <code><a href="../../base/html/as.POSIXlt.html">as.POSIXct</a></code>).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>data.frame</code> suitable for further use in
+<b><code>GeoLight</code></b>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="gleTrans.html">gleTrans</a></code>; <code><a href="luxTrans.html">luxTrans</a></code> for transforming
+*.lux files produced by <em>Migrate Technology Ltd</em>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

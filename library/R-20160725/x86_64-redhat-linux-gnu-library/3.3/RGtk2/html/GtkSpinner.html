@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkSpinner</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkSpinner {RGtk2}"><tr><td>GtkSpinner {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkSpinner</h2>
+
+<h3>Description</h3>
+
+<p>Show a spinner animation</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkSpinnerNew.html">gtkSpinnerNew</a>(show = TRUE)</code><br />
+<code><a href="gtkSpinnerStart.html">gtkSpinnerStart</a>(object)</code><br />
+<code><a href="gtkSpinnerStop.html">gtkSpinnerStop</a>(object)</code><br />
+<code>gtkSpinner(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkDrawingArea
+                           +----GtkSpinner</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkSpinner implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A GtkSpinner widget displays an icon-size spinning animation.
+It is often used as an alternative to a <code><a href="GtkProgressBar.html">GtkProgressBar</a></code> for
+displaying indefinite activity, instead of actual progress.
+</p>
+<p>To start the animation, use <code><a href="gtkSpinnerStart.html">gtkSpinnerStart</a></code>, to stop it
+use <code><a href="gtkSpinnerStop.html">gtkSpinnerStop</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkSpinner</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkSpinner</code> is the equivalent of <code><a href="gtkSpinnerNew.html">gtkSpinnerNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">active</code> [logical : Read / Write]</dt><dd>
+<p>Whether the spinner is active.  Default value: FALSE
+</p>
+</dd></dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">cycle-duration</code> [numeric : Read]</dt><dd>
+<p>The duration in milliseconds for the spinner to complete a full cycle.
+Allowed values: &gt;= 500  Default value: 1000  Since 2.20
+</p>
+</dd>
+<dt><code style="white-space: pre;">num-steps</code> [numeric : Read]</dt><dd>
+<p>The number of steps for the spinner to complete a full loop.
+The animation will complete a full cycle in one second by default
+(see the <code style="white-space: pre;">"cycle-duration"</code> style property).
+Allowed values: &gt;= 1  Default value: 12  Since 2.20
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkSpinner.html">http://library.gnome.org/devel//gtk/GtkSpinner.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

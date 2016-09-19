@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Checking NMF Algorithm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nmfCheck {NMF}"><tr><td>nmfCheck {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Checking NMF Algorithm</h2>
+
+<h3>Description</h3>
+
+<p><code>nmfCheck</code> enables to quickly check that a given NMF
+algorithm runs properly, by applying it to some small
+random data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nmfCheck(method = NULL, rank = max(ncol(x)/5, 3),
+    x = NULL, seed = 1234, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>name of the NMF algorithm to be tested.</p>
+</td></tr>
+<tr valign="top"><td><code>rank</code></td>
+<td>
+<p>rank of the factorization</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>target data. If <code>NULL</code>, a random 20 x 10
+matrix is generated</p>
+</td></tr>
+<tr valign="top"><td><code>seed</code></td>
+<td>
+<p>specifies a seed or seeding method for the
+computation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments passed to the call to
+<code><a href="nmf.html">nmf</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>the result of the NMF fit invisibly.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+# test default algorithm
+nmfCheck()
+
+# test 'lee' algorithm
+nmfCheck('lee')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

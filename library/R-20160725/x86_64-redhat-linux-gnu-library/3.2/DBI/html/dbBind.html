@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Bind values to a parameterised/prepared statement.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dbBind {DBI}"><tr><td>dbBind {DBI}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Bind values to a parameterised/prepared statement.</h2>
+
+<h3>Description</h3>
+
+<p>Bind values to a parameterised/prepared statement.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dbBind(res, params, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>res</code></td>
+<td>
+<p>An object inheriting from <code><a href="DBIResult-class.html">DBIResult</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>params</code></td>
+<td>
+<p>A list of bindings. Named values should be matched to
+named paramters (if supported by the DBI backend). Unnamed values
+will be matched by position. I don't recommend mixing named and unnamed
+values.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Other arguments passed on to methods.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>DBI</em> version 0.4-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

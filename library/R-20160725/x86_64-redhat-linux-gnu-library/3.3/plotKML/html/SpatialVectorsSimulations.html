@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A class for spatial simulations containing equiprobable line,...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SpatialVectorsSimulations-class {plotKML}"><tr><td>SpatialVectorsSimulations-class {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A class for spatial simulations containing equiprobable line, point or polygon features</h2>
+
+<h3>Description</h3>
+
+<p>A class containing input and output maps generated as equiprobable simulations of the same discrete object (for example multiple realizations of stream networks). Objects of this type can be directly visualized in Google Earth by using the <code><a href="plotKML.html">plotKML-method</a></code>.</p>
+
+
+<h3>Slots</h3>
+
+    
+<dl>
+<dt><code>realizations</code>:</dt><dd><p>object of class <code>"list"</code>; multiple realizations of the same feature e.g. multiple realizations of stream network</p>
+</dd>
+<dt><code>summaries</code>:</dt><dd><p>object of class <code>"SpatialGridDataFrame"</code>; summary measures</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>plotKML</dt><dd><p><code>signature(obj = "SpatialVectorsSimulations")</code>: plots simulated vector objects and summaries (grids) in Google Earth</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="RasterBrickSimulations.html">RasterBrickSimulations-class</a></code>, <code><a href="plotKML.html">plotKML-method</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre> 
+## load a list of equiprobable streams:
+data(barstr)
+data(bargrid)
+library(sp)
+coordinates(bargrid) &lt;- ~ x+y
+gridded(bargrid) &lt;- TRUE
+## output topology:
+cell.size = bargrid@grid@cellsize[1]
+bbox = bargrid@bbox
+nrows = round(abs(diff(bbox[1,])/cell.size), 0) 
+ncols = round(abs(diff(bbox[2,])/cell.size), 0)
+gridT = GridTopology(cellcentre.offset=bbox[,1], cellsize=c(cell.size,cell.size), 
+  cells.dim=c(nrows, ncols))
+## Not run: ## derive summaries (observed frequency and the entropy or error):
+bar_sum &lt;- count.GridTopology(gridT, vectL=barstr[1:5]) 
+## NOTE: this operation can be time consuming!
+## plot the whole project and open in Google Earth:
+plotKML(bar_sum, grid2poly = TRUE)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

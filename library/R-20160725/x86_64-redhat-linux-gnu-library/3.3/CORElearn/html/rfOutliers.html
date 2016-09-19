@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random forest based outlier detection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rfOutliers {CORElearn}"><tr><td>rfOutliers {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Random forest based outlier detection </h2>
+
+<h3>Description</h3>
+
+<p>Based on random forest instance proximity measure detects training cases which are different to all other cases.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rfOutliers(model, dataset)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>a random forest model returned by <code><a href="CoreModel.html">CoreModel</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>dataset</code></td>
+<td>
+<p>a training set used to generate the <code>model</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+ 
+<p>Strangeness is defined using the random forest model via a proximity matrix (see <code><a href="rfProximity.html">rfProximity</a></code>).
+If the number is greater than 10, the case can be considered an outlier according to Breiman 2001.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For each instance from a <code>dataset</code> the function returns a numeric score of its strangeness to other cases.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> John Adeyanju Alao (as a part of his BSc thesis) and Marko Robnik-Sikonja (thesis supervisor)</p>
+
+
+<h3>References</h3>
+
+<p>Leo Breiman: Random Forests. <em>Machine Learning Journal</em>, 45:5-32, 2001
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CoreModel.html">CoreModel</a></code>,
+<code><a href="rfProximity.html">rfProximity</a></code>,
+<code><a href="rfClustering.html">rfClustering</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#first create a random forest tree using CORElearn
+dataset &lt;- iris
+md &lt;- CoreModel(Species ~ ., dataset, model="rf", rfNoTrees=30, maxThreads=1)
+outliers &lt;- rfOutliers(md, dataset)
+plot(abs(outliers))
+#for a nicer display try 
+plot(md, dataset, rfGraphType="outliers")
+
+destroyModels(md) # clean up
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

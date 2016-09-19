@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRadioMenuItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRadioMenuItem {RGtk2}"><tr><td>GtkRadioMenuItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRadioMenuItem</h2>
+
+<h3>Description</h3>
+
+<p>A choice from multiple check menu items</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRadioMenuItemNew.html">gtkRadioMenuItemNew</a>(group = NULL, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemNewWithLabel.html">gtkRadioMenuItemNewWithLabel</a>(group = NULL, label, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemNewWithMnemonic.html">gtkRadioMenuItemNewWithMnemonic</a>(group = NULL, label, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemNewFromWidget.html">gtkRadioMenuItemNewFromWidget</a>(group = NULL, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemNewWithLabelFromWidget.html">gtkRadioMenuItemNewWithLabelFromWidget</a>(group = NULL, label, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemNewWithMnemonicFromWidget.html">gtkRadioMenuItemNewWithMnemonicFromWidget</a>(group = NULL, label, show = TRUE)</code><br />
+<code><a href="gtkRadioMenuItemSetGroup.html">gtkRadioMenuItemSetGroup</a>(object, group)</code><br />
+<code><a href="gtkRadioMenuItemGetGroup.html">gtkRadioMenuItemGetGroup</a>(object)</code><br />
+<code>gtkRadioMenuItem(group = NULL, label, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkItem
+                                       +----GtkMenuItem
+                                             +----GtkCheckMenuItem
+                                                   +----GtkRadioMenuItem</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRadioMenuItem implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A radio menu item is a check menu item that belongs to a group. At each
+instant exactly one of the radio menu items from a group is selected.
+</p>
+<p>The group list does not need to be freed, as each <code><a href="GtkRadioMenuItem.html">GtkRadioMenuItem</a></code> will
+remove itself and its list item when it is destroyed.
+</p>
+<p>The correct way to create a group of radio menu items is approximatively
+this:
+</p>
+<p><em>How to create a group of radio menu items.</em>
+</p>
+<pre>
+group &lt;- NULL
+for (i in 1:5) {
+  item &lt;- gtkRadioMenuItem(group, "This is an example")
+  group &lt;- item$getGroup()
+  if (i == 1)
+    item$setActive(TRUE)
+}
+
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRadioMenuItem</code></dt><dd>
+<p>The structure contains only private data that must be accessed through
+the interface functions.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRadioMenuItem</code> is the result of collapsing the constructors of <code>GtkRadioMenuItem</code> (<code><a href="gtkRadioMenuItemNew.html">gtkRadioMenuItemNew</a></code>, <code><a href="gtkRadioMenuItemNewWithLabel.html">gtkRadioMenuItemNewWithLabel</a></code>, <code><a href="gtkRadioMenuItemNewWithMnemonic.html">gtkRadioMenuItemNewWithMnemonic</a></code>, <code><a href="gtkRadioMenuItemNewFromWidget.html">gtkRadioMenuItemNewFromWidget</a></code>, <code><a href="gtkRadioMenuItemNewWithMnemonicFromWidget.html">gtkRadioMenuItemNewWithMnemonicFromWidget</a></code>, <code><a href="gtkRadioMenuItemNewWithLabelFromWidget.html">gtkRadioMenuItemNewWithLabelFromWidget</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>group-changed(radiomenuitem, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>radiomenuitem</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">group</code> [<code><a href="GtkRadioMenuItem.html">GtkRadioMenuItem</a></code> : *     : Write]</dt><dd>
+<p>The radio menu item whose group this widget belongs to.
+Since 2.8
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRadioMenuItem.html">http://library.gnome.org/devel//gtk/GtkRadioMenuItem.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

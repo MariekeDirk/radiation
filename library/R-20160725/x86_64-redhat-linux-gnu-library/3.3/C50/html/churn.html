@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Customer Churn Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for churn {C50}"><tr><td>churn {C50}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Customer Churn Data</h2>
+
+<h3>Description</h3>
+
+<p>A data set from the MLC++ machine learning software for modeling
+customer churn. There are 19 predictors, mostly numeric: <code>state</code>
+(categorical), <code>account_length</code>, <code>area_code</code>,
+<code>international_plan</code> (yes/no), <code>voice_mail_plan</code> (yes/no),
+<code>number_vmail_messages</code>, <code>total_day_minutes</code>,
+<code>total_day_calls</code>, <code>total_day_charge</code>,
+<code>total_eve_minutes</code>, <code>total_eve_calls</code>,
+<code>total_eve_charge</code>, <code>total_night_minutes</code>,
+<code>total_night_calls</code>, <code>total_night_charge</code>,
+<code>total_intl_minutes</code>, <code>total_intl_calls</code>,
+<code>total_intl_charge</code> and <code>number_customer_service_calls</code>.
+</p>
+<p>The outcome is contained in a column called <code>churn</code> (also yes/no).
+</p>
+<p>The training data has 3333 samples and the test set contains 1667. 
+</p>
+<p>A note in one of the source files states that the data are &quot;artificial
+based on claims similar to real world&quot;.
+</p>
+<p>A rule-based model shown on the RuleQuest website contains 19 rules,
+including:
+</p>
+<pre>
+Rule 1: (2221/60, lift 1.1)
+    international plan = no
+    total day minutes &lt;= 223.2
+    number customer service calls &lt;= 3
+    -&gt;  class 0  [0.973]
+
+Rule 5: (1972/87, lift 1.1)
+    total day minutes &lt;= 264.4
+    total intl minutes &lt;= 13.1
+    total intl calls &gt; 2
+    number customer service calls &lt;= 3
+    -&gt;  class 0  [0.955]
+
+Rule 10: (60, lift 6.8)
+    international plan = yes
+    total intl calls &lt;= 2
+    -&gt;  class 1  [0.984]
+
+Rule 12: (32, lift 6.7)
+    total day minutes &lt;= 120.5
+    number customer service calls &gt; 3
+    -&gt;  class 1  [0.971]
+</pre>
+<p>This implementation of C5.0 contains the same rules, but the rule numbers are different than above.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(churn)</pre>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>churnTrain</code></td>
+<td>
+<p>The training set</p>
+</td></tr>
+<tr valign="top"><td><code>churnTest</code></td>
+<td>
+<p>The test set.</p>
+</td></tr>
+</table>
+
+
+<h3>Source</h3>
+
+<p><a href="http://www.sgi.com/tech/mlc/">http://www.sgi.com/tech/mlc/</a>, <a href="http://www.rulequest.com/see5-examples.html">http://www.rulequest.com/see5-examples.html</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>C50</em> version 0.1.0-24 <a href="00Index.html">Index</a>]</div>
+</body></html>

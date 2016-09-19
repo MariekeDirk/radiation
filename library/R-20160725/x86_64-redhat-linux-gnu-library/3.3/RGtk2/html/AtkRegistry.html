@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkRegistry</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkRegistry {RGtk2}"><tr><td>AtkRegistry {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkRegistry</h2>
+
+<h3>Description</h3>
+
+<p>An object used to store the GType of the factories used to create an accessible
+object for an object of a particular GType.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkRegistrySetFactoryType.html">atkRegistrySetFactoryType</a>(object, type, factory.type)</code><br />
+<code><a href="atkRegistryGetFactoryType.html">atkRegistryGetFactoryType</a>(object, type)</code><br />
+<code><a href="atkRegistryGetFactory.html">atkRegistryGetFactory</a>(object, type)</code><br />
+<code><a href="atkGetDefaultRegistry.html">atkGetDefaultRegistry</a>()</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----AtkRegistry</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The AtkRegistry is normally used to create appropriate ATK &quot;peers&quot; for user
+interface components.  Application developers usually need only interact with
+the AtkRegistry by associating appropriate ATK implementation classes with
+GObject classes via the atk_registry_set_factory_type call, passing the
+appropriate GType for application custom widget classes.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkRegistry</code></dt><dd>
+<p>The AtkRegistry structure should not be accessed directly.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkRegistry.html">http://library.gnome.org/devel//atk/AtkRegistry.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

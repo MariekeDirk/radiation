@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create and train a dlvq network</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for dlvq {RSNNS}"><tr><td>dlvq {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create and train a dlvq network</h2>
+
+<h3>Description</h3>
+
+<p>Dynamic learning vector quantization (DLVQ) networks are similar to
+self-organizing maps (SOM, <code><a href="som.html">som</a></code>). But they perform supervised learning
+and lack a neighborhood relationship between the prototypes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dlvq(x, ...)
+
+## Default S3 method:
+dlvq(x, y, initFunc = "DLVQ_Weights",
+  initFuncParams = c(1, -1), learnFunc = "Dynamic_LVQ",
+  learnFuncParams = c(0.03, 0.03, 10), updateFunc = "Dynamic_LVQ",
+  updateFuncParams = c(0), shufflePatterns = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix with training inputs for the network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional function parameters (currently not used)</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the corresponding target values</p>
+</td></tr>
+<tr valign="top"><td><code>initFunc</code></td>
+<td>
+<p>the initialization function to use</p>
+</td></tr>
+<tr valign="top"><td><code>initFuncParams</code></td>
+<td>
+<p>the parameters for the initialization function</p>
+</td></tr>
+<tr valign="top"><td><code>learnFunc</code></td>
+<td>
+<p>the learning function to use</p>
+</td></tr>
+<tr valign="top"><td><code>learnFuncParams</code></td>
+<td>
+<p>the parameters for the learning function</p>
+</td></tr>
+<tr valign="top"><td><code>updateFunc</code></td>
+<td>
+<p>the update function to use</p>
+</td></tr>
+<tr valign="top"><td><code>updateFuncParams</code></td>
+<td>
+<p>the parameters for the update function</p>
+</td></tr>
+<tr valign="top"><td><code>shufflePatterns</code></td>
+<td>
+<p>should the patterns be shuffled?</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The input data has to be normalized in order to use DLVQ.
+</p>
+<p>Learning in DLVQ: For each class, a mean vector (prototype) is calculated and stored
+in a (newly generated) hidden unit. Then, the net is used to classify every pattern
+by using the nearest prototype. If a pattern gets misclassified as class y instead of
+class x, the prototype of class y is moved away from the pattern, and the prototype
+of class x is moved towards the pattern. This procedure is repeated iteratively until no more changes
+in classification take place. Then, new prototypes are introduced in the net per class
+as new hidden units, and initialized by the mean vector of misclassified patterns in that class.
+</p>
+<p>Network architecture: The network only has one hidden layer, containing one unit for each prototype.
+The prototypes/hidden units are also called codebook vectors. Because SNNS generates the units
+automatically, and does not need their number to be specified in advance, the procedure is called
+<em>dynamic</em> LVQ in SNNS.
+</p>
+<p>The default initialization, learning, and update functions are the only ones suitable for this kind of
+network. The three parameters of the learning function specify two learning rates (for the cases
+correctly/uncorrectly classified), and the number of cycles the net is trained before mean vectors are
+calculated.
+</p>
+<p>A detailed description of the theory and the parameters is available, as always, from the SNNS
+documentation and the other referenced literature.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="rsnnsObjectFactory.html">rsnns</a></code> object. The <code>fitted.values</code> member contains the
+activation patterns for all inputs.
+</p>
+
+
+<h3>References</h3>
+
+<p>Kohonen, T. (1988), Self-organization and associative memory, Vol. 8, Springer-Verlag.
+</p>
+<p>Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
+<a href="http://www.ra.cs.uni-tuebingen.de/SNNS/">http://www.ra.cs.uni-tuebingen.de/SNNS/</a>
+</p>
+<p>Zell, A. (1994), Simulation Neuronaler Netze, Addison-Wesley. (in German)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: demo(dlvq_ziff)
+## Not run: demo(dlvq_ziffSnnsR)
+
+
+data(snnsData)
+dataset &lt;- snnsData$dlvq_ziff_100.pat
+
+inputs &lt;- dataset[,inputColumns(dataset)]
+outputs &lt;- dataset[,outputColumns(dataset)]
+
+model &lt;- dlvq(inputs, outputs)
+
+fitted(model) == outputs
+mean(fitted(model) - outputs)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

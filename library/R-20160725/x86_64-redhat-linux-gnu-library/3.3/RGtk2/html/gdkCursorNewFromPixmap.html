@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkCursorNewFromPixmap</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkCursorNewFromPixmap {RGtk2}"><tr><td>gdkCursorNewFromPixmap {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkCursorNewFromPixmap</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new cursor from a given pixmap and mask. Both the pixmap and mask
+must have a depth of 1 (i.e. each pixel has only 2 values - on or off).
+The standard cursor size is 16 by 16 pixels. You can create a bitmap 
+from inline data as in the below example.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkCursorNewFromPixmap(source, mask, fg, bg, x, y)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">source</code></code></td>
+<td>
+<p>the pixmap specifying the cursor.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">mask</code></code></td>
+<td>
+<p>the pixmap specifying the mask, which must be the same size as
+<code>source</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">fg</code></code></td>
+<td>
+<p>the foreground color, used for the bits in the source which are 1.
+The color does not have to be allocated first.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">bg</code></code></td>
+<td>
+<p>the background color, used for the bits in the source which are 0.
+The color does not have to be allocated first.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>the horizontal offset of the 'hotspot' of the cursor.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>the vertical offset of the 'hotspot' of the cursor.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+ <p><em>Creating a custom cursor</em>
+</p>
+<pre>
+######
+# Creating a custom cursor
+######
+
+## This data is in X bitmap format, and can be created with the 'bitmap'
+## utility in X11
+cursor1_width &lt;- 16
+cursor1_height &lt;- 16
+cursor1_bits &lt;- c(0x80, 0x01, 0x40, 0x02, 0x20, 0x04, 0x10, 0x08, 0x08, 0x10,
+                  0x04, 0x20, 0x82, 0x41, 0x41, 0x82, 0x41, 0x82, 0x82, 0x41,
+                  0x04, 0x20, 0x08, 0x10, 0x10, 0x08, 0x20, 0x04, 0x40, 0x02,
+                  0x80, 0x01)
+ 
+cursor1mask_bits &lt;- c(0x80, 0x01, 0xc0, 0x03, 0x60, 0x06, 0x30, 0x0c, 0x18,
+                      0x18, 0x8c, 0x31, 0xc6, 0x63, 0x63, 0xc6, 0x63, 0xc6,
+                      0xc6, 0x63, 0x8c, 0x31, 0x18, 0x18, 0x30, 0x0c, 0x60,
+                      0x06, 0xc0, 0x03, 0x80, 0x01)
+ 
+fg &lt;- c(65535, 0, 0) # Red.
+bg &lt;- c(0, 0, 65535) # Blue.
+ 
+ 
+source &lt;- gdkBitmapCreateFromData(NULL, cursor1_bits,
+                                  cursor1_width, cursor1_height)
+mask &lt;- gdkBitmapCreateFromData(NULL, cursor1mask_bits,
+                                cursor1_width, cursor1_height)
+cursor &lt;- gdkCursorNewFromPixmap(source, mask, fg, bg, 8, 8)
+
+widget[["window"]]$setCursor(cursor)
+</pre>
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Cursors.html">GdkCursor</a></code>] a new <code><a href="gdk-Cursors.html">GdkCursor</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

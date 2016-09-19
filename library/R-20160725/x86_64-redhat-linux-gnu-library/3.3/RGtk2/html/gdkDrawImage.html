@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDrawImage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDrawImage {RGtk2}"><tr><td>gdkDrawImage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDrawImage</h2>
+
+<h3>Description</h3>
+
+<p>Draws a <code><a href="gdk-Images.html">GdkImage</a></code> onto a drawable.
+The depth of the <code><a href="gdk-Images.html">GdkImage</a></code> must match the depth of the <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDrawImage(object, gc, image, xsrc, ysrc, xdest, ydest, width, 
+    height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-Drawing-Primitives.html">GdkDrawable</a></code> (a <code><a href="gdk-Windows.html">GdkWindow</a></code> or a <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">gc</code></code></td>
+<td>
+<p>a <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">image</code></code></td>
+<td>
+<p>the <code><a href="gdk-Images.html">GdkImage</a></code> to draw.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">xsrc</code></code></td>
+<td>
+<p>the left edge of the source rectangle within <code>image</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ysrc</code></code></td>
+<td>
+<p>the top of the source rectangle within <code>image</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">xdest</code></code></td>
+<td>
+<p>the x coordinate of the destination within <code>drawable</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">ydest</code></code></td>
+<td>
+<p>the y coordinate of the destination within <code>drawable</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>the width of the area to be copied, or -1 to make the area
+extend to the right edge of <code>image</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>the height of the area to be copied, or -1 to make the area
+extend to the bottom edge of <code>image</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Scatterplot Matrices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for scatterplotMatrix {car}"><tr><td>scatterplotMatrix {car}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Scatterplot Matrices</h2>
+
+<h3>Description</h3>
+
+<p>Enhanced scatterplot matrices with univariate displays down the diagonal;
+<code>spm</code> is an abbreviation for <code>scatterplotMatrix</code>.
+This function just sets up a call to <code>pairs</code> with custom panel functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+
+scatterplotMatrix(x, ...)
+
+## S3 method for class 'formula'
+scatterplotMatrix(formula, data=NULL, subset, labels, ...)
+
+## Default S3 method:
+scatterplotMatrix(x, var.labels=colnames(x), 
+    diagonal=c("density", "boxplot", "histogram", "oned", "qqplot", "none"), 
+    adjust=1, nclass,
+    plot.points=TRUE, smoother=loessLine, smoother.args=list(), smooth, span,
+    spread = !by.groups, reg.line=lm,
+    transform=FALSE, family=c("bcPower", "yjPower"),
+    ellipse=FALSE, levels=c(.5, .95), robust=TRUE,
+    groups=NULL, by.groups=FALSE, 
+    use=c("complete.obs", "pairwise.complete.obs"),
+    labels, id.method="mahal", id.n=0, id.cex=1, id.col=palette()[1], id.location="lr",
+    col=if (n.groups == 1) palette()[3:1] else rep(palette(), length=n.groups),
+    pch=1:n.groups, lwd=1, lty=1, 
+    cex=par("cex"), cex.axis=par("cex.axis"), cex.labels=NULL, 
+    cex.main=par("cex.main"), 
+    legend.plot=length(levels(groups)) &gt; 1, legend.pos=NULL, row1attop=TRUE, ...)
+
+spm(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a data matrix, numeric data frame.</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a one-sided &ldquo;model&rdquo; formula, of the form 
+<code> ~ x1 + x2 + ... + xk</code> or <code> ~ x1 + x2 + ... + xk | z</code> where <code>z</code>
+evaluates to a factor or other variable to divide the data into groups.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>for <code>scatterplotMatrix.formula</code>,
+a data frame within which to evaluate the formula.</p>
+</td></tr>
+<tr valign="top"><td><code>subset</code></td>
+<td>
+<p>expression defining a subset of observations.</p>
+</td></tr>
+<tr valign="top"><td><code>labels,id.method,id.n,id.cex,id.col,id.location</code></td>
+<td>
+<p>Arguments for the labelling of
+points.  The default is <code>id.n=0</code> for labeling no points.  See
+<code><a href="showLabels.html">showLabels</a></code> for details of these arguments.  If the plot uses
+different colors for groups, then the <code>id.col</code> argument is ignored and
+label colors are determined by the <code>col</code> argument. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>var.labels</code></td>
+<td>
+<p>variable labels (for the diagonal of the plot).</p>
+</td></tr>
+<tr valign="top"><td><code>diagonal</code></td>
+<td>
+<p>contents of the diagonal panels of the plot. If plotting by groups, a different
+univariate display (with the exception of <code>"histogram"</code>) will be drawn for each group.</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+<p>relative bandwidth for density estimate, passed to 
+<code>density</code> function.</p>
+</td></tr>
+<tr valign="top"><td><code>nclass</code></td>
+<td>
+<p>number of bins for histogram, passed to <code>hist</code>
+function.</p>
+</td></tr>
+<tr valign="top"><td><code>plot.points</code></td>
+<td>
+<p>if <code>TRUE</code> the points are plotted in each 
+off-diagonal panel.</p>
+</td></tr>
+<tr valign="top"><td><code>smoother</code></td>
+<td>
+<p>a function to draw a nonparametric-regression smooth; the default is <code><a href="ScatterplotSmoothers.html">gamLine</a></code>, which
+uses the <code><a href="../../mgcv/html/gam.html">gam</a></code> function in the <span class="pkg">mgcv</span> package. For this and other smoothers,
+see <code><a href="ScatterplotSmoothers.html">ScatterplotSmoothers</a></code>.
+Setting this argument to something other than a function, e.g., <code>FALSE</code> suppresses the smoother.</p>
+</td></tr>
+<tr valign="top"><td><code>smoother.args</code></td>
+<td>
+<p>a list of named values to be passed to the smoother function; the specified elements of the
+list depend upon the smoother (see <code><a href="ScatterplotSmoothers.html">ScatterplotSmoothers</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>smooth, span</code></td>
+<td>
+<p>these arguments are included for backwards compatility: if <code>smooth=TRUE</code> then <code>smoother</code> is set to <code>loessLine</code>,
+and if <code>span</code> is specified, it is added to <code>smoother.args</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>spread</code></td>
+<td>
+<p>if TRUE, estimate the (square root) of the variance function.  For <code>loessLine</code> and
+for <code>gamLine</code>, this is done by separately smoothing the squares of the postive and negative
+residuals from the mean fit, and then adding the square root of the fitted values to the mean fit.  For
+<code>quantregLine</code>, fit the .25 and .75 quantiles with a quantile regression additive model.
+The default is TRUE if <code>by.groups=FALSE</code> and FALSE is <code>by.groups=TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>reg.line</code></td>
+<td>
+<p>if not <code>FALSE</code> a line is plotted using the
+function given by this argument; e.g., using <code>rlm</code> in
+package <code>MASS</code> plots a robust-regression line.</p>
+</td></tr>
+<tr valign="top"><td><code>transform</code></td>
+<td>
+<p>if <code>TRUE</code>, multivariate normalizing power transformations
+are computed with <code><a href="powerTransform.html">powerTransform</a></code>, rounding the estimated powers to &lsquo;nice&rsquo; values for plotting; 
+if a vector of powers, one for each variable, these are applied prior to plotting. If  there are <code>groups</code>
+and <code>by.groups</code> is <code>TRUE</code>, then the transformations are estimated <em>conditional</em> on the
+<code>groups</code> factor.</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+<p>family of transformations to estimate: <code>"bcPower"</code> for the Box-Cox family or 
+<code>"yjPower"</code> for the Yeo-Johnson family (see <code><a href="powerTransform.html">powerTransform</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>ellipse</code></td>
+<td>
+<p>if <code>TRUE</code> data-concentration ellipses are plotted in
+the off-diagonal panels.</p>
+</td></tr>
+<tr valign="top"><td><code>levels</code></td>
+<td>
+<p>levels or levels at which concentration ellipses are plotted;
+the default is <code>c(.5, .9)</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>robust</code></td>
+<td>
+<p>if <code>TRUE</code> use the <code>cov.trob</code> function in the <code>MASS</code> package
+to calculate the center and covariance matrix for the data ellipses.</p>
+</td></tr>
+<tr valign="top"><td><code>groups</code></td>
+<td>
+<p>a factor or other variable dividing the data into groups; groups are
+plotted with different colors and plotting characters.</p>
+</td></tr>
+<tr valign="top"><td><code>by.groups</code></td>
+<td>
+<p>if <code>TRUE</code>, regression lines are fit by groups.</p>
+</td></tr>
+<tr valign="top"><td><code>use</code></td>
+<td>
+<p>if <code>"complete.obs"</code> (the default), cases with missing data are omitted; if <code>"pairwise.complete.obs"), all valid cases are used
+    in each panel of the plot.</code></p>
+</td></tr>
+<tr valign="top"><td><code>pch</code></td>
+<td>
+<p>plotting characters for points; default is the plotting characters in
+order (see <code><a href="../../graphics/html/par.html">par</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>colors for lines and points; the default is taken from the color palette, 
+with <code>palette()[3]</code> for linear regression lines, <code>palette()[2]</code> for nonparametric regression lines, and <code>palette()[1]</code> 
+for points if there are
+no groups, and successive colors for the groups if there are groups.</p>
+</td></tr>
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+<p>width of linear-regression lines (default <code>1</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>lty</code></td>
+<td>
+<p>type of linear-regression lines (default <code>1</code>, solid line).</p>
+</td></tr>
+<tr valign="top"><td><code>cex, cex.axis, cex.labels, cex.main</code></td>
+<td>
+<p>set sizes of various graphical elements
+(see <code><a href="../../graphics/html/par.html">par</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>legend.plot</code></td>
+<td>
+<p>if <code>TRUE</code> then a legend for the groups is plotted
+in the first diagonal cell.</p>
+</td></tr>
+<tr valign="top"><td><code>legend.pos</code></td>
+<td>
+<p>position for the legend, specified as one of the keywords accepted by
+<code><a href="../../graphics/html/legend.html">legend</a></code>. If <code>NULL</code>, the default, the position will vary by the 
+<code>diagonal</code> argument &mdash; e.g., <code>"topright"</code> for <code>diagonal="density"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>row1attop</code></td>
+<td>
+<p>If <code>TRUE</code> (the default) the first row is at the top, as in a matrix, as
+opposed to at the bottom, as in graph (argument suggested by Richard Heiberger).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments to pass down.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>. This function is used for its side effect: producing
+a plot.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John Fox <a href="mailto:jfox@mcmaster.ca">jfox@mcmaster.ca</a></p>
+
+
+<h3>References</h3>
+
+<p>Fox, J. and Weisberg, S. (2011) 
+<em>An R Companion to Applied Regression</em>, Second Edition, Sage.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/pairs.html">pairs</a></code>, <code><a href="scatterplot.html">scatterplot</a></code>,
+<code><a href="Ellipses.html">dataEllipse</a></code>, <code><a href="powerTransform.html">powerTransform</a></code>, 
+<code><a href="bcPower.html">bcPower</a></code>, <code><a href="bcPower.html">yjPower</a></code>, <code><a href="../../MASS/html/cov.trob.html">cov.trob</a></code>,
+<code><a href="showLabels.html">showLabels</a></code>, <code><a href="ScatterplotSmoothers.html">ScatterplotSmoothers</a></code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+scatterplotMatrix(~ income + education + prestige | type, data=Duncan)
+scatterplotMatrix(~ income + education + prestige, 
+    transform=TRUE, data=Duncan, smoother=loessLine)
+scatterplotMatrix(~ income + education + prestige | type, smoother=FALSE, 
+	by.group=TRUE, transform=TRUE, data=Duncan)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>car</em> version 2.1-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

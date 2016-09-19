@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visualization of CoreModel models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.CoreModel {CORElearn}"><tr><td>plot.CoreModel {CORElearn}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Visualization of CoreModel models </h2>
+
+<h3>Description</h3>
+
+<p>The method <code>plot</code> visualizes the models returned by CoreModel()
+function or summaries obtained by applying these models to data.
+Different plots can be produced depending on the type of the model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+    ## S3 method for class 'CoreModel'
+plot(x, trainSet, rfGraphType=c("attrEval", "outliers", "scaling",
+    "prototypes", "attrEvalCluster"), clustering=NULL, ...) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>The model structure as returned by <code><a href="CoreModel.html">CoreModel</a></code>.</p>
+</td></tr>          
+<tr valign="top"><td><code>trainSet</code></td>
+<td>
+<p> The data frame containing training data which produced the model <code>x</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>rfGraphType</code></td>
+<td>
+<p> The type of the graph to produce for random forest models. See details.</p>
+</td></tr>
+<tr valign="top"><td><code>clustering</code></td>
+<td>
+<p>The clustering of the training instances used in some model types. See details.</p>
+</td></tr>
+<tr valign="top"><td><code>... </code></td>
+<td>
+<p> Other options controlling graphical output passed to additional graphical functions.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The output of function <code><a href="CoreModel.html">CoreModel</a></code> is visualized. Depending on the model type, different visualizations 
+are produced. Currently, classification tree, regression tree, and random forests are supported 
+(models &quot;tree&quot;, &quot;regTree&quot;, &quot;rf&quot;, and &quot;rfNear&quot;).
+</p>
+<p>For classification and regression trees (models &quot;tree&quot; and &quot;regTree&quot;) the visualization produces a graph 
+representing structure
+of classification and regression tree, respectively. This process exploits graphical capabilities of 
+<code><a href="../../rpart/html/rpart.html">rpart</a></code> package. Internal structures of 
+<code>CoreModel</code> are converted to <code><a href="../../rpart/html/rpart.object.html">rpart.object</a></code> and then visualized by calling
+<code><a href="../../rpart/html/plot.rpart.html">plot.rpart</a></code> and <code><a href="../../rpart/html/text.rpart.html">text.rpart</a></code> using some sensible values of graphical parameters. For more versatile
+picture use <code><a href="getRpartModel.html">getRpartModel</a></code> and call these two functions with different parameters.  
+An alternative is to use package rpart.plot and plot the <code><a href="../../rpart/html/rpart.object.html">rpart.object</a></code> with it, however note that
+<code>rpart.plot</code> can only display a single value in a leaf, which is not appropriate for model trees using e.g., 
+linear regression in the leaves. For these cases function <code><a href="display.CoreModel.html">display</a></code> is a better alternative.
+directly modifying the parameters. 
+</p>
+<p>For random forest models (models &quot;rf&quot; and &quot;rfNear&quot;) different types of visualizations can be produced depending on the
+<code>graphType</code> parameter:
+</p>
+
+<ul>
+<li> <p><code>"attrEval"</code> the attributes are evaluated with random forest model and the importance scores are then
+visualized. For details see <code><a href="rfAttrEval.html">rfAttrEval</a></code>.
+</p>
+</li>
+<li> <p><code>"attrEvalClustering"</code> similarly to the <code>"attrEval"</code> the attributes are evaluated with random forest 
+model and the importance scores are then visualized, but the importance scores are generated
+for each cluster separately. The parameter <code>clustering</code> provides clustering information on
+the <code>trainSet</code>. If <code>clustering</code> parameter is set to NULL, the class values are used as 
+clustering information and visualization of attribute importance for each class separately is
+generated.
+For details see <code><a href="rfAttrEval.html">rfAttrEvalClustering</a></code>.                         
+</p>
+</li>
+<li> <p><code>"outliers"</code> the random forest proximity measure of training instances in <code>trainSet</code>
+is visualized and outliers for each class separately can be detected.
+For details see <code><a href="rfProximity.html">rfProximity</a></code> and <code><a href="rfOutliers.html">rfOutliers</a></code>.  
+</p>
+</li>
+<li> <p><code>"prototypes"</code> typical instances are found based on predicted class probabilities
+and their values are visualized (see <code><a href="classPrototypes.html">classPrototypes</a></code>). 
+</p>
+</li>
+<li> <p><code>"scaling"</code> returns a scaling plot of training instances in a two dimensional space using
+random forest based proximity as the distance (see <code><a href="rfProximity.html">rfProximity</a></code> 
+and a scaling function <code><a href="../../stats/html/cmdscale.html">cmdscale</a></code>).
+</p>
+</li></ul>
+       
+
+
+<h3>Value</h3>
+
+<p>The method returns no value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> John Adeyanju Alao (initial implementation) and Marko Robnik-Sikonja (integration, improvements)</p>
+
+
+<h3>References</h3>
+
+<p>Leo Breiman: Random Forests. <em>Machine Learning Journal</em>, 45:5-32, 2001
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="CoreModel.html">CoreModel</a></code>,
+<code><a href="rfProximity.html">rfProximity</a></code>,
+<code><a href="../../cluster/html/pam.html">pam</a></code>,
+<code><a href="rfClustering.html">rfClustering</a></code>,
+<code><a href="rfAttrEval.html">rfAttrEvalClustering</a></code>,
+<code><a href="rfOutliers.html">rfOutliers</a></code>,
+<code><a href="classPrototypes.html">classPrototypes</a></code>,
+<code><a href="../../stats/html/cmdscale.html">cmdscale</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# decision tree
+dataset &lt;- CO2
+md &lt;- CoreModel(Plant ~ ., dataset, model="tree")
+plot(md, dataset)
+
+# more versatile graph can be obtained by explicit conversion to rpart.object 
+rpm &lt;- getRpartModel(md,dataset)
+# and than setting additional graphical parameters in plot.rpart and text.rpart
+# E.g., set angle to tan(0.5)=45 (degrees) and length of branches at least 5, 
+# try to make a dendrogram more compact
+plot(rpm, branch=0.5, minbranch=5, compress=TRUE)
+#(pretty=0) full names of attributes, numbers to 3 decimals, 
+text(rpm, pretty=0, digits=3)
+
+# an alternative is to use fancier rpart.plot package
+# rpart.plot(rpm) # rpart.plot has many parameters controlling the output
+# but it cannot plot models in leaves 
+
+destroyModels(md) # clean up
+
+# regression tree
+dataset &lt;- CO2
+mdr &lt;- CoreModel(uptake ~ ., dataset, model="regTree")
+plot(mdr, dataset)
+destroyModels(mdr) # clean up
+
+#random forests
+dataset &lt;- iris
+mdRF &lt;- CoreModel(Species ~ ., dataset, model="rf", rfNoTrees=30, maxThreads=1)
+plot(mdRF, dataset, rfGraphType="attrEval")
+plot(mdRF, dataset, rfGraphType="outliers")
+plot(mdRF, dataset, rfGraphType="scaling")
+plot(mdRF, dataset, rfGraphType="prototypes")
+plot(mdRF, dataset, rfGraphType="attrEvalCluster", clustering=NULL)
+destroyModels(mdRF) # clean up
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>CORElearn</em> version 1.48.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeModelFilterSetVisibleFunc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeModelFilterSetVisibleFunc {RGtk2}"><tr><td>gtkTreeModelFilterSetVisibleFunc {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeModelFilterSetVisibleFunc</h2>
+
+<h3>Description</h3>
+
+<p>Sets the visible function used when filtering the <code>filter</code> to be <code>func</code>. The
+function should return <code>TRUE</code> if the given row should be visible and
+<code>FALSE</code> otherwise.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeModelFilterSetVisibleFunc(object, func, data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeModelFilter.html">GtkTreeModelFilter</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">func</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeModelFilter.html">GtkTreeModelFilterVisibleFunc</a></code>, the visible function.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>User data to pass to the visible function, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the condition calculated by the function changes over time (e.g. because
+it depends on some global parameters), you must call 
+<code><a href="gtkTreeModelFilterRefilter.html">gtkTreeModelFilterRefilter</a></code> to keep the visibility information of 
+the model uptodate.
+</p>
+<p>Note that <code>func</code> is called whenever a row is inserted, when it may still be
+empty. The visible function should therefore take special care of empty
+rows, like in the example below.
+</p>
+<pre>
+visible_func &lt;- function(model, iter, data)
+{
+  ## Visible if row is non-empty and first column is "HI"
+  visible &lt;- FALSE
+
+  str &lt;- model$get(iter, 0)[[1]]
+  if (identical(str, "HI"))
+    visible &lt;- TRUE
+
+  return(visible)
+}
+</pre><p>  Since 2.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

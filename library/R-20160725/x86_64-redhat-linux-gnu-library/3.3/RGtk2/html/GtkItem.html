@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkItem {RGtk2}"><tr><td>GtkItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkItem</h2>
+
+<h3>Description</h3>
+
+<p>Abstract base class for GtkMenuItem, GtkListItem and GtkTreeItem</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkItemSelect.html">gtkItemSelect</a>(object)</code><br />
+<code><a href="gtkItemDeselect.html">gtkItemDeselect</a>(object)</code><br />
+<code><a href="gtkItemToggle.html">gtkItemToggle</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkItem
+                                       +----GtkMenuItem
+                                       +----GtkListItem
+                                       +----GtkTreeItem</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkItem implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkItem.html">GtkItem</a></code> widget is an abstract base class for <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>, <code><a href="GtkListItem.html">GtkListItem</a></code>
+and <code style="white-space: pre;">GtkTreeItem</code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkItem</code></dt><dd>
+<p>The <code><a href="GtkItem.html">GtkItem</a></code> struct contains private data only, and
+should be accessed using the functions below.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>deselect(item, user.data)</code></dt><dd>
+<p>Emitted when the item is deselected.
+</p>
+
+<dl>
+<dt><code>item</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>select(item, user.data)</code></dt><dd>
+<p>Emitted when the item is selected.
+</p>
+
+<dl>
+<dt><code>item</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle(item, user.data)</code></dt><dd>
+<p>Emitted when the item is toggled.
+</p>
+
+<dl>
+<dt><code>item</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkItem.html">http://library.gnome.org/devel//gtk/GtkItem.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

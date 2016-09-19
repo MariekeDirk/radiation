@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Prediction from a random generalized linear model predictor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for predict.randomGLM {randomGLM}"><tr><td>predict.randomGLM {randomGLM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Prediction from a random generalized linear model predictor </h2>
+
+<h3>Description</h3>
+
+<p> Implements a predict method on a previously-constructed random  generalized linear model predictor and new data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'randomGLM'
+predict(object, newdata, type=c("response", "class"), 
+                 thresholdClassProb = object$thresholdClassProb, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>a <code>randomGLM</code> object such as one returned by <code><a href="randomGLM.html">randomGLM</a></code>. </p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p>specification of test data for which to calculate the prediction.</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>type of prediction required. Type &quot;response&quot; gives the fitted probabilities for classification, the fitted values for regression. Type &quot;class&quot; applies only to classification, and produces the predicted class labels.</p>
+</td></tr>
+<tr valign="top"><td><code>thresholdClassProb</code></td>
+<td>
+<p>the threshold of predictive probabilities to arrive at classification. Takes values between 0 and 1. Only used for binary outcomes.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments that may be passed to and from methods. Currently unused.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function calculates prediction on new test data. It only works if <code>object</code> contains the regression
+models that were used to construct the predictor (see argument <code>keepModels</code> of the function
+<code><a href="randomGLM.html">randomGLM</a></code>). 
+</p>
+<p>If the predictor was trained on a multi-class response, the prediction is applied to each of the
+representing binary variables (see <code><a href="randomGLM.html">randomGLM</a></code> for details).
+</p>
+
+
+<h3>Value</h3>
+
+<p>For continuous prediction, the predicted values. For classification of binary response, predicted class when
+<code>type="class"</code>; or a two-column matrix giving the class probabilities if <code>type="response"</code>.
+</p>
+<p>If the predictor was trained on a multi-class response, the returned value is a matrix of &quot;cbind&quot;-ed results
+for the representing individual binary variables (see <code><a href="randomGLM.html">randomGLM</a></code> for details).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Lin Song, Steve Horvath and Peter Langfelder.
+</p>
+
+
+<h3>References</h3>
+
+<p>Lin Song, Peter Langfelder, Steve Horvath: Random generalized linear model: a highly accurate and interpretable ensemble predictor. BMC Bioinformatics (2013)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## binary outcome prediction
+# data generation
+data(iris)
+# Restrict data to first 100 observations
+iris=iris[1:100,]
+# Turn Species into a factor
+iris$Species = as.factor(as.character(iris$Species))
+# Select a training and a test subset of the 100 observations
+set.seed(1)
+indx = sample(100, 67, replace=FALSE)
+xyTrain = iris[indx,]
+xyTest = iris[-indx,]
+xTrain = xyTrain[, -5]
+yTrain = xyTrain[, 5]
+
+xTest = xyTest[, -5]
+yTest = xyTest[, 5]
+
+# predict with a small number of bags - normally nBags should be at least 100.
+RGLM = randomGLM(xTrain, yTrain, nCandidateCovariates=ncol(xTrain), nBags=30, keepModels = TRUE, nThreads = 1)
+predicted = predict(RGLM, newdata = xTest, type="class")
+table(predicted, yTest)
+
+## continuous outcome prediction
+
+x=matrix(rnorm(100*20),100,20)
+y=rnorm(100)
+
+xTrain = x[1:50,]
+yTrain = y[1:50]
+xTest = x[51:100,]
+yTest = y[51:100]
+
+RGLM = randomGLM(xTrain, yTrain, classify=FALSE, nCandidateCovariates=ncol(xTrain), 
+                 nBags=10, keepModels = TRUE, nThreads = 1)
+predicted = predict(RGLM, newdata = xTest)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>randomGLM</em> version 1.02-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

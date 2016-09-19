@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Permeability Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for permeability {AppliedPredictiveModeling}"><tr><td>permeability {AppliedPredictiveModeling}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Permeability Data</h2>
+
+<h3>Description</h3>
+
+<p>This pharmaceutical data set was used to develop a model for predicting compounds' permeability.  In short, permeability is the measure of a molecule's ability to cross a membrane.  The body, for example, has notable membranes between the body and brain, known as the blood-brain barrier, and between the gut and body in the intestines.  These membranes help the body guard critical regions from receiving undesirable or detrimental substances.  For an orally taken drug to be effective in the brain, it first must pass through the intestinal wall and then must pass through the blood-brain barrier in order to be present for the desired neurological target.  Therefore, a compound's ability to permeate relevant biological membranes is critically important to understand early in the drug discovery process.  Compounds that appear to be effective for a particular disease in research screening experiments, but appear to be poorly permeable may need to be altered in order improve permeability, and thus the compound's ability to reach the desired target.  Identifying permeability problems can help guide chemists towards better molecules.
+</p>
+<p>Permeability assays such as PAMPA and Caco-2 have been developed to help measure compounds' permeability (Kansy et al, 1998).  These screens are effective at quantifying a compound's permeability, but the assay is expensive labor intensive.  Given a sufficient number of compounds that have been screened, we could develop a predictive model for permeability in an attempt to potentially reduce the need for the assay.  In this project there were 165 unique compounds; 1107 molecular fingerprints were determined for each.  A molecular fingerprint is a binary sequence of numbers that represents the presence or absence of a specific molecular sub-structure.  The response is highly skewed, the predictors are sparse (15.5 percent are present), and many predictors are strongly associated.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(permeability)</pre>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>permeability</code></td>
+<td>
+<p>permeability values for each compound. </p>
+</td></tr>
+<tr valign="top"><td><code>fingerprints</code></td>
+<td>
+<p>a matrix of binary fingerprint indicator variables.</p>
+</td></tr>
+</table>
+
+
+<h3>Source</h3>
+
+<p>Kansy, M., Senner, F., and Gubernator, K. (1998). Physicochemical High Throughput Screening:  Parallel Artificial Membrane Permeation Assay in the Description of Passive Absorption Processes. J. Med. Chem, 41(7), 1007-1010.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(permeability)
+
+hist(permeability)
+
+summary(apply(fingerprints, 2, mean))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>AppliedPredictiveModeling</em> version 1.1-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

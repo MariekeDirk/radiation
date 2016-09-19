@@ -1,0 +1,60 @@
+branchmap               Computes a branching map from a sequence of
+                        level set trees
+colors2data             Assigns colors to data points
+denpro-package          Visualization of Multivariate Functions, Sets,
+                        and Data
+draw.levset             Plots a level set of a 2D function
+draw.pcf                Prepares the plotting of a 2D or 1D piecewise
+                        constant function
+etais                   Undocumented functions
+excmas                  Computes the excess masses associated with the
+                        nodes of a level set tree
+exmap                   Computes a scale of excess mass profiles
+findbnodes              Finds pointers to the nodes of a level set tree
+hgrid                   Returns a grid of smoothing parameter values
+leafsfirst              Computes a level set tree, shape tree, or tail
+                        tree
+leafsfirst.adagrid      Computes a level set tree of a discretized
+                        kernel estimator with an adaptive grid
+locofmax                Calculates the location of the maximum of a
+                        function
+lstseq.kern             Calculates a scale of kernel estimates
+modecent                Returns locations of modes of a density
+                        estimate
+modegraph               Calculates a mode graph from a scale of
+                        estimates
+paracoor                Makes a parallel coordinate plot
+pcf.func                Calculates a piecewise constant function for
+                        some illustrative purposes
+pcf.kern                Computes a multivariate kernel estimate
+plotbary                Makes a barycenter plot of a level set tree, a
+                        location plot of a shape tree, or a tail tree
+                        plot of a tail tree
+plotbranchmap           Plots a branching map
+plotexmap               Plots a scale of excess mass profiles
+plotmodet               Plots a mode graph
+plottree                Makes a tree plot of a level set tree, of a
+                        shape tree, or of a tail tree
+plotvolu                Makes a volume plot of a level set tree, a
+                        shape plot of a shape tree, or a tail frequency
+                        plot of a tail tree
+plotvolu2d              Makes a perspective plot of a 2D volume
+                        function or a 2D probability content function
+profgene                Calculates the level set tree of a
+                        rectangularwise constant function
+profhist                Calculates the level set tree of a histogram
+profkern                Calculates a level set tree of a kernel
+                        estimate
+prunemodes              Prunes modes away from a level set tree or a
+                        shape tree
+scaletable              Implements the scale and shape table
+shape2d                 Returns a 2D volume function or 2D probability
+                        content function
+sim.data                Generates data for illustrative purposes
+slicing                 Returns a one- or two-dimensional slice of a
+                        multivariate function
+stseq                   Calculates a sequence of radius functions from
+                        a sequence of level sets
+tree.segme              Returns the segmentation of the nodes of a
+                        visualization tree
+treedisc                Prunes a level set tree or a tail tree

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Highlighting the Patterns in Missing Values in Trajects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for runsNAltraj {adehabitat}"><tr><td>runsNAltraj {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Highlighting the Patterns in Missing Values in Trajects</h2>
+
+<h3>Description</h3>
+
+<p><code>runsNAltraj</code> performs a runs test to detect any autocorrelation
+in the location of missing relocations, for each burst of an object of
+class <code>ltraj</code>.
+</p>
+<p><code>summaryNAltraj</code> returns a summary of the number and proportion
+of missing values for each burst of an object of class
+<code>ltraj</code>.<br />
+</p>
+<p><code>plotNAltraj</code> plots the missing values in an object of class
+<code>ltraj</code> against the time.<br />
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+runsNAltraj(x, nrep = 500, plotit = TRUE, ...) 
+
+summaryNAltraj(x)
+
+plotNAltraj(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> An object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+<p>Number of randomisations</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+<p>logical.  Whether the results should be plotted on a
+graph</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Further arguments to be passed to the generic function
+<code>plot</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>runsNAltraj</code> returns a list of objects of class
+<code>randtest</code> (if a burst does not contain any missing value, the
+corresponding component is NULL).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.ltraj.html">ltraj</a></code> for additional information about objects of
+class <code>ltraj</code>, <code><a href="setNA.html">setNA</a></code> for additional information
+about missing values in such objects</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Two relocations are theoretically separated by
+## 10 minutes (600 seconds)
+data(puechcirc)
+puechcirc
+
+## plot the missing values
+plotNAltraj(puechcirc)
+
+
+## Test for an autocorrelation pattern in the missing values
+(runsNAltraj(puechcirc))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

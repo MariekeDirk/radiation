@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: SCAD Derivative</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for scad_deriv {rqPen}"><tr><td>scad_deriv {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>SCAD Derivative</h2>
+
+<h3>Description</h3>
+
+<p>Derivative of SCAD penalty function as described in Fan and Li (2001).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+scad_deriv(x,lambda,a)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>Number to be evaluated</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>Tuning parameter lambda</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>Tuning parameter a. Default value of 3.7 as suggested in Fan and Li (2001)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Derivative SCAD penalty function with tuning parameters lambda and &quot;a&quot; evaluated at &quot;x&quot;.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Ben Sherwood</p>
+
+
+<h3>References</h3>
+
+<p>[1] Fan, J. and Li, R. (2001). Variable selection via nonconcave penalized likelihood and its oracle properties, <em>J. Am. Statist. Ass</em>, <b>96</b>, 1348&ndash;1360.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+scad_deriv(3,1)
+scad_deriv(-3,1)
+scad_deriv(.001,2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

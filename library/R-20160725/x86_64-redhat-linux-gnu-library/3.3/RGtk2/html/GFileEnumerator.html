@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFileEnumerator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFileEnumerator {RGtk2}"><tr><td>GFileEnumerator {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFileEnumerator</h2>
+
+<h3>Description</h3>
+
+<p>Enumerated Files Routines</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileEnumeratorNextFile.html">gFileEnumeratorNextFile</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumeratorClose.html">gFileEnumeratorClose</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumeratorNextFilesAsync.html">gFileEnumeratorNextFilesAsync</a>(object, num.files, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileEnumeratorNextFilesFinish.html">gFileEnumeratorNextFilesFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumeratorCloseAsync.html">gFileEnumeratorCloseAsync</a>(object, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileEnumeratorCloseFinish.html">gFileEnumeratorCloseFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumeratorIsClosed.html">gFileEnumeratorIsClosed</a>(object)</code><br />
+<code><a href="gFileEnumeratorHasPending.html">gFileEnumeratorHasPending</a>(object)</code><br />
+<code><a href="gFileEnumeratorSetPending.html">gFileEnumeratorSetPending</a>(object, pending)</code><br />
+<code><a href="gFileEnumeratorGetContainer.html">gFileEnumeratorGetContainer</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GFileEnumerator</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GFileEnumerator.html">GFileEnumerator</a></code> allows you to operate on a set of <code><a href="GFile.html">GFile</a></code>s, 
+returning a <code><a href="GFileInfo.html">GFileInfo</a></code> structure for each file enumerated (e.g. 
+<code><a href="gFileEnumerateChildren.html">gFileEnumerateChildren</a></code> will return a <code><a href="GFileEnumerator.html">GFileEnumerator</a></code> for each 
+of the children within a directory).
+</p>
+<p>To get the next file's information from a <code><a href="GFileEnumerator.html">GFileEnumerator</a></code>, use 
+<code><a href="gFileEnumeratorNextFile.html">gFileEnumeratorNextFile</a></code> or its asynchronous version, 
+<code><a href="gFileEnumeratorNextFilesAsync.html">gFileEnumeratorNextFilesAsync</a></code>. Note that the asynchronous 
+version will return a list of <code><a href="GFileInfo.html">GFileInfo</a></code>s, whereas the 
+synchronous will only return the next file in the enumerator.
+</p>
+<p>To close a <code><a href="GFileEnumerator.html">GFileEnumerator</a></code>, use <code><a href="gFileEnumeratorClose.html">gFileEnumeratorClose</a></code>, or 
+its asynchronous version, <code><a href="gFileEnumeratorCloseAsync.html">gFileEnumeratorCloseAsync</a></code>. Once 
+a <code><a href="GFileEnumerator.html">GFileEnumerator</a></code> is closed, no further actions may be performed 
+on it, and it should be freed with <code>gObjectUnref()</code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFileEnumerator</code></dt><dd>
+<p>A per matched file iterator.
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">container</code> [<code><a href="GFile.html">GFile</a></code> : *                : Write / Construct Only]</dt><dd>
+<p>The container that is being enumerated.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFileEnumerator.html">http://library.gnome.org/devel//gio/GFileEnumerator.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

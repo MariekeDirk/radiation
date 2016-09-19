@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quasi-Poisson Family Function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quasipoissonff {VGAM}"><tr><td>quasipoissonff {VGAM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Quasi-Poisson Family Function </h2>
+
+<h3>Description</h3>
+
+<p>Fits a generalized linear model to a Poisson response, where
+the dispersion parameter is unknown.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quasipoissonff(link = "loge", onedpar = FALSE,
+               parallel = FALSE, zero = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>link</code></td>
+<td>
+
+<p>Link function. See <code><a href="Links.html">Links</a></code> for more choices.
+</p>
+</td></tr>
+<tr valign="top"><td><code>onedpar</code></td>
+<td>
+
+<p>One dispersion parameter? If the response is a matrix, 
+then a separate
+dispersion parameter will be computed for each response (column),
+by default.
+Setting <code>onedpar=TRUE</code> will pool them so that there is only
+one dispersion parameter to be estimated.
+</p>
+</td></tr>
+<tr valign="top"><td><code>parallel</code></td>
+<td>
+
+<p>A logical or formula. Used only if the response is a matrix.
+</p>
+</td></tr>
+<tr valign="top"><td><code>zero</code></td>
+<td>
+
+<p>Can be an integer-valued vector specifying which linear/additive predictors
+are modelled as intercepts only.  The values must be from the set
+{1,2,...,<i>M</i>}, where <i>M</i> is the number of columns of the
+matrix response.
+See <code><a href="CommonVGAMffArguments.html">CommonVGAMffArguments</a></code> for more information.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><i>M</i> defined above is the number of linear/additive predictors.
+</p>
+<p>If the dispersion parameter is unknown, then the resulting estimate
+is not fully a maximum likelihood estimate.
+</p>
+<p>A dispersion parameter that is less/greater than unity corresponds to
+under-/over-dispersion relative to the Poisson model.  Over-dispersion
+is more common in practice.
+</p>
+<p>When fitting a Quadratic RR-VGLM, the response is a matrix of <i>M</i>,
+say, columns (e.g., one column per species). Then there will be <i>M</i>
+dispersion parameters (one per column of the response matrix).
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>"vglmff"</code> (see <code><a href="vglmff-class.html">vglmff-class</a></code>).
+The object is used by modelling functions such as
+<code><a href="vglm.html">vglm</a></code>,
+<code><a href="vgam.html">vgam</a></code>,
+<code><a href="rrvglm.html">rrvglm</a></code>,
+<code><a href="cqo.html">cqo</a></code>,
+and <code><a href="cao.html">cao</a></code>.
+</p>
+
+
+<h3>Warning </h3>
+
+<p>See the warning in <code><a href="quasibinomialff.html">quasibinomialff</a></code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function will handle a matrix response automatically.
+</p>
+<p>The call <code>poissonff(dispersion = 0, ...)</code> is equivalent to
+<code>quasipoissonff(...)</code>.  The latter was written so that R users
+of <code>quasipoisson()</code> would only need to add a  &ldquo;<code>ff</code>&rdquo;
+to the end of the family function name.
+</p>
+<p>Regardless of whether the dispersion parameter is to be estimated or
+not, its value can be seen from the output from the <code>summary()</code>
+of the object.
+</p>
+
+
+
+
+<h3>Author(s)</h3>
+
+<p> Thomas W. Yee </p>
+
+
+<h3>References</h3>
+
+<p>McCullagh, P. and Nelder, J. A. (1989)
+<em>Generalized Linear Models</em>, 2nd ed. London: Chapman &amp; Hall.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="poissonff.html">poissonff</a></code>,
+<code><a href="negbinomial.html">negbinomial</a></code>,
+<code><a href="loge.html">loge</a></code>,
+<code><a href="rrvglm.html">rrvglm</a></code>,
+<code><a href="cqo.html">cqo</a></code>,
+<code><a href="cao.html">cao</a></code>,
+<code><a href="binomialff.html">binomialff</a></code>,
+<code><a href="quasibinomialff.html">quasibinomialff</a></code>,
+<code><a href="../../stats/html/quasipoisson.html">quasipoisson</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+quasipoissonff()
+
+## Not run: n &lt;- 200; p &lt;- 5; S &lt;- 5
+mydata &lt;- rcqo(n, p, S, fam = "poisson", eq.tol = FALSE)
+myform &lt;- attr(mydata, "formula")
+p1 &lt;- cqo(myform, fam = quasipoissonff, eq.tol = FALSE, data = mydata)
+sort(deviance(p1, history = TRUE))  # A history of all the iterations
+lvplot(p1, y = TRUE, lcol = 1:S, pch = 1:S, pcol = 1:S)
+summary(p1)  # The dispersion parameters are estimated
+
+## End(Not run)</pre>
+
+<hr /><div style="text-align: center;">[Package <em>VGAM</em> version 1.0-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

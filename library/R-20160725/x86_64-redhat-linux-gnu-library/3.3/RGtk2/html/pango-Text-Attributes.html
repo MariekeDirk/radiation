@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Text Attributes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pango-Text-Attributes {RGtk2}"><tr><td>pango-Text-Attributes {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Text Attributes</h2>
+
+<h3>Description</h3>
+
+<p>Font and other attributes for annotating text</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="pangoParseMarkup.html">pangoParseMarkup</a>(markup.text, accel.marker, .errwarn = TRUE)</code><br />
+<code><a href="pangoAttrTypeRegister.html">pangoAttrTypeRegister</a>(name)</code><br />
+<code><a href="pangoAttrTypeGetName.html">pangoAttrTypeGetName</a>(type)</code><br />
+<code><a href="pangoAttributeInit.html">pangoAttributeInit</a>(attr, klass)</code><br />
+<code><a href="pangoAttributeCopy.html">pangoAttributeCopy</a>(object)</code><br />
+<code><a href="pangoAttributeEqual.html">pangoAttributeEqual</a>(object, attr2)</code><br />
+<code><a href="pangoAttrLanguageNew.html">pangoAttrLanguageNew</a>(language)</code><br />
+<code><a href="pangoAttrFamilyNew.html">pangoAttrFamilyNew</a>(family)</code><br />
+<code><a href="pangoAttrStyleNew.html">pangoAttrStyleNew</a>(style)</code><br />
+<code><a href="pangoAttrVariantNew.html">pangoAttrVariantNew</a>(variant)</code><br />
+<code><a href="pangoAttrStretchNew.html">pangoAttrStretchNew</a>(stretch)</code><br />
+<code><a href="pangoAttrWeightNew.html">pangoAttrWeightNew</a>(weight)</code><br />
+<code><a href="pangoAttrSizeNew.html">pangoAttrSizeNew</a>(size)</code><br />
+<code><a href="pangoAttrSizeNewAbsolute.html">pangoAttrSizeNewAbsolute</a>(size)</code><br />
+<code><a href="pangoAttrFontDescNew.html">pangoAttrFontDescNew</a>(desc)</code><br />
+<code><a href="pangoAttrForegroundNew.html">pangoAttrForegroundNew</a>(red, green, blue)</code><br />
+<code><a href="pangoAttrBackgroundNew.html">pangoAttrBackgroundNew</a>(red, green, blue)</code><br />
+<code><a href="pangoAttrStrikethroughNew.html">pangoAttrStrikethroughNew</a>(strikethrough)</code><br />
+<code><a href="pangoAttrStrikethroughColorNew.html">pangoAttrStrikethroughColorNew</a>(red, green, blue)</code><br />
+<code><a href="pangoAttrUnderlineNew.html">pangoAttrUnderlineNew</a>(underline)</code><br />
+<code><a href="pangoAttrUnderlineColorNew.html">pangoAttrUnderlineColorNew</a>(red, green, blue)</code><br />
+<code><a href="pangoAttrShapeNew.html">pangoAttrShapeNew</a>(ink.rect, logical.rect)</code><br />
+<code><a href="pangoAttrShapeNewWithData.html">pangoAttrShapeNewWithData</a>(ink.rect, logical.rect, data)</code><br />
+<code><a href="pangoAttrScaleNew.html">pangoAttrScaleNew</a>(scale.factor)</code><br />
+<code><a href="pangoAttrRiseNew.html">pangoAttrRiseNew</a>(rise)</code><br />
+<code><a href="pangoAttrLetterSpacingNew.html">pangoAttrLetterSpacingNew</a>(letter.spacing)</code><br />
+<code><a href="pangoAttrFallbackNew.html">pangoAttrFallbackNew</a>(fallback)</code><br />
+<code><a href="pangoAttrGravityNew.html">pangoAttrGravityNew</a>(gravity)</code><br />
+<code><a href="pangoAttrGravityHintNew.html">pangoAttrGravityHintNew</a>(hint)</code><br />
+<code><a href="pangoColorParse.html">pangoColorParse</a>(spec)</code><br />
+<code><a href="pangoColorCopy.html">pangoColorCopy</a>(object)</code><br />
+<code><a href="pangoColorFree.html">pangoColorFree</a>(object)</code><br />
+<code><a href="pangoColorToString.html">pangoColorToString</a>(object)</code><br />
+<code><a href="pangoAttrListNew.html">pangoAttrListNew</a>()</code><br />
+<code><a href="pangoAttrListCopy.html">pangoAttrListCopy</a>(object)</code><br />
+<code><a href="pangoAttrListInsert.html">pangoAttrListInsert</a>(object, attr)</code><br />
+<code><a href="pangoAttrListInsertBefore.html">pangoAttrListInsertBefore</a>(object, attr)</code><br />
+<code><a href="pangoAttrListChange.html">pangoAttrListChange</a>(object, attr)</code><br />
+<code><a href="pangoAttrListSplice.html">pangoAttrListSplice</a>(object, other, pos, len)</code><br />
+<code><a href="pangoAttrListFilter.html">pangoAttrListFilter</a>(object, func, data)</code><br />
+<code><a href="pangoAttrListGetIterator.html">pangoAttrListGetIterator</a>(object)</code><br />
+<code><a href="pangoAttrIteratorCopy.html">pangoAttrIteratorCopy</a>(object)</code><br />
+<code><a href="pangoAttrIteratorNext.html">pangoAttrIteratorNext</a>(object)</code><br />
+<code><a href="pangoAttrIteratorRange.html">pangoAttrIteratorRange</a>(object)</code><br />
+<code><a href="pangoAttrIteratorGet.html">pangoAttrIteratorGet</a>(object, type)</code><br />
+<code><a href="pangoAttrIteratorGetFont.html">pangoAttrIteratorGetFont</a>(object)</code><br />
+<code><a href="pangoAttrIteratorGetAttrs.html">pangoAttrIteratorGetAttrs</a>(object)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Attributed text is used in a number of places in Pango. It
+is used as the input to the itemization process and also when
+creating a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code>. The data types and functions in
+this section are used to represent and manipulate sets
+of attributes applied to a portion of text.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">PangoAttrClass</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrClass</a></code> structure stores the type and operations for
+a particular type of attribute. The functions in this structure should
+not be called directly. Instead, one should use the wrapper functions
+provided for <code><a href="pango-Text-Attributes.html">PangoAttribute</a></code>.
+</p>
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="pango-Text-Attributes.html">PangoAttrType</a></code>] the type ID for this attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttribute</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttribute</a></code> structure represents the common portions of all
+attributes. Particular types of attributes include this structure
+as their initial portion. The common portion of the attribute holds
+the range to which the value in the type-specific part of the attribute
+applies and should be initialized using <code><a href="pangoAttributeInit.html">pangoAttributeInit</a></code>.
+By default an attribute will have an all-inclusive range of [0,<code>G_MAXUINT</code>].
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">klass</code></dt><dd><p>[<code><a href="pango-Text-Attributes.html">PangoAttrClass</a></code>] the class structure holding information about the type of the attribute</p>
+</dd>
+<dt><code style="white-space: pre;">startIndex</code></dt><dd><p>[numeric] the start index of the range (in bytes).</p>
+</dd>
+<dt><code style="white-space: pre;">endIndex</code></dt><dd><p>[numeric] end index of the range (in bytes). The character at this index
+is not included in the range.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrString</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrString</a></code> structure is used to represent attributes with
+a string value.
+</p>
+<dl>
+<dt><code style="white-space: pre;">value</code></dt><dd><p>[char] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrLanguage</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrLanguage</a></code> structure is used to represent attributes that
+are languages.
+</p>
+<dl>
+<dt><code style="white-space: pre;">value</code></dt><dd><p>[<code><a href="pango-Scripts-and-Languages.html">PangoLanguage</a></code>] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrColor</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrColor</a></code> structure is used to represent attributes that
+are colors.
+</p>
+<dl>
+<dt><code style="white-space: pre;">color</code></dt><dd><p>[<code><a href="pango-Text-Attributes.html">PangoColor</a></code>] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrInt</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code> structure is used to represent attributes with
+an integer or enumeration value.
+</p>
+<dl>
+<dt><code style="white-space: pre;">value</code></dt><dd><p>[integer] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrFloat</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrFloat</a></code> structure is used to represent attributes with
+a float or double value.
+</p>
+<dl>
+<dt><code style="white-space: pre;">value</code></dt><dd><p>[numeric] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrFontDesc</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrFontDesc</a></code> structure is used to store an attribute that
+sets all aspects of the font description at once.
+</p>
+<dl>
+<dt><code style="white-space: pre;">desc</code></dt><dd><p>[<code><a href="pango-Fonts.html">PangoFontDescription</a></code>] the common portion of the attribute</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrShape</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrShape</a></code> structure is used to represent attributes which
+impose shape restrictions.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">inkRect</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoRectangle</a></code>] the common portion of the attribute</p>
+</dd>
+<dt><code style="white-space: pre;">logicalRect</code></dt><dd><p>[<code><a href="pango-Glyph-Storage.html">PangoRectangle</a></code>] the ink rectangle to restrict to</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrSize</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrShape</a></code> structure is used to represent attributes which
+set font size.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">size</code></dt><dd><p>[integer] the common portion of the attribute</p>
+</dd>
+<dt><code style="white-space: pre;">absolute</code></dt><dd><p>[numeric] size of font, in units of 1/<code>PANGO_SCALE</code> of a point (for
+<code>PANGO_ATTR_SIZE</code>) or of a device uni (for <code>PANGO_ATTR_ABSOLUTE_SIZE</code>)</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoColor</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoColor</a></code> structure is used to
+represent a color in an uncalibrated RGB color-space.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">red</code></dt><dd><p>[integer] The red component of the color. This is a value between 0 and 65535, 
+with 65535 indicating full intensity.</p>
+</dd>
+<dt><code style="white-space: pre;">green</code></dt><dd><p>[integer] The green component of the color. This is a value between 0 and 65535, 
+with 65535 indicating full intensity.</p>
+</dd>
+<dt><code style="white-space: pre;">blue</code></dt><dd><p>[integer] The blue component of the color. This is a value between 0 and 65535, 
+with 65535 indicating full intensity.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoAttrList</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code> structure represents a list of attributes
+that apply to a section of text. The attributes are, in general,
+allowed to overlap in an arbitrary fashion, however, if the
+attributes are manipulated only through <code><a href="pangoAttrListChange.html">pangoAttrListChange</a></code>,
+the overlap between properties will meet stricter criteria.
+</p>
+<p>Since the <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code> structure is stored as a linear list,
+it is not suitable for storing attributes for large amounts
+of text. In general, you should not use a single <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code>
+for more than one paragraph of text.
+</p>
+</dd>
+<dt><code style="white-space: pre;">PangoAttrIterator</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrIterator</a></code> structure is used to represent an
+iterator through a <code><a href="pango-Text-Attributes.html">PangoAttrList</a></code>. A new iterator is created
+with <code><a href="pangoAttrListGetIterator.html">pangoAttrListGetIterator</a></code>. Once the iterator
+is created, it can be advanced through the style changes
+in the text using <code><a href="pangoAttrIteratorNext.html">pangoAttrIteratorNext</a></code>. At each
+style change, the range of the current style segment and the
+attributes currently in effect can be queried.
+</p>
+</dd>
+</dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">PangoAttrType</code></dt><dd>
+<p>The <code><a href="pango-Text-Attributes.html">PangoAttrType</a></code>
+distinguishes between different types of attributes. Along with the
+predefined values, it is possible to allocate additional values
+for custom attributes using <code><a href="pangoAttrTypeRegister.html">pangoAttrTypeRegister</a></code>. The predefined
+values are given below. The type of structure used to store the
+attribute is listed in parentheses after the description.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">invalid</code></dt><dd><p>does not happen</p>
+</dd>
+<dt><code style="white-space: pre;">language</code></dt><dd><p>language (<code><a href="pango-Text-Attributes.html">PangoAttrLanguage</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">family</code></dt><dd><p>font family name list (<code><a href="pango-Text-Attributes.html">PangoAttrString</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">style</code></dt><dd><p>font slant style (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">weight</code></dt><dd><p>font weight (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">variant</code></dt><dd><p>font variant (normal or small caps) (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">stretch</code></dt><dd><p>font stretch (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">size</code></dt><dd><p>font size in points scaled by <code>PANGO_SCALE</code> (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">font-desc</code></dt><dd><p>font description (<code><a href="pango-Text-Attributes.html">PangoAttrFontDesc</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">foreground</code></dt><dd><p>foreground color (<code><a href="pango-Text-Attributes.html">PangoAttrColor</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">background</code></dt><dd><p>background color (<code><a href="pango-Text-Attributes.html">PangoAttrColor</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">underline</code></dt><dd><p>whether the text has an underline (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">strikethrough</code></dt><dd><p>whether the text is struck-through (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">rise</code></dt><dd><p>baseline displacement (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">shape</code></dt><dd><p>shape (<code><a href="pango-Text-Attributes.html">PangoAttrShape</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">scale</code></dt><dd><p>font size scale factor (<code><a href="pango-Text-Attributes.html">PangoAttrFloat</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">fallback</code></dt><dd><p>whether fallback is enabled (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">letter-spacing</code></dt><dd><p>letter spacing (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">underline-color</code></dt><dd><p>underline color (<code><a href="pango-Text-Attributes.html">PangoAttrColor</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">strikethrough-color</code></dt><dd><p>strikethrough color (<code><a href="pango-Text-Attributes.html">PangoAttrColor</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">absolute-size</code></dt><dd><p>font size in pixels scaled by <code>PANGO_SCALE</code> (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">gravity</code></dt><dd><p>base text gravity (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+<dt><code style="white-space: pre;">gravity-hint</code></dt><dd><p>gravity hint (<code><a href="pango-Text-Attributes.html">PangoAttrInt</a></code>)</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">PangoUnderline</code></dt><dd>
+<p>the <code><a href="pango-Text-Attributes.html">PangoUnderline</a></code> enumeration is used to specify
+whether text should be underlined, and if so, the type
+of underlining.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>no underline should be drawn</p>
+</dd>
+<dt><code style="white-space: pre;">single</code></dt><dd><p>a single underline should be drawn</p>
+</dd>
+<dt><code style="white-space: pre;">double</code></dt><dd><p>a double underline should be drawn</p>
+</dd>
+<dt><code style="white-space: pre;">low</code></dt><dd><p>a single underline should be drawn at a position
+beneath the ink extents of the text being
+underlined. This should be used only for underlining
+single characters, such as for keyboard
+accelerators. <code>PANGO_UNDERLINE_SINGLE</code> should
+be used for extended portions of text.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>PangoAttrDataCopyFunc(data)</code></dt><dd>
+<p>A copy function passed to attribute new functions that take
+user data.
+</p>
+<dl>
+<dt><code>data</code></dt><dd><p>[R object] the user data</p>
+</dd></dl>
+
+<p><em>Returns:</em> [R object] a new copy of <code>data</code>.
+</p>
+</dd>
+<dt><code>PangoAttrFilterFunc(attribute, data)</code></dt><dd>
+<p>A predicate function used by <code><a href="pangoAttrListFilter.html">pangoAttrListFilter</a></code>
+to filter out a subset of attributes for a list.
+</p>
+
+<dl>
+<dt><code>attribute</code></dt><dd><p>[<code><a href="pango-Text-Attributes.html">PangoAttribute</a></code>] a <code><a href="pango-Text-Attributes.html">PangoAttribute</a></code></p>
+</dd>
+<dt><code>data</code></dt><dd><p>[R object] callback data passed to <code><a href="pangoAttrListFilter.html">pangoAttrListFilter</a></code></p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the attribute should be filtered out
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//pango/pango-Text-Attributes.html">http://library.gnome.org/devel//pango/pango-Text-Attributes.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

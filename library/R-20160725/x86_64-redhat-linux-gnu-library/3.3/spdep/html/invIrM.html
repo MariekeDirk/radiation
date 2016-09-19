@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Compute SAR generating operator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for invIrM {spdep}"><tr><td>invIrM {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Compute SAR generating operator</h2>
+
+<h3>Description</h3>
+
+<p>Computes the matrix used for generating simultaneous autoregressive random variables, for a given value of rho, a neighbours list object or a matrix, a chosen coding scheme style, and optionally a list of general weights corresponding to neighbours.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+invIrM(neighbours, rho, glist=NULL, style="W", method="solve",
+ feasible=NULL)
+invIrW(x, rho, method="solve", feasible=NULL)
+powerWeights(W, rho, order=250, X, tol=.Machine$double.eps^(3/5))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>neighbours</code></td>
+<td>
+<p>an object of class <code>nb</code></p>
+</td></tr>
+<tr valign="top"><td><code>rho</code></td>
+<td>
+<p>autoregressive parameter</p>
+</td></tr>
+<tr valign="top"><td><code>glist</code></td>
+<td>
+<p>list of general weights corresponding to neighbours</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+<p><code>style</code> can take values W, B, C, and S</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>default <code>solve</code>, can also take value <code>chol</code></p>
+</td></tr>
+<tr valign="top"><td><code>feasible</code></td>
+<td>
+<p>if NULL, the given value of rho is checked to see if it lies within its feasible range, if TRUE, the test is not conducted</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>either a <code>listw</code> object from for example <code>nb2listw</code>, or a square spatial weights matrix, optionally a sparse matrix</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>A spatial weights matrix (either a dense matrix or a CsparseMatrix)</p>
+</td></tr>
+<tr valign="top"><td><code>order</code></td>
+<td>
+<p>Power series maximum limit</p>
+</td></tr>
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>A numerical matrix</p>
+</td></tr>
+<tr valign="top"><td><code>tol</code></td>
+<td>
+<p>Tolerance for convergence of power series</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>invIrW</code> function generates the full weights matrix V, checks that rho lies in its feasible range between 1/min(eigen(V)) and 1/max(eigen(V)), and returns the nxn inverted matrix </p>
+<p style="text-align: center;"><i>(I - &rho; V)^{-1}</i></p>
+<p>. With method=&ldquo;chol&rdquo; (only for a listw object), Cholesky decomposition is used, thanks to contributed code by Markus Reder and Werner Mueller.
+</p>
+<p>The <code>powerWeights</code> function uses power series summation to cumulate the product </p>
+<p style="text-align: center;"><i>(I - &rho; V)^{-1} \%*\% X</i></p>
+<p> from </p>
+<p style="text-align: center;"><i>(I + &rho; V + (&rho; V)^2 + &hellip;) \%*\% X</i></p>
+<p>, which can be done by storing only sparse V and several matrices of the same dimensions as X. This makes it possible to handle larger spatial weights matrices, but is sensitive to the power weights order and the tolerance arguments when the spatial coefficient is close to its bounds, leading to incorrect estimates of the implied inverse matrix.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An nxn matrix with a &quot;call&quot; attribute; the <code>powerWeights</code> function returns a matrix of the same dimensions as X which has been multipled by the power series equivalent of the dense matrix </p>
+<p style="text-align: center;"><i>(I - &rho; V)^{-1}</i></p>
+<p>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Tiefelsdorf, M., Griffith, D. A., Boots, B. 1999 A variance-stabilizing coding scheme for spatial link matrices, Environment and Planning A, 31, pp. 165-180; Tiefelsdorf, M. 2000 Modelling spatial processes, Lecture notes in earth sciences, Springer, p. 76; Haining, R. 1990 Spatial data analysis in the social and environmental sciences, Cambridge University Press, p. 117; Cliff, A. D., Ord, J. K. 1981 Spatial processes, Pion, p. 152; Reder, M. and Mueller, W. (2007) An Improvement of the invIrM Routine of the Geostatistical R-package spdep by Cholesky Inversion, Statistical Projects, LV No: 238.205, SS 2006, Department of Applied Statistics, Johannes Kepler University, Linz</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="nb2listw.html">nb2listw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+nb7rt &lt;- cell2nb(7, 7, torus=TRUE)
+set.seed(1)
+x &lt;- matrix(rnorm(500*length(nb7rt)), nrow=length(nb7rt))
+res0 &lt;- apply(invIrM(nb7rt, rho=0.0, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+res2 &lt;- apply(invIrM(nb7rt, rho=0.2, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+res4 &lt;- apply(invIrM(nb7rt, rho=0.4, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+res6 &lt;- apply(invIrM(nb7rt, rho=0.6, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+res8 &lt;- apply(invIrM(nb7rt, rho=0.8, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+res9 &lt;- apply(invIrM(nb7rt, rho=0.9, method="chol",
+ feasible=TRUE) %*% x, 2, function(x) var(x)/length(x))
+plot(density(res9), col="red", xlim=c(-0.01, max(density(res9)$x)),
+  ylim=range(density(res0)$y),
+  xlab="estimated variance of the mean",
+  main=expression(paste("Effects of spatial autocorrelation for different ",
+    rho, " values")))
+lines(density(res0), col="black")
+lines(density(res2), col="brown")
+lines(density(res4), col="green")
+lines(density(res6), col="orange")
+lines(density(res8), col="pink")
+legend(c(-0.02, 0.01), c(7, 25),
+ legend=c("0.0", "0.2", "0.4", "0.6", "0.8", "0.9"),
+ col=c("black", "brown", "green", "orange", "pink", "red"), lty=1, bty="n")
+## Not run: 
+x &lt;- matrix(rnorm(length(nb7rt)), ncol=1)
+system.time(e &lt;- invIrM(nb7rt, rho=0.9, method="chol", feasible=TRUE) %*% x)
+system.time(e &lt;- invIrM(nb7rt, rho=0.9, method="chol", feasible=NULL) %*% x)
+system.time(e &lt;- invIrM(nb7rt, rho=0.9, method="solve", feasible=TRUE) %*% x)
+system.time(e &lt;- invIrM(nb7rt, rho=0.9, method="solve", feasible=NULL) %*% x)
+W &lt;- as(nb2listw(nb7rt), "CsparseMatrix")
+system.time(ee &lt;- powerWeights(W, rho=0.9, X=x))
+all.equal(e, as(ee, "matrix"), check.attributes=FALSE)
+system.time(e &lt;- invIrM(nb7rt, rho=0.98, method="solve", feasible=NULL) %*% x)
+system.time(ee &lt;- powerWeights(W, rho=0.98, X=x))
+str(attr(ee, "internal"))
+all.equal(e, as(ee, "matrix"), check.attributes=FALSE)
+system.time(ee &lt;- powerWeights(W, rho=0.98, order=1000, X=x))
+all.equal(e, as(ee, "matrix"), check.attributes=FALSE)
+nb60rt &lt;- cell2nb(60, 60, torus=TRUE)
+W &lt;- as(nb2listw(nb60rt), "CsparseMatrix")
+set.seed(1)
+x &lt;- matrix(rnorm(dim(W)[1]), ncol=1)
+system.time(ee &lt;- powerWeights(W, rho=0.3, X=x))
+str(as(ee, "matrix"))
+obj &lt;- errorsarlm(as(ee, "matrix")[,1] ~ 1, listw=nb2listw(nb60rt), method="Matrix")
+coefficients(obj)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

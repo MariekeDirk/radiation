@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetDestroy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetDestroy {RGtk2}"><tr><td>gtkWidgetDestroy {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetDestroy</h2>
+
+<h3>Description</h3>
+
+<p>Destroys a widget. except that
+you don't have to cast the widget to <code><a href="GtkObject.html">GtkObject</a></code>. When a widget is
+destroyed, it will break any references it holds to other objects.
+If the widget is inside a container, the widget will be removed
+from the container. If the widget is a toplevel (derived from
+<code><a href="GtkWindow.html">GtkWindow</a></code>), it will be removed from the list of toplevels, and the
+reference GTK+ holds to it will be removed. Removing a
+widget from its container or the list of toplevels results in the
+widget being finalized,</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetDestroy(object, ...)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>In most cases, only toplevel widgets (windows) require explicit
+destruction, because when you destroy a toplevel its children will
+be destroyed as well.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

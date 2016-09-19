@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Higher order neighbours lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nblag {spdep}"><tr><td>nblag {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Higher order neighbours lists</h2>
+
+<h3>Description</h3>
+
+<p>The function creates higher order neighbour lists, where higher order neighbours are only <code>lags</code> links from each other on the graph described by the input neighbours list. It will refuse to lag neighbours lists with the attribute self.included set to TRUE. <code>nblag_cumul</code> cumulates neighbour lists to a single neighbour list (&ldquo;nb&rdquo; object).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nblag(neighbours, maxlag)
+nblag_cumul(nblags)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>neighbours</code></td>
+<td>
+<p>input neighbours list of class <code>nb</code></p>
+</td></tr>
+<tr valign="top"><td><code>maxlag</code></td>
+<td>
+<p>the maximum lag to be constructed</p>
+</td></tr>
+<tr valign="top"><td><code>nblags</code></td>
+<td>
+<p>a list of neighbour lists as output by <code>nblag</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>returns a list of lagged neighbours lists each with class <code>nb</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a> and Giovanni Millo</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="summary.nb.html">summary.nb</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+summary(col.gal.nb, coords)
+plot(columbus, border="grey")
+plot(col.gal.nb, coords, add=TRUE)
+title(main="GAL order 1 (black) and 2 (red) links")
+col.lags &lt;- nblag(col.gal.nb, 2)
+lapply(col.lags, print)
+summary(col.lags[[2]], coords)
+plot(col.lags[[2]], coords, add=TRUE, col="red", lty=2)
+cuml &lt;- nblag_cumul(col.lags)
+cuml
+if (require(igraph)) {
+W &lt;- as(nb2listw(col.gal.nb), "CsparseMatrix")
+G &lt;- graph.adjacency(W, mode="directed", weight="W")
+D &lt;- diameter(G)
+nbs &lt;- nblag(col.gal.nb, maxlag=D)
+n &lt;- length(col.gal.nb)
+lmat &lt;- lapply(nbs, nb2mat, style="B", zero.policy=TRUE)
+mat &lt;- matrix(0, n, n)
+for (i in seq(along=lmat)) mat = mat + i*lmat[[i]]
+G2 &lt;- shortest.paths(G)
+print(all.equal(G2, mat, check.attributes=FALSE))
+
+
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

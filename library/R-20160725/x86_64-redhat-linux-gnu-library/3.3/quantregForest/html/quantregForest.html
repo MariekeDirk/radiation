@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Quantile Regression Forests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for quantregForest {quantregForest}"><tr><td>quantregForest {quantregForest}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Quantile Regression Forests </h2>
+
+<h3>Description</h3>
+
+<p>Quantile Regression Forests infer conditional quantile functions from
+data
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+quantregForest(x,y, nthreads=1, keep.inbag=FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> A matrix or data.frame containing the predictor variables. </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> The response variable. </p>
+</td></tr>
+<tr valign="top"><td><code>nthreads</code></td>
+<td>
+<p> The number of threads to use (for parallel computation). </p>
+</td></tr>
+<tr valign="top"><td><code>keep.inbag</code></td>
+<td>
+<p> Keep information which observations are in and out-of-bag? For out-of-bag predictions, this argument needs to be set to <code>TRUE</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Other arguments passed to <code>randomForest</code> such as  <code>nodesize</code> or <code>mtry</code> etc.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p> The object can be converted back into a standard <code>randomForest</code> object and all the functions of the <code>randomForest</code> package can then be used (see example below).
+</p>
+<p>The response <code>y</code> should in general be numeric. However, some use cases exists if <code>y</code> is a factor (such as sampling from conditional distribution when using for example <code>what=function(x) sample(x,10)</code>). Trying to generate quantiles will generate an error if <code>y</code> is a factor, though.
+</p>
+<p>Parallel computation is invoked by setting the value of <code>nthreads</code> to values larger than 1 (for example to the number of available CPUs). 
+The argument only has an effect under Linux and Mac OSX and is without effect on Windows due to restrictions on forking.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A value of class <code>quantregForest</code>, for which <code>print</code> and <code>predict</code> methods are available.
+Class <code>quantregForest</code> is a list of the following components additional to the ones given by class <code>randomForest</code>:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>the original call to <code>quantregForest</code></p>
+</td></tr>
+<tr valign="top"><td><code>valuesNodes</code></td>
+<td>
+<p>a matrix that contains per tree and node one subsampled observation</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Nicolai Meinshausen, Christina Heinze </p>
+
+
+<h3>References</h3>
+
+<p>N. Meinshausen (2006)
+&quot;Quantile Regression Forests&quot;, Journal of Machine Learning Research 7, 983-999
+<a href="http://jmlr.csail.mit.edu/papers/v7/">http://jmlr.csail.mit.edu/papers/v7/</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="predict.quantregForest.html">predict.quantregForest</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+################################################
+##  Load air-quality data (and preprocessing) ##
+################################################
+
+data(airquality)
+set.seed(1)
+
+
+## remove observations with mising values
+airquality &lt;- airquality[ !apply(is.na(airquality), 1,any), ]
+
+## number of remining samples
+n &lt;- nrow(airquality)
+
+
+## divide into training and test data
+indextrain &lt;- sample(1:n,round(0.6*n),replace=FALSE)
+Xtrain     &lt;- airquality[ indextrain,2:6]
+Xtest      &lt;- airquality[-indextrain,2:6]
+Ytrain     &lt;- airquality[ indextrain,1]
+Ytest      &lt;- airquality[-indextrain,1]
+
+
+################################################
+##     compute Quantile Regression Forests    ##
+################################################
+
+qrf &lt;- quantregForest(x=Xtrain, y=Ytrain)
+qrf &lt;- quantregForest(x=Xtrain, y=Ytrain, nodesize=10,sampsize=30)
+
+
+## for parallel computation use the nthread option
+## qrf &lt;- quantregForest(x=Xtrain, y=Ytrain, nthread=8)
+
+## predict 0.1, 0.5 and 0.9 quantiles for test data
+conditionalQuantiles  &lt;- predict(qrf,  Xtest)
+print(conditionalQuantiles[1:4,])
+
+## predict 0.1, 0.2,..., 0.9 quantiles for test data
+conditionalQuantiles  &lt;- predict(qrf, Xtest, what=0.1*(1:9))
+print(conditionalQuantiles[1:4,])
+
+## estimate conditional standard deviation
+conditionalSd &lt;- predict(qrf,  Xtest, what=sd)
+print(conditionalSd[1:4])
+
+## estimate conditional mean (as in original RF)
+conditionalMean &lt;- predict(qrf,  Xtest, what=mean)
+print(conditionalMean[1:4])
+
+## sample 10 new observations from conditional distribution at each new sample
+newSamples &lt;- predict(qrf, Xtest,what = function(x) sample(x,10,replace=TRUE))
+print(newSamples[1:4,])
+
+
+## get ecdf-function for each new test data point
+## (output will be a list with one element per sample)
+condEcdf &lt;- predict(qrf,  Xtest, what=ecdf)
+condEcdf[[10]](30) ## get the conditional distribution at value 30 for i=10
+## or, directly, for all samples at value 30 (returns a vector)
+condEcdf30 &lt;- predict(qrf, Xtest, what=function(x) ecdf(x)(30))
+print(condEcdf30[1:4])
+
+## to use other functions of the package randomForest, convert class back
+class(qrf) &lt;- "randomForest"
+importance(qrf) ## importance measure from the standard RF
+
+
+#####################################
+## out-of-bag predictions and sampling
+##################################
+
+## for with option keep.inbag=TRUE
+qrf &lt;- quantregForest(x=Xtrain, y=Ytrain, keep.inbag=TRUE)
+
+## or use parallel version
+## qrf &lt;- quantregForest(x=Xtrain, y=Ytrain, nthread=8)
+
+## get quantiles 
+oobQuantiles &lt;- predict( qrf, what= c(0.2,0.5,0.8))
+
+## sample from oob-distribution
+oobSample &lt;- predict( qrf, what= function(x) sample(x,1))
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>quantregForest</em> version 1.3-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

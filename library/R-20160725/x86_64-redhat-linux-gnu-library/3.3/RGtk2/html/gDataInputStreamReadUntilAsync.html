@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gDataInputStreamReadUntilAsync</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gDataInputStreamReadUntilAsync {RGtk2}"><tr><td>gDataInputStreamReadUntilAsync {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gDataInputStreamReadUntilAsync</h2>
+
+<h3>Description</h3>
+
+<p>The asynchronous version of <code><a href="gDataInputStreamReadUntil.html">gDataInputStreamReadUntil</a></code>.
+It is an error to have two outstanding calls to this function.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gDataInputStreamReadUntilAsync(object, stop.chars, io.priority, 
+    cancellable = NULL, callback, user.data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a given <code><a href="GDataInputStream.html">GDataInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">stop.chars</code></code></td>
+<td>
+<p>characters to terminate the read.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">io.priority</code></code></td>
+<td>
+<p>the I/O priority
+of the request.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">callback</code></code></td>
+<td>
+<p>callback to call when the request is satisfied.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">user.data</code></code></td>
+<td>
+<p>the data to pass to callback function.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>When the operation is finished, <code>callback</code> will be called. You
+can then call <code><a href="gDataInputStreamReadUntilFinish.html">gDataInputStreamReadUntilFinish</a></code> to get
+the result of the operation.
+Since 2.20</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

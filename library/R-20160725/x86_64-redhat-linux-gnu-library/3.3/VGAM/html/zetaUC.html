@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: The Zeta Distribution</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Zeta {VGAM}"><tr><td>Zeta {VGAM}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>The Zeta Distribution </h2>
+
+<h3>Description</h3>
+
+<p>Density for the zeta distribution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dzeta(x, p, log = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Numerical vector/matrix to evaluate the density. </p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p> The parameter <i>p</i>. This must be positive. </p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+
+<p>Logical.
+If <code>log = TRUE</code> then the logarithm of the density is returned.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The density function of the zeta distribution is given by
+</p>
+<p style="text-align: center;"><i>
+        y^(-p-1) /  zeta(p+1)</i></p>
+
+<p>where <i>p&gt;0</i>, <i>y=1,2,&hellip;</i>, and <i>zeta</i> is
+Riemann's zeta function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns the density evaluated at <code>x</code>.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>This function has not been fully tested.
+</p>
+
+
+<h3>Note</h3>
+
+<p>The <span class="pkg">VGAM</span> family function <code><a href="zetaff.html">zetaff</a></code> estimates the
+parameter <i>p</i>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> T. W. Yee </p>
+
+
+<h3>References</h3>
+
+<p>Johnson N. L., Kotz S., and Balakrishnan N. (1993)
+<em>Univariate Discrete Distributions</em>,
+2nd ed.
+New York: Wiley.
+</p>
+
+
+
+
+
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="zeta.html">zeta</a></code>,
+<code><a href="zetaff.html">zetaff</a></code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dzeta(1:20, p = 2)
+## Not run:  plot(1:6, dzeta(1:6, p = 4), type = "h", las = 1, ylab = "Probability",
+     main = "zeta probability function; black: p = 4; blue: p = 2")
+points(0.10 + 1:6, dzeta(1:6, p = 2), type = "h", col = "blue") 
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>VGAM</em> version 1.0-2 <a href="00Index.html">Index</a>]</div>
+</body></html>

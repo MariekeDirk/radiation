@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetSizeRequest</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetSizeRequest {RGtk2}"><tr><td>gtkWidgetSizeRequest {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetSizeRequest</h2>
+
+<h3>Description</h3>
+
+<p>This function is typically used when implementing a <code><a href="GtkContainer.html">GtkContainer</a></code>
+subclass.  Obtains the preferred size of a widget. The container
+uses this information to arrange its child widgets and decide what
+size allocations to give them with <code><a href="gtkWidgetSizeAllocate.html">gtkWidgetSizeAllocate</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetSizeRequest(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>You can also call this function from an application, with some
+caveats. Most notably, getting a size request requires the widget
+to be associated with a screen, because font information may be
+needed. Multihead-aware applications should keep this in mind.
+</p>
+<p>Also remember that the size request is not necessarily the size
+a widget will actually be allocated.
+</p>
+<p>See also <code><a href="gtkWidgetGetChildRequisition.html">gtkWidgetGetChildRequisition</a></code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">requisition</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkRequisition</a></code> to be filled in. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkTable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkTable {RGtk2}"><tr><td>AtkTable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkTable</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface implemented for UI components which contain tabular or
+row/column information.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkTableRefAt.html">atkTableRefAt</a>(object, row, column)</code><br />
+<code><a href="atkTableGetIndexAt.html">atkTableGetIndexAt</a>(object, row, column)</code><br />
+<code><a href="atkTableGetColumnAtIndex.html">atkTableGetColumnAtIndex</a>(object, index)</code><br />
+<code><a href="atkTableGetRowAtIndex.html">atkTableGetRowAtIndex</a>(object, index)</code><br />
+<code><a href="atkTableGetNColumns.html">atkTableGetNColumns</a>(object)</code><br />
+<code><a href="atkTableGetNRows.html">atkTableGetNRows</a>(object)</code><br />
+<code><a href="atkTableGetColumnExtentAt.html">atkTableGetColumnExtentAt</a>(object, row, column)</code><br />
+<code><a href="atkTableGetRowExtentAt.html">atkTableGetRowExtentAt</a>(object, row, column)</code><br />
+<code><a href="atkTableGetCaption.html">atkTableGetCaption</a>(object)</code><br />
+<code><a href="atkTableGetColumnDescription.html">atkTableGetColumnDescription</a>(object, column)</code><br />
+<code><a href="atkTableGetRowDescription.html">atkTableGetRowDescription</a>(object, row)</code><br />
+<code><a href="atkTableGetColumnHeader.html">atkTableGetColumnHeader</a>(object, column)</code><br />
+<code><a href="atkTableGetRowHeader.html">atkTableGetRowHeader</a>(object, row)</code><br />
+<code><a href="atkTableGetSummary.html">atkTableGetSummary</a>(object)</code><br />
+<code><a href="atkTableSetCaption.html">atkTableSetCaption</a>(object, caption)</code><br />
+<code><a href="atkTableSetRowDescription.html">atkTableSetRowDescription</a>(object, row, description)</code><br />
+<code><a href="atkTableSetColumnDescription.html">atkTableSetColumnDescription</a>(object, column, description)</code><br />
+<code><a href="atkTableSetRowHeader.html">atkTableSetRowHeader</a>(object, row, header)</code><br />
+<code><a href="atkTableSetColumnHeader.html">atkTableSetColumnHeader</a>(object, column, header)</code><br />
+<code><a href="atkTableSetSummary.html">atkTableSetSummary</a>(object, accessible)</code><br />
+<code><a href="atkTableGetSelectedColumns.html">atkTableGetSelectedColumns</a>(object)</code><br />
+<code><a href="atkTableGetSelectedRows.html">atkTableGetSelectedRows</a>(object)</code><br />
+<code><a href="atkTableIsColumnSelected.html">atkTableIsColumnSelected</a>(object, column)</code><br />
+<code><a href="atkTableIsRowSelected.html">atkTableIsRowSelected</a>(object, row)</code><br />
+<code><a href="atkTableIsSelected.html">atkTableIsSelected</a>(object, row, column)</code><br />
+<code><a href="atkTableAddColumnSelection.html">atkTableAddColumnSelection</a>(object, column)</code><br />
+<code><a href="atkTableAddRowSelection.html">atkTableAddRowSelection</a>(object, row)</code><br />
+<code><a href="atkTableRemoveColumnSelection.html">atkTableRemoveColumnSelection</a>(object, column)</code><br />
+<code><a href="atkTableRemoveRowSelection.html">atkTableRemoveRowSelection</a>(object, row)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkTable</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkTable is implemented by
+<code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="AtkTable.html">AtkTable</a></code> should be implemented by components which present elements
+ordered via rows and columns.  It may also be used to present
+tree-structured information if the nodes of the trees can be said to
+contain multiple &quot;columns&quot;.  Individual elements of an <code><a href="AtkTable.html">AtkTable</a></code> are
+typically referred to as &quot;cells&quot;, and these cells are exposed by
+<code><a href="AtkTable.html">AtkTable</a></code> as child <code style="white-space: pre;">AtkObjects</code> of the <code><a href="AtkTable.html">AtkTable</a></code>.  Both row/column and
+child-index-based access to these children is provided.
+</p>
+<p>Children of <code><a href="AtkTable.html">AtkTable</a></code> are frequently &quot;lightweight&quot; objects, that is,
+they may not have backing widgets in the host UI toolkit.  They are
+therefore often transient.
+</p>
+<p>Since tables are often very complex, <code><a href="AtkTable.html">AtkTable</a></code> includes provision for
+offering simplified summary information, as well as row and column
+headers and captions.  Headers and captions are <code style="white-space: pre;">AtkObjects</code> which may
+implement other interfaces (<code><a href="AtkText.html">AtkText</a></code>, <code><a href="AtkImage.html">AtkImage</a></code>, etc.) as appropriate.
+<code><a href="AtkTable.html">AtkTable</a></code> summaries may themselves be (simplified) <code style="white-space: pre;">AtkTables</code>, etc.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkTable</code></dt><dd>
+<p>The AtkTable structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>column-deleted(atktable, arg1, arg2, user.data)</code></dt><dd>
+<p>The &quot;column-deleted&quot; signal is emitted by an object which implements the
+AtkTable interface when a column is deleted.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[integer] The index of the first column deleted.</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[integer] The number of columns deleted.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>column-inserted(atktable, arg1, arg2, user.data)</code></dt><dd>
+<p>The &quot;column-inserted&quot; signal is emitted by an object which implements the
+AtkTable interface when a column is inserted.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[integer] The index of the column inserted.</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[integer] The number of colums inserted.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>column-reordered(atktable, user.data)</code></dt><dd>
+<p>The &quot;column-reordered&quot; signal is emitted by an object which implements the
+AtkTable interface when the columns are reordered.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>model-changed(atktable, user.data)</code></dt><dd>
+<p>The &quot;model-changed&quot; signal is emitted by an object which implements the
+AtkTable interface when the model displayed by the table changes.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>row-deleted(atktable, arg1, arg2, user.data)</code></dt><dd>
+<p>The &quot;row-deleted&quot; signal is emitted by an object which implements the
+AtkTable interface when a column is inserted.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[integer] The index of the first row deleted.</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[integer] The number of rows deleted.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>row-inserted(atktable, arg1, arg2, user.data)</code></dt><dd>
+<p>The &quot;row-inserted&quot; signal is emitted by an object which implements the
+AtkTable interface when a column is inserted.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>arg1</code></dt><dd><p>[integer] The index of the first row deleted.</p>
+</dd>
+<dt><code>arg2</code></dt><dd><p>[integer] The number of rows deleted.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>row-reordered(atktable, user.data)</code></dt><dd>
+<p>The &quot;row-reordered&quot; signal is emitted by an object which implements the
+AtkTable interface when the columns are reordered.
+</p>
+
+<dl>
+<dt><code>atktable</code></dt><dd><p>[<code><a href="AtkTable.html">AtkTable</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkTable.html">http://library.gnome.org/devel//atk/AtkTable.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="AtkObject.html">AtkObject</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

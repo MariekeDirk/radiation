@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a gbm model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot_gbm {plotmo}"><tr><td>plot_gbm {plotmo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a gbm model</h2>
+
+<h3>Description</h3>
+
+<p>Plot a <code><a href="../../gbm/html/gbm.html">gbm</a></code> model showing the training and other
+error curves.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot_gbm(object=stop("no 'object' argument"),
+    smooth = c(0, 0, 0, 1),
+    col = c(1, 2, 3, 4), ylim = "auto",
+    legend.x = NULL, legend.y = NULL, legend.cex = .8,
+    grid.col = NA,
+    n.trees = NA, col.n.trees ="darkgray",
+    ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>The <code>gbm</code> model.
+</p>
+</td></tr>
+<tr valign="top"><td><code>smooth</code></td>
+<td>
+
+<p>Four-element vector specifying if smoothing should be applied
+to the train, test, CV, and OOB curves respectively.
+When smoothing is specified, a smoothed curve is plotted and the
+minimum is calculated from the smoothed curve.<br />
+The default is c(0, 0, 0, 1) meaning apply smoothing only to the
+OOB curve (same as <code><a href="../../gbm/html/gbm.perf.html">gbm.perf</a></code>).<br />
+Note that <code>smooth=1</code> (which gets recyled to <code>c(1,1,1,1)</code>)
+will smooth all the curves.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col </code></td>
+<td>
+
+<p>Four-element vector specifying the colors for the train, test, CV, and OOB
+curves respectively.<br />
+The default is <code>c(1, 2, 3, 4)</code>.<br />
+Use a color of <code>0</code> to remove the corresponding curve, e.g.
+<code>col=c(1,2,3,0)</code> to not display the OOB curve.<br />
+If <code>col=0</code> (which gets recycled to <code>c(0,0,0,0)</code>) nothing
+will be plotted, but <code>plot_gbm</code> will return the number-of-trees
+at the minima as usual (as described in the Value section below).
+</p>
+</td></tr>
+<tr valign="top"><td><code>ylim </code></td>
+<td>
+
+<p>The default <code>ylim="auto"</code> shows more detail around the minima.<br />
+Use <code>ylim=NULL</code> for the full vertical range of the curves.<br />
+Else specify <code>ylim</code> as usual.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend.x </code></td>
+<td>
+
+<p>The x position of the legend.
+The default positions the legend automatically.<br />
+Use <code>legend.x=NA</code> for no legend.<br />
+See the <code>x</code> and <code>y</code> arguments of
+<code><a href="../../grDevices/html/xy.coords.html">xy.coords</a></code> for other options,
+for example <code>legend.x="topright"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend.y </code></td>
+<td>
+
+<p>The y position of the legend.
+</p>
+</td></tr>
+<tr valign="top"><td><code>legend.cex </code></td>
+<td>
+
+<p>The legend <code>cex</code> (the default is <code>0.8</code>).
+</p>
+</td></tr>
+<tr valign="top"><td><code>grid.col</code></td>
+<td>
+
+<p>Default <code>NA</code>.
+Color of the optional grid, for example <code>grid.col=1</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>n.trees</code></td>
+<td>
+
+<p>For use by <code><a href="plotres.html">plotres</a></code>.<br />
+The x position of the gray vertical line indicating the <code>n.trees</code>
+passed by <code>plotres</code> to <code>predict.gbm</code> to calculate the residuals.
+Plotres defaults to all trees.
+</p>
+</td></tr>
+<tr valign="top"><td><code>col.n.trees </code></td>
+<td>
+
+<p>For use by <code><a href="plotres.html">plotres</a></code>.<br />
+Color of the vertical line showing the <code>n.trees</code> argument.
+Default is <code>"darkgray"</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Dot arguments are passed internally to
+<code><a href="../../graphics/html/plot.default.html">plot.default</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>This function returns a four-element vector specifying the number of trees at
+the train, test, CV, and OOB minima respectively.
+</p>
+<p>The minima are calculated after smoothing as specified by this
+function's <code>smooth</code> argument.
+By default, only the OOB curve is smoothed.
+The smoothing algorithm for the OOB curve differs slightly
+from <code><a href="../../gbm/html/gbm.perf.html">gbm.perf</a></code>, so can give a slightly
+different number of trees.
+</p>
+
+
+<h3>Note</h3>
+
+<p><b>The OOB curve</b>
+</p>
+<p>The OOB curve is artificially rescaled to force it into the plot.
+See Chapter 7 in the <a href="../doc/plotres-notes.pdf">plotres
+vignette</a>.
+</p>
+
+
+
+
+
+<p><b>Interaction with <code>plotres</code></b>
+</p>
+<p>When invoking this function via <code><a href="plotres.html">plotres</a></code>, prefix any
+argument of <code>plotres</code> with <code>w1.</code> to tell <code>plotres</code> to
+pass the argument to this function.
+For example give <code>w1.ylim=c(0,10)</code> to <code>plotres</code> (plain
+<code>ylim=c(0,10)</code> in this context gets passed to the residual
+plots).
+</p>
+<p><b>Acknowledgments</b>
+</p>
+<p>This function is derived from code in the <code><a href="../../gbm/html/gbm.html">gbm</a></code>
+package authored by Greg Ridgeway and others, and maintained by Harry
+Southworth.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Chapter 7 in <a href="../doc/plotres-notes.pdf">plotres vignette</a> discusses
+this function.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if (require(gbm)) {
+    n &lt;- 100                            # toy model for quick demo
+    x1 &lt;- 3 * runif(n)
+    x2 &lt;- 3 * runif(n)
+    x3 &lt;- sample(1:4, n, replace=TRUE)
+    y &lt;- x1 + x2 + x3 + rnorm(n, 0, .3)
+    data &lt;- data.frame(y=y, x1=x1, x2=x2, x3=x3)
+    mod &lt;- gbm(y~., data=data, distribution="gaussian",
+               n.trees=300, shrinkage=.1, interaction.depth=3,
+               train.fraction=.8, verbose=FALSE)
+
+    plot_gbm(mod)
+
+    # plotres(mod)                      # plot residuals
+
+    # plotmo(mod)                       # plot regression surfaces
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotmo</em> version 3.2.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

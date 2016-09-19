@@ -1,0 +1,603 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkTextView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkTextView {RGtk2}"><tr><td>GtkTextView {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkTextView</h2>
+
+<h3>Description</h3>
+
+<p>Widget that displays a GtkTextBuffer</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkTextViewNew.html">gtkTextViewNew</a>(show = TRUE)</code><br />
+<code><a href="gtkTextViewNewWithBuffer.html">gtkTextViewNewWithBuffer</a>(buffer = NULL, show = TRUE)</code><br />
+<code><a href="gtkTextViewSetBuffer.html">gtkTextViewSetBuffer</a>(object, buffer)</code><br />
+<code><a href="gtkTextViewGetBuffer.html">gtkTextViewGetBuffer</a>(object)</code><br />
+<code><a href="gtkTextViewScrollToMark.html">gtkTextViewScrollToMark</a>(object, mark, within.margin, use.align = FALSE, xalign = 0.5, yalign = 0.5)</code><br />
+<code><a href="gtkTextViewScrollToIter.html">gtkTextViewScrollToIter</a>(object, iter, within.margin, use.align = FALSE, xalign = 0.5, yalign = 0.5)</code><br />
+<code><a href="gtkTextViewScrollMarkOnscreen.html">gtkTextViewScrollMarkOnscreen</a>(object, mark)</code><br />
+<code><a href="gtkTextViewMoveMarkOnscreen.html">gtkTextViewMoveMarkOnscreen</a>(object, mark)</code><br />
+<code><a href="gtkTextViewPlaceCursorOnscreen.html">gtkTextViewPlaceCursorOnscreen</a>(object)</code><br />
+<code><a href="gtkTextViewGetVisibleRect.html">gtkTextViewGetVisibleRect</a>(object)</code><br />
+<code><a href="gtkTextViewGetIterLocation.html">gtkTextViewGetIterLocation</a>(object, iter)</code><br />
+<code><a href="gtkTextViewGetLineAtY.html">gtkTextViewGetLineAtY</a>(object, y)</code><br />
+<code><a href="gtkTextViewGetLineYrange.html">gtkTextViewGetLineYrange</a>(object, iter)</code><br />
+<code><a href="gtkTextViewGetIterAtLocation.html">gtkTextViewGetIterAtLocation</a>(object, x, y)</code><br />
+<code><a href="gtkTextViewGetIterAtPosition.html">gtkTextViewGetIterAtPosition</a>(object, x, y)</code><br />
+<code><a href="gtkTextViewBufferToWindowCoords.html">gtkTextViewBufferToWindowCoords</a>(object, win, buffer.x, buffer.y)</code><br />
+<code><a href="gtkTextViewWindowToBufferCoords.html">gtkTextViewWindowToBufferCoords</a>(object, win, window.x, window.y)</code><br />
+<code><a href="gtkTextViewGetWindow.html">gtkTextViewGetWindow</a>(object, win)</code><br />
+<code><a href="gtkTextViewGetWindowType.html">gtkTextViewGetWindowType</a>(object, window)</code><br />
+<code><a href="gtkTextViewSetBorderWindowSize.html">gtkTextViewSetBorderWindowSize</a>(object, type, size)</code><br />
+<code><a href="gtkTextViewGetBorderWindowSize.html">gtkTextViewGetBorderWindowSize</a>(object, type)</code><br />
+<code><a href="gtkTextViewForwardDisplayLine.html">gtkTextViewForwardDisplayLine</a>(object, iter)</code><br />
+<code><a href="gtkTextViewBackwardDisplayLine.html">gtkTextViewBackwardDisplayLine</a>(object, iter)</code><br />
+<code><a href="gtkTextViewForwardDisplayLineEnd.html">gtkTextViewForwardDisplayLineEnd</a>(object, iter)</code><br />
+<code><a href="gtkTextViewBackwardDisplayLineStart.html">gtkTextViewBackwardDisplayLineStart</a>(object, iter)</code><br />
+<code><a href="gtkTextViewStartsDisplayLine.html">gtkTextViewStartsDisplayLine</a>(object, iter)</code><br />
+<code><a href="gtkTextViewMoveVisually.html">gtkTextViewMoveVisually</a>(object, iter, count)</code><br />
+<code><a href="gtkTextViewAddChildAtAnchor.html">gtkTextViewAddChildAtAnchor</a>(object, child, anchor)</code><br />
+<code><a href="gtkTextChildAnchorNew.html">gtkTextChildAnchorNew</a>()</code><br />
+<code><a href="gtkTextChildAnchorGetWidgets.html">gtkTextChildAnchorGetWidgets</a>(object)</code><br />
+<code><a href="gtkTextChildAnchorGetDeleted.html">gtkTextChildAnchorGetDeleted</a>(object)</code><br />
+<code><a href="gtkTextViewAddChildInWindow.html">gtkTextViewAddChildInWindow</a>(object, child, which.window, xpos, ypos)</code><br />
+<code><a href="gtkTextViewMoveChild.html">gtkTextViewMoveChild</a>(object, child, xpos, ypos)</code><br />
+<code><a href="gtkTextViewSetWrapMode.html">gtkTextViewSetWrapMode</a>(object, wrap.mode)</code><br />
+<code><a href="gtkTextViewGetWrapMode.html">gtkTextViewGetWrapMode</a>(object)</code><br />
+<code><a href="gtkTextViewSetEditable.html">gtkTextViewSetEditable</a>(object, setting)</code><br />
+<code><a href="gtkTextViewGetEditable.html">gtkTextViewGetEditable</a>(object)</code><br />
+<code><a href="gtkTextViewSetCursorVisible.html">gtkTextViewSetCursorVisible</a>(object, setting)</code><br />
+<code><a href="gtkTextViewGetCursorVisible.html">gtkTextViewGetCursorVisible</a>(object)</code><br />
+<code><a href="gtkTextViewSetOverwrite.html">gtkTextViewSetOverwrite</a>(object, overwrite)</code><br />
+<code><a href="gtkTextViewGetOverwrite.html">gtkTextViewGetOverwrite</a>(object)</code><br />
+<code><a href="gtkTextViewSetPixelsAboveLines.html">gtkTextViewSetPixelsAboveLines</a>(object, pixels.above.lines)</code><br />
+<code><a href="gtkTextViewGetPixelsAboveLines.html">gtkTextViewGetPixelsAboveLines</a>(object)</code><br />
+<code><a href="gtkTextViewSetPixelsBelowLines.html">gtkTextViewSetPixelsBelowLines</a>(object, pixels.below.lines)</code><br />
+<code><a href="gtkTextViewGetPixelsBelowLines.html">gtkTextViewGetPixelsBelowLines</a>(object)</code><br />
+<code><a href="gtkTextViewSetPixelsInsideWrap.html">gtkTextViewSetPixelsInsideWrap</a>(object, pixels.inside.wrap)</code><br />
+<code><a href="gtkTextViewGetPixelsInsideWrap.html">gtkTextViewGetPixelsInsideWrap</a>(object)</code><br />
+<code><a href="gtkTextViewSetJustification.html">gtkTextViewSetJustification</a>(object, justification)</code><br />
+<code><a href="gtkTextViewGetJustification.html">gtkTextViewGetJustification</a>(object)</code><br />
+<code><a href="gtkTextViewSetLeftMargin.html">gtkTextViewSetLeftMargin</a>(object, left.margin)</code><br />
+<code><a href="gtkTextViewGetLeftMargin.html">gtkTextViewGetLeftMargin</a>(object)</code><br />
+<code><a href="gtkTextViewSetRightMargin.html">gtkTextViewSetRightMargin</a>(object, right.margin)</code><br />
+<code><a href="gtkTextViewGetRightMargin.html">gtkTextViewGetRightMargin</a>(object)</code><br />
+<code><a href="gtkTextViewSetIndent.html">gtkTextViewSetIndent</a>(object, indent)</code><br />
+<code><a href="gtkTextViewGetIndent.html">gtkTextViewGetIndent</a>(object)</code><br />
+<code><a href="gtkTextViewSetTabs.html">gtkTextViewSetTabs</a>(object, tabs)</code><br />
+<code><a href="gtkTextViewGetTabs.html">gtkTextViewGetTabs</a>(object)</code><br />
+<code><a href="gtkTextViewSetAcceptsTab.html">gtkTextViewSetAcceptsTab</a>(object, accepts.tab)</code><br />
+<code><a href="gtkTextViewGetAcceptsTab.html">gtkTextViewGetAcceptsTab</a>(object)</code><br />
+<code><a href="gtkTextViewGetDefaultAttributes.html">gtkTextViewGetDefaultAttributes</a>(object)</code><br />
+<code>gtkTextView(buffer = NULL, show = TRUE)</code><br /><code>gtkTextChildAnchor()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkTextView
+GObject
+   +----GtkTextChildAnchor
+</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkTextView implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>You may wish to begin by reading the text widget
+conceptual overview which gives an overview of all the objects and data
+types related to the text widget and how they work together.
+</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkTextView</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd>
+<dt><code style="white-space: pre;">GtkTextChildAnchor</code></dt><dd>
+<p>A <code>GtkTextChildAnchor</code> is a spot in the buffer
+where child widgets can be &quot;anchored&quot; (inserted inline, as if they were
+characters). The anchor can have multiple widgets anchored, to allow for
+multiple views.
+</p>
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkTextView</code> is the result of collapsing the constructors of <code>GtkTextView</code> (<code><a href="gtkTextViewNew.html">gtkTextViewNew</a></code>, <code><a href="gtkTextViewNewWithBuffer.html">gtkTextViewNewWithBuffer</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.
+<code>gtkTextChildAnchor</code> is the equivalent of <code><a href="gtkTextChildAnchorNew.html">gtkTextChildAnchorNew</a></code>.
+</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkTextWindowType</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">private</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">widget</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">text</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">left</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>backspace(text.view, user.data)</code></dt><dd>
+<p>The ::backspace signal is a
+keybinding signal
+which gets emitted when the user asks for it.
+</p>
+<p>The default bindings for this signal are
+Backspace and Shift-Backspace.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>copy-clipboard(text.view, user.data)</code></dt><dd>
+<p>The ::copy-clipboard signal is a
+keybinding signal
+which gets emitted to copy the selection to the clipboard.
+</p>
+<p>The default bindings for this signal are
+Ctrl-c and Ctrl-Insert.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>cut-clipboard(text.view, user.data)</code></dt><dd>
+<p>The ::cut-clipboard signal is a
+keybinding signal
+which gets emitted to cut the selection to the clipboard.
+</p>
+<p>The default bindings for this signal are
+Ctrl-x and Shift-Delete.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>delete-from-cursor(text.view, type, count, user.data)</code></dt><dd>
+<p>The ::delete-from-cursor signal is a
+keybinding signal
+which gets emitted when the user initiates a text deletion.
+</p>
+<p>If the <code>type</code> is <code>GTK_DELETE_CHARS</code>, GTK+ deletes the selection
+if there is one, otherwise it deletes the requested number
+of characters.
+</p>
+<p>The default bindings for this signal are
+Delete for deleting a character, Ctrl-Delete for
+deleting a word and Ctrl-Backspace for deleting a word
+backwords.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>type</code></dt><dd><p>the granularity of the deletion, as a <code><a href="gtk-Standard-Enumerations.html">GtkDeleteType</a></code></p>
+</dd>
+<dt><code>count</code></dt><dd><p>the number of <code>type</code> units to delete</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>insert-at-cursor(text.view, string, user.data)</code></dt><dd>
+<p>The ::insert-at-cursor signal is a
+keybinding signal
+which gets emitted when the user initiates the insertion of a
+fixed string at the cursor.
+</p>
+<p>This signal has no default bindings.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>string</code></dt><dd><p>the string to insert</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-cursor(text.view, step, count, extend.selection, user.data)</code></dt><dd>
+<p>The ::move-cursor signal is a
+keybinding signal
+which gets emitted when the user initiates a cursor movement.
+If the cursor is not visible in <code>text.view</code>, this signal causes
+the viewport to be moved instead.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control the cursor
+programmatically.
+</p>
+<p>The default bindings for this signal come in two variants,
+the variant with the Shift modifier extends the selection,
+the variant without the Shift modifer does not.
+There are too many key combinations to list them all here.
+</p>
+
+<ul>
+<li> 
+</li>
+<li> 
+</li>
+<li> 
+</li>
+<li> 
+</li>
+<li> 
+</li></ul>
+
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>step</code></dt><dd><p>the granularity of the move, as a <code><a href="gtk-Standard-Enumerations.html">GtkMovementStep</a></code></p>
+</dd>
+<dt><code>count</code></dt><dd><p>the number of <code>step</code> units to move</p>
+</dd>
+<dt><code>extend.selection</code></dt><dd><p><code>TRUE</code> if the move should extend the selection</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-viewport(text.view, step, count, user.data)</code></dt><dd>
+<p>The ::move-viewport signal is a
+keybinding signal
+which can be bound to key combinations to allow the user
+to move the viewport, i.e. change what part of the text view
+is visible in a containing scrolled window.
+</p>
+<p>There are no default bindings for this signal.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>step</code></dt><dd><p>the granularity of the move, as a <code><a href="gtk-Standard-Enumerations.html">GtkMovementStep</a></code></p>
+</dd>
+<dt><code>count</code></dt><dd><p>the number of <code>step</code> units to move</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>page-horizontally(text.view, count, extend.selection, user.data)</code></dt><dd>
+<p>The ::page-horizontally signal is a
+keybinding signal
+which can be bound to key combinations to allow the user
+to initiate horizontal cursor movement by pages.
+</p>
+<p>This signal should not be used anymore, instead use the
+<code style="white-space: pre;">"move-cursor"</code> signal with the <code style="white-space: pre;">GTK_MOVEMENT_HORIZONTAL_PAGES</code>
+granularity.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>count</code></dt><dd><p>the number of <code>step</code> units to move</p>
+</dd>
+<dt><code>extend.selection</code></dt><dd><p><code>TRUE</code> if the move should extend the selection</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>paste-clipboard(text.view, user.data)</code></dt><dd>
+<p>The ::paste-clipboard signal is a
+keybinding signal
+which gets emitted to paste the contents of the clipboard
+into the text view.
+</p>
+<p>The default bindings for this signal are
+Ctrl-v and Shift-Insert.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>populate-popup(entry, menu, user.data)</code></dt><dd>
+<p>The ::populate-popup signal gets emitted before showing the
+context menu of the text view.
+</p>
+<p>If you need to add items to the context menu, connect
+to this signal and append your menuitems to the <code>menu</code>.
+</p>
+
+<dl>
+<dt><code>entry</code></dt><dd><p>The text view on which the signal is emitted</p>
+</dd>
+<dt><code>menu</code></dt><dd><p>the menu that is being populated</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>preedit-changed(text.view, preedit, user.data)</code></dt><dd>
+<p>If an input method is used, the typed text will not immediately
+be committed to the buffer. So if you are interested in the text,
+connect to this signal.
+</p>
+<p>This signal is only emitted if the text at the given position
+is actually editable.
+Since 2.20
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>preedit</code></dt><dd><p>the current preedit string</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>select-all(text.view, select, user.data)</code></dt><dd>
+<p>The ::select-all signal is a
+keybinding signal
+which gets emitted to select or unselect the complete
+contents of the text view.
+</p>
+<p>The default bindings for this signal are Ctrl-a and Ctrl-/
+for selecting and Shift-Ctrl-a and Ctrl-\ for unselecting.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>select</code></dt><dd><p><code>TRUE</code> to select, <code>FALSE</code> to unselect</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>set-anchor(text.view, user.data)</code></dt><dd>
+<p>The ::set-anchor signal is a
+keybinding signal
+which gets emitted when the user initiates setting the &quot;anchor&quot;
+mark. The &quot;anchor&quot; mark gets placed at the same position as the
+&quot;insert&quot; mark.
+</p>
+<p>This signal has no default bindings.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>set-scroll-adjustments(horizontal, vertical, user.data)</code></dt><dd>
+<p>Set the scroll adjustments for the text view. Usually scrolled containers
+like <code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code> will emit this signal to connect two instances
+of <code><a href="GtkScrollbar.html">GtkScrollbar</a></code> to the scroll directions of the <code><a href="GtkTextView.html">GtkTextView</a></code>.
+</p>
+
+<dl>
+<dt><code>horizontal</code></dt><dd><p>the horizontal <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>vertical</code></dt><dd><p>the vertical <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle-cursor-visible(text.view, user.data)</code></dt><dd>
+<p>The ::toggle-cursor-visible signal is a
+keybinding signal
+which gets emitted to toggle the visibility of the cursor.
+</p>
+<p>The default binding for this signal is F7.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle-overwrite(text.view, user.data)</code></dt><dd>
+<p>The ::toggle-overwrite signal is a
+keybinding signal
+which gets emitted to toggle the overwrite mode of the text view.
+</p>
+<p>The default bindings for this signal is Insert.
+</p>
+
+<dl>
+<dt><code>text.view</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">accepts-tab</code> [logical : Read / Write]</dt><dd>
+<p>Whether Tab will result in a tab character being entered.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">buffer</code> [<code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code> : *        : Read / Write]</dt><dd>
+<p>The buffer which is displayed.
+</p>
+</dd>
+<dt><code style="white-space: pre;">cursor-visible</code> [logical : Read / Write]</dt><dd>
+<p>If the insertion cursor is shown.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">editable</code> [logical : Read / Write]</dt><dd>
+<p>Whether the text can be modified by the user.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">im-module</code> [character : *                : Read / Write]</dt><dd>
+<p>Which IM (input method) module should be used for this entry.
+See <code><a href="GtkIMContext.html">GtkIMContext</a></code>.
+</p>
+<p>Setting this to a non-<code>NULL</code> value overrides the
+system-wide IM module setting. See the GtkSettings
+<code style="white-space: pre;">"gtk-im-module"</code> property.
+Default value: NULL  Since 2.16
+</p>
+</dd>
+<dt><code style="white-space: pre;">indent</code> [integer : Read / Write]</dt><dd>
+<p>Amount to indent the paragraph, in pixels.  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">justification</code> [<code><a href="gtk-Standard-Enumerations.html">GtkJustification</a></code> : Read / Write]</dt><dd>
+<p>Left, right, or center justification.  Default value: GTK_JUSTIFY_LEFT
+</p>
+</dd>
+<dt><code style="white-space: pre;">left-margin</code> [integer : Read / Write]</dt><dd>
+<p>Width of the left margin in pixels.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">overwrite</code> [logical : Read / Write]</dt><dd>
+<p>Whether entered text overwrites existing contents.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">pixels-above-lines</code> [integer : Read / Write]</dt><dd>
+<p>Pixels of blank space above paragraphs.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">pixels-below-lines</code> [integer : Read / Write]</dt><dd>
+<p>Pixels of blank space below paragraphs.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">pixels-inside-wrap</code> [integer : Read / Write]</dt><dd>
+<p>Pixels of blank space between wrapped lines in a paragraph.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">right-margin</code> [integer : Read / Write]</dt><dd>
+<p>Width of the right margin in pixels.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">tabs</code> [<code><a href="pango-Tab-Stops.html">PangoTabArray</a></code> : *        : Read / Write]</dt><dd>
+<p>Custom tabs for this text.
+</p>
+</dd>
+<dt><code style="white-space: pre;">wrap-mode</code> [<code><a href="GtkTextTag.html">GtkWrapMode</a></code> : Read / Write]</dt><dd>
+<p>Whether to wrap lines never, at word boundaries, or at character boundaries.  Default value: GTK_WRAP_NONE
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">error-underline-color</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read]</dt><dd>
+<p>Color with which to draw error-indication underlines.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkTextView.html">http://library.gnome.org/devel//gtk/GtkTextView.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code>
+<code><a href="GtkTextIter.html">GtkTextIter</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

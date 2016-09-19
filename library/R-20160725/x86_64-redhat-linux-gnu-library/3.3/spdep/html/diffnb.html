@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Differences between neighbours lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for diffnb {spdep}"><tr><td>diffnb {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Differences between neighbours lists</h2>
+
+<h3>Description</h3>
+
+<p>The function finds differences between lists of neighbours, returning a <code>nb</code> neighbour list of those found
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+diffnb(x, y, verbose=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>nb</code></p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>an object of class <code>nb</code></p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>default NULL, use global option value; report regions ids taken from object attribute &quot;region.id&quot; with differences</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A neighbours list with class <code>nb</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+rn &lt;- sapply(slot(columbus, "polygons"), function(x) slot(x, "ID"))
+knn1 &lt;- knearneigh(coords, 1)
+knn2 &lt;- knearneigh(coords, 2)
+nb1 &lt;- knn2nb(knn1, row.names=rn)
+nb2 &lt;- knn2nb(knn2, row.names=rn)
+diffs &lt;- diffnb(nb2, nb1)
+plot(columbus, border="grey")
+plot(nb1, coords, add=TRUE)
+plot(diffs, coords, add=TRUE, col="red", lty=2)
+title(main="Plot of first (black) and second (red)\nnearest neighbours")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoLayoutLineXToIndex</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoLayoutLineXToIndex {RGtk2}"><tr><td>pangoLayoutLineXToIndex {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoLayoutLineXToIndex</h2>
+
+<h3>Description</h3>
+
+<p>Converts from x offset to the byte index of the corresponding
+character within the text of the layout. If <code>x.pos</code> is outside the line,
+<code>index.</code> and <code>trailing</code> will point to the very first or very last position
+in the line. This determination is based on the resolved direction
+of the paragraph; for example, if the resolved direction is
+right-to-left, then an X position to the right of the line (after it)
+results in 0 being stored in <code>index.</code> and <code>trailing</code>. An X position to the
+left of the line results in <code>index.</code> pointing to the (logical) last
+grapheme in the line and <code>trailing</code> being set to the number of characters
+in that grapheme. The reverse is true for a left-to-right line.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoLayoutLineXToIndex(object, x.pos)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Layout-Objects.html">PangoLayoutLine</a></code>]       a <code><a href="pango-Layout-Objects.html">PangoLayoutLine</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x.pos</code></code></td>
+<td>
+<p>[integer]      the X offset (in Pango units)
+from the left edge of the line.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>FALSE</code> if <code>x.pos</code> was outside the line, <code>TRUE</code> if inside</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">index</code></code></td>
+<td>
+<p>[integer]     location to store calculated byte index for
+the grapheme in which the user clicked.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">trailing</code></code></td>
+<td>
+<p>[integer]   location to store an integer indicating where
+in the grapheme the user clicked. It will either
+be zero, or the number of characters in the
+grapheme. 0 represents the leading edge of the grapheme.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

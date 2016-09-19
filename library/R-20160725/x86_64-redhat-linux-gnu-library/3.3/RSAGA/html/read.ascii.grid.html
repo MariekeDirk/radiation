@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Read/write ASCII, SAGA and Rd Grid Files</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for read.ascii.grid {RSAGA}"><tr><td>read.ascii.grid {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Read/write ASCII, SAGA and Rd Grid Files</h2>
+
+<h3>Description</h3>
+
+<p>These functions provide simple interfaces for reading and writing grids from/to ASCII grids and Rd files. Grids are stored as matrices, their headers in lists.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+read.ascii.grid(file, return.header = TRUE, print = 0,
+  nodata.values = c(), at.once = TRUE, na.strings = "NA")
+
+read.ascii.grid.header(file, ...)
+
+read.sgrd(fname, return.header = TRUE, print = 0, nodata.values = c(),
+  at.once = TRUE, prec = 7, ...)
+
+read.Rd.grid(fname, return.header = TRUE)
+
+write.ascii.grid(data, file, header = NULL, write.header = TRUE, digits,
+  hdr.digits = 10, dec = ".", georef = "corner")
+
+write.ascii.grid.header(file, header, georef, dec = ".", hdr.digits = 10)
+
+write.sgrd(data, file, header = NULL, prec = 7, hdr.prec = 10,
+  georef = "corner", ...)
+
+write.Rd.grid(data, file, header = NULL, write.header = TRUE,
+  compress = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>file name of an ASCII grid (extension defaults to <code>.asc</code> if not specified), or a connection open for reading or writing, as required</p>
+</td></tr>
+<tr valign="top"><td><code>return.header</code></td>
+<td>
+<p>logical: should the grid header be returned (default), or just the grid data matrix? In the former case, <code>read.ascii.grid</code> returns a list with two components named <code>data</code> and <code>header</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>print</code></td>
+<td>
+<p>numeric, specifying how detailed the output reporting the progress should be (currently 0 to 2, 0 being minimum output).</p>
+</td></tr>
+<tr valign="top"><td><code>nodata.values</code></td>
+<td>
+<p>optional numeric vector specifying nodata values to be used in addition to the nodata value specified in the grid header; nodata values are converted to <code>NA</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>at.once</code></td>
+<td>
+<p>logical: if <code>TRUE</code>, read the whole grid with one <code>scan</code> command; if <code>FALSE</code>, read it row by row using <code>scan</code> with option <code>nlines=1</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>na.strings</code></td>
+<td>
+<p>passed on to <code><a href="../../base/html/scan.html">scan</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p><code>read.sgrd</code>, <code>write.sgrd</code>: additional arguments to be passed to <code>rsaga.geoprocessor</code></p>
+</td></tr>
+<tr valign="top"><td><code>fname</code></td>
+<td>
+<p>file name of a grid stored as an R (<code>.Rd</code>) file; extension defaults to <code>.Rd</code></p>
+</td></tr>
+<tr valign="top"><td><code>prec</code></td>
+<td>
+<p>integer: number of digits of temporary ASCII grid used for importing or exporting a SAGA grid</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>grid data: a data matrix, or a list with components <code>data</code> (the grid data matrix) and <code>header</code> (the grid header information).</p>
+</td></tr>
+<tr valign="top"><td><code>header</code></td>
+<td>
+<p>optional list argument specifying the grid header information as returned by the <code>read.ascii.grid</code> or <code>read.ascii.grid.header</code> function; see Details</p>
+</td></tr>
+<tr valign="top"><td><code>write.header</code></td>
+<td>
+<p>logical: should the header be written with the grid data? (default: <code>TRUE</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>numeric: if not missing, write data rounded to this many decimal places</p>
+</td></tr>
+<tr valign="top"><td><code>hdr.digits</code></td>
+<td>
+<p>numeric: see <code>hdr.prec</code></p>
+</td></tr>
+<tr valign="top"><td><code>dec</code></td>
+<td>
+<p>character (default: <code>"."</code>): decimal mark used in input or output file</p>
+</td></tr>
+<tr valign="top"><td><code>georef</code></td>
+<td>
+<p>character: specifies whether the output grid should be  georeferenced by the <code>"center"</code> or <code>"corner"</code> of its lower left grid cell; defaults to <code>"corner"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>hdr.prec</code></td>
+<td>
+<p>numeric: write (non-integer) header data with this many decimal places; a value of 9 or higher is recommended for compatibility with SAGA GIS (default: 10)</p>
+</td></tr>
+<tr valign="top"><td><code>compress</code></td>
+<td>
+<p>logical: should the <code>.Rd</code> file written by <code>write.Rd.file</code> be compressed? (default: <code>TRUE</code>)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The <code>read.*</code> functions return either a list with components <code>data</code> (the grid data matrix) and <code>header</code> (the grid header  information, see below), if <code>return.header=TRUE</code>, or otherwise  just the grid data matrix <code>return.header=FALSE</code>.
+</p>
+<p>The grid data matrix is a numeric matrix whose first column corrensponds to the first (i.e. northernmost) row of the grid. Columns run from left = West to right = East.
+</p>
+<p>The header information returned by the <code>read.ascii.grid[.header]</code> functions (if <code>return.header=TRUE</code>) is a list with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>ncols</code></td>
+<td>
+<p>Number of grid columns.</p>
+</td></tr>
+<tr valign="top"><td><code>nrows</code></td>
+<td>
+<p>Number of grid rows.</p>
+</td></tr>
+<tr valign="top"><td><code>xllcorner</code></td>
+<td>
+<p>x coordinate of the corner of the lower left grid cell.</p>
+</td></tr>
+<tr valign="top"><td><code>yllcorner</code></td>
+<td>
+<p>y coordinate of the corner of the lower left grid cell.</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>Single numeric value specifying the size of a grid cell or pixel in both x and y direction.</p>
+</td></tr>
+<tr valign="top"><td><code>nodata_value</code></td>
+<td>
+<p>Single numeric value being interpreted as <code>NA</code> (typically <code>-9999</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>xllcenter</code></td>
+<td>
+<p>x coordinate of the center of the lower left grid cell</p>
+</td></tr>
+<tr valign="top"><td><code>yllcenter</code></td>
+<td>
+<p>y coordinate of the center of the lower left grid cell</p>
+</td></tr>
+</table>
+<p>Note: The order of the components, especially of <code>?llcorner</code> and <code>?llcenter</code>, may change, depending on the order in which they appear in the grid header and on the georeferencing method (center or corner) used for the grid. The <code>?llcorner</code> and <code>?llcenter</code> attributes differ only by <code>cellsize/2</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p><code>read.sgrd</code> and <code>write.sgrd</code> import/export grids indirectly by creating temporary ASCII grid files (this explains why <code>write.sgrd</code> has <code>prec</code> and <code>hdr.prec</code> arguments). Consider using <code>readGDAL</code> and <code><a href="../../rgdal/html/writeGDAL.html">writeGDAL</a></code> in package <code>rgdal</code> instead, which are likely more efficient but may require coercion of your gridded data to/from a <code>Spatial...DataFrame-class</code>.
+</p>
+<p>The <code>read.Rd.grid</code> and <code>write.Rd.grid</code> functions use the <code>load</code> and <code>save</code> commands to store a grid. The variable name used is <code>data</code>, which is either a numeric matrix or a list with components <code>data</code> (the grid data matrix) and <code>header</code> (the grid header information).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>readGDAL</code> and <code><a href="../../rgdal/html/writeGDAL.html">writeGDAL</a></code> in package <code>rgdal</code>, and <code>readAsciiGrid</code> and <code><a href="../../maptools/html/writeAsciiGrid.html">writeAsciiGrid</a></code> in package <code>maptools</code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cassini: A 2 Dimensional Problem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mlbench.cassini {mlbench}"><tr><td>mlbench.cassini {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cassini: A 2 Dimensional Problem</h2>
+
+<h3>Description</h3>
+
+<p>The inputs of the cassini problem are uniformly distributed on
+a <code>2</code>-dimensional space within 3 structures. The 2 external
+structures (classes) are banana-shaped structures and in between them, the
+middle structure (class) is a circle.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mlbench.cassini(n, relsize=c(2,2,1))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of patterns to create</p>
+</td></tr>
+<tr valign="top"><td><code>relsize</code></td>
+<td>
+<p>relative size of the classes (vector of length 3)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>"mlbench.cassini"</code>  with components
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>input values</p>
+</td></tr>
+<tr valign="top"><td><code>classes</code></td>
+<td>
+<p>vector of length <code>n</code> with target classes</p>
+</td></tr> 
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Evgenia Dimitriadou and Andreas Weingessel</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+p &lt;- mlbench.cassini(5000)
+plot(p)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

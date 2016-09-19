@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetChildFocus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetChildFocus {RGtk2}"><tr><td>gtkWidgetChildFocus {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetChildFocus</h2>
+
+<h3>Description</h3>
+
+<p>This function is used by custom widget implementations; if you're
+writing an app, you'd use <code><a href="gtkWidgetGrabFocus.html">gtkWidgetGrabFocus</a></code> to move the focus
+to a particular widget, and <code><a href="gtkContainerSetFocusChain.html">gtkContainerSetFocusChain</a></code> to
+change the focus tab order. So you may want to investigate those
+functions instead.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetChildFocus(object, direction)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">direction</code></code></td>
+<td>
+<p>direction of focus movement</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code><a href="gtkWidgetChildFocus.html">gtkWidgetChildFocus</a></code> is called by containers as the user moves
+around the window using keyboard shortcuts. <code>direction</code> indicates
+what kind of motion is taking place (up, down, left, right, tab
+forward, tab backward). <code><a href="gtkWidgetChildFocus.html">gtkWidgetChildFocus</a></code> emits the
+<code style="white-space: pre;">"focus"</code> signal; widgets override the default handler
+for this signal in order to implement appropriate focus behavior.
+</p>
+<p>The default ::focus handler for a widget should return <code>TRUE</code> if
+moving in <code>direction</code> left the focus on a focusable location inside
+that widget, and <code>FALSE</code> if moving in <code>direction</code> moved the focus
+outside the widget. If returning <code>TRUE</code>, widgets normally
+call <code><a href="gtkWidgetGrabFocus.html">gtkWidgetGrabFocus</a></code> to place the focus accordingly;
+if returning <code>FALSE</code>, they don't modify the current focus location.
+</p>
+<p>This function replaces <code>gtkContainerFocus()</code> from GTK+ 1.2.  
+It was necessary to check that the child was visible, sensitive, 
+and focusable before calling <code>gtkContainerFocus()</code>. 
+<code><a href="gtkWidgetChildFocus.html">gtkWidgetChildFocus</a></code> returns <code>FALSE</code> if the widget is not 
+currently in a focusable state, so there's no need for those checks.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if focus ended up inside <code>widget</code></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

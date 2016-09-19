@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GInitable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GInitable {RGtk2}"><tr><td>GInitable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GInitable</h2>
+
+<h3>Description</h3>
+
+<p>Failable object initialization interface</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gInitableInit.html">gInitableInit</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gInitableNew.html">gInitableNew</a>(object.type, cancellable, ..., .errwarn = TRUE)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GInitable</pre>
+
+<h3>Implementations</h3>
+
+<p>GInitable is implemented by
+<code><a href="GSocket.html">GSocket</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GInitable.html">GInitable</a></code> is implemented by objects that can fail during
+initialization. If an object implements this interface the
+<code><a href="gInitableInit.html">gInitableInit</a></code> function must be called as the first thing
+after construction. If <code><a href="gInitableInit.html">gInitableInit</a></code> is not called, or if
+it returns an error, all further operations on the object
+should fail, generally with a <code>G_IO_ERROR_NOT_INITIALIZED</code> error.
+</p>
+<p>Users of objects implementing this are not intended to use
+the interface method directly, instead it will be used automatically
+in various ways. For C applications you generally just call
+<code><a href="gInitableNew.html">gInitableNew</a></code> directly, or indirectly via a <code>fooThingNew()</code> wrapper.
+This will call <code><a href="gInitableInit.html">gInitableInit</a></code> under the cover, returning <code>NULL</code> and
+setting a <code><a href="GError.html">GError</a></code> on failure.
+</p>
+<p>For bindings in languages where the native constructor supports
+exceptions the binding could check for objects implemention <code><a href="GInitable.html">GInitable</a></code>
+during normal construction and automatically initialize them, throwing
+an exception on failure.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GInitable</code></dt><dd>
+<p>Interface for initializable objects.
+Since 2.22
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GInitable.html">http://library.gnome.org/devel//gio/GInitable.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

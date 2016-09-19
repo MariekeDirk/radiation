@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: &quot;Cleaning&quot; Objects of Class 'kasc'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for managNAkasc {adehabitat}"><tr><td>managNAkasc {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>&quot;Cleaning&quot; Objects of Class 'kasc'</h2>
+
+<h3>Description</h3>
+
+<p>An object of class <code>kasc</code> stores several maps in a data frame
+(one column per variable, and one row per pixel of the raster map).
+However, the features mapped are rarely rectangle-shaped, whereas the
+map are inevitably rectangles.  Therefore, a lot of pixels of the maps
+do not contain data.  The pixels of the map that do not contain data
+are <code>NA</code> in this data frame. <br />
+It often occurs that several variables are not mapped for exactly the
+same area (that is, some pixels are <code>NA</code> for some variables, and
+not for others). <code>managNAkasc</code> will set to <code>NA</code> all pixels
+that are not mapped for all variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+managNAkasc(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>kasc</code></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>kasc</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.kasc.html">kasc</a></code> for additional information on
+objects of class <code>kasc</code>.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

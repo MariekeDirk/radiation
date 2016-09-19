@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Landscape Class Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ClassStat {SDMTools}"><tr><td>ClassStat {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Landscape Class Statistics</h2>
+
+<h3>Description</h3>
+
+<p><code>ClassStat</code> calculates the class statistics for patch
+types identified in a matrix of data or in a raster of
+class 'asc' (SDMTools &amp; adehabitat packages), 'RasterLayer'
+(raster package) or 'SpatialGridDataFrame' (sp package).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ClassStat(mat, cellsize = 1, bkgd = NA, latlon = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>a matrix of data with patches identified as
+classes (unique integer values) as e.g., a binary
+lanscape of a species distribution or a vegetation map.
+Matrix can be a raster of class 'asc' (adehabitat
+package), 'RasterLayer' (raster package) or
+'SpatialGridDataFrame' (sp package)</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>cell size (in meters) is a single value
+representing the width/height of cell edges (assuming
+square cells)</p>
+</td></tr>
+<tr valign="top"><td><code>bkgd</code></td>
+<td>
+<p>the background value for which statistics
+will not be calculated</p>
+</td></tr>
+<tr valign="top"><td><code>latlon</code></td>
+<td>
+<p>boolean value representing if the data is
+geographic. If latlon == TRUE, matrix must be of class
+'asc', 'RasterLayer' or 'SpatialGridDataFrame'</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The class statistics are based on statistics calculated by
+fragstats
+<a href="http://www.umass.edu/landeco/research/fragstats/fragstats.html">http://www.umass.edu/landeco/research/fragstats/fragstats.html</a>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a data.frame listing </p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>class</code></td>
+<td>
+<p>a particular patch type
+from the original input matrix (<code>mat</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>n.patches</code></td>
+<td>
+<p>the number of patches of a particular
+patch type or in a class.</p>
+</td></tr> <tr valign="top"><td><code>total.area</code></td>
+<td>
+<p>the sum of the
+areas (m2) of all patches of the corresponding patch type.</p>
+</td></tr>
+<tr valign="top"><td><code>prop.landscape</code></td>
+<td>
+<p>the proportion of the total lanscape
+represented by this class</p>
+</td></tr> <tr valign="top"><td><code>patch.density</code></td>
+<td>
+<p>the numbers
+of patches of the corresponding patch type divided by total
+landscape area (m2).</p>
+</td></tr> <tr valign="top"><td><code>total.edge</code></td>
+<td>
+<p>the total edge
+length of a particular patch type.</p>
+</td></tr>
+<tr valign="top"><td><code>edge.density</code></td>
+<td>
+<p>edge length on a per unit area basis
+that facilitates comparison among landscapes of varying
+size.</p>
+</td></tr> <tr valign="top"><td><code>landscape.shape.index</code></td>
+<td>
+<p>a standardized measure
+of total edge or edge density that adjusts for the size of
+the landscape.</p>
+</td></tr> <tr valign="top"><td><code>largest.patch.index</code></td>
+<td>
+<p>largest patch
+index quantifies the percentage of total landscape area
+comprised by the largest patch.</p>
+</td></tr>
+<tr valign="top"><td><code>mean.patch.area</code></td>
+<td>
+<p>average area of patches.</p>
+</td></tr>
+<tr valign="top"><td><code>sd.patch.area</code></td>
+<td>
+<p>standard deviation of patch areas.</p>
+</td></tr>
+<tr valign="top"><td><code>min.patch.area</code></td>
+<td>
+<p>the minimum patch area of the total
+patch areas. </p>
+</td></tr> <tr valign="top"><td><code>max.patch.area</code></td>
+<td>
+<p>the maximum patch area
+of the total patch areas.</p>
+</td></tr>
+<tr valign="top"><td><code>perimeter.area.frac.dim</code></td>
+<td>
+<p>perimeter-area fractal
+dimension equals 2 divided by the slope of regression line
+obtained by regressing the logarithm of patch area (m2)
+against the logarithm of patch perimeter (m).</p>
+</td></tr>
+<tr valign="top"><td><code>mean.perim.area.ratio</code></td>
+<td>
+<p>the mean of the ratio patch
+perimeter. The perimeter-area ratio is equal to the ratio
+of the patch perimeter (m) to area (m2).</p>
+</td></tr>
+<tr valign="top"><td><code>sd.perim.area.ratio</code></td>
+<td>
+<p>standard deviation of the ratio
+patch perimeter.</p>
+</td></tr> <tr valign="top"><td><code>min.perim.area.ratio</code></td>
+<td>
+<p>minimum
+perimeter area ratio</p>
+</td></tr> <tr valign="top"><td><code>max.perim.area.ratio</code></td>
+<td>
+<p>maximum
+perimeter area ratio.</p>
+</td></tr> <tr valign="top"><td><code>mean.shape.index</code></td>
+<td>
+<p>mean of
+shape index</p>
+</td></tr> <tr valign="top"><td><code>sd.shape.index</code></td>
+<td>
+<p>standard deviation of
+shape index.</p>
+</td></tr> <tr valign="top"><td><code>min.shape.index</code></td>
+<td>
+<p>the minimum shape
+index.</p>
+</td></tr> <tr valign="top"><td><code>max.shape.index</code></td>
+<td>
+<p>the maximum shape index.</p>
+</td></tr>
+<tr valign="top"><td><code>mean.frac.dim.index</code></td>
+<td>
+<p>mean of fractal dimension
+index.</p>
+</td></tr> <tr valign="top"><td><code>sd.frac.dim.index</code></td>
+<td>
+<p>standard deviation of
+fractal dimension index.</p>
+</td></tr> <tr valign="top"><td><code>min.frac.dim.index</code></td>
+<td>
+<p>the
+minimum fractal dimension index.</p>
+</td></tr>
+<tr valign="top"><td><code>max.frac.dim.index</code></td>
+<td>
+<p>the maximum fractal dimension
+index.</p>
+</td></tr> <tr valign="top"><td><code>total.core.area</code></td>
+<td>
+<p>the sum of the core areas of
+the patches (m2).</p>
+</td></tr> <tr valign="top"><td><code>prop.landscape.core</code></td>
+<td>
+<p>proportional
+landscape core</p>
+</td></tr> <tr valign="top"><td><code>mean.patch.core.area</code></td>
+<td>
+<p>mean patch core
+area.</p>
+</td></tr> <tr valign="top"><td><code>sd.patch.core.area</code></td>
+<td>
+<p>standard deviation of
+patch core area.</p>
+</td></tr> <tr valign="top"><td><code>min.patch.core.area</code></td>
+<td>
+<p>the minimum
+patch core area.</p>
+</td></tr> <tr valign="top"><td><code>max.patch.core.area</code></td>
+<td>
+<p>the maximum
+patch core area.</p>
+</td></tr> <tr valign="top"><td><code>prop.like.adjacencies</code></td>
+<td>
+<p>calculated
+from the adjacency matrix, which shows the frequency with
+which different pairs of patch types (including like
+adjacencies between the same patch type) appear
+side-by-side on the map (measures the degree of aggregation
+of patch types).</p>
+</td></tr> <tr valign="top"><td><code>aggregation.index</code></td>
+<td>
+<p>computed simply
+as an area-weighted mean class aggregation index, where
+each class is weighted by its proportional area in the
+landscape.</p>
+</td></tr> <tr valign="top"><td><code>lanscape.division.index</code></td>
+<td>
+<p>based on the
+cumulative patch area distribution and is interpreted as
+the probability that two randomly chosen pixels in the
+landscape are not situated in the same patch</p>
+</td></tr>
+<tr valign="top"><td><code>splitting.index</code></td>
+<td>
+<p>based on the cumulative patch area
+distribution and is interpreted as the effective mesh
+number, or number of patches with a constant patch size
+when the landscape is subdivided into S patches, where S is
+the value of the splitting index.</p>
+</td></tr>
+<tr valign="top"><td><code>effective.mesh.size</code></td>
+<td>
+<p>equals 1 divided by the total
+landscape area (m2) multiplied by the sum of patch area
+(m2) squared, summed across all patches in the landscape.</p>
+</td></tr>
+<tr valign="top"><td><code>patch.cohesion.index</code></td>
+<td>
+<p>measures the physical
+connectedness of the corresponding patch type.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>McGarigal, K., S. A. Cushman, M. C. Neel, and E. Ene. 2002.
+FRAGSTATS: Spatial Pattern Analysis Program for Categorical
+Maps. Computer software program produced by the authors at
+the University of Massachusetts, Amherst. Available at the
+following web site:
+<a href="www.umass.edu/landeco/research/fragstats/fragstats.html">www.umass.edu/landeco/research/fragstats/fragstats.html</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="PatchStat.html">PatchStat</a></code>, <code><a href="ConnCompLabel.html">ConnCompLabel</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#define a simple binary matrix
+tmat = { matrix(c( 0,0,0,1,0,0,1,1,0,1,
+                   0,0,1,0,1,0,0,0,0,0,
+                   0,1,NA,1,0,1,0,0,0,1,
+                   1,0,1,1,1,0,1,0,0,1,
+                   0,1,0,1,0,1,0,0,0,1,
+                   0,0,1,0,1,0,0,1,1,0,
+                   1,0,0,1,0,0,1,0,0,1,
+                   0,1,0,0,0,1,0,0,0,1,
+                   0,0,1,1,1,0,0,0,0,1,
+                   1,1,1,0,0,0,0,0,0,1),nr=10,byrow=TRUE) }
+
+#do the connected component labelling
+ccl.mat = ConnCompLabel(tmat)
+ccl.mat
+image(t(ccl.mat[10:1,]),col=c('grey',rainbow(length(unique(ccl.mat))-1)))
+
+#calculate the patch statistics
+ps.data = PatchStat(ccl.mat)
+ps.data
+
+#calculate the class statistics
+cl.data = ClassStat(tmat)
+cl.data
+
+#identify background data is 0
+cl.data = ClassStat(tmat,bkgd=0)
+cl.data
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

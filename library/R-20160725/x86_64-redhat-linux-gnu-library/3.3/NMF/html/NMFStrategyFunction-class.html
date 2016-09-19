@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Interface for Single Function NMF Strategies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFStrategyFunction-class {NMF}"><tr><td>NMFStrategyFunction-class {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Interface for Single Function NMF Strategies</h2>
+
+<h3>Description</h3>
+
+<p>This class implements the virtual interface
+<code><a href="NMFStrategy.html">NMFStrategy</a></code> for NMF algorithms that are
+implemented by a single workhorse R function.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>algorithm</dt><dd><p>a function that implements an NMF
+algorithm. It must have signature <code>(y='matrix',
+  x='NMFfit')</code>, where <code>y</code> is the target matrix to
+approximate and <code>x</code> is the NMF model assumed to be
+seeded with an appropriate initial value &ndash; as it is done
+internally by function <code><a href="nmf.html">nmf</a></code>.
+</p>
+<p>Note that argument names currently do not matter, but it
+is recommended to name them as specified above.</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>algorithm</dt><dd><p><code>signature(object =
+  "NMFStrategyFunction")</code>: Returns the single R function
+that implements the NMF algorithm &ndash; as stored in slot
+<code>algorithm</code>. </p>
+</dd>
+<dt>algorithm&lt;-</dt><dd><p><code>signature(object =
+  "NMFStrategyFunction", value = "function")</code>: Sets the
+function that implements the NMF algorithm, stored in
+slot <code>algorithm</code>. </p>
+</dd>
+<dt>run</dt><dd><p><code>signature(object =
+  "NMFStrategyFunction", y = "matrix", x = "NMFfit")</code>: Runs
+the NMF algorithms implemented by the single R function
+&ndash; and stored in slot <code>'algorithm'</code> of
+<code>object</code>, on the data object <code>y</code>, using
+<code>x</code> as starting point. It is equivalent to calling
+<code>object@algorithm(y, x, ...)</code>.
+</p>
+<p>This method is usually not called directly, but only via
+the function <code><a href="nmf.html">nmf</a></code>, which takes care of many
+other details such as seeding the computation, handling
+RNG settings, or setting up parallelisation. </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

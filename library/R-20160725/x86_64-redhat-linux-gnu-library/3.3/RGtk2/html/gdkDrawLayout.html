@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkDrawLayout</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkDrawLayout {RGtk2}"><tr><td>gdkDrawLayout {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkDrawLayout</h2>
+
+<h3>Description</h3>
+
+<p>Render a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code> onto a GDK drawable</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkDrawLayout(object, gc, x, y, layout)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the drawable on which to draw string</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">gc</code></code></td>
+<td>
+<p>base graphics context to use</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>the X position of the left of the layout (in pixels)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>the Y position of the top of the layout (in pixels)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">layout</code></code></td>
+<td>
+<p>a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the layout's <code><a href="pango-Text-Processing.html">PangoContext</a></code> has a transformation matrix set, then
+<code>x</code> and <code>y</code> specify the position of the top left corner of the
+bounding box (in device space) of the transformed layout.
+</p>
+<p>If you're using GTK+, the usual way to obtain a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code>
+is <code><a href="gtkWidgetCreatePangoLayout.html">gtkWidgetCreatePangoLayout</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

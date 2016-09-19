@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Tk slider window</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for sliderv {TeachingDemos}"><tr><td>sliderv {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Create a Tk slider window </h2>
+
+<h3>Description</h3>
+
+<p>Create a Tk slider window with the sliders positioned vertically
+instead of horizontally.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+sliderv(refresh.code, names, minima, maxima, resolutions, starts,
+  title = "control", no = 0, set.no.value = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>refresh.code</code></td>
+<td>
+<p> Function to be called when sliders are moved. </p>
+</td></tr>
+<tr valign="top"><td><code>names</code></td>
+<td>
+<p> Labels for the sliders. </p>
+</td></tr>
+<tr valign="top"><td><code>minima</code></td>
+<td>
+<p> Vector of minimum values for the sliders. </p>
+</td></tr>
+<tr valign="top"><td><code>maxima</code></td>
+<td>
+<p> Vector of maximum values for the sliders. </p>
+</td></tr>
+<tr valign="top"><td><code>resolutions</code></td>
+<td>
+<p> Vector of resolutions for the sliders. </p>
+</td></tr>
+<tr valign="top"><td><code>starts</code></td>
+<td>
+<p> Vector of starting values for the sliders. </p>
+</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+<p> Title to put at the top of the Tk box. </p>
+</td></tr>
+<tr valign="top"><td><code>no</code></td>
+<td>
+<p> The number of the slider whose value you want. </p>
+</td></tr>
+<tr valign="top"><td><code>set.no.value</code></td>
+<td>
+<p> Vector of length 2 with the number of slider to
+set and the new value. </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a variation on the <code>slider</code> function with vertical sliders
+arranged in a row rather than horizontal sliders arranged in a column.
+</p>
+<p>This is based on an early version of <code>slider</code> and therefore does
+not have as many bells and whistles (but sometimes fits the screen better).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns the value of a given slider when used as: <code>slider(no=i)</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>You can move the slider in 3 different ways:  You can left click
+and drag the slider itself, you can left click in the trough to either
+side of the slider and the slider will move 1 unit in the direction
+you clicked, or you can right click in the trough and the slider will
+jump to the location you clicked at.
+</p>
+<p>This function may not stay in this package (consider it
+semi-depricated).  See the <code><a href="tkexamp.html">tkexamp</a></code> function for another
+approach to do the same thing.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="tkexamp.html">tkexamp</a></code>, <code><a href="slider.html">slider</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(interactive()){
+face.refresh &lt;- function(...){
+	vals &lt;- sapply(1:15, function(x) slider(no=x))
+	faces( rbind(0, vals, 1), scale=F)
+}
+
+sliderv( face.refresh, as.character(1:15), rep(0,15), rep(1,15),
+	rep(0.05, 15), rep(0.5,15), title='Face Demo')
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

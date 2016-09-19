@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create and train an RBF network with the DDA algorithm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rbfDDA {RSNNS}"><tr><td>rbfDDA {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create and train an RBF network with the DDA algorithm</h2>
+
+<h3>Description</h3>
+
+<p>Create and train an RBF network with the dynamic decay adjustment (DDA) algorithm.
+This type of network can only be used for classification. The training typically begins
+with an empty network, i.e., a network only consisting of input and output units, and
+adds new units successively. It is a lot easier to use than normal RBF, because it only
+requires two quite uncritical parameters.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rbfDDA(x, ...)
+
+## Default S3 method:
+rbfDDA(x, y, maxit = 1, initFunc = "Randomize_Weights",
+  initFuncParams = c(-0.3, 0.3), learnFunc = "RBF-DDA",
+  learnFuncParams = c(0.4, 0.2, 5), updateFunc = "Topological_Order",
+  updateFuncParams = c(0), shufflePatterns = TRUE, linOut = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix with training inputs for the network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional function parameters (currently not used)</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the corresponding targets values</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>maximum of iterations to learn</p>
+</td></tr>
+<tr valign="top"><td><code>initFunc</code></td>
+<td>
+<p>the initialization function to use</p>
+</td></tr>
+<tr valign="top"><td><code>initFuncParams</code></td>
+<td>
+<p>the parameters for the initialization function</p>
+</td></tr>
+<tr valign="top"><td><code>learnFunc</code></td>
+<td>
+<p>the learning function to use</p>
+</td></tr>
+<tr valign="top"><td><code>learnFuncParams</code></td>
+<td>
+<p>the parameters for the learning function</p>
+</td></tr>
+<tr valign="top"><td><code>updateFunc</code></td>
+<td>
+<p>the update function to use</p>
+</td></tr>
+<tr valign="top"><td><code>updateFuncParams</code></td>
+<td>
+<p>the parameters for the update function</p>
+</td></tr>
+<tr valign="top"><td><code>shufflePatterns</code></td>
+<td>
+<p>should the patterns be shuffled?</p>
+</td></tr>
+<tr valign="top"><td><code>linOut</code></td>
+<td>
+<p>sets the activation function of the output units to linear or logistic</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The default functions do not have to be altered. The learning function <code>RBF-DDA</code> has
+three parameters: a positive threshold, and a negative threshold, that controls adding units to
+the network, and a parameter for display purposes in the original SNNS. This parameter has
+no effect in RSNNS. See p 74 of the original SNNS User Manual for details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="rsnnsObjectFactory.html">rsnns</a></code> object.
+</p>
+
+
+<h3>References</h3>
+
+<p>Berthold, M. R. &amp; Diamond, J. (1995), Boosting the Performance of RBF Networks with Dynamic Decay Adjustment, in 'Advances in Neural Information Processing Systems', MIT Press, , pp. 521&ndash;528.
+</p>
+<p>Hudak, M. (1993), 'RCE classifiers: theory and practice', Cybernetics and Systems 23(5), 483&ndash;515.
+</p>
+<p>Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
+<a href="http://www.ra.cs.uni-tuebingen.de/SNNS/">http://www.ra.cs.uni-tuebingen.de/SNNS/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: demo(iris)
+## Not run: demo(rbfDDA_spiralsSnnsR)
+
+
+data(iris)
+iris &lt;- iris[sample(1:nrow(iris),length(1:nrow(iris))),1:ncol(iris)]
+irisValues &lt;- iris[,1:4]
+irisTargets &lt;- decodeClassLabels(iris[,5])
+iris &lt;- splitForTrainingAndTest(irisValues, irisTargets, ratio=0.15)
+iris &lt;- normTrainingAndTestSet(iris)
+
+model &lt;- rbfDDA(iris$inputsTrain, iris$targetsTrain)
+
+summary(model)
+plotIterativeError(model)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

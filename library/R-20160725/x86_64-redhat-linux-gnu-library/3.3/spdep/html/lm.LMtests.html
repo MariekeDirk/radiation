@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Lagrange Multiplier diagnostics for spatial dependence in...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lm.LMtests {spdep}"><tr><td>lm.LMtests {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Lagrange Multiplier diagnostics for spatial dependence in linear models</h2>
+
+<h3>Description</h3>
+
+<p>The function reports the estimates of tests chosen among five statistics for
+testing for spatial dependence in linear models. The statistics are
+the simple LM test for error dependence (LMerr), the simple LM test
+for a missing spatially lagged dependent variable (LMlag), variants
+of these robust to the presence of the other (RLMerr, RLMlag - RLMerr
+tests for error dependence in the possible presence of a missing lagged
+dependent variable, RLMlag the other way round), and a portmanteau test
+(SARMA, in fact LMerr + RLMlag). Note: from spdep 0.3-32, the value of the weights matrix trace term is returned correctly for both underlying symmetric and asymmetric neighbour lists, before 0.3-32, the value was wrong for listw objects based on asymmetric neighbour lists, such as k-nearest neighbours (thanks to Luc Anselin for finding the bug).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lm.LMtests(model, listw, zero.policy=NULL, test="LMerr", spChk=NULL, naSubset=TRUE)
+## S3 method for class 'LMtestlist'
+print(x, ...)
+## S3 method for class 'LMtestlist'
+summary(object, p.adjust.method="none", ...)
+## S3 method for class 'LMtestlist.summary'
+print(x, digits=max(3, getOption("digits") - 2), ...)
+
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>an object of class <code>lm</code> returned by <code>lm</code>, or optionally a vector of externally calculated residuals (run though <code>na.omit</code> if any NAs present) for use when only &quot;LMerr&quot; is chosen; weights and offsets should not be used in the <code>lm</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code>,
+expected to be row-standardised (W-style)</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without
+neighbours, if FALSE assign NA</p>
+</td></tr>
+<tr valign="top"><td><code>test</code></td>
+<td>
+<p>a character vector of tests requested chosen from LMerr, LMlag,
+RLMerr, RLMlag, SARMA; test=&quot;all&quot; computes all the tests.</p>
+</td></tr>
+<tr valign="top"><td><code>spChk</code></td>
+<td>
+<p>should the data vector names be checked against the spatial objects for identity integrity, TRUE, or FALSE, default NULL to use <code>get.spChkOption()</code></p>
+</td></tr>
+<tr valign="top"><td><code>naSubset</code></td>
+<td>
+<p>default TRUE to subset listw object for omitted observations in model object (this is a change from earlier behaviour, when the <code>model$na.action</code> component was ignored, and the listw object had to be subsetted by hand)</p>
+</td></tr>
+<tr valign="top"><td><code>x, object</code></td>
+<td>
+<p>object to be printed</p>
+</td></tr>
+<tr valign="top"><td><code>p.adjust.method</code></td>
+<td>
+<p>a character string specifying the probability value adjustment (see <code><a href="../../stats/html/p.adjust.html">p.adjust</a></code>) for multiple tests, default &quot;none&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>minimum number of significant digits to be used for most numbers</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>printing arguments to be passed through</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The two types of dependence are for spatial lag <i>rho</i> and spatial error <i>lambda</i>:
+</p>
+<p style="text-align: center;"><i>y = X beta + rho W1 y + u</i></p>
+
+<p style="text-align: center;"><i>u = lambda W2 u + e</i></p>
+
+<p>where <i>e</i> is a well-behaved, uncorrelated error
+term. Tests for a missing spatially lagged dependent variable test
+that <i>rho = 0</i>, tests for spatial autocorrelation of
+the error <i>u</i> test whether <i>lambda =
+0</i>. <i>W</i> is a spatial weights matrix; for the tests used
+here they are identical.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of class <code>LMtestlist</code> of <code>htest</code> objects, each with:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+<p>the value of the Lagrange Multiplier test.</p>
+</td></tr>
+<tr valign="top"><td><code>parameter</code></td>
+<td>
+<p>number of degrees of freedom</p>
+</td></tr>
+<tr valign="top"><td><code>p.value</code></td>
+<td>
+<p>the p-value of the test.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>a character string giving the method used.</p>
+</td></tr>
+<tr valign="top"><td><code>data.name</code></td>
+<td>
+<p>a character string giving the name(s) of the data.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a> and Andrew Bernat</p>
+
+
+<h3>References</h3>
+
+<p>Anselin, L. 1988 Spatial econometrics: methods and
+models. (Dordrecht: Kluwer); Anselin, L., Bera, A. K., Florax, R. and
+Yoon, M. J. 1996 Simple diagnostic tests for spatial dependence. Regional
+Science and Urban Economics, 26, 77&ndash;104.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/lm.html">lm</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+oldcrime.lm &lt;- lm(CRIME ~ HOVAL + INC, data = COL.OLD)
+summary(oldcrime.lm)
+res &lt;- lm.LMtests(oldcrime.lm, nb2listw(COL.nb), test=c("LMerr", "LMlag",
+  "RLMerr", "RLMlag", "SARMA"))
+summary(res)
+lm.LMtests(oldcrime.lm, nb2listw(COL.nb))
+lm.LMtests(residuals(oldcrime.lm), nb2listw(COL.nb))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

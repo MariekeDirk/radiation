@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GThreadedSocketService</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GThreadedSocketService {RGtk2}"><tr><td>GThreadedSocketService {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GThreadedSocketService</h2>
+
+<h3>Description</h3>
+
+<p>A threaded GSocketService</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gThreadedSocketServiceNew.html">gThreadedSocketServiceNew</a>(max.threads)</code><br />
+<code>gThreadedSocketService(max.threads)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GSocketListener
+         +----GSocketService
+               +----GThreadedSocketService</pre>
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GThreadedSocketService.html">GThreadedSocketService</a></code> is a simple subclass of <code><a href="GSocketService.html">GSocketService</a></code>
+that handles incoming connections by creating a worker thread and
+dispatching the connection to it by emitting the ::run signal in
+the new thread.
+</p>
+<p>The signal handler may perform blocking IO and need not return
+until the connection is closed.
+</p>
+<p>The service is implemented using a thread pool, so there is a
+limited amount of threads availible to serve incomming requests.
+The service automatically stops the <code><a href="GSocketService.html">GSocketService</a></code> from accepting
+new connections when all threads are busy.
+</p>
+<p>As with <code><a href="GSocketService.html">GSocketService</a></code>, you may connect to <code style="white-space: pre;">"run"</code>,
+or subclass and override the default handler.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GThreadedSocketService</code></dt><dd>
+<p>A helper class for handling accepting incomming connections in the
+glib mainloop and handling them in a thread.
+Since 2.22
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gThreadedSocketService</code> is the equivalent of <code><a href="gThreadedSocketServiceNew.html">gThreadedSocketServiceNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>run(service, connection, source.object, user.data)</code></dt><dd>
+<p>The ::run signal is emitted in a worker thread in response to an
+incoming connection. This thread is dedicated to handling
+<code>connection</code> and may perform blocking IO. The signal handler need
+not return until the connection is closed.
+</p>
+
+<dl>
+<dt><code>service</code></dt><dd><p>the <code><a href="GThreadedSocketService.html">GThreadedSocketService</a></code>.</p>
+</dd>
+<dt><code>connection</code></dt><dd><p>a new <code><a href="GSocketConnection.html">GSocketConnection</a></code> object.</p>
+</dd>
+<dt><code>source.object</code></dt><dd><p>the source_object passed to <code><a href="gSocketListenerAddAddress.html">gSocketListenerAddAddress</a></code>.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> to stope further signal handlers from being called
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">max-threads</code> [integer : Read / Write / Construct Only]</dt><dd>
+<p>The max number of threads handling clients for this service.  Allowed values: &gt;= -1  Default value: 10
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GThreadedSocketService.html">http://library.gnome.org/devel//gio/GThreadedSocketService.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

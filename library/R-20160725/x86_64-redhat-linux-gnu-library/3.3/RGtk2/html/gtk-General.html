@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Main loop and Events</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-General {RGtk2}"><tr><td>gtk-General {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Main loop and Events</h2>
+
+<h3>Description</h3>
+
+<p>Library initialization, main event loop, and events</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkGetDefaultLanguage.html">gtkGetDefaultLanguage</a>()</code><br />
+<code><a href="gtkInit.html">gtkInit</a>(args = "R")</code><br />
+<code><a href="gtkExit.html">gtkExit</a>(error.code)</code><br />
+<code><a href="gtkEventsPending.html">gtkEventsPending</a>()</code><br />
+<code><a href="gtkMain.html">gtkMain</a>()</code><br />
+<code><a href="gtkMainLevel.html">gtkMainLevel</a>()</code><br />
+<code><a href="gtkMainQuit.html">gtkMainQuit</a>()</code><br />
+<code><a href="gtkMainIteration.html">gtkMainIteration</a>()</code><br />
+<code><a href="gtkMainIterationDo.html">gtkMainIterationDo</a>(blocking = TRUE)</code><br />
+<code><a href="gtkMainDoEvent.html">gtkMainDoEvent</a>(event)</code><br />
+<code><a href="gtkTrue.html">gtkTrue</a>()</code><br />
+<code><a href="gtkFalse.html">gtkFalse</a>()</code><br />
+<code><a href="gtkGrabAdd.html">gtkGrabAdd</a>(object)</code><br />
+<code><a href="gtkGrabGetCurrent.html">gtkGrabGetCurrent</a>()</code><br />
+<code><a href="gtkGrabRemove.html">gtkGrabRemove</a>(object)</code><br />
+<code><a href="gtkInitAdd.html">gtkInitAdd</a>(fun, data = NULL)</code><br />
+<code><a href="gtkQuitAddDestroy.html">gtkQuitAddDestroy</a>(main.level, object)</code><br />
+<code><a href="gtkQuitAdd.html">gtkQuitAdd</a>(main.level, fun, data = NULL)</code><br />
+<code><a href="gtkQuitAddFull.html">gtkQuitAddFull</a>(main.level, fun, data = NULL)</code><br />
+<code><a href="gtkQuitRemove.html">gtkQuitRemove</a>(quit.handler.id)</code><br />
+<code><a href="gtkQuitRemoveByData.html">gtkQuitRemoveByData</a>(data)</code><br />
+<code><a href="gtkTimeoutAddFull.html">gtkTimeoutAddFull</a>(interval, fun, data = NULL)</code><br />
+<code><a href="gtkTimeoutAdd.html">gtkTimeoutAdd</a>(interval, fun, data = NULL)</code><br />
+<code><a href="gtkTimeoutRemove.html">gtkTimeoutRemove</a>(timeout.handler.id)</code><br />
+<code><a href="gtkIdleAdd.html">gtkIdleAdd</a>(fun, data = NULL)</code><br />
+<code><a href="gtkIdleAddPriority.html">gtkIdleAddPriority</a>(priority, fun, data = NULL)</code><br />
+<code><a href="gtkIdleAddFull.html">gtkIdleAddFull</a>(priority, fun, data = NULL)</code><br />
+<code><a href="gtkIdleRemove.html">gtkIdleRemove</a>(idle.handler.id)</code><br />
+<code><a href="gtkIdleRemoveByData.html">gtkIdleRemoveByData</a>(data)</code><br />
+<code><a href="gtkInputRemove.html">gtkInputRemove</a>(input.handler.id)</code><br />
+<code><a href="gtkKeySnooperInstall.html">gtkKeySnooperInstall</a>(snooper, func.data = NULL)</code><br />
+<code><a href="gtkKeySnooperRemove.html">gtkKeySnooperRemove</a>(snooper.handler.id)</code><br />
+<code><a href="gtkGetCurrentEvent.html">gtkGetCurrentEvent</a>()</code><br />
+<code><a href="gtkGetCurrentEventTime.html">gtkGetCurrentEventTime</a>()</code><br />
+<code><a href="gtkGetCurrentEventState.html">gtkGetCurrentEventState</a>()</code><br />
+<code><a href="gtkGetEventWidget.html">gtkGetEventWidget</a>(event)</code><br />
+<code><a href="gtkPropagateEvent.html">gtkPropagateEvent</a>(object, event)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Before using GTK+, you need to initialize it; initialization connects
+to the window system display, and parses some standard command line
+arguments. The <code><a href="gtkInit.html">gtkInit</a></code> function initializes GTK+. <code><a href="gtkInit.html">gtkInit</a></code> exits
+the application if errors occur; to avoid this, use <code>gtkInitCheck()</code>.
+<code>gtkInitCheck()</code> allows you to recover from a failed GTK+
+initialization - you might start up your application in text mode instead.
+</p>
+<p>Like all GUI toolkits, GTK+ uses an event-driven programming
+model. When the user is doing nothing, GTK+ sits in the
+<dfn>main loop</dfn> and waits for input. If the user
+performs some action - say, a mouse click - then the main loop &quot;wakes
+up&quot; and delivers an event to GTK+. GTK+ forwards the event to one or
+more widgets.
+</p>
+<p>When widgets receive an event, they frequently emit one or more
+<dfn>signals</dfn>. Signals notify your program that
+&quot;something interesting happened&quot; by invoking functions you've
+connected to the signal with <code><a href="GSignal.html">gSignalConnect</a></code>. Functions connected
+to a signal are often termed <dfn>callbacks</dfn>.
+</p>
+<p>When your callbacks are invoked, you would typically take some action
+- for example, when an Open button is clicked you might display a
+<code style="white-space: pre;">GtkFileSelectionDialog</code>. After a callback finishes, GTK+ will return
+to the main loop and await more user input.
+</p>
+<p><em>Typical   <code>main</code>   function for a GTK+ application</em></p>
+<pre>int
+main (int argc, char **argv)
+{
+  /* Initialize i18n support */
+  gtk_set_locale (    );
+  /* Initialize the widget set */
+  gtk_init (&amp;argc, &amp;argv);
+  /* Create the main window */
+  mainwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  /* Set up our GUI elements */
+  ...
+  /* Show the application window */
+  gtk_widget_show_all (mainwin);
+  /* Enter the main event loop, and wait for user interaction */
+  gtk_main (    );
+  /* The user lost interest */
+  return 0;
+}
+</pre>  
+<p>It's OK to use the GLib main loop directly instead of <code><a href="gtkMain.html">gtkMain</a></code>,
+though it involves slightly more typing. See <code style="white-space: pre;">GMainLoop</code> in the GLib
+documentation.</p>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>GtkModuleInitFunc(argc, argv)</code></dt><dd>
+<p>Each GTK+ module must have a function <code>gtkModuleInit()</code> with this prototype.
+This function is called after loading the module with the <code>argc</code> and <code>argv</code>
+cleaned from any arguments that GTK+ handles itself.
+</p>
+
+<dl>
+<dt><code>argc</code></dt><dd><p>Pointer to the number of arguments remaining after <code><a href="gtkInit.html">gtkInit</a></code>.</p>
+</dd>
+<dt><code>argv</code></dt><dd><p>Points to the argument vector.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>GtkModuleDisplayInitFunc()</code></dt><dd>
+<p>Since 2.2
+</p>
+</dd>
+<dt><code>GtkKeySnoopFunc(grab.widget, event, func.data)</code></dt><dd>
+<p>Key snooper functions are called before normal event delivery.
+They can be used to implement custom key event handling.
+</p>
+
+<dl>
+<dt><code>grab.widget</code></dt><dd><p>the widget to which the event will be delivered.</p>
+</dd>
+<dt><code>event</code></dt><dd><p>the key event.</p>
+</dd>
+<dt><code>func.data</code></dt><dd><p>the <code>func.data</code> supplied to <code><a href="gtkKeySnooperInstall.html">gtkKeySnooperInstall</a></code>.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [integer] <code>TRUE</code> to stop further processing of <code>event</code>, <code>FALSE</code> to continue.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-General.html">http://library.gnome.org/devel//gtk/gtk-General.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

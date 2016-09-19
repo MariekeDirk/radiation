@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exportation of Areas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for area2dxf {adehabitat}"><tr><td>area2dxf {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exportation of Areas</h2>
+
+<h3>Description</h3>
+
+<p><code>area2dxf</code> exports a data frame of class <code>area</code> in a DXF file.  Such
+files can be read by virtually all Geographic Information Systems.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+area2dxf(x, file, lay = 1:nlevels(factor(x[, 1])))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>area</code></p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>a character string giving the name of the DXF file to be
+created</p>
+</td></tr>
+<tr valign="top"><td><code>lay</code></td>
+<td>
+<p>an optional vector with a length equal to the number of
+polygons in <code>x</code>. This vector is then stored in the field
+&quot;Layer&quot; of the DXF file (see examples), for GIS mapping</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.area.html">area</a></code>, <code><a href="../../ade4/html/area.plot.html">area.plot</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## Not run: 
+  ## Loads the dataset elec88 from the package ade4
+  data(elec88)
+  ar &lt;- as.area(elec88$area)
+  area.plot(ar, values=elec88$tab[,1])
+  
+  ## exportation of the election results toward a dxf file
+  area2dxf(ar, file = "Dept", lay = elec88$tab[,1])
+  
+  ## Removes the file
+  file.remove("Dept.dxf")
+
+## End(Not run)
+
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

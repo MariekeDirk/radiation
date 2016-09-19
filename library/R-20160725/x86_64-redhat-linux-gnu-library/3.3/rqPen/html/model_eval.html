@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Model Evaluation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for model_eval {rqPen}"><tr><td>model_eval {rqPen}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Model Evaluation</h2>
+
+<h3>Description</h3>
+
+<p>Used for cross-validation. For a model of class &quot;rqPen&quot; it provides the average prediction error given the evaluation function of choice.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+model_eval(model, test_x, test_y, func="check",...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p> Model of class &quot;rqPen&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>test_x</code></td>
+<td>
+<p> Covariates used for prediction.</p>
+</td></tr>
+<tr valign="top"><td><code>test_y</code></td>
+<td>
+<p> Response to compare predictions against.</p>
+</td></tr>
+<tr valign="top"><td><code>func</code></td>
+<td>
+<p> Function used for evaluation. Options: &quot;check&quot; (Quantile Check), &quot;SqErr&quot; (Squared Error), &quot;AE&quot; (Absolute Value)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to be sent to evaluation function. For instance check requires tau which is not part of the model_eval function.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Mean of prediction errors using the chosen function. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Ben Sherwood</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+x &lt;- matrix(rnorm(800),ncol=8)
+y &lt;- 1 + x[,1] - 3*x[,5] + rnorm(100)
+l_model &lt;- rq.lasso.fit(x,y,lambda=1)
+nc_model &lt;- rq.nc.fit(x,y,lambda=1)
+newx &lt;- matrix(rnorm(16),ncol=8)
+newy &lt;- 1 + newx[,1] - 3*newx[,5] + rnorm(2)
+model_eval(l_model, newx, newy)
+model_eval(l_model, newx, newy, func="SqErr")
+model_eval(nc_model, newx, newy)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>rqPen</em> version 1.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

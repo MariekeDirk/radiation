@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufAnimationGetIter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufAnimationGetIter {RGtk2}"><tr><td>gdkPixbufAnimationGetIter {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufAnimationGetIter</h2>
+
+<h3>Description</h3>
+
+<p>Get an iterator for displaying an animation. The iterator provides
+the frames that should be displayed at a given time.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufAnimationGetIter(object, start.time)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-animation.html">GdkPixbufAnimation</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">start.time</code></code></td>
+<td>
+<p>time when the animation starts playing</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>start.time</code> would normally come from <code>gGetCurrentTime()</code>, and
+marks the beginning of animation playback. After creating an
+iterator, you should immediately display the pixbuf returned by
+<code><a href="gdkPixbufAnimationIterGetPixbuf.html">gdkPixbufAnimationIterGetPixbuf</a></code>. Then, you should install a
+timeout (with <code><a href="GMainLoop.html">gTimeoutAdd</a></code>) or by some other mechanism ensure
+that you'll update the image after
+<code><a href="gdkPixbufAnimationIterGetDelayTime.html">gdkPixbufAnimationIterGetDelayTime</a></code> milliseconds. Each time
+the image is updated, you should reinstall the timeout with the new,
+possibly-changed delay time.
+</p>
+<p>As a shortcut, if <code>start.time</code> is <code>NULL</code>, the result of
+<code>gGetCurrentTime()</code> will be used automatically.
+</p>
+<p>To update the image (i.e. possibly change the result of
+<code><a href="gdkPixbufAnimationIterGetPixbuf.html">gdkPixbufAnimationIterGetPixbuf</a></code> to a new frame of the animation),
+call <code><a href="gdkPixbufAnimationIterAdvance.html">gdkPixbufAnimationIterAdvance</a></code>.
+</p>
+<p>If you're using <code><a href="GdkPixbufLoader.html">GdkPixbufLoader</a></code>, in addition to updating the image
+after the delay time, you should also update it whenever you
+receive the area_updated signal and
+<code><a href="gdkPixbufAnimationIterOnCurrentlyLoadingFrame.html">gdkPixbufAnimationIterOnCurrentlyLoadingFrame</a></code> returns
+<code>TRUE</code>. In this case, the frame currently being fed into the loader
+has received new data, so needs to be refreshed. The delay time for
+a frame may also be modified after an area_updated signal, for
+example if the delay time for a frame is encoded in the data after
+the frame itself. So your timeout should be reinstalled after any
+area_updated signal.
+</p>
+<p>A delay time of -1 is possible, indicating &quot;infinite.&quot;</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-pixbuf-animation.html">GdkPixbufAnimationIter</a></code>] an iterator to move over the animation</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

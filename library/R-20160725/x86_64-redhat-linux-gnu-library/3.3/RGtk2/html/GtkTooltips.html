@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkTooltips</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkTooltips {RGtk2}"><tr><td>GtkTooltips {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkTooltips</h2>
+
+<h3>Description</h3>
+
+<p>Add tips to your widgets</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkTooltipsNew.html">gtkTooltipsNew</a>()</code><br />
+<code><a href="gtkTooltipsEnable.html">gtkTooltipsEnable</a>(object)</code><br />
+<code><a href="gtkTooltipsDisable.html">gtkTooltipsDisable</a>(object)</code><br />
+<code><a href="gtkTooltipsSetDelay.html">gtkTooltipsSetDelay</a>(object, delay)</code><br />
+<code><a href="gtkTooltipsSetTip.html">gtkTooltipsSetTip</a>(object, widget, tip.text = NULL, tip.private = NULL)</code><br />
+<code><a href="gtkTooltipsDataGet.html">gtkTooltipsDataGet</a>(widget)</code><br />
+<code><a href="gtkTooltipsForceWindow.html">gtkTooltipsForceWindow</a>(object)</code><br />
+<code><a href="gtkTooltipsGetInfoFromTipWindow.html">gtkTooltipsGetInfoFromTipWindow</a>(object)</code><br />
+<code><a href="gtkTooltipsGetInfoFromTipWindow.html">gtkTooltipsGetInfoFromTipWindow</a>(object)</code><br />
+<code>gtkTooltips()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkTooltips</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkTooltips.html">GtkTooltips</a></code> has been deprecated in GTK+ 2.12, in favor of the new
+<code><a href="GtkTooltip.html">GtkTooltip</a></code> API.
+</p>
+<p>Tooltips are the messages that appear next to a widget when the mouse pointer is held over it for a short amount of time. They are especially helpful for adding more verbose descriptions of things such as buttons in a toolbar.
+</p>
+<p>An individual tooltip belongs to a group of tooltips. A group is created with a call to <code><a href="gtkTooltipsNew.html">gtkTooltipsNew</a></code>. Every tooltip in the group can then be turned off with a call to <code><a href="gtkTooltipsDisable.html">gtkTooltipsDisable</a></code> and enabled with <code><a href="gtkTooltipsEnable.html">gtkTooltipsEnable</a></code>.
+</p>
+<p>The length of time the user must keep the mouse over a widget before the tip is shown, can be altered with <code><a href="gtkTooltipsSetDelay.html">gtkTooltipsSetDelay</a></code>. This is set on a 'per group of tooltips' basis.
+</p>
+<p>To assign a tip to a particular <code><a href="GtkWidget.html">GtkWidget</a></code>, <code><a href="gtkTooltipsSetTip.html">gtkTooltipsSetTip</a></code> is used.
+<strong>PLEASE NOTE:</strong> Tooltips can only be set on widgets which have their own X window and
+receive enter and leave events.
+To check if a widget has its own window use <code>gtkWidgetNoWindow()</code>.
+To add a tooltip to a widget that doesn't have its own window, place the
+widget inside a <code><a href="GtkEventBox.html">GtkEventBox</a></code> and add a tooltip to that instead.  
+The default appearance of all tooltips in a program is determined by the current GTK+ theme that the user has selected.
+</p>
+<p>Information about the tooltip (if any) associated with an arbitrary widget can be retrieved using <code><a href="gtkTooltipsDataGet.html">gtkTooltipsDataGet</a></code>.
+</p>
+<p><em>Adding tooltips to buttons.</em>
+</p>
+<pre>
+## Let's add some tooltips to some buttons
+button_bar_tips &lt;- gtkTooltips()
+
+## Create the buttons and pack them into a GtkHBox
+hbox &lt;- gtkHBox(TRUE, 2)
+   
+load_button &lt;- gtkButton("Load a file")
+hbox$packStart(load_button, TRUE, TRUE, 2)
+   
+save_button &lt;- gtkButton("Save a file")
+hbox$packStart(save_button, TRUE, TRUE, 2)
+   
+## Add the tips
+button_bar_tips$setTip(load_button,
+                       "Load a new document into this window",
+                       paste("Requests the filename of a document.",
+                             "This will then be loaded into the current",
+                             "window, replacing the contents of whatever",
+                             "is already loaded."))
+button_bar_tips$setTip(save_button,
+                       "Saves the current document to a file",
+                       paste("If you have saved the document previously,",
+                             "then the new version will be saved over the",
+                             "old one. Otherwise, you will be prompted for",
+                             "a filename.")) 
+</pre>
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkTooltips</code></dt><dd>
+<p><strong>WARNING: <code>GtkTooltips</code> is deprecated and should not be used in newly-written code.</strong>
+Holds information about a group of tooltips. Fields should be changed using the functions provided, rather than directly accessing the struct's members.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GtkTooltipsData</code></dt><dd>
+<p><strong>WARNING: <code>GtkTooltipsData</code> has been deprecated since version 2.12 and should not be used in newly-written code. </strong>
+<code>tooltips</code> is the <code><a href="GtkTooltips.html">GtkTooltips</a></code> group that this tooltip belongs to. <code>widget</code> is the <code><a href="GtkWidget.html">GtkWidget</a></code> that this tooltip data is associated with. <code>tip_text</code> is a string containing the tooltip message itself.  <code>tip_private</code> is a string that is not shown as the default tooltip. Instead, this message may be more informative and go towards forming a context-sensitive help system for your application. (FIXME: how to actually &quot;switch on&quot; private tips?)
+</p>
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkTooltips</code> is the equivalent of <code><a href="gtkTooltipsNew.html">gtkTooltipsNew</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkTooltips.html">http://library.gnome.org/devel//gtk/GtkTooltips.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

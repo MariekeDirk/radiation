@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkToolItemGetProxyMenuItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkToolItemGetProxyMenuItem {RGtk2}"><tr><td>gtkToolItemGetProxyMenuItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkToolItemGetProxyMenuItem</h2>
+
+<h3>Description</h3>
+
+<p>If <code>menu.item.id</code> matches the string passed to
+<code><a href="gtkToolItemSetProxyMenuItem.html">gtkToolItemSetProxyMenuItem</a></code> return the corresponding <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkToolItemGetProxyMenuItem(object, menu.item.id)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkToolItem.html">GtkToolItem</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">menu.item.id</code></code></td>
+<td>
+<p>a string used to identify the menu item</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Custom subclasses of <code><a href="GtkToolItem.html">GtkToolItem</a></code> should use this function to update
+their menu item when the <code><a href="GtkToolItem.html">GtkToolItem</a></code> changes. That the
+<code>menu.item.id</code>s must match ensures that a <code><a href="GtkToolItem.html">GtkToolItem</a></code> will not
+inadvertently change a menu item that they did not create.
+Since 2.4</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] The <code><a href="GtkMenuItem.html">GtkMenuItem</a></code> passed to
+<code><a href="gtkToolItemSetProxyMenuItem.html">gtkToolItemSetProxyMenuItem</a></code>, if the <code>menu.item.id</code>s match.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

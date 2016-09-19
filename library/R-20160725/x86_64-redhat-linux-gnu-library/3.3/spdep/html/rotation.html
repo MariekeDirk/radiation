@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Rotate a set of point by a certain angle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Rotation {spdep}"><tr><td>Rotation {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Rotate a set of point by a certain angle </h2>
+
+<h3>Description</h3>
+
+<p>Rotate a set of XY coordinates by an angle (in radians)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Rotation(xy, angle)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p> A 2-columns matrix or data frame containing a set of X and Y coordinates. </p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+<p> Numeric. A scalar giving the angle at which the points should be rotated. The angle is in radians. </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A 2-columns matrix of the same size as <code>xy</code> giving the rotated coordinates.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> F. Guillaume Blanchet </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+### Create a set of coordinates
+coords&lt;-cbind(runif(20),runif(20))
+
+### Create a series of angles
+rad&lt;-seq(0,pi,l=20)
+
+opar &lt;- par(mfrow=c(5,4))
+for(i in rad){
+	coords.rot&lt;-Rotation(coords,i)
+	plot(coords.rot)
+}
+par(opar)
+
+### Rotate the coordinates by an angle of 90 degrees
+coords.90&lt;-Rotation(coords,90*pi/180)
+coords.90
+
+plot(coords,xlim=range(rbind(coords.90,coords)[,1]),ylim=range(rbind(coords.90,coords)[,2]),asp=1)
+points(coords.90,pch=19)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create an object of STFDF class from two data frames...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for meteo2STFDF {meteo}"><tr><td>meteo2STFDF {meteo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create an object of <a href="../../spacetime/html/STFDF.html">STFDF</a> class from two data frames (observation and stations) </h2>
+
+<h3>Description</h3>
+
+<p>The function creates an object of <a href="../../spacetime/html/STFDF.html">STFDF</a> class, spatio-temporal data with full space-time grid, from two data frames (observation and stations). Observations data frame minimum contains station ID column, time column (day of observation) and measured variable column. Stations data frame contains at least station ID column, longitude (or x) and latitude (or y) column.</p>
+
+
+<h3>Usage</h3>
+
+<pre>meteo2STFDF(obs, stations, obs.staid.time = c(1, 2), 
+            stations.staid.lon.lat = c(1, 2, 3), crs=CRS(as.character(NA)), delta=NULL )</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p> data.frame; observations data frame minimum contains station ID column, time column (day of observation) and measured variable column. It can contain additional variables (columns).</p>
+</td></tr>
+<tr valign="top"><td><code>stations</code></td>
+<td>
+<p> data.frame; Stations data frame contains at least station ID column, longitude (or x) and latitude (or y) column.It can contain additional variables (columns).</p>
+</td></tr>
+<tr valign="top"><td><code>obs.staid.time</code></td>
+<td>
+<p> numeric; records the column positions where in <code>obs</code> (observation) data frame the station ID and time values are stored.</p>
+</td></tr>
+<tr valign="top"><td><code>stations.staid.lon.lat</code></td>
+<td>
+<p> numeric; records the column positions where in <code>stations</code> data frame the station ID, longitude (x) and latitude (y) values are stored.</p>
+</td></tr>
+<tr valign="top"><td><code>crs</code></td>
+<td>
+<p> CRS; coordinate reference system (see <a href="../../sp/html/CRS.html">CRS</a>) of <code>stations</code> coordinates
+</p>
+</td></tr>
+<tr valign="top"><td><code>delta</code></td>
+<td>
+<p> time;  time interval to end points in seconds
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+ <p><a href="../../spacetime/html/STFDF.html">STFDF</a> object</p>
+
+
+<h3>Note</h3>
+
+<p>The function is intended for conversion of meteorological data to <a href="../../spacetime/html/STFDF.html">STFDF</a> object, but can be used for similar spatio temporal data stored in two separated tables.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Milan Kilibarda <a href="mailto:kili@grf.bg.ac.rs">kili@grf.bg.ac.rs</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="tgeom2STFDF.html">tgeom2STFDF</a></code>
+<code><a href="pred.strk.html">pred.strk</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# prepare data
+# load observation - data.frame of mean temperatures
+data(dtempc) 
+str(dtempc)
+data(stations)
+#
+str(stations)
+lonmin=18 ;lonmax=22.5 ; latmin=40 ;latmax=46
+library(sp)
+library(spacetime)
+serbia = point.in.polygon(stations$lon, stations$lat, c(lonmin,lonmax,lonmax,lonmin), 
+                          c(latmin,latmin,latmax,latmax))
+st= stations[ serbia!=0, ] # stations in Serbia approx.
+# create STFDF
+temp &lt;- meteo2STFDF(dtempc,st, crs= CRS('+proj=longlat +datum=WGS84'))
+str(temp)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>meteo</em> version 0.1-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

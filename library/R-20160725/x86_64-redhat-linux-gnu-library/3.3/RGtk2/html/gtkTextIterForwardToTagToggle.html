@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextIterForwardToTagToggle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextIterForwardToTagToggle {RGtk2}"><tr><td>gtkTextIterForwardToTagToggle {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextIterForwardToTagToggle</h2>
+
+<h3>Description</h3>
+
+<p>Moves forward to the next toggle (on or off) of the
+<code><a href="GtkTextTag.html">GtkTextTag</a></code> <code>tag</code>, or to the next toggle of any tag if
+<code>tag</code> is <code>NULL</code>. If no matching tag toggles are found,
+returns <code>FALSE</code>, otherwise <code>TRUE</code>. Does not return toggles
+located at <code>iter</code>, only toggles after <code>iter</code>. Sets <code>iter</code> to
+the location of the toggle, or to the end of the buffer
+if no toggle is found.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextIterForwardToTagToggle(object, tag = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextIter.html">GtkTextIter</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">tag</code></code></td>
+<td>
+<p>a <code><a href="GtkTextTag.html">GtkTextTag</a></code>, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[logical] whether we found a tag toggle after <code>iter</code></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

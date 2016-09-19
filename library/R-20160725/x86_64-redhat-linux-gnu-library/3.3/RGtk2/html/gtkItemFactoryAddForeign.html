@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkItemFactoryAddForeign</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkItemFactoryAddForeign {RGtk2}"><tr><td>gtkItemFactoryAddForeign {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkItemFactoryAddForeign</h2>
+
+<h3>Description</h3>
+
+<p>Installs an accelerator for <code>accel.widget</code> in <code>accel.group</code>, that causes
+the ::activate signal to be emitted if the accelerator is activated.
+<strong>WARNING: <code>gtk_item_factory_add_foreign</code> has been deprecated since version 2.4 and should not be used in newly-written code. The recommended API for this purpose are the functions 
+<code><a href="gtkMenuItemSetAccelPath.html">gtkMenuItemSetAccelPath</a></code> and <code><a href="gtkWidgetSetAccelPath.html">gtkWidgetSetAccelPath</a></code>; don't 
+use <code><a href="gtkItemFactoryAddForeign.html">gtkItemFactoryAddForeign</a></code> in new code, since it is likely to
+be removed in the future.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkItemFactoryAddForeign(accel.widget, full.path, accel.group, 
+    keyval, modifiers)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">accel.widget</code></code></td>
+<td>
+<p>widget to install an accelerator on</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">full.path</code></code></td>
+<td>
+<p>the full path for the <code>accel.widget</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.group</code></code></td>
+<td>
+<p>the accelerator group to install the accelerator in</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">keyval</code></code></td>
+<td>
+<p>key value of the accelerator</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">modifiers</code></code></td>
+<td>
+<p>modifier combination of the accelerator</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function can be used to make widgets participate in the accel
+saving/restoring functionality provided by <code><a href="gtkAccelMapSave.html">gtkAccelMapSave</a></code> and
+<code><a href="gtkAccelMapLoad.html">gtkAccelMapLoad</a></code>, even if they haven't been created by an item
+factory.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

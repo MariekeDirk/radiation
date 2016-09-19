@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimation of Kernel Home-Range</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for kernelUD {adehabitat}"><tr><td>kernelUD {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Estimation of Kernel Home-Range</h2>
+
+<h3>Description</h3>
+
+<p><code>kernelUD</code> is used to estimate the utilization distribution (UD)
+of animals monitored by radio-tracking, with the classical kernel method.<br />
+<code>getvolumeUD</code> and <code>kernel.area</code> provide utilities
+for home-range size estimation.<br />
+<code>getverticeshr</code> stores the
+home range contour as objects of class <code>area</code> in a list of class
+<code>kver</code>, with one component per animal.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+kernelUD(xy, id = NULL, h = "href", grid = 40, same4all = FALSE,
+         hlim = c(0.1, 1.5), kern = c("bivnorm", "epa"), extent = 0.5)
+## S3 method for class 'khr'
+print(x, ...)
+## S3 method for class 'khr'
+image(x, axes = FALSE, mar = c(0,0,2,0),
+          addcontour = TRUE, addpoints = TRUE, ...)
+plotLSCV(x)
+getvolumeUD(x)
+kernel.area(xy, id, h = "href", grid = 40,
+            same4all = FALSE, hlim = c(0.1,1.5), kern = "bivnorm",
+            levels = seq(20,95, by = 5),
+            unin = c("m", "km"),
+            unout = c("ha", "km2", "m2"), extent = 0.5)
+getverticeshr(x, lev = 95)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>xy</code></td>
+<td>
+<p>a data frame with two columns (x and y coordinates of the
+animal relocations)</p>
+</td></tr>
+<tr valign="top"><td><code>id</code></td>
+<td>
+<p>an optional factor giving the animals identity associated to
+<code>xy</code></p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>a character string or a number.  If <code>h</code> is set to
+<code>"href"</code>, the ad hoc method is used for the smoothing parameter
+(see details).  If <code>h</code> is set to 
+<code>"LSCV"</code>, the least-square cross validation method is
+used. Note that <code>"LSCV"</code> is not available if <code>kern = "epa"</code>. 
+Alternatively, <code>h</code> may be set to any given numeric value</p>
+</td></tr>
+<tr valign="top"><td><code>grid</code></td>
+<td>
+<p>a number giving the size of the grid on
+which the UD should be estimated.  Alternatively, this parameter may
+be an object of class <code>asc</code>, or a list of objects of class
+<code>asc</code>, with named elements corresponding to each level of the
+factor id (see examples)</p>
+</td></tr>
+<tr valign="top"><td><code>same4all</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, the same grid
+is used for all animals.  If <code>FALSE</code>, one grid per
+animal is used</p>
+</td></tr>
+<tr valign="top"><td><code>hlim</code></td>
+<td>
+<p>a numeric vector of length two.  If <code>h = "LSCV"</code>,
+the function minimizes the cross-validation criterion for values of
+h ranging from <code>hlim[1]*href</code> to <code>hlim[2]*href</code>, where
+<code>href</code> is the smoothing parameter computed with the ad hoc
+method (see below)</p>
+</td></tr>
+<tr valign="top"><td><code>kern</code></td>
+<td>
+<p>a character string.  If <code>"bivnorm"</code>, a bivariate
+normal kernel is used.  If <code>"epa"</code>, an Epanechnikov kernel is
+used.</p>
+</td></tr>
+<tr valign="top"><td><code>extent</code></td>
+<td>
+<p>a value indicating the extent of the grid used for the
+estimation (the extent of the grid on the abscissa is equal to
+<code>(min(xy[,1]) + extent * diff(range(xy[,1])))</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>khr</code> returned by <code>kernelUD</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+<p>logical.  Whether the axes are to be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>the margin parameter (see <code>help(par)</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>addcontour</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, contours are drawn on the
+graphics</p>
+</td></tr>
+<tr valign="top"><td><code>addpoints</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, the animal relocations are
+drawn on the graphics</p>
+</td></tr>
+<tr valign="top"><td><code>levels</code></td>
+<td>
+<p>a vector of percentage levels for home-range size
+estimation</p>
+</td></tr>
+<tr valign="top"><td><code>unin</code></td>
+<td>
+<p>the units of the relocations coordinates.  Either <code>"m"</code> for
+meters (default) or <code>"km"</code> for kilometers</p>
+</td></tr>
+<tr valign="top"><td><code>unout</code></td>
+<td>
+<p>the units of the output areas.  Either <code>"m2"</code> for
+square meters, <code>"km2"</code> for square kilometers or <code>"ha"</code> for
+hectares (default)</p>
+</td></tr>
+<tr valign="top"><td><code>lev</code></td>
+<td>
+<p>the percentage level for home range contour estimation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additionnal parameters to be passed to the generic
+functions <code>print</code> and <code>image</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The Utilization Distribution (UD) is the bivariate function giving the
+probability density that an animal is found at a point according to
+its geographical coordinates.  Using this model, one can define 
+the home range as the minimum area in which an animal has some
+specified probability of being located. The
+functions used here correspond to the approach described in Worton
+(1995).<br />
+</p>
+<p>The kernel method has been recommended by many authors for the
+estimation of the utilization distribution (e.g. Worton, 1989, 1995).
+The default method for the estimation of the
+smoothing parameter is the <em>ad hoc</em> method, i.e. for a bivariate
+normal kernel
+</p>
+<p style="text-align: center;"><i>h = Sigma*n^(-1/6)</i></p>
+
+<p>where </p>
+<p style="text-align: center;"><i>Sigma =
+    0.5*(sd(x)+sd(y))</i></p>
+<p> which supposes that the UD is
+bivariate normal.  If an Epanechnikov kernel is used, this value is
+multiplied by 1.77 (Silverman, 1986, p. 86).
+Alternatively, the smoothing parameter h may be
+computed by Least Square Cross Validation (LSCV).  The estimated value
+then minimizes the Mean Integrated Square Error (MISE), i.e. the
+difference in volume between the true UD and the estimated UD.  Note
+that the cross-validation criterion cannot be minimized in some
+cases.  According to Seaman and Powell (1998) <em>&quot;This is a difficult
+problem that has not been worked out by statistical
+theoreticians, so no definitive response is available at this
+time&quot;</em> (see Seaman and Powell, 1998 for further details and tricky
+solutions).  <code>plotLSCV</code> allows to have a diagnostic of the
+success of minimization of the cross validation criterion (i.e. to
+know whether the minimum of the CV criterion occurs within the scanned
+range).  Finally, the UD is then estimated over a grid.<br />
+</p>
+<p>The default kernel is the bivariate normal kernel, but the
+Epanechnikov kernel, which requires less computer time is also
+available for the estimation of the UD. <br />
+</p>
+<p>The function <code>getvolumeUD</code> modifies the UD component of the
+object passed as argument, so
+that the contour of the UD displayed by the functions <code>contour</code>
+and <code>image.khr</code> corresponds to the different percentage levels of
+home-range estimation (see examples).  In addition, this function is
+used in the function <code>kernel.area</code>, to compute the home-range
+size.  Note, that the function <code>plot.hrsize</code> (see the help page
+of this function) can be used to display the home-range size estimated
+at various levels.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The class <code>khr</code> is a class grouping three sub-classes,
+<code>khrud</code>, <code>kbbhrud</code> and <code>khrudvol</code>:
+<code>kernelUD</code> returns a list of the class <code>khrud</code>.  This list
+has one component per animal (named as the levels of argument
+<code>id</code>). Each component is itself a list, with the following
+sub-components: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>UD</code></td>
+<td>
+<p>an object of class <code>asc</code>, with the values of density
+probability in each cell of the grid</p>
+</td></tr>
+<tr valign="top"><td><code>h</code></td>
+<td>
+<p>if <code>LSCV</code> is not used, the value of the smoothing
+parameter.  if
+<code>LSCV</code> is used, a list with three components: </p>
+
+<dl>
+<dt><code>CV</code></dt><dd><p>the results of the cross-validation procedure.
+The first 
+column contains the sequence of values tested for the smoothing 
+parameter, and the second column contains the value of the
+cross-validation criterion.</p>
+</dd>
+<dt><code>convergence</code></dt><dd><p>TRUE if the LSCV succeeds (i.e. if the
+optimum smoothing parameter have been found by the procedure),
+FALSE otherwise.</p>
+</dd>
+<dt><code>h</code></dt><dd><p>the value of the smoothing parameter used in UD
+estimation.</p>
+</dd>
+</dl>
+
+</td></tr>
+<tr valign="top"><td><code>locs</code></td>
+<td>
+<p>The relocations used in the estimation procedure.</p>
+</td></tr>
+<tr valign="top"><td><code>hmeth</code></td>
+<td>
+<p>The argument <code>h</code> of the function kernelUD</p>
+</td></tr>
+</table>
+<p><code>getvolumeUD</code> returns a list of class <code>khrvol</code>,
+with the same components as lists of class <code>khrud</code>.  <br />
+</p>
+<p><code>kernel.area</code> returns a data frame of subclass <code>hrsize</code>,
+with one column per animal and one row per level of
+estimation of the home range.<br />
+</p>
+<p><code>getverticeshr</code> returns an object of class <code>kver</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>References</h3>
+
+<p>Silverman, B.W. (1986)
+<em>Density estimation for statistics and data
+analysis</em>. London: Chapman \&amp; Hall.
+</p>
+<p>Worton, B.J. (1989) Kernel methods for estimating the utilization
+dirstibution in home-range studies. <em>Ecology</em>, <b>70</b>, 164&ndash;168.
+</p>
+<p>Worton, B.J. (1995) Using Monte Carlo simulation to evaluate
+kernel-based home range estimators. <em>Journal of Wildlife Management</em>,
+<b>59</b>,794&ndash;800.
+</p>
+<p>Seaman, D.E. and Powell, R.A. (1998) <em>Kernel home range estimation
+program (kernelhr)</em>. Documentation of the
+program.
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code> for additionnal informations on
+objects of class <code>asc</code>,  <code><a href="mcp.html">mcp</a></code> for estimation of home
+ranges using the minimum convex polygon, and for help on the function
+<code>plot.hrsize</code>. <code><a href="kver.html">kver</a></code> for information on objects of
+class <code>kver</code>, <code><a href="kernelbb.html">kernelbb</a></code> for an alternative approach
+of the kernel estimation for trajectory data.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+data(puechabon)
+loc &lt;- puechabon$locs[, c("X", "Y")]
+id &lt;- puechabon$locs[, "Name"]
+
+## Estimation of UD for the four animals
+(ud &lt;- kernelUD(loc, id))
+
+image(ud) ## Note that the contours
+          ## corresponds to values of probability density
+udvol &lt;- getvolumeUD(ud)
+image(udvol)
+## Here, the contour corresponds to the
+## home ranges estimated at different probability
+## levels (i.e. the contour 90 corresponds to the 90 percent
+## kernel home-range)
+## udvol describes, for each cell of the grid,
+## the smaller home-range to which it belongs 
+
+## Calculation of the 95 percent home range
+ver &lt;- getverticeshr(ud, 95)
+elev &lt;- getkasc(puechabon$kasc, "Elevation") # Map of the area
+image(elev)
+plot(ver, add=TRUE)
+legend(696500, 3166000, legend = names(ver), fill = rainbow(4))
+
+
+## Example of estimation using LSCV
+udbis &lt;- kernelUD(loc, id, h = "LSCV")
+image(udbis)
+
+## Compare the estimation with ad hoc and LSCV method
+## for the smoothing parameter
+(cuicui1 &lt;- kernel.area(loc, id)) ## ad hoc
+plot(cuicui1)
+(cuicui2 &lt;- kernel.area(loc, id, h = "LSCV")) ## LSCV
+plot(cuicui2)
+
+## Diagnostic of the cross-validation
+plotLSCV(udbis)
+
+
+## Use of the same4all argument: the same grid
+## is used for all animals
+udbis &lt;- kernelUD(loc, id, same4all = TRUE)
+image(udbis)
+
+## Estimation of the UD on a map
+## (e.g. for subsequent analyses on habitat selection)
+elev &lt;- getkasc(puechabon$kasc, "Elevation")
+opar &lt;- par(mfrow = c(2, 2), mar = c(0, 0, 2, 0))
+cont &lt;- getcontour(elev)
+
+for (i in 1:length(udbis)) {
+   image(elev, main = names(udbis)[i], axes = FALSE)
+   points(udbis[[i]]$locs, pch = 21, bg = "white", col = "black")
+}
+
+
+## Measures the UD in each pixel of the map
+udbis &lt;- kernelUD(loc, id, grid = elev)
+opar &lt;- par(mfrow = c(2, 2), mar = c(0, 0, 2, 0))
+for (i in 1:length(udbis)) {
+  image(udbis[[i]]$UD, main = names(udbis)[i], axes = FALSE)
+  box()
+  polygon(cont[, 2:3])
+}
+par(opar)
+
+
+
+
+## Estimation of the UD with a list of objects of class "asc" passed as
+## argument grid (useful for large datasets)
+
+## For example, consider the following limits:
+lim &lt;- rbind(c(697901,701061,3160198,3162604),
+             c(698936,701089,3159969,3162518),
+             c(698461,701928,3157362,3160427),
+             c(698265,701369,3157219,3162661))
+
+gro &lt;- lapply(1:4, function(i) {
+              subsetmap(elev, xlim = lim[i,1:2], ylim=lim[i,3:4])
+})
+names(gro) &lt;- levels(id)
+
+## show the data:
+opar &lt;- par(mfrow=c(2,2), mar=c(0.1,0.1,2,0.1))
+lapply(1:4, function(i) {
+  image(gro[[i]], main=names(gro)[i], axes=FALSE)
+  points(loc[id==names(gro)[i],])
+  box()
+})
+gro
+
+## The map has been subset to fit the relocations.
+## Now, estimate the UD:
+ud.one.per.grid &lt;- kernelUD(loc, id, grid = gro)
+image(ud.one.per.grid)
+
+
+## The UD can then be matched to habitat maps
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

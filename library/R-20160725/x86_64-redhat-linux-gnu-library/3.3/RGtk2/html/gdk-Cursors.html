@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cursors</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Cursors {RGtk2}"><tr><td>gdk-Cursors {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cursors</h2>
+
+<h3>Description</h3>
+
+<p>Standard and pixmap cursors</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkCursorNew.html">gdkCursorNew</a>(cursor.type)</code><br />
+<code><a href="gdkCursorNewFromPixmap.html">gdkCursorNewFromPixmap</a>(source, mask, fg, bg, x, y)</code><br />
+<code><a href="gdkCursorNewFromPixbuf.html">gdkCursorNewFromPixbuf</a>(display, source, x, y)</code><br />
+<code><a href="gdkCursorNewFromName.html">gdkCursorNewFromName</a>(display, name)</code><br />
+<code><a href="gdkCursorNewForDisplay.html">gdkCursorNewForDisplay</a>(display, cursor.type)</code><br />
+<code><a href="gdkCursorGetDisplay.html">gdkCursorGetDisplay</a>(object)</code><br />
+<code><a href="gdkCursorGetImage.html">gdkCursorGetImage</a>(object)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>These functions are used to create and destroy cursors.
+There is a number of standard cursors, but it is also
+possible to construct new cursors from pixmaps and
+pixbufs. There may be limitations as to what kinds of
+cursors can be constructed on a given display, see
+<code><a href="gdkDisplaySupportsCursorAlpha.html">gdkDisplaySupportsCursorAlpha</a></code>,
+<code><a href="gdkDisplaySupportsCursorColor.html">gdkDisplaySupportsCursorColor</a></code>,
+<code><a href="gdkDisplayGetDefaultCursorSize.html">gdkDisplayGetDefaultCursorSize</a></code> and
+<code><a href="gdkDisplayGetMaximalCursorSize.html">gdkDisplayGetMaximalCursorSize</a></code>.
+</p>
+<p>Cursors by themselves are not very interesting, they must be be
+bound to a window for users to see them. This is done with
+<code><a href="gdkWindowSetCursor.html">gdkWindowSetCursor</a></code> or by setting the cursor member of the
+<code><a href="gdk-Windows.html">GdkWindowAttr</a></code> struct passed to <code><a href="gdkWindowNew.html">gdkWindowNew</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkCursor</code></dt><dd>
+<p>A <code style="white-space: pre;">GdkCursor</code> structure represents a cursor.
+</p>
+<dl>
+<dt><code style="white-space: pre;">type</code></dt><dd><p>[<code><a href="gdk-Cursors.html">GdkCursorType</a></code>] the <code><a href="gdk-Cursors.html">GdkCursorType</a></code> of the cursor</p>
+</dd></dl>
+
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkCursorType</code></dt><dd>
+<p>The standard cursors available.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">x_cursor</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">based_arrow_down</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">based_arrow_up</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">boat</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bogosity</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom_left_corner</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom_right_corner</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom_side</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">bottom_tee</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">box_spiral</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">center_ptr</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">circle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">clock	</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">coffee_mug</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">cross</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">cross_reverse</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">crosshair</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">diamond_cross</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">dot</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">dotbox</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">double_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">draft_large</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">draft_small</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">draped_box</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">exchange</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">fleur</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">gobbler</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">gumby</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">hand1</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">hand2</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">heart</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">icon</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">iron_cross</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">left_ptr</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">left_side</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">left_tee</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">leftbutton</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">ll_angle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">lr_angle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">man</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">middlebutton</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">mouse</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">pencil</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">pirate</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">plus</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">question_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right_ptr</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right_side</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">right_tee</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">rightbutton</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">rtl_logo</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sailboat</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_down_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_h_double_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_left_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_right_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_up_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sb_v_double_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">shuttle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">sizing</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">spider		</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">spraycan</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">star</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">target</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">tcross</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top_left_arrow</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top_left_corner</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top_right_corner</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top_side</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">top_tee</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">trek</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">ul_angle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">umbrella</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">ur_angle</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">watch</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">xterm</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">last-cursor</code></dt><dd><p>last cursor type</p>
+</dd>
+<dt><code style="white-space: pre;">gdk-cursor-is-pixmap</code></dt><dd><p>Blank cursor. Since 2.16</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Cursors.html">http://library.gnome.org/devel//gdk/gdk-Cursors.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

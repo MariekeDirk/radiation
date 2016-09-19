@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a set of data in a Tk window and interactively move a...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for TkSpline {TeachingDemos}"><tr><td>TkSpline {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plot a set of data in a Tk window and interactively move a line to
+see predicted y-values from a spline fit corresponding to selected x-values.</h2>
+
+<h3>Description</h3>
+
+<p>This function plots a dataset in a Tk window then draws the spline fit
+through the points.  It places a line to show the predicted y from the
+given x value.  The line can be clicked on and dragged to new x-values
+with the predicted y-values automatically updating.  A table at the
+bottem of the graph shows the values and the 3 derivatives.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+TkSpline(x, y, method='natural', snap.to.x=FALSE, digits=4,
+                     col=c('blue','#009900','red','black'),
+                     xlab=deparse(substitute(x)), ylab=deparse(substitute(y)),
+                     hscale=1.5, vscale=1.5, wait=TRUE,
+                     ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> The x-values of the data, should be sorted </p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p> The corresponding y-values of the data </p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Spline Method, passed to <code>splinefun</code></p>
+</td></tr>
+<tr valign="top"><td><code>snap.to.x</code></td>
+<td>
+<p>Logical, if TRUE then the line will only take on the
+values of <code>x</code></p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>Number of digits to print, passed to <code>format</code></p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>Colors of the prediction and other lines</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+<p>Label for the x-axis, passed to <code>plot</code></p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+<p>Label for the y-axis, passed to <code>plot</code></p>
+</td></tr>
+<tr valign="top"><td><code>hscale</code></td>
+<td>
+<p>Horizontal scaling, passed to <code>tkrplot</code></p>
+</td></tr>
+<tr valign="top"><td><code>vscale</code></td>
+<td>
+<p>Vertical scaling, passed to <code>tkrplot</code></p>
+</td></tr>
+<tr valign="top"><td><code>wait</code></td>
+<td>
+<p>Should R wait for the window to close</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional parameters passed to <code>plot</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This provides an interactive way to explore predictions from a set of
+x and y values.  Internally the function <code>splinefun</code> is used to
+make the predictions.
+</p>
+<p>The x-value of the reference line can be changed by clicking and
+dragging the line to a new position.  The x and y values are shown in
+the margins of the graph.  Below the graph is a table with the
+y-value and derivatives.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>wait</code> is FALSE then an invisible NULL is returned, if
+<code>wait</code> is TRUE then an invisible list with the x and y values and
+derivatives is returned.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/splinefun.html">splinefun</a></code>, <code><a href="TkApprox.html">TkApprox</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+if(interactive()) {
+  x &lt;- 1:10
+  y &lt;- sin(x)
+  TkSpline(x,y, xlim=c(0,11))
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

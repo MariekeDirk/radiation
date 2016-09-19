@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Cross-validation for Choosing Tree Complexity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cv.tree {tree}"><tr><td>cv.tree {tree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Cross-validation for Choosing Tree Complexity</h2>
+
+<h3>Description</h3>
+
+<p>Runs a K-fold cross-validation experiment to find the deviance or
+number of misclassifications as a function of the cost-complexity
+parameter <code>k</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+cv.tree(object, rand, FUN = prune.tree, K = 10, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>An object of class <code>"tree"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>rand</code></td>
+<td>
+<p>Optionally an integer vector of the length the number of
+cases used to create <code>object</code>, assigning the cases to different
+groups for cross-validation.</p>
+</td></tr>
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>The function to do the pruning.</p>
+</td></tr>
+<tr valign="top"><td><code>K</code></td>
+<td>
+<p>The number of folds of the cross-validation.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Additional arguments to <code>FUN</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A copy of <code>FUN</code> applied to <code>object</code>, with component
+<code>dev</code> replaced by the cross-validated results from the
+sum of the <code>dev</code> components of each fit.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>B. D. Ripley</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="tree.html">tree</a></code>, <code><a href="prune.tree.html">prune.tree</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(cpus, package="MASS")
+cpus.ltr &lt;- tree(log10(perf) ~ syct + mmin + mmax + cach
+     + chmin + chmax, data=cpus)
+cv.tree(cpus.ltr, , prune.tree)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>tree</em> version 1.0-37 <a href="00Index.html">Index</a>]</div>
+</body></html>

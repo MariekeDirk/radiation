@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufComposite</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufComposite {RGtk2}"><tr><td>gdkPixbufComposite {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufComposite</h2>
+
+<h3>Description</h3>
+
+<p>Creates a transformation of the source image <code>src</code> by scaling by
+<code>scale.x</code> and <code>scale.y</code> then translating by <code>offset.x</code> and <code>offset.y</code>.
+This gives an image in the coordinates of the destination pixbuf.
+The rectangle (<code>dest.x</code>, <code>dest.y</code>, <code>dest.width</code>, <code>dest.height</code>)
+is then composited onto the corresponding rectangle of the
+original destination image.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufComposite(object, dest, dest.x, dest.y, dest.width, 
+    dest.height, offset.x, offset.y, scale.x, scale.y, interp.type, 
+    overall.alpha)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest</code></code></td>
+<td>
+<p>the <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code> into which to render the results</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.x</code></code></td>
+<td>
+<p>the left coordinate for region to render</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.y</code></code></td>
+<td>
+<p>the top coordinate for region to render</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.width</code></code></td>
+<td>
+<p>the width of the region to render</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest.height</code></code></td>
+<td>
+<p>the height of the region to render</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">offset.x</code></code></td>
+<td>
+<p>the offset in the X direction (currently rounded to an integer)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">offset.y</code></code></td>
+<td>
+<p>the offset in the Y direction (currently rounded to an integer)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">scale.x</code></code></td>
+<td>
+<p>the scale factor in the X direction</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">scale.y</code></code></td>
+<td>
+<p>the scale factor in the Y direction</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">interp.type</code></code></td>
+<td>
+<p>the interpolation type for the transformation.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">overall.alpha</code></code></td>
+<td>
+<p>overall alpha for source image (0..255)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>When the destination rectangle contains parts not in the source 
+image, the data at the edges of the source image is replicated
+to infinity. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

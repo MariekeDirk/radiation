@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkLinkButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkLinkButton {RGtk2}"><tr><td>GtkLinkButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkLinkButton</h2>
+
+<h3>Description</h3>
+
+<p>Create buttons bound to a URL</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkLinkButtonNew.html">gtkLinkButtonNew</a>(uri)</code><br />
+<code><a href="gtkLinkButtonNewWithLabel.html">gtkLinkButtonNewWithLabel</a>(uri, label = NULL, show = TRUE)</code><br />
+<code><a href="gtkLinkButtonGetUri.html">gtkLinkButtonGetUri</a>(object)</code><br />
+<code><a href="gtkLinkButtonSetUri.html">gtkLinkButtonSetUri</a>(object, uri)</code><br />
+<code><a href="gtkLinkButtonSetUriHook.html">gtkLinkButtonSetUriHook</a>(func, data)</code><br />
+<code><a href="gtkLinkButtonGetVisited.html">gtkLinkButtonGetVisited</a>(object)</code><br />
+<code><a href="gtkLinkButtonSetVisited.html">gtkLinkButtonSetVisited</a>(object, visited)</code><br />
+<code>gtkLinkButton(uri, label = NULL, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkButton
+                                       +----GtkLinkButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkLinkButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> is a <code><a href="GtkButton.html">GtkButton</a></code> with a hyperlink, similar to the one
+used by web browsers, which triggers an action when clicked. It is useful
+to show quick links to resources.
+</p>
+<p>A link button is created by calling either <code><a href="gtkLinkButtonNew.html">gtkLinkButtonNew</a></code> or
+<code><a href="gtkLinkButtonNewWithLabel.html">gtkLinkButtonNewWithLabel</a></code>. If using the former, the URI you pass
+to the constructor is used as a label for the widget.
+</p>
+<p>The URI bound to a <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> can be set specifically using
+<code><a href="gtkLinkButtonSetUri.html">gtkLinkButtonSetUri</a></code>, and retrieved using <code><a href="gtkLinkButtonGetUri.html">gtkLinkButtonGetUri</a></code>.
+<code><a href="GtkLinkButton.html">GtkLinkButton</a></code> offers a global hook, which is called when the used clicks
+on it: see <code><a href="gtkLinkButtonSetUriHook.html">gtkLinkButtonSetUriHook</a></code>.
+<code><a href="GtkLinkButton.html">GtkLinkButton</a></code> was added in GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkLinkButton</code></dt><dd>
+<p>The <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> struct contains private data only, and should be
+manipulated using the functions below.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkLinkButton</code> is the equivalent of <code><a href="gtkLinkButtonNewWithLabel.html">gtkLinkButtonNewWithLabel</a></code>.</p>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkLinkButtonUriFunc(button, link., user.data)</code></dt><dd>
+<p>The type of a function which is called when the <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> is
+clicked.
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> which was clicked</p>
+</dd>
+<dt><code>link.</code></dt><dd><p>the URI to which the clicked <code><a href="GtkLinkButton.html">GtkLinkButton</a></code> points</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data that was passed when the function was registered
+with <code><a href="gtkLinkButtonSetUriHook.html">gtkLinkButtonSetUriHook</a></code></p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">uri</code> [character : *                : Read / Write]</dt><dd>
+<p>The URI bound to this button.
+Default value: NULL  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">visited</code> [logical : Read / Write]</dt><dd>
+<p>The 'visited' state of this button. A visited link is drawn in a
+different color.
+Default value: FALSE  Since 2.14
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkLinkButton.html">http://library.gnome.org/devel//gtk/GtkLinkButton.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkButton.html">GtkButton</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

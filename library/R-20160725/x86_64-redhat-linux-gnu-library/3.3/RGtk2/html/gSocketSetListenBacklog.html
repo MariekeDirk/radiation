@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gSocketSetListenBacklog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gSocketSetListenBacklog {RGtk2}"><tr><td>gSocketSetListenBacklog {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gSocketSetListenBacklog</h2>
+
+<h3>Description</h3>
+
+<p>Sets the maximum number of outstanding connections allowed
+when listening on this socket. If more clients than this are
+connecting to the socket and the application is not handling them
+on time then the new connections will be refused.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gSocketSetListenBacklog(object, backlog)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GSocket.html">GSocket</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">backlog</code></code></td>
+<td>
+<p>the maximum number of pending connections.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that this must be called before <code><a href="gSocketListen.html">gSocketListen</a></code> and has no
+effect if called after that.
+Since 2.22</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

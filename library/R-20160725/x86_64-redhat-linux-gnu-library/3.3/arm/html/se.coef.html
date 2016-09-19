@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Extract Standard Errors of Model Coefficients</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for se.coef {arm}"><tr><td>se.coef {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Extract Standard Errors of Model Coefficients</h2>
+
+<h3>Description</h3>
+
+<p>These functions extract standard errors of model coefficients
+from objects returned by modeling functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+se.coef (object, ...)
+se.fixef (object)
+se.ranef (object)
+
+## S4 method for signature 'lm'
+se.coef(object)
+## S4 method for signature 'glm'
+se.coef(object)
+## S4 method for signature 'merMod'
+se.coef(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>object of <code>lm</code>, <code>glm</code> and <code>merMod</code> fit</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>se.coef</code> extracts standard errors from objects
+returned by modeling functions.
+<code>se.fixef</code> extracts standard errors of the fixed effects
+from objects returned by lmer and glmer functions.
+<code>se.ranef</code> extracts standard errors of the random effects
+from objects returned by lmer and glmer functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>se.coef</code> gives lists of standard errors for <code>coef</code>,
+<code>se.fixef</code> gives a vector of standard errors for <code>fixef</code> and
+<code>se.ranef</code> gives a list of standard errors for <code>ranef</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Andrew Gelman <a href="mailto:gelman@stat.columbia.edu">gelman@stat.columbia.edu</a>;
+Yu-Sung Su <a href="mailto:suyusung@tsinghua.edu.cn">suyusung@tsinghua.edu.cn</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Andrew Gelman and Jennifer Hill. (2006).
+<em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>.
+Cambridge University Press.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="display.html">display</a></code>,
+<code><a href="../../stats/html/coef.html">coef</a></code>,
+<code><a href="sigma.hat.html">sigma.hat</a></code>,
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Here's a simple example of a model of the form, y = a + bx + error,
+# with 10 observations in each of 10 groups, and with both the
+# intercept and the slope varying by group.  First we set up the model and data.
+
+   group &lt;- rep(1:10, rep(10,10))
+   mu.a &lt;- 0
+   sigma.a &lt;- 2
+   mu.b &lt;- 3
+   sigma.b &lt;- 4
+   rho &lt;- 0
+   Sigma.ab &lt;- array (c(sigma.a^2, rho*sigma.a*sigma.b,
+                    rho*sigma.a*sigma.b, sigma.b^2), c(2,2))
+   sigma.y &lt;- 1
+   ab &lt;- mvrnorm (10, c(mu.a,mu.b), Sigma.ab)
+   a &lt;- ab[,1]
+   b &lt;- ab[,2]
+#
+   x &lt;- rnorm (100)
+   y1 &lt;- rnorm (100, a[group] + b[group]*x, sigma.y)
+   y2 &lt;- rbinom(100, 1, prob=invlogit(a[group] + b*x))
+
+#  lm fit
+   M1 &lt;- lm (y1 ~ x)
+   se.coef (M1)
+
+#  glm fit
+   M2 &lt;- glm (y2 ~ x)
+   se.coef (M2)
+
+#  lmer fit
+   M3 &lt;- lmer (y1 ~ x + (1 + x |group))
+   se.coef (M3)
+   se.fixef (M3)
+   se.ranef (M3)
+
+#  glmer fit
+   M4 &lt;- glmer (y2 ~ 1 + (0 + x |group), family=binomial(link="logit"))
+   se.coef (M4)
+   se.fixef (M4)
+   se.ranef (M4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

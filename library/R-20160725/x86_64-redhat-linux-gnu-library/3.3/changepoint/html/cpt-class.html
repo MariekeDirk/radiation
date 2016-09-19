@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Class &quot;cpt&quot;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cpt-class {changepoint}"><tr><td>cpt-class {changepoint}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Class &quot;cpt&quot;</h2>
+
+<h3>Description</h3>
+
+<p>A class for changepoint objects.
+</p>
+
+
+<h3>Objects from the Class</h3>
+
+<p>Objects can be created by calls of the form <code>new("cpt", ...)</code>.
+</p>
+
+<dl>
+<dt><code>new("cpt", ...)</code>:</dt><dd><p>creates a new object with class cpt </p>
+</dd>
+</dl>
+
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>data.set</code>:</dt><dd><p>Object of class <code>"ts"</code>, a coerced time series of the original data. </p>
+</dd>
+<dt><code>cpttype</code>:</dt><dd><p>Object of class <code>"character"</code>, the type of changepoint that was identified. </p>
+</dd>
+<dt><code>method</code>:</dt><dd><p>Object of class <code>"character"</code>, the method that was used to search for changepoints. </p>
+</dd>
+<dt><code>test.stat</code>:</dt><dd><p>Object of class <code>"character"</code>, the test statistic for the analysis of the data. </p>
+</dd>
+<dt><code>pen.type</code>:</dt><dd><p>Object of class <code>"character"</code>, the penalty type specified in the analysis.</p>
+</dd>
+<dt><code>pen.value</code>:</dt><dd><p>Object of class <code>"numeric"</code>, the value of the penalty used in the analysis.</p>
+</dd>
+<dt><code>minseglen</code>:</dt><dd><p>Object of class <code>"numeric"</code>, the minimum segment length (no. of observations between changepoints) used in the analysis.</p>
+</dd>
+<dt><code>cpts</code>:</dt><dd><p>Object of class <code>"numeric"</code>, vector of changepoints identified. </p>
+</dd>
+<dt><code>ncpts.max</code>:</dt><dd><p>Object of class <code>"numeric"</code>, maximum number of changepoint that can be identified. </p>
+</dd>
+<dt><code>param.est</code>:</dt><dd><p>Object of class <code>"list"</code>, list where each element is a vector of parameter estimates, if requested. </p>
+</dd>
+<dt><code>date</code>:</dt><dd><p>Object of class <code>"character"</code>, date and time the changepoint analysis was run. </p>
+</dd>
+<dt><code>version</code>:</dt><dd><p>Object of class <code>"character"</code>, version number of the package used when the analysis was run.</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>cpts</dt><dd><p><code>signature(object = "cpt")</code>: retrieves cpts slot </p>
+</dd>
+<dt>cpttype</dt><dd><p><code>signature(object = "cpt")</code>: retrieves cpttype slot </p>
+</dd>
+<dt>data.set</dt><dd><p><code>signature(object = "cpt")</code>: retrieves vector version of data.set slot </p>
+</dd>
+<dt>data.set.ts</dt><dd><p><code>signature(object = "cpt")</code>: retrieves time series version of data.set slot </p>
+</dd>
+<dt>test.stat</dt><dd><p><code>signature(object = "cpt")</code>: retrieves test.stat slot </p>
+</dd>
+<dt>ncpts.max</dt><dd><p><code>signature(object = "cpt")</code>: retrieves ncpts.max slot </p>
+</dd>
+<dt>method</dt><dd><p><code>signature(object = "cpt")</code>: retrieves method slot </p>
+</dd>
+<dt>minseglen</dt><dd><p><code>signature(object = "cpt")</code>: retrieves minseglen slot </p>
+</dd>
+<dt>param.est</dt><dd><p><code>signature(object = "cpt")</code>: retrieves param.est slot </p>
+</dd>
+<dt>pen.type</dt><dd><p><code>signature(object = "cpt")</code>: retrieves pen.type slot </p>
+</dd>
+<dt>pen.value</dt><dd><p><code>signature(object = "cpt")</code>: retrieves pen.value slot </p>
+</dd>
+<dt>cpts&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces cpts slot </p>
+</dd>
+<dt>cpttype&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces cpttype slot </p>
+</dd>
+<dt>data.set&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces data.set slot </p>
+</dd>
+<dt>test.stat&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces test.stat slot </p>
+</dd>
+<dt>ncpts.max&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces ncpts.max slot </p>
+</dd>
+<dt>method&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces method slot </p>
+</dd>
+<dt>minseglen&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces minseglen slot </p>
+</dd>
+<dt>param.est&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces param.est slot </p>
+</dd>
+<dt>pen.type&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces pen.type slot </p>
+</dd>
+<dt>pen.value&lt;-</dt><dd><p><code>signature(object = "cpt")</code>: replaces pen.value slot </p>
+</dd>
+<dt>print</dt><dd><p><code>signature(object = "cpt")</code>: prints details of the cpt object including summary</p>
+</dd>
+<dt>summary</dt><dd><p><code>signature(object = "cpt")</code>: prints a summary of the cpt object </p>
+</dd>
+<dt>plot</dt><dd><p><code>signature(object = "cpt")</code>: plots the cpt object with changepoints highlighted</p>
+</dd>
+<dt>param</dt><dd><p><code>signature(object = "cpt")</code>: calculates the parameter estimates for the cpt object</p>
+</dd>
+<dt>logLik</dt><dd><p><code>signature(object = "cpt")</code>: returns the overall log-likelihood of the cpt object</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Rebecca Killick
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="data.set-methods.html">data.set-methods</a></code>,<code><a href="cpts-methods.html">cpts-methods</a></code>,<code><a href="cpt.reg-class.html">cpt.reg</a></code>,<code><a href="cpt.mean.html">cpt.mean</a></code>,<code><a href="cpt.var.html">cpt.var</a></code>,<code><a href="cpt.meanvar.html">cpt.meanvar</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+showClass("cpt") # shows the structure of the cpt class
+
+x=new("cpt") # creates a new object with the cpt class defaults
+cpts(x) # retrieves the cpts slot from x
+cpts(x)&lt;-c(10,50,100) # replaces the cpts slot from x with c(10,50,100)
+
+# Example of a change in variance at 100 in simulated normal data
+set.seed(1)
+x=c(rnorm(100,0,1),rnorm(100,0,10))
+ans=cpt.var(x) 
+print(ans) # prints details of the analysis including a summary
+summary(ans)
+plot(ans) # plots the data with change (vertical line) at 100
+logLik(ans) # raw likelihood of the data with changepoints, second value is likelihood + penalty
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>changepoint</em> version 2.2.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

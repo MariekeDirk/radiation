@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Returns a grid of smoothing parameter values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for hgrid {denpro}"><tr><td>hgrid {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Returns a grid of smoothing parameter values </h2>
+
+<h3>Description</h3>
+
+<p>Returns a grid of smoothing parameter values for kernel estimates,
+either with a logarithmic spacing, or with equal spacing,
+in decreasing order.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+hgrid(h1, h2, lkm, base = 10)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>h1</code></td>
+<td>
+<p> the lowest smoothing parameter value </p>
+</td></tr>
+<tr valign="top"><td><code>h2</code></td>
+<td>
+<p> the largest smoothing parameter value </p>
+</td></tr>
+<tr valign="top"><td><code>lkm</code></td>
+<td>
+<p> the number of smoothing parameters in the grid </p>
+</td></tr>
+<tr valign="top"><td><code>base</code></td>
+<td>
+<p> the base of the logarithm, used in the logarithmic spacing,
+if NULL, then the equal spacing is applied  </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a vector of smoothing parameters
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Jussi Klemela </p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="lstseq.kern.html">lstseq.kern</a></code>,
+<code><a href="branchmap.html">branchmap</a></code>,
+<code><a href="modegraph.html">modegraph</a></code>, 
+<code><a href="exmap.html">exmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+h1&lt;-0.9
+h2&lt;-2.2
+lkm&lt;-5
+hseq&lt;-hgrid(h1,h2,lkm)
+
+hseq&lt;-hgrid(h1,h2,lkm,base=NULL)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

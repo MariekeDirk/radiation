@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Changes in Traject Parameters Over Time</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plotltr {adehabitat}"><tr><td>plotltr {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Changes in Traject Parameters Over Time</h2>
+
+<h3>Description</h3>
+
+<p>This function allows a graphical examination of the changes in
+descriptive parameters in objects of class <code>ltraj</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plotltr(x, which = "dist", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>An object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+<p>a character string giving any syntactically correct R
+expression implying the descriptive elements in <code>x</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional parameters to be passed to the generic
+function <code>plot</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.ltraj.html">ltraj</a></code> for additional information about
+objects of class <code>ltraj</code>, and <code><a href="sliwinltr.html">sliwinltr</a></code> for a
+sliding window smoothing</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechcirc)
+
+plotltr(puechcirc, "cos(rel.angle)")
+plotltr(puechcirc, "dist")
+plotltr(puechcirc, "dx")
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for randomPoints {dismo}"><tr><td>randomPoints {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Random points
+</h2>
+
+<h3>Description</h3>
+
+<p>Generate random points that can be used to extract background values (&quot;random-absence&quot;). The points are sampled (without replacement) from the cells that are not '<code>NA</code>' in raster '<code>mask</code>'. 
+</p>
+<p>If the coordinate reference system (of <code>mask</code>) is longitude/latitude, sampling is weighted by the size of the cells. That is, because cells close to the equator are larger than cells closer to the poles, equatorial cells have a higher probability of being selected.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+randomPoints(mask, n, p, ext=NULL, extf=1.1, excludep=TRUE, prob=FALSE, 
+             cellnumbers=FALSE, tryf=3, warn=2, lonlatCorrection=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mask</code></td>
+<td>
+<p>Raster* object. If the object has cell values, cells with <code>NA</code> are excluded (of the first layer of the object if there are multiple layers)</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>integer. Number of points</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Presence points (if provided, random points won't be in the same cells (as defined by mask)</p>
+</td></tr>
+<tr valign="top"><td><code>ext</code></td>
+<td>
+<p><a href="../../raster/html/Extent-class.html">Extent</a> object. Can be used to restrict sampling to a spatial extent</p>
+</td></tr>
+<tr valign="top"><td><code>extf</code></td>
+<td>
+<p>numeric. Multiplyer to adjust the size of extent 'ext'. The default increases of 1.1 increases the extent a little (5% at each side of the extent)</p>
+</td></tr>
+<tr valign="top"><td><code>excludep</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, presence points are exluded from background</p>
+</td></tr>
+<tr valign="top"><td><code>prob</code></td>
+<td>
+<p>logical. If <code>TRUE</code> the values in <code>mask</code> are interpreted as probability weights (and the values should be positive numbers (or NA)). NOTE:  this currently only works for rasters of a relatively modest size (that can be loaded into RAM)</p>
+</td></tr>
+<tr valign="top"><td><code>cellnumbers</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, cell numbers for ]codemask are returned rather than coordinates </p>
+</td></tr>
+<tr valign="top"><td><code>tryf</code></td>
+<td>
+<p>numeric &gt; 1. Multiplyer used for initial sample size from which the requested sample size is extracted after removing NA points (outside of mask) </p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+<p>integer. 2 or higher gives most warnings. 0 or lower gives no warnings if sample size <code>n</code> is not reached </p>
+</td></tr>
+<tr valign="top"><td><code>lonlatCorrection</code></td>
+<td>
+<p>logical. If <code>TRUE</code> then correct for the fact that longitude/latitude is not a planar coordinate system</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>matrix with coordinates, or, if <code>cellnumbers=TRUE</code>, a vector with cell numbers.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

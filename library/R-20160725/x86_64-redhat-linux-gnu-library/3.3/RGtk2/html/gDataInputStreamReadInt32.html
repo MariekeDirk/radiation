@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gDataInputStreamReadInt32</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gDataInputStreamReadInt32 {RGtk2}"><tr><td>gDataInputStreamReadInt32 {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gDataInputStreamReadInt32</h2>
+
+<h3>Description</h3>
+
+<p>Reads a signed 32-bit/4-byte value from <code>stream</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gDataInputStreamReadInt32(object, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a given <code><a href="GDataInputStream.html">GDataInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In order to get the correct byte order for this read operation, 
+see <code>gDataStreamGetByteOrder()</code> and <code>gDataStreamSetByteOrder()</code>.
+</p>
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[integer] a signed 32-bit/4-byte value read from the <code>stream</code> or <code>0</code> if
+an error occurred.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p><code><a href="GError.html">GError</a></code> for error reporting.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial link distance measures</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nbdists {spdep}"><tr><td>nbdists {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial link distance measures</h2>
+
+<h3>Description</h3>
+
+<p>Given a list of spatial neighbour links (a neighbours list of object type
+<code>nb</code>), the function returns the Euclidean distances along the links
+in a list of the same form as the neighbours list. If longlat = TRUE, Great
+Circle distances are used.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nbdists(nb, coords, longlat = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>nb</code></td>
+<td>
+<p>an object of class <code>nb</code></p>
+</td></tr>
+<tr valign="top"><td><code>coords</code></td>
+<td>
+<p>matrix of point coordinates or a SpatialPoints object</p>
+</td></tr>
+<tr valign="top"><td><code>longlat</code></td>
+<td>
+<p>TRUE if point coordinates are longitude-latitude decimal degrees, in which case distances are measured in kilometers; if coords is a SpatialPoints object, the value is taken from the object itself</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with class <code>nbdist</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="summary.nb.html">summary.nb</a></code>, <code><a href="nb2listw.html">nb2listw</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(columbus)
+coords &lt;- coordinates(columbus)
+dlist &lt;- nbdists(col.gal.nb, coords)
+dlist &lt;- lapply(dlist, function(x) 1/x)
+stem(unlist(dlist))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

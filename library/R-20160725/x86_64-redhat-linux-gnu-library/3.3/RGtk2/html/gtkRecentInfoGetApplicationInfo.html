@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRecentInfoGetApplicationInfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRecentInfoGetApplicationInfo {RGtk2}"><tr><td>gtkRecentInfoGetApplicationInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRecentInfoGetApplicationInfo</h2>
+
+<h3>Description</h3>
+
+<p>Gets the data regarding the application that has registered the resource
+pointed by <code>info</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRecentInfoGetApplicationInfo(object, app.name)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkRecentManager.html">GtkRecentInfo</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">app.name</code></code></td>
+<td>
+<p>the name of the application that has registered this item</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If the command line contains any escape characters defined inside the
+storage specification, they will be expanded.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> if an application with <code>app.name</code> has registered this
+resource inside the recently used list, or <code>FALSE</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">app.exec</code></code></td>
+<td>
+<p>return location for the string containing the command line. <em>[  <acronym><span class="acronym">transfer none</span></acronym>  ][  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">count</code></code></td>
+<td>
+<p>return location for the number of times this item was registered. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">time.</code></code></td>
+<td>
+<p>return location for the timestamp this item was last registered
+for this application. <em>[  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

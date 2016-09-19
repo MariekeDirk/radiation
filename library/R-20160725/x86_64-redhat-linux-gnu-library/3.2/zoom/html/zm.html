@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Launch interaction on a plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for zm {zoom}"><tr><td>zm {zoom}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Launch interaction on a plot</h2>
+
+<h3>Description</h3>
+
+<p>Allow to zoom/navigate in any open plot. The controls
+should be intuitive: </p>
+ <ul>
+<li><p>zoom in: scroll
+up, or right click if no scrolling weel. </p>
+</li>
+<li><p>zoom
+out: scroll down, or Hold left + right click if no
+working weel. </p>
+</li>
+<li><p>move: left click and move  </p>
+</li></ul>
+
+
+
+<h3>Usage</h3>
+
+<pre>
+  zm(type = "navigation", rp = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>the type of interaction with the plot.
+Possible types are: </p>
+ <ul>
+<li><p>session for console
+menu </p>
+</li>
+<li><p>navigation for mouse interaction </p>
+</li></ul>
+
+<p>Or any short names for these. By default will try to
+launch a &quot;navigation&quot; session.</p>
+</td></tr>
+<tr valign="top"><td><code>rp</code></td>
+<td>
+<p>plot to navigate, saved using
+<code>rp&lt;-recordPlot()</code>. By default (NULL) will use the
+current device.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>By default, zm() try to open a mouse interactive session.
+If the current device is not interactive, will try to
+replot the current plot in a <code>X11(type="Xlib")</code>
+device. If it fails it will open a console menu based
+interactive session.
+</p>
+<p>Zoom handle multiple plots on a device together. You need
+to navigate the last one plotted and all the other plots
+will be navigated according to the last one: that can be
+pretty amazing too if you want to explore multiple layers
+at the same time.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The recording of the final plot. Can be reploted using
+replayPlot(). The most useful may be to get the xlim and
+ylim of the final plot. That can be simply got using:
+<code>par("usr")</code> after <code>zm()</code> ends.
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function relies on pretty low level functions in R
+that change quite often with new versions. New version of
+R can break this package but I got used to it and fix it
+quickly.
+</p>
+<p>In case you close the device before striking q, just hit
+Ctrl-C on the command line.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Corentin M. Barbu
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# basic example
+plot(rnorm(1000),rnorm(1000)) # could be any plot
+zm() # navigate the plot
+
+# use the same xlim/ylim as ended up in the zoom session
+xylim&lt;-par("usr") # xmin,xmax,ymin,ymax of the final version of the plot
+dev.off()
+plot(rnorm(1000),rnorm(1000),xlim=xylim[1:2],ylim=xylim[3:4])
+
+# navigate two layers of data at the same time
+par(mfrow=c(1,2))
+plot(1,type="n",xlim=c(-3,3),ylim=c(-3,3),main="First Track")
+polygon(c(-1,1,1,-1)*2,c(-1,-1,1,1)*2,col="blue")
+lines(rnorm(100),rnorm(100))
+plot(1,type="n",xlim=c(-3,3),ylim=c(-3,3),main="Second Track")
+polygon(c(-1,1,1,-1)*2,c(-1,-1,1,1)*2,col="green")
+lines(rnorm(100),rnorm(100))
+zm() # it flickers quite a bit as it needs to replot everything every time...
+
+# one might want to use the older interface
+# if attached to cairo under linux or MacOS
+# it is also sometimes helpful to just define a square you want to zoom on
+zm(type="s")
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>zoom</em> version 2.0.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

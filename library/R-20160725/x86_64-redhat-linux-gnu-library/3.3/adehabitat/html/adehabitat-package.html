@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: adehabitat: a Package for the Analysis of the Space Use by...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for adehabitat-package {adehabitat}"><tr><td>adehabitat-package {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+adehabitat: a Package for the Analysis of the Space Use by Animals
+</h2>
+
+<h3>Description</h3>
+
+<p>The package adehabitat has been designed to allow the analysis of the
+space use by animals.  This package is organised in four main parts:
+(i) management of raster maps, (ii) habitat selection/ecological niche
+analysis,  (iii) home range estimation and (iv) analysis of animals
+trajectories.  These four parts interact with each other to facilitate the
+analysis.  Note that adehabitat strongly relies on the package ade4,
+which provides numerous functions for the analysis of multivariate
+data.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+    Package: </td><td style="text-align: left;"> adehabitat</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    Type: </td><td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    Version: </td><td style="text-align: left;"> 1.8.3</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    Date: </td><td style="text-align: left;"> 2009-05-04</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+    License: </td><td style="text-align: left;"> GPL version 2 or newer</td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+  </td>
+</tr>
+
+</table>
+
+<p>The four parts of the packages are described more in detail below:
+</p>
+
+<ul>
+<li><p>Management of raster mapsHowever, it provides numerous
+functions allowing to import and export raster maps from/to Geographic
+information system, to compute buffers around points or lines, to
+identify the value of environmental variables at given spatial
+locations, to count the number of points of a pattern in each pixel of
+a map, etc.  Two basic object classes allow to manage ratser maps with
+adehabitat: the class <code>asc</code> is intended to store basic raster
+map (see <code>help(import.asc)</code>), whereas the class <code>kasc</code> is
+intended to store multi-layer maps (all covering the same area with
+the same resolution, see <code>help(as.kasc)</code>).  For additional
+information this part of the package, see the tutorial available in
+the package.  Type <code>demo(rastermaps)</code> for a demonstration of the
+package capabilities.  Note that the package sp also provides many
+interesting functions to manage raster maps, and adehabitat provide
+functions of conversion to the classes of the package (see
+<code>help(kasc2spixdf)</code>).
+</p>
+</li>
+<li><p>Habitat selection/ecological niche analysismany methods have
+been included in the package to render statistical methods allowing
+the analysis of habitat selection available to wildlife
+ecologists. Many of them are factor analyses of the niche or of the
+habitat selection, but other methods are also available. They 
+include the selection ratios (see <code>help(wi)</code>), the Ecological
+niche factor analysis (see <code>help(enfa)</code>), the Mahalanobis
+distances (see <code>help(mahasuhab)</code>) and their factorial
+decomposition (the MADIFA, see <code>help(madifa)</code>) or the algorithm
+DOMAIN (see <code>help(domain)</code>). Other common methods, such as the
+resource selection functions can also be used with the rest of the R
+environment.  Note that the package also include functions allowing
+the analysis of habitat selection using radio-tracking data, such as
+the compositional analysis (see <code>help(compana)</code>), the
+eigenanalysis of selection ratios (see <code>help(eisera)</code>) or the
+K-select analysis (see <code>help(kselect)</code>). An overview of these
+methods is available by typing <code>demo(nichehs)</code>.
+</p>
+</li>
+<li><p>home range estimationmany methods are available to estimate
+the home range of animals relocated using radio-tracking data. Common
+methods of estimation are available, such as the Minimum convex
+polygon (see <code>help(mcp)</code>), the kernel estimation of the
+utilization distribution (see <code>help(kernelUD)</code>), the cluster home
+range (see <code>help(clusthr)</code>) or the nearest neighbour convex hull
+(see <code>help(NNCH)</code>). Note that Paolo Cavallini has designed a
+website dedicated to the analysis of space use by animals, which
+contain a wiki page, a tutorial for the home range estimation using R
+and adehabitat and a forum (URL:
+http://www.faunalia.it/animov/index.php). Several methods of these
+part of the package have been included following discussions that
+arose on this forum (especially, the nearest neighbour convex hull and
+the brownian bridge kernel). Type <code>demo(homerange)</code> for examples
+of use of these functions.
+</p>
+</li>
+<li><p>The analysis of animals' trajectoriesThis part is the most recent
+one in the package. A new class designed to store animals'
+trajectories has been included in the package, the class
+<code>ltraj</code> (see <code>help(as.ltraj)</code>). Two types of
+trajectories can be handled with adehabitat: for trajectories of
+type I, the time is not recorded for the relocations (e.g. the
+sampling of the tracks of an animal in the snow). For trajectories
+of type II, the time has been recorded during sampling
+(e.g. radio-tracking, GPS, Argos monitoring). Many descriptive
+parameters are automatically computed (relative or turning angles,
+distance between successive relocations, mean squared
+displacement). Many functions allow the management and analysis of 
+trajectories, through the analysis of these parameters (e.g. tests of
+independence, see <code>help(wawotest,indmove)</code>, first passage time,
+see <code>fpt</code>). The rediscretisation of trajectories of type I is also
+possible (<code>help(redisltraj)</code>). Many graphical functions are
+available for the  exploration of the trajectory properties
+(<code>plot,plotltr,sliwinltr</code>), etc.  A new partitioning algorithm
+has been added (but it is still under research) to partition animals
+trajectories into segment with homogeneous properties (see
+<code>modpartltraj</code>).  Further details can be found on
+the help page of the function <code>as.ltraj</code>. For a demonstration,
+type <code>demo(managltraj)</code> or <code>demo(analysisltraj)</code>.
+</p>
+</li></ul>
+ 
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge, with contributions from Mathieu Basille, Stephane Dray,
+Manuela Royer and Scott Fortmann-Roe
+</p>
+<p>Maintainer: Clement Calenge &lt;clement.calenge@oncfs.gouv.fr&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Calenge, C. (2006) The package adehabitat for the R software: a tool
+for the analysis of space and habitat use by animals. Ecological
+Modelling, 197, 516-519
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ade4/html/ade4-package.html">ade4</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+
+## For examples of use of mapping capabilities
+demo(rastermaps)
+
+## For examples of use of functions for
+## habitat selection and niche analysis
+demo(nichehs)
+
+## For example of home range estimation
+demo(homerange)
+
+## For example of trajectory management and analysis
+demo(managltraj)
+demo(analysisltraj)
+
+
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

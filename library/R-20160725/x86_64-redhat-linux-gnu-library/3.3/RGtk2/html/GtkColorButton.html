@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkColorButton</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkColorButton {RGtk2}"><tr><td>GtkColorButton {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkColorButton</h2>
+
+<h3>Description</h3>
+
+<p>A button to launch a color selection dialog</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkColorButtonNew.html">gtkColorButtonNew</a>(show = TRUE)</code><br />
+<code><a href="gtkColorButtonNewWithColor.html">gtkColorButtonNewWithColor</a>(color, show = TRUE)</code><br />
+<code><a href="gtkColorButtonSetColor.html">gtkColorButtonSetColor</a>(object, color)</code><br />
+<code><a href="gtkColorButtonGetColor.html">gtkColorButtonGetColor</a>(object)</code><br />
+<code><a href="gtkColorButtonSetAlpha.html">gtkColorButtonSetAlpha</a>(object, alpha)</code><br />
+<code><a href="gtkColorButtonGetAlpha.html">gtkColorButtonGetAlpha</a>(object)</code><br />
+<code><a href="gtkColorButtonSetUseAlpha.html">gtkColorButtonSetUseAlpha</a>(object, use.alpha)</code><br />
+<code><a href="gtkColorButtonGetUseAlpha.html">gtkColorButtonGetUseAlpha</a>(object)</code><br />
+<code><a href="gtkColorButtonSetTitle.html">gtkColorButtonSetTitle</a>(object, title)</code><br />
+<code><a href="gtkColorButtonGetTitle.html">gtkColorButtonGetTitle</a>(object)</code><br />
+<code>gtkColorButton(color, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkButton
+                                       +----GtkColorButton</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkColorButton implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkActivatable.html">GtkActivatable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkColorButton.html">GtkColorButton</a></code> is a button which displays the currently selected color
+an allows to open a color selection dialog to change the color. It is suitable
+widget for selecting a color in a preference dialog.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkColorButton</code></dt><dd>
+<p>The GtkColorButton struct has only private fields and
+should not be used directly.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkColorButton</code> is the result of collapsing the constructors of <code>GtkColorButton</code> (<code><a href="gtkColorButtonNew.html">gtkColorButtonNew</a></code>, <code><a href="gtkColorButtonNewWithColor.html">gtkColorButtonNewWithColor</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>color-set(widget, user.data)</code></dt><dd>
+<p>The ::color-set signal is emitted when the user selects a color.
+When handling this signal, use <code><a href="gtkColorButtonGetColor.html">gtkColorButtonGetColor</a></code> and
+<code><a href="gtkColorButtonGetAlpha.html">gtkColorButtonGetAlpha</a></code> to find out which color was just selected.
+</p>
+<p>Note that this signal is only emitted when the <em>user</em>
+changes the color. If you need to react to programmatic color changes
+as well, use the notify::color signal.
+Since 2.4
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">alpha</code> [numeric : Read / Write]</dt><dd>
+<p>The selected opacity value (0 fully transparent, 65535 fully opaque).
+Allowed values: &lt;= 65535  Default value: 65535  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">color</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read / Write]</dt><dd>
+<p>The selected color.
+Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">title</code> [character : *                : Read / Write]</dt><dd>
+<p>The title of the color selection dialog
+Default value: &quot;Pick a Color&quot;  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-alpha</code> [logical : Read / Write]</dt><dd>
+<p>If this property is set to <code>TRUE</code>, the color swatch on the button is rendered against a
+checkerboard background to show its opacity and the opacity slider is displayed in the
+color selection dialog.
+Default value: FALSE  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkColorButton.html">http://library.gnome.org/devel//gtk/GtkColorButton.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkColorSelectionDialog.html">GtkColorSelectionDialog</a></code>
+<code><a href="GtkFontButton.html">GtkFontButton</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

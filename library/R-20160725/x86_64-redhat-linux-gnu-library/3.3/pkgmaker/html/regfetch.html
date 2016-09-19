@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Finds an entry in a registry.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for regfetch {pkgmaker}"><tr><td>regfetch {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Finds an entry in a registry.</h2>
+
+<h3>Description</h3>
+
+<p>This function provides extra control on how entries are
+queried from a <code><a href="../../registry/html/regobj.html">registry</a></code>
+object.
+</p>
+<p><code>pkgreg_fetch</code> loads the requested package registry
+and uses <code>regfetch</code> to retrieve data from it.
+</p>
+<p><code>pkgreg_remove</code> removes an entry from a package
+registry.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  regfetch(regobj, ..., all = FALSE, error = TRUE,
+    exact = FALSE, KEYS = NULL, verbose = FALSE,
+    entry = FALSE, msg = NULL)
+
+  pkgreg_fetch(regname, ..., msg = NULL,
+    where = topenv(parent.frame()))
+
+  pkgreg_remove(regname, ..., msg = NULL,
+    where = topenv(parent.frame()), quiet = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>regobj</code></td>
+<td>
+<p>a registry object</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>key value(s) to look up. If multiple indexes
+are used, then the primary key should come first.</p>
+</td></tr>
+<tr valign="top"><td><code>all</code></td>
+<td>
+<p>logical to indicate if hidden keys (starting
+with a '.') should be returned and output in message.</p>
+</td></tr>
+<tr valign="top"><td><code>error</code></td>
+<td>
+<p>a logical that indicates if an error should
+be thrown if the key has no match or multiple matches</p>
+</td></tr>
+<tr valign="top"><td><code>exact</code></td>
+<td>
+<p>a logical that indicates if matching should
+be exact or partial. Note that if exact matches exist
+then they are returned, independently of the value of
+<code>exact</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>KEYS</code></td>
+<td>
+<p>alternative way of passing the key value(s).
+If not missing, then arguments in <code>...</code> are
+discarded.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>a logical that indicates if verbosity
+should be toggle on</p>
+</td></tr>
+<tr valign="top"><td><code>entry</code></td>
+<td>
+<p>a logical that indicates if the</p>
+</td></tr>
+<tr valign="top"><td><code>msg</code></td>
+<td>
+<p>a header to use in case of error.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>a logical that indicates if the operation
+should be performed quietly, without throwing errors or
+warnings.</p>
+</td></tr>
+<tr valign="top"><td><code>regname</code></td>
+<td>
+<p>Name of a sub-registry, used as its
+identifier.</p>
+</td></tr>
+<tr valign="top"><td><code>where</code></td>
+<td>
+<p>package name or namespace that owns the
+registry.</p>
+</td></tr>
+</table>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowGetFrameDimensions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowGetFrameDimensions {RGtk2}"><tr><td>gtkWindowGetFrameDimensions {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowGetFrameDimensions</h2>
+
+<h3>Description</h3>
+
+<p>(Note: this is a special-purpose function intended for the
+framebuffer port; see <code><a href="gtkWindowSetHasFrame.html">gtkWindowSetHasFrame</a></code>. It will not
+return the size of the window border drawn by the window manager, which is the normal
+case when using a windowing system.  See
+<code><a href="gdkWindowGetFrameExtents.html">gdkWindowGetFrameExtents</a></code> to get the standard window border
+extents.)</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowGetFrameDimensions(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Retrieves the dimensions of the frame window for this toplevel.
+See <code><a href="gtkWindowSetHasFrame.html">gtkWindowSetHasFrame</a></code>, <code><a href="gtkWindowSetFrameDimensions.html">gtkWindowSetFrameDimensions</a></code>.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">left</code></code></td>
+<td>
+<p>location to store the width of the frame at the left, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ][  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">top</code></code></td>
+<td>
+<p>location to store the height of the frame at the top, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ][  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">right</code></code></td>
+<td>
+<p>location to store the width of the frame at the returns, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ][  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">bottom</code></code></td>
+<td>
+<p>location to store the height of the frame at the bottom, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ][  <acronym><span class="acronym">out</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

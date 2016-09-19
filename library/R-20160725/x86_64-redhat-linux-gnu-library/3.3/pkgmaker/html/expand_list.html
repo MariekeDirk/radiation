@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Expanding Lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for expand_list {pkgmaker}"><tr><td>expand_list {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Expanding Lists</h2>
+
+<h3>Description</h3>
+
+<p><code>expand_list</code> expands a named list with a given set
+of default items, if these are not already in the list,
+partially matching their names.
+</p>
+<p><code>expand_dots</code> expands the <code>...</code> arguments of
+the function in which it is called with default values,
+using <code>expand_list</code>. It can <strong>only</strong> be called
+from inside a function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  expand_list(x, ..., .exact = TRUE, .names = !.exact)
+
+  expand_dots(..., .exclude = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>input list</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra named arguments defining the default
+items. A list of default values can also be passed as a a
+single unnamed argument.</p>
+</td></tr>
+<tr valign="top"><td><code>.exact</code></td>
+<td>
+<p>logical that indicates if the names in
+<code>x</code> should be partially matched against the
+defaults.</p>
+</td></tr>
+<tr valign="top"><td><code>.names</code></td>
+<td>
+<p>logical that only used when
+<code>.exact=FALSE</code> and indicates that the names of items
+in <code>x</code> that partially match some defaults should be
+expanded in the returned list.</p>
+</td></tr>
+<tr valign="top"><td><code>.exclude</code></td>
+<td>
+<p>optional character vector of argument
+names to exclude from expansion.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a list
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# expand_list
+#----------
+expand_list(list(a=1, b=2), c=3)
+expand_list(list(a=1, b=2, c=4), c=3)
+# with a list
+expand_list(list(a=1, b=2), list(c=3, d=10))
+# no partial match
+expand_list(list(a=1, b=2, c=5), cd=3)
+# partial match with names expanded
+expand_list(list(a=1, b=2, c=5), cd=3, .exact=FALSE)
+# partial match without expanding names
+expand_list(list(a=1, b=2, c=5), cd=3, .exact=FALSE, .names=FALSE)
+
+# works also inside a function to expand a call with default arguments
+f &lt;- function(...){
+	cl  &lt;- match.call()
+	expand_list(cl, list(a=3, b=4), .exact=FALSE)
+}
+f()
+f(c=1)
+f(a=2)
+f(c=1, a=2)
+
+#----------
+# expand_dots
+#----------
+# expanding dot arguments
+
+f &lt;- function(...){
+	expand_dots(list(a=2, bcd='a', xxx=20), .exclude='xxx')
+}
+
+# add default value for all arguments
+f()
+# add default value for `bcd` only
+f(a=10)
+# expand names
+f(a=10, b=4)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

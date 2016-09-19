@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Loading Package Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for packageData {pkgmaker}"><tr><td>packageData {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Loading Package Data</h2>
+
+<h3>Description</h3>
+
+<p>Loads package data using <code><a href="../../utils/html/data.html">data</a></code>, but
+allows the user to avoid NOTEs for a &lsquo;non visible
+binding variable&rsquo; to be thrown when checking a package.
+This is possible because this function returns the loaded
+data.
+</p>
+<p><code>ldata</code> loads a package data in the parent frame. It
+is a shortcut for <code>packageData(list, ...,
+  envir=parent.frame())</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  packageData(list, envir = .GlobalEnv, ...)
+
+  ldata(list, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>list</code></td>
+<td>
+<p>character vector containing the names of the
+data to load.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments eventually passed to
+<code><a href="../../utils/html/data.html">data</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>the <a href="../../base/html/environment.html">environment</a> where the data should
+be loaded.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>the loaded data.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# packageData
+#----------
+## Not run:  mydata &lt;- packageData('mydata') 
+
+#----------
+# ldata
+#----------
+## Not run: 
+# in a package' source =&gt; won't issue a NOTE
+myfunction function(){
+	mydata &lt;- ldata('mydata')
+}
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

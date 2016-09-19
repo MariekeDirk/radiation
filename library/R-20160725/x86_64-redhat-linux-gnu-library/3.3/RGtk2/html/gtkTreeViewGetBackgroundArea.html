@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeViewGetBackgroundArea</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeViewGetBackgroundArea {RGtk2}"><tr><td>gtkTreeViewGetBackgroundArea {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeViewGetBackgroundArea</h2>
+
+<h3>Description</h3>
+
+<p>Fills the bounding rectangle in bin_window coordinates for the cell at the
+row specified by <code>path</code> and the column specified by <code>column</code>.  If <code>path</code> is
+<code>NULL</code>, or points to a node not found in the tree, the <code>y</code> and <code>height</code> fields of
+the rectangle will be filled with 0. If <code>column</code> is <code>NULL</code>, the <code>x</code> and <code>width</code>
+fields will be filled with 0.  The returned rectangle is equivalent to the
+<code>background.area</code> passed to <code><a href="gtkCellRendererRender.html">gtkCellRendererRender</a></code>.  These background
+areas tile to cover the entire bin window.  Contrast with the <code>cell.area</code>,
+returned by <code><a href="gtkTreeViewGetCellArea.html">gtkTreeViewGetCellArea</a></code>, which returns only the cell
+itself, excluding surrounding borders and the tree expander area.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeViewGetBackgroundArea(object, path, column)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTreeView.html">GtkTreeView</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">path</code></code></td>
+<td>
+<p>a <code><a href="GtkTreeModel.html">GtkTreePath</a></code> for the row, or <code>NULL</code> to get only horizontal coordinates. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">column</code></code></td>
+<td>
+<p>a <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code> for the column, or <code>NULL</code> to get only vertical coordiantes. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">rect</code></code></td>
+<td>
+<p>rectangle to fill with cell background rect</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

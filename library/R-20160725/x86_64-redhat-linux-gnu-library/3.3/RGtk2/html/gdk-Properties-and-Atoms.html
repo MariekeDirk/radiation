@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Properties and Atoms</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Properties-and-Atoms {RGtk2}"><tr><td>gdk-Properties-and-Atoms {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Properties and Atoms</h2>
+
+<h3>Description</h3>
+
+<p>Functions to manipulate properties on windows</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkAtomIntern.html">gdkAtomIntern</a>(atom.name, only.if.exists = FALSE)</code><br />
+<code><a href="gdkAtomInternStaticString.html">gdkAtomInternStaticString</a>(atom.name)</code><br />
+<code><a href="gdkAtomName.html">gdkAtomName</a>(atom)</code><br />
+<code><a href="gdkPropertyGet.html">gdkPropertyGet</a>(object, property, type, offset, length, pdelete)</code><br />
+<code><a href="gdkPropertyChange.html">gdkPropertyChange</a>(object, property, type, format, mode, data)</code><br />
+<code><a href="gdkPropertyDelete.html">gdkPropertyDelete</a>(object, property)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>Each window under X can have any number of associated
+<dfn>properties</dfn> attached to it.
+Properties are arbitrary chunks of data identified by
+<dfn>atom</dfn>s. (An <dfn>atom</dfn>
+is a numeric index into a string table on the X server. They are used
+to transfer strings efficiently between clients without
+having to transfer the entire string.) A property
+has an associated type, which is also identified
+using an atom.
+</p>
+<p>A property has an associated <dfn>format</dfn>,
+an integer describing how many bits are in each unit
+of data inside the property. It must be 8, 16, or 32.
+When data is transferred between the server and client,
+if they are of different endianesses it will be byteswapped
+as necessary according to the format of the property.
+Note that on the client side, properties of format 32
+will be stored with one unit per <em>long</em>,
+even if a long integer has more than 32 bits on the platform.
+(This decision was apparently made for Xlib to maintain
+compatibility with programs that assumed longs were 32
+bits, at the expense of programs that knew better.)
+</p>
+<p>The functions in this section are used to add, remove
+and change properties on windows, to convert atoms
+to and from strings and to manipulate some types of
+data commonly stored in X window properties.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkAtom</code></dt><dd>
+<p>An opaque type representing a string as an index into a table
+of strings on the X server.
+<strong><code style="white-space: pre;">GdkAtom</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkPropMode</code></dt><dd>
+<p>Describes how existing data is combined with new data when
+using <code><a href="gdkPropertyChange.html">gdkPropertyChange</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">replace</code></dt><dd><p>the new data replaces the existing data.</p>
+</dd>
+<dt><code style="white-space: pre;">prepend</code></dt><dd><p>the new data is prepended to the existing data.</p>
+</dd>
+<dt><code style="white-space: pre;">append</code></dt><dd><p>the new data is appended to the existing data.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Properties-and-Atoms.html">http://library.gnome.org/devel//gdk/gdk-Properties-and-Atoms.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

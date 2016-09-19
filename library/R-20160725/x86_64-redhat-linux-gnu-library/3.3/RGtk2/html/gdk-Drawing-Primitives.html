@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Drawing Primitives</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Drawing-Primitives {RGtk2}"><tr><td>gdk-Drawing-Primitives {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Drawing Primitives</h2>
+
+<h3>Description</h3>
+
+<p>Functions for drawing points, lines, arcs, and text</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkDrawableSetData.html">gdkDrawableSetData</a>(object, key, data)</code><br />
+<code><a href="gdkDrawableGetData.html">gdkDrawableGetData</a>(object, key)</code><br />
+<code><a href="gdkDrawableGetDisplay.html">gdkDrawableGetDisplay</a>(object)</code><br />
+<code><a href="gdkDrawableGetScreen.html">gdkDrawableGetScreen</a>(object)</code><br />
+<code><a href="gdkDrawableGetVisual.html">gdkDrawableGetVisual</a>(object)</code><br />
+<code><a href="gdkDrawableSetColormap.html">gdkDrawableSetColormap</a>(object, colormap)</code><br />
+<code><a href="gdkDrawableGetColormap.html">gdkDrawableGetColormap</a>(object)</code><br />
+<code><a href="gdkDrawableGetDepth.html">gdkDrawableGetDepth</a>(object)</code><br />
+<code><a href="gdkDrawableGetSize.html">gdkDrawableGetSize</a>(object)</code><br />
+<code><a href="gdkDrawableGetClipRegion.html">gdkDrawableGetClipRegion</a>(object)</code><br />
+<code><a href="gdkDrawableGetVisibleRegion.html">gdkDrawableGetVisibleRegion</a>(object)</code><br />
+<code><a href="gdkDrawPoint.html">gdkDrawPoint</a>(object, gc, x, y)</code><br />
+<code><a href="gdkDrawPoints.html">gdkDrawPoints</a>(object, gc, points)</code><br />
+<code><a href="gdkDrawLine.html">gdkDrawLine</a>(object, gc, x1, y1, x2, y2)</code><br />
+<code><a href="gdkDrawLines.html">gdkDrawLines</a>(object, gc, points)</code><br />
+<code><a href="gdkDrawPixbuf.html">gdkDrawPixbuf</a>(object, gc = NULL, pixbuf, src.x, src.y, dest.x, dest.y, width = -1, height = -1, dither = "GDK_RGB_DITHER_NORMAL", x.dither = 0, y.dither = 0)</code><br />
+<code><a href="gdkDrawSegments.html">gdkDrawSegments</a>(object, gc, segs)</code><br />
+<code><a href="gdkDrawRectangle.html">gdkDrawRectangle</a>(object, gc, filled, x, y, width, height)</code><br />
+<code><a href="gdkDrawArc.html">gdkDrawArc</a>(object, gc, filled, x, y, width, height, angle1, angle2)</code><br />
+<code><a href="gdkDrawPolygon.html">gdkDrawPolygon</a>(object, gc, filled, points)</code><br />
+<code><a href="gdkDrawTrapezoids.html">gdkDrawTrapezoids</a>(drawable, gc, trapezoids)</code><br />
+<code><a href="gdkDrawGlyphs.html">gdkDrawGlyphs</a>(object, gc, font, x, y, glyphs)</code><br />
+<code><a href="gdkDrawGlyphsTransformed.html">gdkDrawGlyphsTransformed</a>(drawable, gc, matrix, font, x, y, glyphs)</code><br />
+<code><a href="gdkDrawLayoutLine.html">gdkDrawLayoutLine</a>(object, gc, x, y, line)</code><br />
+<code><a href="gdkDrawLayoutLineWithColors.html">gdkDrawLayoutLineWithColors</a>(drawable, gc, x, y, line, foreground, background)</code><br />
+<code><a href="gdkDrawLayout.html">gdkDrawLayout</a>(object, gc, x, y, layout)</code><br />
+<code><a href="gdkDrawLayoutWithColors.html">gdkDrawLayoutWithColors</a>(drawable, gc, x, y, layout, foreground, background)</code><br />
+<code><a href="gdkDrawString.html">gdkDrawString</a>(object, font, gc, x, y, string)</code><br />
+<code><a href="gdkDrawText.html">gdkDrawText</a>(object, font, gc, x, y, text, text.length)</code><br />
+<code><a href="gdkDrawTextWc.html">gdkDrawTextWc</a>(object, font, gc, x, text)</code><br />
+<code><a href="gdkDrawDrawable.html">gdkDrawDrawable</a>(object, gc, src, xsrc, ysrc, xdest, ydest, width, height)</code><br />
+<code><a href="gdkDrawImage.html">gdkDrawImage</a>(object, gc, image, xsrc, ysrc, xdest, ydest, width, height)</code><br />
+<code><a href="gdkDrawableGetImage.html">gdkDrawableGetImage</a>(object, x, y, width, height)</code><br />
+<code><a href="gdkDrawableCopyToImage.html">gdkDrawableCopyToImage</a>(object, image = NULL, src.x, src.y, dest.x, dest.y, width, height)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GdkDrawable
+         +----GdkWindow
+         +----GdkPixmap</pre>
+
+<h3>Detailed Description</h3>
+
+<p>These functions provide support for drawing points, lines, arcs and text
+onto what are called 'drawables'. Drawables, as the name suggests, are things
+which support drawing onto them, and are either <code><a href="gdk-Windows.html">GdkWindow</a></code> or <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code>
+objects.
+</p>
+<p>Many of the drawing operations take a <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> argument, which represents a
+graphics context. This <code><a href="gdk-Graphics-Contexts.html">GdkGC</a></code> contains a number of drawing attributes such
+as foreground color, background color and line width, and is used to reduce
+the number of arguments needed for each drawing operation. See the
+Graphics Contexts section for
+more information.
+</p>
+<p>Some of the drawing operations take Pango data structures like <code><a href="pango-Text-Processing.html">PangoContext</a></code>,
+<code><a href="pango-Layout-Objects.html">PangoLayout</a></code> or <code><a href="pango-Layout-Objects.html">PangoLayoutLine</a></code> as arguments. If you're using GTK+, the ususal
+way to obtain these structures is via <code><a href="gtkWidgetCreatePangoContext.html">gtkWidgetCreatePangoContext</a></code> or
+<code><a href="gtkWidgetCreatePangoLayout.html">gtkWidgetCreatePangoLayout</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkDrawable</code></dt><dd>
+<p>An opaque structure representing an object that can be
+drawn onto. This can be a <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkPixmap</a></code>, a <code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkBitmap</a></code>,
+or a <code><a href="gdk-Windows.html">GdkWindow</a></code>.
+</p>
+</dd>
+<dt><code style="white-space: pre;">GdkSegment</code></dt><dd>
+<p>Specifies the start and end point of a line for use by the <code><a href="gdkDrawSegments.html">gdkDrawSegments</a></code>
+function.
+<strong><code style="white-space: pre;">GdkSegment</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">x1</code></dt><dd><p>[integer] the x coordinate of the start point.</p>
+</dd>
+<dt><code style="white-space: pre;">y1</code></dt><dd><p>[integer] the y coordinate of the start point.</p>
+</dd>
+<dt><code style="white-space: pre;">x2</code></dt><dd><p>[integer] the x coordinate of the end point.</p>
+</dd>
+<dt><code style="white-space: pre;">y2</code></dt><dd><p>[integer] the y coordinate of the end point.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkTrapezoid</code></dt><dd>
+<p>Specifies a trapezpoid for use by the <code><a href="gdkDrawTrapezoids.html">gdkDrawTrapezoids</a></code>.
+The trapezoids used here have parallel, horizontal top and
+bottom edges.
+<strong><code style="white-space: pre;">GdkTrapezoid</code> is a <a href="transparent-type.html">transparent-type</a>.</strong>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">y1</code></dt><dd><p>[numeric] the y coordinate of the start point.</p>
+</dd>
+<dt><code style="white-space: pre;">x11</code></dt><dd><p>[numeric] the x coordinate of the top left corner</p>
+</dd>
+<dt><code style="white-space: pre;">x21</code></dt><dd><p>[numeric] the x coordinate of the top right corner</p>
+</dd>
+<dt><code style="white-space: pre;">y2</code></dt><dd><p>[numeric] the y coordinate of the end point.</p>
+</dd>
+<dt><code style="white-space: pre;">x12</code></dt><dd><p>[numeric] the x coordinate of the bottom left corner</p>
+</dd>
+<dt><code style="white-space: pre;">x22</code></dt><dd><p>[numeric] the x coordinate of the bottom right corner</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Drawing-Primitives.html">http://library.gnome.org/devel//gdk/gdk-Drawing-Primitives.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkDocument</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkDocument {RGtk2}"><tr><td>AtkDocument {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkDocument</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface which represents the toplevel container for document content.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkDocumentGetDocumentType.html">atkDocumentGetDocumentType</a>(object)</code><br />
+<code><a href="atkDocumentGetDocument.html">atkDocumentGetDocument</a>(object)</code><br />
+<code><a href="atkDocumentGetAttributeValue.html">atkDocumentGetAttributeValue</a>(object, attribute.name)</code><br />
+<code><a href="atkDocumentSetAttributeValue.html">atkDocumentSetAttributeValue</a>(object, attribute.name, attribute.value)</code><br />
+<code><a href="atkDocumentGetAttributes.html">atkDocumentGetAttributes</a>(object)</code><br />
+<code><a href="atkDocumentGetLocale.html">atkDocumentGetLocale</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkDocument</pre>
+
+<h3>Implementations</h3>
+
+<p>AtkDocument is implemented by
+<code><a href="AtkNoOpObject.html">AtkNoOpObject</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The AtkDocument interface should be supported by any object whose content is a
+representation or view of a document.  The AtkDocument interface should appear
+on the toplevel container for the document content; however AtkDocument
+instances may be nested (i.e. an AtkDocument may be a descendant of another
+AtkDocument) in those cases where one document contains &quot;embedded content&quot;
+which can reasonably be considered a document in its own right.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkDocument</code></dt><dd>
+<p>The AtkDocument structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>load-complete(atkdocument, user.data)</code></dt><dd>
+<p>The 'load-complete' signal is emitted when a pending load of a static
+document has completed.  This signal is to be expected by ATK clients
+if and when AtkDocument implementors expose ATK_STATE_BUSY.  If the state
+of an AtkObject which implements AtkDocument does not include ATK_STATE_BUSY,
+it should be safe for clients to assume that the AtkDocument's static contents
+are fully loaded into the container.  (Dynamic document contents should
+be exposed via other signals.)
+</p>
+
+<dl>
+<dt><code>atkdocument</code></dt><dd><p>[<code><a href="AtkDocument.html">AtkDocument</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>load-stopped(atkdocument, user.data)</code></dt><dd>
+<p>The 'load-stopped' signal is emitted when a pending load of document contents
+is cancelled, paused, or otherwise interrupted by the user or application
+logic.  It should not however be
+emitted while waiting for a resource (for instance while blocking on a file or
+network read) unless a user-significant timeout has occurred.
+</p>
+
+<dl>
+<dt><code>atkdocument</code></dt><dd><p>[<code><a href="AtkDocument.html">AtkDocument</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>reload(atkdocument, user.data)</code></dt><dd>
+<p>The 'reload' signal is emitted when the contents of a document is refreshed
+from its source.  Once 'reload' has been emitted, a matching 'load-complete'
+or 'load-stopped' signal should follow, which clients may await before
+interrogating ATK for the latest document content.
+</p>
+
+<dl>
+<dt><code>atkdocument</code></dt><dd><p>[<code><a href="AtkDocument.html">AtkDocument</a></code>] the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>[R object] user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkDocument.html">http://library.gnome.org/devel//atk/AtkDocument.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

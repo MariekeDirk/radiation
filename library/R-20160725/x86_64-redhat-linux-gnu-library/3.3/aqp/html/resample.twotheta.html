@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Resample an XRD Pattern</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for resample.twotheta {aqp}"><tr><td>resample.twotheta {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Resample an XRD Pattern
+</h2>
+
+<h3>Description</h3>
+
+<p>Resample an XRD pattern along a user-defined twotheta resolution via local spline interpolation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+resample.twotheta(twotheta, x, tt.min = min(twotheta), 
+tt.max = max(twotheta), new.res = 0.02)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>twotheta</code></td>
+<td>
+<p>a vector of twotheta value</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a vector of diffraction intensities corresponding with twotheta values</p>
+</td></tr>
+<tr valign="top"><td><code>tt.min</code></td>
+<td>
+<p>new minimum twotheta value, defaults to current minimum</p>
+</td></tr>
+<tr valign="top"><td><code>tt.max</code></td>
+<td>
+<p>new maximum twotheta value, defaults to current maximum</p>
+</td></tr>
+<tr valign="top"><td><code>new.res</code></td>
+<td>
+<p>new twotheta resolution, defaults to 0.02</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Sometimes XRD patterns are collected at different resolutions, or at a resolution that is too great for full pattern matching. This function can be used to resample patterns to a consistent twotheta resolution, or to decimate massive patterns.</p>
+
+
+<h3>Value</h3>
+
+<p>A dataframe with the following columns
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>twotheta</code></td>
+<td>
+<p>new sequence of twotheta values</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>resampled diffraction intensities</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Dylan E Beaudette</p>
+
+
+<h3>References</h3>
+
+<p>http://casoilresource.lawr.ucdavis.edu/</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="rruff.sample.html">rruff.sample</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(rruff.sample)
+
+# resample single pattern
+nontronite.resamp &lt;- with(rruff.sample, 
+resample.twotheta(twotheta, nontronite, new.res=0.02) )
+
+# plot original vs. resampled pattern
+plot(nontronite ~ twotheta, data=rruff.sample, type='l', col='grey')
+lines(nontronite.resamp, col='blue')
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

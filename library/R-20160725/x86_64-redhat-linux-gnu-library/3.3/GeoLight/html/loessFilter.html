@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Filter to remove outliers in defined twilight times based on...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for loessFilter {GeoLight}"><tr><td>loessFilter {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Filter to remove outliers in defined twilight times based on smoother function</h2>
+
+<h3>Description</h3>
+
+<p>This filter defines outliers based on residuals from a local polynomial
+regression fitting provcess (<code><a href="../../stats/html/loess.html">loess</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+loessFilter(tFirst, tSecond, type, twl, k = 3, plot = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tFirst</code></td>
+<td>
+<p>vector of sunrise/sunset times (e.g. 2008-12-01 08:30).</p>
+</td></tr>
+<tr valign="top"><td><code>tSecond</code></td>
+<td>
+<p>vector of of sunrise/sunset times (e.g. 2008-12-01 17:30).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>vector of either 1 or 2, defining <code>tFirst</code> as sunrise or sunset respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>twl</code></td>
+<td>
+<p>data.frame containing twilights and at least <code>tFirst</code>, <code>tSecond</code> and <code>type</code> (alternatively give each parameter separately).</p>
+</td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+<p>a measure of how many interquartile ranges to take before saying
+that a particular twilight event is an outlier</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p>codelogical, if TRUE a plot indicating the filtered times will
+be produced.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Logical <code>vector</code> matching positions that pass the filter.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski &amp; Eldar Rakhimberdiev
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

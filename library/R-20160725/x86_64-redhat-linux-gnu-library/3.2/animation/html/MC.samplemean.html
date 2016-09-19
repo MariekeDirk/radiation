@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Sample Mean Monte Carlo integration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for MC.samplemean {animation}"><tr><td>MC.samplemean {animation}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Sample Mean Monte Carlo integration</h2>
+
+<h3>Description</h3>
+
+<p>Integrate a function from 0 to 1 using the Sample Mean Monte Carlo algorithm
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+MC.samplemean(FUN = function(x) x - x^2, n = ani.options("nmax"), col.rect = c("gray", 
+    "black"), adj.x = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>FUN</code></td>
+<td>
+<p>the function to be integrated</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of points to be sampled from the Uniform(0, 1) distribution</p>
+</td></tr>
+<tr valign="top"><td><code>col.rect</code></td>
+<td>
+<p>colors of rectangles (for the past rectangles and the current
+one)</p>
+</td></tr>
+<tr valign="top"><td><code>adj.x</code></td>
+<td>
+<p>should the locations of rectangles on the x-axis be adjusted?
+If <code>TRUE</code>, the rectangles will be laid side by side and it is
+informative for us to assess the total area of the rectangles, otherwise
+the rectangles will be laid at their exact locations.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments passed to <code><a href="../../graphics/html/rect.html">rect</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><em>Sample Mean Monte Carlo</em> integration can compute
+</p>
+<p style="text-align: center;"><i>I=\int_0^1 f(x) dx</i></p>
+
+<p>by drawing random numbers <i>x_i</i> from Uniform(0, 1) distribution and
+average the values of <i>f(x_i)</i>. As <i>n</i> goes to infinity, the sample
+mean will approach to the expectation of <i>f(X)</i> by Law of Large Numbers.
+</p>
+<p>The height of the <i>i</i>-th rectangle in the animation is <i>f(x_i)</i> and
+the width is <i>1/n</i>, so the total area of all the rectangles is <i>&sum;
+f(x_i) 1/n</i>, which is just the sample mean. We can compare the area of
+rectangles to the curve to see how close is the area to the real integral.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing </p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> the Uniform random numbers </p>
+</td></tr> <tr valign="top"><td><code>y</code></td>
+<td>
+
+<p>function values evaluated at <code>x</code> </p>
+</td></tr> <tr valign="top"><td><code>n</code></td>
+<td>
+<p> number of points drawn
+from the Uniform distribtion </p>
+</td></tr> <tr valign="top"><td><code>est</code></td>
+<td>
+<p> the estimated value of the
+integral </p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>This function is for demonstration purpose only; the integral might be
+very inaccurate when <code>n</code> is small.
+</p>
+<p><code>ani.options('nmax')</code> specifies the maximum number of trials.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yihui Xie
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/integrate.html">integrate</a></code>, <code><a href="MC.hitormiss.html">MC.hitormiss</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+oopt = ani.options(interval = 0.2, nmax = ifelse(interactive(), 
+    50, 2))
+par(mar = c(4, 4, 1, 1))
+
+## when the number of rectangles is large, use border = NA
+MC.samplemean(border = NA)$est
+
+integrate(function(x) x - x^2, 0, 1)
+
+## when adj.x = FALSE, use semi-transparent colors
+MC.samplemean(adj.x = FALSE, col.rect = c(rgb(0, 0, 0, 0.3), rgb(1, 
+    0, 0)), border = NA)
+
+## another function to be integrated
+MC.samplemean(FUN = function(x) x^3 - 0.5^3, border = NA)$est
+
+integrate(function(x) x^3 - 0.5^3, 0, 1)
+
+## HTML animation page
+saveHTML({
+    ani.options(interval = 0.3, nmax = ifelse(interactive(), 50, 
+        2))
+    MC.samplemean(n = 100, border = NA)
+}, img.name = "MC.samplemean", htmlfile = "MC.samplemean.html", 
+    title = "Sample Mean Monte Carlo Integration", description = c("", 
+        "Generate Uniform random numbers", " and compute the average", 
+        "function values."))
+
+ani.options(oopt)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>animation</em> version 2.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

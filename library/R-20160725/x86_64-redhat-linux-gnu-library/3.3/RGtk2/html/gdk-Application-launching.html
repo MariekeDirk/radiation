@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Application launching</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Application-launching {RGtk2}"><tr><td>gdk-Application-launching {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Application launching</h2>
+
+<h3>Description</h3>
+
+<p>Startup notification for applications</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkAppLaunchContextNew.html">gdkAppLaunchContextNew</a>()</code><br />
+<code><a href="gdkAppLaunchContextSetDisplay.html">gdkAppLaunchContextSetDisplay</a>(object, display)</code><br />
+<code><a href="gdkAppLaunchContextSetScreen.html">gdkAppLaunchContextSetScreen</a>(object, screen)</code><br />
+<code><a href="gdkAppLaunchContextSetDesktop.html">gdkAppLaunchContextSetDesktop</a>(object, desktop)</code><br />
+<code><a href="gdkAppLaunchContextSetTimestamp.html">gdkAppLaunchContextSetTimestamp</a>(object, timestamp)</code><br />
+<code><a href="gdkAppLaunchContextSetIcon.html">gdkAppLaunchContextSetIcon</a>(object, icon = NULL)</code><br />
+<code><a href="gdkAppLaunchContextSetIconName.html">gdkAppLaunchContextSetIconName</a>(object, icon.name = NULL)</code><br />
+<code>gdkAppLaunchContext()</code>
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>GdkAppLaunchContext is an implementation of <code><a href="GAppInfo.html">GAppLaunchContext</a></code> that
+handles launching an application in a graphical context. It provides
+startup notification and allows to launch applications on a specific
+screen or workspace.
+</p>
+<p><em>Launching an application</em>
+</p>
+<pre>
+context &lt;- gdkAppLaunchContext()
+context$setScreen(my_screen)
+context$setTimestamp(event$time)
+gAppInfoLaunchDefaultForUri("http://www.gtk.org", context)
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GdkAppLaunchContext</code></dt><dd>
+<p>An opaque structure representing an application launch context.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gdkAppLaunchContext</code> is the equivalent of <code><a href="gdkAppLaunchContextNew.html">gdkAppLaunchContextNew</a></code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Application-launching.html">http://library.gnome.org/devel//gdk/gdk-Application-launching.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

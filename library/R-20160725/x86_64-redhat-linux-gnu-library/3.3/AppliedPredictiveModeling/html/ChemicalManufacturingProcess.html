@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Chemical Manufacturing Process Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ChemicalManufacturingProcess {AppliedPredictiveModeling}"><tr><td>ChemicalManufacturingProcess {AppliedPredictiveModeling}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Chemical Manufacturing Process Data</h2>
+
+<h3>Description</h3>
+
+<p>This data set contains information about a chemical manufacturing
+process, in which the goal is to understand the relationship between
+the process and the resulting final product yield.  Raw material in
+this process is put through a sequence of 27 steps to generate the
+final pharmaceutical product.  The starting material is generated from
+a biological unit and has a range of quality and characteristics.  The
+objective in this project was to develop a model to predict percent
+yield of the manufacturing process.  The data set consisted of 177
+samples of biological material for which 57 characteristics were
+measured.  Of the 57 characteristics, there were 12 measurements of
+the biological starting material, and 45 measurements of the
+manufacturing process.  The process variables included measurements
+such as temperature, drying time, washing time, and concentrations of
+by&ndash;products at various steps.  Some of the process measurements can
+be controlled, while others are observed.  Predictors are continuous,
+count, categorical; some are correlated, and some contain missing
+values.  Samples are not independent because sets of samples come from
+the same batch of biological starting material.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(ChemicalManufacturingProcess)</pre>
+
+
+<h3>Value</h3>
+
+<p><code>ChemicalManufacturingProcess</code>: a data frame with columns for the outcome (<code>Yield</code>) and the predictors (<code>BiologicalMaterial01</code> though <code>BiologicalMaterial12</code> and <code>ManufacturingProcess01</code> though <code>ManufacturingProcess45</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(ChemicalManufacturingProcess)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>AppliedPredictiveModeling</em> version 1.1-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

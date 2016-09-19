@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeViewColumnSetCellDataFunc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeViewColumnSetCellDataFunc {RGtk2}"><tr><td>gtkTreeViewColumnSetCellDataFunc {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeViewColumnSetCellDataFunc</h2>
+
+<h3>Description</h3>
+
+<p>Sets the <code style="white-space: pre;">GtkTreeViewColumnFunc</code> to use for the column.  This
+function is used instead of the standard attributes mapping for
+setting the column value, and should set the value of <code>tree.column</code>'s
+cell renderer as appropriate.  <code>func</code> may be <code>NULL</code> to remove an
+older one.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeViewColumnSetCellDataFunc(object, cell.renderer, func, 
+    func.data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cell.renderer</code></code></td>
+<td>
+<p>A <code><a href="GtkCellRenderer.html">GtkCellRenderer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">func</code></code></td>
+<td>
+<p>The <code style="white-space: pre;">GtkTreeViewColumnFunc</code> to use.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">func.data</code></code></td>
+<td>
+<p>The user data for <code>func</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

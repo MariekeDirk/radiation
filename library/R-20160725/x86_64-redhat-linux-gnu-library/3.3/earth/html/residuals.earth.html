@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Residuals for an earth model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for residuals.earth {earth}"><tr><td>residuals.earth {earth}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Residuals for an earth model</h2>
+
+<h3>Description</h3>
+
+<p>Residuals of an <code><a href="earth.html">earth</a></code> model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'earth'
+residuals(object = stop("no 'object' argument"),
+          type = NULL, warn = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An <code><a href="earth.html">earth</a></code> object.
+This is the only required argument.
+</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+
+<p>One of<br />
+<code>"earth"</code> (default) Residuals (from the <code><a href="../../stats/html/lm.html">lm</a></code> fit on <code>bx</code>).<br />
+<code>"standardize"</code> Residuals divided by <code>se * sqrt(1 - h_ii)</code>.
+See the <code>standardize</code> argument of <code><a href="plot.earth.html">plot.earth</a></code>.<br />
+<code>"delever"</code> Residuals divided by <code>sqrt(1 - h_ii)</code>.
+See the <code>delever</code> argument of <code><a href="plot.earth.html">plot.earth</a></code>.<br />
+<code>"deviance"</code>
+Residuals as above, unless the object has a <code><a href="../../stats/html/glm.html">glm</a></code> component,
+in which case return the <code><a href="../../stats/html/glm.html">glm</a></code> deviance residuals.<br />
+<code>"glm.pearson"</code><br />
+<code>"glm.working"</code><br />
+<code>"glm.response"</code><br />
+<code>"glm.partial"</code>
+Return the corresponding <code><a href="../../stats/html/glm.html">glm</a></code> residuals
+(from the <code><a href="../../stats/html/glm.html">glm</a></code> fit on <code>bx</code>).
+Can be used only if the earth model has a <code><a href="../../stats/html/glm.html">glm</a></code> component.
+</p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+
+<p>This function gives warnings when the results are not what you may expect.
+Use <code>warn=FALSE</code> to turn of just these warnings.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Unused, but provided for generic/method consistency.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The residual values (will be a matrix for multiple response models).
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="earth.html">earth</a></code><br />
+<code><a href="../../stats/html/residuals.html">residuals</a></code><br />
+<code><a href="../../stats/html/residuals.html">resid</a></code> identical to <code><a href="../../stats/html/residuals.html">residuals</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(etitanic)
+earth.mod &lt;- earth(pclass ~ ., data=etitanic, glm=list(family=binomial))
+head(resid(earth.mod, warn=FALSE))      # earth residuals, a column for each response
+head(resid(earth.mod, type="earth"))    # same
+head(resid(earth.mod, type="deviance")) # GLM deviance residuals, a column for each response
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>earth</em> version 4.4.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

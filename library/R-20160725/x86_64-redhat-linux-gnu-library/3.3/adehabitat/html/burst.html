@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ID and Bursts of an Object of Class ltraj</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for burst {adehabitat}"><tr><td>burst {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ID and Bursts of an Object of Class ltraj</h2>
+
+<h3>Description</h3>
+
+<p>Functions to get or set the attribute <code>"id"</code> or <code>"burst"</code> of
+the components of an object of class <code>ltraj</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+burst(ltraj)
+burst(ltraj) &lt;- value
+id(ltraj)
+id(ltraj) &lt;- value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ltraj</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>a character vector of up to the same length as
+<code>ltraj</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The functions <code>id</code> and <code>burst</code> are accessor
+functions, and <code>id&lt;-</code> and <code>burst&lt;-</code> are replacement
+function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>For <code>id</code> and <code>burst</code>, a character vector of the same length
+as <code>ltraj</code>.<br />
+</p>
+<p>For <code>id&lt;-</code> and <code>burst&lt;-</code>, the updated object.  (Note that
+the value of <code>burst(x) &lt;- value</code> is that of the assignment,
+<code>value</code>, not the return value from the left-hand side.)
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.ltraj.html">ltraj</a></code>, <code><a href="../../base/html/names.html">names</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechcirc)
+puechcirc
+
+## To see the ID and the burst
+id(puechcirc)
+burst(puechcirc)
+
+## Change the burst
+burst(puechcirc) &lt;- c("glou", "toto", "titi")
+puechcirc
+
+burst(puechcirc)[2] &lt;- "new name"
+puechcirc
+
+## Change the ID
+id(puechcirc)[id(puechcirc)=="CH93"] &lt;- "WILD BOAR"
+puechcirc
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

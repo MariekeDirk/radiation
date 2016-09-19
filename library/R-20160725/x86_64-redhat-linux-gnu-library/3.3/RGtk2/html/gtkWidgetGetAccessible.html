@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetGetAccessible</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetGetAccessible {RGtk2}"><tr><td>gtkWidgetGetAccessible {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetGetAccessible</h2>
+
+<h3>Description</h3>
+
+<p>Returns the accessible object that describes the widget to an
+assistive technology. </p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetGetAccessible(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>If no accessibility library is loaded (i.e. no ATK implementation library is 
+loaded via <span class="env">GTK_MODULES</span> or via another application library, 
+such as libgnome), then this <code><a href="AtkObject.html">AtkObject</a></code> instance may be a no-op. Likewise, 
+if no class-specific <code><a href="AtkObject.html">AtkObject</a></code> implementation is available for the widget 
+instance in question, it will inherit an <code><a href="AtkObject.html">AtkObject</a></code> implementation from the 
+first ancestor class for which such an implementation is defined.
+</p>
+<p>The documentation of the ATK (<a href="http://developer.gnome.org/doc/API/2.0/atk/index.html">http://developer.gnome.org/doc/API/2.0/atk/index.html</a>)
+library contains more information about accessible objects and their uses.</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="AtkObject.html">AtkObject</a></code>] the <code><a href="AtkObject.html">AtkObject</a></code> associated with <code>widget</code>. <em>[  <acronym><span class="acronym">transfer none</span></acronym>  ]</em></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gFileQueryFilesystemInfo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gFileQueryFilesystemInfo {RGtk2}"><tr><td>gFileQueryFilesystemInfo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gFileQueryFilesystemInfo</h2>
+
+<h3>Description</h3>
+
+<p>Similar to <code><a href="gFileQueryInfo.html">gFileQueryInfo</a></code>, but obtains information
+about the filesystem the <code>file</code> is on, rather than the file itself.
+For instance the amount of space available and the type of
+the filesystem.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gFileQueryFilesystemInfo(object, attributes, cancellable = NULL, 
+    .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>input <code><a href="GFile.html">GFile</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">attributes</code></code></td>
+<td>
+<p>an attribute query string.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>attribute</code> value is a string that specifies the file attributes that
+should be gathered. It is not an error if it's not possible to read a particular
+requested attribute from a file - it just won't be set. <code>attribute</code> should
+be a comma-separated list of attribute or attribute wildcards. The wildcard &quot;*&quot;
+means all attributes, and a wildcard like &quot;fs:*&quot; means all attributes in the fs
+namespace. The standard namespace for filesystem attributes is &quot;fs&quot;.
+Common attributes of interest are <code style="white-space: pre;">G_FILE_ATTRIBUTE_FILESYSTEM_SIZE</code>
+(the total size of the filesystem in bytes), <code style="white-space: pre;">G_FILE_ATTRIBUTE_FILESYSTEM_FREE</code> (number of
+bytes available), and <code style="white-space: pre;">G_FILE_ATTRIBUTE_FILESYSTEM_TYPE</code> (type of the filesystem).
+</p>
+<p>If <code>cancellable</code> is not <code>NULL</code>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <code>G_IO_ERROR_CANCELLED</code> will be returned. 
+</p>
+<p>If the file does not exist, the G_IO_ERROR_NOT_FOUND error will be returned.
+Other errors are possible too, and depend on what kind of filesystem the file is on.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="GFileInfo.html">GFileInfo</a></code>] a <code><a href="GFileInfo.html">GFileInfo</a></code> or <code>NULL</code> if there was an error.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

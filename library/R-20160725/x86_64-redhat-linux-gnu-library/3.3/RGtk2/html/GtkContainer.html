@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkContainer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkContainer {RGtk2}"><tr><td>GtkContainer {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkContainer</h2>
+
+<h3>Description</h3>
+
+<p>Base class for widgets which contain other widgets</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkContainerAdd.html">gtkContainerAdd</a>(object, widget)</code><br />
+<code><a href="gtkContainerRemove.html">gtkContainerRemove</a>(object, widget)</code><br />
+<code><a href="gtkContainerAddWithProperties.html">gtkContainerAddWithProperties</a>(object, widget, ...)</code><br />
+<code><a href="gtkContainerGetResizeMode.html">gtkContainerGetResizeMode</a>(object)</code><br />
+<code><a href="gtkContainerSetResizeMode.html">gtkContainerSetResizeMode</a>(object, resize.mode)</code><br />
+<code><a href="gtkContainerCheckResize.html">gtkContainerCheckResize</a>(object)</code><br />
+<code><a href="gtkContainerForeach.html">gtkContainerForeach</a>(object, callback, callback.data = NULL)</code><br />
+<code><a href="gtkContainerForeachFull.html">gtkContainerForeachFull</a>(object, callback, callback.data = NULL)</code><br />
+<code><a href="gtkContainerGetChildren.html">gtkContainerGetChildren</a>(object)</code><br />
+<code><a href="gtkContainerSetReallocateRedraws.html">gtkContainerSetReallocateRedraws</a>(object, needs.redraws)</code><br />
+<code><a href="gtkContainerGetFocusChild.html">gtkContainerGetFocusChild</a>(object)</code><br />
+<code><a href="gtkContainerSetFocusChild.html">gtkContainerSetFocusChild</a>(object, child)</code><br />
+<code><a href="gtkContainerGetFocusVadjustment.html">gtkContainerGetFocusVadjustment</a>(object)</code><br />
+<code><a href="gtkContainerSetFocusVadjustment.html">gtkContainerSetFocusVadjustment</a>(object, adjustment)</code><br />
+<code><a href="gtkContainerGetFocusHadjustment.html">gtkContainerGetFocusHadjustment</a>(object)</code><br />
+<code><a href="gtkContainerSetFocusHadjustment.html">gtkContainerSetFocusHadjustment</a>(object, adjustment)</code><br />
+<code><a href="gtkContainerResizeChildren.html">gtkContainerResizeChildren</a>(object)</code><br />
+<code><a href="gtkContainerChildType.html">gtkContainerChildType</a>(object)</code><br />
+<code><a href="gtkContainerChildGet.html">gtkContainerChildGet</a>(object, child, ...)</code><br />
+<code><a href="gtkContainerChildSet.html">gtkContainerChildSet</a>(object, child, ...)</code><br />
+<code><a href="gtkContainerChildGetProperty.html">gtkContainerChildGetProperty</a>(object, child, property.name)</code><br />
+<code><a href="gtkContainerChildSetProperty.html">gtkContainerChildSetProperty</a>(object, child, property.name, value)</code><br />
+<code><a href="gtkContainerForall.html">gtkContainerForall</a>(object, callback, callback.data = NULL)</code><br />
+<code><a href="gtkContainerGetBorderWidth.html">gtkContainerGetBorderWidth</a>(object)</code><br />
+<code><a href="gtkContainerSetBorderWidth.html">gtkContainerSetBorderWidth</a>(object, border.width)</code><br />
+<code><a href="gtkContainerPropagateExpose.html">gtkContainerPropagateExpose</a>(object, child, event)</code><br />
+<code><a href="gtkContainerGetFocusChain.html">gtkContainerGetFocusChain</a>(object)</code><br />
+<code><a href="gtkContainerSetFocusChain.html">gtkContainerSetFocusChain</a>(object, focusable.widgets)</code><br />
+<code><a href="gtkContainerUnsetFocusChain.html">gtkContainerUnsetFocusChain</a>(object)</code><br />
+<code><a href="gtkContainerClassFindChildProperty.html">gtkContainerClassFindChildProperty</a>(cclass, property.name)</code><br />
+<code><a href="gtkContainerClassInstallChildProperty.html">gtkContainerClassInstallChildProperty</a>(cclass, property.id, pspec)</code><br />
+<code><a href="gtkContainerClassListChildProperties.html">gtkContainerClassListChildProperties</a>(cclass)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                           +----GtkBox
+                           +----GtkCList
+                           +----GtkFixed
+                           +----GtkPaned
+                           +----GtkIconView
+                           +----GtkLayout
+                           +----GtkList
+                           +----GtkMenuShell
+                           +----GtkNotebook
+                           +----GtkSocket
+                           +----GtkTable
+                           +----GtkTextView
+                           +----GtkToolbar
+                           +----GtkToolItemGroup
+                           +----GtkToolPalette
+                           +----GtkTree
+                           +----GtkTreeView</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkContainer implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A GTK+ user interface is constructed by nesting widgets inside widgets.
+Container widgets are the inner nodes in the resulting tree of widgets:
+they contain other widgets. So, for example, you might have a <code><a href="GtkWindow.html">GtkWindow</a></code>
+containing a <code><a href="GtkFrame.html">GtkFrame</a></code> containing a GtkLabel. If you wanted an image instead
+of a textual label inside the frame, you might replace the <code><a href="GtkLabel.html">GtkLabel</a></code> widget
+with a <code><a href="GtkImage.html">GtkImage</a></code> widget.
+</p>
+<p>There are two major kinds of container widgets in GTK+. Both are subclasses
+of the abstract <code><a href="GtkContainer.html">GtkContainer</a></code> base class.
+</p>
+<p>The first type of container widget has a single child widget and derives
+from <code><a href="GtkBin.html">GtkBin</a></code>. These containers are <dfn>decorators</dfn>, which
+add some kind of functionality to the child. For example, a <code><a href="GtkButton.html">GtkButton</a></code> makes
+its child into a clickable button; a <code><a href="GtkFrame.html">GtkFrame</a></code> draws a frame around its child
+and a <code><a href="GtkWindow.html">GtkWindow</a></code> places its child widget inside a top-level window.
+</p>
+<p>The second type of container can have more than one child; its purpose is to
+manage <dfn>layout</dfn>. This means that these containers assign
+sizes and positions to their children. For example, a <code><a href="GtkHBox.html">GtkHBox</a></code> arranges its
+children in a horizontal row, and a <code><a href="GtkTable.html">GtkTable</a></code> arranges the widgets it contains
+in a two-dimensional grid.
+</p>
+<p>To fulfill its task, a layout container must negotiate the size requirements
+with its parent and its children. This negotiation is carried out in two
+phases, <dfn>size requisition</dfn> and <dfn>size
+allocation</dfn>.</p>
+
+
+<h3>Size Requisition</h3>
+
+<p>The size requisition of a widget is it's desired width and height.
+This is represented by a <code><a href="GtkWidget.html">GtkRequisition</a></code>.
+</p>
+<p>How a widget determines its desired size depends on the widget.
+A <code><a href="GtkLabel.html">GtkLabel</a></code>, for example, requests enough space to display all its text.
+Container widgets generally base their size request on the requisitions
+of their children.
+</p>
+<p>The size requisition phase of the widget layout process operates top-down.
+It starts at a top-level widget, typically a <code><a href="GtkWindow.html">GtkWindow</a></code>. The top-level widget
+asks its child for its size requisition by calling <code><a href="gtkWidgetSizeRequest.html">gtkWidgetSizeRequest</a></code>.
+To determine its requisition, the child asks its own children for their
+requisitions and so on. Finally, the top-level widget will get a requisition
+back from its child.</p>
+
+
+<h3>Size Allocation</h3>
+
+<p>When the top-level widget has determined how much space its child would like
+to have, the second phase of the size negotiation, size allocation, begins.
+Depending on its configuration (see <code><a href="gtkWindowSetResizable.html">gtkWindowSetResizable</a></code>), the top-level
+widget may be able to expand in order to satisfy the size request or it may
+have to ignore the size request and keep its fixed size. It then tells its
+child widget how much space it gets by calling <code><a href="gtkWidgetSizeAllocate.html">gtkWidgetSizeAllocate</a></code>.
+The child widget divides the space among its children and tells each child
+how much space it got, and so on. Under normal circumstances, a <code><a href="GtkWindow.html">GtkWindow</a></code>
+will always give its child the amount of space the child requested.
+</p>
+<p>A child's size allocation is represented by a <code><a href="GtkWidget.html">GtkAllocation</a></code>. This struct
+contains not only a width and height, but also a position (i.e. X and Y
+coordinates), so that containers can tell their children not only how much
+space they have gotten, but also where they are positioned inside the space
+available to the container.
+</p>
+<p>Widgets are required to honor the size allocation they receive; a size
+request is only a request, and widgets must be able to cope with any size.</p>
+
+
+<h3>Child properties</h3>
+
+<p><code>GtkContainer</code> introduces <dfn>child
+properties</dfn> - these are object properties that are not specific
+to either the container or the contained widget, but rather to their relation.
+Typical examples of child properties are the position or pack-type of a widget
+which is contained in a <code><a href="GtkBox.html">GtkBox</a></code>.  
+Use <code><a href="gtkContainerClassInstallChildProperty.html">gtkContainerClassInstallChildProperty</a></code> to install child properties
+for a container class and <code><a href="gtkContainerClassFindChildProperty.html">gtkContainerClassFindChildProperty</a></code> or
+<code><a href="gtkContainerClassListChildProperties.html">gtkContainerClassListChildProperties</a></code> to get information about existing
+child properties.
+</p>
+<p>To set the value of a child property, use <code><a href="gtkContainerChildSetProperty.html">gtkContainerChildSetProperty</a></code>,
+<code><a href="gtkContainerChildSet.html">gtkContainerChildSet</a></code> or <code>gtkContainerChildSetValist()</code>.
+To obtain the value of a child property, use
+<code><a href="gtkContainerChildGetProperty.html">gtkContainerChildGetProperty</a></code>, <code><a href="gtkContainerChildGet.html">gtkContainerChildGet</a></code> or
+<code>gtkContainerChildGetValist()</code>. To emit notification about child property
+changes, use <code><a href="gtkWidgetChildNotify.html">gtkWidgetChildNotify</a></code>.</p>
+
+
+<h3>GtkContainer as GtkBuildable</h3>
+
+<p>The GtkContainer implementation of the GtkBuildable interface
+supports a &lt;packing&gt; element for children, which can
+contain multiple &lt;property&gt; elements that specify
+child properties for the child.
+</p>
+<p><em>Child properties in UI definitions</em></p>
+<pre>&lt;object class="GtkVBox"&gt;
+  &lt;child&gt;
+    &lt;object class="GtkLabel"/&gt;
+    &lt;packing&gt;
+      &lt;property name="pack-type"&gt;start&lt;/property&gt;
+    &lt;/packing&gt;
+  &lt;/child&gt;
+&lt;/object&gt;
+</pre>  
+<p>Since 2.16, child properties can also be marked as translatable using
+the same &quot;translatable&quot;, &quot;comments&quot; and &quot;context&quot; attributes that are used
+for regular properties.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkContainer</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">focusChild</code></dt><dd><p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] </p>
+</dd>
+<dt><code style="white-space: pre;">borderWidth</code></dt><dd><p>[numeric] </p>
+</dd>
+<dt><code style="white-space: pre;">needResize</code></dt><dd><p>[numeric] </p>
+</dd>
+<dt><code style="white-space: pre;">resizeMode</code></dt><dd><p>[numeric] </p>
+</dd>
+<dt><code style="white-space: pre;">reallocateRedraws</code></dt><dd><p>[numeric] </p>
+</dd>
+<dt><code style="white-space: pre;">hasFocusChain</code></dt><dd><p>[numeric] </p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>add(container, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>container</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>check-resize(container, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>container</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>remove(container, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>container</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>set-focus-child(container, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>container</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">border-width</code> [numeric : Read / Write]</dt><dd>
+<p>The width of the empty border outside the containers children.  Allowed values: &lt;= 65535  Default value: 0
+</p>
+</dd>
+<dt><code style="white-space: pre;">child</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Write]</dt><dd>
+<p>Can be used to add a new child to the container.
+</p>
+</dd>
+<dt><code style="white-space: pre;">resize-mode</code> [<code><a href="gtk-Standard-Enumerations.html">GtkResizeMode</a></code> : Read / Write]</dt><dd>
+<p>Specify how resize events are handled.  Default value: GTK_RESIZE_PARENT
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkContainer.html">http://library.gnome.org/devel//gtk/GtkContainer.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

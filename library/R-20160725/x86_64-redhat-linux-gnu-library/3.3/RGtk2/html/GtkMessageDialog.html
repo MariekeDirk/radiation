@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkMessageDialog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkMessageDialog {RGtk2}"><tr><td>GtkMessageDialog {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkMessageDialog</h2>
+
+<h3>Description</h3>
+
+<p>A convenient message window</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkMessageDialogNew.html">gtkMessageDialogNew</a>(parent = NULL, flags, type, buttons, ..., show = TRUE)</code><br />
+<code><a href="gtkMessageDialogNewWithMarkup.html">gtkMessageDialogNewWithMarkup</a>(parent, flags, type, buttons, ..., show = TRUE)</code><br />
+<code><a href="gtkMessageDialogSetMarkup.html">gtkMessageDialogSetMarkup</a>(object, str)</code><br />
+<code><a href="gtkMessageDialogSetImage.html">gtkMessageDialogSetImage</a>(object, image)</code><br />
+<code><a href="gtkMessageDialogGetImage.html">gtkMessageDialogGetImage</a>(object)</code><br />
+<code><a href="gtkMessageDialogFormatSecondaryText.html">gtkMessageDialogFormatSecondaryText</a>(object, ...)</code><br />
+<code><a href="gtkMessageDialogFormatSecondaryMarkup.html">gtkMessageDialogFormatSecondaryMarkup</a>(object, ...)</code><br />
+<code>gtkMessageDialog(parent, flags, type, buttons, ..., show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkWindow
+                                       +----GtkDialog
+                                             +----GtkMessageDialog</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkMessageDialog implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkMessageDialog.html">GtkMessageDialog</a></code> presents a dialog with an image representing the type of
+message (Error, Question, etc.) alongside some message text. It's simply a
+convenience widget; you could construct the equivalent of <code><a href="GtkMessageDialog.html">GtkMessageDialog</a></code>
+from <code><a href="GtkDialog.html">GtkDialog</a></code> without too much effort, but <code><a href="GtkMessageDialog.html">GtkMessageDialog</a></code> saves typing.
+</p>
+<p>The easiest way to do a modal message dialog is to use <code><a href="gtkDialogRun.html">gtkDialogRun</a></code>, though
+you can also pass in the <code>GTK_DIALOG_MODAL</code> flag, <code><a href="gtkDialogRun.html">gtkDialogRun</a></code> automatically
+makes the dialog modal and waits for the user to respond to it. <code><a href="gtkDialogRun.html">gtkDialogRun</a></code>
+returns when any dialog button is clicked.
+</p>
+<p><em>A modal dialog.</em>
+</p>
+<pre>
+# A Modal dialog
+dialog &lt;- gtkMessageDialog(main_application_window, "destroy-with-parent",
+                           "error", "close", "Error loading file '", filename,
+                           "': ", message)
+dialog$run()
+dialog$destroy()
+</pre>
+<p>You might do a non-modal <code><a href="GtkMessageDialog.html">GtkMessageDialog</a></code> as follows:
+</p>
+<p><em>A non-modal dialog.</em>
+</p>
+<pre>
+dialog &lt;- gtkMessageDialog(main_application_window, "destroy-with-parent",
+                           "error", "close", "Error loading file '", filename,
+                           "': ", message)
+# Destroy the dialog when the user responds to it (e.g. clicks a button)
+gSignalConnect(dialog, "response", gtkWidgetDestroy)
+</pre>
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkMessageDialog</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">image</code></dt><dd><p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] </p>
+</dd>
+<dt><code style="white-space: pre;">label</code></dt><dd><p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] </p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkMessageDialog</code> is the result of collapsing the constructors of <code>GtkMessageDialog</code> (<code><a href="gtkMessageDialogNew.html">gtkMessageDialogNew</a></code>, <code><a href="gtkMessageDialogNewWithMarkup.html">gtkMessageDialogNewWithMarkup</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkMessageType</code></dt><dd>
+<p>The type of message being displayed in the dialog.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">info</code></dt><dd><p>Informational message</p>
+</dd>
+<dt><code style="white-space: pre;">warning</code></dt><dd><p>Nonfatal warning message</p>
+</dd>
+<dt><code style="white-space: pre;">question</code></dt><dd><p>Question requiring a choice</p>
+</dd>
+<dt><code style="white-space: pre;">error</code></dt><dd><p>Fatal error message</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkButtonsType</code></dt><dd>
+<p>Prebuilt sets of buttons for the dialog. If
+none of these choices are appropriate, simply use <code>GTK_BUTTONS_NONE</code>
+then call <code><a href="gtkDialogAddButtons.html">gtkDialogAddButtons</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>no buttons at all</p>
+</dd>
+<dt><code style="white-space: pre;">ok</code></dt><dd><p>an OK button</p>
+</dd>
+<dt><code style="white-space: pre;">close</code></dt><dd><p>a Close button</p>
+</dd>
+<dt><code style="white-space: pre;">cancel</code></dt><dd><p>a Cancel button</p>
+</dd>
+<dt><code style="white-space: pre;">yes-no</code></dt><dd><p>Yes and No buttons</p>
+</dd>
+<dt><code style="white-space: pre;">ok-cancel</code></dt><dd><p>OK and Cancel buttons</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">buttons</code> [<code><a href="GtkMessageDialog.html">GtkButtonsType</a></code> : Write / Construct Only]</dt><dd>
+<p>The buttons shown in the message dialog.  Default value: GTK_BUTTONS_NONE
+</p>
+</dd>
+<dt><code style="white-space: pre;">image</code> [<code><a href="GtkWidget.html">GtkWidget</a></code> : *            : Read / Write]</dt><dd>
+<p>The image for this dialog.
+Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">message-type</code> [<code><a href="GtkMessageDialog.html">GtkMessageType</a></code> : Read / Write / Construct]</dt><dd>
+<p>The type of the message. The type is used to determine
+the image that is shown in the dialog, unless the image is
+explicitly set by the ::image property.
+Default value: GTK_MESSAGE_INFO
+</p>
+</dd>
+<dt><code style="white-space: pre;">secondary-text</code> [character : *                : Read / Write]</dt><dd>
+<p>The secondary text of the message dialog.
+Default value: NULL  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">secondary-use-markup</code> [logical : Read / Write]</dt><dd>
+<p><code>TRUE</code> if the secondary text of the dialog includes Pango markup.
+See <code><a href="pangoParseMarkup.html">pangoParseMarkup</a></code>.
+Default value: FALSE  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">text</code> [character : *                : Read / Write]</dt><dd>
+<p>The primary text of the message dialog. If the dialog has
+a secondary text, this will appear as the title.
+Default value: &quot;&quot;  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-markup</code> [logical : Read / Write]</dt><dd>
+<p><code>TRUE</code> if the primary text of the dialog includes Pango markup.
+See <code><a href="pangoParseMarkup.html">pangoParseMarkup</a></code>.
+Default value: FALSE  Since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">message-border</code> [integer : Read]</dt><dd>
+<p>Width of border around the label and image in the message dialog.  Allowed values: &gt;= 0  Default value: 12
+</p>
+</dd>
+<dt><code style="white-space: pre;">use-separator</code> [logical : Read]</dt><dd>
+<p>Whether to draw a separator line between the message label and the buttons
+in the dialog.
+Default value: FALSE  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkMessageDialog.html">http://library.gnome.org/devel//gtk/GtkMessageDialog.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkDialog.html">GtkDialog</a></code></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

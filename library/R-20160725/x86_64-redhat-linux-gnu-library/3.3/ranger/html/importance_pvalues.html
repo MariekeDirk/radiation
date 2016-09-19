@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ranger variable importance confidence intervals and p-values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for importance_pvalues {ranger}"><tr><td>importance_pvalues {ranger}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ranger variable importance confidence intervals and p-values</h2>
+
+<h3>Description</h3>
+
+<p>Compute variable importance with confidence intervals and p-values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+importance_pvalues(x, method = c("janitza", "altmann"), conf.level = 0.95,
+  num.permutations = 100, formula = NULL, data = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>ranger or holdoutRF object.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Method to compute p-values. Use &quot;janitza&quot; for the method by Janitza et al. (2015) or &quot;altmann&quot; for the non-parametric method by Altmann et al. (2010).</p>
+</td></tr>
+<tr valign="top"><td><code>conf.level</code></td>
+<td>
+<p>Confidence level for confidence intervals.</p>
+</td></tr>
+<tr valign="top"><td><code>num.permutations</code></td>
+<td>
+<p>Number of permutations. Used in the &quot;altmann&quot; method only.</p>
+</td></tr>
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Object of class formula or character describing the model to fit. Used in the &quot;altmann&quot; method only.</p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>Training data of class data.frame or matrix. Used in the &quot;altmann&quot; method only.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Further arguments passed to ranger(). Used in the &quot;altmann&quot; method only.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Variable importance, confidence intervals and p-values.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Marvin N. Wright
+</p>
+
+
+<h3>References</h3>
+
+<p>Janitza, S., Celik, E. &amp; Boulesteix, A.-L., (2015). A computationally fast variable importance test for random forest for high dimensional data, Technical Report 185, University of Munich, <a href="https://epub.ub.uni-muenchen.de/25587">https://epub.ub.uni-muenchen.de/25587</a>. <br />
+Altmann, A., Tolosi, L., Sander, O. &amp; Lengauer, T. (2010). Permutation importance: a corrected feature importance measure, Bioinformatics 26(10):1340-1347.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="ranger.html">ranger</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ranger</em> version 0.5.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

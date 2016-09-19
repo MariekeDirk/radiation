@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: SoilProfileCollection Class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SoilProfileCollection-class {aqp}"><tr><td>SoilProfileCollection-class {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>SoilProfileCollection Class</h2>
+
+<h3>Description</h3>
+
+<p>Basic class for storing soil profile collections, associated site data, and metadata.</p>
+
+
+<h3>Objects from the Class</h3>
+
+<p>Objects can be created by calls of the form <code>new("SoilProfileCollection", ...)</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>idcol</code>:</dt><dd><p>Object of class <code>"character"</code> the name of the column used to uniquely identify profiles </p>
+</dd>
+<dt><code>depthcols</code>:</dt><dd><p>Object of class <code>"character"</code> with the names of columns containing the horizon top and bottom boundaries</p>
+</dd>
+<dt><code>metadata</code>:</dt><dd><p>Object of class <code>"data.frame"</code> with collection-level metadata, having a single row, and user-defined columns</p>
+</dd>
+<dt><code>horizons</code>:</dt><dd><p>Object of class <code>"data.frame"</code> with 1 or more rows per profile</p>
+</dd>
+<dt><code>site</code>:</dt><dd><p>Object of class <code>"data.frame"</code> with 1 row per profile </p>
+</dd>
+<dt><code>sp</code>:</dt><dd><p>Object of class <code>"SpatialPoints"</code> with 1 row per profile </p>
+</dd>
+<dt><code>diagnostic</code>:</dt><dd><p>Object of class <code>"data.frame"</code> with 0 or more rows per profile</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>$</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>$&lt;-</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>[</dt><dd><p><code>signature(x = "SoilProfileCollection", i = "ANY", j = "ANY")</code>: ... </p>
+</dd>
+<dt>[[</dt><dd><p><code>signature(x = "SoilProfileCollection", i = "ANY", j = "ANY")</code>: ... </p>
+</dd>
+<dt>[[&lt;-</dt><dd><p><code>signature(x = "SoilProfileCollection", i = "ANY", j = "ANY")</code>: ... </p>
+</dd>
+<dt>coordinates&lt;-</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>horizonDepths</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>horizons</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>horizons&lt;-</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>idname</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>names</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>horizonNames</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>siteNames</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>length</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>max</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>metadata</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>metadata&lt;-</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>min</dt><dd><p><code>signature(x = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>profile_id</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>profile_plot</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>show</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>site</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>site&lt;-</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>slab</dt><dd><p><code>signature(data = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>units</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+<dt>units&lt;-</dt><dd><p><code>signature(object = "SoilProfileCollection")</code>: ... </p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Pierre Roudier and Dylan E. Beaudette</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# concatenate SoilProfileCollection objects
+## Not run: 
+require(plyr)
+d &lt;- ldply(1:10, random_profile)
+
+# promote to SoilProfileCollection and plot
+depths(d) &lt;- id ~ top + bottom
+plot(d)
+
+# split into new SoilProfileCollection objects by index
+d.1 &lt;- d[1, ]
+d.2 &lt;- d[2, ]
+d.345 &lt;- d[3:5, ]
+
+# recombine, note that profiles are sorted according to ID
+d.new &lt;- rbind(d.345, d.1, d.2)
+plot(d.new)
+
+## End(Not run)
+
+## Not run: 
+# these next examples should throw an error
+# insert a missing horizon boundary
+data(sp1)
+sp1$top[1] &lt;- NA
+depths(sp1) &lt;- id ~ top + bottom
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

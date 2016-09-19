@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GFile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GFile {RGtk2}"><tr><td>GFile {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GFile</h2>
+
+<h3>Description</h3>
+
+<p>File and Directory Handling</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gFileNewForPath.html">gFileNewForPath</a>(path)</code><br />
+<code><a href="gFileNewForUri.html">gFileNewForUri</a>(uri)</code><br />
+<code><a href="gFileNewForCommandlineArg.html">gFileNewForCommandlineArg</a>(arg)</code><br />
+<code><a href="gFileParseName.html">gFileParseName</a>(parse.name)</code><br />
+<code><a href="gFileDup.html">gFileDup</a>(object)</code><br />
+<code><a href="gFileHash.html">gFileHash</a>(file)</code><br />
+<code><a href="gFileEqual.html">gFileEqual</a>(object, file2)</code><br />
+<code><a href="gFileGetBasename.html">gFileGetBasename</a>(object)</code><br />
+<code><a href="gFileGetPath.html">gFileGetPath</a>(object)</code><br />
+<code><a href="gFileGetUri.html">gFileGetUri</a>(object)</code><br />
+<code><a href="gFileGetParseName.html">gFileGetParseName</a>(object)</code><br />
+<code><a href="gFileGetParent.html">gFileGetParent</a>(object)</code><br />
+<code><a href="gFileGetChild.html">gFileGetChild</a>(object, name)</code><br />
+<code><a href="gFileGetChildForDisplayName.html">gFileGetChildForDisplayName</a>(object, display.name, .errwarn = TRUE)</code><br />
+<code><a href="gFileHasPrefix.html">gFileHasPrefix</a>(object, descendant)</code><br />
+<code><a href="gFileGetRelativePath.html">gFileGetRelativePath</a>(object, descendant)</code><br />
+<code><a href="gFileResolveRelativePath.html">gFileResolveRelativePath</a>(object, relative.path)</code><br />
+<code><a href="gFileIsNative.html">gFileIsNative</a>(object)</code><br />
+<code><a href="gFileHasUriScheme.html">gFileHasUriScheme</a>(object, uri.scheme)</code><br />
+<code><a href="gFileGetUriScheme.html">gFileGetUriScheme</a>(object)</code><br />
+<code><a href="gFileRead.html">gFileRead</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileReadAsync.html">gFileReadAsync</a>(object, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileReadFinish.html">gFileReadFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileAppendTo.html">gFileAppendTo</a>(object, flags = "G_FILE_CREATE_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileCreate.html">gFileCreate</a>(object, flags = "G_FILE_CREATE_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplace.html">gFileReplace</a>(object, etag, make.backup, flags = "G_FILE_CREATE_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileAppendToAsync.html">gFileAppendToAsync</a>(object, flags = "G_FILE_CREATE_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileAppendToFinish.html">gFileAppendToFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileCreateAsync.html">gFileCreateAsync</a>(object, flags = "G_FILE_CREATE_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileCreateFinish.html">gFileCreateFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplaceAsync.html">gFileReplaceAsync</a>(object, etag, make.backup, flags = "G_FILE_CREATE_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileReplaceFinish.html">gFileReplaceFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryInfo.html">gFileQueryInfo</a>(object, attributes, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryInfoAsync.html">gFileQueryInfoAsync</a>(object, attributes, flags = "G_FILE_QUERY_INFO_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileQueryInfoFinish.html">gFileQueryInfoFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryExists.html">gFileQueryExists</a>(object, cancellable = NULL)</code><br />
+<code><a href="gFileQueryFileType.html">gFileQueryFileType</a>(object, flags, cancellable = NULL)</code><br />
+<code><a href="gFileQueryFilesystemInfo.html">gFileQueryFilesystemInfo</a>(object, attributes, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryFilesystemInfoAsync.html">gFileQueryFilesystemInfoAsync</a>(object, attributes, io.priority, cancellable, callback, user.data = NULL)</code><br />
+<code><a href="gFileQueryFilesystemInfoFinish.html">gFileQueryFilesystemInfoFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryDefaultHandler.html">gFileQueryDefaultHandler</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileFindEnclosingMount.html">gFileFindEnclosingMount</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileFindEnclosingMountAsync.html">gFileFindEnclosingMountAsync</a>(object, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileFindEnclosingMountFinish.html">gFileFindEnclosingMountFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumerateChildren.html">gFileEnumerateChildren</a>(object, attributes, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileEnumerateChildrenAsync.html">gFileEnumerateChildrenAsync</a>(object, attributes, flags = "G_FILE_QUERY_INFO_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileEnumerateChildrenFinish.html">gFileEnumerateChildrenFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetDisplayName.html">gFileSetDisplayName</a>(object, display.name, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetDisplayNameAsync.html">gFileSetDisplayNameAsync</a>(object, display.name, io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileSetDisplayNameFinish.html">gFileSetDisplayNameFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileDelete.html">gFileDelete</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileTrash.html">gFileTrash</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileCopy.html">gFileCopy</a>(object, destination, flags = "G_FILE_COPY_NONE", cancellable = NULL, progress.callback, progress.callback.data, .errwarn = TRUE)</code><br />
+<code><a href="gFileCopyAsync.html">gFileCopyAsync</a>(object, destination, flags = "G_FILE_COPY_NONE", io.priority = 0, cancellable = NULL, progress.callback, progress.callback.data, callback, user.data = NULL)</code><br />
+<code><a href="gFileCopyFinish.html">gFileCopyFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileMove.html">gFileMove</a>(object, destination, flags = "G_FILE_COPY_NONE", cancellable = NULL, progress.callback, progress.callback.data, .errwarn = TRUE)</code><br />
+<code><a href="gFileMakeDirectory.html">gFileMakeDirectory</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileMakeDirectoryWithParents.html">gFileMakeDirectoryWithParents</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileMakeSymbolicLink.html">gFileMakeSymbolicLink</a>(object, symlink.value, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileQuerySettableAttributes.html">gFileQuerySettableAttributes</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileQueryWritableNamespaces.html">gFileQueryWritableNamespaces</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttribute.html">gFileSetAttribute</a>(object, attribute, type, value.p, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributesFromInfo.html">gFileSetAttributesFromInfo</a>(object, info, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributesAsync.html">gFileSetAttributesAsync</a>(object, info, flags = "G_FILE_QUERY_INFO_NONE", io.priority = 0, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileSetAttributesFinish.html">gFileSetAttributesFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeString.html">gFileSetAttributeString</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeByteString.html">gFileSetAttributeByteString</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeUint32.html">gFileSetAttributeUint32</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeInt32.html">gFileSetAttributeInt32</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeUint64.html">gFileSetAttributeUint64</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileSetAttributeInt64.html">gFileSetAttributeInt64</a>(object, attribute, value, flags = "G_FILE_QUERY_INFO_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileMountMountable.html">gFileMountMountable</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileMountMountableFinish.html">gFileMountMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileUnmountMountable.html">gFileUnmountMountable</a>(object, flags = "G_MOUNT_UNMOUNT_NONE", cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileUnmountMountableFinish.html">gFileUnmountMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileUnmountMountableWithOperation.html">gFileUnmountMountableWithOperation</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileUnmountMountableWithOperationFinish.html">gFileUnmountMountableWithOperationFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileEjectMountable.html">gFileEjectMountable</a>(object, flags = "G_MOUNT_UNMOUNT_NONE", cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileEjectMountableFinish.html">gFileEjectMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileEjectMountableWithOperation.html">gFileEjectMountableWithOperation</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileEjectMountableWithOperationFinish.html">gFileEjectMountableWithOperationFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileStartMountable.html">gFileStartMountable</a>(object, flags, start.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileStartMountableFinish.html">gFileStartMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileStopMountable.html">gFileStopMountable</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileStopMountableFinish.html">gFileStopMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFilePollMountable.html">gFilePollMountable</a>(object, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFilePollMountableFinish.html">gFilePollMountableFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileMountEnclosingVolume.html">gFileMountEnclosingVolume</a>(object, flags, mount.operation, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileMountEnclosingVolumeFinish.html">gFileMountEnclosingVolumeFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gFileMonitorDirectory.html">gFileMonitorDirectory</a>(object, flags = "G_FILE_MONITOR_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileMonitorFile.html">gFileMonitorFile</a>(object, flags = "G_FILE_MONITOR_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileMonitor.html">gFileMonitor</a>(object, flags = "G_FILE_MONITOR_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileLoadContents.html">gFileLoadContents</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileLoadContentsAsync.html">gFileLoadContentsAsync</a>(object, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileLoadContentsFinish.html">gFileLoadContentsFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileLoadPartialContentsFinish.html">gFileLoadPartialContentsFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplaceContents.html">gFileReplaceContents</a>(object, contents, length, etag, make.backup, flags = "G_FILE_CREATE_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplaceContentsAsync.html">gFileReplaceContentsAsync</a>(object, contents, length, etag, make.backup, flags = "G_FILE_CREATE_NONE", cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileReplaceContentsFinish.html">gFileReplaceContentsFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileCopyAttributes.html">gFileCopyAttributes</a>(object, destination, flags = "G_FILE_COPY_NONE", cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileCreateReadwrite.html">gFileCreateReadwrite</a>(object, flags, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileCreateReadwriteAsync.html">gFileCreateReadwriteAsync</a>(object, flags, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileCreateReadwriteFinish.html">gFileCreateReadwriteFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileOpenReadwrite.html">gFileOpenReadwrite</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileOpenReadwriteAsync.html">gFileOpenReadwriteAsync</a>(object, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileOpenReadwriteFinish.html">gFileOpenReadwriteFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplaceReadwrite.html">gFileReplaceReadwrite</a>(object, etag, make.backup, flags, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gFileReplaceReadwriteAsync.html">gFileReplaceReadwriteAsync</a>(object, etag, make.backup, flags, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gFileReplaceReadwriteFinish.html">gFileReplaceReadwriteFinish</a>(object, res, .errwarn = TRUE)</code><br />
+<code><a href="gFileSupportsThreadContexts.html">gFileSupportsThreadContexts</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>
+GInterface
+   +----GFile
+GFlags
+   +----GFileQueryInfoFlags
+GFlags
+   +----GFileCreateFlags
+GFlags
+   +----GFileCopyFlags
+GFlags
+   +----GFileMonitorFlags
+GEnum
+   +----GFilesystemPreviewType
+</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GFile.html">GFile</a></code> is a high level abstraction for manipulating files on a 
+virtual file system. <code><a href="GFile.html">GFile</a></code>s are lightweight, immutable 
+objects that do no I/O upon creation. It is necessary to understand that
+<code><a href="GFile.html">GFile</a></code> objects do not represent files, merely an identifier for a file. All
+file content I/O is implemented as streaming operations (see <code><a href="GInputStream.html">GInputStream</a></code> and 
+<code><a href="GOutputStream.html">GOutputStream</a></code>).
+</p>
+<p>To construct a <code><a href="GFile.html">GFile</a></code>, you can use: 
+<code><a href="gFileNewForPath.html">gFileNewForPath</a></code> if you have a path.
+<code><a href="gFileNewForUri.html">gFileNewForUri</a></code> if you have a URI.
+<code><a href="gFileNewForCommandlineArg.html">gFileNewForCommandlineArg</a></code> for a command line argument.
+<code><a href="gFileParseName.html">gFileParseName</a></code> from a utf8 string gotten from <code><a href="gFileGetParseName.html">gFileGetParseName</a></code>.
+</p>
+<p>One way to think of a <code><a href="GFile.html">GFile</a></code> is as an abstraction of a pathname. For normal
+files the system pathname is what is stored internally, but as <code><a href="GFile.html">GFile</a></code>s
+are extensible it could also be something else that corresponds to a pathname
+in a userspace implementation of a filesystem.
+<code><a href="GFile.html">GFile</a></code>s make up hierarchies of directories and files that correspond to the
+files on a filesystem. You can move through the file system with <code><a href="GFile.html">GFile</a></code> using
+<code><a href="gFileGetParent.html">gFileGetParent</a></code> to get an identifier for the parent directory, <code><a href="gFileGetChild.html">gFileGetChild</a></code>
+to get a child within a directory, <code><a href="gFileResolveRelativePath.html">gFileResolveRelativePath</a></code> to resolve a relative
+path between two <code><a href="GFile.html">GFile</a></code>s. There can be multiple hierarchies, so you may not
+end up at the same root if you repeatedly call <code><a href="gFileGetParent.html">gFileGetParent</a></code> on two different
+files.
+</p>
+<p>All <code><a href="GFile.html">GFile</a></code>s have a basename (get with <code><a href="gFileGetBasename.html">gFileGetBasename</a></code>). These names
+are byte strings that are used to identify the file on the filesystem (relative to
+its parent directory) and there is no guarantees that they have any particular charset
+encoding or even make any sense at all. If you want to use filenames in a user
+interface you should use the display name that you can get by requesting the
+<code>G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME</code> attribute with <code><a href="gFileQueryInfo.html">gFileQueryInfo</a></code>.
+This is guaranteed to be in utf8 and can be used in a user interface. But always
+store the real basename or the <code><a href="GFile.html">GFile</a></code> to use to actually access the file, because
+there is no way to go from a display name to the actual name.
+</p>
+<p>Using <code><a href="GFile.html">GFile</a></code> as an identifier has the same weaknesses as using a path in that
+there may be multiple aliases for the same file. For instance, hard or
+soft links may cause two different <code><a href="GFile.html">GFile</a></code>s to refer to the same file.
+Other possible causes for aliases are: case insensitive filesystems, short
+and long names on Fat/NTFS, or bind mounts in Linux. If you want to check if
+two <code><a href="GFile.html">GFile</a></code>s point to the same file you can query for the
+<code>G_FILE_ATTRIBUTE_ID_FILE</code> attribute. Note that <code><a href="GFile.html">GFile</a></code> does some trivial
+canonicalization of pathnames passed in, so that trivial differences in the
+path string used at creation (duplicated slashes, slash at end of path, &quot;.&quot;
+or &quot;..&quot; path segments, etc) does not create different <code><a href="GFile.html">GFile</a></code>s.
+</p>
+<p>Many <code><a href="GFile.html">GFile</a></code> operations have both synchronous and asynchronous versions 
+to suit your application. Asynchronous versions of synchronous functions 
+simply have <code>async()</code> appended to their function names. The asynchronous 
+I/O functions call a <code><a href="GAsyncResult.html">GAsyncReadyCallback</a></code> which is then used to finalize 
+the operation, producing a GAsyncResult which is then passed to the 
+function's matching <code>finish()</code> operation. 
+</p>
+<p>Some <code><a href="GFile.html">GFile</a></code> operations do not have synchronous analogs, as they may
+take a very long time to finish, and blocking may leave an application
+unusable. Notable cases include:
+<code><a href="gFileMountMountable.html">gFileMountMountable</a></code> to mount a mountable file.
+<code><a href="gFileUnmountMountableWithOperation.html">gFileUnmountMountableWithOperation</a></code> to unmount a mountable file.
+<code><a href="gFileEjectMountableWithOperation.html">gFileEjectMountableWithOperation</a></code> to eject a mountable file.
+</p>
+<p>One notable feature of <code><a href="GFile.html">GFile</a></code>s are entity tags, or &quot;etags&quot; for 
+short. Entity tags are somewhat like a more abstract version of the 
+traditional mtime, and can be used to quickly determine if the file has
+been modified from the version on the file system. See the HTTP 1.1 
+specification (<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a>)
+for HTTP Etag headers, which are a very similar concept.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GFile</code></dt><dd>
+<p>A handle to an object implementing the <code style="white-space: pre;">GFileIface</code> interface.
+Generally stores a location within the file system. Handles do not
+necessarily represent files or directories that currently exist.
+</p>
+</dd></dl>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GFileQueryInfoFlags</code></dt><dd>
+<p>Flags used when querying a <code><a href="GFileInfo.html">GFileInfo</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">ne</code></dt><dd><p>No flags set.</p>
+</dd>
+<dt><code style="white-space: pre;">follow-symlinks</code></dt><dd><p>Don't follow symlinks.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GFileCreateFlags</code></dt><dd>
+<p>Flags used when an operation may create a file.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>No flags set.</p>
+</dd>
+<dt><code style="white-space: pre;">private</code></dt><dd><p>Create a file that can only be
+accessed by the current user.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GFileCopyFlags</code></dt><dd>
+<p>Flags used when copying or moving files.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>No flags set.</p>
+</dd>
+<dt><code style="white-space: pre;">overwrite</code></dt><dd><p>Overwrite any existing files</p>
+</dd>
+<dt><code style="white-space: pre;">backup</code></dt><dd><p>Make a backup of any existing files.</p>
+</dd>
+<dt><code style="white-space: pre;">nofollow-symlinks</code></dt><dd><p>Don't follow symlinks.</p>
+</dd>
+<dt><code style="white-space: pre;">all-metadata</code></dt><dd><p>Copy all file metadata instead of just default set used for copy (see <code><a href="GFileInfo.html">GFileInfo</a></code>).</p>
+</dd>
+<dt><code style="white-space: pre;">no-fallback-for-move</code></dt><dd><p>Don't use copy and delete fallback if native move not supported.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GFileMonitorFlags</code></dt><dd>
+<p>Flags used to set what a <code><a href="GFileMonitor-concept.html">GFileMonitor</a></code> will watch for.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">none</code></dt><dd><p>No flags set.</p>
+</dd>
+<dt><code style="white-space: pre;">watch-mounts</code></dt><dd><p>Watch for mount events.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+
+<dl>
+<dt><code>GFileProgressCallback(current.num.bytes, total.num.bytes, user.data)</code></dt><dd>
+<p>When doing file operations that may take a while, such as moving
+a file or copying a file, a progress callback is used to pass how
+far along that operation is to the application.
+</p>
+
+<dl>
+<dt><code>current.num.bytes</code></dt><dd><p>the current number of bytes in the operation.</p>
+</dd>
+<dt><code>total.num.bytes</code></dt><dd><p>the total number of bytes in the operation.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data passed to the callback.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>GFileReadMoreCallback(file.contents, file.size, callback.data)</code></dt><dd>
+<p>When loading the partial contents of a file with <code>gFileLoadPartialContentsAsync()</code>,
+it may become necessary to determine if any more data from the file should be loaded.
+A <code><a href="GFile.html">GFileReadMoreCallback</a></code> function facilitates this by returning <code>TRUE</code> if more data
+should be read, or <code>FALSE</code> otherwise.
+</p>
+
+<dl>
+<dt><code>file.contents</code></dt><dd><p>the data as currently read.</p>
+</dd>
+<dt><code>file.size</code></dt><dd><p>the size of the data currently read.</p>
+</dd>
+<dt><code>callback.data</code></dt><dd><p>data passed to the callback.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if more data should be read back. <code>FALSE</code> otherwise.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GFile.html">http://library.gnome.org/devel//gio/GFile.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

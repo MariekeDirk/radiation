@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find a few approximate largest eigenvalues and corresponding...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for partial_eigen {irlba}"><tr><td>partial_eigen {irlba}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find a few approximate largest eigenvalues and corresponding eigenvectors of a symmetric matrix.</h2>
+
+<h3>Description</h3>
+
+<p>Use <code>partial_eigen</code> to estimate a subset of the largest (most positive)
+eigenvalues and corresponding eigenvectors of a symmetric dense or sparse
+real-valued matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+partial_eigen(x, n = 5, symmetric = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>numeric real-valued dense or sparse matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>number of largest eigenvalues and corresponding eigenvectors to compute.</p>
+</td></tr>
+<tr valign="top"><td><code>symmetric</code></td>
+<td>
+<p><code>TRUE</code> indicates <code>x</code> is a symmetric matrix (the default);
+specify <code>symmetric=FALSE</code> to compute the largest eigenvalues and corresponding eigenvectors of <code>t(x) %*% x</code> instead.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>optional additional parameters passed to the <code>irlba</code> function.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list with entries:
+</p>
+
+<ul>
+<li><p>values n approximate largest eigenvalues
+</p>
+</li>
+<li><p>vectors n approximate corresponding eigenvectors
+</p>
+</li></ul>
+
+
+
+<h3>Note</h3>
+
+<p>Specify <code>symmetric=FALSE</code> to compute the largest <code>n</code> eigenvalues
+and corresponding eigenvectors of the symmetric matrix cross-product
+<code>t(x) %*% x</code>.
+</p>
+<p>This function uses the <code>irlba</code> function under the hood. See <code>?irlba</code>
+for description of additional options, especially the <code>tol</code> parameter.
+</p>
+
+
+<h3>References</h3>
+
+<p>Augmented Implicitly Restarted Lanczos Bidiagonalization Methods, J. Baglama and L. Reichel, SIAM J. Sci. Comput. 2005.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/eigen.html">eigen</a></code>, <code><a href="irlba.html">irlba</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(1)
+# Construct a symmetric matrix with some positive and negative eigenvalues:
+V &lt;- qr.Q(qr(matrix(runif(100),nrow=10)))
+x &lt;- V %*% diag(c(10, -9, 8, -7, 6, -5, 4, -3, 2, -1)) %*% t(V)
+partial_eigen(x, 3)$values
+
+# Compare with eigen
+eigen(x)$values[1:3]
+
+# Use symmetric=FALSE to compute the eigenvalues of t(x) %*% x for general
+# matrices x:
+x &lt;- matrix(rnorm(100), 10)
+partial_eigen(x, 3, symmetric=FALSE)$values
+eigen(crossprod(x))$values
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>irlba</em> version 2.1.1 <a href="00Index.html">Index</a>]</div>
+</body></html>

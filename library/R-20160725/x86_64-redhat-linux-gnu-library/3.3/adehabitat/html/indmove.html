@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Testing Independence in Regular Trajectory Parameters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for indmove {adehabitat}"><tr><td>indmove {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Testing Independence in Regular Trajectory Parameters</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>indmove</code> tests for the independence between
+successive components <code>c(dx, dy)</code> for each burst in a regular
+object of class <code>ltraj</code>.<br />
+</p>
+<p>The function <code>indmove.detail</code> tests for the independence between
+successive <code>dx</code> or <code>dy</code> for each burst in a regular object 
+of class <code>ltraj</code>.<br />
+</p>
+<p>The function <code>testang.ltraj</code> tests for the independence between
+successive angles (relative or absolute) for each burst in a regular
+object of class <code>ltraj</code>.<br />
+</p>
+<p>The function <code>testdist.ltraj</code> tests for the independence between
+successive distances between successive relocations for each burst in
+a regular object of class <code>ltraj</code>.<br />
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+indmove(ltr, nrep = 200, conflim = seq(0.95, 0.5, length=5),
+        sep = ltr[[1]]$dt[1], units = c("seconds", "minutes",
+                                        "hours", "days"),
+        plotit = TRUE)
+
+
+testang.ltraj(x, which = c("absolute", "relative"),
+              nrep = 999, alter = c("two-sided","less","greater"))
+
+
+testdist.ltraj(x, nrep = 999, alter = c("two-sided","less","greater"))
+
+
+indmove.detail(x, detail=c("dx","dy"), nrep=999,
+               alter = c("two-sided","less","greater"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>ltr,x</code></td>
+<td>
+<p>an object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>conflim</code></td>
+<td>
+<p>a vector giving the limits of the confidence intervals
+to be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>nrep</code></td>
+<td>
+<p>number of simulations</p>
+</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+<p>a character string indicating the time units for the result</p>
+</td></tr>
+<tr valign="top"><td><code>alter</code></td>
+<td>
+<p>a character string specifying the alternative hypothesis,
+must be one of &quot;greater&quot;, &quot;less&quot; or &quot;two-sided&quot; (default)</p>
+</td></tr>
+<tr valign="top"><td><code>which</code></td>
+<td>
+<p>a character string indicating whether the absolute or
+relative angles are under focus</p>
+</td></tr>
+<tr valign="top"><td><code>detail</code></td>
+<td>
+<p>a character string indicating whether <code>"dx"</code> or
+<code>"dy"</code> should be tested for independence</p>
+</td></tr>
+<tr valign="top"><td><code>plotit</code></td>
+<td>
+<p>logical.  Whether the results should be plotted on a graph</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>used in the case of variable time lag between
+relocations.  Indicates the theoretical time lag between two relocations</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function <code>indmove</code> randomises the order of the increments
+<code>c(dx, dy)</code> in a trajectory.  The criteria of the test is the
+Mean Squared Displacement (<code>R^2_n</code>) (Root &amp; Kareiva 1984).<br />
+</p>
+<p>The function <code>testang.ltraj</code> randomises the order of the angles in a
+trajectory.  The criteria of the test is <code>f^2 = sum_(i=1)^(n-1) 2*(1 -
+    cos(angle[i+1] - angle[i]))</code>.  This measure corresponds to the
+mean squared length of the segment joining two successive angles on
+the trigonometric circle (see examples for an illustration) <br />
+</p>
+<p>The function <code>testdist.ltraj</code> randomises the order of the
+distances between successive relocations in a trajectory.  The
+criteria of the test is <code>sum_(i=1)^(n-1) (dist[i+1] -
+    dist[i])^2 </code> (Neuman 1941, Neuman et al. 1941).  The same criteria is
+used in <code>indmove.detail()</code>.<br />.
+</p>
+<p>Note that these functions require &quot;regular&quot; trajectories,
+i.e. trajectories for which the relocations are separated by a
+constant time lag.<br />
+</p>
+<p>Finally, note that the functions <code>testang.ltraj</code> and
+<code>testdist.ltraj</code> are not affected by the presence of missing
+values in the bursts of relocations. The function <code>indmove</code> may
+be greatly affected by these missing values (they are removed prior to
+the test).
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>indmove()</code> returns a list with one component per burst.  Each
+component is a list of two data frames. The data frame <code>Time</code>
+contains the time points at which R2n is computed for the
+observation (first column) and the simulations (other ones).  The data
+frame <code>R2n</code> contains the values for the R2n (same dimensions).<br />
+</p>
+<p><code>testang.ltraj()</code>, <code>testdist.ltraj</code> and
+<code>indmove.detail</code> return lists of
+objects of class <code>randtest</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a><br />
+Stephane Dray <a href="mailto:dray@biomserv.univ-lyon1.fr">dray@biomserv.univ-lyon1.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Root, R.B. &amp; Kareiva, P.M. (1984) The search for resources by
+cabbage butterflies (Pieris Rapae): Ecological consequences and
+adaptive significance of markovian movements in a patchy
+environment. <em>Ecology</em>, <b>65</b>: 147&ndash;165.<br /> 
+</p>
+<p>Neumann, J.V., Kent, R.H., Bellinson, H.R. &amp; Hart, B.I. (1941) The mean
+square successive difference. <em>Annals of Mathematical
+Statistics</em>, <b>12</b>: 153&ndash;162<br />
+</p>
+<p>Neumann, J.V. (1941) Distribution of the ration of the mean square
+successive difference to the variance. <em>The Annals of
+Mathematical Statistics</em>, <b>12</b>: 367&ndash;395 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.ltraj.html">ltraj</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+## theoretical independence between
+br &lt;- simm.brown(1:1000)
+testang.ltraj(br)
+testdist.ltraj(br)
+
+## Not run: 
+indmove(br)
+
+## End(Not run)
+
+## Illustration of the statistic used for the test of the independence
+## of the angles
+opar &lt;- par(mar = c(0,0,4,0))
+plot(0,0, asp=1, xlim=c(-1, 1), ylim=c(-1, 1), ty="n", axes=FALSE,
+main="Criteria f for the measure of independence between successive
+angles at time i-1 and i") 
+box()
+symbols(0,0,circle=1, inches=FALSE, lwd=2, add=TRUE)
+abline(h=0, v=0)
+x &lt;- c( cos(pi/3), cos(pi/2 + pi/4))
+y &lt;- c( sin(pi/3), sin(pi/2 + pi/4))
+arrows(c(0,0), c(0,0), x, y)
+lines(x,y, lwd=2, col="red")
+text(0, 0.9, expression(f^2 == 2*sum((1 - cos(alpha[i]-alpha[i-1])),
+i==1, n-1)), col="red")
+foo &lt;- function(t, alpha)
+{
+  xa &lt;- sapply(seq(0, alpha, length=20), function(x) t*cos(x))
+  ya &lt;- sapply(seq(0, alpha, length=20), function(x) t*sin(x))
+  lines(xa, ya)
+}
+foo(0.3, pi/3)
+foo(0.1, pi/2 + pi/4)
+foo(0.11, pi/2 + pi/4)
+text(0.34,0.18,expression(alpha[i]), cex=1.5)
+text(0.15,0.11,expression(alpha[i-1]), cex=1.5)
+par(opar)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

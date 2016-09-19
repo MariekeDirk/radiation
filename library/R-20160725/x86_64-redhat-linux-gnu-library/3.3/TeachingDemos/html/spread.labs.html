@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spread out close points for labeling in plots</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spread.labs {TeachingDemos}"><tr><td>spread.labs {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Spread out close points for labeling in plots </h2>
+
+<h3>Description</h3>
+
+<p>This function takes as set of coordinates and spreads out the close
+values so that they can be used in labeling plots without overlapping.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+spread.labs(x, mindiff, maxiter = 1000, stepsize = 1/10, min = -Inf, max = Inf)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> The coordinate values (x or y, not both) to spread out. </p>
+</td></tr>
+<tr valign="top"><td><code>mindiff</code></td>
+<td>
+<p> The minimum distance between return values </p>
+</td></tr>
+<tr valign="top"><td><code>maxiter</code></td>
+<td>
+<p> The maximum number of iterations </p>
+</td></tr>
+<tr valign="top"><td><code>stepsize</code></td>
+<td>
+<p> How far to move values in each iteration </p>
+</td></tr>
+<tr valign="top"><td><code>min</code></td>
+<td>
+<p> Minimum bound for returned values </p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p> Maximum bound for returned values </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Sometimes the desired locations for labels in plots results in the
+labels overlapping.  This function takes the coordinate values (x or
+y, not both) and finds those points that are less than <code>mindiff</code>
+(usually a function of <code>strheight</code> or <code>strwidth</code>) apart and
+increases the space between them (by <code>stepsize</code> *
+<code>mindiff</code>).  This may or may not be enough and moving some points
+away from their nearest neighbor may move them too close to another
+neighbor, so the process is iterated until either <code>maxiter</code> steps
+have been tried, or all the values are at least <code>mindiff</code> apart.
+</p>
+<p>The <code>min</code> and <code>max</code> arguments prevent the values from going
+outside that range (they should be specified such that the original
+values are all inside the range).
+</p>
+<p>The values do not need to be presorted.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of coordinates (order corresponding to the original <code>x</code>)
+that can be used as a replacement for <code>x</code> in placing labels.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Greg Snow, <a href="mailto:538280@gmail.com">538280@gmail.com</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="../../graphics/html/text.html">text</a></code>, the <code>spread.labels</code> function in the
+<code>plotrix</code> package. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# overlapping labels
+plot(as.integer(state.region), state.x77[,1], ylab='Population',
+	xlab='Region',xlim=c(1,4.75), xaxt='n')
+axis(1, at=1:4, lab=levels(state.region) )
+
+text( as.integer(state.region)+.5, state.x77[,1], state.abb )
+segments( as.integer(state.region)+0.025, state.x77[,1],
+		as.integer(state.region)+.375, state.x77[,1] )
+
+# now lets redo the plot without overlap
+
+tmp.y &lt;- state.x77[,1]
+for(i in levels(state.region) ) {
+  tmp &lt;- state.region == i
+  tmp.y[ tmp ] &lt;- spread.labs( tmp.y[ tmp ], 1.2*strheight('A'),
+	maxiter=1000, min=0 )
+}
+
+plot(as.integer(state.region), state.x77[,1], ylab='Population',
+	xlab='Region', xlim=c(1,4.75), xaxt='n')
+axis(1, at=1:4, lab=levels(state.region) )
+
+text( as.integer(state.region)+0.5, tmp.y, state.abb )
+segments( as.integer(state.region)+0.025, state.x77[,1],
+		as.integer(state.region)+0.375, tmp.y )
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

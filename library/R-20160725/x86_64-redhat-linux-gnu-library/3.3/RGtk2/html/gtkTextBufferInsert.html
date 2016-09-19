@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferInsert</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferInsert {RGtk2}"><tr><td>gtkTextBufferInsert {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferInsert</h2>
+
+<h3>Description</h3>
+
+<p>Inserts <code>len</code> bytes of <code>text</code> at position <code>iter</code>.  If <code>len</code> is -1,
+<code>text</code> must be and will be inserted in its
+entirety. Emits the &quot;insert-text&quot; signal; insertion actually occurs
+in the default handler for the signal. <code>iter</code> is invalidated when
+insertion occurs (because the buffer contents change), but the
+default signal handler revalidates it to point to the end of the
+inserted text.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferInsert(object, iter, text, len = -1)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">iter</code></code></td>
+<td>
+<p>a position in the buffer</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">text</code></code></td>
+<td>
+<p>UTF-8 format text to insert</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">len</code></code></td>
+<td>
+<p>length of text in bytes, or -1</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

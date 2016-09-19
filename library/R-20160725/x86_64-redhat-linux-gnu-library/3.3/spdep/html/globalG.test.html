@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Global G test for spatial autocorrelation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for globalG.test {spdep}"><tr><td>globalG.test {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Global G test for spatial autocorrelation</h2>
+
+<h3>Description</h3>
+
+<p>The global G statistic for spatial autocorrelation, complementing the local Gi LISA measures: <code><a href="localG.html">localG</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+globalG.test(x, listw, zero.policy=NULL, alternative="greater",
+ spChk=NULL, adjust.n=TRUE, B1correct=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric vector the same length as the neighbours list in listw</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code>; if a sequence of distance bands is to be used, it is recommended that the weights style be binary (one of <code>c("B", "C", "U")</code>).</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without neighbours, if FALSE assign NA</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>a character string specifying the alternative hypothesis, must be one of &quot;greater&quot; (default), &quot;less&quot; or &quot;two.sided&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>spChk</code></td>
+<td>
+<p>should the data vector names be checked against the spatial objects for identity integrity, TRUE, or FALSE, default NULL to use <code>get.spChkOption()</code></p>
+</td></tr>
+<tr valign="top"><td><code>adjust.n</code></td>
+<td>
+<p>default TRUE, if FALSE the number of observations is not adjusted for no-neighbour observations, if TRUE, the number of observations is adjusted</p>
+</td></tr>
+<tr valign="top"><td><code>B1correct</code></td>
+<td>
+<p>default TRUE, if TRUE, the erratum referenced below: &quot;On page 195, the coefficient of W2 in B1, (just below center of the page) should be 6,  not 3.&quot; is applied; if FALSE, 3 is used (as in CrimeStat IV)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list with class <code>htest</code> containing the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+<p>the value of the standard deviate of Moran's I.</p>
+</td></tr>
+<tr valign="top"><td><code>p.value</code></td>
+<td>
+<p>the p-value of the test.</p>
+</td></tr>
+<tr valign="top"><td><code>estimate</code></td>
+<td>
+<p>the value of the observed statistic, its expectation and variance.</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>a character string describing the alternative hypothesis.</p>
+</td></tr>
+<tr valign="top"><td><code>data.name</code></td>
+<td>
+<p>a character string giving the name(s) of the data.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Hisaji ONO <a href="mailto:hi-ono@mn.xdsl.ne.jp">hi-ono@mn.xdsl.ne.jp</a> and Roger Bivand 
+<a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Getis. A, Ord, J. K. 1992 The analysis of spatial association by 
+use of distance statistics, <em>Geographical Analysis</em>, 24, p. 195; see
+also Getis. A, Ord, J. K. 1993 Erratum, <em>Geographical Analysis</em>, 25, 
+p. 276.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="localG.html">localG</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(nc.sids)
+sidsrate79 &lt;- (1000*nc.sids$SID79)/nc.sids$BIR79
+dists &lt;- c(10, 20, 30, 33, 40, 50, 60, 70, 80, 90, 100)
+ndists &lt;- length(dists)
+ZG &lt;- vector(mode="list", length=ndists)
+names(ZG) &lt;- as.character(dists)
+milesxy &lt;- cbind(nc.sids$east, nc.sids$north)
+for (i in 1:ndists) {
+  thisnb &lt;- dnearneigh(milesxy, 0, dists[i])
+  thislw &lt;- nb2listw(thisnb, style="B", zero.policy=TRUE)
+  ZG[[i]] &lt;- globalG.test(sidsrate79, thislw, zero.policy=TRUE)
+}
+t(sapply(ZG, function(x) c(x$estimate[1], x$statistic, p.value=unname(x$p.value))))
+for (i in 1:ndists) {
+  thisnb &lt;- dnearneigh(milesxy, 0, dists[i])
+  thislw &lt;- nb2listw(thisnb, style="B", zero.policy=TRUE)
+  ZG[[i]] &lt;- globalG.test(sidsrate79, thislw, zero.policy=TRUE, alternative="two.sided")
+}
+t(sapply(ZG, function(x) c(x$estimate[1], x$statistic, p.value=unname(x$p.value))))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

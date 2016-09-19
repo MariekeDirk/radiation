@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Approximate profile-likelihood estimator (APLE) permutation...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for aple.mc {spdep}"><tr><td>aple.mc {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Approximate profile-likelihood estimator (APLE) permutation test</h2>
+
+<h3>Description</h3>
+
+<p>A permutation bootstrap test for the approximate profile-likelihood estimator (APLE).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+aple.mc(x, listw, nsim, override_similarity_check=FALSE, useTrace=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a zero-mean detrended continuous variable</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object from for example <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>nsim</code></td>
+<td>
+<p>number of simulations</p>
+</td></tr>
+<tr valign="top"><td><code>override\_similarity\_check</code></td>
+<td>
+<p>default FALSE, if TRUE - typically for row-standardised weights with asymmetric underlying general weights - similarity is not checked</p>
+</td></tr>
+<tr valign="top"><td><code>useTrace</code></td>
+<td>
+<p>default TRUE, use trace of sparse matrix <code>W %*% W</code> (Li et al. (2010)), if FALSE, use crossproduct of eigenvalues of <code>W</code> as in Li et al. (2007)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>boot</code> object as returned by the <code>boot</code> function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Li, H, Calder, C. A. and Cressie N. A. C. (2007) Beyond Moran's I: testing for spatial dependence based on the spatial autoregressive model. Geographical Analysis 39, 357-375; Li, H, Calder, C. A. and Cressie N. A. C. (2012) One-step estimation of spatial dependence parameters: Properties and extensions of the APLE statistic, Journal of Multivariate Analysis 105, 68-84.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="aple.html">aple</a></code>, <code><a href="../../boot/html/boot.html">boot</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+example(aple)
+oldRNG &lt;- RNGkind()
+RNGkind("L'Ecuyer-CMRG")
+set.seed(1L)
+boot_out_ser &lt;- aple.mc(as.vector(scale(wheat$yield_detrend, scale=FALSE)),
+ nb2listw(nbr12, style="W"), nsim=500)
+plot(boot_out_ser)
+boot_out_ser
+library(parallel)
+oldCores &lt;- set.coresOption(NULL)
+nc &lt;- detectCores(logical=FALSE)
+# set nc to 1L here
+if (nc &gt; 1L) nc &lt;- 1L
+invisible(set.coresOption(nc))
+set.seed(1L)
+if (!get.mcOption()) {
+  cl &lt;- makeCluster(nc)
+  set.ClusterOption(cl)
+} else{
+  mc.reset.stream()
+}
+boot_out_par &lt;- aple.mc(as.vector(scale(wheat$yield_detrend, scale=FALSE)),
+    nb2listw(nbr12, style="W"), nsim=500)
+if (!get.mcOption()) {
+  set.ClusterOption(NULL)
+  stopCluster(cl)
+}
+boot_out_par
+invisible(set.coresOption(oldCores))
+RNGkind(oldRNG[1], oldRNG[2])
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

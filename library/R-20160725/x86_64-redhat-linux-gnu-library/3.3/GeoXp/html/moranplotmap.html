@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Moran scatterplot and map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for moranplotmap {GeoXp}"><tr><td>moranplotmap {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Moran scatterplot and map</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>moranplotmap()</code> draws a moran plot, used to detect spatial
+autocorrelation in the variable var. On the x-axis, is represented <i>x-bar(x)</i>
+and on the y-axis <i>W(x-bar(x))</i>, where W is the spatial weight matrix.
+It also calcultes Moran's I statistic (see <code>nonnormoran</code>) and
+give a p-value associated to the autocorrelation test (gaussian version and permutation version). </p>
+
+
+<h3>Usage</h3>
+
+<pre>
+moranplotmap(sp.obj, name.var, listw.obj, flower=FALSE, locmoran=FALSE,
+names.arg=c("H.-H.","L.-H.","L.-L.","H.-L."), names.attr=names(sp.obj), criteria=NULL,
+carte=NULL, identify=FALSE, cex.lab=0.8, pch=16, col="lightblue3",
+xlab="", ylab="", axes=FALSE, lablong="", lablat="")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>sp.obj</code></td>
+<td>
+<p>object of class extending Spatial-class</p>
+</td></tr>
+<tr valign="top"><td><code>name.var</code></td>
+<td>
+<p>a character; attribute name or column number in attribute table</p>
+</td></tr>
+<tr valign="top"><td><code>listw.obj</code></td>
+<td>
+<p>object of class listw</p>
+</td></tr>
+<tr valign="top"><td><code>flower</code></td>
+<td>
+<p>if TRUE, link neighbouring sites </p>
+</td></tr>
+<tr valign="top"><td><code>locmoran</code></td>
+<td>
+<p>if TRUE, print local Moran's I statistic on the Moran plot</p>
+</td></tr>
+<tr valign="top"><td><code>names.arg</code></td>
+<td>
+<p>names of the quadrant of the Moran plot</p>
+</td></tr>
+<tr valign="top"><td><code>names.attr</code></td>
+<td>
+<p>names to use in panel (if different from the names of variable used in sp.obj)</p>
+</td></tr>
+<tr valign="top"><td><code>criteria</code></td>
+<td>
+<p>a vector of boolean of size the number of spatial units, which permit to represent preselected sites with a cross, using the tcltk window</p>
+</td></tr>
+<tr valign="top"><td><code>carte</code></td>
+<td>
+<p>matrix with 2 columns for drawing spatial polygonal contours : x and y coordinates of the vertices of the polygon</p>
+</td></tr>
+<tr valign="top"><td><code>identify</code></td>
+<td>
+<p>if not FALSE, identify plotted objects (currently only working for points plots). Labels for identification are the row.names of the attribute table row.names(as.data.frame(sp.obj)).</p>
+</td></tr>
+<tr valign="top"><td><code>cex.lab</code></td>
+<td>
+<p>character size of label</p>
+</td></tr>
+<tr valign="top"><td><code>pch</code></td>
+<td>
+<p>16 by default, symbol for selected points</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>&quot;lightblue3&quot; by default, color of bars on the histogram</p>
+</td></tr>
+<tr valign="top"><td><code>xlab</code></td>
+<td>
+<p>a title for the graphic x-axis</p>
+</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+<p>a title for the graphic y-axis</p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+<p>a boolean with TRUE for drawing axes on the map</p>
+</td></tr>
+<tr valign="top"><td><code>lablong</code></td>
+<td>
+<p>name of the x-axis that will be printed on the map</p>
+</td></tr>
+<tr valign="top"><td><code>lablat</code></td>
+<td>
+<p>name of the y-axis that will be printed on the map</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>For the permutation test, for each drawing the values of the variable <code>var</code> are
+randomly assigned to the sites. We then calculate Moran'I statistic associated to each drawing and we give the frequency of drawings when Moran'I statistic is lower or equal to the
+observed Moran'I statistic. Moreover, the function gives the opportunity to link neighbouring sites and gives Local Moran's I statistic.
+For a site i:
+</p>
+<p style="text-align: center;"><i>I_i=(x_i-bar(x))sum_jW_ij(x_j-bar(x))</i></p>
+
+<p>with j not equal to i.</p>
+
+
+<h3>Value</h3>
+
+<p>In the case where user click on <code>save results</code> button,
+a list is created as a global variable in <code>last.select</code> object. \$obs, a vector of integer,
+corresponds to the number of spatial units selected just before leaving the Tk window, \$MORAN,
+a numeric, corresponds to the value of the Moran'I statistic.
+</p>
+
+
+<h3>Note</h3>
+
+<p>In the case of the spatial weigth matrix is not normalized, the Moran'I statistic is not
+equal to <i>beta</i> used in regression line for model <i>W(X-bar(X))=beta(X-bar(X))+u</i>. That is why
+the regression line is only drawn in the case of W normalized.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Aragon Y., Thomas-Agnan C., Ruiz-Gazen A., Laurent T., Robidou L.</p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23. <br /> <br />
+</p>
+<p>Roger S.Bivand, Edzer J.Pebesma, Virgilio Gomez-Rubio (2009),  <em>Applied Spatial Data Analysis with R</em>, Springer. <br /> <br />
+</p>
+<p>Jim Lesage, &ldquo;Spatial Econometrics Toolbox&rdquo;, <a href="http://www.spatial-econometrics.com/">http://www.spatial-econometrics.com/</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="neighbourmap.html">neighbourmap</a></code>,<code><a href="makeneighborsw.html">makeneighborsw</a></code>,<code><a href="normw.html">normw</a></code>,<code><a href="nonormmoran.html">nonormmoran</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##
+# data baltimore
+data(baltimore)
+
+# SpatialPoints
+baltimore.sp &lt;- SpatialPoints(cbind(baltimore$X,baltimore$Y))
+# SpatialPointsDataFrame
+baltimore.spdf&lt;-SpatialPointsDataFrame(baltimore.sp,baltimore)
+
+# Spatial Weight Matrix
+W.nb &lt;- knn2nb(knearneigh(baltimore.sp, k=4))
+# We choose a row standardized spatial weight matrix :
+W.listw &lt;- nb2listw(W.nb,style="W")
+
+
+# moranplotmap with some options
+moranplotmap(baltimore.spdf, "PRICE", W.listw ,
+flower=TRUE, locmoran=TRUE,criteria=(baltimore.spdf$AC==1),
+identify=TRUE)
+
+# comparison with the moran.test function
+moran.test(baltimore.spdf$PRICE,W.listw)
+ 
+##
+# data columbus
+require("maptools")
+example(columbus)
+
+# use of moranplotmap with spatial weight matrix col.gal.nb :
+# 1. row-standardized
+moranplotmap(columbus,"HOVAL",nb2listw(col.gal.nb,style="W"))
+
+# 2. basic binary
+moranplotmap(columbus,"HOVAL",nb2listw(col.gal.nb,style="B"))
+
+# 3. globally standardized
+moranplotmap(columbus,"HOVAL",nb2listw(col.gal.nb,style="C"))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

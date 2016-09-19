@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Find point pairs with equal spatial coordinates from STFDF...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rm.dupl {meteo}"><tr><td>rm.dupl {meteo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Find point pairs with equal spatial coordinates from <a href="../../spacetime/html/STFDF.html">STFDF</a> object.
+</h2>
+
+<h3>Description</h3>
+
+ 
+<p>This function finds point pairs with equal spatial coordinates from <a href="../../spacetime/html/STFDF.html">STFDF</a> object and remove locations with less observations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>rm.dupl(obj, zcol = 1, zero.tol = 0)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+ <p><a href="../../spacetime/html/STFDF.html">STFDF</a> object</p>
+</td></tr>
+<tr valign="top"><td><code>zcol</code></td>
+<td>
+<p> variable column name, or column number, from obj@data </p>
+</td></tr>
+<tr valign="top"><td><code>zero.tol</code></td>
+<td>
+<p>distance values less than or equal to this threshold value are considered as duplicates; units are those of the coordinates for projected data or unknown projection, or km if coordinates are defined to be longitute/latitude</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+ <p><a href="../../spacetime/html/STFDF.html">STFDF</a> object with removed duplicate locations. Stations with less observation is removed, if number of observation is the same for two stations the first is removed.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Milan Kilibarda <a href="mailto:kili@grf.bg.ac.rs">kili@grf.bg.ac.rs</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="tgeom2STFDF.html">tgeom2STFDF</a></code>
+<code><a href="pred.strk.html">pred.strk</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load observation - data frame
+data(dtempc) 
+# load stations - data frame
+data(stations)
+
+str(dtempc)
+str(stations)
+# create STFDF
+temp &lt;- meteo2STFDF(dtempc,stations) # create STFDF from 2 data frames
+
+nrow(temp@sp) # number of stations before removing dupl.
+
+temp2 &lt;-rm.dupl(temp)
+nrow(temp2@sp) # number of stations after
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>meteo</em> version 0.1-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

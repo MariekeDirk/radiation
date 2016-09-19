@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Monitoring of Lynx</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lynxjura {adehabitat}"><tr><td>lynxjura {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Monitoring of Lynx</h2>
+
+<h3>Description</h3>
+
+<p>This data set stores the results of the monitoring of lynx in the
+French Jura between 1980 and 1999.  These data have been collected by
+the Lynx Network of the french wildlife management office (Office
+national de la chasse et de la faune sauvage).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(lynxjura)</pre>
+
+
+<h3>Format</h3>
+
+<p>The list <code>lynxjura</code> has two components:
+</p>
+
+<ul>
+<li><p><code>map</code>an object of class <code>kasc</code> (see
+<code>help(kasc)</code>) that describes several variables on the study
+area:  <code>forets</code> is the density of forests, <code>hydro</code> is the
+density of rivers, <code>routes</code> is the density of roads and
+<code>artif</code> is the distance from urbanized areas.
+</p>
+</li>
+<li><p><code>locs</code>a data frame containing the locations of presence
+indices of the lynx.  <code>X</code> and <code>Y</code> are the x and y
+coordinates, <code>Date</code> is the date of the collection of the 
+indice and <code>Type</code> represents the type of data (<code>C</code>: alive
+lynx captured, <code>D</code>: attacks on livestock, <code>E</code>: prints or
+tracks, <code>F</code>: feces, <code>J</code>: hairs, <code>L</code>: corpse of lynx,
+<code>O</code>: sightings and <code>P</code>: attacks on wild prey).
+</p>
+</li></ul>
+
+
+
+<h3>Source</h3>
+
+<p>Vandel, J.M. (2001) <em>Repartition du Lynx (Lynx lynx) en France (Massif
+Alpin, Jurassien et Vosgien). Methodologie d'etude et statut
+actuel</em>. Ecole Pratique des Haute Etudes de Montpellier II:
+Dissertation.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

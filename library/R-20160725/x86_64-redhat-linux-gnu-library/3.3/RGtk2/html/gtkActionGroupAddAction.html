@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkActionGroupAddAction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkActionGroupAddAction {RGtk2}"><tr><td>gtkActionGroupAddAction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkActionGroupAddAction</h2>
+
+<h3>Description</h3>
+
+<p>Adds an action object to the action group. Note that this function
+does not set up the accel path of the action, which can lead to problems
+if a user tries to modify the accelerator of a menuitem associated with
+the action. Therefore you must either set the accel path yourself with
+<code><a href="gtkActionSetAccelPath.html">gtkActionSetAccelPath</a></code>, or use 
+<code>gtk_action_group_add_action_with_accel (..., NULL)</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkActionGroupAddAction(object, action)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the action group</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">action</code></code></td>
+<td>
+<p>an action</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.4</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Add Depth Brackets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for addBracket {aqp}"><tr><td>addBracket {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Add Depth Brackets</h2>
+
+<h3>Description</h3>
+
+<p>Add depth-wise brackets to an existing plot of a SoilProfileCollection object.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+addBracket(top, bottom=NULL, idx=NULL, label=NULL, label.cex=0.75,
+tick.length = 0.05, arrow.length = 0.05, offset = -0.3, 
+missing.bottom.depth = 25, 
+...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>top</code></td>
+<td>
+<p>numeric vector of bracket top depths</p>
+</td></tr>
+<tr valign="top"><td><code>bottom</code></td>
+<td>
+<p>numeric vector of bracket bottom depths</p>
+</td></tr>
+<tr valign="top"><td><code>idx</code></td>
+<td>
+<p>optional integer index, associating bracket with profile</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>optional vector of labels for brackets</p>
+</td></tr>
+<tr valign="top"><td><code>label.cex</code></td>
+<td>
+<p>scaling factor for label font</p>
+</td></tr>
+<tr valign="top"><td><code>tick.length</code></td>
+<td>
+<p>length of bracket &quot;tick&quot; mark</p>
+</td></tr>
+<tr valign="top"><td><code>arrow.length</code></td>
+<td>
+<p>length of arrowhead</p>
+</td></tr>
+<tr valign="top"><td><code>offset</code></td>
+<td>
+<p>numeric, length of left-hand offset from each profile</p>
+</td></tr>
+<tr valign="top"><td><code>missing.bottom.depth</code></td>
+<td>
+<p>distance (in depth units) to extend brackets that are missing a lower depth</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed on to <code>segments</code> or <code>arrows</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The optional argument <code>idx</code> can be used to manually specify which profile a given bracket will be associated with. When <code>idx</code> is NULL, an integer sequence associated with plotting order (via <code>plotSPC</code>) is used. See examples below.</p>
+
+
+<h3>Note</h3>
+
+<p>This is a 'low-level' plotting function: you must first plot a <code>SoilProfileCollection</code> object before using this function.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="SPC-plotting.html">plotSPC</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# sample data
+data(sp1)
+
+# add color vector
+sp1$soil_color &lt;- with(sp1, munsell2rgb(hue, value, chroma))
+
+# promote to SoilProfileCollection
+depths(sp1) &lt;- id ~ top + bottom
+
+# plot profiles
+plot(sp1)
+
+# extract top/bottom depths associated with all A horizons
+f &lt;- function(i) {
+  h &lt;- horizons(i)
+  idx &lt;- grep('^A', h$name)
+  c(min(h$top[idx]), max(h$bottom[idx], na.rm=TRUE))
+}
+
+# apply function to sp1, result is a list
+a &lt;- profileApply(sp1, f, simplify=FALSE)
+# convert list into matrix
+a &lt;- do.call('rbind', a)
+
+# plot
+plot(sp1)
+# annotate with brackets
+# note that plotting order is derived from the call to `plot(sp1)`
+addBracket(a[, 1], a[, 2], col='red')
+
+# more interesting example using diagnostic horizons
+if(require(soilDB)) {
+  # load some sample data with diagnostic horizons
+  data(loafercreek)
+  
+  # extract first 15 profiles
+  x &lt;- loafercreek[1:15, ]
+  s &lt;- site(x)
+
+  # plot
+  par(mar=c(0,0,0,0))
+  plot(x, name='hzname', id.style='top')
+  
+  # add brackets describing the argillic horizon
+  addDiagnosticBracket(x, 'argillic horizon', col='red')
+  # add brackets describing paralithic contact
+  addDiagnosticBracket(x, 'paralithic contact', col='blue')
+}
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

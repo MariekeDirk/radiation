@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculate the appropriate sun elevation angle for known...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getElevation {GeoLight}"><tr><td>getElevation {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Calculate the appropriate sun elevation angle for known location</h2>
+
+<h3>Description</h3>
+
+<p>Function to calculate the median sun elevation angle for light measurements at a
+known location and the choosen light threshold.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+getElevation(tFirst, tSecond, type, twl, known.coord, plot = TRUE,
+  lnorm.pars = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tFirst</code></td>
+<td>
+<p>vector of sunrise/sunset times (e.g. 2008-12-01 08:30).</p>
+</td></tr>
+<tr valign="top"><td><code>tSecond</code></td>
+<td>
+<p>vector of of sunrise/sunset times (e.g. 2008-12-01 17:30).</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>vector of either 1 or 2, defining <code>tFirst</code> as sunrise or sunset respectively.</p>
+</td></tr>
+<tr valign="top"><td><code>twl</code></td>
+<td>
+<p>data.frame containing twilights and at least <code>tFirst</code>, <code>tSecond</code> and <code>type</code> (alternatively give each parameter separately).</p>
+</td></tr>
+<tr valign="top"><td><code>known.coord</code></td>
+<td>
+<p>a <code>SpatialPoint</code> or <code>matrix</code> object, containing
+known x and y coordinates (in that order) for the selected measurement
+period.</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p><code>logical</code>, if TRUE a plot will be produced.</p>
+</td></tr>
+<tr valign="top"><td><code>lnorm.pars</code></td>
+<td>
+<p><code>logical</code>, if TRUE shape and scale parameters of the twilight error (log-normal distribution)
+will be estimated and included in the output (see Details).</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Optionally, shape and scale paramters of the twiligth error (in minutes) can be estimated. The error is assumed
+to follow a log-normal distribution and 0 (elev0) is set 0.1 below the minimum sun elevation angle of estimated twilight times.
+Those parameters might be of interest for sensitivity analysis or further processing using the R Package SGAT (https://github.com/SWotherspoon/SGAT).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Simeon Lisovski
+</p>
+
+
+<h3>References</h3>
+
+<p>Lisovski, S., Hewson, C.M, Klaassen, R.H.G., Korner-Nievergelt,
+F., Kristensen, M.W &amp; Hahn, S. (2012) Geolocation by light: Accuracy and
+precision affected by environmental factors. <em>Methods in Ecology and
+Evolution</em>, DOI: 10.1111/j.2041-210X.2012.00185.x.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(calib2)
+  calib2$tFirst  &lt;- as.POSIXct(calib2$tFirst, tz = "GMT")
+  calib2$tSecond &lt;- as.POSIXct(calib2$tSecond, tz = "GMT")
+getElevation(calib2, known.coord = c(7.1,46.3), lnorm.pars = TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

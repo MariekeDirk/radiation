@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Soybean Database</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Soybean {mlbench}"><tr><td>Soybean {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Soybean Database</h2>
+
+<h3>Description</h3>
+
+<p>There are 19 classes, only the first 15 of which have been used in prior
+work.  The folklore seems to be that the last four classes are
+unjustified by the data since they have so few examples.
+There are 35 categorical attributes, some nominal and some ordered.  The
+value &ldquo;dna&rdquo; means does not apply.  The values for attributes are
+encoded numerically, with the first value encoded as &ldquo;0,&rdquo; the second as
+&ldquo;1,&rdquo; and so forth. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(Soybean)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 683 observations on 36 variables. There are 35
+categorical attributes, all numerical and a nominal denoting the
+class.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: center;">
+	[,1] </td><td style="text-align: left;"> Class </td><td style="text-align: left;"> the 19 classes</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+	[,2] </td><td style="text-align: left;"> date </td><td style="text-align: left;">
+	apr(0),may(1),june(2),july(3),aug(4),sept(5),oct(6).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+	[,3] </td><td style="text-align: left;"> plant.stand </td><td style="text-align: left;"> normal(0),lt-normal(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,4] </td><td style="text-align: left;"> precip </td><td style="text-align: left;"> lt-norm(0),norm(1),gt-norm(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,5] </td><td style="text-align: left;"> temp </td><td style="text-align: left;"> lt-norm(0),norm(1),gt-norm(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,6] </td><td style="text-align: left;"> hail </td><td style="text-align: left;"> yes(0),no(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,7] </td><td style="text-align: left;"> crop.hist </td><td style="text-align: left;"> dif-lst-yr(0),s-l-y(1),s-l-2-y(2),
+	s-l-7-y(3).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,8] </td><td style="text-align: left;"> area.dam </td><td style="text-align: left;">
+	scatter(0),low-area(1),upper-ar(2),whole-field(3).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,9] </td><td style="text-align: left;"> sever </td><td style="text-align: left;"> minor(0),pot-severe(1),severe(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+    	[,10] </td><td style="text-align: left;"> seed.tmt </td><td style="text-align: left;"> none(0),fungicide(1),other(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,11] </td><td style="text-align: left;"> germ </td><td style="text-align: left;"> 90-100%(0),80-89%(1),lt-80%(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,12] </td><td style="text-align: left;"> plant.growth </td><td style="text-align: left;"> norm(0),abnorm(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,13] </td><td style="text-align: left;"> leaves </td><td style="text-align: left;"> norm(0),abnorm(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,14] </td><td style="text-align: left;"> leaf.halo </td><td style="text-align: left;">
+	absent(0),yellow-halos(1),no-yellow-halos(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,15] </td><td style="text-align: left;"> leaf.marg </td><td style="text-align: left;"> w-s-marg(0),no-w-s-marg(1),dna(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,16] </td><td style="text-align: left;"> leaf.size </td><td style="text-align: left;"> lt-1/8(0),gt-1/8(1),dna(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,17] </td><td style="text-align: left;"> leaf.shread </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,18] </td><td style="text-align: left;"> leaf.malf </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,19] </td><td style="text-align: left;"> leaf.mild </td><td style="text-align: left;"> absent(0),upper-surf(1),lower-surf(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,20] </td><td style="text-align: left;"> stem </td><td style="text-align: left;"> norm(0),abnorm(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,21] </td><td style="text-align: left;"> lodging </td><td style="text-align: left;">	yes(0),no(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,22] </td><td style="text-align: left;"> stem.cankers </td><td style="text-align: left;">
+	absent(0),below-soil(1),above-s(2),ab-sec-nde(3).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,23] </td><td style="text-align: left;"> canker.lesion </td><td style="text-align: left;"> dna(0),brown(1),dk-brown-blk(2),tan(3).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,24] </td><td style="text-align: left;"> fruiting.bodies </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,25] </td><td style="text-align: left;"> ext.decay </td><td style="text-align: left;"> absent(0),firm-and-dry(1),watery(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,26] </td><td style="text-align: left;"> mycelium </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,27] </td><td style="text-align: left;"> int.discolor </td><td style="text-align: left;"> none(0),brown(1),black(2).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,28] </td><td style="text-align: left;"> sclerotia </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,29] </td><td style="text-align: left;"> fruit.pods </td><td style="text-align: left;"> norm(0),diseased(1),few-present(2),dna(3).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,30] </td><td style="text-align: left;"> fruit.spots </td><td style="text-align: left;">
+	absent(0),col(1),br-w/blk-speck(2),distort(3),dna(4).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,31] </td><td style="text-align: left;"> seed </td><td style="text-align: left;"> norm(0),abnorm(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,32] </td><td style="text-align: left;"> mold.growth </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,33] </td><td style="text-align: left;"> seed.discolor </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,34] </td><td style="text-align: left;"> seed.size </td><td style="text-align: left;"> norm(0),lt-norm(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,35] </td><td style="text-align: left;"> shriveling </td><td style="text-align: left;"> absent(0),present(1).</td>
+</tr>
+<tr>
+ <td style="text-align: center;">
+   	[,36] </td><td style="text-align: left;"> roots </td><td style="text-align: left;"> norm(0),rotted(1),galls-cysts(2).
+
+</td>
+</tr>
+
+</table>
+
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Source: R.S. Michalski and R.L. Chilausky &quot;Learning by
+Being Told and Learning from Examples: An Experimental
+Comparison of the Two Methods of Knowledge Acquisition in the
+Context of Developing an Expert System for Soybean Disease
+Diagnosis&quot;, International Journal of Policy Analysis and
+Information Systems, Vol. 4, No. 2, 1980.
+</p>
+</li>
+<li><p> Donor: Ming Tan &amp; Jeff Schlimmer (Jeff.Schlimmer%cs.cmu.edu)
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Evgenia Dimitriadou.
+</p>
+
+
+<h3>References</h3>
+
+<p>Tan, M., &amp; Eshelman, L. (1988). Using weighted networks to represent
+classification knowledge in noisy domains.  Proceedings of the Fifth
+International Conference on Machine Learning (pp. 121-134). Ann Arbor,
+Michigan: Morgan Kaufmann.
+&ndash; IWN recorded a 97.1% classification accuracy 
+&ndash; 290 training and 340 test instances
+</p>
+<p>Fisher,D.H. &amp; Schlimmer,J.C. (1988). Concept Simplification and
+Predictive Accuracy. Proceedings of the Fifth
+International Conference on Machine Learning (pp. 22-28). Ann Arbor,
+Michigan: Morgan Kaufmann.
+&ndash; Notes why this database is highly predictable
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.    
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(Soybean)
+summary(Soybean)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

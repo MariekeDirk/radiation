@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWindowSetTransientFor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWindowSetTransientFor {RGtk2}"><tr><td>gtkWindowSetTransientFor {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWindowSetTransientFor</h2>
+
+<h3>Description</h3>
+
+<p>Dialog windows should be set transient for the main application
+window they were spawned from. This allows window managers to e.g. keep the
+dialog on top of the main window, or center the dialog over the
+main window. <code><a href="gtkDialogNewWithButtons.html">gtkDialogNewWithButtons</a></code> and other convenience
+functions in GTK+ will sometimes call
+<code><a href="gtkWindowSetTransientFor.html">gtkWindowSetTransientFor</a></code> on your behalf.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWindowSetTransientFor(object, parent = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWindow.html">GtkWindow</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">parent</code></code></td>
+<td>
+<p>parent window, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Passing <code>NULL</code> for <code>parent</code> unsets the current transient window.
+</p>
+<p>On Windows, this function puts the child window on top of the parent,
+much as the window manager would have done on X.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gInputStreamReadAll</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gInputStreamReadAll {RGtk2}"><tr><td>gInputStreamReadAll {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gInputStreamReadAll</h2>
+
+<h3>Description</h3>
+
+<p>Tries to read <code>count</code> bytes from the stream into the buffer starting at
+<code>buffer</code>. Will block during this read.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gInputStreamReadAll(object, count, cancellable = NULL, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GInputStream.html">GInputStream</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">count</code></code></td>
+<td>
+<p>the number of bytes that will be read from the stream</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">cancellable</code></code></td>
+<td>
+<p>optional <code><a href="GCancellable.html">GCancellable</a></code> object, <code>NULL</code> to ignore.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is similar to <code><a href="gInputStreamRead.html">gInputStreamRead</a></code>, except it tries to
+read as many bytes as requested, only stopping on an error or end of stream.
+</p>
+<p>On a successful read of <code>count</code> bytes, or if we reached the end of the
+stream,  <code>TRUE</code> is returned, and <code>bytes.read</code> is set to the number of bytes
+read into <code>buffer</code>.
+</p>
+<p>If there is an error during the operation <code>FALSE</code> is returned and <code>error</code>
+is set to indicate the error status, <code>bytes.read</code> is updated to contain
+the number of bytes read into <code>buffer</code> before the error occurred.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> on success, <code>FALSE</code> if there was an error</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">buffer</code></code></td>
+<td>
+<p>a buffer to read data into (which should be at least count bytes long).</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">bytes.read</code></code></td>
+<td>
+<p>location to store the number of bytes that was read from the stream</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>location to store the error occuring, or <code>NULL</code> to ignore</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

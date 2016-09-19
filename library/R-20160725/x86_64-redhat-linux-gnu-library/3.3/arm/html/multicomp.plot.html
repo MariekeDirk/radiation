@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Multiple Comparison Plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for multicomp.plot {arm}"><tr><td>multicomp.plot {arm}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Multiple Comparison Plot</h2>
+
+<h3>Description</h3>
+
+<p>Plots significant difference of simulated array.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+multicomp.plot(object, alpha = 0.05, main = "Multiple Comparison Plot",
+  label = NULL, shortlabel = NULL, show.pvalue = FALSE,
+  label.as.shortlabel = FALSE, label.on.which.axis = 3,
+  col.low = "lightsteelblue", col.same = "white", col.high = "lightslateblue",
+  vertical.line = TRUE, horizontal.line = FALSE,
+  vertical.line.lty = 1, horizontal.line.lty = 1, mar=c(3.5,3.5,3.5,3.5))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>Simulated array of coefficients, columns being different variables
+and rows being simulated result.</p>
+</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+<p>Level of significance to compare.</p>
+</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+<p>Main label.</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>Labels for simulated parameters.</p>
+</td></tr>
+<tr valign="top"><td><code>shortlabel</code></td>
+<td>
+<p>Short labels to put into the plot.</p>
+</td></tr>
+<tr valign="top"><td><code>show.pvalue</code></td>
+<td>
+<p>Default is FALSE, if set to TRUE replaces short label
+with Bayesian p value. </p>
+</td></tr>
+<tr valign="top"><td><code>label.as.shortlabel</code></td>
+<td>
+<p>Default is FALSE, if set to TRUE takes first 2 character
+of label and use it as short label.</p>
+</td></tr>
+<tr valign="top"><td><code>label.on.which.axis</code></td>
+<td>
+<p>default is the 3rd (top) axis.</p>
+</td></tr>
+<tr valign="top"><td><code>col.low</code></td>
+<td>
+<p>Color of significantly low coefficients.</p>
+</td></tr>
+<tr valign="top"><td><code>col.same</code></td>
+<td>
+<p>Color of not significant difference.</p>
+</td></tr>
+<tr valign="top"><td><code>col.high</code></td>
+<td>
+<p>Color of significantly high coefficients.</p>
+</td></tr>
+<tr valign="top"><td><code>vertical.line</code></td>
+<td>
+<p>Default is TRUE, if set to FALSE does not draw vertical line.</p>
+</td></tr>
+<tr valign="top"><td><code>horizontal.line</code></td>
+<td>
+<p>Default is FALSE, if set to TRUE draws horizontal line.</p>
+</td></tr>
+<tr valign="top"><td><code>vertical.line.lty</code></td>
+<td>
+<p>Line type of vertical line.</p>
+</td></tr>
+<tr valign="top"><td><code>horizontal.line.lty</code></td>
+<td>
+<p>Line type of horizontal line.</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>A numerical vector of the form <code>c(bottom, left, top, right)</code>
+which gives the number of lines of margin to be specified on
+the four sides of the plot. The default is <code>c(3.5,3.5,3.5,3.5)</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>pvalue</code></td>
+<td>
+<p>Array of Bayesian p value.</p>
+</td></tr>
+<tr valign="top"><td><code>significant</code></td>
+<td>
+<p>Array of significance.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Masanao Yajima <a href="mailto:yajima@stat.columbia.edu">yajima@stat.columbia.edu</a>,
+Andrew Gelman <a href="mailto:gelman@stat.columbia.edu">gelman@stat.columbia.edu</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Andrew Gelman and Jennifer Hill. (2006).
+<em>Data Analysis Using Regression and Multilevel/Hierarchical Models</em>.
+Cambridge University Press.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="coefplot.html">coefplot</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+old.par &lt;- par(no.readonly = TRUE)
+
+# example 1
+simulation.array &lt;- data.frame(coef1=rnorm(100,10,2), coef2=rnorm(100,5,2),
+                      coef3=rnorm(100,0,1), coef4=rnorm(100,-5,3),
+                      coef5=rnorm(100,-2,1))
+short.lab &lt;- c("c01", "c02", "c03", "c04", "c05")
+multicomp.plot(simulation.array[,1:4], label.as.shortlabel=TRUE)
+
+# wraper for multicomp.plot
+mcplot(simulation.array, shortlabel = short.lab)
+
+# example 2
+data(lalonde)
+M1 &lt;- lm(re78 ~ treat + re74 + re75 + age + educ + u74 + u75, data=lalonde)
+M1.sim &lt;- sim(M1)
+lm.sim &lt;- coef(M1.sim)[,-1]
+multicomp.plot(lm.sim, label.as.shortlabel=TRUE, label.on.which.axis=2)
+
+par(old.par)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>arm</em> version 1.9-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetGetToplevel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetGetToplevel {RGtk2}"><tr><td>gtkWidgetGetToplevel {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetGetToplevel</h2>
+
+<h3>Description</h3>
+
+<p>This function returns the topmost widget in the container hierarchy
+<code>widget</code> is a part of. If <code>widget</code> has no parent widgets, it will be
+returned as the topmost widget. No reference will be added to the
+returned widget; it should not be unreferenced.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetGetToplevel(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Note the difference in behavior vs. <code><a href="gtkWidgetGetAncestor.html">gtkWidgetGetAncestor</a></code>;
+<code>gtk_widget_get_ancestor (widget, GTK_TYPE_WINDOW)</code> 
+would return
+<code>NULL</code> if <code>widget</code> wasn't inside a toplevel window, and if the
+window was inside a <code style="white-space: pre;">GtkWindow-derived</code> widget which was in turn
+inside the toplevel <code><a href="GtkWindow.html">GtkWindow</a></code>. While the second case may
+seem unlikely, it actually happens when a <code><a href="GtkPlug.html">GtkPlug</a></code> is embedded
+inside a <code><a href="GtkSocket.html">GtkSocket</a></code> within the same application.
+</p>
+<p>To reliably find the toplevel <code><a href="GtkWindow.html">GtkWindow</a></code>, use
+<code><a href="gtkWidgetGetToplevel.html">gtkWidgetGetToplevel</a></code> and check if the <code>TOPLEVEL</code> flags
+is set on the result.
+</p>
+<pre>
+toplevel &lt;- widget$getToplevel()
+if (toplevel$flags() &amp; GtkWidgetFlags["toplevel"])
+{
+  # Perform action on toplevel.
+}
+</pre>
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] the topmost ancestor of <code>widget</code>, or <code>widget</code> itself
+if there's no ancestor. <em>[  <acronym><span class="acronym">transfer none</span></acronym>  ]</em></p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

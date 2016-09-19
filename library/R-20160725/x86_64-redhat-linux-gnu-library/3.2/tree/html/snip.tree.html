@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Snip Parts of Tree Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for snip.tree {tree}"><tr><td>snip.tree {tree}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Snip Parts of Tree Objects</h2>
+
+<h3>Description</h3>
+
+<p><code>snip.tree</code> has two related functions. If <code>nodes</code> is
+supplied, it removes those nodes and all their descendants from the
+tree.
+</p>
+<p>If <code>nodes</code> is not supplied, the user is invited to select nodes
+interactively; this makes sense only if the tree has already been
+plotted. A node is selected by clicking with the left mouse button;
+its number and the deviance of the current tree and that which would
+remain if that node were removed are printed. Selecting the same node
+again causes it to be removed (and the lines of its sub-tree erased).
+Clicking any other button terminates the selection process.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+snip.tree(tree, nodes, xy.save = FALSE,
+          digits = getOption("digits") - 3)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tree</code></td>
+<td>
+<p>An object of class <code>"tree"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nodes</code></td>
+<td>
+<p>An integer vector giving those nodes that are the roots of
+sub-trees to be snipped off. If missing, the user is invited to
+select a node at which to snip.</p>
+</td></tr>
+<tr valign="top"><td><code>xy.save</code></td>
+<td>
+<p>If true, the <code>x</code> and <code>y</code> coordinates selected
+interactively are saved as attribute <code>.xy</code> of the returned value.</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+<p>Precision used in printing statistics for selected nodes.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A tree object containing the nodes that remain after
+specified or selected subtrees have been snipped off.
+</p>
+
+
+<h3>Note</h3>
+
+<p>Prior to version 1.0-34, the saved coordinates were place in object
+<code>.xy</code> in the workspace.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>B. D. Ripley</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="tree.html">tree</a></code>, <code><a href="prune.tree.html">prune.tree</a></code>.</p>
+
+<hr /><div style="text-align: center;">[Package <em>tree</em> version 1.0-37 <a href="00Index.html">Index</a>]</div>
+</body></html>

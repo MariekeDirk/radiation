@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pango Interaction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Pango-Interaction {RGtk2}"><tr><td>gdk-Pango-Interaction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pango Interaction</h2>
+
+<h3>Description</h3>
+
+<p>Using Pango in GDK</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkPangoRendererNew.html">gdkPangoRendererNew</a>(screen)</code><br />
+<code><a href="gdkPangoRendererGetDefault.html">gdkPangoRendererGetDefault</a>(screen)</code><br />
+<code><a href="gdkPangoRendererSetDrawable.html">gdkPangoRendererSetDrawable</a>(object, drawable = NULL)</code><br />
+<code><a href="gdkPangoRendererSetGc.html">gdkPangoRendererSetGc</a>(object, gc = NULL)</code><br />
+<code><a href="gdkPangoRendererSetStipple.html">gdkPangoRendererSetStipple</a>(object, part, stipple)</code><br />
+<code><a href="gdkPangoRendererSetOverrideColor.html">gdkPangoRendererSetOverrideColor</a>(object, part, color = NULL)</code><br />
+<code><a href="gdkPangoContextGet.html">gdkPangoContextGet</a>()</code><br />
+<code><a href="gdkPangoContextGetForScreen.html">gdkPangoContextGetForScreen</a>(screen)</code><br />
+<code><a href="gdkPangoContextSetColormap.html">gdkPangoContextSetColormap</a>(context, colormap)</code><br />
+<code><a href="gdkPangoAttrEmbossColorNew.html">gdkPangoAttrEmbossColorNew</a>(color)</code><br />
+<code><a href="gdkPangoAttrEmbossedNew.html">gdkPangoAttrEmbossedNew</a>(embossed)</code><br />
+<code><a href="gdkPangoAttrStippleNew.html">gdkPangoAttrStippleNew</a>(stipple)</code><br />
+<code><a href="gdkPangoLayoutGetClipRegion.html">gdkPangoLayoutGetClipRegion</a>(layout, x.origin, index.ranges)</code><br />
+<code><a href="gdkPangoLayoutLineGetClipRegion.html">gdkPangoLayoutLineGetClipRegion</a>(line, x.origin, index.ranges)</code><br />
+<code>gdkPangoRenderer(screen)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----PangoRenderer
+         +----GdkPangoRenderer</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Pango is the text layout system used by GDK and GTK+. The functions
+and types in this section are used to render Pango objects to GDK.
+drawables, and also extend the set of Pango attributes to include
+stippling and embossing.
+</p>
+<p>Creating a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code> object is the first step in rendering text,
+and requires getting a handle to a <code><a href="pango-Text-Processing.html">PangoContext</a></code>. For GTK+ programs,
+you'll usually want to use <code><a href="gtkWidgetGetPangoContext.html">gtkWidgetGetPangoContext</a></code>, or
+<code><a href="gtkWidgetCreatePangoLayout.html">gtkWidgetCreatePangoLayout</a></code>, rather than using the lowlevel
+<code><a href="gdkPangoContextGetForScreen.html">gdkPangoContextGetForScreen</a></code>. Once you have a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code>, you
+can set the text and attributes of it with Pango functions like
+<code><a href="pangoLayoutSetText.html">pangoLayoutSetText</a></code> and get its size with <code><a href="pangoLayoutGetSize.html">pangoLayoutGetSize</a></code>.
+(Note that Pango uses a fixed point system internally, so converting
+between Pango units and pixels using PANGO_SCALE or the <code>pangoPixels()</code> function.)
+</p>
+<p>Rendering a Pango layout is done most simply with <code><a href="gdkDrawLayout.html">gdkDrawLayout</a></code>;
+you can also draw pieces of the layout with <code><a href="gdkDrawLayout.html">gdkDrawLayout</a></code> or
+<code><a href="gdkDrawGlyphs.html">gdkDrawGlyphs</a></code>. <code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code> is a subclass of <code><a href="PangoRenderer.html">PangoRenderer</a></code>
+that is used internally to implement these functions. Using it
+directly or subclassing it can be useful in some cases. See the
+<code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code> documentation for details.
+</p>
+<p><em>Using   <code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code>   to draw transformed text</em>
+</p>
+<pre>
+window &lt;- NULL
+
+RADIUS &lt;- 150
+N.WORDS &lt;- 10
+FONT &lt;- "Sans Bold 27"
+
+rotated.text.expose.event &lt;- function(widget, event, data)
+{
+
+  ## matrix describing font transformation, initialize to identity
+  matrix &lt;- pangoMatrixInit()
+  
+  width &lt;- widget[["allocation"]][["width"]]
+  height &lt;- widget[["allocation"]][["height"]]
+
+  ## Get the default renderer for the screen, and set it up for drawing
+  renderer &lt;- gdkPangoRendererGetDefault(widget$getScreen())
+  renderer$setDrawable(widget[["window"]])
+  renderer$setGc(widget[["style"]][["blackGc"]])
+
+  ## Set up a transformation matrix so that the user space coordinates for
+  ## the centered square where we draw are [-RADIUS, RADIUS], [-RADIUS, RADIUS]
+  ## We first center, then change the scale
+  device.radius &lt;- min(width, height) / 2.
+  matrix$translate(device.radius + (width - 2 * device.radius) / 2,
+                   device.radius + (height - 2 * device.radius) / 2)
+  matrix$scale(device.radius / RADIUS, device.radius / RADIUS)
+
+  ## Create a PangoLayout, set the font and text
+  context &lt;- widget$createPangoContext()
+  layout &lt;- pangoLayoutNew(context)
+  layout$setText("Text")
+  desc &lt;- pangoFontDescriptionFromString(FONT)
+  layout$setFontDescription(desc)
+
+  # Draw the layout N.WORDS times in a circle
+  for (i in 1:N.WORDS) {
+    rotated.matrix &lt;- matrix$copy()
+    angle &lt;- (360 * i) / N.WORDS
+    
+    color &lt;- list()
+    ## Gradient from red at angle 60 to blue at angle 300
+    color$red &lt;- 65535 * (1 + cos((angle - 60) * pi / 180)) / 2
+    color$green &lt;- 0
+    color$blue &lt;- 65535 - color$red
+    
+    renderer$setOverrideColor("foreground", color)
+    
+    rotated.matrix$rotate(angle)
+    
+    context$setMatrix(rotated.matrix)
+    
+    ## Inform Pango to re-layout the text with the new transformation matrix
+    layout$contextChanged()
+    
+    size &lt;- layout$getSize()
+    renderer$drawLayout(layout, - size$width / 2, - RADIUS * 1024)
+  }
+  
+  ## Clean up default renderer, since it is shared
+  renderer$setOverrideColor("foreground", NULL)
+  renderer$setDrawable(NULL)
+  renderer$setGc(NULL)
+
+  return(FALSE)
+}
+
+
+white &lt;- c( 0, "0xffff", "0xffff", "0xffff" )
+
+window &lt;- gtkWindowNew("toplevel")
+window$setTitle("Rotated Text")
+drawing.area &lt;- gtkDrawingAreaNew()
+window$add(drawing.area)
+
+# This overrides the background color from the theme
+drawing.area$modifyBg("normal", white)
+
+gSignalConnect(drawing.area, "expose-event", rotated.text.expose.event)
+
+window$setDefaultSize(2 * RADIUS, 2 * RADIUS)
+
+window$showAll()
+</pre>  
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkPangoRenderer</code></dt><dd>
+<p><code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code> is a subclass of <code><a href="PangoRenderer.html">PangoRenderer</a></code> used for rendering
+Pango objects into GDK drawables. The default renderer for a particular
+screen is obtained with <code><a href="gdkPangoRendererGetDefault.html">gdkPangoRendererGetDefault</a></code>; Pango
+functions like <code><a href="pangoRendererDrawLayout.html">pangoRendererDrawLayout</a></code> and
+<code><a href="pangoRendererDrawLayoutLine.html">pangoRendererDrawLayoutLine</a></code> are then used to draw objects with
+the renderer.
+</p>
+<p>In most simple cases, applications can just use <code><a href="gdkDrawLayout.html">gdkDrawLayout</a></code>, and
+don't need to directly use <code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code> at all. Using the
+<code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code> directly is most useful when working with a
+transformation such as a rotation, because the Pango drawing functions
+take user space coordinates (coordinates before the transformation)
+instead of device coordinates.
+</p>
+<p>In certain cases it can be useful to subclass <code><a href="gdk-Pango-Interaction.html">GdkPangoRenderer</a></code>. Examples
+of reasons to do this are to add handling of custom attributes by
+overriding 'prepare_run' or to do custom drawing of embedded objects
+by overriding 'draw_shape'.
+Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">GdkPangoAttrEmbossed</code></dt><dd>
+<p>A Pango text attribute containing a embossed bitmap to be used when
+rendering the text.
+</p>
+<dl>
+<dt><code style="white-space: pre;">embossed</code></dt><dd><p>[logical] the <code><a href="pango-Text-Attributes.html">PangoAttribute</a></code>.</p>
+</dd></dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkPangoAttrStipple</code></dt><dd>
+<p>A Pango text attribute containing a stipple bitmap to be used when
+rendering the text.
+</p>
+<dl>
+<dt><code style="white-space: pre;">stipple</code></dt><dd><p>[<code><a href="gdk-Bitmaps-and-Pixmaps.html">GdkBitmap</a></code>] the <code><a href="pango-Text-Attributes.html">PangoAttribute</a></code>.</p>
+</dd></dl>
+
+</dd>
+</dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gdkPangoRenderer</code> is the equivalent of <code><a href="gdkPangoRendererNew.html">gdkPangoRendererNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">screen</code> [<code><a href="GdkScreen.html">GdkScreen</a></code> : *            : Read / Write / Construct Only]</dt><dd>
+<p>the GdkScreen for the renderer.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Pango-Interaction.html">http://library.gnome.org/devel//gdk/gdk-Pango-Interaction.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

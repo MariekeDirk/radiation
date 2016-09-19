@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkIMContext</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkIMContext {RGtk2}"><tr><td>GtkIMContext {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkIMContext</h2>
+
+<h3>Description</h3>
+
+<p>Base class for input method contexts</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkIMContextSetClientWindow.html">gtkIMContextSetClientWindow</a>(object, window)</code><br />
+<code><a href="gtkIMContextGetPreeditString.html">gtkIMContextGetPreeditString</a>(object)</code><br />
+<code><a href="gtkIMContextFilterKeypress.html">gtkIMContextFilterKeypress</a>(object, event)</code><br />
+<code><a href="gtkIMContextFocusIn.html">gtkIMContextFocusIn</a>(object)</code><br />
+<code><a href="gtkIMContextFocusOut.html">gtkIMContextFocusOut</a>(object)</code><br />
+<code><a href="gtkIMContextReset.html">gtkIMContextReset</a>(object)</code><br />
+<code><a href="gtkIMContextSetCursorLocation.html">gtkIMContextSetCursorLocation</a>(object, area)</code><br />
+<code><a href="gtkIMContextSetUsePreedit.html">gtkIMContextSetUsePreedit</a>(object, use.preedit)</code><br />
+<code><a href="gtkIMContextSetSurrounding.html">gtkIMContextSetSurrounding</a>(object, text, cursor.index)</code><br />
+<code><a href="gtkIMContextGetSurrounding.html">gtkIMContextGetSurrounding</a>(object)</code><br />
+<code><a href="gtkIMContextDeleteSurrounding.html">gtkIMContextDeleteSurrounding</a>(object, offset, n.chars)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkIMContext
+         +----GtkIMContextSimple
+         +----GtkIMMulticontext</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkIMContext.html">GtkIMContext</a></code> defines the interface for GTK+ input methods. An input method
+is used by GTK+ text input widgets like <code><a href="GtkEntry.html">GtkEntry</a></code> to map from key events to
+Unicode character strings.
+</p>
+<p>The user may change the current input method via a context menu, unless the   
+<code style="white-space: pre;">"gtk-show-input-method-menu"</code> GtkSettings property is set to FALSE. 
+The default input method can be set programmatically via the 
+<code style="white-space: pre;">"gtk-im-module"</code> GtkSettings property. Alternatively, you may set 
+the GTK_IM_MODULE environment variable as documented in <code style="white-space: pre;">gtk-running</code>.
+</p>
+<p>The <code><a href="GtkEntry.html">GtkEntry</a></code> <code style="white-space: pre;">"im-module"</code> and <code><a href="GtkTextView.html">GtkTextView</a></code> <code style="white-space: pre;">"im-module"</code> 
+properties may also be used to set input methods for specific widget 
+instances. For instance, a certain entry widget might be expected to contain 
+certain characters which would be easier to input with a certain input 
+method.
+</p>
+<p>An input method may consume multiple key events in sequence and finally
+output the composed result. This is called preediting, and an input method
+may provide feedback about this process by displaying the intermediate
+composition states as preedit text. For instance, the default GTK+ input
+method implements the input of arbitrary Unicode code points by holding down
+the Control and Shift keys and then typing &quot;U&quot; followed by the hexadecimal
+digits of the code point.  When releasing the Control and Shift keys,
+preediting ends and the character is inserted as text. Ctrl+Shift+u20AC for
+example results in the € sign.
+</p>
+<p>Additional input methods can be made available for use by GTK+ widgets as
+loadable modules. An input method module is a small shared library which
+implements a subclass of <code><a href="GtkIMContext.html">GtkIMContext</a></code> or <code><a href="GtkIMContextSimple.html">GtkIMContextSimple</a></code> and exports
+these four functions:
+</p>
+<pre>void im_module_init(  GTypeModule   *module);
+</pre>
+<p>This function should register the <code><a href="GType.html">GType</a></code> of the <code><a href="GtkIMContext.html">GtkIMContext</a></code> subclass which
+implements the input method by means of <code>gTypeModuleRegisterType()</code>. Note
+that <code>gTypeRegisterStatic()</code> cannot be used as the type needs to be
+registered dynamically.
+</p>
+<pre>void im_module_exit(void);
+</pre>
+<p>Here goes any cleanup code your input method might require on module unload.
+</p>
+<pre>void im_module_list(const   GtkIMContextInfo   ***contexts, int *n_contexts)
+{
+  *contexts = info_list;
+  *n_contexts = G_N_ELEMENTS (info_list);
+}
+</pre>
+<p>This function returns the list of input methods provided by the module. The
+example implementation above shows a common solution and simply returns a
+pointer to statically defined list of <code style="white-space: pre;">GtkIMContextInfo</code> items for each
+provided input method.
+</p>
+<pre>GtkIMContext   * im_module_create(const   gchar   *context_id);
+</pre>
+<p>This function should return a pointer to a newly created instance of the
+<code><a href="GtkIMContext.html">GtkIMContext</a></code> subclass identified by <code>context.id</code>. The context ID is the same
+as specified in the <code style="white-space: pre;">GtkIMContextInfo</code> list returned by <code>imModuleList()</code>.
+</p>
+<p>After a new loadable input method module has been installed on the system,
+the configuration file &lsquo;<span class="file">gtk.immodules</span>&rsquo; needs to be
+regenerated by gtk-query-immodules-2.0,
+in order for the new input method to become available to GTK+ applications.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkIMContext</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>commit(context, str, user.data)</code></dt><dd>
+<p>The ::commit signal is emitted when a complete input sequence
+has been entered by the user. This can be a single character
+immediately after a key press or the final result of preediting.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>str</code></dt><dd><p>the completed character(s) entered by the user</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>delete-surrounding(context, offset, n.chars, user.data)</code></dt><dd>
+<p>The ::delete-surrounding signal is emitted when the input method
+needs to delete all or part of the context surrounding the cursor.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>offset</code></dt><dd><p>the character offset from the cursor position of the text
+to be deleted. A negative value indicates a position before
+the cursor.</p>
+</dd>
+<dt><code>n.chars</code></dt><dd><p>the number of characters to be deleted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal was handled.
+</p>
+</dd>
+<dt><code>preedit-changed(context, user.data)</code></dt><dd>
+<p>The ::preedit-changed signal is emitted whenever the preedit sequence
+currently being entered has changed.  It is also emitted at the end of
+a preedit sequence, in which case
+<code><a href="gtkIMContextGetPreeditString.html">gtkIMContextGetPreeditString</a></code> returns the empty string.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>preedit-end(context, user.data)</code></dt><dd>
+<p>The ::preedit-end signal is emitted when a preediting sequence
+has been completed or canceled.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>preedit-start(context, user.data)</code></dt><dd>
+<p>The ::preedit-start signal is emitted when a new preediting sequence
+starts.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>retrieve-surrounding(context, user.data)</code></dt><dd>
+<p>The ::retrieve-surrounding signal is emitted when the input method
+requires the context surrounding the cursor.  The callback should set
+the input method surrounding context by calling the
+<code><a href="gtkIMContextSetSurrounding.html">gtkIMContextSetSurrounding</a></code> method.
+</p>
+
+<dl>
+<dt><code>context</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal was handled.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkIMContext.html">http://library.gnome.org/devel//gtk/GtkIMContext.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

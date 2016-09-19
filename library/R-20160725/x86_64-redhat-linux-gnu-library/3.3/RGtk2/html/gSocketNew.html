@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gSocketNew</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gSocketNew {RGtk2}"><tr><td>gSocketNew {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gSocketNew</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new <code><a href="GSocket.html">GSocket</a></code> with the defined family, type and protocol.
+If <code>protocol</code> is 0 (<code>G_SOCKET_PROTOCOL_DEFAULT</code>) the default protocol type
+for the family and type is used.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gSocketNew(family, type, protocol, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">family</code></code></td>
+<td>
+<p>the socket family to use, e.g. <code>G_SOCKET_FAMILY_IPV4</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>the socket type to use.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">protocol</code></code></td>
+<td>
+<p>the id of the protocol to use, or 0 for default.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The <code>protocol</code> is a family and type specific int that specifies what
+kind of protocol to use. <code><a href="GSocket.html">GSocketProtocol</a></code> lists several common ones.
+Many families only support one protocol, and use 0 for this, others
+support several and using 0 means to use the default protocol for
+the family and type.
+</p>
+<p>The protocol id is passed directly to the operating
+system, so you can use protocols not listed in <code><a href="GSocket.html">GSocketProtocol</a></code> if you
+know the protocol number used for it.
+Since 2.22</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="GSocket.html">GSocket</a></code>] a <code><a href="GSocket.html">GSocket</a></code> or <code>NULL</code> on error.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p><code><a href="GError.html">GError</a></code> for error reporting, or <code>NULL</code> to ignore.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

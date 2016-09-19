@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GIOStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GIOStream {RGtk2}"><tr><td>GIOStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GIOStream</h2>
+
+<h3>Description</h3>
+
+<p>Base class for implementing read/write streams</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gIOStreamGetInputStream.html">gIOStreamGetInputStream</a>(object)</code><br />
+<code><a href="gIOStreamGetOutputStream.html">gIOStreamGetOutputStream</a>(object)</code><br />
+<code><a href="gIOStreamClose.html">gIOStreamClose</a>(object, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gIOStreamCloseAsync.html">gIOStreamCloseAsync</a>(object, io.priority, cancellable = NULL, callback, user.data = NULL)</code><br />
+<code><a href="gIOStreamCloseFinish.html">gIOStreamCloseFinish</a>(object, result, .errwarn = TRUE)</code><br />
+<code><a href="gIOStreamIsClosed.html">gIOStreamIsClosed</a>(object)</code><br />
+<code><a href="gIOStreamHasPending.html">gIOStreamHasPending</a>(object)</code><br />
+<code><a href="gIOStreamSetPending.html">gIOStreamSetPending</a>(object, .errwarn = TRUE)</code><br />
+<code><a href="gIOStreamClearPending.html">gIOStreamClearPending</a>(object)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GIOStream
+         +----GFileIOStream
+         +----GSocketConnection</pre>
+
+<h3>Detailed Description</h3>
+
+<p>GIOStream represents an object that has both read and write streams.
+Generally the two streams acts as separate input and output streams,
+but they share some common resources and state. For instance, for
+seekable streams they may use the same position in both streams.
+</p>
+<p>Examples of <code><a href="GIOStream.html">GIOStream</a></code> objects are <code><a href="GSocketConnection.html">GSocketConnection</a></code> which represents
+a two-way network connection, and <code><a href="GFileIOStream.html">GFileIOStream</a></code> which represent a
+file handle opened in read-write mode.
+</p>
+<p>To do the actual reading and writing you need to get the substreams
+with <code><a href="gIOStreamGetInputStream.html">gIOStreamGetInputStream</a></code> and <code><a href="gIOStreamGetOutputStream.html">gIOStreamGetOutputStream</a></code>.
+</p>
+<p>The <code><a href="GIOStream.html">GIOStream</a></code> object owns the input and the output streams, not the other
+way around, so keeping the substreams alive will not keep the <code><a href="GIOStream.html">GIOStream</a></code>
+object alive. If the <code><a href="GIOStream.html">GIOStream</a></code> object is freed it will be closed, thus
+closing the substream, so even if the substreams stay alive they will
+always just return a <code>G_IO_ERROR_CLOSED</code> for all operations.
+</p>
+<p>To close a stream use <code><a href="gIOStreamClose.html">gIOStreamClose</a></code> which will close the common
+stream object and also the individual substreams. You can also close
+the substreams themselves. In most cases this only marks the
+substream as closed, so further I/O on it fails. However, some streams
+may support &quot;half-closed&quot; states where one direction of the stream
+is actually shut down.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GIOStream</code></dt><dd>
+<p>Base class for read-write streams.
+</p>
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">closed</code> [logical : Read / Write]</dt><dd>
+<p>Is the stream closed.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">input-stream</code> [<code><a href="GInputStream.html">GInputStream</a></code> : *         : Read]</dt><dd>
+<p>The GInputStream to read from.
+</p>
+</dd>
+<dt><code style="white-space: pre;">output-stream</code> [<code><a href="GOutputStream.html">GOutputStream</a></code> : *        : Read]</dt><dd>
+<p>The GOutputStream to write to.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GIOStream.html">http://library.gnome.org/devel//gio/GIOStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

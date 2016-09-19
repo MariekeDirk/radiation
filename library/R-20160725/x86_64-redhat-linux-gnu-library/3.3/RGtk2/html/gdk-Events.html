@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Events</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-Events {RGtk2}"><tr><td>gdk-Events {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Events</h2>
+
+<h3>Description</h3>
+
+<p>Functions for handling events from the window system</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkEventsPending.html">gdkEventsPending</a>()</code><br />
+<code><a href="gdkEventPeek.html">gdkEventPeek</a>()</code><br />
+<code><a href="gdkEventGet.html">gdkEventGet</a>()</code><br />
+<code><a href="gdkEventGetGraphicsExpose.html">gdkEventGetGraphicsExpose</a>(window)</code><br />
+<code><a href="gdkEventPut.html">gdkEventPut</a>(object)</code><br />
+<code><a href="gdkEventNew.html">gdkEventNew</a>(type)</code><br />
+<code><a href="gdkEventCopy.html">gdkEventCopy</a>(object)</code><br />
+<code><a href="gdkEventGetTime.html">gdkEventGetTime</a>(object)</code><br />
+<code><a href="gdkEventGetState.html">gdkEventGetState</a>(object)</code><br />
+<code><a href="gdkEventGetAxis.html">gdkEventGetAxis</a>(object, axis.use)</code><br />
+<code><a href="gdkEventGetCoords.html">gdkEventGetCoords</a>(object)</code><br />
+<code><a href="gdkEventGetRootCoords.html">gdkEventGetRootCoords</a>(object)</code><br />
+<code><a href="gdkEventRequestMotions.html">gdkEventRequestMotions</a>(event)</code><br />
+<code><a href="gdkEventHandlerSet.html">gdkEventHandlerSet</a>(func, data)</code><br />
+<code><a href="gdkAddClientMessageFilter.html">gdkAddClientMessageFilter</a>(message.type, func, data)</code><br />
+<code><a href="gdkGetShowEvents.html">gdkGetShowEvents</a>()</code><br />
+<code><a href="gdkSetShowEvents.html">gdkSetShowEvents</a>(show.events)</code><br />
+<code><a href="gdkEventSetScreen.html">gdkEventSetScreen</a>(object, screen)</code><br />
+<code><a href="gdkEventGetScreen.html">gdkEventGetScreen</a>(object)</code><br />
+<code><a href="gdkSettingGet.html">gdkSettingGet</a>(name)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>This section describes functions dealing with events from the window system.
+</p>
+<p>In GTK+ applications the events are handled automatically in
+<code><a href="gtkMainDoEvent.html">gtkMainDoEvent</a></code> and passed on to the appropriate widgets, so these
+functions are rarely needed. Though some of the fields in the
+Event Structures are useful.</p>
+
+
+<h3>Enums and Flags</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GdkEventType</code></dt><dd>
+<p>Specifies the type of the event.
+</p>
+<p>Do not confuse these events with the signals that GTK+ widgets emit.
+Although many of these events result in corresponding signals being emitted,
+the events are often transformed or filtered along the way.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">nothing</code></dt><dd><p>a special code to indicate a null event.</p>
+</dd>
+<dt><code style="white-space: pre;">delete</code></dt><dd><p>the window manager has requested that the toplevel window be
+hidden or destroyed, usually when the user clicks on a special icon in the
+title bar.</p>
+</dd>
+<dt><code style="white-space: pre;">destroy</code></dt><dd><p>the window has been destroyed.</p>
+</dd>
+<dt><code style="white-space: pre;">expose</code></dt><dd><p>all or part of the window has become visible and needs to be
+redrawn.</p>
+</dd>
+<dt><code style="white-space: pre;">motion-notify</code></dt><dd><p>the pointer (usually a mouse) has moved.</p>
+</dd>
+<dt><code style="white-space: pre;">button-press</code></dt><dd><p>a mouse button has been pressed.</p>
+</dd>
+<dt><code style="white-space: pre;">2button-press</code></dt><dd><p>a mouse button has been double-clicked (clicked twice
+within a short period of time). Note that each click also generates a
+<code>GDK_BUTTON_PRESS</code> event.</p>
+</dd>
+<dt><code style="white-space: pre;">3button-press</code></dt><dd><p>a mouse button has been clicked 3 times in a short period
+of time. Note that each click also generates a <code>GDK_BUTTON_PRESS</code> event.</p>
+</dd>
+<dt><code style="white-space: pre;">button-release</code></dt><dd><p>a mouse button has been released.</p>
+</dd>
+<dt><code style="white-space: pre;">key-press</code></dt><dd><p>a key has been pressed.</p>
+</dd>
+<dt><code style="white-space: pre;">key-release</code></dt><dd><p>a key has been released.</p>
+</dd>
+<dt><code style="white-space: pre;">enter-notify</code></dt><dd><p>the pointer has entered the window.</p>
+</dd>
+<dt><code style="white-space: pre;">leave-notify</code></dt><dd><p>the pointer has left the window.</p>
+</dd>
+<dt><code style="white-space: pre;">focus-change</code></dt><dd><p>the keyboard focus has entered or left the window.</p>
+</dd>
+<dt><code style="white-space: pre;">configure</code></dt><dd><p>the size, position or stacking order of the window has changed.
+Note that GTK+ discards these events for <code>GDK_WINDOW_CHILD</code> windows.</p>
+</dd>
+<dt><code style="white-space: pre;">map</code></dt><dd><p>the window has been mapped.</p>
+</dd>
+<dt><code style="white-space: pre;">unmap</code></dt><dd><p>the window has been unmapped.</p>
+</dd>
+<dt><code style="white-space: pre;">property-notify</code></dt><dd><p>a property on the window has been changed or deleted.</p>
+</dd>
+<dt><code style="white-space: pre;">selection-clear</code></dt><dd><p>the application has lost ownership of a selection.</p>
+</dd>
+<dt><code style="white-space: pre;">selection-request</code></dt><dd><p>another application has requested a selection.</p>
+</dd>
+<dt><code style="white-space: pre;">selection-notify</code></dt><dd><p>a selection has been received.</p>
+</dd>
+<dt><code style="white-space: pre;">proximity-in</code></dt><dd><p>an input device has moved into contact with a sensing
+surface (e.g. a touchscreen or graphics tablet).</p>
+</dd>
+<dt><code style="white-space: pre;">proximity-out</code></dt><dd><p>an input device has moved out of contact with a sensing
+surface.</p>
+</dd>
+<dt><code style="white-space: pre;">drag-enter</code></dt><dd><p>the mouse has entered the window while a drag is in progress.</p>
+</dd>
+<dt><code style="white-space: pre;">drag-leave</code></dt><dd><p>the mouse has left the window while a drag is in progress.</p>
+</dd>
+<dt><code style="white-space: pre;">drag-motion</code></dt><dd><p>the mouse has moved in the window while a drag is in
+progress.</p>
+</dd>
+<dt><code style="white-space: pre;">drag-status</code></dt><dd><p>the status of the drag operation initiated by the window
+has changed.</p>
+</dd>
+<dt><code style="white-space: pre;">drop-start</code></dt><dd><p>a drop operation onto the window has started.</p>
+</dd>
+<dt><code style="white-space: pre;">drop-finished</code></dt><dd><p>the drop operation initiated by the window has completed.</p>
+</dd>
+<dt><code style="white-space: pre;">client-event</code></dt><dd><p>a message has been received from another application.</p>
+</dd>
+<dt><code style="white-space: pre;">visibility-notify</code></dt><dd><p>the window visibility status has changed.</p>
+</dd>
+<dt><code style="white-space: pre;">no-expose</code></dt><dd><p>indicates that the source region was completely available
+when parts of a drawable were copied. This is not very useful.</p>
+</dd>
+<dt><code style="white-space: pre;">scroll</code></dt><dd><p>the scroll wheel was turned</p>
+</dd>
+<dt><code style="white-space: pre;">window-state</code></dt><dd><p>the state of a window has changed. See <code><a href="gdk-Event-Structures.html">GdkWindowState</a></code>
+for the possible window states</p>
+</dd>
+<dt><code style="white-space: pre;">setting</code></dt><dd><p>a setting has been modified.</p>
+</dd>
+<dt><code style="white-space: pre;">owner-change</code></dt><dd><p>the owner of a selection has changed. This event type
+was added in 2.6</p>
+</dd>
+<dt><code style="white-space: pre;">grab-broken</code></dt><dd><p>a pointer or keyboard grab was broken. This event type
+was added in 2.8.</p>
+</dd>
+<dt><code style="white-space: pre;">gdk-damage</code></dt><dd><p>the content of the window has been changed. This event type
+was added in 2.14.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GdkEventMask</code></dt><dd>
+<p>A set of bit-flags to indicate which events a window is to receive.
+Most of these masks map onto one or more of the <code><a href="gdk-Events.html">GdkEventType</a></code> event types
+above.
+<code>GDK_POINTER_MOTION_HINT_MASK</code> is a special mask which is used to reduce the
+number of <code>GDK_MOTION_NOTIFY</code> events received. Normally a <code>GDK_MOTION_NOTIFY</code>
+event is received each time the mouse moves. However, if the application
+spends a lot of time processing the event (updating the display, for example),
+it can lag behind the position of the mouse. When using
+<code>GDK_POINTER_MOTION_HINT_MASK</code>, fewer <code>GDK_MOTION_NOTIFY</code> events will be sent,
+some of which are marked as a hint (the is_hint member is <code>TRUE</code>).
+To receive more motion events after a motion hint event, the application
+needs to asks for more, by calling <code><a href="gdkEventRequestMotions.html">gdkEventRequestMotions</a></code>.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">exposure-mask</code></dt><dd><p>receive expose events</p>
+</dd>
+<dt><code style="white-space: pre;">pointer-motion-mask</code></dt><dd><p>receive all pointer motion events</p>
+</dd>
+<dt><code style="white-space: pre;">pointer-motion-hint-mask</code></dt><dd><p>see the explanation above</p>
+</dd>
+<dt><code style="white-space: pre;">button-motion-mask</code></dt><dd><p>receive pointer motion events while any button is pressed</p>
+</dd>
+<dt><code style="white-space: pre;">button1-motion-mask</code></dt><dd><p>receive pointer motion events while 1 button is pressed</p>
+</dd>
+<dt><code style="white-space: pre;">button2-motion-mask</code></dt><dd><p>receive pointer motion events while 2 button is pressed</p>
+</dd>
+<dt><code style="white-space: pre;">button3-motion-mask</code></dt><dd><p>receive pointer motion events while 3 button is pressed</p>
+</dd>
+<dt><code style="white-space: pre;">button-press-mask</code></dt><dd><p>receive button press events</p>
+</dd>
+<dt><code style="white-space: pre;">button-release-mask</code></dt><dd><p>receive button release events</p>
+</dd>
+<dt><code style="white-space: pre;">key-press-mask</code></dt><dd><p>receive key press events</p>
+</dd>
+<dt><code style="white-space: pre;">key-release-mask</code></dt><dd><p>receive key release events</p>
+</dd>
+<dt><code style="white-space: pre;">enter-notify-mask</code></dt><dd><p>receive window enter events</p>
+</dd>
+<dt><code style="white-space: pre;">leave-notify-mask</code></dt><dd><p>receive window leave events</p>
+</dd>
+<dt><code style="white-space: pre;">focus-change-mask</code></dt><dd><p>receive focus change events</p>
+</dd>
+<dt><code style="white-space: pre;">structure-mask</code></dt><dd><p>receive events about window configuration change</p>
+</dd>
+<dt><code style="white-space: pre;">property-change-mask</code></dt><dd><p>receive property change events</p>
+</dd>
+<dt><code style="white-space: pre;">visibility-notify-mask</code></dt><dd><p>receive visibility change events</p>
+</dd>
+<dt><code style="white-space: pre;">proximity-in-mask</code></dt><dd><p>receive proximity in events</p>
+</dd>
+<dt><code style="white-space: pre;">proximity-out-mask</code></dt><dd><p>receive proximity out events</p>
+</dd>
+<dt><code style="white-space: pre;">substructure-mask</code></dt><dd><p>receive events about window configuration changes of 
+child windows</p>
+</dd>
+<dt><code style="white-space: pre;">scroll-mask</code></dt><dd><p>receive scroll events</p>
+</dd>
+<dt><code style="white-space: pre;">all-events-mask</code></dt><dd><p>the combination of all the above event masks.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GdkEventFunc(event, data)</code></dt><dd>
+<p>Specifies the type of function passed to <code><a href="gdkEventHandlerSet.html">gdkEventHandlerSet</a></code> to handle
+all GDK events.
+</p>
+
+<dl>
+<dt><code>event</code></dt><dd><p>the <code><a href="GdkEvent.html">GdkEvent</a></code> to process.</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data set when the event handler was installed with
+<code><a href="gdkEventHandlerSet.html">gdkEventHandlerSet</a></code>.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk/gdk-Events.html">http://library.gnome.org/devel//gdk/gdk-Events.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

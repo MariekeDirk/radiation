@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Letter Image Recognition Data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for LetterRecognition {mlbench}"><tr><td>LetterRecognition {mlbench}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Letter Image Recognition Data</h2>
+
+<h3>Description</h3>
+
+<p>The objective is to identify each of a large number of black-and-white
+rectangular pixel displays as one of the 26 capital letters in the English
+alphabet.  The character images were based on 20 different fonts and each
+letter within these 20 fonts was randomly distorted to produce a file of
+20,000 unique stimuli.  Each stimulus was converted into 16 primitive
+numerical attributes (statistical moments and edge counts) which were then
+scaled to fit into a range of integer values from 0 through 15.  We
+typically train on the first 16000 items and then use the resulting model
+to predict the letter category for the remaining 4000.  See the article
+cited below for more details.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(LetterRecognition)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 20,000 observations on 17 variables, the first
+is a factor with levels A-Z, the remaining 16 are numeric.
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: right;">
+ [,1] </td><td style="text-align: left;"> lettr </td><td style="text-align: left;">  capital letter</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,2] </td><td style="text-align: left;"> x.box </td><td style="text-align: left;">  horizontal position of box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,3] </td><td style="text-align: left;"> y.box </td><td style="text-align: left;">  vertical position of box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,4] </td><td style="text-align: left;"> width </td><td style="text-align: left;">  width of box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,5] </td><td style="text-align: left;"> high  </td><td style="text-align: left;">  height of box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,6] </td><td style="text-align: left;"> onpix </td><td style="text-align: left;">  total number of on pixels</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,7] </td><td style="text-align: left;"> x.bar </td><td style="text-align: left;">  mean x of on pixels in box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,8] </td><td style="text-align: left;"> y.bar </td><td style="text-align: left;">  mean y of on pixels in box</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+ [,9] </td><td style="text-align: left;"> x2bar </td><td style="text-align: left;">  mean x variance</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,10] </td><td style="text-align: left;"> y2bar </td><td style="text-align: left;">  mean y variance</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,11] </td><td style="text-align: left;"> xybar </td><td style="text-align: left;">  mean x y correlation</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,12] </td><td style="text-align: left;"> x2ybr </td><td style="text-align: left;">  mean of <i>x^2 y</i> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,13] </td><td style="text-align: left;"> xy2br </td><td style="text-align: left;">  mean of <i>x y^2</i> </td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,14] </td><td style="text-align: left;"> x.ege </td><td style="text-align: left;">  mean edge count left to right</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,15] </td><td style="text-align: left;"> xegvy </td><td style="text-align: left;">  correlation of x.ege with y</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,16] </td><td style="text-align: left;"> y.ege </td><td style="text-align: left;">  mean edge count bottom to top</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+[,17] </td><td style="text-align: left;"> yegvx </td><td style="text-align: left;">  correlation of y.ege with x</td>
+</tr>
+<tr>
+ <td style="text-align: right;">
+    </td>
+</tr>
+
+</table>
+
+
+
+<h3>Source</h3>
+
+
+<ul>
+<li><p> Creator: David J. Slate
+</p>
+</li>
+<li><p> Odesta Corporation; 1890 Maple Ave; Suite 115; Evanston, IL 60201
+</p>
+</li>
+<li><p> Donor: David J. Slate (dave@math.nwu.edu) (708) 491-3867   
+</p>
+</li></ul>
+
+<p>These data have been taken from the UCI Repository Of Machine Learning
+Databases at
+</p>
+
+<ul>
+<li> <p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a>
+</p>
+</li>
+<li> <p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>
+</p>
+</li></ul>
+
+<p>and were converted to R format by Friedrich Leisch.
+</p>
+
+
+<h3>References</h3>
+
+<p>P. W. Frey and D. J. Slate (Machine Learning Vol 6/2 March 91):
+&quot;Letter Recognition Using Holland-style Adaptive Classifiers&quot;.
+</p>
+<p>The research for this article investigated the ability of several
+variations of Holland-style adaptive classifier systems to learn to
+correctly guess the letter categories associated with vectors of 16
+integer attributes extracted from raster scan images of the letters.
+The best accuracy obtained was a little over 80%.  It would be
+interesting to see how well other methods do with the same data.
+</p>
+<p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998).
+UCI Repository of machine learning databases
+[http://www.ics.uci.edu/~mlearn/MLRepository.html]. Irvine, CA:
+University of California, Department of Information and Computer
+Science.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(LetterRecognition)
+summary(LetterRecognition)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>mlbench</em> version 2.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

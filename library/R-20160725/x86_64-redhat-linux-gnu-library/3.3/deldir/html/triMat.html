@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Produce matrix of triangle vertex indices.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for triMat {deldir}"><tr><td>triMat {deldir}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Produce matrix of triangle vertex indices.
+</h2>
+
+<h3>Description</h3>
+
+<p>Lists the indices of the vertices of each Delaunay triangle in
+the triangulation of a planar point set.  The indices are listed
+(in increasing numeric order) as the rows of an <i>n x 3</i>
+matrix where <i>n</i> is the number of Delaunay triangles in the
+triangulation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+triMat(object)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An object of class <code>deldir</code> (as produced by the funtion
+<code><a href="deldir.html">deldir</a>()</code>) specifying the Delaunay triangulation
+and Dirichlet (Voronoi) tesselation of a planar point set.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function was suggested by Robin Hankin of the School of
+Mathematical and Computing Sciences at Auckland University of
+Technology.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An <i>n x 3</i> matrix where <i>n</i> is the number
+of Delaunay triangles in the triangulation specified by <code>object</code>.
+The <i>i-th</i> row consists of the indices (in the original
+list of points being triangulated) of vertices of the <i>i-th</i>
+Delaunay triangle.  The indices are listed in increasing numeric
+order in each row.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Rolf Turner
+<a href="mailto:r.turner@auckland.ac.nz">r.turner@auckland.ac.nz</a>
+
+</p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="deldir.html">deldir</a>()</code>
+<code><a href="triang.list.html">triang.list</a>()</code>
+<code><a href="plot.triang.list.html">plot.triang.list</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+set.seed(42)
+x    &lt;- runif(10)
+y    &lt;- runif(10)
+ddxy &lt;- deldir(x,y)
+M    &lt;- triMat(ddxy)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>deldir</em> version 0.1-12 <a href="00Index.html">Index</a>]</div>
+</body></html>

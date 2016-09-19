@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellRendererAccel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellRendererAccel {RGtk2}"><tr><td>GtkCellRendererAccel {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellRendererAccel</h2>
+
+<h3>Description</h3>
+
+<p>Renders a keyboard accelerator in a cell</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellRendererAccelNew.html">gtkCellRendererAccelNew</a>()</code><br />
+<code>gtkCellRendererAccel()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkCellRenderer
+                     +----GtkCellRendererText
+                           +----GtkCellRendererAccel</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkCellRendererAccel.html">GtkCellRendererAccel</a></code> displays a keyboard accelerator (i.e. a
+key combination like &lt;Control&gt;-a). If the cell renderer is editable, the
+accelerator can be changed by simply typing the new combination.
+</p>
+<p>The <code><a href="GtkCellRendererAccel.html">GtkCellRendererAccel</a></code> cell renderer was added in GTK+ 2.10.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellRendererAccel</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCellRendererAccel</code> is the equivalent of <code><a href="gtkCellRendererAccelNew.html">gtkCellRendererAccelNew</a></code>.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellRendererAccelMode</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">gtk</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+<dt><code style="white-space: pre;">other</code></dt><dd><p><em>undocumented
+</em></p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>accel-cleared(accel, path.string, user.data)</code></dt><dd>
+<p>Gets emitted when the user has removed the accelerator.
+Since 2.10
+</p>
+
+<dl>
+<dt><code>accel</code></dt><dd><p>the object reveiving the signal</p>
+</dd>
+<dt><code>path.string</code></dt><dd><p>the path identifying the row of the edited cell</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>accel-edited(accel, path.string, accel.key, accel.mods, hardware.keycode, user.data)</code></dt><dd>
+<p>Gets emitted when the user has selected a new accelerator.
+Since 2.10
+</p>
+
+<dl>
+<dt><code>accel</code></dt><dd><p>the object reveiving the signal</p>
+</dd>
+<dt><code>path.string</code></dt><dd><p>the path identifying the row of the edited cell</p>
+</dd>
+<dt><code>accel.key</code></dt><dd><p>the new accelerator keyval</p>
+</dd>
+<dt><code>accel.mods</code></dt><dd><p>the new acclerator modifier mask</p>
+</dd>
+<dt><code>hardware.keycode</code></dt><dd><p>the keycode of the new accelerator</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">accel-key</code> [numeric : Read / Write]</dt><dd>
+<p>The keyval of the accelerator.
+Allowed values: &lt;= G_MAXINT  Default value: 0  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">accel-mode</code> [<code><a href="GtkCellRendererAccel.html">GtkCellRendererAccelMode</a></code> : Read / Write]</dt><dd>
+<p>Determines if the edited accelerators are GTK+ accelerators. If
+they are, consumed modifiers are suppressed, only accelerators
+accepted by GTK+ are allowed, and the accelerators are rendered
+in the same way as they are in menus.
+Default value: GTK_CELL_RENDERER_ACCEL_MODE_GTK  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">accel-mods</code> [<code><a href="gdk-Windows.html">GdkModifierType</a></code> : Read / Write]</dt><dd>
+<p>The modifier mask of the accelerator.
+Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">keycode</code> [numeric : Read / Write]</dt><dd>
+<p>The hardware keycode of the accelerator. Note that the hardware keycode is
+only relevant if the key does not have a keyval. Normally, the keyboard
+configuration should assign keyvals to all keys.
+Allowed values: &lt;= G_MAXINT  Default value: 0  Since 2.10
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellRendererAccel.html">http://library.gnome.org/devel//gtk/GtkCellRendererAccel.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

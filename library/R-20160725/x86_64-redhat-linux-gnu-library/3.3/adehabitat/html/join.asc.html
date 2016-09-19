@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Finds the Value of Mapped Variables at some Specified...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for join.asc {adehabitat}"><tr><td>join.asc {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Finds the Value of Mapped Variables at some Specified Locations
+(Spatial Join)</h2>
+
+<h3>Description</h3>
+
+<p><code>join.asc</code> finds the value of a mapped variable at some specified
+locations.<br />
+<code>join.kasc</code> is the same function as <code>join.asc</code>, 
+with several maps.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ join.asc(pts, x) 
+ join.kasc(pts, w) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>asc</code></p>
+</td></tr>
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>an object of class <code>kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>a data frame with two columns containing the x and y
+coordinates of the points to be placed on the map</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>join.asc</code> returns a vector with length equals to the number of
+points in <code>pts</code>.<br />
+<code>join.kasc</code> returns a data frame with a number of columns equals 
+to the number of variables in the object of class <code>kasc</code>, and
+with each row corresponding to the rows of <code>pts</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.kasc.html">kasc</a></code> and <code><a href="import.asc.html">asc</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+x &lt;- puechabon$kasc
+
+## for each relocation, finds the values of the variables in x
+toto &lt;- join.kasc(pts = cbind(puechabon$locs$X, puechabon$locs$Y), x)
+toto[1:4,]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

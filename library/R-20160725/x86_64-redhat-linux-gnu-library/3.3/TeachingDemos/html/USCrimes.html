@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: US Crime Statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for USCrimes {TeachingDemos}"><tr><td>USCrimes {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+US Crime Statistics
+</h2>
+
+<h3>Description</h3>
+
+<p>This is a 3 dimensional Array of the US crime statistics downloaded
+from the &quot;Uniform Crime Reporting Statistics&quot; of the US government.
+It comprises the years 1960 through 2010 for all 50 states, Washington
+DC, and a total for the country.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(USCrimes)</pre>
+
+
+<h3>Format</h3>
+
+<p>The format is:
+num [1:52, 1:51, 1:19] 3266740 226167 1302161 1786272 15717204 ...
+- attr(*, &quot;dimnames&quot;)=List of 3
+..$ State: chr [1:52] &quot;Alabama&quot; &quot;Alaska&quot; &quot;Arizona&quot; &quot;Arkansas&quot; ...
+..$      : chr [1:51] &quot;1960&quot; &quot;1961&quot; &quot;1962&quot; &quot;1963&quot; ...
+..$      : chr [1:19] &quot;Population&quot; &quot;ViolentCrimeRate&quot; &quot;MurderRate&quot; &quot;RapeRate&quot; ...
+</p>
+
+
+<h3>Details</h3>
+
+<p>The first dimension is the state, the dimnames match the variable
+<code>state.name</code> with the exception of including &quot;District of Columbia&quot;
+in the 9th position (alphabetically) and &quot;United States-Total&quot; in
+position 45 (alphabetical).
+</p>
+<p>The second dimension is the year, ranging from 1960 to 2010.  If indexing
+by year, remember to put the year in quotes.
+</p>
+<p>The third dimension is the variable:
+</p>
+
+<dl>
+<dt>Population:</dt><dd><p>Total number of residents</p>
+</dd>
+<dt>ViolentCrimeRate:</dt><dd><p>The total of the violent crimes (Murder,
+Rape, Robbery, Assault) per 100,000 population</p>
+</dd>
+<dt>MurderRate:</dt><dd><p>The number of Murders and Nonnegligent
+Manslaughters per 100,000 population</p>
+</dd>
+<dt>RapeRate:</dt><dd><p>Forcible Rapes per 100,000 population</p>
+</dd>
+<dt>RobberyRate:</dt><dd><p>Robberies per 100,000 population</p>
+</dd>
+<dt>AssaultRate:</dt><dd><p>Aggravated Assults per 100,000</p>
+</dd>
+<dt>PropertyCrimeRate:</dt><dd><p>The total of the property crimes (Burglary,
+Theft, Vehicle Theft) per 100,000 population</p>
+</dd>
+<dt>BurglaryRate:</dt><dd><p>Burglaries per 100,000 population</p>
+</dd>
+<dt>TheftRate:</dt><dd><p>Larceny-Thefts per 100,000 population</p>
+</dd>
+<dt>VehicleTheftRate:</dt><dd><p>Motor Vehicle Thefts per 100,000 population</p>
+</dd>
+<dt>ViolentCrimeTotal:</dt><dd><p>The total of the violent crimes (Murder,
+Rape, Robbery, Assault</p>
+</dd>
+<dt>Murder:</dt><dd><p>The number of Murders and Nonnegligent
+Manslaughters</p>
+</dd>
+<dt>Rape:</dt><dd><p>Forcible Rapes</p>
+</dd>
+<dt>Robbery:</dt><dd><p>Robberies</p>
+</dd>
+<dt>Assault:</dt><dd><p>Aggravated Assults</p>
+</dd>
+<dt>PropertyCrimeTotal:</dt><dd><p>The total of the property crimes (Burglary,
+Theft, Vehicle Theft)</p>
+</dd>
+<dt>Burglary:</dt><dd><p>Burglaries</p>
+</dd>
+<dt>Theft:</dt><dd><p>Larceny-Thefts</p>
+</dd>
+<dt>VehicleTheft:</dt><dd><p>Motor Vehicle Thefts</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p><a href="http://www.ucrdatatool.gov/">http://www.ucrdatatool.gov/</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(USCrimes)
+## maybe str(USCrimes)
+
+# plot time series/sparkline for each state
+if(require(maptools)) {
+	data(state.vbm)
+	plot(state.vbm)
+
+	tmp.x &lt;- state.vbm$center_x
+	tmp.x &lt;- c( tmp.x[1:8], 147, tmp.x[9:43], 83, tmp.x[44:50] )
+	tmp.y &lt;- state.vbm$center_y
+	tmp.y &lt;- c( tmp.y[1:8], 45, tmp.y[9:43], -18, tmp.y[44:50] )
+	tmp.r &lt;- range( USCrimes[,,'ViolentCrimeRate'], na.rm=TRUE)
+	for(i in 1:52) {
+		subplot( plot(1960:2010, USCrimes[i,,'ViolentCrimeRate'],
+					ann=FALSE, bty='n', type='l', axes=FALSE),
+			tmp.x[i], tmp.y[i], size=c(0.2,0.2) )
+	}
+}
+
+
+## Gapminder style animation over time
+if( interactive() ) {
+x.r &lt;- range( USCrimes[-c(9,45),,'Population'], na.rm=TRUE )
+y.r &lt;- range( USCrimes[-c(9,45),,'PropertyCrimeRate'], na.rm=TRUE )
+
+tmpfun &lt;- function(Year=1960, ... ) {
+	y &lt;- as.character(Year)
+	plot( USCrimes[-c(9,45),y,'Population'],
+		 USCrimes[-c(9,45),y,'PropertyCrimeRate'],
+		type='n', xlab='log Population',
+		ylab='Property Crime Rate',
+		main=y, xlim=x.r, ylim=y.r, log='x' )
+	text( USCrimes[-c(9,45),y,'Population'],
+		 USCrimes[-c(9,45),y,'PropertyCrimeRate'],
+		state.abb, ... )
+}
+
+tmp.list &lt;- list( Year=list('animate', from=1960, to=2010, delay=250) )
+
+tmpcol &lt;- c('blue','darkgreen','red','purple')[state.region]
+tkexamp( tmpfun(col=tmpcol), tmp.list )
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

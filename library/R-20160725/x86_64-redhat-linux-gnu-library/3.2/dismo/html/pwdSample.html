@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pair-wise distance sampling</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pwdSample {dismo}"><tr><td>pwdSample {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pair-wise distance sampling</h2>
+
+<h3>Description</h3>
+
+<p>Select pairs of points from two sets (without replacement) that have a similar distance to their nearest point in another set of points. 
+</p>
+<p>For each point in &quot;<code>fixed</code>&quot;, a point is selected from &quot;<code>sample</code>&quot; that has a similar distance (as defined by <code>threshold</code>) to its nearest point in &quot;<code>reference</code>&quot; (note that these are likely to be different points in <code>reference</code>). The select point is either the nearest point <code>nearest=TRUE</code>, or a randomly select point <code>nearest=FALSE</code> that is within the threshold distance. If no point within the threshold distance is found in <code>sample</code>, the point in <code>fixed</code> is dropped.
+</p>
+<p>Hijmans (2012) proposed this sampling approach to remove 'spatial sorting bias' (<code><a href="ssb.html">ssb</a></code>) from evaluation data used in cross-validation of presence-only species distribution models. In that context, <code>fixed</code> are the testing-presence points, <code>sample</code> the testing-absence (or testing-background) points, and <code>reference</code> the training-presence points.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pwdSample(fixed, sample, reference, tr=0.33, nearest=TRUE, n=1, lonlat=TRUE, warn=TRUE) 
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fixed</code></td>
+<td>
+<p>two column matrix (x, y) or (longitude/latitude) or SpatialPoints object, for point locations for which a pair should be found in <code>sample</code> </p>
+</td></tr>
+<tr valign="top"><td><code>sample</code></td>
+<td>
+<p>as above for point locations from which to sample to make a pair with a point from <code>fixed</code></p>
+</td></tr>
+<tr valign="top"><td><code>reference</code></td>
+<td>
+<p>as above for reference point locations to which distances are computed</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>How many pairs do you want for each point in <code>fixed</code></p>
+</td></tr>
+<tr valign="top"><td><code>tr</code></td>
+<td>
+<p>Numeric, normally below 1. The threshold distance for a pair of points (one of <code>fixed</code> and one of <code>sample</code>) to their respective nearest points in <code>reference</code> to be considered a valid pair. The absolute difference in distance between the candidate point pairs in <code>fixed</code> and <code>reference</code> (dfr) and the distance between candidate point pairs in <code>sample</code> and <code>reference</code> (dsr) must be smaller than <code>tr</code> * dfr. I.e. if the dfr = 100 km, and tr = 0.1, dsr must be between &gt;90 and &lt;110 km to be considered a valid pair.</p>
+</td></tr>
+<tr valign="top"><td><code>nearest</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, the pair with the smallest difference in distance to their nearest <code>reference</code> point is selected. If <code>FALSE</code>, a random point from the valid pairs (with a difference in distance below the threshold defined by <code>tr</code>) is selected (generally leading to higher <code><a href="ssb.html">ssb</a>)</code></p>
+</td></tr>
+<tr valign="top"><td><code>lonlat</code></td>
+<td>
+<p> Logical. Use <code>TRUE</code> if the coordinates are spherical (in degrees), and use <code>FALSE</code> if they are planar </p>
+</td></tr>
+<tr valign="top"><td><code>warn</code></td>
+<td>
+<p> Logical. If <code>TRUE</code> a warning is given if <code>nrow(fixed) &lt; nrow(sample)</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A matrix of nrow(fixed) and ncol(n), that indicates, for each point (row) in <code>fixed</code> which point(s) in <code>sample</code> it is paired to; or <code>NA</code> if no suitable pair was available.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>References</h3>
+
+<p>Hijmans, R.J., 2012. Cross-validation of species distribution models: removing spatial sorting bias and calibration with a null-model. Ecology 93: 679-688
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="gridSample.html">gridSample</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ref &lt;- matrix(c(-54.5,-38.5, 2.5, -9.5, -45.5, 1.5, 9.5, 4.5, -10.5, -10.5), ncol=2)
+fix &lt;- matrix(c(-56.5, -30.5, -6.5, 14.5, -25.5, -48.5, 14.5, -2.5, 14.5,
+               -11.5, -17.5, -11.5), ncol=2)
+r &lt;- raster()
+extent(r) &lt;- c(-110, 110, -45, 45)
+r[] &lt;- 1
+set.seed(0)
+sam &lt;- randomPoints(r, n=50)
+
+par(mfrow=c(1,2))
+plot(sam, pch='x')
+points(ref, col='red', pch=18, cex=2)
+points(fix, col='blue', pch=20, cex=2)
+
+i &lt;- pwdSample(fix, sam, ref, lonlat=TRUE)
+i
+sfix &lt;- fix[!is.na(i), ]
+ssam &lt;- sam[i[!is.na(i)], ]
+ssam
+
+plot(sam, pch='x', cex=0)
+points(ssam, pch='x')
+points(ref, col='red', pch=18, cex=2)
+points(sfix, col='blue', pch=20, cex=2)
+
+# try to get 3 pairs for each point in 'fixed'
+pwdSample(fix, sam, ref, lonlat=TRUE, n=3)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

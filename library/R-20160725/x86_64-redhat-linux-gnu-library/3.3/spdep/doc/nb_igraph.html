@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Spatial weights objects as sparse matrices and graphs</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Spatial weights objects as sparse matrices and graphs}
+-->
+
+<h1>Spatial weights objects as sparse matrices and graphs</h1>
+
+<h1></h1>
+
+<h2>Introduction</h2>
+
+<h1></h1>
+
+<p>Since the <strong>spdep</strong> package was created, <em>spatial weights</em> objects have been constructed as lists with three components and a few attributes, in old-style class <code>listw</code> objects. The first component of a <code>listw</code> object is an <code>nb</code> object, a list of <code>n</code> integer vectors, with at least a character vector <code>region.id</code> attribute with <code>n</code> unique values (like the <code>row.names</code> of a <code>data.frame</code> object); <code>n</code> is the number of spatial entities. Component <code>i</code> of this list contains the integer identifiers of the neighbours of <code>i</code> as a sorted vector with no duplication and values in <code>1:n</code>; if <code>i</code> has no neighbours, the component is a vector of length <code>1</code> with value <code>0L</code>. The <code>nb</code> object may contain an attribute indicating whether it is symmetric or not, that is whether <code>i</code> is a neighbour of <code>j</code> implies that <code>j</code> is a neighbour of <code>i</code>. Some neighbour definitions are symmetric by construction, such as contiguities or distance thresholds, others are asymmetric, such as <code>k</code>-nearest neighbours. The <code>nb</code> object redundantly stores both <code>i</code>-<code>j</code> and <code>j</code>-<code>i</code> links.</p>
+
+<p>The second component of a <code>listw</code> object is a list of <code>n</code> numeric vectors, each of the same length as the corresponding non-zero vectors in the <code>nb</code>object. These give the values of the spatial weights for each <code>i</code>-<code>j</code> neighbour pair. It is often the case that while the neighbours are symmetric by construction, the weights are not, as for example when weights are <em>row-standardised</em> by dividing each row of input weights by the count of neighbours or cardinality of the neighbour set of <code>i</code>. In the <code>nb2listw</code>function, it is also possible to pass through general weights, such as inverse distances, shares of boundary lengths and so on.</p>
+
+<p>The third component of a <code>listw</code> object records the <code>style</code> of the weights as a character code, with <code>&quot;B&quot;</code> for binary weights taking values zero or one (only one is recorded), <code>&quot;W&quot;</code> for row-standardised weights, and so on. In order to subset <code>listw</code> objects, knowledge of the <code>style</code> may be necessary</p>
+
+<p>It is obvious that this is similar to the way in which sparse matrices are stored, either by row - like the <code>listw</code> object, or by column. The key insight is that storing zero values is unnecessary, as we only need to store the row and column locations of non-zero values. Early on, a Netlib library was used to provide limited support in <strong>spdep</strong> for sparse matrices, followed by functionality in <strong>SparseM</strong>, <strong>spam</strong>, and <strong>Matrix</strong>. </p>
+
+<h3><strong>spdep</strong> depends on <strong>Matrix</strong></h3>
+
+<p>Since <strong>Matrix</strong> is a recommended package, its functionality has increasingly been used over time, and it has become one of two packages on which <strong>spdep</strong> depends. This is reported on loading:</p>
+
+<pre><code class="r">library(spdep)
+</code></pre>
+
+<pre><code>## Loading required package: sp
+</code></pre>
+
+<pre><code>## Loading required package: Matrix
+</code></pre>
+
+<h3>Getting some data</h3>
+
+<p>The legacy Columbus OH data set has 49 spatial entities, polygons, defined as the boundaries of policing districts in the city. <strong>spdep</strong> suggests <strong>maptools</strong> for portability, but in regular applications, <strong>rgdal</strong> should be used, because it handles coordinate reference systems more gracefully. We see that the shapefile-based entity IDs are zero-based:</p>
+
+<pre><code class="r">library(maptools)
+</code></pre>
+
+<pre><code>## Checking rgeos availability: TRUE
+</code></pre>
+
+<pre><code class="r">columbus &lt;- readShapePoly(system.file(&quot;etc/shapes/columbus.shp&quot;, package=&quot;spdep&quot;)[1])
+row.names(columbus)[1:10]
+</code></pre>
+
+<pre><code>##  [1] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot; &quot;8&quot; &quot;9&quot;
+</code></pre>
+
+<h3>Finding contiguous neighbours and droppping links</h3>
+
+<p>Contiguous neighbours are often used for polygonal spatial entities, here with the <strong>poly2nb</strong> function defaulting to the <em>queen</em> criterion - entities are neighbours if they share a boundary point. We see that the entity IDs are copied across to the <code>nb</code> object:</p>
+
+<pre><code class="r">nb_q &lt;- poly2nb(columbus)
+nb_q
+</code></pre>
+
+<pre><code>## Neighbour list object:
+## Number of regions: 49 
+## Number of nonzero links: 236 
+## Percentage nonzero weights: 9.829238 
+## Average number of links: 4.816327
+</code></pre>
+
+<pre><code class="r">attr(nb_q, &quot;region.id&quot;)[1:10]
+</code></pre>
+
+<pre><code>##  [1] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot; &quot;8&quot; &quot;9&quot;
+</code></pre>
+
+<pre><code class="r">is.symmetric.nb(nb_q)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>In order to make the object more complicated, let us drop the neighbour links for the 21st entity (noting that the print method reports the ID of the entity with no neighbours, not its number in <code>1:n</code>), and plot the resulting map of neighbours:</p>
+
+<pre><code class="r">col2 &lt;- droplinks(nb_q, 21)
+nb_q[[21]]
+</code></pre>
+
+<pre><code>## [1] 24 30 34
+</code></pre>
+
+<pre><code class="r">col2[[21]]
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+<pre><code class="r">col2
+</code></pre>
+
+<pre><code>## Neighbour list object:
+## Number of regions: 49 
+## Number of nonzero links: 230 
+## Percentage nonzero weights: 9.579342 
+## Average number of links: 4.693878 
+## 1 region with no links:
+## 20
+</code></pre>
+
+<pre><code class="r">is.symmetric.nb(col2)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">coords &lt;- coordinates(columbus)
+plot(nb_q, coords, col=&quot;grey&quot;)
+plot(col2, coords, add=TRUE)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAACVBMVEUAAAC+vr7////xRzILAAAACXBIWXMAAAsSAAALEgHS3X78AAAXzUlEQVR4nO2djYKrKAyFGd//oXfvtFZ+kpAgVCY5Z+/OtIoI+QQSRCcdUEilpwsAPSOADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqADyqAF5SSX/P4rdl9pcOxfdxW7L5S9tOfvNZrgtL5z6W81muC0u8Q79VAXus1Qb/Y3drHbcXu6oXdr3n81uyeUvHLofzW7I6ulu7WPm4rdkeJ/OhLbis2rmJgd2sftxUbVhK/upHXeo2q8eO9GshrvQbVmsOrgbzWa0hk2O7UQk6rNSTaFk4t5LRaA+Jm6ZxayGm17OIN4dNEPmtll2AHnybyWSurxJsxPk3ks1ZGdYzg0kYuK2VT996rSxu5rJRJfQu4tJHLShmkWmrh0Uge62SQrvoejeSxTmppV1Z5NJLHOmmlr7tDKzmsUl/JuoDWoZUcVqmr30ejTBV3aCWHVerpxd1WcX9m8lejrl7dPMCH0+9zUcYm789M/mrUVxp4TsadndxVSKMPcj17d3ZyVyGlrkdldOzd2cldhZQqHprQsPdmKG/1UauseJ+9N0N5q49aTcU77L0Zylt91CKX0EvsnVnKWXUMYlbRs/CdWcpZdQwS1lNHeKLGWXUsElfWEux9mcpXbUzqra2t2fsyla/a2NSte3L8jgRftbFJtc4yY+/KVq4qY5R2xZ19Zv8PyFFV7FJX/rNWy4+5/NRkQJbKp9fiDTf2clORIRnJA7wX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" alt="plot of chunk unnamed-chunk-4"/></p>
+
+<h2>Using sparse matrices to represent spatial weights</h2>
+
+<h1></h1>
+
+<p>At present only <code>listw</code> objects can be coerced to objects of classes defined in <strong>Matrix</strong>. Because the <code>style</code> is lost on coercion, it may not be possible to reconstruct spatial weights as the sparse matrix representation does not preserve it. We will start with symmetric binary weights, first creating a spatial weights object, and signalling that one entity has no neighbours with the <code>zero.policy</code> argument (default false). The matrix and graph representations of no-neighbour entities are not obvious.</p>
+
+<pre><code class="r">nb_B &lt;- nb2listw(col2, style=&quot;B&quot;, zero.policy=TRUE)
+nb_B$style
+</code></pre>
+
+<pre><code>## [1] &quot;B&quot;
+</code></pre>
+
+<h3>Symmetric sparse matrices</h3>
+
+<p><strong>spdep</strong> provides coercion methods from <code>listw</code> to the <code>&quot;symmetricMatrix&quot;</code>, <code>&quot;RsparseMatrix&quot;</code> and <code>&quot;CsparseMatrix&quot;</code> classes defined in <strong>Matrix</strong>. The <code>&quot;RsparseMatrix&quot;</code> is the representation that is most similar to <code>listw</code>, as it is row-based, but it is used less frequently in operations on sparse matrices. The entity IDs are passed using sparse matrix row and column names at present. Here we believe that our <code>listw</code> object can be represented as a symmetric matrix, storing only a triangle rather than both <code>i</code>-<code>j</code> and <code>j</code>-<code>i</code> weights. The coercion method does check whether symmetry is present before proceeding:</p>
+
+<pre><code class="r">B &lt;- as(nb_B, &quot;symmetricMatrix&quot;)
+all(B == t(B))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">str(B)
+</code></pre>
+
+<pre><code>## Formal class &#39;dsTMatrix&#39; [package &quot;Matrix&quot;] with 7 slots
+##   ..@ i       : int [1:115] 0 0 1 1 2 2 3 3 4 4 ...
+##   ..@ j       : int [1:115] 1 2 2 3 3 4 4 7 5 7 ...
+##   ..@ Dim     : int [1:2] 49 49
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+##   .. ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+##   ..@ x       : num [1:115] 1 1 1 1 1 1 1 1 1 1 ...
+##   ..@ uplo    : chr &quot;U&quot;
+##   ..@ factors : list()
+</code></pre>
+
+<pre><code class="r">rownames(B)[1:10]
+</code></pre>
+
+<pre><code>##  [1] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot; &quot;8&quot; &quot;9&quot;
+</code></pre>
+
+<p>Let us now try to retreive the list of neighbours from the symmetric sparse matrix. At present, we have to coerce from one <strong>Matrix</strong> internal representation to another in order to get to the <code>&quot;dgCMatrix&quot;</code> format used inside <code>mat2listw</code>, so we coerce to <code>&quot;dgTMatrix&quot;</code> from <code>&quot;dsTMatrix&quot;</code>. The style is not retreived automatically, but is set to <code>&quot;M&quot;</code> to indicate conversion from a matrix. The neighbour links are retreived correctly, as are the IDs:</p>
+
+<pre><code class="r">nb_B1 &lt;- mat2listw(as(B, &quot;dgTMatrix&quot;))
+</code></pre>
+
+<pre><code>## Warning in sn2listw(df): 20 is not an origin
+</code></pre>
+
+<pre><code class="r">nb_B1$style
+</code></pre>
+
+<pre><code>## [1] &quot;M&quot;
+</code></pre>
+
+<pre><code class="r">all.equal(nb_B1$neighbours, col2, check.attributes=FALSE)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">all.equal(attr(nb_B1$neighbours, &quot;region.id&quot;), attr(nb_B$neighbours, &quot;region.id&quot;))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<h3>Log determinants (symmetric weights) used in spatial regression</h3>
+
+<p>An initial reason for implementing support for sparse weights matrices in <strong>spdep</strong> was to permit the calculation of the log determinant term in spatial regressions for larger data sets. Using the eigenvalue approach with for example <code>eigenw</code> is limited by the need to operate on dense matrices in memory to solve the eigenproblem:</p>
+
+<pre><code class="r">rho &lt;- 0.1
+sum(log(1 - rho * eigenw(nb_B)))
+</code></pre>
+
+<pre><code>## [1] -1.44787
+</code></pre>
+
+<p>When <code>n</code> is large, this may become impractical and/or time-consuming, but does permit the rapid calculation of values of the log determinant for differing values of the spatial coefficient \( \rho \). The <strong>Matrix</strong> package provides many <code>determinant</code> methods, here for a <code>&quot;dsCMatrix&quot;</code> resulting from subtracting a <code>&quot;dsCMatrix&quot;</code>, the product of a scalar and a <code>&quot;dsTMatrix&quot;</code>, from a <code>&quot;ddiMatrix&quot;</code>. The value of the log determinant follows, calling a sparse Cholesky decomposition internally for suitable input matrices.</p>
+
+<pre><code class="r">n &lt;- nrow(B)
+I &lt;- Diagonal(n)
+class(I - rho * B)
+</code></pre>
+
+<pre><code>## [1] &quot;dsCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;
+</code></pre>
+
+<pre><code class="r">c(determinant(I - rho * B, logarithm=TRUE)$modulus)
+</code></pre>
+
+<pre><code>## [1] -1.44787
+</code></pre>
+
+<p>The computation of a sparse Cholesky decomposition for each value of the spatial coefficient \( \rho \) may be avoided by updating a pre-computed object; this approach provides fast and accurate log determinants for larger (but not very large) data sets:</p>
+
+<pre><code class="r">nW &lt;- -B
+nChol &lt;- Cholesky(nW, Imult=8)
+n * log(rho) + (2 * c(determinant(update(nChol, nW, 1/rho))$modulus))
+</code></pre>
+
+<pre><code>## [1] -1.44787
+</code></pre>
+
+<h3>Asymmetric sparse matrices</h3>
+
+<p>The use of row-standardisation leads to asymmetry even if the underlying neighbours are symmetric, unless all entities have matching numbers of neighbours (for example a regular grid on a torus):</p>
+
+<pre><code class="r">nb_W &lt;- nb2listw(col2, style=&quot;W&quot;, zero.policy=TRUE)
+W &lt;- as(nb_W, &quot;CsparseMatrix&quot;)
+str(W)
+</code></pre>
+
+<pre><code>## Formal class &#39;dgCMatrix&#39; [package &quot;Matrix&quot;] with 6 slots
+##   ..@ i       : int [1:230] 1 2 0 2 3 0 1 3 4 1 ...
+##   ..@ p       : int [1:50] 0 2 5 9 13 21 23 27 33 41 ...
+##   ..@ Dim     : int [1:2] 49 49
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+##   .. ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+##   ..@ x       : num [1:230] 0.333 0.25 0.5 0.25 0.25 ...
+##   ..@ factors : list()
+</code></pre>
+
+<pre><code class="r">all(W == t(W))
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<p>The <code>lag</code> method for <code>listw</code> objects is often used to create spatially lagged values, and returns the same values as the vector given by the product of the sparse general matrix and an input numeric vector. Note that by setting <code>zero.policy</code> to <code>TRUE</code>, the spatial lag of entity 21, which has no neighbours, is zero by construction:</p>
+
+<pre><code class="r">set.seed(1)
+x &lt;- runif(n)
+r1 &lt;- as.numeric(W %*% x)
+r2 &lt;- lag(nb_W, x, zero.policy=TRUE)
+all.equal(r1, r2, check.attributes=FALSE)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">plot(x, r1, ylim=c(0,1))
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-12"/></p>
+
+<pre><code class="r">c(x[21], r1[21])
+</code></pre>
+
+<pre><code>## [1] 0.9347052 0.0000000
+</code></pre>
+
+<h3>Log determinants (asymmetric weights) used in spatial regression</h3>
+
+<p>Calculating the log determinant for asymmetric weights (here with symmetric neighbours and symmetry induced by non-constant numbers of neighbours) may be carried out using eigenvalues as before, but the result may be a complex vector (here it is not, as discussed below). The appropriate <code>determinant</code> method for <code>&quot;dgCMatrix&quot;</code> objects uses an LU decomposition internally: </p>
+
+<pre><code class="r">rho &lt;- 0.5
+sum(log(1 - rho * eigenw(nb_W)))
+</code></pre>
+
+<pre><code>## [1] -1.594376
+</code></pre>
+
+<pre><code class="r">class(I - rho * W)
+</code></pre>
+
+<pre><code>## [1] &quot;dgCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;
+</code></pre>
+
+<pre><code class="r">c(determinant(I - rho * W, logarithm=TRUE)$modulus)
+</code></pre>
+
+<pre><code>## [1] -1.594376
+</code></pre>
+
+<p>We can show the internal workings of the method as:</p>
+
+<pre><code class="r">LU &lt;- lu(I - rho * W)
+sum(log(abs(diag(slot(LU, &quot;U&quot;)))))
+</code></pre>
+
+<pre><code>## [1] -1.594376
+</code></pre>
+
+<h3>Log determinants: symmetric by similarity</h3>
+
+<p>The <code>nb2listw</code> function stores components that can be employed to transform the asymmetric weights matrix to symmetry by similarity, permitting the same log determinant to be computed using less costly numerical methods. The <code>&quot;W&quot;</code> style used the cardinalities of neighbour sets (row sums) to introduce row standardisation, and they are stored as an attribute:</p>
+
+<pre><code class="r">d &lt;- attr(nb_W$weights, &quot;comp&quot;)$d
+all.equal(d, card(col2))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>If we first restore the row-standarised matrix to its binary form (which must be symmetric), we can pre- and post-multiply by the square roots of the inverted neighbour counts, yielding a symmetric matrix with the appropriate properties:</p>
+
+<pre><code class="r">dW &lt;- Diagonal(n, d) %*% W
+all(dW == t(dW))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">isd &lt;- Diagonal(n, 1/sqrt(d))
+isd[21,21]
+</code></pre>
+
+<pre><code>## [1] Inf
+</code></pre>
+
+<pre><code class="r">Ws &lt;- as(isd %*% dW %*% isd, &quot;symmetricMatrix&quot;)
+rowSums(Ws)[21]
+</code></pre>
+
+<pre><code>## 20 
+##  0
+</code></pre>
+
+<pre><code class="r">class(Ws)
+</code></pre>
+
+<pre><code>## [1] &quot;dsCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;
+</code></pre>
+
+<pre><code class="r">c(determinant(I - rho * Ws, logarithm=TRUE)$modulus)
+</code></pre>
+
+<pre><code>## [1] -1.594376
+</code></pre>
+
+<p>As can be seen, the division by the square root of zero for entity 21 is not a problem as the row of <code>dW</code> is zero. The transformation by similarity permits the use of numerical methods for sparse symmetric matrices (and equivalently for eigenvalues and dense matrices). Note that this transformation is not available for intrinsically asymmetric neighbours, or for intrinsically asymmetric general weights.</p>
+
+<h3>Using <code>arpack</code> in <strong>igraph</strong> for finding some eigenvalues</h3>
+
+<p>In spatial regression, the domain of the spatial coefficient is given by the inverse of the maximum and minimum eigenvalues. When <code>n</code> is moderate, we have the eigenvalues anyway, so the interval for line search is available without extra effort. When <code>n</code> is somewhat larger, use may be made of the <code>arpack</code> function in <strong>igraph</strong>. The function is not stable and requires manual tuning, so its use is commented out here:</p>
+
+<pre><code class="r">1/range(eigenw(nb_B))
+</code></pre>
+
+<pre><code>## [1] -0.3212551  0.1638329
+</code></pre>
+
+<pre><code class="r">library(igraph)
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum
+</code></pre>
+
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union
+</code></pre>
+
+<pre><code class="r">f2 &lt;- function(x, extra=NULL) {as.vector(B %*% x)}
+1/arpack(f2, sym=TRUE, options=list(n=n, nev=1, ncv=8, which=&quot;LA&quot;, maxiter=200))$values
+</code></pre>
+
+<pre><code>## Note: method with signature &#39;Matrix#numLike&#39; chosen for function &#39;%*%&#39;,
+##  target signature &#39;dsTMatrix#numeric&#39;.
+##  &quot;TsparseMatrix#ANY&quot; would also be valid
+</code></pre>
+
+<pre><code>## Note: method with signature &#39;sparseMatrix#matrix&#39; chosen for function &#39;%*%&#39;,
+##  target signature &#39;dsTMatrix#matrix&#39;.
+##  &quot;TsparseMatrix#ANY&quot; would also be valid
+</code></pre>
+
+<pre><code>## [1] 0.1638329
+</code></pre>
+
+<pre><code class="r">1/arpack(f2, sym=TRUE, options=list(n=n, nev=1, ncv=8, which=&quot;SA&quot;, maxiter=200))$values
+</code></pre>
+
+<pre><code>## [1] -0.3212551
+</code></pre>
+
+<pre><code class="r">#1/arpack(f2, sym=TRUE, options=list(n=n, nev=2, ncv=8, which=&quot;BE&quot;, maxiter=200))$values
+# &quot;BE&quot; gives: At line 558 of file dsaup2.f: Fortran runtime error: 
+# Index &#39;9&#39; of dimension 1 of array &#39;bounds&#39; above upper bound of 8
+</code></pre>
+
+<p>In this case, the results are trivial with small <code>n</code> and a symmetric sparse matrix. It can be challenging to find the <code>maxiter=</code> cutoff for larger <code>n</code>; the <code>which=&quot;BE&quot;</code> argument takes both ends here.</p>
+
+<pre><code class="r">1/range(eigenw(nb_W))
+</code></pre>
+
+<pre><code>## [1] -1.544645  1.000000
+</code></pre>
+
+<pre><code class="r">f2 &lt;- function(x, extra=NULL) {as.vector(W %*% x)}
+1/arpack(f2, sym=FALSE, options=list(n=n, nev=1, ncv=8, which=&quot;LR&quot;, maxiter=200))$values
+</code></pre>
+
+<pre><code>## [1] 1+0i
+</code></pre>
+
+<pre><code class="r">1/arpack(f2, sym=FALSE, options=list(n=n, nev=1, ncv=8, which=&quot;SR&quot;, maxiter=200))$values
+</code></pre>
+
+<pre><code>## [1] -1.544645+0i
+</code></pre>
+
+<p>For asymmetric matrices, we need to go to each end separately, so finding the domain bounds can be hard. Using row-standardisation has the nice feature of setting the upper bound to unity, and there are graph methods for finding out whether the lower bound is <code>-1</code>.</p>
+
+<h2>Using <strong>igraph</strong> for spatial weights as graphs</h2>
+
+<h1></h1>
+
+<h3>Converting from symmetric adjacency matrix to graph</h3>
+
+<p>First we&#39;ll see how to get from sparse matrices to graphs. The mode of a symmetric matrix is <code>&quot;undirected&quot;</code> by definition:</p>
+
+<pre><code class="r">class(B)
+</code></pre>
+
+<pre><code>## [1] &quot;dsTMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;
+</code></pre>
+
+<pre><code class="r">object.size(B)
+</code></pre>
+
+<pre><code>## 9040 bytes
+</code></pre>
+
+<pre><code class="r">library(igraph)
+g1 &lt;- graph.adjacency(B, mode=&quot;undirected&quot;)
+class(g1)
+</code></pre>
+
+<pre><code>## [1] &quot;igraph&quot;
+</code></pre>
+
+<pre><code class="r">object.size(g1)
+</code></pre>
+
+<pre><code>## 8664 bytes
+</code></pre>
+
+<h3>Converting from graph to symmetric adjacency matrix</h3>
+
+<p>We can also convert this graph pack to the same matrix, but note that <code>get.adjacency</code> chooses a particular class of sparse matrix to be returned, so that the conversion process typically leads many matrices to fewer graph types, and back to fewer matrix types:</p>
+
+<pre><code class="r">B1 &lt;- get.adjacency(g1)
+class(B1)
+</code></pre>
+
+<pre><code>## [1] &quot;dgCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;
+</code></pre>
+
+<pre><code class="r">object.size(B1)
+</code></pre>
+
+<pre><code>## 9944 bytes
+</code></pre>
+
+<pre><code class="r">all.equal(B, as(as(B1, &quot;dgTMatrix&quot;), &quot;symmetricMatrix&quot;))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<h3>Graph components in <strong>spdep</strong></h3>
+
+<p>A simple example of using <strong>igraph</strong> to do the same as an existing <strong>spdep</strong> function is Nicholas Lewin-Koh&#39;s <code>n.comp.nb</code> from the early days of the package. It is useful to know whether an <code>nb</code> object is divided up into separate subgraphs, and which entities are members of which such subgraph.</p>
+
+<pre><code class="r">res &lt;- n.comp.nb(col2)
+table(res$comp.id)
+</code></pre>
+
+<pre><code>## 
+##  1  2  3 
+## 42  1  6
+</code></pre>
+
+<h3>Graph components in <strong>igraph</strong></h3>
+
+<p>The same result can be obtained using the <code>clusters</code> function in <strong>igraph</strong>:</p>
+
+<pre><code class="r">c1 &lt;- clusters(g1)
+c1$no == res$nc
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">all.equal(c1$membership, res$comp.id)
+</code></pre>
+
+<pre><code>## [1] &quot;names for target but not for current&quot;
+</code></pre>
+
+<pre><code class="r">all.equal(c1$csize, c(table(res$comp.id)), check.attributes=FALSE)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>The same holds for the row-standardised variant:</p>
+
+<pre><code class="r">W &lt;- as(nb2listw(col2, style=&quot;W&quot;, zero.policy=TRUE), &quot;CsparseMatrix&quot;)
+g1W &lt;- graph.adjacency(W, mode=&quot;directed&quot;, weighted=&quot;W&quot;)
+c1W &lt;- clusters(g1W)
+all.equal(c1W$membership, res$comp.id)
+</code></pre>
+
+<pre><code>## [1] &quot;names for target but not for current&quot;
+</code></pre>
+
+<h3>Shortest paths in weights matrices: <strong>igraph</strong></h3>
+
+<p>Finding shortest paths between spatial entities across a given graph is a way to express closeness. If the graph is connected, that is that it is possible to traverse the graph edges from any node to any other, the longest shortest path is then a useful measure. In <strong>igraph</strong>, the <code>is.connected</code> function tells us tells us that our graph is not connected, as we know from the figure above. The diameter measure is then the diameter of the largest component subgraph. Note that this generates an <code>n</code> x <code>n</code> matrix:</p>
+
+<pre><code class="r">is.connected(g1)
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">dg1 &lt;- diameter(g1)
+dg1
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">sp_mat &lt;- shortest.paths(g1)
+str(sp_mat)
+</code></pre>
+
+<pre><code>##  num [1:49, 1:49] 0 1 1 2 2 3 4 3 3 4 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+##   ..$ : chr [1:49] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...
+</code></pre>
+
+<h3>Shortest paths in weights matrices: <strong>spdep</strong></h3>
+
+<p>If we do the same in <strong>spdep</strong>, using <code>nblag</code> to a maximum number of lag orders - the diameter, but which is unknown in advance (the largest lag order for which the number of links is greater than zero), we run into the problem of how to represent missing neighbour information. </p>
+
+<pre><code class="r">nbl10 &lt;- nblag(col2, maxlag=10)
+vals &lt;- sapply(nbl10, function(x) sum(card(x)))
+zero &lt;- which(vals == 0)
+zero[1]-1
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<p>If we insert zero into the weights matrix where there is no connection using <code>zero.policy=TRUE</code>, we generate a zero shortest path. If we are to create a matrix that matches the one produced by <code>shortest.paths</code>, we need to set all these non-structural zeros to infinity (the length of the path between unconnected nodes), and re-instate structural zeros on the diagonal:</p>
+
+<pre><code class="r">lmat &lt;- lapply(nbl10[1:(zero[1]-1)], nb2mat, style=&quot;B&quot;, zero.policy=TRUE)
+mat &lt;- matrix(0, n, n)
+for (i in seq(along=lmat)) mat = mat + i*lmat[[i]]
+mat[mat==0] &lt;- Inf
+diag(mat) &lt;- 0
+all.equal(mat, sp_mat, check.attributes=FALSE)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<h3>Smirnov/Anselin (2009) cyclical matrices</h3>
+
+<p>Another area in which a graph representation might prove useful is in trying to establish the domain of the spatial coefficient when spatial weights are row-standardised. In that case by construction we know that the maximum eigenvalue is 1. If there are multiple blocks, that is graph components, where the numbers of nodes per block are greater than 1, then each will have a maximum eigenvalue of 1. The remaining problems are the numbers of zero eigenvalues (at least the singleton graph components), and whether any non-singleton component fulfills the condition termed by Smirnov and Anselin (2009) a cyclical matrix, for which the minimum eigenvalue is -1. The term cyclical appears to be used in many different ways, and it is not clear that its use here after Smirnov and Anselin (2009, pp. 2984-2985) indicates which meaning should be used to find the relevant graph function. The definition used here is that a block matrix (subgraph) is cyclical if: &ldquo;for every location, every pair of its neighbours are not connected.&rdquo; That is, if w[i,j] and w[i,k] are greater than zero, w[j,k] must be zero to meet the condition.</p>
+
+<p>The internal function find_q1_q2 returns the number of non-singleton components, and the number of these that meet this condition. It does this for each block/subgraph by testing the condition until it meets w[j,k] &gt; 0, at which point it breaks. Smirnov and Anselin (2009) state that rook neighbours on a regular grid meet the condition:</p>
+
+<pre><code class="r">nb_r &lt;- cell2nb(7, 7, type=&quot;rook&quot;)
+nb_rW &lt;- nb2listw(nb_r, style=&quot;W&quot;)
+spdep:::find_q1_q2(nb_rW)
+</code></pre>
+
+<pre><code>## [1] 1 1
+</code></pre>
+
+<p>One block/graph component is found, and this one meets the cyclical matrix condition, as also shown by the domain:</p>
+
+<pre><code class="r">1/range(Re(eigenw(similar.listw(nb_rW))))
+</code></pre>
+
+<pre><code>## [1] -1  1
+</code></pre>
+
+<p>This does not apply to the spatial weights we have been using above, with two non-singleton components, neither meeting the cyclical matrix condition:</p>
+
+<pre><code class="r">spdep:::find_q1_q2(nb_W)
+</code></pre>
+
+<pre><code>## [1] 2 0
+</code></pre>
+
+<pre><code class="r">1/range(Re(eigenw(similar.listw(nb_W))))
+</code></pre>
+
+<pre><code>## [1] -1.544645  1.000000
+</code></pre>
+
+<p>By construction, all two-node connected graph components also meet the condition, as the eigenvalues sum to zero, and the maximum is unity, so the minimum must be -1.</p>
+
+</body>
+
+</html>

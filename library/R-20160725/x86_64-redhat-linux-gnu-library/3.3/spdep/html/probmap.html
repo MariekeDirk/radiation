@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Probability mapping for rates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for probmap {spdep}"><tr><td>probmap {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Probability mapping for rates</h2>
+
+<h3>Description</h3>
+
+<p>The function returns a data frame of rates for counts in populations at risk with crude rates, expected counts of cases, relative risks, and Poisson probabilities.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+probmap(n, x, row.names=NULL, alternative="less")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>a numeric vector of counts of cases</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a numeric vector of populations at risk</p>
+</td></tr>
+<tr valign="top"><td><code>row.names</code></td>
+<td>
+<p>row names passed through to output data frame</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>default &ldquo;less&rdquo;, may be set to &ldquo;greater&rdquo;</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The function returns a data frame, from which rates may be mapped after class intervals have been chosen. The class intervals used in the examples are mostly taken from the referenced source.
+</p>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>raw</code></td>
+<td>
+<p>raw (crude) rates</p>
+</td></tr>
+<tr valign="top"><td><code>expCount</code></td>
+<td>
+<p>expected counts of cases assuming global rate</p>
+</td></tr>
+<tr valign="top"><td><code>relRisk</code></td>
+<td>
+<p>relative risks: ratio of observed and expected counts of cases multiplied by 100</p>
+</td></tr>
+<tr valign="top"><td><code>pmap</code></td>
+<td>
+<p>Poisson probability map values: probablility of getting a more &ldquo;extreme&rdquo; count than actually observed - one-tailed, default alternative observed &ldquo;less&rdquo; than expected</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Bailey T, Gatrell A (1995) Interactive Spatial Data Analysis, Harlow: Longman, pp. 300&ndash;303.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="EBest.html">EBest</a></code>, <code><a href="EBlocal.html">EBlocal</a></code>, <code><a href="../../stats/html/Poisson.html">ppois</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+example(auckland)
+res &lt;- probmap(auckland$M77_85, 9*auckland$Und5_81)
+rt &lt;- sum(auckland$M77_85)/sum(9*auckland$Und5_81)
+ppois_pmap &lt;- numeric(length(auckland$Und5_81))
+for (i in seq(along=ppois_pmap)) {
+ppois_pmap[i] &lt;- poisson.test(auckland$M77_85[i], r=rt,
+  T=(9*auckland$Und5_81[i]), alternative="less")$p.value
+}
+all.equal(ppois_pmap, res$pmap)
+brks &lt;- c(-Inf,2,2.5,3,3.5,Inf)
+cols &lt;- grey(6:2/7)
+plot(auckland, col=cols[findInterval(res$raw*1000, brks, all.inside=TRUE)])
+legend("bottomleft", fill=cols, legend=leglabs(brks), bty="n")
+title(main="Crude (raw) estimates of infant mortality per 1000 per year")
+brks &lt;- c(-Inf,47,83,118,154,190,Inf)
+cols &lt;- cm.colors(6)
+plot(auckland, col=cols[findInterval(res$relRisk, brks, all.inside=TRUE)])
+legend("bottomleft", fill=cols, legend=leglabs(brks), bty="n")
+title(main="Standardised mortality ratios for Auckland child deaths")
+brks &lt;- c(0,0.05,0.1,0.2,0.8,0.9,0.95,1)
+cols &lt;- cm.colors(7)
+plot(auckland, col=cols[findInterval(res$pmap, brks, all.inside=TRUE)])
+legend("bottomleft", fill=cols, legend=leglabs(brks), bty="n")
+title(main="Poisson probabilities for Auckland child mortality")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

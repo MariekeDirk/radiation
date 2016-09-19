@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkAboutDialogSetUrlHook</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkAboutDialogSetUrlHook {RGtk2}"><tr><td>gtkAboutDialogSetUrlHook {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkAboutDialogSetUrlHook</h2>
+
+<h3>Description</h3>
+
+<p>Installs a global function to be called whenever the user activates a
+URL link in an about dialog.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkAboutDialogSetUrlHook(func, data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">func</code></code></td>
+<td>
+<p>a function to call when a URL link is activated.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>data to pass to <code>func</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.18 there exists a default function which uses <code><a href="gtkShowUri.html">gtkShowUri</a></code>. To
+deactivate it, you can pass <code>NULL</code> for <code>func</code>.
+Since 2.6</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GtkAboutDialog.html">GtkAboutDialogActivateLinkFunc</a></code>] the previous URL hook.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

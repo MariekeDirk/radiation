@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIconThemeLoadIcon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIconThemeLoadIcon {RGtk2}"><tr><td>gtkIconThemeLoadIcon {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIconThemeLoadIcon</h2>
+
+<h3>Description</h3>
+
+<p>Looks up an icon in an icon theme, scales it to the given size
+and renders it into a pixbuf. This is a convenience function;
+if more details about the icon are needed, use
+<code><a href="gtkIconThemeLookupIcon.html">gtkIconThemeLookupIcon</a></code> followed by <code><a href="gtkIconInfoLoadIcon.html">gtkIconInfoLoadIcon</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIconThemeLoadIcon(object, icon.name, size, flags, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkIconTheme.html">GtkIconTheme</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">icon.name</code></code></td>
+<td>
+<p>the name of the icon to lookup</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">size</code></code></td>
+<td>
+<p>the desired icon size. The resulting icon may not be
+exactly this size; see <code><a href="gtkIconInfoLoadIcon.html">gtkIconInfoLoadIcon</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">flags</code></code></td>
+<td>
+<p>flags modifying the behavior of the icon lookup</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that you probably want to listen for icon theme changes and
+update the icon. This is usually done by connecting to the 
+GtkWidget::style-set signal. If for some reason you do not want to
+update the icon when the icon theme changes, you should consider
+using <code><a href="gdkPixbufCopy.html">gdkPixbufCopy</a></code> to make a private copy of the pixbuf
+returned by this function. Otherwise GTK+ may need to keep the old 
+icon theme loaded, which would be a waste of memory.
+Since 2.4</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>] the rendered icon; this may be a newly created icon
+or a new reference to an internal icon, so you must not modify
+the icon. <code>NULL</code> if the icon isn't found.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>Location to store error information on failure, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

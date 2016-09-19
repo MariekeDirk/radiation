@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufSaturateAndPixelate</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufSaturateAndPixelate {RGtk2}"><tr><td>gdkPixbufSaturateAndPixelate {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufSaturateAndPixelate</h2>
+
+<h3>Description</h3>
+
+<p>Modifies saturation and optionally pixelates <code>src</code>, placing the result in
+<code>dest</code>. <code>src</code> and <code>dest</code> may be the same pixbuf with no ill effects.  If
+<code>saturation</code> is 1.0 then saturation is not changed. If it's less than 1.0,
+saturation is reduced (the image turns toward grayscale); if greater than
+1.0, saturation is increased (the image gets more vivid colors). If <code>pixelate</code>
+is <code>TRUE</code>, then pixels are faded in a checkerboard pattern to create a
+pixelated image. <code>src</code> and <code>dest</code> must have the same image format, size, and
+rowstride.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufSaturateAndPixelate(object, dest, saturation, pixelate)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>source image</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">dest</code></code></td>
+<td>
+<p>place to write modified version of <code>src</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">saturation</code></code></td>
+<td>
+<p>saturation factor</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">pixelate</code></code></td>
+<td>
+<p>whether to pixelate</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Stock prices of Vanke Co., Ltd on 2009/11/27</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vanke1127 {animation}"><tr><td>vanke1127 {animation}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Stock prices of Vanke Co., Ltd on 2009/11/27</h2>
+
+<h3>Description</h3>
+
+<p>This is a sample of stock prices of the Vanke Co., Ltd on 2009/11/27.
+</p>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 2831 observations on the following 2 variables.
+</p>
+ <dl>
+<dt>time</dt><dd><p>POSIXt: the time corresponding to stock prices</p>
+</dd>
+<dt>price</dt><dd><p>a numeric vector: stock prices</p>
+</dd> </dl>
+
+
+<h3>Source</h3>
+
+<p>This data can be obtained from most stock websites.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+tab.price = table(vanke1127$price)
+plot(as.numeric(names(tab.price)), as.numeric(tab.price), type = 'h',
+     xlab = 'price', ylab = 'frequency')
+
+oopt = ani.options(interval = 0.5, loop = FALSE, title = 'Stock price of Vanke')
+
+## a series of HTML animations with different time spans
+saveHTML({
+  price.ani(vanke1127$price, vanke1127$time, lwd = 2)
+}, img.name = 'vanke_a', description = 'Prices changing along with time interval 15 min',
+  htmlfile = "vanke1127_1.html")
+
+saveHTML({
+  price.ani(vanke1127$price, vanke1127$time, span = 30 * 60, lwd = 3)
+}, img.name = 'vanke_b', description = 'Prices changing along with time interval 30 min',
+  htmlfile = "vanke1127_2.html")
+
+saveHTML({
+  price.ani(vanke1127$price, vanke1127$time, span = 5 * 60, lwd = 2)
+}, img.name = 'vanke_c', description = 'Prices changing along with time interval 5 min',
+  htmlfile = "vanke1127_3.html")
+
+## GIF animation
+saveGIF(price.ani(vanke1127$price, vanke1127$time, lwd = 2),
+        movie.name = 'price.gif', loop = 1)
+
+ani.options(oopt)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>animation</em> version 2.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

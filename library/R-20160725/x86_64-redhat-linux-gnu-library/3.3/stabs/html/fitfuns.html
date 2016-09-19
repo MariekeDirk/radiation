@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Fit Functions for Stability Selection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Fitting Functions {stabs}"><tr><td>Fitting Functions {stabs}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Fit Functions for Stability Selection
+</h2>
+
+<h3>Description</h3>
+
+<p>Functions that fit a model until <i>q</i> variables are selected and
+that returns the indices (and names) of the selected variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## package lars:
+lars.lasso(x, y, q, ...)
+lars.stepwise(x, y, q, ...)
+
+## package glmnet:
+glmnet.lasso(x, y, q, ...)
+glmnet.lasso_maxCoef(x, y, q, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix containing the predictors or an object of class
+<code>"mboost"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>a vector or matrix containing the outcome.</p>
+</td></tr>
+<tr valign="top"><td><code>q</code></td>
+<td>
+<p>number of (unique) selected variables (or groups of variables
+depending on the model) that are selected on each subsample.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> additional arguments to the underlying fitting function.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>All fitting functions are named after the package and the type of
+model that is fitted: <code>package_name.model</code>, e.g.,
+<code>glmnet.lasso</code> stands for a lasso model that is fitted using the
+package <span class="pkg">glmnet</span>.
+</p>
+<p>If one wants to use <code>glmnet.lasso_maxCoef</code>, one must specify the
+penalty parameter <code>lambda</code> (via the <code>...</code> argument) or in
+<code><a href="stabsel.html">stabsel</a></code> via <code>args.fitfun(lambda = )</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A named list with elements
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>selected</code></td>
+<td>
+<p>logical. A vector that indicates which variable was
+selected.</p>
+</td></tr>
+<tr valign="top"><td><code>path</code></td>
+<td>
+<p>logical. A matrix that indicates which variabkle was
+selected in which step. Each row represents one variable, the
+columns represent the steps.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+data("bodyfat", package = "TH.data")
+## selected variables
+lars.lasso(bodyfat[, -2], bodyfat[,2], q = 3)$selected
+lars.stepwise(bodyfat[, -2], bodyfat[,2], q = 3)$selected
+glmnet.lasso(bodyfat[, -2], bodyfat[,2], q = 3)$selected
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>stabs</em> version 0.5-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

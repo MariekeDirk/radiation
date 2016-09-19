@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create and train an (auto-)associative memory</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for assoz {RSNNS}"><tr><td>assoz {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create and train an (auto-)associative memory</h2>
+
+<h3>Description</h3>
+
+<p>The autoassociative memory performs clustering by finding a prototype to the given input.
+The implementation assumes two-dimensional input and output (cf. <code><a href="art1.html">art1</a></code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+assoz(x, ...)
+
+## Default S3 method:
+assoz(x, dimX, dimY, maxit = 100,
+  initFunc = "RM_Random_Weights", initFuncParams = c(1, -1),
+  learnFunc = "RM_delta", learnFuncParams = c(0.01, 100, 0, 0, 0),
+  updateFunc = "Auto_Synchronous", updateFuncParams = c(50),
+  shufflePatterns = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a matrix with training inputs for the network</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional function parameters (currently not used)</p>
+</td></tr>
+<tr valign="top"><td><code>dimX</code></td>
+<td>
+<p>x dimension of inputs and outputs</p>
+</td></tr>
+<tr valign="top"><td><code>dimY</code></td>
+<td>
+<p>y dimension of inputs and outputs</p>
+</td></tr>
+<tr valign="top"><td><code>maxit</code></td>
+<td>
+<p>maximum of iterations to learn</p>
+</td></tr>
+<tr valign="top"><td><code>initFunc</code></td>
+<td>
+<p>the initialization function to use</p>
+</td></tr>
+<tr valign="top"><td><code>initFuncParams</code></td>
+<td>
+<p>the parameters for the initialization function</p>
+</td></tr>
+<tr valign="top"><td><code>learnFunc</code></td>
+<td>
+<p>the learning function to use</p>
+</td></tr>
+<tr valign="top"><td><code>learnFuncParams</code></td>
+<td>
+<p>the parameters for the learning function</p>
+</td></tr>
+<tr valign="top"><td><code>updateFunc</code></td>
+<td>
+<p>the update function to use</p>
+</td></tr>
+<tr valign="top"><td><code>updateFuncParams</code></td>
+<td>
+<p>the parameters for the update function</p>
+</td></tr>
+<tr valign="top"><td><code>shufflePatterns</code></td>
+<td>
+<p>should the patterns be shuffled?</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The default initialization and update functions are the only ones suitable for this kind of
+network. The update function takes one parameter, which is the number of iterations that will
+be performed. The default of 50 usually does not have to be modified. For learning, <code>RM_delta</code>
+and <code>Hebbian</code> functions can be used, though the first one usually performs better.
+</p>
+<p>A more detailed description of the theory and the parameters is available from
+the SNNS documentation and the other referenced literature.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an <code><a href="rsnnsObjectFactory.html">rsnns</a></code> object. The <code>fitted.values</code> member contains the
+activation patterns for all inputs.
+</p>
+
+
+<h3>References</h3>
+
+<p>Palm, G. (1980), 'On associative memory', Biological Cybernetics 36, 19-31.
+</p>
+<p>Rojas, R. (1996), Neural networks :a systematic introduction, Springer-Verlag, Berlin.
+</p>
+<p>Zell, A. et al. (1998), 'SNNS Stuttgart Neural Network Simulator User Manual, Version 4.2', IPVR, University of Stuttgart and WSI, University of Tübingen.
+<a href="http://www.ra.cs.uni-tuebingen.de/SNNS/">http://www.ra.cs.uni-tuebingen.de/SNNS/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="art1.html">art1</a></code>, <code><a href="art2.html">art2</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: demo(assoz_letters)
+## Not run: demo(assoz_lettersSnnsR)
+
+
+data(snnsData)
+patterns &lt;- snnsData$art1_letters.pat
+
+model &lt;- assoz(patterns, dimX=7, dimY=5)
+
+actMaps &lt;- matrixToActMapList(model$fitted.values, nrow=7)
+
+par(mfrow=c(3,3))
+for (i in 1:9) plotActMap(actMaps[[i]])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

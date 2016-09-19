@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkCellRendererCombo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkCellRendererCombo {RGtk2}"><tr><td>GtkCellRendererCombo {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkCellRendererCombo</h2>
+
+<h3>Description</h3>
+
+<p>Renders a combobox in a cell</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkCellRendererComboNew.html">gtkCellRendererComboNew</a>()</code><br />
+<code>gtkCellRendererCombo()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkCellRenderer
+                     +----GtkCellRendererText
+                           +----GtkCellRendererCombo</pre>
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkCellRendererCombo.html">GtkCellRendererCombo</a></code> renders text in a cell like <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> from
+which it is derived. But while <code><a href="GtkCellRendererText.html">GtkCellRendererText</a></code> offers a simple entry to
+edit the text, <code><a href="GtkCellRendererCombo.html">GtkCellRendererCombo</a></code> offers a <code><a href="GtkComboBox.html">GtkComboBox</a></code> or <code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>
+widget to edit the text. The values to display in the combo box are taken from
+the tree model specified in the
+model property.
+</p>
+<p>The combo cell renderer takes care of adding a text cell renderer to the combo
+box and sets it to display the column specified by its
+text-column
+property. Further properties of the comnbo box can be set in a handler for the
+editing-started signal.
+</p>
+<p>The <code><a href="GtkCellRendererCombo.html">GtkCellRendererCombo</a></code> cell renderer was added in GTK+ 2.6.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkCellRendererCombo</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkCellRendererCombo</code> is the equivalent of <code><a href="gtkCellRendererComboNew.html">gtkCellRendererComboNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+<dl>
+<dt><code>changed(combo, path.string, new.iter, user.data)</code></dt><dd>
+<p>This signal is emitted each time after the user selected an item in
+the combo box, either by using the mouse or the arrow keys.  Contrary
+to GtkComboBox, GtkCellRendererCombo::changed is not emitted for
+changes made to a selected item in the entry.  The argument <code>new.iter</code>
+corresponds to the newly selected item in the combo box and it is relative
+to the GtkTreeModel set via the model property on GtkCellRendererCombo.
+</p>
+<p>Note that as soon as you change the model displayed in the tree view,
+the tree view will immediately cease the editing operating.  This
+means that you most probably want to refrain from changing the model
+until the combo cell renderer emits the edited or editing_canceled signal.
+Since 2.14
+</p>
+
+<dl>
+<dt><code>combo</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>path.string</code></dt><dd><p>a string of the path identifying the edited cell
+(relative to the tree view model)</p>
+</dd>
+<dt><code>new.iter</code></dt><dd><p>the new iter selected in the combo box
+(relative to the combo box model)</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">has-entry</code> [logical : Read / Write]</dt><dd>
+<p>If <code>TRUE</code>, the cell renderer will include an entry and allow to enter
+values other than the ones in the popup list.
+Default value: TRUE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write]</dt><dd>
+<p>Holds a tree model containing the possible values for the combo box.
+Use the text_column property to specify the column holding the values.
+Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">text-column</code> [integer : Read / Write]</dt><dd>
+<p>Specifies the model column which holds the possible values for the
+combo box.
+</p>
+<p>Note that this refers to the model specified in the model property,
+<em>not</em> the model backing the tree view to which
+this cell renderer is attached.
+<code><a href="GtkCellRendererCombo.html">GtkCellRendererCombo</a></code> automatically adds a text cell renderer for
+this column to its combo box.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkCellRendererCombo.html">http://library.gnome.org/devel//gtk/GtkCellRendererCombo.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

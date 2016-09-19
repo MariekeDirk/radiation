@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: US 1960 used car prices</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for used.cars {spdep}"><tr><td>used.cars {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>US 1960 used car prices</h2>
+
+<h3>Description</h3>
+
+<p>The <code>used.cars</code> data frame has 48 rows and 2 columns. The data set
+includes a neighbours list for the 48 states excluding DC from poly2nb().
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(used.cars)</pre>
+
+
+<h3>Format</h3>
+
+<p>This data frame contains the following columns:
+</p>
+
+<dl>
+<dt>tax.charges</dt><dd><p>taxes and delivery charges for 1955-9 new cars</p>
+</dd>
+<dt>price.1960</dt><dd><p>1960 used car prices by state</p>
+</dd>
+</dl>
+
+
+
+<h3>Source</h3>
+
+<p>Hanna, F. A. 1966 Effects of regional differences in taxes and transport charges on automobile consumption, in Ostry, S., Rhymes, J. K. (eds) Papers on regional statistical studies, Toronto: Toronto University Press, pp. 199-223.
+</p>
+
+
+<h3>References</h3>
+
+<p>Hepple, L. W. 1976 A maximum likelihood model for econometric estimation with spatial series, in Masser, I (ed) Theory and practice in regional science, London: Pion, pp. 90-104.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(used.cars)
+moran.test(used.cars$price.1960, nb2listw(usa48.nb))
+moran.plot(used.cars$price.1960, nb2listw(usa48.nb),
+  labels=rownames(used.cars))
+uc.lm &lt;- lm(price.1960 ~ tax.charges, data=used.cars)
+summary(uc.lm)
+lm.morantest(uc.lm, nb2listw(usa48.nb))
+lm.morantest.sad(uc.lm, nb2listw(usa48.nb))
+lm.LMtests(uc.lm, nb2listw(usa48.nb))
+uc.err &lt;- errorsarlm(price.1960 ~ tax.charges, data=used.cars,
+  nb2listw(usa48.nb), tol.solve=1.0e-13, control=list(tol.opt=.Machine$double.eps^0.3))
+summary(uc.err)
+uc.lag &lt;- lagsarlm(price.1960 ~ tax.charges, data=used.cars,
+  nb2listw(usa48.nb), tol.solve=1.0e-13, control=list(tol.opt=.Machine$double.eps^0.3))
+summary(uc.lag)
+uc.lag1 &lt;- lagsarlm(price.1960 ~ 1, data=used.cars,
+  nb2listw(usa48.nb), tol.solve=1.0e-13, control=list(tol.opt=.Machine$double.eps^0.3))
+summary(uc.lag1)
+uc.err1 &lt;- errorsarlm(price.1960 ~ 1, data=used.cars,
+  nb2listw(usa48.nb), tol.solve=1.0e-13, control=list(tol.opt=.Machine$double.eps^0.3))
+summary(uc.err1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoTextPath</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoTextPath {RGtk2}"><tr><td>cairoTextPath {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoTextPath</h2>
+
+<h3>Description</h3>
+
+<p>Adds closed paths for text to the current path.  The generated
+path if filled, achieves an effect similar to that of
+<code><a href="cairoShowText.html">cairoShowText</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoTextPath(cr, utf8)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">utf8</code></code></td>
+<td>
+<p>[char]  a string of text encoded in UTF-8, or <code>NULL</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Text conversion and positioning is done similar to <code><a href="cairoShowText.html">cairoShowText</a></code>.
+</p>
+<p>Like <code><a href="cairoShowText.html">cairoShowText</a></code>, After this call the current point is
+moved to the origin of where the next glyph would be placed in
+this same progression.  That is, the current point will be at
+the origin of the final glyph offset by its advance values.
+This allows for chaining multiple calls to to <code><a href="cairoTextPath.html">cairoTextPath</a></code>
+without having to set current point in between.
+</p>
+<p>Note: The <code><a href="cairoTextPath.html">cairoTextPath</a></code> function call is part of what the cairo
+designers call the &quot;toy&quot; text API. It is convenient for short demos
+and simple programs, but it is not expected to be adequate for
+serious text-using applications. See <code><a href="cairoGlyphPath.html">cairoGlyphPath</a></code> for the
+&quot;real&quot; text path API in cairo.  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

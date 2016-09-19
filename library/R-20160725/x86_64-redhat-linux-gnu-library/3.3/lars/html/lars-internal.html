@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Internal lars functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lars-internal {lars}"><tr><td>lars-internal {lars}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Internal lars functions</h2>
+
+<h3>Description</h3>
+
+<p>Internal lars functions</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+betabreaker(object)
+backsolvet(r,x,k = ncol(r))
+cv.folds(n, folds = 10)
+delcol(r, z, k = p)
+downdateR (R, k = p)
+error.bars(x, upper, lower, width = 0.02, ...)
+nnls.lars(active, Sign, R, beta, Gram, eps = 1e-10, trace = FALSE, 
+    use.Gram = TRUE)
+plotCVLars(cv.lars.object, se = TRUE)
+updateR(xnew, R = NULL, xold, eps = .Machine$double.eps, Gram = FALSE)
+</pre>
+
+
+<h3>Details</h3>
+
+<p>These are not to be called by the user. <code>betabreaker</code> figures out
+if coefficients (other than lasso) pass through zero, since the L1
+norm is discontinuous there, and this has an impact on
+predict/plot. Suggested by Yann-Ael Le Borgne. <code>backsolvet</code> is included
+to make the R code compatible with the Splus code, since
+<code>backsolve</code> in R has a <code>transpose=TRUE</code> option already.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Trevor Hastie</p>
+
+<hr /><div style="text-align: center;">[Package <em>lars</em> version 1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

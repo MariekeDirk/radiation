@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Missing Data Grid</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for missingDataGrid {aqp}"><tr><td>missingDataGrid {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Missing Data Grid</h2>
+
+<h3>Description</h3>
+
+<p>Generate a levelplot of missing data from a SoilProfileCollection object.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+missingDataGrid(s, max_depth, vars, filter.column = NULL, 
+filter.regex = NULL, cols = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>s</code></td>
+<td>
+<p>a SoilProfilecollection object</p>
+</td></tr>
+<tr valign="top"><td><code>max_depth</code></td>
+<td>
+<p>integer specifying the max depth of analysis</p>
+</td></tr>
+<tr valign="top"><td><code>vars</code></td>
+<td>
+<p>character vector of column names over which to evaluate missing data</p>
+</td></tr>
+<tr valign="top"><td><code>filter.column</code></td>
+<td>
+<p>a character string naming the column to apply the filter REGEX to</p>
+</td></tr>
+<tr valign="top"><td><code>filter.regex</code></td>
+<td>
+<p>a character string with a regular expression used to filter horizon data OUT of the analysis</p>
+</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+<p>a vector of colors</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments passed on to <code>levelplot</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function evaluates a 'missing data fraction' based on slice-wise evaulation of named variables in a <code>SoilProfileCollection</code> object.</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>data.frame</code> describing the percentage of missing data by variable.</p>
+
+
+<h3>Note</h3>
+
+<p>A lattice graphic is printed to the active output device.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="SPC-slice-methods.html">slice</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## visualizing missing data
+# 10 random profiles
+require(plyr)
+s &lt;- ldply(1:10, random_profile)
+
+# randomly sprinkle some missing data
+s[sample(nrow(s), 5), 'p1'] &lt;- NA
+s[sample(nrow(s), 5), 'p2'] &lt;- NA
+s[sample(nrow(s), 5), 'p3'] &lt;- NA
+
+# set all p4 and p5 attributes of `soil 1' to NA
+s[which(s$id == '1'), 'p5'] &lt;- NA
+s[which(s$id == '1'), 'p4'] &lt;- NA
+
+# upgrade to SPC
+depths(s) &lt;- id ~ top + bottom
+
+# plot missing data via slicing + levelplot
+missingDataGrid(s, max_depth=100, vars=c('p1', 'p2', 'p3', 'p4', 'p5'), 
+main='Missing Data Fraction')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.3 <a href="00Index.html">Index</a>]</div>
+</body></html>

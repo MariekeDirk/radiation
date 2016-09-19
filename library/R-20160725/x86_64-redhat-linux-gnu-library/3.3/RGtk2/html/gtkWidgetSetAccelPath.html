@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkWidgetSetAccelPath</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkWidgetSetAccelPath {RGtk2}"><tr><td>gtkWidgetSetAccelPath {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkWidgetSetAccelPath</h2>
+
+<h3>Description</h3>
+
+<p>Given an accelerator group, <code>accel.group</code>, and an accelerator path,
+<code>accel.path</code>, sets up an accelerator in <code>accel.group</code> so whenever the
+key binding that is defined for <code>accel.path</code> is pressed, <code>widget</code>
+will be activated.  This removes any accelerators (for any
+accelerator group) installed by previous calls to
+<code><a href="gtkWidgetSetAccelPath.html">gtkWidgetSetAccelPath</a></code>. Associating accelerators with
+paths allows them to be modified by the user and the modifications
+to be saved for future use. (See <code><a href="gtkAccelMapSave.html">gtkAccelMapSave</a></code>.)</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkWidgetSetAccelPath(object, accel.path, accel.group)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.path</code></code></td>
+<td>
+<p>path used to look up the accelerator. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">accel.group</code></code></td>
+<td>
+<p>a <code><a href="gtk-Keyboard-Accelerators.html">GtkAccelGroup</a></code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is a low level function that would most likely
+be used by a menu creation system like <code><a href="GtkUIManager.html">GtkUIManager</a></code>. If you
+use <code><a href="GtkUIManager.html">GtkUIManager</a></code>, setting up accelerator paths will be done
+automatically.
+</p>
+<p>Even when you you aren't using <code><a href="GtkUIManager.html">GtkUIManager</a></code>, if you only want to
+set up accelerators on menu items <code><a href="gtkMenuItemSetAccelPath.html">gtkMenuItemSetAccelPath</a></code>
+provides a somewhat more convenient interface.
+</p>
+<p>Note that <code>accel.path</code> string will be stored in a <code><a href="GQuark.html">GQuark</a></code>. Therefore, if you
+pass a static string, you can save some memory by interning it first with 
+<code>gInternStaticString()</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

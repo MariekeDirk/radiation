@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Formatting Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for str_out {pkgmaker}"><tr><td>str_out {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Formatting Utilities</h2>
+
+<h3>Description</h3>
+
+<p><code>str_out</code> formats character vectors for use in show
+methods or error/warning messages.
+</p>
+<p><code>str_desc</code> builds formatted string from a list of
+complex values.
+</p>
+<p><code>str_fun</code> extracts and formats a function signature.
+It typically formats the output
+<code>capture.output(args(object))</code>.
+</p>
+<p><code>str_bs</code> substitutes backspace characters (\b) to
+produce a character string as it would be displayed in
+the console.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  str_out(x, max = 3L, quote = is.character(x),
+    use.names = FALSE, sep = ", ", total = FALSE)
+
+  str_desc(object, exdent = 0L)
+
+  str_fun(object)
+
+  str_bs(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>character vector</p>
+</td></tr>
+<tr valign="top"><td><code>max</code></td>
+<td>
+<p>maximum number of values to appear in the
+list. If <code>x</code> has more elements than <code>max</code>, a
+<code>"..."</code> suffix is appended.</p>
+</td></tr>
+<tr valign="top"><td><code>quote</code></td>
+<td>
+<p>a logical indicating whether the values
+should be quoted with single quotes (defaults) or not.</p>
+</td></tr>
+<tr valign="top"><td><code>use.names</code></td>
+<td>
+<p>a logical indicating whether names
+should be added to the list as <code>NAME=VAL, ...</code> or
+not (default).</p>
+</td></tr>
+<tr valign="top"><td><code>sep</code></td>
+<td>
+<p>separator character</p>
+</td></tr>
+<tr valign="top"><td><code>total</code></td>
+<td>
+<p>logical that indicates if the total number
+of elements should be appended to the formatted string as
+<code>"'a', ..., 'z' (&lt;N&gt; total)"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an R object</p>
+</td></tr>
+<tr valign="top"><td><code>exdent</code></td>
+<td>
+<p>extra indentation passed to str_wrap, and
+used if the output should spread over more than one
+lines.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a single character string
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Renaud Gaujoux
+</p>
+<p><code>str_bs</code> was adapted from a proposal from Yihui Xie.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+#----------
+# str_out
+#----------
+x &lt;- letters[1:10]
+str_out(x)
+str_out(x, 8)
+str_out(x, Inf)
+str_out(x, quote=FALSE)
+str_out(x, total = TRUE)
+
+#----------
+# str_fun
+#----------
+str_fun(install.packages)
+
+#----------
+# str_bs
+#----------
+# Backspace substitution
+str_bs("abc")
+str_bs("abc\b")
+str_bs("abc\b\b")
+str_bs("abc\bd")
+str_bs("abc\b\bde\b")
+
+# more complex example
+x &lt;- "\bab\nc\bd\n\babc\b\bd"
+cat(x, "\n")
+y &lt;- str_bs(x)
+y
+cat(y, "\n")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

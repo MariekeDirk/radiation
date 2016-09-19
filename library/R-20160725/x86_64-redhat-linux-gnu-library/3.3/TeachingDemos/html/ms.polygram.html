@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Symbol functions/data to be passed as symb argument to...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ms.polygram {TeachingDemos}"><tr><td>ms.polygram {TeachingDemos}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Symbol functions/data to be passed as symb argument to
+my.symbols</h2>
+
+<h3>Description</h3>
+
+<p>These functions/data matricies are examples of what can be passed as
+the <code>symb</code> argument in the <code>my.symbols</code> function.  They are
+provided both to be used for some common symbols and as examples of
+what can be passed as the <code>symb</code> argument.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ms.polygram(n, r=1, adj=pi/2, ...)
+ms.polygon(n, r=1, adj=pi/2, ...)
+ms.filled.polygon(n, r=1, adj=pi/2, fg=par('fg'), bg=par('fg'), ... )
+ms.male
+ms.female
+ms.arrows(angle, r=1, adj=0.5, length=0.1, ...)
+ms.sunflowers(n,r=0.3,adj=pi/2, ...)
+ms.image(img, transpose=TRUE, ...)
+ms.face(features, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>The number of sides for polygons and polygrams, the number of
+petals(lines) for sunflowers.</p>
+</td></tr>
+<tr valign="top"><td><code>r</code></td>
+<td>
+<p>The radius of the enclosing circle for polygons and polygrams
+(1 means that it will pretty much fill the bounding square).  For
+sunflowers this is the radius (relative to the inches square) of the
+inner circle.  For arrows this controls the length of the arrow, a
+value of 2 means the length of the arrow will be the same as inches
+(but it may then stick out of the box if adj != 1).</p>
+</td></tr>
+<tr valign="top"><td><code>adj</code></td>
+<td>
+<p>For polygons, polygrams, and sunflowers this is the angle
+in radians that the first corner/point will be.  The default puts a
+corner/point straight up, this can be used to rotate the symbols.  For
+arrows, this determines the positioning of the arrow, a value of 0
+means the arrow will start at the x,y point and point away from it,
+0.5 means the arrow will be centered at x,y and 1 means that the arrow
+will end (point at) x,y.</p>
+</td></tr>
+<tr valign="top"><td><code>fg, bg</code></td>
+<td>
+<p>Colors for the filled polygons.  <code>fg</code> is the color
+of the line around the polygon and <code>bg</code> is the fill color, see
+<code><a href="../../graphics/html/polygon.html">polygon</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+<p>The angle in radians that the arrow will point.</p>
+</td></tr>
+<tr valign="top"><td><code>length</code></td>
+<td>
+<p>The length of the arrow head (see
+<code><a href="../../graphics/html/arrows.html">arrows</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>img</code></td>
+<td>
+<p> A 3 dimensional array representing an image such as
+produced by the png or EBImage packages.</p>
+</td></tr>
+<tr valign="top"><td><code>transpose</code></td>
+<td>
+<p>Should the image be tranposed, use TRUE for images
+imported using package png and FALSE for images imported using
+EBImage.</p>
+</td></tr>
+<tr valign="top"><td><code>features</code></td>
+<td>
+<p>A list of data representing the features of
+the faces, each element represents 1 face and the values need to be
+scaled between 0 and 1, see <code><a href="faces.html">faces</a></code> for details on which
+elements match which features.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional parameters that will be passed to plotting
+functions or be ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>These functions/matricies can be passed as the <code>symb</code> argument to
+the <code>my.symbols</code> function.  The represent examples that can be
+used to create your own symbols or may be used directly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>These functions either return a 2 column matrix of points to be passed
+to <code>lines</code> or <code>NULL</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Greg Snow <a href="mailto:538280@gmail.com">538280@gmail.com</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="mysymbols.html">my.symbols</a></code>, <code><a href="../../graphics/html/polygon.html">polygon</a></code>,
+<code><a href="../../graphics/html/arrows.html">arrows</a></code>, <code><a href="../../graphics/html/lines.html">lines</a></code>, <code><a href="faces.html">faces</a></code>, also see
+<code><a href="../../graphics/html/rasterImage.html">rasterImage</a></code> for an alternative to ms.image
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+plot(1:10,1:10)
+my.symbols(1:10,1:10, ms.polygram, n=1:10, r=seq(0.5,1,length.out=10),
+inches=0.3)
+
+my.symbols(1:10,1:10, ms.polygon, n=1:10, add=FALSE, inches=0.3)
+
+my.symbols(1:5, 5:1, ms.filled.polygon, add=FALSE, n=3:7, fg='green',
+  bg=c('red','blue','yellow','black','white'), inches=0.3 )
+
+my.symbols( 1:10, 1:10, ms.female, inches=0.3, add=FALSE)
+my.symbols( 1:10, 10:1, ms.male, inches=0.3, add=TRUE)
+
+plot(1:10, 1:10)
+my.symbols(1:10, 1:10, ms.arrows, angle=runif(10)*2*pi, inches=0.5,
+adj=seq(0,1,length.out=10), symb.plots=TRUE)
+
+my.symbols(1:10, 1:10, ms.sunflowers, n=1:10, inches=0.3, add=FALSE)
+
+if( require(png) ) {
+  img &lt;- readPNG(system.file("img", "Rlogo.png", package="png"))
+
+  my.symbols( runif(10), runif(10), ms.image, MoreArgs=list(img=img),
+                 inches=0.5, symb.plots=TRUE, add=FALSE)
+}
+
+tmp.mtcars &lt;- scale(mtcars, center=sapply(mtcars,min),
+	scale=sapply(mtcars,function(x) diff(range(x))) )
+tmp2.mtcars &lt;- lapply( seq_len(nrow(tmp.mtcars)), function(i) tmp.mtcars[i,] )
+my.symbols(mtcars$wt, mtcars$mpg, ms.face, inches=0.3, features=tmp2.mtcars,
+	add=FALSE)
+
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>TeachingDemos</em> version 2.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

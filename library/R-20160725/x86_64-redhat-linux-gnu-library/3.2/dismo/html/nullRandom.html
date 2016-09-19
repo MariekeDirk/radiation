@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Random null model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Random null model {dismo}"><tr><td>Random null model {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Random null model</h2>
+
+<h3>Description</h3>
+
+<p>Null model based on randomization of locations as suggested by Raes and ter Steege (2007).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nullRandom(x, model, n=25, rep=25, pa=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>data.frame with environmental predictor values for collecting localities </p>
+</td></tr> 
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>Model function that creates a model of class 'DistModel' </p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>Sample size </p>
+</td></tr>
+<tr valign="top"><td><code>rep</code></td>
+<td>
+<p>Number of repetitions </p>
+</td></tr>
+<tr valign="top"><td><code>pa</code></td>
+<td>
+<p> Boolean. Prensence-only or presence/background model (e.g. Maxent) </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>List with <code>n</code> object of class <code><a href="ModelEvaluation.html">ModelEvaluation-class</a></code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>References</h3>
+
+<p>Raes, N. &amp; H. ter Steege, 2007. A null-model for significance testing of presence-only species distribution models. Ecography 30:727-736.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="geoDist.html">geoDist</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+predictors &lt;- stack(list.files(path=paste(system.file(package="dismo"), '/ex', sep=''), 
+               pattern='grd', full.names=TRUE ))
+occurence &lt;- paste(system.file(package="dismo"), '/ex/bradypus.csv', sep='')
+occ &lt;- read.table(occurence, header=TRUE, sep=',')[,-1]
+ 
+x &lt;- extract(predictors, occ)
+nr &lt;- nullRandom(x, bioclim, n=25, rep=25, pa=FALSE)
+mean(sapply(nr, function(x)x@auc))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

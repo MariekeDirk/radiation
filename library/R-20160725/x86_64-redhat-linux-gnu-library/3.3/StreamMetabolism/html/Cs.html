@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Saturation Concentration at temp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Cs {StreamMetabolism}"><tr><td>Cs {StreamMetabolism}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Saturation Concentration at temp </h2>
+
+<h3>Description</h3>
+
+<p>Calculates the concentration(mg/L) @ 100
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+Cs(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Temperature in Degrees Celcius </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>enter one temperature or a zoo time series of temperature
+</p>
+
+
+<h3>Value</h3>
+
+<p> single value or time series of mg/L@saturation for that temperature
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Stephen A Sefick Jr. </p>
+
+
+<h3>References</h3>
+
+<p> APHA (2005). Standard Methods for the Examination of Water and Wastewater. 21st Edition. Eds: 
+Eaton, A.D., L.S. Clesceri, E.W. Rice and A. E. Greenberg. Washington D.C., published 
+jointly by the American Public Health Association, the American Water Works Association 
+and the Water Environment Federation. 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#single temperature
+temp &lt;- sample(20:30, 1)
+Cs(temp)
+
+#USGS Data (DOTemp)
+library(chron)
+library(zoo)
+data(DOTemp)
+Cs(DOTemp[,1])
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>StreamMetabolism</em> version 1.1.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

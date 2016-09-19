@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Data from GBIF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gbif {dismo}"><tr><td>gbif {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Data from GBIF
+</h2>
+
+<h3>Description</h3>
+
+<p>This function downloads species occurence records from the Global Biodiversity Information Facility (<a href="http://www.gbif.org">GBIF</a>) data portal. You can download either a single species (if you append a '*' to the species name) or a subspecies of comparable level. You can download the data for an entire genus by using <code>species='*'</code>. Before using this function, please first check the GBIF <a href="http://www.gbif.org/terms/licences">data use agreement</a>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gbif(genus, species="", ext=NULL, args=NULL, geo=TRUE, sp=FALSE, 
+   removeZeros=FALSE, download=TRUE, ntries=5, nrecs=300, start=1, end=Inf)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>genus</code></td>
+<td>
+<p>character. genus name</p>
+</td></tr>
+<tr valign="top"><td><code>species</code></td>
+<td>
+<p>character. species name. Use '*' to download the entire genus. Append '*' to the species name to get all naming variants (e.g. with and witout species author name) and sub-taxa </p>
+</td></tr>
+<tr valign="top"><td><code>ext</code></td>
+<td>
+<p>Extent object to limit the geographic extent of the records. An extent can be created using functions like <code><a href="../../raster/html/drawExtent.html">drawExtent</a></code> and <code><a href="../../raster/html/extent.html">extent</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>args</code></td>
+<td>
+<p>character. Additional arguments to refine the query. See query parameters in http://www.gbif.org/developer/occurrence for more details</p>
+</td></tr>
+<tr valign="top"><td><code>geo</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, only records that have a georeference (longitude and latitude values) will be downloaded</p>
+</td></tr>
+<tr valign="top"><td><code>sp</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, <code>geo</code> will be set to <code>TRUE</code> and a <a href="../../sp/html/SpatialPointsDataFrame.html">SpatialPointsDataFrame</a> will be returned</p>
+</td></tr>
+<tr valign="top"><td><code>removeZeros</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, all records that have a latitude OR longitude of zero will be removed if <code>geo==TRUE</code>, or set to <code>NA</code> if <code>geo==FALSE</code>. If <code>FALSE</code>, only records that have a latitude AND longitude that are zero will be removed or set to <code>NA</code></p>
+</td></tr>
+<tr valign="top"><td><code>download</code></td>
+<td>
+<p>logical. If <code>TRUE</code>, records will be downloaded, else only the number of records will be shown</p>
+</td></tr>
+<tr valign="top"><td><code>ntries</code></td>
+<td>
+<p>integer. How many times should the function attempt to download the data, if an invalid response is returned (perhaps because the GBIF server is very busy)</p>
+</td></tr>
+<tr valign="top"><td><code>nrecs</code></td>
+<td>
+<p>integer. How many records to download in a single request (max is 300)?</p>
+</td></tr>
+<tr valign="top"><td><code>start</code></td>
+<td>
+<p>integer. Record number from which to start requesting data</p>
+</td></tr>
+<tr valign="top"><td><code>end</code></td>
+<td>
+<p>integer. Last record to request</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>data frame 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.gbif.org/occurrence">http://www.gbif.org/occurrence</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+
+gbif('solanum', download=FALSE)
+gbif('solanum', 'acaule', download=FALSE)
+
+gbif('Batrachoseps', '' , down=FALSE)
+gbif('Batrachoseps', 'luciae', down=FALSE)
+g &lt;- gbif('Batrachoseps', 'luciae', geo=TRUE)
+plot(g$lon, g$lat)
+
+gs &lt;- gbif('Batrachoseps', 'luciae', sp=TRUE)
+plot(gs)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

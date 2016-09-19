@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: New York leukemia data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NY_data {spdep}"><tr><td>NY_data {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>New York leukemia data</h2>
+
+<h3>Description</h3>
+
+<p>New York leukemia data taken from the data sets supporting Waller and Gotway 2004 (the data should be loaded by running <code>example(NY_data)</code> to demonstrate spatial data import techniques).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(NY_data)</pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 281 observations on the following 12 variables, and the binary coded spatial weights used in the source.
+</p>
+
+<dl>
+<dt><code>AREANAME</code></dt><dd><p>name of census tract</p>
+</dd>
+<dt><code>AREAKEY</code></dt><dd><p>unique FIPS code for each tract</p>
+</dd>
+<dt><code>X</code></dt><dd><p>x-coordinate of tract centroid (in km)</p>
+</dd>
+<dt><code>Y</code></dt><dd><p>y-coordinate of tract centroid (in km)</p>
+</dd>
+<dt><code>POP8</code></dt><dd><p>population size (1980 U.S. Census)</p>
+</dd>
+<dt><code>TRACTCAS</code></dt><dd><p>number of cases 1978-1982</p>
+</dd>
+<dt><code>PROPCAS</code></dt><dd><p>proportion of cases per tract</p>
+</dd>
+<dt><code>PCTOWNHOME</code></dt><dd><p>percentage of people in each tract owning their own home</p>
+</dd>
+<dt><code>PCTAGE65P</code></dt><dd><p>percentage of people in each tract aged 65 or more</p>
+</dd>
+<dt><code>Z</code></dt><dd><p>ransformed propoprtions</p>
+</dd>
+<dt><code>AVGIDIST</code></dt><dd><p>average distance between centroid and TCE sites</p>
+</dd>
+<dt><code>PEXPOSURE</code></dt><dd><p>&quot;exposure potential&quot;: inverse distance between each census tract centroid and the nearest TCE site, IDIST, transformed via log(100*IDIST)</p>
+</dd>
+</dl>
+
+
+
+<h3>Details</h3>
+
+<p>The examples section shows how the DBF files from the book website for Chapter 9 were converted into the <code>nydata</code> data frame and the <code>listw_NY</code> spatial weights list.
+</p>
+
+
+<h3>Source</h3>
+
+<p><a href="http://web1.sph.emory.edu/users/lwaller/ch9index.htm">http://web1.sph.emory.edu/users/lwaller/ch9index.htm</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Waller, L. and C. Gotway (2004) <em>Applied Spatial Statistics for Public Health Data</em>. New York: John Wiley and Sons.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## NY leukemia
+library(foreign)
+nydata &lt;- read.dbf(system.file("etc/misc/nydata.dbf", package="spdep")[1])
+coordinates(nydata) &lt;- c("X", "Y")
+nyadjmat &lt;- as.matrix(read.dbf(system.file("etc/misc/nyadjwts.dbf",
+ package="spdep")[1])[-1])
+ID &lt;- as.character(names(read.dbf(system.file("etc/misc/nyadjwts.dbf",
+ package="spdep")[1]))[-1])
+identical(substring(ID, 2, 10), substring(as.character(nydata$AREAKEY), 2, 10))
+nyadjlw &lt;- mat2listw(nyadjmat, as.character(nydata$AREAKEY))
+listw_NY &lt;- nb2listw(nyadjlw$neighbours, style="B")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

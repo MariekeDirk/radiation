@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Geographic distance model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Geographic Distance {dismo}"><tr><td>Geographic Distance {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Geographic distance model</h2>
+
+<h3>Description</h3>
+
+<p>The geographic distance model predicts that the likelyhood of presence is highest near places where a species has been observed. It can be used as a null-model to calibrate cross-validation scores with.
+</p>
+<p>The predicted values are the inverse distance to the nearest known presence point. Distances smaller than or equal to zero are set to 1 (highest score).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+geoDist(p, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>point locations (presence). Two column matrix, data.frame or SpatialPoints* object</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional arguments. You must supply a lonlat= argument (logical), unless p is a SpatialPoints* object and has a valid CRS (coordinate reference system). 
+You can also supply an additional argument 'a' for absence points (currently ignored). Argument 'a' should be of the same class as argument 'p' </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class 'GeographicDistance' (inherits from <code><a href="DistModel.html">DistModel-class</a></code>)
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="predict.html">predict</a>, <a href="convexHull.html">convHull</a>, <a href="maxent.html">maxent</a>, <a href="domain.html">domain</a>, <a href="mahal.html">mahal</a>, <a href="voronoiHulll.html">voronoiHull</a>, <a href="geoIDW.html">geoIDW</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+r &lt;- raster(system.file("external/rlogo.grd", package="raster"))
+#presence data
+pts &lt;- matrix(c(17, 42, 85, 70, 19, 53, 26, 84, 84, 46, 48, 85, 4, 95, 48, 54, 66, 74, 50, 48, 
+        28, 73, 38, 56, 43, 29, 63, 22, 46, 45, 7, 60, 46, 34, 14, 51, 70, 31, 39, 26), ncol=2)
+colnames(pts) &lt;- c('x', 'y')
+
+train &lt;- pts[1:12, ]
+test &lt;- pts[13:20, ]
+				 
+gd &lt;- geoDist(train, lonlat=FALSE)
+p &lt;- predict(gd, r)
+
+## Not run: 
+plot(p)
+points(test, col='black', pch=20, cex=2)
+points(train, col='red', pch=20, cex=2)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

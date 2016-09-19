@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkAdjustmentClampPage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkAdjustmentClampPage {RGtk2}"><tr><td>gtkAdjustmentClampPage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkAdjustmentClampPage</h2>
+
+<h3>Description</h3>
+
+<p>Updates the <code><a href="GtkAdjustment.html">GtkAdjustment</a></code> <code>value</code> to ensure that the range between <code>lower</code>
+and <code>upper</code> is in the current page (i.e. between <code>value</code> and <code>value</code> +
+<code>page.size</code>).
+If the range is larger than the page size, then only the start of it will
+be in the current page.
+A &quot;changed&quot; signal will be emitted if the value is changed.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkAdjustmentClampPage(object, lower, upper)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkAdjustment.html">GtkAdjustment</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">lower</code></code></td>
+<td>
+<p>the lower value.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">upper</code></code></td>
+<td>
+<p>the upper value.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

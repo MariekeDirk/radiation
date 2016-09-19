@@ -1,0 +1,37 @@
+GeoLight-package        The GeoLight Package
+HillEkstromCalib        Hill-Ekstrom calibration
+calib1                  Example data for calibration: Light intensities
+                        and twilight events
+changeLight             Residency analysis using a changepoint model
+coord                   Simple Threshold Geolocation Estimates
+distanceFilter          Filter for unrealistic positions within a track
+                        based on distance
+geolight.convert        Convert GeoLight Format
+getElevation            Calculate the appropriate sun elevation angle
+                        for known location
+gleTrans                Transformation of *.gle files
+glfTrans                Transformation of *.glf files
+hoopoe1                 Light intensity measurements over time recorded
+                        on a migratory bird
+hoopoe2                 Sunrise and sunset times: From light intensity
+                        measurement (hoopoe1)
+ligTrans                Transformation of *.lig files
+lightFilter             Filter to remove noise in light intensity
+                        measurements during the night
+loessFilter             Filter to remove outliers in defined twilight
+                        times based on smoother function
+luxTrans                Transformation of *.lux files
+mergeSites              Function to merge sites
+refracted               Atmospheric Refraction
+schedule                Function for making a data frame summarising
+                        residency and movement pattern.
+siteMap                 Draws sites of residency and adds a convex hull
+solar                   Solar Time and Declination
+staroddiTrans           Transformation of staroddi files
+trip2kml                Write a file which plots a trip in Google Earth
+tripMap                 Draw the positions and the trip on a map
+trnTrans                Transformation of *.trn files
+twilight                Times of Sunrise and Sunset
+twilightCalc            Calculate twilight events (sunrise/sunset) from
+                        light intensity measurements over time
+zenith                  Solar Zenith Angle

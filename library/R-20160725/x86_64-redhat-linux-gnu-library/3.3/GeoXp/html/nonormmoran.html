@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Detection of spatial autocorrelation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nonormmoran {GeoXp}"><tr><td>nonormmoran {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Detection of spatial autocorrelation</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>nonnormmoran</code> is used to detect spatial autocorrelation in
+the residuals <i>u</i> from the least squares model <i>Y=beta X+u</i>.
+It calculates Moran's I statistic of the residuals based on the gaussian asymptotic distribution and give a p-value associated to the test of spatial autocorrelation (gaussian version). </p>
+
+
+<h3>Usage</h3>
+
+<pre>
+nonormmoran(y, x, W)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>vector of size n of dependent variable</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>matrix <i>n x p</i> containing explanatory variables</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>spatial weight matrix</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>W is supposed standartized :
+</p>
+<p style="text-align: center;"><i>I=(n/s)frac(u'Wu)(u'u)</i></p>
+
+<p style="text-align: center;"><i>I sim N(E(I),var(I))</i></p>
+
+<p>let <i>M=(I-X(X'X)^(-1)X')</i>
+</p>
+<p style="text-align: center;"><i>E(I)=(n/s)frac(tr(MW))(n-k)</i></p>
+
+<p style="text-align: center;"><i>d=frac(n-p)(n+p+2)</i></p>
+
+<p style="text-align: center;"><i>V(I)=(n/s)^2[tr(MWMW')+tr(MW)^2+(tr(MW))^2]/d-E(I)^2</i></p>
+
+<p style="text-align: center;"><i>Z_I=frac(I-E(I))(v(I)^(1/2))</i></p>
+
+<p>When W is row-normalised, <i>s=n</i> else <i>s</i> is the number of nonzero links</p>
+
+
+<h3>Value</h3>
+
+<p>a list with <code>nobs</code> is the number of observations,
+<code>nvar</code>, the number of explanatory variables, <code>morani</code> is the Moran's I statistic estimate,
+<code>imean</code> is E(I), <code>ivar</code> is var(I), <code>istat</code> is the normalized Moran's I statistic
+(corresponding to <i>Z_i</i>), and <code>prob</code> the associated p-value.</p>
+
+
+<h3>Note</h3>
+
+<p>This function is closed to the function <code>lm.morantest</code> included in the spdep package.
+nonnormmoran is less confortable to use because it didn't take into account S4 classes.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Translated into R from Jim Lessage's <em>Spatial Econometrics Toolbox</em>, <a href="http://www.spatial-econometrics.com/">http://www.spatial-econometrics.com/</a> </p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="moranplotmap.html">moranplotmap</a></code>,<code><a href="neighbourmap.html">neighbourmap</a></code>,<code><a href="makeneighborsw.html">makeneighborsw</a></code>,<code><a href="normw.html">normw</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+###
+# data baltimore
+data(baltimore)
+
+# a spatial weight matrix constructed in the matrix format
+W &lt;- makeneighborsw(cbind(baltimore$X,baltimore$Y),method="neighbor",4)
+
+# when W is not row-normalised ...
+nonormmoran(baltimore$PRICE,cbind(rep(1,nrow(baltimore)),baltimore[,14:15]),W)
+# when W is row_normalised ...
+nonormmoran(baltimore$PRICE,cbind(rep(1,nrow(baltimore)),baltimore[,14:15]),normw(W))
+
+# If we compare to the function lm.morantest
+baltimore.lm&lt;-lm(PRICE~LOTSZ+SQFT,data=baltimore)
+
+lm.morantest(baltimore.lm, mat2listw(W))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

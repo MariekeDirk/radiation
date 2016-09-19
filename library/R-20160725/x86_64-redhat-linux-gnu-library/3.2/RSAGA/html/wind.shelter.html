@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Wind Shelter Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for wind.shelter {RSAGA}"><tr><td>wind.shelter {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Wind Shelter Index</h2>
+
+<h3>Description</h3>
+
+<p><code>wind.shelter</code> is a function to be used with <code><a href="focal.function.html">focal.function</a></code> to calculate a topographic wind shelter index from a digital elevation model, which is a proxy for snow accumulation on the lee side of topographic obstacles. <code>wind.shelter.prep</code> performs some preparatory calculations to speed up repeated calls to <code>wind.shelter</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wind.shelter(x, prob = NULL, control)
+
+wind.shelter.prep(radius, direction, tolerance, cellsize = 90)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>square matrix of elevation data</p>
+</td></tr>
+<tr valign="top"><td><code>prob</code></td>
+<td>
+<p>numeric: quantile of slope values to be used in computing the wind shelter index; if <code>NULL</code>, use <code>max</code> (equivalent to <code>prob=1</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>required argument: the result of a call to <code>wind.shelter.prep</code></p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+<p>radius (&gt;1) of circle segment to be used (number of grid cells, not necessarily an integer)</p>
+</td></tr>
+<tr valign="top"><td><code>direction</code></td>
+<td>
+<p>wind direction: direction from which the wind originates; North = 0 = <code>2*pi</code>, clockwise angles.</p>
+</td></tr>
+<tr valign="top"><td><code>tolerance</code></td>
+<td>
+<p>directional tolerance</p>
+</td></tr>
+<tr valign="top"><td><code>cellsize</code></td>
+<td>
+<p>grid cellsize</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>wind.shelter</code> implements a wind shelter index used by Plattner et al. (2004) for modeling snow accumulation patterns on a glacier in the Austrian Alps. It is a modified version of the algorithm of Winstral et al. (2002). The wind shelter index of Plattner et al. (2004) is defined as:
+</p>
+<p><code>Shelter index(S) = arctan( max( (z(x0)-z(x)) / |x0-x| : x in S ) ),</code>
+</p>
+<p>where <code>S = S(x0,a,da,d)</code> is the set of grid nodes within a distance <code>&lt;=d</code> from <code>x0</code>, only considering grid nodes in directions between <code>a-da</code> and <code>a+da</code> from <code>x0</code>.
+</p>
+<p>The present implementation generalizes this index by replacing <code>max</code> by the <code>quantile</code> function; the <code>max</code> function is used if <code>prob=NULL</code>, and the same result is obtained for <code>prob=1</code> using the <code>quantile</code> function.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function <code>wind.shelter</code> returns the wind shelter index as described above if a numeric matrix <code>x</code> is provided. If it is missing, it returns the character string <code>"windshelter"</code>.
+</p>
+<p><code>wind.shelter.prep</code> returns a list with components <code>mask</code> and <code>dist</code>. Both are square matrices with <code>2*(ceiling(radius)+1)</code> columns and rows:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>mask</code></td>
+<td>
+<p>indicates which grid cell in the moving window is within the specified circle segment (value <code>FALSE</code>) or not (<code>TRUE</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>dist</code></td>
+<td>
+<p>the precomputed distances of a grid cell to the center of the moving window, in map units</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The wind shelter index only makes sense if elevation is measured in the same units as the horizontal map units used for the <code>cellsize</code> argument (i.e. usually meters).
+</p>
+<p><code>wind.shelter</code> and <code>wind.shelter.prep</code> do not restrict the calculation to a circular area; this is done by <code><a href="focal.function.html">focal.function</a></code> when used in combination with that function (assuming <code>search.mode="circle"</code>).
+</p>
+<p>Note that the present definition of the wind shelter index returns negative values for surfaces that are completely exposed toward the specified direction. This may make sense if interpreted as a &quot;wind exposure index&quot;, or it might be appropriate to set negative wind shelter values to 0.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning
+</p>
+
+
+<h3>References</h3>
+
+<p>Plattner, C., Braun, L.N., Brenning, A. (2004): Spatial variability of snow accumulation on Vernagtferner, Austrian Alps, in winter 2003/2004. Zeitschrift fuer Gletscherkunde und Glazialgeologie, 39: 43-57.
+</p>
+<p>Winstral, A., Elder, K., Davis, R.E. (2002): Spatial snow modeling of wind-redistributed snow using terrain-based parameters. Journal of Hydrometeorology, 3: 524-538.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="focal.function.html">focal.function</a></code>, <code><a href="../../stats/html/quantile.html">quantile</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# Settings used by Plattner et al. (2004):
+ctrl = wind.shelter.prep(6,-pi/4,pi/12,10)
+## Not run: focal.function("dem.asc",fun=wind.shelter,control=ctrl,
+    radius=6,search.mode="circle")
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

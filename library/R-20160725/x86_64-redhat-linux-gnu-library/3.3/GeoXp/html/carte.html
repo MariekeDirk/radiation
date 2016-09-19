@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Drawing a map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for carte {GeoXp}"><tr><td>carte {GeoXp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Drawing a map</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>carte()</code> draws a map with sites of coordinates (<code>long</code>,<code>lat</code>) and
+represents sites which have been selected in <code>obs</code>.  This function is called by most of the functions of
+GeoXp (this is not an interactive function).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+carte(long, lat, obs, sp.obj=NULL, criteria=NULL, buble=FALSE, cbuble=NULL, nointer=FALSE,
+carte=NULL,nocart=FALSE, label="",cex.lab=NULL, symbol=16, lablong="", 
+lablat="", method="", W=NULL,couleurs="blue", classe=NULL, legmap=NULL,
+legends=list(FALSE,FALSE),labmod="",axis=FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>long</code></td>
+<td>
+<p>a vector x of size n</p>
+</td></tr>
+<tr valign="top"><td><code>lat</code></td>
+<td>
+<p>a vector y of size n</p>
+</td></tr>
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a boolean vector of size n with TRUE on selected sites</p>
+</td></tr>
+<tr valign="top"><td><code>sp.obj</code></td>
+<td>
+<p>a SpatialPolygonsDataFrame object</p>
+</td></tr>
+<tr valign="top"><td><code>criteria</code></td>
+<td>
+<p>a vector of size n of boolean with TRUE on specific sites (these for non interactive selection)</p>
+</td></tr>
+<tr valign="top"><td><code>buble</code></td>
+<td>
+<p>a boolean with TRUE for drawing bubbles, FALSE otherwise</p>
+</td></tr>
+<tr valign="top"><td><code>cbuble</code></td>
+<td>
+<p>vector of size n with size of each site depending on variable with which bubbles are constructed </p>
+</td></tr>
+<tr valign="top"><td><code>nointer</code></td>
+<td>
+<p>a boolean with TRUE for drawing sites selected by criteria, FALSE otherwise</p>
+</td></tr>
+<tr valign="top"><td><code>carte</code></td>
+<td>
+<p>matrix with 2 columns for drawing spatial polygonal contours : x and y coordinates of the vertices of the polygon</p>
+</td></tr>
+<tr valign="top"><td><code>nocart</code></td>
+<td>
+<p>a boolean with TRUE for drawing spatial contours, FALSE otherwise</p>
+</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+<p>vector of character of size n with name of each site</p>
+</td></tr>
+<tr valign="top"><td><code>cex.lab</code></td>
+<td>
+<p>character size of label</p>
+</td></tr>
+<tr valign="top"><td><code>symbol</code></td>
+<td>
+<p>a vector of symbol which must be equal to the number of group else all sites are printed in pch[1]</p>
+</td></tr>
+<tr valign="top"><td><code>lablong</code></td>
+<td>
+<p>name of the x-axis that will be printed on the map</p>
+</td></tr>
+<tr valign="top"><td><code>lablat</code></td>
+<td>
+<p>name of the y-axis that will be printed on the map</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>Specification for some graphics such as &lsquo;Neighbourplot1&rsquo;, &lsquo;Neighbourplot2&rsquo;, &lsquo;Cluster&rsquo;, &lsquo;Angleplot&rsquo;, &lsquo;Variocloud&rsquo;</p>
+</td></tr>
+<tr valign="top"><td><code>W</code></td>
+<td>
+<p>neighbourhood matrix of size <i>n x n</i>, necessary when method=&lsquo;Neighbourplot&rsquo;</p>
+</td></tr>
+<tr valign="top"><td><code>couleurs</code></td>
+<td>
+<p>Colors of the sites</p>
+</td></tr>
+<tr valign="top"><td><code>classe</code></td>
+<td>
+<p>vector of n whith class of sites</p>
+</td></tr>
+<tr valign="top"><td><code>legmap</code></td>
+<td>
+<p>a list of (numeric,numeric,numeric,numeric,numeric,numeric,character) with the sizes and the corresponding values of the 3 bubbles represented in the legend and the variable name of variable choosed </p>
+</td></tr>
+<tr valign="top"><td><code>legends</code></td>
+<td>
+<p>a list of c(boolean,boolean,c(numeric,numeric),c(numeric,numeric)) with TRUE for drawing legends of bubbles (1st argument) or factors (2nd argument) and the coordinates of the location of the upper left corner of the legend box</p>
+</td></tr>
+<tr valign="top"><td><code>labmod</code></td>
+<td>
+<p>Name of factors</p>
+</td></tr>
+<tr valign="top"><td><code>axis</code></td>
+<td>
+<p>a boolean with True for drawing axes on the map</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p> Options permit to represent sites with different colors or symbols,  
+with different sizes of circle (&lsquo;bubble&rsquo;), using a spatial contour (&lsquo;carte&rsquo;), printing names of sites (&lsquo;label&rsquo;),etc. 
+Possibility to draw a legend giving the sizes of bubbles and colors of levels.
+</p>
+
+
+<h3>Value</h3>
+
+<p>No values, only drawing of a map</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Thomas-Agnan C., Aragon Y., Ruiz-Gazen A., Laurent T., Robidou L.</p>
+
+
+<h3>References</h3>
+
+<p>Thibault Laurent, Anne Ruiz-Gazen, Christine Thomas-Agnan (2012), GeoXp: An R Package for Exploratory Spatial Data Analysis. <em>Journal of Statistical Software</em>, 47(2), 1-23.</p>
+
+<hr /><div style="text-align: center;">[Package <em>GeoXp</em> version 1.6.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

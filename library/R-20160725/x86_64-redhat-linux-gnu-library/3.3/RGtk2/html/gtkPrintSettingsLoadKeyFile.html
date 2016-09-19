@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkPrintSettingsLoadKeyFile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkPrintSettingsLoadKeyFile {RGtk2}"><tr><td>gtkPrintSettingsLoadKeyFile {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkPrintSettingsLoadKeyFile</h2>
+
+<h3>Description</h3>
+
+<p>Reads the print settings from the group <code>group.name</code> in <code>key.file</code>. If the
+file could not be loaded then error is set to either a <code><a href="GError.html">GFileError</a></code> or
+<code style="white-space: pre;">GKeyFileError</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkPrintSettingsLoadKeyFile(object, key.file, group.name, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkPrintSettings.html">GtkPrintSettings</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">key.file</code></code></td>
+<td>
+<p>the <code style="white-space: pre;">GKeyFile</code> to retrieve the settings from</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">group.name</code></code></td>
+<td>
+<p>the name of the group to use, or <code>NULL</code> to use the default
+&quot;Print Settings&quot;. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.14</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> on success</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>return location for errors, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

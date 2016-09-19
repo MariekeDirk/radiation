@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Write tiled objects to KML</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plotKML.GDALobj {plotKML}"><tr><td>plotKML.GDALobj {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Write tiled objects to KML</h2>
+
+<h3>Description</h3>
+
+<p>Write tiled objects to KML. Suitable for plotting large rasters i.e. large spatial data sets.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plotKML.GDALobj(obj, file.name, block.x, tiles=NULL, 
+   tiles.sel=NULL, altitude=0, altitudeMode="relativeToGround", colour_scale, 
+   z.lim=NULL, breaks.lst=NULL, kml.logo, overwrite=TRUE, cpus, 
+   home.url=".", desc=NULL, open.kml=TRUE, CRS=attr(obj, "projection"), 
+   plot.legend=TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p><code>"GDALobj"</code> object i.e. a pointer to a spatial layer</p>
+</td></tr>
+<tr valign="top"><td><code>file.name</code></td>
+<td>
+<p>character; output KML file name</p>
+</td></tr>
+<tr valign="top"><td><code>block.x</code></td>
+<td>
+<p>numeric; size of block in meters or corresponding mapping units</p>
+</td></tr>
+<tr valign="top"><td><code>tiles</code></td>
+<td>
+<p>data.frame; tiling definition generated using <code>GSIF::tile</code></p>
+</td></tr>
+<tr valign="top"><td><code>tiles.sel</code></td>
+<td>
+<p>integer; selection of tiles to be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>altitude</code></td>
+<td>
+<p>numeric; altitude of the ground overlay</p>
+</td></tr>
+<tr valign="top"><td><code>altitudeMode</code></td>
+<td>
+<p>character; either <code>"absolute"</code>, <code>"relativeToGround"</code> or <code>"clampToGround"</code></p>
+</td></tr>
+<tr valign="top"><td><code>colour_scale</code></td>
+<td>
+<p>character; color palette</p>
+</td></tr>
+<tr valign="top"><td><code>z.lim</code></td>
+<td>
+<p>numeric; upper lower boundaries</p>
+</td></tr>  
+<tr valign="top"><td><code>breaks.lst</code></td>
+<td>
+<p>numeric; optional break lines (must be of size <code>length(colour_scale)+1)</code></p>
+</td></tr>
+<tr valign="top"><td><code>kml.logo</code></td>
+<td>
+<p>character; optional project logo file (PNG)</p>
+</td></tr>
+<tr valign="top"><td><code>overwrite</code></td>
+<td>
+<p>logical; specifies whether to overwrite PNGs if available</p>
+</td></tr>
+<tr valign="top"><td><code>cpus</code></td>
+<td>
+<p>integer; specifies number of CPUs to be used by the snowfall package to speed things up</p>
+</td></tr>
+<tr valign="top"><td><code>home.url</code></td>
+<td>
+<p>character; optional web-directory where the PNGs will be stored</p>
+</td></tr>
+<tr valign="top"><td><code>desc</code></td>
+<td>
+<p>character; optional layer description</p>
+</td></tr>
+<tr valign="top"><td><code>open.kml</code></td>
+<td>
+<p>logical; specifies whether to open the KML file after writing</p>
+</td></tr>
+<tr valign="top"><td><code>CRS</code></td>
+<td>
+<p>character; projection string (if missing)</p>
+</td></tr>
+<tr valign="top"><td><code>plot.legend</code></td>
+<td>
+<p>logical; indicate whether to plot summary legend</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list of KML files.</p>
+
+
+<h3>Note</h3>
+
+<p>This operation can be time-consuming for processing very large rasters e.g. more than 10,000 by 10,000 pixels. To speed up writing of KMLs, use the snowfall package.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="plotKML.html">plotKML</a></code>, <code><a href="kml.tiles.html">kml.tiles</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(sp)
+library(snowfall)
+library(GSIF)
+library(rgdal)
+fn = system.file("pictures/SP27GTIF.TIF", 
+ package = "rgdal")
+obj &lt;- GDALinfo(fn)
+tiles &lt;- getSpatialTiles(obj, block.x=5000, 
+  return.SpatialPolygons = FALSE)
+## plot using tiles:
+plotKML.GDALobj(obj, tiles=tiles, z.lim=c(0,185))
+## Even better ideas is to first reproject 
+## the large grid using 'gdalUtils::gdalwarp', then tile...
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

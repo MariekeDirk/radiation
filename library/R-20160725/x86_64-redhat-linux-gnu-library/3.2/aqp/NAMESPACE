@@ -1,0 +1,156 @@
+# R 3.3 compatibility:
+
+importFrom("grDevices", "chull", "col2rgb", "colorRamp",
+             "colorRampPalette", "grey", "rgb")
+
+importFrom("graphics", "abline", "arrows", "axis", "box", "grid",
+             "image", "legend", "lines", "mtext", "par", "points",
+             "polygon", "rect", "segments", "strwidth", "text")
+
+importFrom("stats", "aggregate", "approxfun", "as.dist", "as.formula",
+             "complete.cases", "cov", "formula", "median", "model.frame",
+             "na.omit", "na.pass", "quantile", "rnorm", "runif", "sd",
+             "splinefun", "update")
+
+importFrom("utils", "head", "object.size")
+
+importFrom(methods,
+  setClass,
+  representation,
+  prototype,
+  new,
+  isGeneric,
+  setGeneric,
+  setReplaceMethod,
+  setMethod,
+  as,
+  show
+)
+
+
+importFrom(MASS,
+  isoMDS
+)
+
+importFrom(digest,
+  digest
+)
+
+importFrom(RColorBrewer,
+  brewer.pal
+)
+
+importFrom(grid,
+  gpar,
+	grid.text,
+  unit
+)
+
+importFrom(lattice,
+  levelplot,
+  trellis.par.get,
+  panel.levelplot,
+  panel.abline,
+  panel.lines,
+  panel.polygon,
+  panel.segments,
+  panel.grid
+)
+
+importFrom(cluster, 
+  daisy,
+  silhouette
+)
+
+importFrom(graphics, 
+  plot
+)
+
+importFrom(plyr, 
+  idata.frame,
+  ddply,
+  llply,
+  ldply,
+  dlply,
+  join,
+  summarise
+)
+
+importFrom(reshape, 
+  melt,
+  melt.data.frame,
+  cast
+)
+
+importFrom(scales,
+  rescale
+)
+
+importFrom(stringr, 
+  fixed,
+  str_c,
+  str_split,
+  str_trim
+)
+
+importFrom(sp,
+  CRS,
+  SpatialPoints,
+  SpatialPointsDataFrame,
+  coordinates, 
+  "coordinates<-", 
+  proj4string, 
+  "proj4string<-"
+)
+
+importFrom(Hmisc, 
+  hdquantile,
+	wtd.mean, 
+  wtd.var, 
+  wtd.quantile, 
+  wtd.rank, 
+  wtd.table
+)
+
+importFrom(plotrix, 
+  soil.texture,
+	triax.points
+)
+
+exportClasses(SoilProfileCollection)
+
+exportMethods(  
+  "[",
+  "$",
+  "$<-",
+  coordinates,
+  "coordinates<-",
+  "depths<-", 
+  depth_units,
+  "depth_units<-",
+  diagnostic_hz,
+  "diagnostic_hz<-",
+  horizons,
+  "horizons<-",
+  horizonDepths,
+  idname,
+  length,
+  max,
+  metadata,
+  "metadata<-", 
+  min,
+  names,
+  nrow,
+  plot,
+  profileApply,
+  profile_compare,
+  profile_id,
+  proj4string,
+  "proj4string<-",
+  site,
+  "site<-",
+  slab,
+  slice
+)
+
+exportPattern("^[^\\.]")

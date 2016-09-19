@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Measures of Model Accuracy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for accuracy {SDMTools}"><tr><td>accuracy {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Measures of Model Accuracy</h2>
+
+<h3>Description</h3>
+
+<p><code>accuracy</code> estimates six measures of accuracy for
+presence-absence or presence-psuedoabsence data. These
+include AUC, ommission rates, sensitivity, specificity,
+proportion correctly identified and Kappa. <br /> <br />
+<b>Note:</b> this method will exclude any missing data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+accuracy(obs, pred, threshold = 0.5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a vector of observed values which must be 0
+for absences and 1 for occurrences</p>
+</td></tr>
+<tr valign="top"><td><code>pred</code></td>
+<td>
+<p>a vector of the same length as <code>obs</code>
+representing the predicted values.  Values must be
+between 0 &amp; 1 prepresenting a likelihood.</p>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>this can be: <br /> a) a single value
+representing a single threshold between 0 &amp; 1; <br /> b) a
+vector of threshold values between 0 &amp; 1; OR <br /> c) an
+integer value representing the number of equal interval
+threshold values between 0 &amp; 1</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a data.frame with seven columns: </p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>the
+threshold values representing each row of data</p>
+</td></tr>
+<tr valign="top"><td><code>AUC</code></td>
+<td>
+<p>the AUC given the defined threshold value</p>
+</td></tr>
+<tr valign="top"><td><code>ommission.rate</code></td>
+<td>
+<p>the ommission rate as a proportion of
+true occurrences misidentified given the defined threshold
+value</p>
+</td></tr> <tr valign="top"><td><code>sensitivity</code></td>
+<td>
+<p>the sensitivity given the defined
+threshold value</p>
+</td></tr> <tr valign="top"><td><code>specificity</code></td>
+<td>
+<p>the specificity given
+the defined threshold value</p>
+</td></tr> <tr valign="top"><td><code>prop.correct</code></td>
+<td>
+<p>the
+proportion of the presence and absence records correctly
+identified given the defined threshold value</p>
+</td></tr>
+<tr valign="top"><td><code>Kappa</code></td>
+<td>
+<p>the Kappa statistic of the model given the
+defined threshold value</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="auc.html">auc</a></code>, <code><a href="Kappa.html">Kappa</a></code>,
+<code><a href="omission.html">omission</a></code>, <code><a href="omission.html">sensitivity</a></code>,
+<code><a href="omission.html">specificity</a></code>, <code><a href="omission.html">prop.correct</a></code>,
+<code><a href="confusion.matrix.html">confusion.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#create some data
+obs = c(sample(c(0,1),20,replace=TRUE),NA); obs = obs[order(obs)]
+pred = runif(length(obs),0,1); pred = pred[order(pred)]
+
+#calculate accuracy of the model with a single threshold value
+accuracy(obs,pred,threshold=0.5)
+
+#calculate accuracy given several defined thresholds
+accuracy(obs,pred,threshold=c(0.33,0.5,0.66))
+
+#calculate accuracy given a number of equal interval thresholds
+accuracy(obs,pred,threshold=20)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

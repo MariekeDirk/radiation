@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Guess Appropriate Ordering for Generalized Horizon Labels</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for guessGenHzLevels {aqp}"><tr><td>guessGenHzLevels {aqp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Guess Appropriate Ordering for Generalized Horizon Labels</h2>
+
+<h3>Description</h3>
+
+<p>This function makes an (educated) guess at an appropriate set of levels for generalized horizon labels using the median of horizon depth mid-points.</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+guessGenHzLevels(x, hz = "genhz")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a <code>SoilProfileCollection</code> object</p>
+</td></tr>
+<tr valign="top"><td><code>hz</code></td>
+<td>
+<p>name of horizon-level attribute containing generalized horizon labels, see details</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is useful when groups of horizons have been generalized via some method other than <code>generalize.hz</code>. For example, it may be useful to generalize horizons using labels derived from slice depths. The default sorting of these labels will not follow a logicial depth-wise sorting when converted to a factor. <code>guessGenHzLevels</code> does a good job of &quot;guessing&quot; the proper ordering of these labels based on median horizon depth mid-point.</p>
+
+
+<h3>Value</h3>
+
+<p>a list:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>levels</code></td>
+<td>
+<p>a vector of levels sorted by median horizon depth mid-point</p>
+</td></tr>
+<tr valign="top"><td><code>median.depths</code></td>
+<td>
+<p>a vector of median horizon mid-points</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>D.E. Beaudette</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="generalize.hz.html">generalize.hz</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load some example data
+data(sp1, package='aqp')
+
+# upgrade to SoilProfileCollection
+depths(sp1) &lt;- id ~ top + bottom
+
+# generalize horizon names
+n &lt;- c('O', 'A', 'B', 'C')
+p &lt;- c('O', 'A', 'B', 'C')
+sp1$genhz &lt;- generalize.hz(sp1$name, n, p)
+
+# note: levels are in the order in which originally defined:
+levels(sp1$genhz)
+
+# generalize horizons by depth slice
+s &lt;- slice(sp1, c(5, 10, 15, 25, 50, 100, 150) ~ .)
+s$slice &lt;- paste0(s$top, ' cm')
+# not a factor
+levels(s$slice)
+
+# the proper ordering of these new labels can be guessed from horizon depths
+guessGenHzLevels(s, 'slice')
+
+# convert to factor, and set proper order
+s$slice &lt;- factor(s$slice, levels=guessGenHzLevels(s, 'slice')$levels)
+
+# that is better
+levels(s$slice)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>aqp</em> version 1.9.10 <a href="00Index.html">Index</a>]</div>
+</body></html>

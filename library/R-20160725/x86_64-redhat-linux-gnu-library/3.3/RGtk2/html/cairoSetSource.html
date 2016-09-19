@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoSetSource</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoSetSource {RGtk2}"><tr><td>cairoSetSource {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoSetSource</h2>
+
+<h3>Description</h3>
+
+<p>Sets the source pattern within <code>cr</code> to <code>source</code>. This pattern
+will then be used for any subsequent drawing operation until a new
+source pattern is set.</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoSetSource(cr, source)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">source</code></code></td>
+<td>
+<p>[<code><a href="cairo-pattern.html">CairoPattern</a></code>]  a <code><a href="cairo-pattern.html">CairoPattern</a></code> to be used as the source for
+subsequent drawing operations.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note: The pattern's transformation matrix will be locked to the
+user space in effect at the time of <code><a href="cairoSetSource.html">cairoSetSource</a></code>. This means
+that further modifications of the current transformation matrix
+will not affect the source pattern. See <code><a href="cairoPatternSetMatrix.html">cairoPatternSetMatrix</a></code>.
+</p>
+<p>The default source pattern is a solid pattern that is opaque black,
+(that is, it is equivalent to cairo_set_source_rgb(cr, 0.0, 0.0,
+0.0)).  </p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

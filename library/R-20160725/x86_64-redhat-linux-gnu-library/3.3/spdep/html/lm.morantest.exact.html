@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exact global Moran's I test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for lm.morantest.exact {spdep}"><tr><td>lm.morantest.exact {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exact global Moran's I test</h2>
+
+<h3>Description</h3>
+
+<p>The function implements Tiefelsdorf's exact global Moran's I test.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+lm.morantest.exact(model, listw, zero.policy = NULL, alternative = "greater",
+ spChk = NULL, resfun = weighted.residuals, zero.tol = 1e-07, Omega=NULL,
+ save.M=NULL, save.U=NULL, useTP=FALSE, truncErr=1e-6, zeroTreat=0.1)
+## S3 method for class 'moranex'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>an object of class <code>lm</code> returned by <code>lm</code>; weights
+may be specified in the <code>lm</code> fit, but offsets should not be used</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without
+neighbours, if FALSE assign NA</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>a character string specifying the alternative hypothesis,
+must be one of greater (default), less or two.sided.</p>
+</td></tr>
+<tr valign="top"><td><code>spChk</code></td>
+<td>
+<p>should the data vector names be checked against the spatial objects for identity integrity, TRUE, or FALSE, default NULL to use <code>get.spChkOption()</code></p>
+</td></tr>
+<tr valign="top"><td><code>resfun</code></td>
+<td>
+<p>default: weighted.residuals; the function to be used to extract residuals from the <code>lm</code> object, may be <code>residuals</code>, <code>weighted.residuals</code>, <code>rstandard</code>, or <code>rstudent</code></p>
+</td></tr>
+<tr valign="top"><td><code>zero.tol</code></td>
+<td>
+<p>tolerance used to find eigenvalues close to absolute zero</p>
+</td></tr>
+<tr valign="top"><td><code>Omega</code></td>
+<td>
+<p>A SAR process matrix may be passed in to test an alternative hypothesis, for example <code>Omega &lt;- invIrW(listw, rho=0.1); Omega &lt;- tcrossprod(Omega)</code>, <code>chol()</code> is taken internally</p>
+</td></tr>
+<tr valign="top"><td><code>save.M</code></td>
+<td>
+<p>return the full M matrix for use in <code>spdep:::exactMoranAlt</code></p>
+</td></tr>
+<tr valign="top"><td><code>save.U</code></td>
+<td>
+<p>return the full U matrix for use in <code>spdep:::exactMoranAlt</code></p>
+</td></tr>
+<tr valign="top"><td><code>useTP</code></td>
+<td>
+<p>default FALSE, if TRUE, use truncation point in integration rather than upper=Inf, see Tiefelsdorf (2000), eq. 6.7, p.69</p>
+</td></tr>
+<tr valign="top"><td><code>truncErr</code></td>
+<td>
+<p>when useTP=TRUE, pass truncation error to truncation point function</p>
+</td></tr>
+<tr valign="top"><td><code>zeroTreat</code></td>
+<td>
+<p>when useTP=TRUE, pass zero adjustment to truncation point function</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a moranex object</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments to be passed through</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list of class <code>moranex</code> with the following components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+<p>the value of the saddlepoint approximation of the
+standard deviate of global Moran's I.</p>
+</td></tr>
+<tr valign="top"><td><code>p.value</code></td>
+<td>
+<p>the p-value of the test.</p>
+</td></tr>
+<tr valign="top"><td><code>estimate</code></td>
+<td>
+<p>the value of the observed global Moran's I.</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>a character string giving the method used.</p>
+</td></tr>
+<tr valign="top"><td><code>alternative</code></td>
+<td>
+<p>a character string describing the alternative hypothesis.</p>
+</td></tr>
+<tr valign="top"><td><code>gamma</code></td>
+<td>
+<p>eigenvalues (excluding zero values)</p>
+</td></tr>
+<tr valign="top"><td><code>oType</code></td>
+<td>
+<p>usually set to &quot;E&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>data.name</code></td>
+<td>
+<p>a character string giving the name(s) of the data.</p>
+</td></tr>
+<tr valign="top"><td><code>df</code></td>
+<td>
+<p>degrees of freedom</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Markus Reder and Roger Bivand</p>
+
+
+<h3>References</h3>
+
+<p>Roger Bivand, Werner G. Müller and Markus Reder (2009) &quot;Power calculations for global and local Moran's I.&quot; <em>Computational Statistics \&amp; Data Analysis</em> 53, 2859-2872.</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="lm.morantest.sad.html">lm.morantest.sad</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+require(maptools)
+eire &lt;- readShapePoly(system.file("etc/shapes/eire.shp", package="spdep")[1],
+  ID="names", proj4string=CRS("+proj=utm +zone=30 +ellps=airy +units=km"))
+eire.nb &lt;- poly2nb(eire)
+#data(eire)
+e.lm &lt;- lm(OWNCONS ~ ROADACC, data=eire)
+lm.morantest(e.lm, nb2listw(eire.nb))
+lm.morantest.sad(e.lm, nb2listw(eire.nb))
+lm.morantest.exact(e.lm, nb2listw(eire.nb))
+lm.morantest.exact(e.lm, nb2listw(eire.nb), useTP=TRUE)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

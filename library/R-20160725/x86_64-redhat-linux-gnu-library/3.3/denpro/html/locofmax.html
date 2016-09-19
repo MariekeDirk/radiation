@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculates the location of the maximum of a function</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for locofmax {denpro}"><tr><td>locofmax {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Calculates the location of the maximum of a function
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the location of the maximum of a piecewise constant function.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+locofmax(pcf)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pcf</code></td>
+<td>
+<p>piecewise constant function; output of &quot;pcf.kern&quot; or &quot;pcf.func&quot;</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a d-vector; the location of the maximum;
+this is defined as the barycenter of the set where the function has the maximum
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p><code><a href="pcf.kern.html">pcf.kern</a></code>,
+<code><a href="pcf.func.html">pcf.func</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dendat&lt;-sim.data(n=100,type="mulmod")
+pcf&lt;-pcf.kern(dendat,h=1,N=c(32,32))
+
+locofmax(pcf)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

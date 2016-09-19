@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plots a branching map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plotbranchmap {denpro}"><tr><td>plotbranchmap {denpro}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plots a branching map</h2>
+
+<h3>Description</h3>
+
+<p>Plots a branching map to the graphics window.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plotbranchmap(bm, phi = 55, theta = 30)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>bm</code></td>
+<td>
+<p>A branching map; output of function &quot;branchmap&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>phi</code></td>
+<td>
+<p>The phi-parameter of function &quot;persp&quot;.</p>
+</td></tr>
+<tr valign="top"><td><code>theta</code></td>
+<td>
+<p>The theta-parameter of function &quot;persp&quot;.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Function &quot;plotbranchmap&quot; just calls function &quot;persp&quot;.</p>
+
+
+<h3>Value</h3>
+
+<p>Makes a plot to the current graphics window.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jussi Klemela</p>
+
+
+<h3>References</h3>
+
+<p>http://denstruct.net</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="branchmap.html">branchmap</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+dendat&lt;-sim.data(n=200,type="mulmod")
+
+h1&lt;-0.9
+h2&lt;-2.2
+lkm&lt;-5
+hseq&lt;-hgrid(h1,h2,lkm)
+
+N&lt;-c(16,16)
+estiseq&lt;-lstseq.kern(dendat,hseq,N,lstree=TRUE)
+
+bm&lt;-branchmap(estiseq)
+
+plotbranchmap(bm)
+
+## The function is currently defined as
+function(bm,phi=55,theta=30)
+{
+
+persp(x=bm$level,y=bm$h,z=bm$z, 
+xlab="level",ylab="h",zlab="excess mass",
+ticktype="detailed",
+col=bm$col,phi=phi,theta=theta) 
+
+  }
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>denpro</em> version 0.9.2 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Ecological Niche Factor Analysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for enfa {adehabitat}"><tr><td>enfa {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Ecological Niche Factor Analysis</h2>
+
+<h3>Description</h3>
+
+<p><code>enfa</code> performs an Ecological Niche Factor Analysis.
+<code>hist.enfa</code> draws histograms of the row scores or of the initial
+variables of the ENFA.<br />
+<code>data2enfa</code> prepares data (kasc and localizations) to be analyzed
+by the ENFA.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+enfa(dudi, pr, scannf = TRUE, nf = 1)
+## S3 method for class 'enfa'
+hist(x, scores = TRUE, type = c("h", "l"), adjust = 1, Acol, Ucol, 
+          Aborder, Uborder, Alwd = 1, Ulwd = 1, ...)
+data2enfa(kasc, pts)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dudi</code></td>
+<td>
+<p>a duality diagram, object of class <code>dudi</code> (see Details)</p>
+</td></tr>
+<tr valign="top"><td><code>pr</code></td>
+<td>
+<p>a vector giving the utilization weights associated to each unit</p>
+</td></tr>
+<tr valign="top"><td><code>scannf</code></td>
+<td>
+<p>logical.  Whether the eigenvalues barplot should be displayed</p>
+</td></tr>
+<tr valign="top"><td><code>nf</code></td>
+<td>
+<p>an integer indicating the number of kept
+specialization axes </p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>enfa</code></p>
+</td></tr>
+<tr valign="top"><td><code>scores</code></td>
+<td>
+<p>logical.  If <code>TRUE</code>, the histograms display
+the row scores of the ENFA.  If <code>FALSE</code>, they display the
+niche on the environmental variables (in this case, this is equivalent to
+<code>histniche</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>what type of plot should be drawn.  Possible types are:<br />
+<code>"h"</code> for histograms,<br />
+<code>"l"</code> for kernel density estimates (see <code>?density</code>).<br />
+By default, <code>type = "h"</code> is used.  If <code>type = "l"</code> is used,
+the position of the mean of each distribution is indicated by dotted
+lines</p>
+</td></tr>
+<tr valign="top"><td><code>adjust</code></td>
+<td>
+<p>if <code>type = "l"</code>, a parameter used to control the
+bandwidth of the density estimates (see <code>?density</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>Acol</code></td>
+<td>
+<p>if <code>type = "h"</code>, a color to be used to fill the histogram
+of the available pixels. if <code>type = "l"</code>, a color to be used for the
+kernel density estimates of the available pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Ucol</code></td>
+<td>
+<p>if <code>type = "h"</code>, a color to be used to fill the histogram
+of the used pixels. if <code>type = "l"</code>, a color to be used for the
+kernel density estimates of the used pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Aborder</code></td>
+<td>
+<p>color for the border of the histograms of the available
+pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Uborder</code></td>
+<td>
+<p>color for the border of the histograms of the used
+pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Alwd</code></td>
+<td>
+<p>if <code>type = "l"</code>, the line width of the kernel density 
+estimates of the available pixels</p>
+</td></tr>
+<tr valign="top"><td><code>Ulwd</code></td>
+<td>
+<p>if <code>type = "l"</code>, the line width of the kernel density 
+estimates of the used pixels</p>
+</td></tr>
+<tr valign="top"><td><code>kasc</code></td>
+<td>
+<p>a raster map of class <code>kasc</code></p>
+</td></tr>
+<tr valign="top"><td><code>pts</code></td>
+<td>
+<p>a data frame with two columns, giving the coordinates of
+the species locations</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>further arguments passed to or from other methods </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The niche concept, as defined by Hutchinson (1957), considers the
+ecological niche of a species as an hypervolume in the multidimensional
+space defined by environmental variables, within
+which the populations of a species can persist.  The Ecological Niche
+Factor Analysis (ENFA) has been developped by Hirzel et al. (2002) to
+analyse the position of the niche in the ecological space.  Nicolas
+Perrin (1984) described the position of the niche in the n-dimensional
+space using two measures: the M-specialization (hereafter termed marginality)
+and the S-specialization (hereafter termed specialization).  The
+marginality represents the squared distance of the niche barycentre from
+the mean available habitat.  A large specialization corresponds to a
+narrow niche relative to the habitat conditions available to the species.<br />
+</p>
+<p>The ENFA first extracts an axis of marginality (vector from the average
+of available habitat conditions to the average used habitat conditions).
+Then the analysis extracts successives orthogonal axes (i.e. uncorrelated),
+which maximises the specialization of the species.  The calculations
+used in the function are described in Hirzel et al. (2002).<br />
+</p>
+<p>The function <code>enfa</code> can be used on both quantitative variables and
+qualitative variables (though the interpretation of the results of the
+ENFA for qualitative variables is still under research), provided that
+the table containing the values of habitat variables (columns) for
+each resource unit (rows) is correctly transformed
+(e.g. column-centered and standardised for tables containing only
+quantitative variables), and that appropriate column weights are given
+(e.g. the sum of the weights for
+the levels of a factor should be the same as the weight of one
+quantitative variable). Therefore, the function <code>enfa</code> requires
+that a preliminary multivariate analysis is performed on the table
+(using analysis of the family of duality diagram, e.g. principal
+component analysis or Hill and Smith analysis). The object returned
+by this preliminary analysis contains the appropriate weights and
+transformation of the original data frame. For example, 
+the function <code>dudi.mix</code> can be used first on the data.frame
+containing the value of both quantitative (e.g. slope, elevation) and
+qualitative habitat variables (e.g. vegetation) for each pixel of a
+raster map. The result of this analysis can then be passed as argument
+to the function <code>enfa</code> (see examples below).<br />
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>enfa</code> returns a list of class <code>enfa</code> containing the
+following components: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>original call.</p>
+</td></tr>
+<tr valign="top"><td><code>tab</code></td>
+<td>
+<p>a data frame with n rows and p columns.</p>
+</td></tr>
+<tr valign="top"><td><code>pr</code></td>
+<td>
+<p>a vector of length n containing the number of points in each
+pixel of the map.</p>
+</td></tr>
+<tr valign="top"><td><code>nf</code></td>
+<td>
+<p>the number of kept specialization axes.</p>
+</td></tr>
+<tr valign="top"><td><code>m</code></td>
+<td>
+<p>the marginality (squared length of the marginality vector).</p>
+</td></tr>
+<tr valign="top"><td><code>s</code></td>
+<td>
+<p>a vector with all the eigenvalues of the analysis.</p>
+</td></tr>
+<tr valign="top"><td><code>lw</code></td>
+<td>
+<p>row weights, a vector with n components.</p>
+</td></tr>
+<tr valign="top"><td><code>li</code></td>
+<td>
+<p>row coordinates, data frame with n rows and nf columns.</p>
+</td></tr>
+<tr valign="top"><td><code>cw</code></td>
+<td>
+<p>column weights, a vector with p components.</p>
+</td></tr>
+<tr valign="top"><td><code>co</code></td>
+<td>
+<p>column coordinates, data frame with p rows and nf columns.</p>
+</td></tr>
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>coordinates of the marginality vector.</p>
+</td></tr>
+</table>
+<p><code>data2enfa</code> returns a list of class <code>dataenfa</code> containing the
+following components: 
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>tab</code></td>
+<td>
+<p>a data frame with n rows and p columns.</p>
+</td></tr>
+<tr valign="top"><td><code>pr</code></td>
+<td>
+<p>a vector of length n containing the number of points in each
+pixel of the map.</p>
+</td></tr>
+<tr valign="top"><td><code>index</code></td>
+<td>
+<p>an integer vector giving the position of the rows of
+<code>tab</code> in the  initial object of class <code>kasc</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>attr</code></td>
+<td>
+<p>an object of class <code>mapattr</code> with the attributes of the
+initial <code>kasc</code>.</p>
+</td></tr> 
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Mathieu Basille <a href="mailto:basille@ase-research.org">basille@ase-research.org</a> </p>
+
+
+<h3>References</h3>
+
+<p>Hutchinson, G.E. (1957) Concluding Remarks. <em>Cold Spring Harbor
+Symposium on Quantitative Biology</em>, <b>22</b>: 415&ndash;427. 
+</p>
+<p>Perrin, N. (1984) Contribution a l'ecologie du genre Cepaea
+(Gastropoda) : Approche descriptive et experimentale de l'habitat et
+de la niche ecologique. These de Doctorat. Universite de Lausanne,
+Lausanne. 
+</p>
+<p>Hirzel, A.H., Hausser, J., Chessel, D. and Perrin, N. (2002)
+Ecological-niche factor analysis: How to compute habitat-suitability
+maps without absence data? <em>Ecology</em>, <b>83</b>, 2027&ndash;2036.
+</p>
+<p>Basille, M., Calenge, C., Marboutin, E., Andersen, R. and Gaillard,
+J.M. (2008) Assessing habitat selection using multivariate statistics:
+Some refinements of the ecological-niche factor
+analysis. <em>Ecological Modelling</em>, <b>211</b>, 233&ndash;240.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ade4/html/niche.html">niche</a></code>, <code><a href="kselect.html">kselect</a></code> for other types of
+analysis of the niche, when several species are under studies,
+<code><a href="niche.test.html">niche.test</a></code> to perform a test of the marginality and the
+tolerance of the niche, and <code><a href="scatter.enfa.html">scatter.enfa</a></code> to have a
+graphical display of objects of class
+<code>enfa</code>.  See <code><a href="madifa.html">madifa</a></code> for another factorial analysis of
+the ecological niche.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+data(lynxjura)
+
+map &lt;- lynxjura$map
+
+## We keep only "wild" indices.
+tmp &lt;- lynxjura$locs[,4]!="D"
+locs &lt;- lynxjura$locs[tmp, c("X","Y")]
+hist(map, type = "l")
+## The variable artif is far from symetric
+
+## We perform a square root transformation
+## of this variable
+## We therefore normalize the variable 'artif'
+map[,4] &lt;- sqrt(map[,4])
+hist(map, type = "l")
+
+## We prepare the data for the ENFA
+(dataenfa1 &lt;- data2enfa(map, locs))
+
+## We then perform the PCA before the ENFA
+pc &lt;- dudi.pca(dataenfa1$tab, scannf = FALSE)
+
+## The object 'pc' contains the transformed table (i.e.
+## centered so that all columns have a mean of 0
+## and scaled so that all columns have a variance of 1
+## 'pc' also contains the weights of the habitat variables,
+## and the weights of the pixels in the analysis
+
+(enfa1 &lt;- enfa(pc, dataenfa1$pr,
+               scannf = FALSE))
+hist(enfa1)
+hist(enfa1, scores = FALSE, type = "l")
+
+## randomization test and scatterplot
+## Not run: 
+(renfa &lt;- randtest(enfa1))
+plot(renfa)
+scatter(enfa1)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkEntryGetLayoutOffsets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkEntryGetLayoutOffsets {RGtk2}"><tr><td>gtkEntryGetLayoutOffsets {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkEntryGetLayoutOffsets</h2>
+
+<h3>Description</h3>
+
+<p>Obtains the position of the <code><a href="pango-Layout-Objects.html">PangoLayout</a></code> used to render text
+in the entry, in widget coordinates. Useful if you want to line
+up the text in an entry with some other text, e.g. when using the
+entry to implement editable cells in a sheet widget.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkEntryGetLayoutOffsets(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkEntry.html">GtkEntry</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>Also useful to convert mouse events into coordinates inside the
+<code><a href="pango-Layout-Objects.html">PangoLayout</a></code>, e.g. to take some action if some part of the entry text
+is clicked.
+</p>
+<p>Note that as the user scrolls around in the entry the offsets will
+change; you'll need to connect to the &quot;notify::scroll-offset&quot;
+signal to track this. Remember when using the <code><a href="pango-Layout-Objects.html">PangoLayout</a></code>
+functions you need to convert to and from pixels using
+<code>pangoPixels()</code> or <code style="white-space: pre;">PANGO_SCALE</code>.
+</p>
+<p>Keep in mind that the layout text may contain a preedit string, so
+<code><a href="gtkEntryLayoutIndexToTextIndex.html">gtkEntryLayoutIndexToTextIndex</a></code> and
+<code><a href="gtkEntryTextIndexToLayoutIndex.html">gtkEntryTextIndexToLayoutIndex</a></code> are needed to convert byte
+indices in the layout to byte indices in the entry contents.</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>location to store X offset of layout, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>location to store Y offset of layout, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

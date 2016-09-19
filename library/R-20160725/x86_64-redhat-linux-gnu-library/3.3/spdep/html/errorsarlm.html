@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Spatial simultaneous autoregressive error model estimation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for errorsarlm {spdep}"><tr><td>errorsarlm {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Spatial simultaneous autoregressive error model estimation</h2>
+
+<h3>Description</h3>
+
+<p>Maximum likelihood estimation of spatial simultaneous autoregressive
+error models of the form:
+</p>
+<p style="text-align: center;"><i>y = X beta + u, u = lambda W u + e</i></p>
+
+<p>where <i>lambda</i> is found by <code>optimize()</code> first, and <i>beta</i> and other parameters by generalized least squares subsequently. With one of the sparse matrix methods, larger numbers of observations can be handled, but the <code>interval=</code> argument may need be set when the weights are not row-standardised. When <code>etype</code> is &ldquo;emixed&rdquo;, a so-called spatial Durbin error model is fitted, while <code>lmSLX</code> fits an <code>lm</code> model augmented with the spatially lagged RHS variables, including the lagged intercept when the spatial weights are not row-standardised. <code>create_WX</code> creates spatially lagged RHS variables, and is exposed for use in model fitting functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+errorsarlm(formula, data=list(), listw, na.action, weights=NULL,
+ etype="error", method="eigen", quiet=NULL, zero.policy=NULL,
+ interval = NULL, tol.solve=1.0e-10, trs=NULL, control=list())
+lmSLX(formula, data = list(), listw, na.action, weights=NULL, zero.policy=NULL)
+create_WX(x, listw, zero.policy=NULL, prefix="")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>a symbolic description of the model to be fit. The details 
+of model specification are given for <code>lm()</code></p>
+</td></tr>
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>an optional data frame containing the variables in the model. 
+By default the variables are taken from the environment which the function 
+is called.</p>
+</td></tr>
+<tr valign="top"><td><code>listw</code></td>
+<td>
+<p>a <code>listw</code> object created for example by <code>nb2listw</code></p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>a function (default <code>options("na.action")</code>), can also be <code>na.omit</code> or <code>na.exclude</code> with consequences for residuals and fitted values - in these cases the weights list will be subsetted to remove NAs in the data. It may be necessary to set zero.policy to TRUE because this subsetting may create no-neighbour observations. Note that only weights lists created without using the glist argument to <code>nb2listw</code> may be subsetted.</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>an optional vector of weights to be used in the fitting process. Non-NULL weights can be used to indicate that different observations have different variances (with the values in weights being inversely proportional to the variances); or equivalently, when the elements of weights are positive integers w_i, that each response y_i is the mean of w_i unit-weight observations (including the case that there are w_i observations equal to y_i and the data have been summarized) - <code><a href="../../stats/html/lm.html">lm</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>etype</code></td>
+<td>
+<p>default &quot;error&quot;, may be set to &quot;emixed&quot; to include the spatially lagged independent variables added to X; when &quot;emixed&quot;, the lagged intercept is dropped for spatial weights style &quot;W&quot;, that is row-standardised weights, but otherwise included</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>&quot;eigen&quot; (default) - the Jacobian is computed as the product 
+of (1 - rho*eigenvalue) using <code>eigenw</code>, and &quot;spam&quot; or &quot;Matrix_J&quot; for strictly symmetric weights lists of styles &quot;B&quot; and &quot;C&quot;, or made symmetric by similarity (Ord, 1975, Appendix C) if possible for styles &quot;W&quot; and &quot;S&quot;, using code from the spam package or Matrix package to calculate the determinant; &ldquo;Matrix&rdquo; and &ldquo;spam_update&rdquo; provide updating Cholesky decomposition methods; &quot;LU&quot; provides an alternative sparse matrix decomposition approach. In addition, there are &quot;Chebyshev&quot; and Monte Carlo &quot;MC&quot; approximate log-determinant methods; the Smirnov/Anselin (2009) trace approximation is available as &quot;moments&quot;. Three methods: &quot;SE_classic&quot;, &quot;SE_whichMin&quot;, and &quot;SE_interp&quot; are provided experimentally, the first to attempt to emulate the behaviour of Spatial Econometrics toolbox ML fitting functions. All use grids of log determinant values, and the latter two attempt to ameliorate some features of &quot;SE_classic&quot;.
+</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>default NULL, use !verbose global option value; if FALSE, reports function values during optimization.</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>default NULL, use global option value; if TRUE assign zero to the lagged value of zones without 
+neighbours, if FALSE assign NA - causing <code>errorsarlm()</code> to terminate with an error</p>
+</td></tr>
+<tr valign="top"><td><code>interval</code></td>
+<td>
+<p>default is NULL, search interval for autoregressive parameter</p>
+</td></tr>
+<tr valign="top"><td><code>tol.solve</code></td>
+<td>
+<p>the tolerance for detecting linear dependencies in the columns of matrices to be inverted - passed to <code>solve()</code> (default=1.0e-10). This may be used if necessary to extract coefficient standard errors (for instance lowering to 1e-12), but errors in <code>solve()</code> may constitute indications of poorly scaled variables: if the variables have scales differing much from the autoregressive coefficient, the values in this matrix may be very different in scale, and inverting such a matrix is analytically possible by definition, but numerically unstable; rescaling the RHS variables alleviates this better than setting tol.solve to a very small value</p>
+</td></tr>
+<tr valign="top"><td><code>trs</code></td>
+<td>
+<p>default NULL, if given, a vector of powered spatial weights matrix traces output by <code>trW</code>; when given, insert the asymptotic analytical values into the numerical Hessian instead of the approximated values; may be used to get around some problems raised when the numerical Hessian is poorly conditioned, generating NaNs in subsequent operations. When using the numerical Hessian to get the standard error of lambda, it is very strongly advised that trs be given, as the parts of fdHess corresponding to the regression coefficients are badly approximated, affecting the standard error of lambda; the coefficient correlation matrix is unusable</p>
+</td></tr>
+<tr valign="top"><td><code>control</code></td>
+<td>
+<p>list of extra control arguments - see section below</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>model matrix to be lagged</p>
+</td></tr>
+<tr valign="top"><td><code>prefix</code></td>
+<td>
+<p>default empty string, may be &ldquo;lag&rdquo; in some cases</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The asymptotic standard error of <i>lambda</i> is only computed when
+method=eigen, because the full matrix operations involved would be costly
+for large n typically associated with the choice of method=&quot;spam&quot; or
+&quot;Matrix&quot;.  The same applies to the coefficient covariance matrix. Taken
+as the asymptotic matrix from the literature, it is typically badly
+scaled, being block-diagonal, and with the elements involving <i>lambda</i>
+being very small, while other parts of the matrix can be very large
+(often many orders of magnitude in difference). It often happens that
+the <code>tol.solve</code> argument needs to be set to a smaller value than
+the default, or the RHS variables can be centred or reduced in range.
+</p>
+<p>Note that the fitted() function for the output object assumes that the response 
+variable may be reconstructed as the sum of the trend, the signal, and the
+noise (residuals). Since the values of the response variable are known,
+their spatial lags are used to calculate signal components (Cressie 1993, p. 564). This differs from other software, including GeoDa, which does not use knowledge of the response 
+variable in making predictions for the fitting data.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list object of class <code>sarlm</code>
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>type</code></td>
+<td>
+<p>&quot;error&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>lambda</code></td>
+<td>
+<p>simultaneous autoregressive error coefficient</p>
+</td></tr>
+<tr valign="top"><td><code>coefficients</code></td>
+<td>
+<p>GLS coefficient estimates</p>
+</td></tr>
+<tr valign="top"><td><code>rest.se</code></td>
+<td>
+<p>GLS coefficient standard errors (are equal to asymptotic
+standard errors)</p>
+</td></tr>
+<tr valign="top"><td><code>LL</code></td>
+<td>
+<p>log likelihood value at computed optimum</p>
+</td></tr>
+<tr valign="top"><td><code>s2</code></td>
+<td>
+<p>GLS residual variance</p>
+</td></tr>
+<tr valign="top"><td><code>SSE</code></td>
+<td>
+<p>sum of squared GLS errors</p>
+</td></tr>
+<tr valign="top"><td><code>parameters</code></td>
+<td>
+<p>number of parameters estimated</p>
+</td></tr>
+<tr valign="top"><td><code>logLik_lm.model</code></td>
+<td>
+<p>Log likelihood of the linear model for <i>lambda=0</i></p>
+</td></tr>
+<tr valign="top"><td><code>AIC_lm.model</code></td>
+<td>
+<p>AIC of the linear model for <i>lambda=0</i></p>
+</td></tr>
+</table>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>coef_lm.model</code></td>
+<td>
+<p>coefficients of the linear model for <i>lambda=0</i></p>
+</td></tr>
+<tr valign="top"><td><code>tarX</code></td>
+<td>
+<p>model matrix of the GLS model</p>
+</td></tr>
+<tr valign="top"><td><code>tary</code></td>
+<td>
+<p>response of the GLS model</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>response of the linear model for <i>lambda=0</i></p>
+</td></tr>
+<tr valign="top"><td><code>X</code></td>
+<td>
+<p>model matrix of the linear model for <i>lambda=0</i></p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>the method used to calculate the Jacobian</p>
+</td></tr>
+<tr valign="top"><td><code>call</code></td>
+<td>
+<p>the call used to create this object</p>
+</td></tr>
+<tr valign="top"><td><code>residuals</code></td>
+<td>
+<p>GLS residuals</p>
+</td></tr>
+</table>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>opt</code></td>
+<td>
+<p>object returned from numerical optimisation</p>
+</td></tr>
+<tr valign="top"><td><code>fitted.values</code></td>
+<td>
+<p>Difference between residuals and response variable</p>
+</td></tr>
+<tr valign="top"><td><code>ase</code></td>
+<td>
+<p>TRUE if method=eigen</p>
+</td></tr>
+</table>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>se.fit</code></td>
+<td>
+<p>Not used yet</p>
+</td></tr>
+<tr valign="top"><td><code>lambda.se</code></td>
+<td>
+<p>if ase=TRUE, the asymptotic standard error of <i>lambda</i></p>
+</td></tr>
+<tr valign="top"><td><code>LMtest</code></td>
+<td>
+<p>NULL for this model</p>
+</td></tr>
+<tr valign="top"><td><code>aliased</code></td>
+<td>
+<p>if not NULL, details of aliased variables</p>
+</td></tr>
+<tr valign="top"><td><code>LLNullLlm</code></td>
+<td>
+<p>Log-likelihood of the null linear model</p>
+</td></tr>
+<tr valign="top"><td><code>Hcov</code></td>
+<td>
+<p>Spatial DGP covariance matrix for Hausman test if available</p>
+</td></tr>
+<tr valign="top"><td><code>interval</code></td>
+<td>
+<p>line search interval</p>
+</td></tr>
+<tr valign="top"><td><code>fdHess</code></td>
+<td>
+<p>finite difference Hessian</p>
+</td></tr>
+<tr valign="top"><td><code>optimHess</code></td>
+<td>
+<p><code>optim</code> or <code>fdHess</code> used</p>
+</td></tr>
+<tr valign="top"><td><code>insert</code></td>
+<td>
+<p>logical; is TRUE, asymptotic values inserted in fdHess where feasible</p>
+</td></tr>
+<tr valign="top"><td><code>timings</code></td>
+<td>
+<p>processing timings</p>
+</td></tr>
+<tr valign="top"><td><code>f_calls</code></td>
+<td>
+<p>number of calls to the log likelihood function during optimization</p>
+</td></tr>
+<tr valign="top"><td><code>hf_calls</code></td>
+<td>
+<p>number of calls to the log likelihood function during numerical Hessian computation</p>
+</td></tr>
+<tr valign="top"><td><code>intern_classic</code></td>
+<td>
+<p>a data frame of detval matrix row choices used by the SE toolbox classic method</p>
+</td></tr>
+<tr valign="top"><td><code>zero.policy</code></td>
+<td>
+<p>zero.policy for this model</p>
+</td></tr>
+<tr valign="top"><td><code>na.action</code></td>
+<td>
+<p>(possibly) named vector of excluded or omitted observations if non-default na.action argument used</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>weights used in model fitting</p>
+</td></tr>
+<tr valign="top"><td><code>emixedImps</code></td>
+<td>
+<p>for &ldquo;emixed&rdquo; models, a  list of three impact matrixes (impacts and standard errors) for direct, indirect and total impacts; total impacts calculated using gmodels::estimable</p>
+</td></tr>
+</table>
+<p>The internal sar.error.* functions return the value of the log likelihood function at <i>lambda</i>.
+</p>
+<p>The <code>lmSLX</code> function returns an &ldquo;lm&rdquo; object with a &ldquo;mixedImps&rdquo; list of three impact matrixes (impacts and standard errors) for direct, indirect and total impacts; total impacts calculated using gmodels::estimable.
+</p>
+
+
+<h3>Control arguments</h3>
+
+
+<dl>
+<dt>tol.opt:</dt><dd><p>the desired accuracy of the optimization - passed to <code>optimize()</code> (default=square root of double precision machine tolerance, a larger root may be used needed, see help(boston) for an example)</p>
+</dd>
+<dt>returnHcov:</dt><dd><p>default TRUE, return the Vo matrix for a spatial Hausman test</p>
+</dd>
+<dt>pWOrder:</dt><dd><p>default 250, if returnHcov=TRUE and the method is not &ldquo;eigen&rdquo;, pass this order to <code>powerWeights</code> as the power series maximum limit</p>
+</dd>
+<dt>fdHess:</dt><dd><p>default NULL, then set to (method != &quot;eigen&quot;) internally; use <code>fdHess</code> to compute an approximate Hessian using finite differences when using sparse matrix methods; used to make a coefficient covariance matrix when the number of observations is large; may be turned off to save resources if need be</p>
+</dd>
+<dt>optimHess:</dt><dd><p>default FALSE, use <code>fdHess</code> from <span class="pkg">nlme</span>, if TRUE, use <code>optim</code> to calculate Hessian at optimum</p>
+</dd>
+<dt>optimHessMethod:</dt><dd><p>default &ldquo;optimHess&rdquo;, may be &ldquo;nlm&rdquo; or one of the <code>optim</code> methods</p>
+</dd>
+<dt>LAPACK:</dt><dd><p>default FALSE; logical value passed to <code>qr</code> in the SSE log likelihood function</p>
+</dd>
+<dt>compiled_sse:</dt><dd><p>default FALSE; logical value used in the log likelihood function to choose compiled code for computing SSE</p>
+</dd>
+<dt>Imult:</dt><dd><p>default 2; used for preparing the Cholesky decompositions for updating in the Jacobian function</p>
+</dd>
+<dt>super:</dt><dd><p>if NULL (default), set to FALSE to use a simplicial decomposition for the sparse Cholesky decomposition and method &ldquo;Matrix_J&rdquo;, set to  <code>as.logical(NA)</code> for method &ldquo;Matrix&rdquo;, if TRUE, use a supernodal decomposition</p>
+</dd>
+<dt>cheb_q:</dt><dd><p>default 5; highest power of the approximating polynomial for the Chebyshev approximation</p>
+</dd>
+<dt>MC_p:</dt><dd><p>default 16; number of random variates</p>
+</dd>
+<dt>MC_m:</dt><dd><p>default 30; number of products of random variates matrix and spatial weights matrix</p>
+</dd>
+<dt>spamPivot:</dt><dd><p>default &ldquo;MMD&rdquo;, alternative &ldquo;RCM&rdquo;</p>
+</dd>
+<dt>in_coef</dt><dd><p>default 0.1, coefficient value for initial Cholesky decomposition in &ldquo;spam_update&rdquo;</p>
+</dd>
+<dt>type</dt><dd><p>default &ldquo;MC&rdquo;, used with method &ldquo;moments&rdquo;; alternatives &ldquo;mult&rdquo; and &ldquo;moments&rdquo;, for use if <code>trs</code> is missing, <code><a href="trW.html">trW</a></code></p>
+</dd>
+<dt>correct</dt><dd><p>default TRUE, used with method &ldquo;moments&rdquo; to compute the Smirnov/Anselin correction term</p>
+</dd>
+<dt>trunc</dt><dd><p>default TRUE, used with method &ldquo;moments&rdquo; to truncate the Smirnov/Anselin correction term</p>
+</dd>
+<dt>SE_method</dt><dd><p>default &ldquo;LU&rdquo;, may be &ldquo;MC&rdquo;</p>
+</dd>
+<dt>nrho</dt><dd><p>default 200, as in SE toolbox; the size of the first stage lndet grid; it may be reduced to for example 40</p>
+</dd>
+<dt>interpn</dt><dd><p>default 2000, as in SE toolbox; the size of the second stage lndet grid</p>
+</dd>
+<dt>small_asy</dt><dd><p>default TRUE; if the method is not &ldquo;eigen&rdquo;, use asymmetric covariances rather than numerical Hessian ones if n &lt;= small</p>
+</dd>
+<dt>small</dt><dd><p>default 1500; threshold number of observations for asymmetric covariances when the method is not &ldquo;eigen&rdquo;</p>
+</dd>
+<dt>SElndet</dt><dd><p>default NULL, may be used to pass a pre-computed SE toolbox style matrix of coefficients and their lndet values to the &quot;SE_classic&quot; and &quot;SE_whichMin&quot; methods</p>
+</dd>
+<dt>LU_order</dt><dd><p>default FALSE; used in &ldquo;LU_prepermutate&rdquo;, note warnings given for <code>lu</code> method</p>
+</dd>
+<dt>pre_eig</dt><dd><p>default NULL; may be used to pass a pre-computed vector of eigenvalues</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>References</h3>
+
+<p>Cliff, A. D., Ord, J. K. 1981 <em>Spatial processes</em>, Pion;
+Ord, J. K. 1975 Estimation methods for models of spatial interaction,
+<em>Journal of the American Statistical Association</em>, 70, 120-126;
+Anselin, L. 1988 <em>Spatial econometrics: methods and models.</em>
+(Dordrecht: Kluwer); Anselin, L. 1995 SpaceStat, a software program for
+the analysis of spatial data, version 1.80. Regional Research Institute,
+West Virginia University, Morgantown, WV;
+Anselin L, Bera AK (1998) Spatial dependence in linear regression models
+with an introduction to spatial econometrics. In: Ullah A, Giles DEA
+(eds) Handbook of applied economic statistics. Marcel Dekker, New York,
+pp. 237-289; Cressie, N. A. C. 1993 <em>Statistics for spatial data</em>, Wiley, New York; LeSage J and RK Pace (2009) Introduction to Spatial Econometrics. CRC Press, Boca Raton.
+</p>
+<p>Roger Bivand, Gianfranco Piras (2015). Comparing Implementations of Estimation Methods for Spatial Econometrics. <em>Journal of Statistical Software</em>, 63(18), 1-36. <a href="http://www.jstatsoft.org/v63/i18/">http://www.jstatsoft.org/v63/i18/</a>.
+</p>
+<p>Bivand, R. S., Hauke, J., and Kossowski, T. (2013). Computing the Jacobian in Gaussian spatial autoregressive models: An illustrated comparison of available methods. <em>Geographical Analysis</em>, 45(2), 150-179.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../stats/html/lm.html">lm</a></code>, <code><a href="lagsarlm.html">lagsarlm</a></code>, <code><a href="similar.listw.html">similar.listw</a></code>, <code><a href="summary.sarlm.html">summary.sarlm</a></code>, <code><a href="predict.sarlm.html">predict.sarlm</a></code>,
+<code><a href="residuals.sarlm.html">residuals.sarlm</a></code>, <code><a href="do_ldet.html">do_ldet</a></code>, <code><a href="../../gmodels/html/estimable.html">estimable</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(oldcol)
+lw &lt;- nb2listw(COL.nb, style="W")
+COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen", quiet=FALSE)
+summary(COL.errW.eig, correlation=TRUE)
+ev &lt;- eigenw(similar.listw(lw))
+COL.errW.eig_ev &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen", control=list(pre_eig=ev))
+all.equal(coefficients(COL.errW.eig), coefficients(COL.errW.eig_ev))
+COL.errB.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ nb2listw(COL.nb, style="B"), method="eigen", quiet=FALSE)
+summary(COL.errB.eig, correlation=TRUE)
+W &lt;- as(nb2listw(COL.nb), "CsparseMatrix")
+trMatc &lt;- trW(W, type="mult")
+COL.errW.M &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix", quiet=FALSE, trs=trMatc)
+summary(COL.errW.M, correlation=TRUE)
+COL.SDEM.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen", etype="emixed")
+summary(COL.SDEM.eig, correlation=TRUE)
+summary(impacts(COL.SDEM.eig))
+summary(impacts(COL.SDEM.eig), adjust_k=TRUE)
+COL.SLX &lt;- lmSLX(CRIME ~ INC + HOVAL, data=COL.OLD, listw=lw)
+summary(COL.SLX)
+summary(impacts(COL.SLX))
+COL.SLX &lt;- lmSLX(CRIME ~ INC + HOVAL + I(HOVAL^2), data=COL.OLD, listw=lw)
+summary(COL.SLX)
+
+crds &lt;- cbind(COL.OLD$X, COL.OLD$Y)
+mdist &lt;- sqrt(sum(diff(apply(crds, 2, range))^2))
+dnb &lt;- dnearneigh(crds, 0, mdist)
+dists &lt;- nbdists(dnb, crds)
+f &lt;- function(x, form, data, dnb, dists, verbose) {
+  glst &lt;- lapply(dists, function(d) 1/(d^x))
+  lw &lt;- nb2listw(dnb, glist=glst, style="B")
+  res &lt;- logLik(lmSLX(form=form, data=data, listw=lw))
+  if (verbose) cat("power:", x, "logLik:", res, "\n")
+  res
+}
+opt &lt;- optimize(f, interval=c(0.1, 4), form=CRIME ~ INC + HOVAL,
+ data=COL.OLD, dnb=dnb, dists=dists, verbose=TRUE, maximum=TRUE)
+glst &lt;- lapply(dists, function(d) 1/(d^opt$maximum))
+lw &lt;- nb2listw(dnb, glist=glst, style="B")
+SLX &lt;- lmSLX(CRIME ~ INC + HOVAL, data=COL.OLD, listw=lw)
+summary(SLX)
+summary(impacts(SLX))
+
+NA.COL.OLD &lt;- COL.OLD
+NA.COL.OLD$CRIME[20:25] &lt;- NA
+COL.err.NA &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=NA.COL.OLD,
+ nb2listw(COL.nb), na.action=na.exclude)
+COL.err.NA$na.action
+COL.err.NA
+resid(COL.err.NA)
+
+lw &lt;- nb2listw(COL.nb, style="W")
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen"))
+ocoef &lt;- coefficients(COL.errW.eig)
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen", control=list(LAPACK=FALSE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="eigen", control=list(compiled_sse=TRUE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix_J", control=list(super=TRUE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix_J", control=list(super=FALSE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix_J", control=list(super=as.logical(NA))))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix", control=list(super=TRUE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix", control=list(super=FALSE)))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="Matrix", control=list(super=as.logical(NA))))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="spam", control=list(spamPivot="MMD")))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="spam", control=list(spamPivot="RCM")))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="spam_update", control=list(spamPivot="MMD")))
+all.equal(ocoef, coefficients(COL.errW.eig))
+system.time(COL.errW.eig &lt;- errorsarlm(CRIME ~ INC + HOVAL, data=COL.OLD,
+ lw, method="spam_update", control=list(spamPivot="RCM")))
+all.equal(ocoef, coefficients(COL.errW.eig))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

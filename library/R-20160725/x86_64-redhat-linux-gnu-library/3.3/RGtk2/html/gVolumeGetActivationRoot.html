@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gVolumeGetActivationRoot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gVolumeGetActivationRoot {RGtk2}"><tr><td>gVolumeGetActivationRoot {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gVolumeGetActivationRoot</h2>
+
+<h3>Description</h3>
+
+<p>Gets the activation root for a <code><a href="GVolume.html">GVolume</a></code> if it is known ahead of
+mount time. Returns <code>NULL</code> otherwise. If not <code>NULL</code> and if <code>volume</code>
+is mounted, then the result of <code><a href="gMountGetRoot.html">gMountGetRoot</a></code> on the
+<code><a href="GMount.html">GMount</a></code> object obtained from <code><a href="gVolumeGetMount.html">gVolumeGetMount</a></code> will always
+either be equal or a prefix of what this function returns. In
+other words, in code</p>
+
+
+<h3>Usage</h3>
+
+<pre>gVolumeGetActivationRoot(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GVolume.html">GVolume</a></code></p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<pre>  GMount *mount;
+  GFile *mount_root
+  GFile *volume_activation_root;
+
+  mount = g_volume_get_mount (volume); /* mounted, so never NULL */
+  mount_root = g_mount_get_root (mount);
+  volume_activation_root = g_volume_get_activation_root(volume); /* assume not NULL */
+</pre>  
+<p>then the expression
+</p>
+<pre>  (g_file_has_prefix (volume_activation_root, mount_root) ||
+      g_file_equal (volume_activation_root, mount_root))
+</pre>  
+<p>will always be <code>TRUE</code>.
+</p>
+<p>Activation roots are typically used in <code><a href="GVolumeMonitor.html">GVolumeMonitor</a></code>
+implementations to find the underlying mount to shadow, see
+<code><a href="gMountIsShadowed.html">gMountIsShadowed</a></code> for more details.
+Since 2.18</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="GFile.html">GFile</a></code>] the activation root of <code>volume</code> or <code>NULL</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Variable Importance Measures for C5.0 Models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for C5imp {C50}"><tr><td>C5imp {C50}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Variable Importance Measures for C5.0 Models
+</h2>
+
+<h3>Description</h3>
+
+<p>This function calculates the variable importance (aka attribute usage) for C5.0 models.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+C5imp(object, metric = "usage", pct = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>an object of class <code>C5.0</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>metric</code></td>
+<td>
+
+<p>either 'usage' or 'splits' (see Details below)
+</p>
+</td></tr>
+<tr valign="top"><td><code>pct</code></td>
+<td>
+
+<p>a logical: should the importance values be converted to be between 0 and 100?
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>other options (not currently used)
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>By default, C5.0 measures predictor importance by determining the
+percentage of training set samples that fall into all the terminal
+nodes after the split (this is used when <code>metric = "usage"</code>). For
+example, the predictor in the first split automatically has an
+importance measurement of 100 percent. Other predictors may be used
+frequently in splits, but if the terminal nodes cover only a handful
+of training set samples, the importance scores may be close to
+zero. The same strategy is applied to rule-based models as well as the
+corresponding boosted versions of the model.
+</p>
+<p>There is a difference in the attribute usage numbers between this
+output and the nominal command line output. Although the calculations
+are almost exactly the same (we do not add 1/2 to everything), the C
+code does not display that an attribute was used if the percentage of
+training samples covered by the corresponding splits is very
+low. Here, the threshold was lowered and the fractional usage is
+shown.
+</p>
+<p>When <code>metric = "splits"</code>, the percentage of splits associated
+with each predictor is calculated.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a data frame with a column <code>Overall</code> with the predictor usage values. The row names indicate the predictor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original GPL C code by Ross Quinlan, R code and modifications to C by
+Max Kuhn, Steve Weston and Nathan Coulter
+</p>
+
+
+<h3>References</h3>
+
+<p>Quinlan R (1993). C4.5: Programs for Machine Learning. Morgan Kaufmann Publishers,
+<a href="http://www.rulequest.com/see5-unix.html">http://www.rulequest.com/see5-unix.html</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="C5.0.html">C5.0</a></code>, <code><a href="C5.0Control.html">C5.0Control</a></code>, <code><a href="summary.C5.0.html">summary.C5.0</a></code>,  <code><a href="predict.C5.0.html">predict.C5.0</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(churn)
+
+treeModel &lt;- C5.0(x = churnTrain[, -20], y = churnTrain$churn)
+C5imp(treeModel)
+C5imp(treeModel, metric = "splits")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>C50</em> version 0.1.0-24 <a href="00Index.html">Index</a>]</div>
+</body></html>

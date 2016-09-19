@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Graphical Display of the Habitat Composition of the Home...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for image.sahrlocs {adehabitat}"><tr><td>image.sahrlocs {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Graphical Display of the Habitat Composition of
+the Home Ranges of Animals Monitored Using Radio-Tracking </h2>
+
+<h3>Description</h3>
+
+<p><code>image.sahrlocs</code> allows a gray-level display of the composition
+of home ranges (different colors are used for factors).
+For a given variable, the minimum gray level (default is
+<code>"white"</code>) and the maximum gray level (default is <code>"black"</code>)
+represents respectively the minimum and the maximum of the variable
+<em>***on the study area***</em>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'sahrlocs'
+image(x, ani = names(x$hr), var = names(x$sa),
+               mar = c(0, 0, 0, 0), axes = FALSE, dfidxy = NULL, colpts =
+               "black", pch = 21, bg = "white", inv = FALSE, cexpts = 0.6, 
+               csub = 2, possub = c("bottomleft", "bottomright", "topleft",
+               "topright"), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>sahrlocs</code></p>
+</td></tr>
+<tr valign="top"><td><code>ani</code></td>
+<td>
+<p>a character vector giving the names of the
+variables of the <code>"hr"</code> component (the animals) for which a
+display is wanted</p>
+</td></tr>
+<tr valign="top"><td><code>var</code></td>
+<td>
+<p>a character vector giving the names of the
+variables of the <code>"sa"</code> component (the habitat variables) for
+which a display is wanted</p>
+</td></tr> 
+<tr valign="top"><td><code>mar</code></td>
+<td>
+<p>the graphical parameter <code>mar</code> (see
+<code><a href="../../graphics/html/par.html">par</a></code>)</p>
+</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+<p>logical.  Whether the axes should
+be plotted</p>
+</td></tr>
+<tr valign="top"><td><code>csub</code></td>
+<td>
+<p>the character size for the legend, used with
+<code>par("cex")*csub</code></p>
+</td></tr>
+<tr valign="top"><td><code>possub</code></td>
+<td>
+<p>a character string indicating the sub-title position
+(<code>"topleft"</code>, <code>"topright"</code>, <code>"bottomleft"</code>,
+<code>"bottomright"</code>)</p>
+</td></tr> 
+<tr valign="top"><td><code>dfidxy</code></td>
+<td>
+<p>an optional data frame with three columns giving the
+identity and the coordinates of the relocations of each animal.  (if
+not <code>NULL</code>, the relocations of each animal are plotted in its
+home range, see Examples)</p>
+</td></tr>
+<tr valign="top"><td><code>colpts</code></td>
+<td>
+<p>if <code>dfidxy</code> is not <code>NULL</code>, the color of the
+points to be used for the plot of the relocations</p>
+</td></tr>
+<tr valign="top"><td><code>pch</code></td>
+<td>
+<p>if <code>dfidxy</code> is not <code>NULL</code>, the size of the points
+to be used for the plot of the relocations (see <code><a href="../../graphics/html/par.html">par</a></code>)</p>
+</td></tr>
+<tr valign="top"><td><code>bg</code></td>
+<td>
+<p>if <code>dfidxy</code> is not <code>NULL</code>, the background color to
+be used for the plot of the relocations (see <code><a href="../../graphics/html/par.html">par</a></code>)</p>
+</td></tr>
+<tr valign="top"><td><code>inv</code></td>
+<td>
+<p>by default, lower values of the mapped variables are
+brighter.  If <code>FALSE</code>, the lower values are darker</p>
+</td></tr>
+<tr valign="top"><td><code>cexpts</code></td>
+<td>
+<p>if <code>dfidxy</code> is not <code>NULL</code>, the size of the points</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additionnal parameters to be passed to the generic
+function <code>image</code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.sahrlocs.html">as.sahrlocs</a></code> for additionnal information on
+objects of class <code>sahrlocs</code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+(sahr &lt;- puechabon$sahr)
+
+## Displays all the variables for a given animal
+image(sahr, ani = "Chou")
+
+## Displays all the animals for a given variable
+image(sahr, var = "Elevation")
+
+## Load and displays the relocations of the animals
+locs &lt;-  puechabon$locs[,c(1,4:5)]
+image(sahr, var = "Elevation", dfidxy = locs, pch = 21)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

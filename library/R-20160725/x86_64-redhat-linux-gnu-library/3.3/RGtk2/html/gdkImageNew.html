@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkImageNew</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkImageNew {RGtk2}"><tr><td>gdkImageNew {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkImageNew</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new <code><a href="gdk-Images.html">GdkImage</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkImageNew(type, visual, width, height)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>the type of the <code><a href="gdk-Images.html">GdkImage</a></code>, one of <code>GDK_IMAGE_NORMAL</code>, <code>GDK_IMAGE_SHARED</code>
+and <code>GDK_IMAGE_FASTEST</code>. <code>GDK_IMAGE_FASTEST</code> is probably the best choice, since
+it will try creating a <code>GDK_IMAGE_SHARED</code> image first and if that fails it will
+then use <code>GDK_IMAGE_NORMAL</code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">visual</code></code></td>
+<td>
+<p>the <code><a href="gdk-Visuals.html">GdkVisual</a></code> to use for the image.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">width</code></code></td>
+<td>
+<p>the width of the image in pixels.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">height</code></code></td>
+<td>
+<p>the height of the image in pixels.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Images.html">GdkImage</a></code>] a new <code><a href="gdk-Images.html">GdkImage</a></code>, or <code>NULL</code> if the image could not be created.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

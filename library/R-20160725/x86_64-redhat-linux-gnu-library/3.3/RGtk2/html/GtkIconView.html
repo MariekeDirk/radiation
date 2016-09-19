@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkIconView</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkIconView {RGtk2}"><tr><td>GtkIconView {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkIconView</h2>
+
+<h3>Description</h3>
+
+<p>A widget which displays a list of icons in a grid</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkIconViewNew.html">gtkIconViewNew</a>(show = TRUE)</code><br />
+<code><a href="gtkIconViewNewWithModel.html">gtkIconViewNewWithModel</a>(model = NULL, show = TRUE)</code><br />
+<code><a href="gtkIconViewSetModel.html">gtkIconViewSetModel</a>(object, model = NULL)</code><br />
+<code><a href="gtkIconViewGetModel.html">gtkIconViewGetModel</a>(object)</code><br />
+<code><a href="gtkIconViewSetTextColumn.html">gtkIconViewSetTextColumn</a>(object, column)</code><br />
+<code><a href="gtkIconViewGetTextColumn.html">gtkIconViewGetTextColumn</a>(object)</code><br />
+<code><a href="gtkIconViewSetMarkupColumn.html">gtkIconViewSetMarkupColumn</a>(object, column)</code><br />
+<code><a href="gtkIconViewGetMarkupColumn.html">gtkIconViewGetMarkupColumn</a>(object)</code><br />
+<code><a href="gtkIconViewSetPixbufColumn.html">gtkIconViewSetPixbufColumn</a>(object, column)</code><br />
+<code><a href="gtkIconViewGetPixbufColumn.html">gtkIconViewGetPixbufColumn</a>(object)</code><br />
+<code><a href="gtkIconViewGetPathAtPos.html">gtkIconViewGetPathAtPos</a>(object, x, y)</code><br />
+<code><a href="gtkIconViewGetItemAtPos.html">gtkIconViewGetItemAtPos</a>(object, x, y)</code><br />
+<code><a href="gtkIconViewConvertWidgetToBinWindowCoords.html">gtkIconViewConvertWidgetToBinWindowCoords</a>(object, wx, wy)</code><br />
+<code><a href="gtkIconViewSetCursor.html">gtkIconViewSetCursor</a>(object, path, cell, start.editing)</code><br />
+<code><a href="gtkIconViewGetCursor.html">gtkIconViewGetCursor</a>(object)</code><br />
+<code><a href="gtkIconViewSelectedForeach.html">gtkIconViewSelectedForeach</a>(object, func, data = NULL)</code><br />
+<code><a href="gtkIconViewSetSelectionMode.html">gtkIconViewSetSelectionMode</a>(object, mode)</code><br />
+<code><a href="gtkIconViewGetSelectionMode.html">gtkIconViewGetSelectionMode</a>(object)</code><br />
+<code><a href="gtkIconViewSetOrientation.html">gtkIconViewSetOrientation</a>(object, orientation)</code><br />
+<code><a href="gtkIconViewGetOrientation.html">gtkIconViewGetOrientation</a>(object)</code><br />
+<code><a href="gtkIconViewSetColumns.html">gtkIconViewSetColumns</a>(object, columns)</code><br />
+<code><a href="gtkIconViewGetColumns.html">gtkIconViewGetColumns</a>(object)</code><br />
+<code><a href="gtkIconViewSetItemWidth.html">gtkIconViewSetItemWidth</a>(object, item.width)</code><br />
+<code><a href="gtkIconViewGetItemWidth.html">gtkIconViewGetItemWidth</a>(object)</code><br />
+<code><a href="gtkIconViewSetSpacing.html">gtkIconViewSetSpacing</a>(object, spacing)</code><br />
+<code><a href="gtkIconViewGetSpacing.html">gtkIconViewGetSpacing</a>(object)</code><br />
+<code><a href="gtkIconViewSetRowSpacing.html">gtkIconViewSetRowSpacing</a>(object, row.spacing)</code><br />
+<code><a href="gtkIconViewGetRowSpacing.html">gtkIconViewGetRowSpacing</a>(object)</code><br />
+<code><a href="gtkIconViewSetColumnSpacing.html">gtkIconViewSetColumnSpacing</a>(object, column.spacing)</code><br />
+<code><a href="gtkIconViewGetColumnSpacing.html">gtkIconViewGetColumnSpacing</a>(object)</code><br />
+<code><a href="gtkIconViewSetMargin.html">gtkIconViewSetMargin</a>(object, margin)</code><br />
+<code><a href="gtkIconViewGetMargin.html">gtkIconViewGetMargin</a>(object)</code><br />
+<code><a href="gtkIconViewSetItemPadding.html">gtkIconViewSetItemPadding</a>(object, item.padding)</code><br />
+<code><a href="gtkIconViewGetItemPadding.html">gtkIconViewGetItemPadding</a>(object)</code><br />
+<code><a href="gtkIconViewSelectPath.html">gtkIconViewSelectPath</a>(object, path)</code><br />
+<code><a href="gtkIconViewUnselectPath.html">gtkIconViewUnselectPath</a>(object, path)</code><br />
+<code><a href="gtkIconViewPathIsSelected.html">gtkIconViewPathIsSelected</a>(object, path)</code><br />
+<code><a href="gtkIconViewGetSelectedItems.html">gtkIconViewGetSelectedItems</a>(object)</code><br />
+<code><a href="gtkIconViewSelectAll.html">gtkIconViewSelectAll</a>(object)</code><br />
+<code><a href="gtkIconViewUnselectAll.html">gtkIconViewUnselectAll</a>(object)</code><br />
+<code><a href="gtkIconViewItemActivated.html">gtkIconViewItemActivated</a>(object, path)</code><br />
+<code><a href="gtkIconViewScrollToPath.html">gtkIconViewScrollToPath</a>(object, path, use.align, row.align, col.align)</code><br />
+<code><a href="gtkIconViewGetVisibleRange.html">gtkIconViewGetVisibleRange</a>(object)</code><br />
+<code><a href="gtkIconViewSetTooltipItem.html">gtkIconViewSetTooltipItem</a>(object, tooltip, path)</code><br />
+<code><a href="gtkIconViewSetTooltipCell.html">gtkIconViewSetTooltipCell</a>(object, tooltip, path, cell)</code><br />
+<code><a href="gtkIconViewGetTooltipContext.html">gtkIconViewGetTooltipContext</a>(object, x, y, keyboard.tip)</code><br />
+<code><a href="gtkIconViewSetTooltipColumn.html">gtkIconViewSetTooltipColumn</a>(object, column)</code><br />
+<code><a href="gtkIconViewGetTooltipColumn.html">gtkIconViewGetTooltipColumn</a>(object)</code><br />
+<code><a href="gtkIconViewEnableModelDragSource.html">gtkIconViewEnableModelDragSource</a>(object, start.button.mask, targets, actions)</code><br />
+<code><a href="gtkIconViewEnableModelDragDest.html">gtkIconViewEnableModelDragDest</a>(object, targets, actions)</code><br />
+<code><a href="gtkIconViewUnsetModelDragSource.html">gtkIconViewUnsetModelDragSource</a>(object)</code><br />
+<code><a href="gtkIconViewUnsetModelDragDest.html">gtkIconViewUnsetModelDragDest</a>(object)</code><br />
+<code><a href="gtkIconViewSetReorderable.html">gtkIconViewSetReorderable</a>(object, reorderable)</code><br />
+<code><a href="gtkIconViewGetReorderable.html">gtkIconViewGetReorderable</a>(object)</code><br />
+<code><a href="gtkIconViewSetDragDestItem.html">gtkIconViewSetDragDestItem</a>(object, path, pos)</code><br />
+<code><a href="gtkIconViewGetDragDestItem.html">gtkIconViewGetDragDestItem</a>(object)</code><br />
+<code><a href="gtkIconViewGetDestItemAtPos.html">gtkIconViewGetDestItemAtPos</a>(object, drag.x, drag.y)</code><br />
+<code><a href="gtkIconViewCreateDragIcon.html">gtkIconViewCreateDragIcon</a>(object, path)</code><br />
+<code>gtkIconView(model = NULL, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkIconView</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkIconView implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkCellLayout.html">GtkCellLayout</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkIconView.html">GtkIconView</a></code> provides an alternative view on a list model.
+It displays the model as a grid of icons with labels. Like
+<code><a href="GtkTreeView.html">GtkTreeView</a></code>, it allows to select one or multiple items
+(depending on the selection mode, see <code><a href="gtkIconViewSetSelectionMode.html">gtkIconViewSetSelectionMode</a></code>).
+In addition to selection with the arrow keys, <code><a href="GtkIconView.html">GtkIconView</a></code> supports
+rubberband selection, which is controlled by dragging the pointer.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkIconView</code></dt><dd>
+<p>The <code>GtkIconView</code> struct contains only
+private fields and should not be directly accessed.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkIconView</code> is the result of collapsing the constructors of <code>GtkIconView</code> (<code><a href="gtkIconViewNew.html">gtkIconViewNew</a></code>, <code><a href="gtkIconViewNewWithModel.html">gtkIconViewNewWithModel</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkIconViewDropPosition</code></dt><dd>
+<p>An enum for determining where a dropped item goes.
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">no-drop</code></dt><dd><p>no drop possible</p>
+</dd>
+<dt><code style="white-space: pre;">drop-into</code></dt><dd><p>dropped item replaces the item</p>
+</dd>
+<dt><code style="white-space: pre;">drop-left</code></dt><dd><p>droppped item is inserted to the left</p>
+</dd>
+<dt><code style="white-space: pre;">drop-right</code></dt><dd><p>dropped item is inserted to the right</p>
+</dd>
+<dt><code style="white-space: pre;">drop-above</code></dt><dd><p>dropped item is inserted above</p>
+</dd>
+<dt><code style="white-space: pre;">drop-below</code></dt><dd><p>dropped item is inserted below</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkIconViewForeachFunc(icon.view, path, data)</code></dt><dd>
+<p>A function used by <code><a href="gtkIconViewSelectedForeach.html">gtkIconViewSelectedForeach</a></code> to map all
+selected rows.  It will be called on every selected row in the view.
+</p>
+
+<dl>
+<dt><code>icon.view</code></dt><dd><p>a <code><a href="GtkIconView.html">GtkIconView</a></code></p>
+</dd>
+<dt><code>path</code></dt><dd><p>The <code><a href="GtkTreeModel.html">GtkTreePath</a></code> of a selected row</p>
+</dd>
+<dt><code>data</code></dt><dd><p>user data</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>activate-cursor-item(iconview, user.data)</code></dt><dd>
+<p>A keybinding signal
+which gets emitted when the user activates the currently
+focused item.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control activation
+programmatically.
+</p>
+<p>The default bindings for this signal are Space, Return and Enter.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>item-activated(iconview, path, user.data)</code></dt><dd>
+<p>The ::item-activated signal is emitted when the method
+<code><a href="gtkIconViewItemActivated.html">gtkIconViewItemActivated</a></code> is called or the user double
+clicks an item. It is also emitted when a non-editable item
+is selected and one of the keys: Space, Return or Enter is
+pressed.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>path</code></dt><dd><p>the <code><a href="GtkTreeModel.html">GtkTreePath</a></code> for the activated item</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-cursor(iconview, step, count, user.data)</code></dt><dd>
+<p>The ::move-cursor signal is a
+keybinding signal
+which gets emitted when the user initiates a cursor movement.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control the cursor
+programmatically.
+</p>
+<p>The default bindings for this signal include
+</p>
+
+<ul>
+<li> 
+</li>
+<li> 
+</li>
+<li> 
+</li></ul>
+
+<p>All of these will extend the selection when combined with
+the Shift modifier.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>step</code></dt><dd><p>the granularity of the move, as a <code><a href="gtk-Standard-Enumerations.html">GtkMovementStep</a></code></p>
+</dd>
+<dt><code>count</code></dt><dd><p>the number of <code>step</code> units to move</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>select-all(iconview, user.data)</code></dt><dd>
+<p>A keybinding signal
+which gets emitted when the user selects all items.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control selection
+programmatically.
+</p>
+<p>The default binding for this signal is Ctrl-a.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>select-cursor-item(iconview, user.data)</code></dt><dd>
+<p>A keybinding signal
+which gets emitted when the user selects the item that is currently
+focused.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control selection
+programmatically.
+</p>
+<p>There is no default binding for this signal.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>selection-changed(iconview, user.data)</code></dt><dd>
+<p>The ::selection-changed signal is emitted when the selection
+(i.e. the set of selected items) changes.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>set-scroll-adjustments(horizontal, vertical, user.data)</code></dt><dd>
+<p>Set the scroll adjustments for the icon view. Usually scrolled containers
+like <code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code> will emit this signal to connect two instances
+of <code><a href="GtkScrollbar.html">GtkScrollbar</a></code> to the scroll directions of the <code><a href="GtkIconView.html">GtkIconView</a></code>.
+</p>
+
+<dl>
+<dt><code>horizontal</code></dt><dd><p>the horizontal <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>vertical</code></dt><dd><p>the vertical <code><a href="GtkAdjustment.html">GtkAdjustment</a></code></p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>toggle-cursor-item(iconview, user.data)</code></dt><dd>
+<p>A keybinding signal
+which gets emitted when the user toggles whether the currently
+focused item is selected or not. The exact effect of this
+depend on the selection mode.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control selection
+programmatically.
+</p>
+<p>There is no default binding for this signal is Ctrl-Space.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>unselect-all(iconview, user.data)</code></dt><dd>
+<p>A keybinding signal
+which gets emitted when the user unselects all items.
+</p>
+<p>Applications should not connect to it, but may emit it with
+<code>gSignalEmitByName()</code> if they need to control selection
+programmatically.
+</p>
+<p>The default binding for this signal is Ctrl-Shift-a.
+</p>
+
+<dl>
+<dt><code>iconview</code></dt><dd><p>the object on which the signal is emitted</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">column-spacing</code> [integer : Read / Write]</dt><dd>
+<p>The column-spacing property specifies the space which is inserted between
+the columns of the icon view.
+Allowed values: &gt;= 0  Default value: 6  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">columns</code> [integer : Read / Write]</dt><dd>
+<p>The columns property contains the number of the columns in which the
+items should be displayed. If it is -1, the number of columns will
+be chosen automatically to fill the available area.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">item-padding</code> [integer : Read / Write]</dt><dd>
+<p>The item-padding property specifies the padding around each
+of the icon view's item.
+Allowed values: &gt;= 0  Default value: 6  Since 2.18
+</p>
+</dd>
+<dt><code style="white-space: pre;">item-width</code> [integer : Read / Write]</dt><dd>
+<p>The item-width property specifies the width to use for each item.
+If it is set to -1, the icon view will automatically determine a
+suitable item size.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">margin</code> [integer : Read / Write]</dt><dd>
+<p>The margin property specifies the space which is inserted
+at the edges of the icon view.
+Allowed values: &gt;= 0  Default value: 6  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">markup-column</code> [integer : Read / Write]</dt><dd>
+<p>The ::markup-column property contains the number of the model column
+containing markup information to be displayed. The markup column must be
+of type <code style="white-space: pre;">G_TYPE_STRING</code>. If this property and the :text-column property
+are both set to column numbers, it overrides the text column.
+If both are set to -1, no texts are displayed.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write]</dt><dd>
+<p>The model for the icon view.
+</p>
+</dd>
+<dt><code style="white-space: pre;">orientation</code> [<code><a href="gtk-Standard-Enumerations.html">GtkOrientation</a></code> : Read / Write]</dt><dd>
+<p>The orientation property specifies how the cells (i.e. the icon and
+the text) of the item are positioned relative to each other.
+Default value: GTK_ORIENTATION_VERTICAL  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">pixbuf-column</code> [integer : Read / Write]</dt><dd>
+<p>The ::pixbuf-column property contains the number of the model column
+containing the pixbufs which are displayed. The pixbuf column must be
+of type <code style="white-space: pre;">GDK_TYPE_PIXBUF</code>. Setting this property to -1 turns off the
+display of pixbufs.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">reorderable</code> [logical : Read / Write]</dt><dd>
+<p>The reorderable property specifies if the items can be reordered
+by DND.
+Default value: FALSE  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">row-spacing</code> [integer : Read / Write]</dt><dd>
+<p>The row-spacing property specifies the space which is inserted between
+the rows of the icon view.
+Allowed values: &gt;= 0  Default value: 6  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">selection-mode</code> [<code><a href="gtk-Standard-Enumerations.html">GtkSelectionMode</a></code> : Read / Write]</dt><dd>
+<p>The ::selection-mode property specifies the selection mode of
+icon view. If the mode is <code style="white-space: pre;">GTK_SELECTION_MULTIPLE</code>, rubberband selection
+is enabled, for the other modes, only keyboard selection is possible.
+Default value: GTK_SELECTION_SINGLE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">spacing</code> [integer : Read / Write]</dt><dd>
+<p>The spacing property specifies the space which is inserted between
+the cells (i.e. the icon and the text) of an item.
+Allowed values: &gt;= 0  Default value: 0  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">text-column</code> [integer : Read / Write]</dt><dd>
+<p>The ::text-column property contains the number of the model column
+containing the texts which are displayed. The text column must be
+of type <code style="white-space: pre;">G_TYPE_STRING</code>. If this property and the :markup-column
+property are both set to -1, no texts are displayed.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">tooltip-column</code> [integer : Read / Write]</dt><dd>
+<p>The column in the model containing the tooltip texts for the items.  Allowed values: &gt;= -1  Default value: -1
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">selection-box-alpha</code> [raw : Read]</dt><dd>
+<p>Opacity of the selection box.  Default value: 64
+</p>
+</dd>
+<dt><code style="white-space: pre;">selection-box-color</code> [<code><a href="gdk-Colormaps-and-Colors.html">GdkColor</a></code> : *             : Read]</dt><dd>
+<p>Color of the selection box.
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkIconView.html">http://library.gnome.org/devel//gtk/GtkIconView.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

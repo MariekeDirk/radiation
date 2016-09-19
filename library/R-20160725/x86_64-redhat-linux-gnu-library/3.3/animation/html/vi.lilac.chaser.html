@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Visual Illusions: Lilac Chaser</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vi.lilac.chaser {animation}"><tr><td>vi.lilac.chaser {animation}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Visual Illusions: Lilac Chaser</h2>
+
+<h3>Description</h3>
+
+<p>Stare at the center cross for a few (say 30) seconds to experience the
+phenomena of the illusion.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vi.lilac.chaser(np = 16, col = "magenta", bg = "gray", p.cex = 7, c.cex = 5)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>np</code></td>
+<td>
+<p>number of points</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>color of points</p>
+</td></tr>
+<tr valign="top"><td><code>bg</code></td>
+<td>
+<p>background color of the plot</p>
+</td></tr>
+<tr valign="top"><td><code>p.cex</code></td>
+<td>
+<p>magnification of points</p>
+</td></tr>
+<tr valign="top"><td><code>c.cex</code></td>
+<td>
+<p>magnification of the center cross</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Just try it out.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>NULL</code>
+</p>
+
+
+<h3>Note</h3>
+
+<p>In fact, points in the original version of &lsquo;Lilac Chaser&rsquo; are
+<em>blurred</em>, which is not implemented in this function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Yihui Xie
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://vis.supstat.com/2013/03/make-visual-illusions-in-r">http://vis.supstat.com/2013/03/make-visual-illusions-in-r</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../graphics/html/points.html">points</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+oopt = ani.options(interval = 0.05, nmax = 20)
+par(pty = "s")
+vi.lilac.chaser()
+
+## HTML animation page; nmax = 1 is enough!
+saveHTML({
+    ani.options(interval = 0.05, nmax = 1)
+    par(pty = "s", mar = rep(1, 4))
+    vi.lilac.chaser()
+}, img.name = "vi.lilac.chaser", htmlfile = "vi.lilac.chaser.html", 
+    ani.height = 480, ani.width = 480, title = "Visual Illusions: Lilac Chaser", 
+    description = c("Stare at the center cross for a few (say 30) seconds", 
+        "to experience the phenomena of the illusion."))
+
+ani.options(oopt)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>animation</em> version 2.4 <a href="00Index.html">Index</a>]</div>
+</body></html>

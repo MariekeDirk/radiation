@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Setting Mirrors and Repositories</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for setBiocMirror {pkgmaker}"><tr><td>setBiocMirror {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Setting Mirrors and Repositories</h2>
+
+<h3>Description</h3>
+
+<p><code>setBiocMirror</code> sets all Bioconductor repositories
+(software, data, annotation, etc.). so that they are
+directly available to <code><a href="../../utils/html/install.packages.html">install.packages</a></code>. It
+differs from <code><a href="../../utils/html/chooseBioCmirror.html">chooseBioCmirror</a></code> in that it
+effectively enables the repositories.
+</p>
+<p><code>getBiocMirror</code> is a shortcut for
+<code>getOption('BioC_mirror')</code>, which returns the
+current Bioconductor mirror as used by <code>biocLite</code>.
+</p>
+<p><code>getBiocRepos</code> returns urls to all Bioconductor
+repositories on a given mirror.
+</p>
+<p><code>setCRANMirror</code> sets the preferred CRAN mirror.
+</p>
+<p><code>CRAN</code> simply contains the url of CRAN main mirror
+(<a href="http://cran.r-project.org">http://cran.r-project.org</a>), and aims at
+simplifying its use, e.g., in calls to
+<code><a href="../../utils/html/install.packages.html">install.packages</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  setBiocMirror(url = "http://www.bioconductor.org",
+    version = NULL, unique = TRUE)
+
+  getBiocMirror()
+
+  getBiocRepos(url = "http://www.bioconductor.org",
+    version = NULL)
+
+  setCRANMirror(url = CRAN, unique = TRUE)
+
+  CRAN
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>url</code></td>
+<td>
+<p>or Bioconductor mirror url</p>
+</td></tr>
+<tr valign="top"><td><code>version</code></td>
+<td>
+<p>version number</p>
+</td></tr>
+<tr valign="top"><td><code>unique</code></td>
+<td>
+<p>logical that indicate if duplicated urls or
+names should be removed.</p>
+</td></tr>
+</table>
+
+
+<h3>Format</h3>
+
+<p>chr &quot;http://cran.r-project.org&quot;</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+## Not run: 
+install.packages('pkgmaker', repos=CRAN)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

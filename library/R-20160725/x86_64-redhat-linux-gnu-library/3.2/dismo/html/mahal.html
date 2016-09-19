@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Mahalanobis model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mahal {dismo}"><tr><td>mahal {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Mahalanobis model
+</h2>
+
+<h3>Description</h3>
+
+<p>Distribution model based on the Mahalanobis distance. The predictions are (1-distance). I.e. the highest possible value is 1, and there will likely be large negative numbers.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mahal(x, p, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> Raster* object or matrix</p>
+</td></tr>
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p> two column matrix or SpatialPoints* object</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> Additional arguments. Currently not used </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class Mahalanobis (inherits from <code><a href="DistModel.html">DistModel-class</a></code>)
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="predict.html">predict</a>, <a href="maxent.html">maxent</a>, <a href="bioclim.html">bioclim</a>, <a href="domain.html">domain</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+logo &lt;- stack(system.file("external/rlogo.grd", package="raster"))
+
+#presence data
+pts &lt;- matrix(c(48.243420, 48.243420, 47.985820, 52.880230, 49.531423, 46.182616, 
+  54.168232, 69.624263, 83.792291, 85.337894, 74.261072, 83.792291, 95.126713, 
+  84.565092, 66.275456, 41.803408, 25.832176, 3.936132, 18.876962, 17.331359, 
+  7.048974, 13.648543, 26.093446, 28.544714, 39.104026, 44.572240, 51.171810, 
+  56.262906, 46.269272, 38.161230, 30.618865, 21.945145, 34.390047, 59.656971, 
+  69.839163, 73.233228, 63.239594, 45.892154, 43.252326, 28.356155), ncol=2)
+
+# fit model
+m &lt;- mahal(logo, pts)
+
+# make a prediction
+predict(m, logo[1])
+
+x &lt;- predict(m, logo)
+
+# or x &lt;- predict(logo, m) via raster::predict
+
+# plot(x &gt; 0)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

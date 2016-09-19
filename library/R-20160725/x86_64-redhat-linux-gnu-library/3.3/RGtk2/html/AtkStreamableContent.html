@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: AtkStreamableContent</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for AtkStreamableContent {RGtk2}"><tr><td>AtkStreamableContent {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>AtkStreamableContent</h2>
+
+<h3>Description</h3>
+
+<p>The ATK interface which provides access to streamable content.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="atkStreamableContentGetNMimeTypes.html">atkStreamableContentGetNMimeTypes</a>(object)</code><br />
+<code><a href="atkStreamableContentGetMimeType.html">atkStreamableContentGetMimeType</a>(object, i)</code><br />
+<code><a href="atkStreamableContentGetStream.html">atkStreamableContentGetStream</a>(object, mime.type)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----AtkStreamableContent</pre>
+
+<h3>Detailed Description</h3>
+
+<p>An interface whereby an object allows its backing content to be streamed to
+clients.  Typical implementors would be images or icons, HTML content, or
+multimedia display/rendering widgets.
+</p>
+<p>Negotiation of content type is allowed. Clients may examine the backing data
+and transform, convert, or parse the content in order to present it in an alternate form to end-users.
+</p>
+<p>The AtkStreamableContent interface is particularly useful for saving,
+printing, or post-processing entire documents, or for persisting alternate
+views of a document. If document content itself is being serialized,
+stored, or converted, then use of the AtkStreamableContent interface can help
+address performance issues. Unlike most ATK interfaces,
+this interface is not strongly tied to the current user-agent view of the
+a particular document, but may in some cases give access to the underlying model data.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">AtkStreamableContent</code></dt><dd>
+<p>The AtkStreamableContent structure does not contain any fields.
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//atk/AtkStreamableContent.html">http://library.gnome.org/devel//atk/AtkStreamableContent.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

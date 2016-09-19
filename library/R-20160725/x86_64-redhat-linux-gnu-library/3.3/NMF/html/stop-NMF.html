@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Stopping Criteria for NMF Iterative Strategies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for NMFStop {NMF}"><tr><td>NMFStop {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Stopping Criteria for NMF Iterative Strategies</h2>
+
+<h3>Description</h3>
+
+<p>The function documented here implement
+stopping/convergence criteria commonly used in NMF
+algorithms.
+</p>
+<p><code>NMFStop</code> acts as a factory method that creates
+stopping criterion functions from different types of
+values, which are subsequently used by
+<code><a href="NMFStrategyIterative-class.html">NMFStrategyIterative</a></code> objects to
+determine when to stop their iterative process.
+</p>
+<p><code>nmf.stop.iteration</code> generates a function that
+implements the stopping criterion that limits the number
+of iterations to a maximum of <code>n</code>), i.e. that
+returns <code>TRUE</code> if <code>i&gt;=n</code>, <code>FALSE</code>
+otherwise.
+</p>
+<p><code>nmf.stop.threshold</code> generates a function that
+implements the stopping criterion that stops when a given
+stationarity threshold is achieved by successive
+iterations. The returned function is identical to
+<code>nmf.stop.stationary</code>, but with the default
+threshold set to <code>threshold</code>.
+</p>
+<p>More precisely, the objective function is computed over
+<i>n</i> successive iterations (specified in argument
+<code>check.niter</code>), every <code>check.interval</code>
+iterations. The criterion stops when the absolute
+difference between the maximum and the minimum objective
+values over these iterations is lower than a given
+threshold <i>&alpha;</i> (specified in
+<code>stationary.th</code>):
+</p>
+<p><code>nmf.stop.connectivity</code> implements the stopping
+criterion that is based on the stationarity of the
+connectivity matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  NMFStop(s, check = TRUE)
+
+  nmf.stop.iteration(n)
+
+  nmf.stop.threshold(threshold)
+
+  nmf.stop.stationary(object, i, y, x,
+    stationary.th = .Machine$double.eps,
+    check.interval = 5 * check.niter, check.niter = 10L,
+    ...)
+
+  nmf.stop.connectivity(object, i, y, x, stopconv = 40,
+    check.interval = 10, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>s</code></td>
+<td>
+<p>specification of the stopping criterion. See
+section <em>Details</em> for the supported formats and how
+they are processed.</p>
+</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+<p>logical that indicates if the validity of
+the stopping criterion function should be checked before
+returning it.</p>
+</td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+<p>maximum number of iteration to perform.</p>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>default stationarity threshold</p>
+</td></tr>
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an NMF strategy object</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>the current iteration</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the target matrix</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>the current NMF model</p>
+</td></tr>
+<tr valign="top"><td><code>stationary.th</code></td>
+<td>
+<p>maximum absolute value of the
+gradient, for the objective function to be considered
+stationary.</p>
+</td></tr>
+<tr valign="top"><td><code>check.interval</code></td>
+<td>
+<p>interval (in number of iterations)
+on which the stopping criterion is computed.</p>
+</td></tr>
+<tr valign="top"><td><code>check.niter</code></td>
+<td>
+<p>number of successive iteration used to
+compute the stationnary criterion.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to the function
+<code><a href="algorithmic.html">objective</a></code>, which computes the objective
+value between <code>x</code> and <code>y</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>stopconv</code></td>
+<td>
+<p>number of iterations intervals over which
+the connectivity matrix must not change for stationarity
+to be achieved.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>NMFStop</code> can take the following values: </p>
+
+<dl>
+<dt>function</dt><dd><p> is returned unchanged, except when it
+has no arguments, in which case it assumed to be a
+generator, which is immediately called and should return
+a function that implements the actual stopping
+criterion;</p>
+</dd> <dt>integer</dt><dd><p> the value is used to create a
+stopping criterion that stops at that exact number of
+iterations via <code>nmf.stop.iteration</code>;</p>
+</dd>
+<dt>numeric</dt><dd><p> the value is used to create a stopping
+criterion that stops when at that stationary threshold
+via <code>nmf.stop.threshold</code>;</p>
+</dd> <dt>character</dt><dd><p> must be
+a single string which must be an access key for
+registered criteria (currently available:
+&ldquo;connectivity&rdquo; and &ldquo;stationary&rdquo;), or the
+name of a function in the global environment or the
+namespace of the loading package.</p>
+</dd> </dl>
+
+<p style="text-align: center;"><i> | [max( D(i- N_s + 1), ..., D(i) ) - min( D(i-
+  N_s + 1), ..., D(i) )] / n | &lt;= alpha </i></p>
+
+
+
+<h3>Value</h3>
+
+<p>a function that can be passed to argument <code>.stop</code> of
+function <code><a href="nmf.html">nmf</a></code>, which is typically used when
+the algorith is implemented as an iterative strategy.
+</p>
+<p>a function that can be used as a stopping criterion for
+NMF algorithms defined as
+<code><a href="NMFStrategyIterative-class.html">NMFStrategyIterative</a></code> objects. That
+is a function with arguments <code>(strategy, i, target,
+  data, ...)</code> that returns <code>TRUE</code> if the stopping
+criterion is satisfied &ndash; which in turn stops the
+iterative process, and <code>FALSE</code> otherwise.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

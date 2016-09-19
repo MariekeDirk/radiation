@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Pick Variable from Spatial Dataset</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pick.from.points {RSAGA}"><tr><td>pick.from.points {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Pick Variable from Spatial Dataset</h2>
+
+<h3>Description</h3>
+
+<p>These functions pick (i.e. interpolate without worrying too much about theory) values of a spatial variables from a data stored in a data.frame, a point shapefile, or an ASCII or SAGA grid, using nearest neighbor or kriging interpolation. <code>pick.from.points</code> and <code>[internal.]pick.from.ascii.grid</code> are the core functions that are called by the different wrappers.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+pick.from.points(data, src, pick, method = c("nearest.neighbour", "krige"),
+  set.na = FALSE, radius = 200, nmin = 0, nmax = 100, sill = 1,
+  range = radius, nugget = 0, model = vgm(sill - nugget, "Sph", range =
+  range, nugget = nugget), log = rep(FALSE, length(pick)), X.name = "x",
+  Y.name = "y", cbind = TRUE)
+
+pick.from.shapefile(data, shapefile, X.name = "x", Y.name = "y", ...)
+
+pick.from.ascii.grid(data, file, path = NULL, varname = NULL,
+  prefix = NULL, method = c("nearest.neighbour", "krige"), cbind = TRUE,
+  parallel = FALSE, nsplit, quiet = TRUE, ...)
+
+pick.from.ascii.grids(data, file, path = NULL, varname = NULL,
+  prefix = NULL, cbind = TRUE, quiet = TRUE, ...)
+
+internal.pick.from.ascii.grid(data, file, path = NULL, varname = NULL,
+  prefix = NULL, method = c("nearest.neighbour", "krige"),
+  nodata.values = c(-9999, -99999), at.once, quiet = TRUE, X.name = "x",
+  Y.name = "y", nlines = Inf, cbind = TRUE, range, radius,
+  na.strings = "NA", ...)
+
+pick.from.saga.grid(data, filename, path, varname, prec = 7,
+  show.output.on.console = FALSE, env = rsaga.env(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>data</code></td>
+<td>
+<p>data.frame giving the coordinates (in columns specified by <code>X.name, Y.name</code>) of point locations at which to interpolate the specified variables or grid values</p>
+</td></tr>
+<tr valign="top"><td><code>src</code></td>
+<td>
+<p>data.frame</p>
+</td></tr>
+<tr valign="top"><td><code>pick</code></td>
+<td>
+<p>variables to be picked (interpolated) from <code>src</code>; if missing, use all available variables, except those specified by <code>X.name</code> and <code>Y.name</code></p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>interpolation method to be used; uses a partial match to the alternatives <code>"nearest.neighbor"</code> (currently the default) and <code>"krige"</code></p>
+</td></tr>
+<tr valign="top"><td><code>set.na</code></td>
+<td>
+<p>logical: if a column with a name specified in <code>pick</code> already exists in <code>data</code>, how should it be dealt with? <code>set.na=FALSE</code> (default) only overwrites existing data if the interpolator yields a non-<code>NA</code> result; <code>set.na=TRUE</code> passes <code>NA</code> values returned by the interpolator on to the results data.frame</p>
+</td></tr>
+<tr valign="top"><td><code>radius</code></td>
+<td>
+<p>numeric value specifying the radius of the local neighborhood to be used for interpolation; defaults to 200 map units (presumably meters), or, in the functions for grid files, <code>2.5*cellsize</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>nmin</code></td>
+<td>
+<p>numeric, for <code>method="krige"</code> only: see <code><a href="../../gstat/html/krige.html">krige</a></code> function in package <span class="pkg">gstat</span></p>
+</td></tr>
+<tr valign="top"><td><code>nmax</code></td>
+<td>
+<p>numeric, for <code>method="krige"</code> only: see <code><a href="../../gstat/html/krige.html">krige</a></code> function in package <span class="pkg">gstat</span></p>
+</td></tr>
+<tr valign="top"><td><code>sill</code></td>
+<td>
+<p>numeric, for <code>method="krige"</code> only: the overall sill parameter to be used for the variogram</p>
+</td></tr>
+<tr valign="top"><td><code>range</code></td>
+<td>
+<p>numeric, for <code>method="krige"</code> only: the variogram range</p>
+</td></tr>
+<tr valign="top"><td><code>nugget</code></td>
+<td>
+<p>numeric, for <code>method="krige"</code> only: the nugget effect</p>
+</td></tr>
+<tr valign="top"><td><code>model</code></td>
+<td>
+<p>for <code>method="krige"</code> only: the variogram model to be used for interpolation; defaults to a spherical variogram with parameters specified by the <code>range</code>, <code>sill</code>, and <code>nugget</code> arguments; see <code><a href="../../gstat/html/vgm.html">vgm</a></code> in package <span class="pkg">gstat</span> for details</p>
+</td></tr>
+<tr valign="top"><td><code>log</code></td>
+<td>
+<p>logical vector, specifying for each variable in <code>pick</code> if interpolation should take place on the logarithmic scale (default: <code>FALSE</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>X.name</code></td>
+<td>
+<p>name of the variable containing the x coordinates</p>
+</td></tr>
+<tr valign="top"><td><code>Y.name</code></td>
+<td>
+<p>name of the variable containing the y coordinates</p>
+</td></tr>
+<tr valign="top"><td><code>cbind</code></td>
+<td>
+<p>logical: shoud the new variables be added to the input data.frame (<code>cbind=TRUE</code>, the default), or should they be returned as a separate vector or data.frame? <code>cbind=FALSE</code></p>
+</td></tr>
+<tr valign="top"><td><code>shapefile</code></td>
+<td>
+<p>point shapefile</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments to be passed to <code>pick.from.points</code>, and to <code>internal.pick.from.ascii.grid</code> in the case of <code>pick.from.ascii.grid</code></p>
+</td></tr>
+<tr valign="top"><td><code>file</code></td>
+<td>
+<p>file name (relative to <code>path</code>, default file extension <code>.asc</code>) of an ASCII grid from which to pick a variable, or an open connection to such a file</p>
+</td></tr>
+<tr valign="top"><td><code>path</code></td>
+<td>
+<p>optional path to <code>file</code></p>
+</td></tr>
+<tr valign="top"><td><code>varname</code></td>
+<td>
+<p>character string: a variable name for the variable interpolated from grid file <code>file</code> in <code>pick.from.*.grid</code>; if missing, variable name will be determined from <code>file</code>name by a call to <code><a href="create.variable.name.html">create.variable.name</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>prefix</code></td>
+<td>
+<p>an optional prefix to be added to the <code>varname</code></p>
+</td></tr>
+<tr valign="top"><td><code>parallel</code></td>
+<td>
+<p>logical (default: <code>FALSE</code>): enable parallel processing; requires additional packages such as <span class="pkg">doSNOW</span> or <span class="pkg">doMC</span>. See example below and <code><a href="../../plyr/html/ddply.html">ddply</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>nsplit</code></td>
+<td>
+<p>split the data.frame <code>data</code> in <code>nsplit</code> disjoint subsets in order to increase efficiency by using <code><a href="../../plyr/html/ddply.html">ddply</a></code> in package <span class="pkg">plyr</span>. The default seems to perform well in many situations.</p>
+</td></tr>
+<tr valign="top"><td><code>quiet</code></td>
+<td>
+<p>logical: provide information on the progress of grid processing on screen? (only relevant if <code>at.once=FALSE</code> and <code>method="nearest.neighbour"</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>nodata.values</code></td>
+<td>
+<p>numeric vector specifying grid values that should be converted to <code>NA</code>; in addition to the values specified here, the nodata value given in the input grid's header will be used</p>
+</td></tr>
+<tr valign="top"><td><code>at.once</code></td>
+<td>
+<p>logical: should the grid be read as a whole or line by line? <code>at.once=FALSE</code> is useful for processing large grids that do not fit into memory; the argument is currently by default <code>FALSE</code> for <code>method="nearest.neighbour"</code>, and it currently MUST be <code>TRUE</code> for all other methods (in these cases, <code>TRUE</code> is the default value); piecewise processing with <code>at.once=FALSE</code> is always faster than processing the whole grid <code>at.once</code></p>
+</td></tr>
+<tr valign="top"><td><code>nlines</code></td>
+<td>
+<p>numeric: stop after processing <code>nlines</code> lines of the input grid; useful for testing purposes</p>
+</td></tr>
+<tr valign="top"><td><code>na.strings</code></td>
+<td>
+<p>passed on to <code><a href="../../base/html/scan.html">scan</a></code></p>
+</td></tr>
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>character: name of a SAGA grid file, default extension <code>.sgrd</code></p>
+</td></tr>
+<tr valign="top"><td><code>prec</code></td>
+<td>
+<p>numeric, specifying the number of digits to be used in converting a SAGA grid to an ASCII grid in <code>pick.from.saga.grid</code></p>
+</td></tr>
+<tr valign="top"><td><code>show.output.on.console</code></td>
+<td>
+<p>a logical (default: <code>FALSE</code>), indicates whether to capture the output of the command and show it on the R console (see <code><a href="../../base/html/system.html">system</a></code>, <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code>).</p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>list: RSAGA geoprocessing environment created by <code><a href="rsaga.env.html">rsaga.env</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>pick.from.points</code> interpolates the variables defined by <code>pick</code> in the <code>src</code> data.frame to the locations provided by the <code>data</code> data.frame. Only nearest neighbour and ordinary kriging interpolation are currently available. This function is intended for 'data-rich' situations in which not much thought needs to be put into a geostatistical analysis of the spatial structure of a variable. In particular, this function is supposed to provide a simple, 'quick-and-dirty' interface for situations where the <code>src</code> data points are very densely distributed compared to the <code>data</code> locations.
+</p>
+<p><code>pick.from.shapefile</code> is a front-end of <code>pick.from.points</code> for point shapefiles.
+</p>
+<p><code>pick.from.ascii.grid</code> retrieves data values from an ASCII raster file using either nearest neighbour or ordinary kriging interpolation. The latter may not be possible for large raster data sets because the entire grid needs to be read into an R matrix. Split-apply-combine strategies are used to improve efficiency and allow for parallelization.
+</p>
+<p>The optional parallelization of <code>pick.from.ascii.grid</code> computation requires the use of a <em>parallel backend</em> package such as <span class="pkg">doSNOW</span> or <span class="pkg">doMC</span>, and the parallel backend needs to be registered before calling this function with <code>parallel=TRUE</code>. The example section provides an example using <span class="pkg">doSNOW</span> on Windows. I have seen 25-40
+</p>
+<p><code>pick.from.ascii.grids</code> performs multiple <code>pick.from.ascii.grid</code> calls. File <code>path</code> and <code>prefix</code> arguments may be specific to each <code>file</code> (i.e. each may be a character vector), but all interpolation settings will be the same for each <code>file</code>, limiting the flexibility a bit compared to individual <code>pick.from.ascii.grid</code> calls by the user. <code>pick.from.ascii.grids</code> currently processes the files sequentially (i.e. parallelization is limited to the <code>pick.from.ascii.grid</code> calls within this function).
+</p>
+<p><code>pick.from.saga.grid</code> is the equivalent to <code>pick.from.ascii.grid</code> for SAGA grid files. It simply converts the SAGA grid <code>file</code> to a (temporary) ASCII raster file and applies <code>pick.from.ascii.grid</code>.
+</p>
+<p><code>internal.pick.from.ascii.grid</code> is an internal 'workhorse' function that by itself would be very inefficient for large data sets <code>data</code>. This function is called by <code>pick.from.ascii.grid</code>, which uses a split-apply-combine strategy implemented in the <span class="pkg">plyr</span> package.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If <code>cbind=TRUE</code>, columns with the new, interpolated variables are added to the input data.frame <code>data</code>.
+</p>
+<p>If <code>cbind=FALSE</code>, a data.frame only containing the new variables is returned (possibly coerced to a vector if only one variable is processed).
+</p>
+
+
+<h3>Note</h3>
+
+<p><code>method="krige"</code> requires the <span class="pkg">gstat</span> package.
+</p>
+<p><code>pick.from.shapefile</code> requires the <span class="pkg">shapefiles</span> package.
+</p>
+<p>The nearest neighbour interpolation currently randomly breaks ties if <code>pick.from.points</code> is used, and in a deterministic fashion (rounding towards greater grid indices, i.e. toward south and east) in the grid functions.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning
+</p>
+
+
+<h3>References</h3>
+
+<p>Brenning, A. (2008): Statistical geocomputing combining R and SAGA:  The example of landslide susceptibility analysis with generalized additive models. In: J. Boehner, T. Blaschke, L. Montanarella (eds.), SAGA - Seconds Out (= Hamburger Beitraege zur Physischen Geographie und Landschaftsoekologie, 19), 23-32.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="grid.to.xyz.html">grid.to.xyz</a></code>, 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# assume that 'dem' is an ASCII grid and d a data.frame with variables x and y
+pick.from.ascii.grid(d, "dem")
+# parallel processing on Windows using the doSNOW package:
+require(doSNOW)
+registerDoSNOW(cl &lt;- makeCluster(2, type = "SOCK")) # DualCore processor
+pick.from.ascii.grid(d, "dem", parallel = TRUE)
+# produces two (ignorable) warning messages when using doSNOW
+# typically 25-40% faster than the above on my DualCore notebook
+stopCluster(cl)
+
+## End(Not run)
+
+## Not run: 
+# use the meuse data for some tests:
+require(gstat)
+data(meuse)
+data(meuse.grid)
+meuse.nn = pick.from.points(data=meuse.grid, src=meuse,
+    pick=c("cadmium","copper","elev"), method="nearest.neighbour")
+meuse.kr = pick.from.points(data=meuse.grid, src=meuse,
+    pick=c("cadmium","copper","elev"), method="krige", radius=100)
+# it does make a difference:
+plot(meuse.kr$cadmium,meuse.nn$cadmium)
+plot(meuse.kr$copper,meuse.nn$copper)
+plot(meuse.kr$elev,meuse.nn$elev)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

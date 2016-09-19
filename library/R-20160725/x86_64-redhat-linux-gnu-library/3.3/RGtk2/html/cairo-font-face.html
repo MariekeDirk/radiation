@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairo_font_face_t</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairo-font-face {RGtk2}"><tr><td>cairo-font-face {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairo_font_face_t</h2>
+
+<h3>Description</h3>
+
+<p>Base class for font faces</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="cairoFontFaceStatus.html">cairoFontFaceStatus</a>(font.face)</code><br />
+<code><a href="cairoFontFaceGetType.html">cairoFontFaceGetType</a>(font.face)</code><br />
+<code><a href="cairoFontFaceSetUserData.html">cairoFontFaceSetUserData</a>(font.face, key, user.data)</code><br />
+<code><a href="cairoFontFaceGetUserData.html">cairoFontFaceGetUserData</a>(font.face, key)</code><br />
+<code>cairoFontFace(family, slant, weight)</code>
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="cairo-font-face.html">CairoFontFace</a></code> represents a particular font at a particular weight,
+slant, and other characteristic but no size, transformation, or size.
+</p>
+<p>Font faces are created using <dfn>font-backend</dfn>-specific
+constructors, typically of the form
+cairo_<em>backend</em><code>fontFaceCreate()</code>,
+or implicitly using the <dfn>toy</dfn> text API by way of
+<code><a href="cairoSelectFontFace.html">cairoSelectFontFace</a></code>.  The resulting face can be accessed using
+<code><a href="cairoGetFontFace.html">cairoGetFontFace</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">CairoFontFace</code></dt><dd>
+<p>A <code><a href="cairo-font-face.html">CairoFontFace</a></code> specifies all aspects of a font other
+than the size or font matrix (a font matrix is used to distort
+a font by sheering it or scaling it unequally in the two
+directions) . A font face can be set on a <code><a href="cairo-context.html">Cairo</a></code> by using
+<code><a href="cairoSetFontFace.html">cairoSetFontFace</a></code>; the size and font matrix are set with
+<code><a href="cairoSetFontSize.html">cairoSetFontSize</a></code> and <code><a href="cairoSetFontMatrix.html">cairoSetFontMatrix</a></code>.
+</p>
+<p>There are various types of font faces, depending on the
+<dfn>font backend</dfn> they use. The type of a
+font face can be queried using <code><a href="cairoFontFaceGetType.html">cairoFontFaceGetType</a></code>.
+</p>
+<p>Memory management of <code><a href="cairo-font-face.html">CairoFontFace</a></code> is done with
+<code>cairoFontFaceReference()</code> and <code>cairoFontFaceDestroy()</code>.  
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>cairoFontFace</code> is the result of collapsing the constructors of <code>cairo_font_face_t</code> (<code><a href="cairoToyFontFaceCreate.html">cairoToyFontFaceCreate</a></code>, <code><a href="cairoUserFontFaceCreate.html">cairoUserFontFaceCreate</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Enums and Flags</h3>
+
+<dl>
+<dt><code style="white-space: pre;">CairoFontType</code></dt><dd>
+<p><code><a href="cairo-font-face.html">CairoFontType</a></code> is used to describe the type of a given font
+face or scaled font. The font types are also known as &quot;font
+backends&quot; within cairo.
+</p>
+<p>The type of a font face is determined by the function used to
+create it, which will generally be of the form
+cairo_<em>type</em><code>fontFaceCreate()</code>. The font face type can be queried
+with <code><a href="cairoFontFaceGetType.html">cairoFontFaceGetType</a></code>
+</p>
+<p>The various <code><a href="cairo-font-face.html">CairoFontFace</a></code> functions can be used with a font face
+of any type.
+</p>
+<p>The type of a scaled font is determined by the type of the font
+face passed to <code><a href="cairoScaledFontCreate.html">cairoScaledFontCreate</a></code>. The scaled font type can
+be queried with <code><a href="cairoScaledFontGetType.html">cairoScaledFontGetType</a></code>
+</p>
+<p>The various <code><a href="cairo-scaled-font.html">CairoScaledFont</a></code> functions can be used with scaled
+fonts of any type, but some font backends also provide
+type-specific functions that must only be called with a scaled font
+of the appropriate type. These functions have names that begin with
+cairo_<em>type</em><code>scaledFont()</code> such as <code>cairoFtScaledFontLockFace()</code>.
+</p>
+<p>The behavior of calling a type-specific function with a scaled font
+of the wrong type is undefined.
+</p>
+<p>New entries may be added in future versions.  
+Since 1.2
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">toy</code></dt><dd><p> The font was created using cairo's toy font api</p>
+</dd>
+<dt><code style="white-space: pre;">ft</code></dt><dd><p> The font is of type FreeType</p>
+</dd>
+<dt><code style="white-space: pre;">win32</code></dt><dd><p> The font is of type Win32</p>
+</dd>
+<dt><code style="white-space: pre;">atsui</code></dt><dd><p> The font is of type Quartz (Since: 1.6)</p>
+</dd>
+</dl>
+
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://www.cairographics.org/manual/cairo-font-face.html">http://www.cairographics.org/manual/cairo-font-face.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

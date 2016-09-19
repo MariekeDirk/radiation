@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkRecentAction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkRecentAction {RGtk2}"><tr><td>GtkRecentAction {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkRecentAction</h2>
+
+<h3>Description</h3>
+
+<p>An action of which represents a list of recently used files</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkRecentActionNew.html">gtkRecentActionNew</a>(name, label, tooltip, stock.id)</code><br />
+<code><a href="gtkRecentActionNewForManager.html">gtkRecentActionNewForManager</a>(name, label, tooltip, stock.id, manager)</code><br />
+<code><a href="gtkRecentActionGetShowNumbers.html">gtkRecentActionGetShowNumbers</a>(object)</code><br />
+<code><a href="gtkRecentActionSetShowNumbers.html">gtkRecentActionSetShowNumbers</a>(object, show.numbers)</code><br />
+<code>gtkRecentAction(name, label, tooltip, stock.id)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkAction
+         +----GtkRecentAction</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkRecentAction implements
+<code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A GtkRecentAction represents a list of recently used files, which
+can be shown by widgets such as <code><a href="GtkRecentChooserDialog.html">GtkRecentChooserDialog</a></code> or
+<code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code>.
+</p>
+<p>To construct a submenu showing recently used files, use a GtkRecentAction
+as the action for a &lt;menuitem&gt;. To construct a menu toolbutton showing
+the recently used files in the popup menu, use a GtkRecentAction as the
+action for a &lt;toolitem&gt; element.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkRecentAction</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkRecentAction</code> is the equivalent of <code><a href="gtkRecentActionNew.html">gtkRecentActionNew</a></code>.</p>
+
+
+<h3>Properties</h3>
+
+<dl>
+<dt><code style="white-space: pre;">show-numbers</code> [logical : Read / Write]</dt><dd>
+<p>Whether the items should be displayed with a number.  Default value: FALSE
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkRecentAction.html">http://library.gnome.org/devel//gtk/GtkRecentAction.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

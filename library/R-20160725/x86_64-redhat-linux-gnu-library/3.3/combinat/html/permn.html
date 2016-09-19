@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generates all permutations of the elements of x</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for permn {combinat}"><tr><td>permn {combinat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Generates all permutations of the elements of x </h2>
+
+<h3>Description</h3>
+
+<p>Generates all permutations of the elements of x, in a minimal-
+change order. If x is a positive integer,  returns all permutations
+of the elements of seq(x). If argument &quot;fun&quot; is not null,  applies
+a function given by the argument to each point. &quot;...&quot; are passed
+unchanged to the function given by argument fun, if any.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+permn(x, fun=NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p> vector </p>
+</td></tr>
+<tr valign="top"><td><code>fun</code></td>
+<td>
+<p> if non.null, applied at each perm </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p> args passed to fun </p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>list: each component is either a permutation, or the
+results of applying fun to a permutation
+</p>
+
+
+<h3>References</h3>
+
+ 
+<p>Reingold, E.M., Nievergelt, J., Deo, N. (1977) Combinatorial
+Algorithms: Theory and Practice. NJ: Prentice-Hall. pg. 170.
+</p>
+
+
+<h3>See Also</h3>
+
+ 
+<p>sample, fact, combn, hcube, xsimplex
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+    # Convert output to a matrix of dim c(6, 720)
+     t(array(unlist(permn(6)), dim = c(6, gamma(7))))
+       # A check that every element occurs the same number of times in each
+       # position
+       apply(t(array(unlist(permn(6)), dim = c(6, gamma(7)))), 2, tabulate,
+               nbins = 6)
+
+       # Apply, on the fly, the diff function to every permutation
+       t(array(unlist(permn(6, diff)), dim = c(5, gamma(7))))
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>combinat</em> version 0.0-8 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkBox</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkBox {RGtk2}"><tr><td>GtkBox {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkBox</h2>
+
+<h3>Description</h3>
+
+<p>Base class for box containers</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkBoxPackStart.html">gtkBoxPackStart</a>(object, child, expand = TRUE, fill = TRUE, padding = 0)</code><br />
+<code><a href="gtkBoxPackEnd.html">gtkBoxPackEnd</a>(object, child, expand = TRUE, fill = TRUE, padding = 0)</code><br />
+<code><a href="gtkBoxPackStartDefaults.html">gtkBoxPackStartDefaults</a>(object, widget)</code><br />
+<code><a href="gtkBoxPackEndDefaults.html">gtkBoxPackEndDefaults</a>(object, widget)</code><br />
+<code><a href="gtkBoxGetHomogeneous.html">gtkBoxGetHomogeneous</a>(object)</code><br />
+<code><a href="gtkBoxSetHomogeneous.html">gtkBoxSetHomogeneous</a>(object, homogeneous)</code><br />
+<code><a href="gtkBoxGetSpacing.html">gtkBoxGetSpacing</a>(object)</code><br />
+<code><a href="gtkBoxSetSpacing.html">gtkBoxSetSpacing</a>(object, spacing)</code><br />
+<code><a href="gtkBoxReorderChild.html">gtkBoxReorderChild</a>(object, child, position)</code><br />
+<code><a href="gtkBoxQueryChildPacking.html">gtkBoxQueryChildPacking</a>(object, child)</code><br />
+<code><a href="gtkBoxSetChildPacking.html">gtkBoxSetChildPacking</a>(object, child, expand, fill, padding, pack.type)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBox
+                                 +----GtkButtonBox
+                                 +----GtkVBox
+                                 +----GtkHBox</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkBox implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code> and  <code><a href="gtk-Orientable.html">GtkOrientable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>GtkBox is an abstract widget which encapsulates functionality for a
+particular kind of container, one that organizes a variable number of
+widgets into a rectangular area.  GtkBox has a number of derived
+classes, e.g. <code><a href="GtkHBox.html">GtkHBox</a></code> and <code><a href="GtkVBox.html">GtkVBox</a></code>.
+</p>
+<p>The rectangular area of a GtkBox is organized into either a single row
+or a single column of child widgets depending upon whether the box is
+of type <code><a href="GtkHBox.html">GtkHBox</a></code> or <code><a href="GtkVBox.html">GtkVBox</a></code>, respectively.  Thus, all children of a
+GtkBox are allocated one dimension in common, which is the height of a
+row, or the width of a column.
+</p>
+<p>GtkBox uses a notion of <em>packing</em>.  Packing refers to
+adding widgets with reference to a particular position in a
+<code><a href="GtkContainer.html">GtkContainer</a></code>.  For a GtkBox, there are two reference positions: the
+<em>start</em> and the <em>end</em> of the box.
+For a <code><a href="GtkVBox.html">GtkVBox</a></code>, the start is defined as the top of the box and the end is
+defined as the bottom.  For a <code><a href="GtkHBox.html">GtkHBox</a></code> the start is defined as the
+left side and the end is defined as the right side.
+</p>
+<p>Use repeated calls to <code><a href="gtkBoxPackStart.html">gtkBoxPackStart</a></code> to pack widgets into a
+GtkBox from start to end.  Use <code><a href="gtkBoxPackEnd.html">gtkBoxPackEnd</a></code> to add widgets from
+end to start.  You may intersperse these calls and add widgets from
+both ends of the same GtkBox.
+</p>
+<p>Use <code><a href="gtkBoxPackStartDefaults.html">gtkBoxPackStartDefaults</a></code> or <code><a href="gtkBoxPackEndDefaults.html">gtkBoxPackEndDefaults</a></code>
+to pack widgets into a GtkBox if you do not need to specify the
+<code style="white-space: pre;">"expand"</code>, <code style="white-space: pre;">"fill"</code>, or <code style="white-space: pre;">"padding"</code> child properties
+for the child to be added.
+</p>
+<p>Because GtkBox is a <code><a href="GtkContainer.html">GtkContainer</a></code>, you may also use
+<code><a href="gtkContainerAdd.html">gtkContainerAdd</a></code> to insert widgets into the box, and they will be
+packed as if with <code><a href="gtkBoxPackStartDefaults.html">gtkBoxPackStartDefaults</a></code>.  Use
+<code><a href="gtkContainerRemove.html">gtkContainerRemove</a></code> to remove widgets from the GtkBox.
+</p>
+<p>Use <code><a href="gtkBoxSetHomogeneous.html">gtkBoxSetHomogeneous</a></code> to specify whether or not all children
+of the GtkBox are forced to get the same amount of space.
+</p>
+<p>Use <code><a href="gtkBoxSetSpacing.html">gtkBoxSetSpacing</a></code> to determine how much space will be
+minimally placed between all children in the GtkBox.
+</p>
+<p>Use <code><a href="gtkBoxReorderChild.html">gtkBoxReorderChild</a></code> to move a GtkBox child to a different
+place in the box.
+</p>
+<p>Use <code><a href="gtkBoxSetChildPacking.html">gtkBoxSetChildPacking</a></code> to reset the <code style="white-space: pre;">"expand"</code>,
+<code style="white-space: pre;">"fill"</code> and <code style="white-space: pre;">"padding"</code> child properties.
+Use <code><a href="gtkBoxQueryChildPacking.html">gtkBoxQueryChildPacking</a></code> to query these fields.</p>
+
+
+<h3>Structures</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">GtkBox</code></dt><dd>
+<p>The <code><a href="GtkBox.html">GtkBox</a></code> describes an instance of GtkBox and contains the
+following fields.  (These fields should be considered read-only.
+They should never be set by an application.)
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">spacing</code></dt><dd><p>[integer] </p>
+</dd>
+<dt><code style="white-space: pre;">homogeneous</code></dt><dd><p>[numeric] </p>
+</dd>
+</dl>
+
+</dd>
+<dt><code style="white-space: pre;">GtkBoxChild</code></dt><dd>
+<p>The <code><a href="GtkBox.html">GtkBoxChild</a></code> holds a child widget of GtkBox and describes
+how the child is to be packed into the GtkBox.  Use
+<code><a href="gtkBoxQueryChildPacking.html">gtkBoxQueryChildPacking</a></code> and <code><a href="gtkBoxSetChildPacking.html">gtkBoxSetChildPacking</a></code> to query
+and reset the <code>padding</code>,
+<code>expand</code>, <code>fill</code>,
+and <code>pack</code> fields.
+<code><a href="GtkBox.html">GtkBoxChild</a></code> contains the following fields.  (These fields
+should be considered read-only. They should never be directly set by an
+application.)
+</p>
+
+<dl>
+<dt><code style="white-space: pre;">widget</code></dt><dd><p>[<code><a href="GtkWidget.html">GtkWidget</a></code>] the child widget, packed into the GtkBox.</p>
+</dd>
+<dt><code style="white-space: pre;">padding</code></dt><dd><p>[integer] the number of extra pixels to put between this child and its
+neighbors, set when packed, zero by default.</p>
+</dd>
+<dt><code style="white-space: pre;">expand</code></dt><dd><p>[numeric] flag indicates whether extra space should be given to this
+child. Any extra space given to the parent GtkBox is divided up
+among all children with this attribute set to <code>TRUE</code>; set when packed,
+<code>TRUE</code> by default.</p>
+</dd>
+<dt><code style="white-space: pre;">fill</code></dt><dd><p>[numeric] flag indicates whether any extra space given to this child due
+to its <code>expand</code> attribute being set is actually allocated to the child,
+rather than being used as padding around the widget; set when packed,
+<code>TRUE</code> by default.</p>
+</dd>
+<dt><code style="white-space: pre;">pack</code></dt><dd><p>[numeric] one of <code><a href="gtk-Standard-Enumerations.html">GtkPackType</a></code> indicating whether the child is packed with
+reference to the start (top/left) or end (bottom/right) of the GtkBox.</p>
+</dd>
+<dt><code style="white-space: pre;">isSecondary</code></dt><dd><p>[numeric] <code>TRUE</code> if the child is secondary</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">homogeneous</code> [logical : Read / Write]</dt><dd>
+<p>Whether the children should all be the same size.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">spacing</code> [integer : Read / Write]</dt><dd>
+<p>The amount of space between children.  Allowed values: &gt;= 0  Default value: 0
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkBox.html">http://library.gnome.org/devel//gtk/GtkBox.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

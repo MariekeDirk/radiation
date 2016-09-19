@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: RGtk2 gettext support</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rgtk2_bindtextdomain {RGtk2}"><tr><td>rgtk2_bindtextdomain {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+RGtk2 gettext support
+</h2>
+
+<h3>Description</h3>
+
+<p>Binds a gettext domain using the libintl linked to RGtk2. A workaround
+for Windows where R and RGtk2 link to different builds of libintl.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rgtk2_bindtextdomain(domain, dirname = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>domain</code></td>
+<td>
+
+<p>The name of the gettext domain.
+</p>
+</td></tr>
+<tr valign="top"><td><code>dirname</code></td>
+<td>
+
+<p>The directory containing the catalogs for the domain.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>domain</code> or <code>NULL</code> if unsuccessful.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Michael Lawrence
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../base/html/gettext.html">bindtextdomain</a></code> in the base package.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

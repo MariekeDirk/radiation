@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GBufferedOutputStream</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GBufferedOutputStream {RGtk2}"><tr><td>GBufferedOutputStream {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GBufferedOutputStream</h2>
+
+<h3>Description</h3>
+
+<p>Buffered Output Stream</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gBufferedOutputStreamNew.html">gBufferedOutputStreamNew</a>(base.stream = NULL)</code><br />
+<code><a href="gBufferedOutputStreamNewSized.html">gBufferedOutputStreamNewSized</a>(base.stream, size)</code><br />
+<code><a href="gBufferedOutputStreamGetBufferSize.html">gBufferedOutputStreamGetBufferSize</a>(object)</code><br />
+<code><a href="gBufferedOutputStreamSetBufferSize.html">gBufferedOutputStreamSetBufferSize</a>(object, size)</code><br />
+<code><a href="gBufferedOutputStreamGetAutoGrow.html">gBufferedOutputStreamGetAutoGrow</a>(object)</code><br />
+<code><a href="gBufferedOutputStreamSetAutoGrow.html">gBufferedOutputStreamSetAutoGrow</a>(object, auto.grow)</code><br />
+<code>gBufferedOutputStream(base.stream, size)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GOutputStream
+         +----GFilterOutputStream
+               +----GBufferedOutputStream</pre>
+
+<h3>Detailed Description</h3>
+
+<p>Buffered output stream implements <code><a href="GFilterOutputStream.html">GFilterOutputStream</a></code> and provides 
+for buffered writes. 
+</p>
+<p>By default, <code><a href="GBufferedOutputStream.html">GBufferedOutputStream</a></code>'s buffer size is set at 4 kilobytes.
+</p>
+<p>To create a buffered output stream, use <code><a href="gBufferedOutputStreamNew.html">gBufferedOutputStreamNew</a></code>, 
+or <code><a href="gBufferedOutputStreamNewSized.html">gBufferedOutputStreamNewSized</a></code> to specify the buffer's size 
+at construction.
+</p>
+<p>To get the size of a buffer within a buffered input stream, use 
+<code><a href="gBufferedOutputStreamGetBufferSize.html">gBufferedOutputStreamGetBufferSize</a></code>. To change the size of a 
+buffered output stream's buffer, use 
+<code><a href="gBufferedOutputStreamSetBufferSize.html">gBufferedOutputStreamSetBufferSize</a></code>. Note that the buffer's 
+size cannot be reduced below the size of the data within the buffer.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GBufferedOutputStream</code></dt><dd>
+<p>An implementation of <code><a href="GFilterOutputStream.html">GFilterOutputStream</a></code> with a sized buffer.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gBufferedOutputStream</code> is the result of collapsing the constructors of <code>GBufferedOutputStream</code> (<code><a href="gBufferedOutputStreamNew.html">gBufferedOutputStreamNew</a></code>, <code><a href="gBufferedOutputStreamNewSized.html">gBufferedOutputStreamNewSized</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">auto-grow</code> [logical : Read / Write]</dt><dd>
+<p>Whether the buffer should automatically grow.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">buffer-size</code> [numeric : Read / Write / Construct]</dt><dd>
+<p>The size of the backend buffer.  Allowed values: &gt;= 1  Default value: 4096
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GBufferedOutputStream.html">http://library.gnome.org/devel//gio/GBufferedOutputStream.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

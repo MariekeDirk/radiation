@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Summary method for earth objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for summary.earth {earth}"><tr><td>summary.earth {earth}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Summary method for earth objects</h2>
+
+<h3>Description</h3>
+
+<p>Summary method for <code><a href="earth.html">earth</a></code> objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'earth'
+summary(object = stop("no 'object' argument"),
+        details = FALSE,  style = c("h", "pmax", "max", "C", "bf"),
+        decomp = "anova", digits = getOption("digits"), fixed.point=TRUE,
+        newdata = NULL, ...)
+
+## S3 method for class 'summary.earth'
+print(x = stop("no 'x' argument"),
+        details = x$details,
+        decomp = x$decomp, digits = x$digits, fixed.point = x$fixed.point,
+        newdata = x$newdata, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+
+<p>An <code><a href="earth.html">earth</a></code> object.
+This is the only required argument for <code>summary.earth</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>A <code><a href="summary.earth.html">summary.earth</a></code> object.
+This is the only required argument for <code>print.summary.earth</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>details</code></td>
+<td>
+
+<p>Default is <code>FALSE</code>.
+Use <code>TRUE</code>
+to print more information about <code><a href="earth.html">earth</a></code>&ndash;<code><a href="../../stats/html/glm.html">glm</a></code> models.
+But note that the displayed P-values of the GLM coefficients
+are meaningless because of the amount of preprocessing
+by earth to select the regression terms.
+</p>
+</td></tr>
+<tr valign="top"><td><code>style</code></td>
+<td>
+
+<p>Formatting style. One of<br />
+<code>"h"</code> (default) more compact<br />
+<code>"pmax"</code> for those who prefer it and for compatibility with old versions of earth<br />
+<code>"max"</code> is the same as <code>"pmax"</code> but prints <code>max</code> rather than <code>pmax</code><br />
+<code>"C"</code> C style expression with zero based indexing<br />
+<code>"bf"</code> basis function format.
+</p>
+</td></tr>
+<tr valign="top"><td><code>decomp</code></td>
+<td>
+
+<p>Specify how terms are ordered.
+Default is <code>"anova"</code>.
+Use <code>"none"</code> to order the terms as created by the forward.pass.
+See <code><a href="format.earth.html">format.earth</a></code> for a full description.
+</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+
+<p>The number of significant digits.<br />
+For <code>summary.earth</code>, the default is <code>getOption("digits")</code>.<br />
+For <code>print.summary.earth</code>, the default is the <code>$digits</code> component of <code>object</code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>fixed.point</code></td>
+<td>
+
+<p>Method of printing numbers in matrices.
+Default is <code>TRUE</code> which prints like this
+(making it easier to compare coefficients):</p>
+<pre>
+        (Intercept)    15.029
+        h(temp-58)      0.313
+        h(234-ibt)     -0.046
+        ...
+</pre><p> whereas <code>fixed.point=FALSE</code> prints like this (which is more usual in R):</p>
+<pre>
+        (Intercept)   1.5e+01
+        h(temp-58)    3.1e-01
+        h(234-ibt)   -4.6e-02
+        ...
+</pre>
+<p>Matrices with two or fewer rows are never printed with a fixed point.
+</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+
+<p>Default <code>NULL</code>.<br />
+Else print R-Squared for the new data
+(and the returned object will have <code>newrsq</code> and <code>newdata</code> fields).
+Additionally, if a variance model is present print the interval coverage table for the new data.<br />
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Extra arguments are passed to <code><a href="format.earth.html">format.earth</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The value is the same as that returned by <code><a href="earth.html">earth</a></code>
+but with the following extra components.<br />
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>strings</code></td>
+<td>
+
+<p>String(s) created by <code><a href="format.earth.html">format.earth</a></code>.
+For multiple response models, a vector of strings.
+</p>
+</td></tr>
+<tr valign="top"><td><code>newrsq</code></td>
+<td>
+<p>Only if <code>newdata</code> was passed to <code>summary.earth</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>newdata</code></td>
+<td>
+<p>Only if <code>newdata</code> was passed to <code>summary.earth</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>digits</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>details</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>decomp</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>fixed.point</code></td>
+<td>
+<p>The corresponding arguments, passed on to <code>print.summary.earth</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Note</h3>
+
+<p>The printed <code>Estimated importance</code> uses <code><a href="evimp.html">evimp</a></code>
+with the <code>nsubsets</code> criterion.
+The most important predictor is printed first, and so on.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="earth.html">earth</a></code>,
+<code><a href="evimp.html">evimp</a></code>,
+<code><a href="format.earth.html">format.earth</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+earth.mod &lt;- earth(Volume~ ., data = trees)
+summary(earth.mod, digits = 2)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>earth</em> version 4.4.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

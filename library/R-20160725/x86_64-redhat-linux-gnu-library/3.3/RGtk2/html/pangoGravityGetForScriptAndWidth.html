@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoGravityGetForScriptAndWidth</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoGravityGetForScriptAndWidth {RGtk2}"><tr><td>pangoGravityGetForScriptAndWidth {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoGravityGetForScriptAndWidth</h2>
+
+<h3>Description</h3>
+
+<p>Based on the script, East Asian width, base gravity, and hint,
+returns actual gravity to use in laying out a single character
+or <code><a href="pango-Text-Processing.html">PangoItem</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoGravityGetForScriptAndWidth(script, wide, base.gravity, 
+    hint)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">script</code></code></td>
+<td>
+<p>[<code><a href="pango-Scripts-and-Languages.html">PangoScript</a></code>] <code><a href="pango-Scripts-and-Languages.html">PangoScript</a></code> to query</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">wide</code></code></td>
+<td>
+<p>[logical] <code>TRUE</code> for wide characters as returned by <code>gUnicharIswide()</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">base.gravity</code></code></td>
+<td>
+<p>[<code><a href="pango-Vertical-Text.html">PangoGravity</a></code>]  base gravity of the paragraph</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">hint</code></code></td>
+<td>
+<p>[<code><a href="pango-Vertical-Text.html">PangoGravityHint</a></code>]  orientation hint</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is similar to <code><a href="pangoGravityGetForScript.html">pangoGravityGetForScript</a></code> except
+that this function makes a distinction between narrow/half-width and
+wide/full-width characters also.  Wide/full-width characters always
+stand <em>upright</em>, that is, they always take the base gravity,
+whereas narrow/full-width characters are always rotated in vertical
+context.
+</p>
+<p>If <code>base.gravity</code> is <code>PANGO_GRAVITY_AUTO</code>, it is first replaced with the
+preferred gravity of <code>script</code>.  
+Since 1.26</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="pango-Vertical-Text.html">PangoGravity</a></code>]  resolved gravity suitable to use for a run of text
+with <code>script</code> and <code>wide</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

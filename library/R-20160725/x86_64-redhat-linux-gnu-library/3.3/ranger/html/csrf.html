@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Case-specific random forests.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for csrf {ranger}"><tr><td>csrf {ranger}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Case-specific random forests.</h2>
+
+<h3>Description</h3>
+
+<p>In case-specific random forests (CSRF), random forests are built specific to the cases of interest. 
+Instead of using equal probabilities, the cases are weighted according to their difference to the case of interest.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+csrf(formula, training_data, test_data, params1 = list(), params2 = list())
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>formula</code></td>
+<td>
+<p>Object of class <code>formula</code> or <code>character</code> describing the model to fit.</p>
+</td></tr>
+<tr valign="top"><td><code>training_data</code></td>
+<td>
+<p>Training data of class <code>data.frame</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>test_data</code></td>
+<td>
+<p>Test data of class <code>data.frame</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>params1</code></td>
+<td>
+<p>Parameters for the proximity random forest grown in the first step.</p>
+</td></tr>
+<tr valign="top"><td><code>params2</code></td>
+<td>
+<p>Parameters for the prediction random forests grown in the second step.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The algorithm consists of 3 steps: 
+</p>
+
+<ol>
+<li><p> Grow a random forest on the training data
+</p>
+</li>
+<li><p> For each observation of interest (test data), the weights of all training observations are computed by counting the number of trees in which both observations are in the same terminal node.
+</p>
+</li>
+<li><p> For each test observation, grow a weighted random forest on the training data, using the weights obtained in step 2. Predict the outcome of the test observation as usual.
+</p>
+</li></ol>
+
+<p>In total, n+1 random forests are grown, where n is the number observations in the test dataset.
+For details, see Xu et al. (2014).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Predictions for the test dataset.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Marvin N. Wright
+</p>
+
+
+<h3>References</h3>
+
+<p>Xu, R., Nettleton, D. &amp; Nordman, D.J. (2014). Case-specific random forests. J Comp Graph Stat, in press. DOI: 10.1080/10618600.2014.983641
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Split in training and test data
+train.idx &lt;- sample(nrow(iris), 2/3 * nrow(iris))
+iris.train &lt;- iris[train.idx, ]
+iris.test &lt;- iris[-train.idx, ]
+
+## Run case-specific RF
+csrf(Species ~ ., training_data = iris.train, test_data = iris.test, 
+     params1 = list(num.trees = 50, mtry = 4), 
+     params2 = list(num.trees = 5))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ranger</em> version 0.5.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

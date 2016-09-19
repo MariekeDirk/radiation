@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTimeoutAdd</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTimeoutAdd {RGtk2}"><tr><td>gtkTimeoutAdd {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTimeoutAdd</h2>
+
+<h3>Description</h3>
+
+<p>Registers a function to be called periodically. The function will be called
+repeatedly after <code>interval</code> milliseconds until it returns <code>FALSE</code> at which
+point the timeout is destroyed and will not be called again.
+<strong>WARNING: <code>gtk_timeout_add</code> has been deprecated since version 2.4 and should not be used in newly-written code. Use <code><a href="GMainLoop.html">gTimeoutAdd</a></code> instead.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTimeoutAdd(interval, fun, data = NULL)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">interval</code></code></td>
+<td>
+<p>The time between calls to the function, in milliseconds
+(1/1000ths of a second.)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>The data to pass to the function.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>[numeric] A unique id for the event source.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

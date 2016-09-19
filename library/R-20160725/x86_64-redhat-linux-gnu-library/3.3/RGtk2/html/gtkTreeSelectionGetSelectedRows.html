@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTreeSelectionGetSelectedRows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTreeSelectionGetSelectedRows {RGtk2}"><tr><td>gtkTreeSelectionGetSelectedRows {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTreeSelectionGetSelectedRows</h2>
+
+<h3>Description</h3>
+
+<p>Creates a list of path of all selected rows. Additionally, if you are
+planning on modifying the model after calling this function, you may
+want to convert the returned list into a list of <code><a href="GtkTreeModel.html">GtkTreeRowReference</a></code>s.
+To do this, you can use <code><a href="gtkTreeRowReferenceNew.html">gtkTreeRowReferenceNew</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTreeSelectionGetSelectedRows(object)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>A <code><a href="GtkTreeSelection.html">GtkTreeSelection</a></code>.</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>To free the return value, use:
+</p>
+<pre># You don't have to free anything in RGtk, silly</pre>
+<p>Since 2.2</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[list] A <code style="white-space: pre;">list</code> containing a <code><a href="GtkTreeModel.html">GtkTreePath</a></code> for each selected row. <em>[  <acronym><span class="acronym">element-type</span></acronym>   GtkTreePath][  <acronym><span class="acronym">transfer full</span></acronym>  ]</em></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">model</code></code></td>
+<td>
+<p>A pointer to set to the <code><a href="GtkTreeModel.html">GtkTreeModel</a></code>, or NULL. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkFontFromDescriptionForDisplay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkFontFromDescriptionForDisplay {RGtk2}"><tr><td>gdkFontFromDescriptionForDisplay {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkFontFromDescriptionForDisplay</h2>
+
+<h3>Description</h3>
+
+<p>Loads a <code><a href="gdk-Fonts.html">GdkFont</a></code> based on a Pango font description for use on <code>display</code>. 
+This font will only be an approximation of the Pango font, and
+internationalization will not be handled correctly. This function
+should only be used for legacy code that cannot be easily converted
+to use Pango. Using Pango directly will produce better results.
+<strong>WARNING: <code>gdk_font_from_description_for_display</code> is deprecated and should not be used in newly-written code.</strong>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkFontFromDescriptionForDisplay(display, font.desc)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">display</code></code></td>
+<td>
+<p>a <code><a href="GdkDisplay.html">GdkDisplay</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">font.desc</code></code></td>
+<td>
+<p>a <code><a href="pango-Fonts.html">PangoFontDescription</a></code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.2</p>
+
+
+<h3>Value</h3>
+
+<p>[<code><a href="gdk-Fonts.html">GdkFont</a></code>] the newly loaded font, or <code>NULL</code> if the font
+cannot be loaded.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

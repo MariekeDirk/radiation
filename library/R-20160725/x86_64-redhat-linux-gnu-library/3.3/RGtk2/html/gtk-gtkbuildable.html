@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkBuildable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtk-gtkbuildable {RGtk2}"><tr><td>gtk-gtkbuildable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkBuildable</h2>
+
+<h3>Description</h3>
+
+<p>Interface for objects that can be built by GtkBuilder</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkBuildableSetName.html">gtkBuildableSetName</a>(object, name)</code><br />
+<code><a href="gtkBuildableGetName.html">gtkBuildableGetName</a>(object)</code><br />
+<code><a href="gtkBuildableAddChild.html">gtkBuildableAddChild</a>(object, builder, child, type)</code><br />
+<code><a href="gtkBuildableSetBuildableProperty.html">gtkBuildableSetBuildableProperty</a>(object, builder, name, value)</code><br />
+<code><a href="gtkBuildableConstructChild.html">gtkBuildableConstructChild</a>(object, builder, name)</code><br />
+<code><a href="gtkBuildableCustomTagStart.html">gtkBuildableCustomTagStart</a>(object, builder, child, tagname, parser, data)</code><br />
+<code><a href="gtkBuildableCustomTagEnd.html">gtkBuildableCustomTagEnd</a>(object, builder, child, tagname, data)</code><br />
+<code><a href="gtkBuildableCustomFinished.html">gtkBuildableCustomFinished</a>(object, builder, child, tagname, data)</code><br />
+<code><a href="gtkBuildableParserFinished.html">gtkBuildableParserFinished</a>(object, builder)</code><br />
+<code><a href="gtkBuildableGetInternalChild.html">gtkBuildableGetInternalChild</a>(object, builder, childname)</code><br />
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GInterface
+   +----GtkBuildable</pre>
+
+<h3>Implementations</h3>
+
+<p>GtkBuildable is implemented by
+<code><a href="GtkAboutDialog.html">GtkAboutDialog</a></code>,  <code><a href="GtkAccelLabel.html">GtkAccelLabel</a></code>,  <code><a href="GtkAction.html">GtkAction</a></code>,  <code><a href="GtkActionGroup.html">GtkActionGroup</a></code>,  <code><a href="GtkAlignment.html">GtkAlignment</a></code>,  <code><a href="GtkArrow.html">GtkArrow</a></code>,  <code><a href="GtkAspectFrame.html">GtkAspectFrame</a></code>,  <code><a href="GtkAssistant.html">GtkAssistant</a></code>,  <code><a href="GtkBin.html">GtkBin</a></code>,  <code><a href="GtkBox.html">GtkBox</a></code>,  <code><a href="GtkButton.html">GtkButton</a></code>,  <code><a href="GtkButtonBox.html">GtkButtonBox</a></code>,  <code><a href="GtkCList.html">GtkCList</a></code>,  <code><a href="GtkCTree.html">GtkCTree</a></code>,  <code><a href="GtkCalendar.html">GtkCalendar</a></code>,  <code><a href="GtkCellView.html">GtkCellView</a></code>,  <code><a href="GtkCheckButton.html">GtkCheckButton</a></code>,  <code><a href="gtk-gtkcheckmenuitem.html">GtkCheckMenuItem</a></code>,  <code><a href="GtkColorButton.html">GtkColorButton</a></code>,  <code><a href="GtkColorSelection.html">GtkColorSelection</a></code>,  <code><a href="GtkColorSelectionDialog.html">GtkColorSelectionDialog</a></code>,  <code><a href="GtkCombo.html">GtkCombo</a></code>,  <code><a href="GtkComboBox.html">GtkComboBox</a></code>,  <code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>,  <code><a href="GtkContainer.html">GtkContainer</a></code>,  <code><a href="GtkCurve.html">GtkCurve</a></code>,  <code><a href="GtkDialog.html">GtkDialog</a></code>,  <code><a href="GtkDrawingArea.html">GtkDrawingArea</a></code>,  <code><a href="GtkEntry.html">GtkEntry</a></code>,  <code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code>,  <code><a href="GtkEventBox.html">GtkEventBox</a></code>,  <code><a href="GtkExpander.html">GtkExpander</a></code>,  <code><a href="GtkFileChooserButton.html">GtkFileChooserButton</a></code>,  <code><a href="GtkFileChooserDialog.html">GtkFileChooserDialog</a></code>,  <code><a href="GtkFileChooserWidget.html">GtkFileChooserWidget</a></code>,  <code><a href="GtkFileSelection.html">GtkFileSelection</a></code>,  <code><a href="GtkFixed.html">GtkFixed</a></code>,  <code><a href="GtkFontButton.html">GtkFontButton</a></code>,  <code><a href="GtkFontSelection.html">GtkFontSelection</a></code>,  <code><a href="GtkFontSelectionDialog.html">GtkFontSelectionDialog</a></code>,  <code><a href="GtkFrame.html">GtkFrame</a></code>,  <code><a href="GtkGammaCurve.html">GtkGammaCurve</a></code>,  <code><a href="GtkHBox.html">GtkHBox</a></code>,  <code><a href="GtkHButtonBox.html">GtkHButtonBox</a></code>,  <code><a href="GtkHPaned.html">GtkHPaned</a></code>,  <code><a href="GtkHRuler.html">GtkHRuler</a></code>,  <code><a href="GtkHSV.html">GtkHSV</a></code>,  <code><a href="GtkHScale.html">GtkHScale</a></code>,  <code><a href="GtkHScrollbar.html">GtkHScrollbar</a></code>,  <code><a href="GtkHSeparator.html">GtkHSeparator</a></code>,  <code><a href="GtkHandleBox.html">GtkHandleBox</a></code>,  <code><a href="gtk-Themeable-Stock-Images.html">GtkIconFactory</a></code>,  <code><a href="GtkIconView.html">GtkIconView</a></code>,  <code><a href="GtkImage.html">GtkImage</a></code>,  <code><a href="GtkImageMenuItem.html">GtkImageMenuItem</a></code>,  <code><a href="GtkInfoBar.html">GtkInfoBar</a></code>,  <code><a href="GtkInputDialog.html">GtkInputDialog</a></code>,  <code><a href="GtkInvisible.html">GtkInvisible</a></code>,  <code><a href="GtkItem.html">GtkItem</a></code>,  <code><a href="GtkLabel.html">GtkLabel</a></code>,  <code><a href="GtkLayout.html">GtkLayout</a></code>,  <code><a href="GtkLinkButton.html">GtkLinkButton</a></code>,  <code><a href="GtkList.html">GtkList</a></code>,  <code><a href="GtkListItem.html">GtkListItem</a></code>,  <code><a href="GtkListStore.html">GtkListStore</a></code>,  <code><a href="GtkMenu.html">GtkMenu</a></code>,  <code><a href="GtkMenuBar.html">GtkMenuBar</a></code>,  <code><a href="GtkMenuItem.html">GtkMenuItem</a></code>,  <code><a href="GtkMenuShell.html">GtkMenuShell</a></code>,  <code><a href="GtkMenuToolButton.html">GtkMenuToolButton</a></code>,  <code><a href="GtkMessageDialog.html">GtkMessageDialog</a></code>,  <code><a href="GtkMisc.html">GtkMisc</a></code>,  <code><a href="GtkNotebook.html">GtkNotebook</a></code>,  <code><a href="GtkOffscreenWindow.html">GtkOffscreenWindow</a></code>,  <code><a href="GtkOldEditable.html">GtkOldEditable</a></code>,  <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code>,  GtkPageSetupUnixDialog,  <code><a href="GtkPaned.html">GtkPaned</a></code>,  <code><a href="GtkPixmap.html">GtkPixmap</a></code>,  <code><a href="GtkPlug.html">GtkPlug</a></code>,  <code><a href="GtkPreview.html">GtkPreview</a></code>,  GtkPrintUnixDialog,  <code><a href="GtkProgress.html">GtkProgress</a></code>,  <code><a href="GtkProgressBar.html">GtkProgressBar</a></code>,  <code><a href="GtkRadioAction.html">GtkRadioAction</a></code>,  <code><a href="GtkRadioButton.html">GtkRadioButton</a></code>,  <code><a href="GtkRadioMenuItem.html">GtkRadioMenuItem</a></code>,  <code><a href="GtkRadioToolButton.html">GtkRadioToolButton</a></code>,  <code><a href="GtkRange.html">GtkRange</a></code>,  <code><a href="GtkRecentAction.html">GtkRecentAction</a></code>,  <code><a href="GtkRecentChooserDialog.html">GtkRecentChooserDialog</a></code>,  <code><a href="GtkRecentChooserMenu.html">GtkRecentChooserMenu</a></code>,  <code><a href="GtkRecentChooserWidget.html">GtkRecentChooserWidget</a></code>,  <code><a href="GtkRuler.html">GtkRuler</a></code>,  <code><a href="GtkScale.html">GtkScale</a></code>,  <code><a href="GtkScaleButton.html">GtkScaleButton</a></code>,  <code><a href="GtkScrollbar.html">GtkScrollbar</a></code>,  <code><a href="GtkScrolledWindow.html">GtkScrolledWindow</a></code>,  <code><a href="GtkSeparator.html">GtkSeparator</a></code>,  <code><a href="GtkSeparatorMenuItem.html">GtkSeparatorMenuItem</a></code>,  <code><a href="GtkSeparatorToolItem.html">GtkSeparatorToolItem</a></code>,  <code><a href="GtkSizeGroup.html">GtkSizeGroup</a></code>,  <code><a href="GtkSocket.html">GtkSocket</a></code>,  <code><a href="GtkSpinButton.html">GtkSpinButton</a></code>,  <code><a href="GtkSpinner.html">GtkSpinner</a></code>,  <code><a href="GtkStatusbar.html">GtkStatusbar</a></code>,  <code><a href="GtkTable.html">GtkTable</a></code>,  <code><a href="GtkTearoffMenuItem.html">GtkTearoffMenuItem</a></code>,  GtkText,  <code><a href="GtkTextView.html">GtkTextView</a></code>,  <code><a href="GtkTipsQuery.html">GtkTipsQuery</a></code>,  <code><a href="GtkToggleAction.html">GtkToggleAction</a></code>,  <code><a href="GtkToggleButton.html">GtkToggleButton</a></code>,  <code><a href="GtkToggleToolButton.html">GtkToggleToolButton</a></code>,  <code><a href="GtkToolButton.html">GtkToolButton</a></code>,  <code><a href="GtkToolItem.html">GtkToolItem</a></code>,  <code><a href="GtkToolItemGroup.html">GtkToolItemGroup</a></code>,  <code><a href="GtkToolPalette.html">GtkToolPalette</a></code>,  <code><a href="GtkToolbar.html">GtkToolbar</a></code>,  GtkTree,  GtkTreeItem,  <code><a href="GtkTreeStore.html">GtkTreeStore</a></code>,  <code><a href="GtkTreeView.html">GtkTreeView</a></code>,  <code><a href="GtkTreeViewColumn.html">GtkTreeViewColumn</a></code>,  <code><a href="GtkUIManager.html">GtkUIManager</a></code>,  <code><a href="GtkVBox.html">GtkVBox</a></code>,  <code><a href="GtkVButtonBox.html">GtkVButtonBox</a></code>,  <code><a href="GtkVPaned.html">GtkVPaned</a></code>,  <code><a href="GtkVRuler.html">GtkVRuler</a></code>,  <code><a href="GtkVScale.html">GtkVScale</a></code>,  <code><a href="GtkVScrollbar.html">GtkVScrollbar</a></code>,  <code><a href="GtkVSeparator.html">GtkVSeparator</a></code>,  <code><a href="GtkViewport.html">GtkViewport</a></code>,  <code><a href="GtkVolumeButton.html">GtkVolumeButton</a></code>,  <code><a href="GtkWidget.html">GtkWidget</a></code> and  <code><a href="GtkWindow.html">GtkWindow</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>In order to allow construction from a GtkBuilder
+UI description, an object class must implement the
+GtkBuildable interface. The interface includes methods for setting
+names and properties of objects, parsing custom tags, constructing
+child objects.
+</p>
+<p>The GtkBuildable interface is implemented by all widgets and
+many of the non-widget objects that are provided by GTK+. The
+main user of this interface is <code><a href="GtkBuilder.html">GtkBuilder</a></code>, there should be
+very little need for applications to call any
+<code>gtkBuildable...</code> functions.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkBuildable</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/gtk-gtkbuildable.html">http://library.gnome.org/devel//gtk/gtk-gtkbuildable.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

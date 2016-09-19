@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Update an earth model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for update.earth {earth}"><tr><td>update.earth {earth}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Update an earth model</h2>
+
+<h3>Description</h3>
+
+<p>Update an <code><a href="earth.html">earth</a></code> model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'earth'
+update(object = stop("no 'object' argument"),
+       formula. = NULL, ponly = FALSE, ..., evaluate = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p> The earth object</p>
+</td></tr>
+<tr valign="top"><td><code>formula.</code></td>
+<td>
+
+<p>The <code>formula.</code> argument is treated like earth's <code>formula</code> argument.<br />
+</p>
+</td></tr>
+<tr valign="top"><td><code>ponly</code></td>
+<td>
+
+<p>Force pruning only, no forward pass.
+Default is <code>FALSE</code>,
+meaning <code>update.earth</code> decides automatically if a forward pass is needed.
+See note below.
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>Arguments passed on to <code><a href="earth.html">earth</a></code>.
+</p>
+</td></tr>
+<tr valign="top"><td><code>evaluate</code></td>
+<td>
+
+<p>If <code>TRUE</code> (default) evaluate the new call, else return the call.
+Mostly for compatibility with the generic <code><a href="../../stats/html/update.html">update</a></code>.
+</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If only the following arguments are used, a forward pass
+is unnecessary, and <code>update.earth</code> will perform only the pruning pass.
+This is usually much faster for large models.
+</p>
+<pre>
+     object
+     glm
+     trace
+     nprune
+     pmethod
+     Eval.model.subsets
+     Print.pruning.pass
+     Force.xtx.prune
+     Use.beta.cache
+     Endspan.penalty
+     Get.leverages
+</pre>
+<p>This automatic determination to do a forward pass can be overridden
+with the <code>ponly</code> argument.
+If <code>ponly=TRUE</code> the forward pass will be skipped and only the pruning pass will be executed.
+This is useful for doing a pruning pass with new data.
+(Use earth's <code>data</code> argument to specify the new data.)
+Typically in this scenario you would also specify <code>penalty=-1</code>.
+This is because with sufficient new data, independent of the original
+training data, the RSS not the GCV should be used for evaluating model
+subsets
+(The GCV approximates what the RSS would be on new data &mdash; but here
+we actually have new data, so why bother approximating.
+This &quot;use new data for pruning&quot; approach is useful in situations where
+you don't trust the GCV approximation for your data.)
+By making <code>penalty=-1</code>, earth will calculate the RSS, not the GCV.
+See also the description of <code>penalty</code> on the
+<code><a href="earth.html">earth</a></code> help page.
+<br />
+<br />
+Another (somewhat esoteric) use of <code>ponly=TRUE</code> is to do subset
+selection with a different <code>penalty</code> from that used to build the
+original model.
+<br />
+<br />
+With <code>trace=1</code>, <code>update.earth</code> will tell you if earth's
+forward pass was skipped.
+<br />
+<br />
+If you used <code>keepxy=TRUE</code> in your original call to <code>earth</code>, then
+<code>update.earth</code> will use the saved values of <code>x</code>, <code>y</code>, etc.,
+unless you specify otherwise by arguments to <code>update.earth</code>.
+It can be helpful to set <code>trace=1</code> to see which <code>x</code> and <code>y</code>
+is used by <code>update.earth</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The value is the same as that returned by <code><a href="earth.html">earth</a></code>.
+If <code>object</code> is the only parameter then no changes are made
+&mdash; the returned value will be the same as the original <code>object</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="earth.html">earth</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(ozone1)
+
+(earth.mod &lt;- earth(O3 ~ ., data = ozone1, degree = 2))
+
+update(earth.mod, formula = O3 ~ . - temp) # requires forward pass and pruning
+
+update(earth.mod, nprune = 8)              # requires only pruning
+
+update(earth.mod, penalty=1, ponly=TRUE)   # pruning pass only with a new penalty
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>earth</em> version 4.4.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

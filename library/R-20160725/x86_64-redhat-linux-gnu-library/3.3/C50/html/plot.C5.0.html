@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plot a decision tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.C5.0 {C50}"><tr><td>plot.C5.0 {C50}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>
+Plot a decision tree
+</h2>
+
+<h3>Description</h3>
+
+<p>Plot a decision tree.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'C5.0'
+plot(x, trial = 0, subtree = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+
+<p>an object of class <code>C5.0</code>
+</p>
+</td></tr>
+<tr valign="top"><td><code>trial</code></td>
+<td>
+
+<p>an integer for how many boosting iterations are used for prediction. NOTE: the internals of <code>C5.0</code> are zero-based so to get the initial decision tree you must use <code>trial = 0</code>. If <code>trial</code> is set too large, it is reset to the largest value and a warning is given.</p>
+</td></tr>
+<tr valign="top"><td><code>subtree</code></td>
+<td>
+
+<p>an optional integer that can be used to isolate nodes below the specified split. See <code><a href="../../partykit/html/[.party.html">[.party</a></code> for more details. 
+</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+
+<p>options passed to <code><a href="../../partykit/html/plot.party.html">plot.party</a></code>
+</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>No value is returned; a plot is rendered.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Mark Culp, Max Kuhn
+</p>
+
+
+<h3>References</h3>
+
+<p>Quinlan R (1993). C4.5: Programs for Machine Learning. Morgan Kaufmann Publishers,
+<a href="http://www.rulequest.com/see5-unix.html">http://www.rulequest.com/see5-unix.html</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="C5.0.html">C5.0</a></code>, <code><a href="../../partykit/html/[.party.html">[.party</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+mod1 &lt;- C5.0(Species ~ ., data = iris)
+plot(mod1)
+plot(mod1, subtree = 3)
+
+
+mod2 &lt;- C5.0(Species ~ ., data = iris, trials = 10)
+plot(mod2) ## should be the same as above
+
+## plot first weighted tree
+plot(mod2, trial = 1)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>C50</em> version 0.1.0-24 <a href="00Index.html">Index</a>]</div>
+</body></html>

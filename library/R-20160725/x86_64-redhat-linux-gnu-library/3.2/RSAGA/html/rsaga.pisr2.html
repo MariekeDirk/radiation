@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Potential incoming solar radiation SAGA 2.2.2+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rsaga.pisr2 {RSAGA}"><tr><td>rsaga.pisr2 {RSAGA}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Potential incoming solar radiation SAGA 2.2.2+</h2>
+
+<h3>Description</h3>
+
+<p>This function calculates the potential incoming solar radiation in an area using different atmospheric models; This function reflects changes to the module with SAGA 2.2.2+.
+For SAGA versions 2.0.6 to 2.2.1 please see <code><a href="rsaga.pisr.html">rsaga.pisr</a></code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rsaga.pisr2(in.dem, in.svf.grid = NULL, in.vapour.grid = NULL,
+  in.linke.grid = NULL, out.direct.grid, out.diffuse.grid,
+  out.total.grid = NULL, out.ratio.grid = NULL, out.duration, out.sunrise,
+  out.sunset, local.svf = TRUE, location = c("latitude", "grid"),
+  latitude = 53, unit = c("kWh/m2", "kJ/m2", "J/cm2"), solconst = 1367,
+  method = c("height", "components", "lumped", "hofierka"),
+  hgt.atmosphere = 12000, cmp.pressure = 1013, cmp.water.content = 1.68,
+  cmp.dust = 100, lmp.transmittance = 70, time.range = c(0, 24),
+  time.step = 0.5, start.date = list(day = 31, month = 10, year = 2015),
+  end.date = NULL, day.step = 5, env = rsaga.env(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>in.dem</code></td>
+<td>
+<p>name of input digital elevation model (DEM) grid in SAGA grid format (default extension: <code>.sgrd</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>in.svf.grid</code></td>
+<td>
+<p>Optional input grid in SAGA format:  Sky View Factor; see also <code>local.svf</code></p>
+</td></tr>
+<tr valign="top"><td><code>in.vapour.grid</code></td>
+<td>
+<p>Optional input grid in SAGA format:  Water vapour pressure (mbar), for use with <code>method = "height"</code>; default 10 mbar</p>
+</td></tr>
+<tr valign="top"><td><code>in.linke.grid</code></td>
+<td>
+<p>Optional input grid in SAGA format: Linke turbidity coefficient, for use with <code>method = "hofierka"</code>; default 3.0</p>
+</td></tr>
+<tr valign="top"><td><code>out.direct.grid</code></td>
+<td>
+<p>Output grid: Direct insolation (unit selected by <code>unit</code> argument)</p>
+</td></tr>
+<tr valign="top"><td><code>out.diffuse.grid</code></td>
+<td>
+<p>Output grid: Diffuse insolation</p>
+</td></tr>
+<tr valign="top"><td><code>out.total.grid</code></td>
+<td>
+<p>Optional output grid: Total insolation, i.e. sum of direct and diffuse incoming solar radiation</p>
+</td></tr>
+<tr valign="top"><td><code>out.ratio.grid</code></td>
+<td>
+<p>Optional output grid: Direct to diffuse ratio</p>
+</td></tr>
+<tr valign="top"><td><code>out.duration</code></td>
+<td>
+<p>Optional output grid: Duration of insolation</p>
+</td></tr>
+<tr valign="top"><td><code>out.sunrise</code></td>
+<td>
+<p>Optional output grid: time of sunrise; only calculated if time span is set to single day</p>
+</td></tr>
+<tr valign="top"><td><code>out.sunset</code></td>
+<td>
+<p>Time of sunset; see <code>out.sunrise</code></p>
+</td></tr>
+<tr valign="top"><td><code>local.svf</code></td>
+<td>
+<p>logical (default: <code>TRUE</code>; if TRUE, use sky view factor based on local slope (after Oke, 1988), if no sky view factor grid is provided in <code>in.svf.grid</code></p>
+</td></tr>
+<tr valign="top"><td><code>location</code></td>
+<td>
+<p>specified whether to use constant latitude supplied by <code>latitude</code> below (<code>"latitude"</code> or code <code>0</code>; default) or as calculated from the grid system (<code>"grid"</code> or code <code>1</code>)</p>
+</td></tr>
+<tr valign="top"><td><code>latitude</code></td>
+<td>
+<p>Geographical latitude in degree North (negative values indicate southern hemisphere)</p>
+</td></tr>
+<tr valign="top"><td><code>unit</code></td>
+<td>
+<p>unit of insolation output grids: <code>"kWh/m2"</code> (default) <code>"kJ/m2"</code>, or <code>"J/cm2"</code></p>
+</td></tr>
+<tr valign="top"><td><code>solconst</code></td>
+<td>
+<p>solar constant, defaults to 1367 W/m2</p>
+</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+<p>specifies how the atmospheric components should be  accounted for: either based on the height of atmosphere and vapour pressure (<code>"height"</code>, or numeric code 0), or air pressure, water and dust content (<code>"components"</code>, code 1), or lumped atmospheric transmittance (<code>"lumped"</code>, code <code>2</code>), or by the method of Hofierka and Suri, 2009 (<code>"hofierka"</code>, code <code>3</code>). Default: <code>"lumped"</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>hgt.atmosphere</code></td>
+<td>
+<p>Height of atmosphere (in m); default 12000 m. For use with <code>method = "height"</code></p>
+</td></tr>
+<tr valign="top"><td><code>cmp.pressure</code></td>
+<td>
+<p>atmospheric pressure in mbar, defaults to 1013 mbar. For use with <code>method = "components"</code></p>
+</td></tr>
+<tr valign="top"><td><code>cmp.water.content</code></td>
+<td>
+<p>water content of a vertical slice of the atmosphere in cm: between 1.5 and 1.7cm, average 1.68cm (default). For use with <code>method = "components"</code></p>
+</td></tr>
+<tr valign="top"><td><code>cmp.dust</code></td>
+<td>
+<p>dust factor in ppm; defaults to 100 ppm. For use with <code>method = "components"</code></p>
+</td></tr>
+<tr valign="top"><td><code>lmp.transmittance</code></td>
+<td>
+<p>transmittance of the atmosphere in percent; usually between 60 (humid areas) and 80 percent (deserts)</p>
+</td></tr>
+<tr valign="top"><td><code>time.range</code></td>
+<td>
+<p>numeric vector of length 2:  time span (hours of the day) for numerical integration</p>
+</td></tr>
+<tr valign="top"><td><code>time.step</code></td>
+<td>
+<p>time step in hours for numerical integration</p>
+</td></tr>
+<tr valign="top"><td><code>start.date</code></td>
+<td>
+<p>list of length three, giving the start date in <code>day</code>, <code>month</code>, and <code>year</code> components as numbers; month is one-based (SAGA_CMD uses zero-based numbers internally), i.e. Jan. 1st 2015 is <code>list(day=1,month=1,year=2015)</code></p>
+</td></tr>
+<tr valign="top"><td><code>end.date</code></td>
+<td>
+<p>see <code>start.date</code></p>
+</td></tr>
+<tr valign="top"><td><code>day.step</code></td>
+<td>
+<p>if <code>days</code> indicates a range of days, this specifies the time step (number of days) for calculating the incoming solar radiation</p>
+</td></tr>
+<tr valign="top"><td><code>env</code></td>
+<td>
+<p>RSAGA geoprocessing environment obtained with <code><a href="rsaga.env.html">rsaga.env</a></code>; this argument is required for version control (see Note)</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>optional arguments to be passed to <code><a href="rsaga.geoprocessor.html">rsaga.geoprocessor</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>According to SAGA GIS 2.0.7 documentation, &quot;Most options should do well, but TAPES-G based diffuse irradiance calculation (&quot;Atmospheric Effects&quot; methods 2 and 3) needs further revision!&quot; I.e. be careful with <code>method = "components"</code> and <code>method = "lumped"</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>SAGA_CMD uses zero-based months, but this R function uses the standard one-based months (e.g. day 1 is the first day of the month, month 1 is January) and translates to the SAGA system.
+</p>
+<p>This function uses module Potential Incoming Solar Radiation from SAGA library <code>ta_lighting</code> in SAGA version 2.0.6+.
+Changes to the module with SAGA 2.2.2+ include adding <code>year</code> to the <code>*.date</code> arguments to allow calculation across years.
+The method of Hofierka and Suri (2009) is added, which uses the Linke turbidity coefficient.
+Duration of insolation (<code>"out.duration"</code>) is only calculated when the time period is set to a single day.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Alexander Brenning &amp; Donovan Bangs (R interface), Olaf Conrad (SAGA module)
+</p>
+
+
+<h3>References</h3>
+
+<p>Boehner, J., Antonic, O. (2009): Land surface parameters specific to topo-climatology. In: Hengl, T. and Reuter, H. I. (eds.): Geomorphometry - Concepts, Software, Applications. Elsevier.
+</p>
+<p>Oke, T.R. (1988): Boundary layer climates. London, Taylor and Francis.
+</p>
+<p>Wilson, J.P., Gallant, J.C. (eds.), 2000: Terrain analysis - principles and applications. New York, John Wiley and Sons.
+</p>
+<p>Hofierka, J., Suri, M. (2002): The solar radiation model for Open source GIS: implementation and applications. International GRASS users conference in Trento, Italy, September 2002
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="rsaga.pisr.html">rsaga.pisr</a></code>; for similar modules in older SAGA versions (pre-2.0.6) see <code><a href="rsaga.solar.radiation.html">rsaga.solar.radiation</a></code> and <code><a href="rsaga.insolation.html">rsaga.insolation</a></code>; <code><a href="rsaga.hillshade.html">rsaga.hillshade</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSAGA</em> version 0.94-5 <a href="00Index.html">Index</a>]</div>
+</body></html>

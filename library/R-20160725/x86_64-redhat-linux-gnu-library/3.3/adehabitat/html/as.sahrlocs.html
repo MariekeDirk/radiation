@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Exploratory Analysis of Habitat Selection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for as.sahrlocs {adehabitat}"><tr><td>as.sahrlocs {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Exploratory Analysis of Habitat Selection</h2>
+
+<h3>Description</h3>
+
+<p><code>as.sahrlocs</code> creates objects of class <code>sahrlocs</code>.
+This class has a central place in habitat selection studies relying on
+radio-tracking data.  Niche analysis and K-select analysis can be
+performed using this class of objects.  This class may also be used
+for exploratory purposes.  This class of
+object has three main components: an object of class <code>kasc</code>
+describing the study area, an object of class <code>kasc</code> describing
+what is available to the animals, and an object of class <code>kasc</code>
+describing the relocations of the animals (<code>sahrlocs</code> = Study
+Area - Home Range - reLOCationS).  <code>getsahrlocs</code> converts one of the
+components of an object of class <code>sahrlocs</code> into an object of class
+<code>kasc</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+as.sahrlocs(mlocs, mhr, msa, descan = NULL)
+getsahrlocs(x, what = c("sa", "hr", "locs"))
+## S3 method for class 'sahrlocs'
+print(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mlocs</code></td>
+<td>
+<p>an object of class <code>kasc</code> returned by the
+function <code>count.points.id</code></p>
+</td></tr>
+<tr valign="top"><td><code>mhr</code></td>
+<td>
+<p>an object of class <code>kasc</code> returned by the function
+<code>hr.rast</code>, by the function <code>buffer.ani</code>, or by any other
+user-defined function</p>
+</td></tr>
+<tr valign="top"><td><code>msa</code></td>
+<td>
+<p>an object of class <code>kasc</code> describing the study area</p>
+</td></tr>
+<tr valign="top"><td><code>descan</code></td>
+<td>
+<p>an optionnal data frame with the number of rows equal to
+the number of monitored animals.  Each column of this data frame
+gives any type of information on the monitored animals (e.g. sex,
+age, and so on)</p>
+</td></tr>
+<tr valign="top"><td><code>what</code></td>
+<td>
+<p>a character string giving the component of the
+<code>sahrlocs</code> object to be
+converted.  Should be either <code>"sa"</code> (study area), <code>"hr"</code>
+(home ranges) or <code>"locs"</code> (relocations)</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>sahrlocs</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additionnal parameters to be passed to the generic
+function <code>print</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The different maps in the input list of objects <code>kasc</code> should describe
+the same area (same attributes: same <code>cellsize</code>, same <code>xll</code>,
+same <code>yll</code> and same dimensions).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns one object of class <code>sahrlocs</code>, which is a list
+containing the input arguments for the function
+<code>as.sahrlocs</code>. Objects of class <code>sahrlocs</code> have the same
+attributes as objects of class <code>kasc</code> (<code>xll</code>, <code>yll</code>,
+<code>cellsize</code>, <code>nrow</code>, and <code>ncol</code>).<br />
+</p>
+<p><code>getsahrlocs</code> returns
+an object of class <code>kasc</code> (see <code><a href="as.kasc.html">kasc</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.kasc.html">kasc</a></code> for additionnal information on objects
+of class <code>kasc</code>, <code><a href="hr.rast.html">hr.rast</a></code> and <code><a href="buffer.html">buffer.ani</a></code>
+for the creation of the <code>"hr"</code>
+component of this object, <code><a href="count.points.id.html">count.points.id</a></code> for the
+creation of the <code>"locs"</code> component of this
+object, <code><a href="plot.sahrlocs.html">plot.sahrlocs</a></code> and <code><a href="image.sahrlocs.html">image.sahrlocs</a></code>
+for a graphical display of such objects. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+kasc &lt;- puechabon$kasc
+locs &lt;-  puechabon$locs
+
+## Computes the home ranges of the animals...
+cp &lt;- mcp(locs[,4:5], locs[,1])
+
+## ... and converts it to raster
+cprast &lt;- hr.rast(cp, kasc)
+locrast &lt;- count.points.id(locs[,4:5], locs[,1], kasc)
+
+## Creation of the sahrlocs object
+(sahr &lt;- as.sahrlocs(locrast, cprast, kasc))
+
+## adds information on the monitored animals
+age &lt;- factor(tapply(locs[,2], locs[,1], mean))
+sex &lt;- factor(tapply(locs[,3], locs[,1], mean))
+info &lt;- as.data.frame(cbind(sex, age))
+(sahr &lt;- as.sahrlocs(locrast, cprast, kasc, info))
+
+
+## Gets the "study area" component of the object
+toto &lt;- getsahrlocs(sahr)
+image(toto)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

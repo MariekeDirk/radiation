@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A class for SoilGrids REST API</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for REST.SoilGrids-class {GSIF}"><tr><td>REST.SoilGrids-class {GSIF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A class for SoilGrids REST API</h2>
+
+<h3>Description</h3>
+
+<p>A class for <a href="https://rest.soilgrids.org/">SoilGrids REST API</a> Service. Can be used to overlay points or fetch grid values from SoilGrids Soil Information System.</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>server</code>:</dt><dd><p>object of class <code>"character"</code>; contains the location of the server that executes REST.SoilGrids calls</p>
+</dd>
+<dt><code>query</code>:</dt><dd><p>object of class <code>"list"</code>; contains parameters or REST.SoilGrids query</p>
+</dd>
+<dt><code>stream</code>:</dt><dd><p>object of class <code>"character"</code>; contains parameters or REST.SoilGrids stream operation</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>over</dt><dd><p><code>signature(x = "REST.SoilGrids", y = "SpatialPoints")</code>: overlays spatial points and the target grids defined via the REST.SoilGrids-class (point-by-point) and returns list of objects of <code>"SpatialPixelsDataFrame"</code>-class</p>
+</dd>
+</dl>
+
+
+
+<h3>Note</h3>
+
+<p>More examples of overlay and download functions are available via <a href="http://rest.soilgrids.org/">http://rest.soilgrids.org/</a>. <code>over</code> method is not recommended for large point data sets.</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl &amp; Jorge S. Mendes de Jesus</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> SoilGrids &mdash; a system for automated soil mapping (<a href="https://www.soilgrids.org">https://www.soilgrids.org</a>)
+</p>
+</li>
+<li><p> REST API SoilGrids (<a href="http://rest.soilgrids.org">http://rest.soilgrids.org</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="SoilGrids.html">SoilGrids-class</a></code>, <code><a href="WPS.html">WPS-class</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(rjson)
+library(sp)
+## 2 points:
+pnts &lt;- data.frame(lon=c(10.65,5.36), lat=c(51.81,51.48), id=c("p1","p2"))
+coordinates(pnts) &lt;- ~lon+lat
+proj4string(pnts) &lt;- CRS("+proj=longlat +datum=WGS84")
+pnts
+## REST example:
+soilgrids.r &lt;- REST.SoilGrids(c("ORCDRC","PHIHOX"))
+ov &lt;- over(soilgrids.r, pnts)
+str(ov)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GSIF</em> version 0.5-3 <a href="00Index.html">Index</a>]</div>
+</body></html>

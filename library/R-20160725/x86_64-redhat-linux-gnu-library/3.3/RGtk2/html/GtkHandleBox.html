@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkHandleBox</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkHandleBox {RGtk2}"><tr><td>GtkHandleBox {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkHandleBox</h2>
+
+<h3>Description</h3>
+
+<p>a widget for detachable window portions</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkHandleBoxNew.html">gtkHandleBoxNew</a>(show = TRUE)</code><br />
+<code><a href="gtkHandleBoxSetShadowType.html">gtkHandleBoxSetShadowType</a>(object, type)</code><br />
+<code><a href="gtkHandleBoxSetHandlePosition.html">gtkHandleBoxSetHandlePosition</a>(object, position)</code><br />
+<code><a href="gtkHandleBoxSetSnapEdge.html">gtkHandleBoxSetSnapEdge</a>(object, edge)</code><br />
+<code><a href="gtkHandleBoxGetHandlePosition.html">gtkHandleBoxGetHandlePosition</a>(object)</code><br />
+<code><a href="gtkHandleBoxGetShadowType.html">gtkHandleBoxGetShadowType</a>(object)</code><br />
+<code><a href="gtkHandleBoxGetSnapEdge.html">gtkHandleBoxGetSnapEdge</a>(object)</code><br />
+<code><a href="gtkHandleBoxGetChildDetached.html">gtkHandleBoxGetChildDetached</a>(object)</code><br />
+<code>gtkHandleBox(show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkHandleBox</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkHandleBox implements
+AtkImplementorIface and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkHandleBox.html">GtkHandleBox</a></code> widget allows a portion of a window to be &quot;torn
+off&quot;. It is a bin widget which displays its child and a handle that
+the user can drag to tear off a separate window (the <dfn>float
+window</dfn>) containing the child widget. A thin
+<dfn>ghost</dfn> is drawn in the original location of the
+handlebox. By dragging the separate window back to its original
+location, it can be reattached.
+</p>
+<p>When reattaching, the ghost and float window, must be aligned
+along one of the edges, the <dfn>snap edge</dfn>.
+This either can be specified by the application programmer
+explicitely, or GTK+ will pick a reasonable default based
+on the handle position.
+</p>
+<p>To make detaching and reattaching the handlebox as minimally confusing
+as possible to the user, it is important to set the snap edge so that
+the snap edge does not move when the handlebox is deattached. For
+instance, if the handlebox is packed at the bottom of a VBox, then
+when the handlebox is detached, the bottom edge of the handlebox's
+allocation will remain fixed as the height of the handlebox shrinks,
+so the snap edge should be set to <code>GTK_POS_BOTTOM</code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkHandleBox</code></dt><dd>
+<p>The <code><a href="GtkHandleBox.html">GtkHandleBox</a></code> struct contains the following fields.
+(These fields should be considered read-only. They should never be set by
+an application.)
+</p>
+
+<table summary="Rd table">
+<tr>
+ <td style="text-align: left;">
+GtkShadowType shadow_type; </td><td style="text-align: left;"> The shadow type for the entry. (See   <code><a href="gtkHandleBoxSetShadowType.html">gtkHandleBoxSetShadowType</a></code>  ). </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+GtkPositionType handle_position; </td><td style="text-align: left;"> The position of the handlebox's handle with respect
+to the child. (See   <code><a href="gtkHandleBoxSetHandlePosition.html">gtkHandleBoxSetHandlePosition</a></code>  ) </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+gint snap_edge; </td><td style="text-align: left;"> A value of type   <code style="white-space: pre;">GtkPosition</code>   type indicating snap edge for the widget.
+(See gtk_handle_box_set_snap_edge). The value of -1 indicates
+that this value has not been set. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+<code style="white-space: pre;">logical</code>   child_detached; </td><td style="text-align: left;"> A boolean value indicating whether the handlebox's
+child is attached or detached. </td>
+</tr>
+<tr>
+ <td style="text-align: left;">
+</td>
+</tr>
+
+</table>
+
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkHandleBox</code> is the equivalent of <code><a href="gtkHandleBoxNew.html">gtkHandleBoxNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>child-attached(handlebox, widget, user.data)</code></dt><dd>
+<p>This signal is emitted when the contents of the
+handlebox are reattached to the main window.
+</p>
+
+<dl>
+<dt><code>handlebox</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>widget</code></dt><dd><p>the child widget of the handlebox.
+(this argument provides no extra information
+and is here only for backwards-compatibility)</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>child-detached(handlebox, widget, user.data)</code></dt><dd>
+<p>This signal is emitted when the contents of the
+handlebox are detached from the main window.
+</p>
+
+<dl>
+<dt><code>handlebox</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>widget</code></dt><dd><p>the child widget of the handlebox.
+(this argument provides no extra information
+and is here only for backwards-compatibility)</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">child-detached</code> [logical : Read]</dt><dd>
+<p>A boolean value indicating whether the handlebox's child is attached or detached.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">handle-position</code> [<code><a href="gtk-Standard-Enumerations.html">GtkPositionType</a></code> : Read / Write]</dt><dd>
+<p>Position of the handle relative to the child widget.  Default value: GTK_POS_LEFT
+</p>
+</dd>
+<dt><code style="white-space: pre;">shadow</code> [<code><a href="gtk-Standard-Enumerations.html">GtkShadowType</a></code> : Read / Write]</dt><dd>
+<p>Deprecated property, use shadow_type instead.  Default value: GTK_SHADOW_OUT
+</p>
+</dd>
+<dt><code style="white-space: pre;">shadow-type</code> [<code><a href="gtk-Standard-Enumerations.html">GtkShadowType</a></code> : Read / Write]</dt><dd>
+<p>Appearance of the shadow that surrounds the container.  Default value: GTK_SHADOW_OUT
+</p>
+</dd>
+<dt><code style="white-space: pre;">snap-edge</code> [<code><a href="gtk-Standard-Enumerations.html">GtkPositionType</a></code> : Read / Write]</dt><dd>
+<p>Side of the handlebox that's lined up with the docking point to dock the handlebox.  Default value: GTK_POS_TOP
+</p>
+</dd>
+<dt><code style="white-space: pre;">snap-edge-set</code> [logical : Read / Write]</dt><dd>
+<p>Whether to use the value from the snap_edge property or a value derived from handle_position.  Default value: FALSE
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkHandleBox.html">http://library.gnome.org/devel//gtk/GtkHandleBox.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

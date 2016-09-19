@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkTextBufferDeserialize</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkTextBufferDeserialize {RGtk2}"><tr><td>gtkTextBufferDeserialize {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkTextBufferDeserialize</h2>
+
+<h3>Description</h3>
+
+<p>This function deserializes rich text in format <code>format</code> and inserts
+it at <code>iter</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkTextBufferDeserialize(object, content.buffer, format, iter, 
+    data, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>the <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code> <code>format</code> is registered with</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">content.buffer</code></code></td>
+<td>
+<p>the <code><a href="GtkTextBuffer.html">GtkTextBuffer</a></code> to deserialize into</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">format</code></code></td>
+<td>
+<p>the rich text format to use for deserializing</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">iter</code></code></td>
+<td>
+<p>insertion point for the deserialized text</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">data</code></code></td>
+<td>
+<p>data to deserialize</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>format</code>s to be used must be registered using
+<code><a href="gtkTextBufferRegisterDeserializeFormat.html">gtkTextBufferRegisterDeserializeFormat</a></code> or
+<code><a href="gtkTextBufferRegisterDeserializeTagset.html">gtkTextBufferRegisterDeserializeTagset</a></code> beforehand.
+Since 2.10</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] <code>TRUE</code> on success, <code>FALSE</code> otherwise.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>return location for a <code><a href="GError.html">GError</a></code></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Creates a Vector of Colors for a Raster Map of Type 'factor'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for colasc {adehabitat}"><tr><td>colasc {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Creates a Vector of Colors for a Raster Map of Type 'factor' </h2>
+
+<h3>Description</h3>
+
+<p><code>colasc</code> creates a vector of colors for a raster map of class
+<code>asc</code> and of type <code>"factor"</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+colasc(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>asc</code>. </p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>arguments named as the levels of the factor, with
+character values equal 
+to the colors for these levels (see examples)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a character vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+
+## gets the aspect in an asc object
+asp &lt;- getkasc(puechabon$kasc, "Aspect")
+
+## creates the vector of colors
+cl &lt;- colasc(asp, NorthEast = "blue", SouthEast = "red", 
+             SouthWest = "orange", NorthWest = "green")
+
+## graphical display
+image(asp, clfac = cl, main = "Aspect", xlab = "Lambert X",
+      ylab = "Lambert Y")
+legend(706500, 3162000, legend=levels(asp), fill = cl, cex = 0.7)
+ 
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

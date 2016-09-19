@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkRecentChooserSetSortFunc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkRecentChooserSetSortFunc {RGtk2}"><tr><td>gtkRecentChooserSetSortFunc {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkRecentChooserSetSortFunc</h2>
+
+<h3>Description</h3>
+
+<p>Sets the comparison function used when sorting to be <code>sort.func</code>.  If
+the <code>chooser</code> has the sort type set to <code style="white-space: pre;">GTK_RECENT_SORT_CUSTOM</code> then
+the chooser will sort using this function.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkRecentChooserSetSortFunc(object, sort.func, sort.data)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkRecentChooser.html">GtkRecentChooser</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">sort.func</code></code></td>
+<td>
+<p>the comparison function</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">sort.data</code></code></td>
+<td>
+<p>user data to pass to <code>sort.func</code>, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>To the comparison function will be passed two <code><a href="GtkRecentManager.html">GtkRecentInfo</a></code> structs and
+<code>sort.data</code>;  <code>sort.func</code> should return a positive integer if the first
+item comes before the second, zero if the two items are equal and
+a negative integer if the first item comes after the second.
+Since 2.10</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

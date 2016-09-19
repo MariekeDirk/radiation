@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: File Loading</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdk-pixbuf-File-Loading {RGtk2}"><tr><td>gdk-pixbuf-File-Loading {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>File Loading</h2>
+
+<h3>Description</h3>
+
+<p>Loading a pixbuf from a file.</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gdkPixbufNewFromFile.html">gdkPixbufNewFromFile</a>(filename, .errwarn = TRUE)</code><br />
+<code><a href="gdkPixbufNewFromFileAtSize.html">gdkPixbufNewFromFileAtSize</a>(filename, width, height, .errwarn = TRUE)</code><br />
+<code><a href="gdkPixbufNewFromFileAtScale.html">gdkPixbufNewFromFileAtScale</a>(filename, width, height, preserve.aspect.ratio, .errwarn = TRUE)</code><br />
+<code><a href="gdkPixbufGetFileInfo.html">gdkPixbufGetFileInfo</a>(filename)</code><br />
+<code><a href="gdkPixbufNewFromStream.html">gdkPixbufNewFromStream</a>(stream, cancellable = NULL, .errwarn = TRUE)</code><br />
+<code><a href="gdkPixbufNewFromStreamAtScale.html">gdkPixbufNewFromStreamAtScale</a>(stream, width = -1, height = -1, preserve.aspect.ratio = 1, cancellable = NULL, .errwarn = TRUE)</code><br />
+</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>The <code>gdk-pixbuf</code> library provides a simple mechanism for loading
+an image from a file in synchronous fashion.  This means that the
+library takes control of the application while the file is being
+loaded; from the user's point of view, the application will block
+until the image is done loading.
+</p>
+<p>This interface can be used by applications in which blocking is
+acceptable while an image is being loaded.  It can also be used to
+load small images in general.  Applications that need progressive
+loading can use the <code><a href="GdkPixbufLoader.html">GdkPixbufLoader</a></code> functionality instead.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gdk-pixbuf/gdk-pixbuf-File-Loading.html">http://library.gnome.org/devel//gdk-pixbuf/gdk-pixbuf-File-Loading.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: A class for outputs of analysis produced using the dismo...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for SpatialMaxEntOutput-class {plotKML}"><tr><td>SpatialMaxEntOutput-class {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>A class for outputs of analysis produced using the dismo package (MaxEnt)</h2>
+
+<h3>Description</h3>
+
+<p>A class containing input and output data produced by running the <code>maxent</code> (Maximum Entropy) species distribution modeling algorithm. Object of this class can be directly visualized in Google Earth by using the <code><a href="plotKML.html">plotKML-method</a></code>.</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>sciname</code>:</dt><dd><p>object of class <code>"character"</code>; vector of species name compatible with the <code>rgbif</code> package; usually latin &quot;genus&quot; and &quot;species&quot; name</p>
+</dd>
+<dt><code>occurrences</code>:</dt><dd><p>object of class <code>"SpatialPoints"</code>; occurrence-only records</p>
+</dd>
+<dt><code>TimeSpan.begin</code>:</dt><dd><p>object of class <code>"POSIXct"</code>; begin of the sampling period</p>
+</dd>
+<dt><code>TimeSpan.end</code>:</dt><dd><p>object of class <code>"POSIXct"</code>; end of the sampling period</p>
+</dd>
+<dt><code>maxent</code>:</dt><dd><p>object of class <code>"MaxEnt"</code> (species distribution model); produced as an output of the <code>dismo::maxent</code> function</p>
+</dd>
+<dt><code>sp.domain</code>:</dt><dd><p>object of class <code>"Spatial"</code> (ideally <code>"SpatialPolygonsDataFrame"</code> or <code>"SpatialPixelsDataFrame"</code>); assumed spatial domain that can be set by the user or it will be estimated by MaxEnt (see examples below)</p>
+</dd>
+<dt><code>predicted</code>:</dt><dd><p>object of class <code>"RasterLayer"</code>; contains results of prediction produced using the MaxEnt software</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>plotKML</dt><dd><p><code>signature(obj = "SpatialMaxEntOutput")</code>: plots all MaxEnt output objects in Google Earth</p>
+</dd>
+</dl>
+
+
+
+<h3>Note</h3>
+
+<p>MaxEnt requires the <code>maxent.jar</code> file to be in the 'java' folder of the dismo package (see: <code>system.file("java", package="dismo")</code>). For more info refer to the dismo package documentation.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Tomislav Hengl </p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> Hijmans, R.J, Elith, J., (2012) <a href="http://cran.r-project.org/web/packages/dismo/vignettes/sdm.pdf">Species distribution modeling with R</a>. CRAN, Vignette for the dismo package, 72 p.  
+</p>
+</li>
+<li><p> dismo package (<a href="http://CRAN.R-project.org/package=dismo">http://CRAN.R-project.org/package=dismo</a>)
+</p>
+</li>
+<li><p> rgbif package (<a href="http://CRAN.R-project.org/package=rgbif">http://CRAN.R-project.org/package=rgbif</a>)
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="plotKML.html">plotKML-method</a></code>, <code>dismo::maxent</code>, <code>rgbif::taxonsearch</code>, <code>GSIF::MaxEnt</code> 
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

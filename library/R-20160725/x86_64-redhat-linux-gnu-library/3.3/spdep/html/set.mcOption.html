@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Options for parallel support</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for set.mcOption {spdep}"><tr><td>set.mcOption {spdep}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Options for parallel support</h2>
+
+<h3>Description</h3>
+
+<p>Provides support for the use of parallel computation in the parallel package. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+set.mcOption(value)
+get.mcOption()
+set.coresOption(value)
+get.coresOption()
+set.ClusterOption(cl)
+get.ClusterOption()
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>valid replacement value</p>
+</td></tr>
+<tr valign="top"><td><code>cl</code></td>
+<td>
+<p>a cluster object created by <code>makeCluster</code> in <span class="pkg">parallel</span></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Options in the spdep package are held in an environment local to the package namespace and not exported. Option values are set and retrieved with pairs of access functions, get and set. The <code>mc</code> option is set by default to FALSE on Windows systems, as they cannot fork the R session; by default it is TRUE on other systems, but may be set FALSE. If <code>mc</code> is FALSE, the <code>Cluster</code> option is used: if <code>mc</code> is FALSE and the <code>Cluster</code> option is NULL no parallel computing is done, or the <code>Cluster</code> option is passed a &ldquo;cluster&rdquo; object created by the parallel or snow package for access without being passed as an argument. The <code>cores</code> option is set to NULL by default, and can be used to store the number of cores to use as an integer. If <code>cores</code> is NULL, facilities from the parallel package will not be used.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The option access functions return their current settings, the assignment functions usually return the previous value of the option.
+</p>
+
+
+<h3>Note</h3>
+
+<p>An extended example is shown in the documentation of <code><a href="aple.mc.html">aple.mc</a></code>, including treatment of seeding of RNG for multicore/cluster.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Roger Bivand <a href="mailto:Roger.Bivand@nhh.no">Roger.Bivand@nhh.no</a></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+ls(envir=spdep:::.spdepOptions)
+library(parallel)
+nc &lt;- detectCores(logical=FALSE)
+nc
+# set nc to 1L here
+if (nc &gt; 1L) nc &lt;- 1L
+#nc &lt;- ifelse(nc &gt; 2L, 2L, nc)
+coresOpt &lt;- get.coresOption()
+coresOpt
+if (!is.na(nc)) {
+ invisible(set.coresOption(nc))
+ print(exists("aple.mc"))
+ if(.Platform$OS.type == "windows") {
+# forking not permitted on Windows - start cluster
+  print(get.mcOption())
+  cl &lt;- makeCluster(get.coresOption())
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  set.ClusterOption(cl)
+  clusterEvalQ(get.ClusterOption(), library(spdep))
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  clusterEvalQ(get.ClusterOption(), detach(package:spdep))
+  set.ClusterOption(NULL)
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  stopCluster(cl)
+ } else {
+  mcOpt &lt;- get.mcOption()
+  print(mcOpt)
+  print(mclapply(1:get.coresOption(), function(i) exists("aple.mc"),
+   mc.cores=get.coresOption()))
+  invisible(set.mcOption(FALSE))
+  cl &lt;- makeCluster(nc)
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  set.ClusterOption(cl)
+  clusterEvalQ(get.ClusterOption(), library(spdep))
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  clusterEvalQ(get.ClusterOption(), detach(package:spdep))
+  set.ClusterOption(NULL)
+  print(clusterEvalQ(cl, exists("aple.mc")))
+  stopCluster(cl)
+  invisible(set.mcOption(mcOpt))
+ }
+ invisible(set.coresOption(coresOpt))
+}
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>spdep</em> version 0.6-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

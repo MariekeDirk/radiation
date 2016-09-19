@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Estimation of Optimal Threshold Values</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for optim.thresh {SDMTools}"><tr><td>optim.thresh {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Estimation of Optimal Threshold Values</h2>
+
+<h3>Description</h3>
+
+<p><code>optim.thresh</code> estimates optimal threshold values
+given eight methods. <br /> <br /> <b>Note:</b> this method will
+exclude any missing data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+optim.thresh(obs, pred, threshold = 101)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a vector of observed values which must be 0
+for absences and 1 for occurrences</p>
+</td></tr>
+<tr valign="top"><td><code>pred</code></td>
+<td>
+<p>a vector of the same length as <code>obs</code>
+representing the predicted values. Values must be between
+0 &amp; 1 representing a likelihood.</p>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>a single integer value representing the
+number of equal interval threshold values between 0 &amp; 1</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list of the optimal thresholds for the different
+methods. If the list item is a single value, that is the
+optimal threshold but if two values are reported for the
+method, this represents the range in thresholds that are
+equal for that threshold selection method. <br /> <br /> The
+returned list includes the single or range in thresholds
+selected using the following methods:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>min.occurence.prediction</code></td>
+<td>
+<p>is the minimum prediction
+for the occurrence (presence) records</p>
+</td></tr>
+<tr valign="top"><td><code>mean.occurence.prediction</code></td>
+<td>
+<p>is the mean prediction for
+the occurrence (presence) records</p>
+</td></tr>
+<tr valign="top"><td><code>'10.percent.omission'</code></td>
+<td>
+<p>is the threshold value or
+range in values that excludes approx. 10 percent of the
+occurrence records</p>
+</td></tr> <tr valign="top"><td><code>'sensitivity=specificity'</code></td>
+<td>
+<p>is the
+threshold value or range in values where sensitivity is
+equal to sensitivity</p>
+</td></tr>
+<tr valign="top"><td><code>'max.sensitivity+specificity'</code></td>
+<td>
+<p>is the threshold value
+or range in values that maximizes sensitivity plus
+specificity</p>
+</td></tr> <tr valign="top"><td><code>maxKappa</code></td>
+<td>
+<p>is the threshold value or
+range in values with the maximum Kappa statistic</p>
+</td></tr>
+<tr valign="top"><td><code>max.prop.correct</code></td>
+<td>
+<p>is the threshold value or range in
+values with the maximum proportion of presence and absence
+records correctly identified</p>
+</td></tr>
+<tr valign="top"><td><code>min.ROC.plot.distance</code></td>
+<td>
+<p>is the threshold value or
+range in values where the ROC curve is closest to point
+(0,1) (or perfect fit)</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="accuracy.html">accuracy</a></code>, <code><a href="auc.html">auc</a></code>,
+<code><a href="Kappa.html">Kappa</a></code>, <code><a href="omission.html">omission</a></code>,
+<code><a href="omission.html">sensitivity</a></code>, <code><a href="omission.html">specificity</a></code>,
+<code><a href="omission.html">prop.correct</a></code>, <code><a href="confusion.matrix.html">confusion.matrix</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#create some data
+obs = c(sample(c(0,1),20,replace=TRUE),NA); obs = obs[order(obs)]
+pred = runif(length(obs),0,1); pred = pred[order(pred)]
+
+#calculate the optimal thresholds
+optim.thresh(obs,pred)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

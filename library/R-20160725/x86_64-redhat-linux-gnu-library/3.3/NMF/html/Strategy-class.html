@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Generic Strategy Class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Strategy-class {NMF}"><tr><td>Strategy-class {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Generic Strategy Class</h2>
+
+<h3>Description</h3>
+
+<p>This class defines a common interface for generic
+algorithm strategies (e.g.,
+<code><a href="NMFStrategy-class.html">NMFStrategy</a></code>).
+</p>
+<p><code>name</code> and <code>name&lt;-</code> gets and sets the name
+associated with an object. In the case of <code>Strategy</code>
+objects it is the the name of the algorithm.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  name(object, ...)
+
+  ## S4 method for signature 'Strategy'
+name(object, all = FALSE)
+
+  name(object, ...)&lt;-value
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>object</code></td>
+<td>
+<p>an R object with a defined <code>name</code>
+method</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments to allow extension</p>
+</td></tr>
+<tr valign="top"><td><code>value</code></td>
+<td>
+<p>replacement value</p>
+</td></tr>
+<tr valign="top"><td><code>all</code></td>
+<td>
+<p>a logical that indicates if all the names
+associated with a strategy should be returned
+(<code>TRUE</code>), or only the first (primary) one
+(<code>FALSE</code>).</p>
+</td></tr>
+</table>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>name</dt><dd><p>character string giving the name of the
+algorithm</p>
+</dd>
+<dt>package</dt><dd><p>name of the package that defined the
+strategy.</p>
+</dd>
+<dt>defaults</dt><dd><p>default values for some of the
+algorithm's arguments.</p>
+</dd>
+</dl>
+
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>name</dt><dd><p><code>signature(object = "Strategy")</code>:
+Returns the name of an algorithm </p>
+</dd>
+<dt>name</dt><dd><p><code>signature(object = "Strategy")</code>:
+Returns the name of an algorithm </p>
+</dd>
+<dt>name&lt;-</dt><dd><p><code>signature(object = "Strategy", value
+  = "character")</code>: Sets the name(s) of an NMF algorithm </p>
+</dd>
+<dt>name&lt;-</dt><dd><p><code>signature(object = "Strategy", value
+  = "character")</code>: Sets the name(s) of an NMF algorithm </p>
+</dd>
+</dl>
+
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

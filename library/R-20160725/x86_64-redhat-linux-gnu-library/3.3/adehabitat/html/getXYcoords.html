@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Computes the X and Y Coordinates of the Pixels of a Raster...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getXYcoords {adehabitat}"><tr><td>getXYcoords {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Computes the X and Y Coordinates of the Pixels of a Raster Map</h2>
+
+<h3>Description</h3>
+
+<p><code>getXYcoords</code> computes the geographical coordinates of the rows
+and columns of pixels of a raster map.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+getXYcoords(w)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>w</code></td>
+<td>
+<p>an object of class <code>asc</code>, <code>kasc</code>, <code>sahrlocs</code>,
+or <code>mapattr</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>Returns a list with two components:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>the x coordinates of the columns of pixels of the map</p>
+</td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+<p>the y coordinates of the rows of pixels of the map</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="import.asc.html">asc</a></code>, <code><a href="as.kasc.html">kasc</a></code>,
+<code><a href="as.sahrlocs.html">as.sahrlocs</a></code>, <code><a href="storemapattr.html">storemapattr</a></code> for additionnal
+informations on objects of class <code>area</code>, <code>kasc</code>,
+<code>sahrlocs</code>, <code>mapattr</code> respectively</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+(elev &lt;- getkasc(puechabon$kasc, "Elevation"))
+(coords &lt;- getXYcoords(elev))
+nrow(elev) == length(coords$x)
+ncol(elev) == length(coords$y)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

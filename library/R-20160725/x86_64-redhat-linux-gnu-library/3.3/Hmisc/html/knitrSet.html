@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: knitr Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for knitrSet {Hmisc}"><tr><td>knitrSet {Hmisc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>knitr Setup</h2>
+
+<h3>Description</h3>
+
+<p>Sets up knitr to use better default parameters for base graphics,
+better code formatting, and to allow several arguments to be passed
+from code chunk headers, such as <code>bty</code>, <code>mfrow</code>, <code>ps</code>,
+<code>bot</code> (extra bottom margin for base graphics), <code>top</code> (extra
+top margin), <code>left</code> (extra left margin), <code>rt</code> (extra right
+margin), <code>lwd</code>, <code>mgp</code>, <code>las</code>, <code>tcl</code>, <code>axes</code>,
+<code>xpd</code>, <code>h</code> (usually <code>fig.height</code> in knitr),
+<code>w</code> (usually <code>fig.width</code> in knitr), <code>cap</code> (character
+string containing figure caption), <code>scap</code> (character string
+containing short figure caption for table of figures).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+knitrSet(basename=NULL, w=4, h=3,
+         fig.path=if(length(basename)) basename else '',
+         fig.align='center', fig.show='hold', fig.pos='htbp',
+         fig.lp=paste('fig', basename, sep=':'),
+         dev=switch(lang, latex='pdf', markdown='png'),
+         tidy=FALSE, error=FALSE,
+         messages=c('messages.txt', 'console'),
+         width=61, decinline=5, size=NULL, cache=FALSE,
+         echo=TRUE, results='markup', lang=c('latex','markdown'))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>basename</code></td>
+<td>
+<p>base name to be added in front of graphics file
+names. <code>basename</code> is followed by a minus sign.</p>
+</td></tr>
+<tr valign="top"><td><code>w,h</code></td>
+<td>
+<p>default figure width and height in inches</p>
+</td></tr>
+<tr valign="top"><td><code>fig.path</code></td>
+<td>
+<p>path for figures.  To put figures in a subdirectory
+specify e.g. <code>fig.path='folder/'</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>fig.align,fig.show,fig.pos,fig.lp,tidy,cache,echo,results,error,size</code></td>
+<td>
+<p>see knitr documentation</p>
+</td></tr> 
+<tr valign="top"><td><code>dev</code></td>
+<td>
+<p>graphics device, with default figured from <code>lang</code></p>
+</td></tr>
+<tr valign="top"><td><code>messages</code></td>
+<td>
+<p>By default warning and other messages such as those
+from loading packages are sent to file <code>'messages.txt'</code> in the
+current working directory.  You can specify
+<code>messages='console'</code> to send them directly to the console.</p>
+</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+<p>text output width for R code and output</p>
+</td></tr>
+<tr valign="top"><td><code>decinline</code></td>
+<td>
+<p>number of digits to the right of the decimal point to
+round numeric values appearing inside Sexpr</p>
+</td></tr>
+<tr valign="top"><td><code>lang</code></td>
+<td>
+<p>Default is <code>'latex'</code> to use LaTeX.  Set to
+<code>markdown</code> when using R Markdown.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Frank Harrell</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../knitr/html/knit.html">knit</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+# Typical call (without # comment symbols):
+# &lt;&lt;echo=FALSE&gt;&gt;=
+# require(Hmisc)
+# knitrSet()
+# @
+
+knitrSet()    # use all defaults and don't use a graphics file prefix
+knitrSet('modeling')   # use modeling- prefix for a major section or chapter
+knitrSet(cache=TRUE, echo=FALSE)  # global default to cache and not print code
+knitrSet(w=5,h=3.75)   # override default figure width, height
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>Hmisc</em> version 3.17-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

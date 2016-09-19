@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: NMF Algorithm/Updates for Frobenius Norm</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for nmf_update.lee_R {NMF}"><tr><td>nmf_update.lee_R {NMF}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>NMF Algorithm/Updates for Frobenius Norm</h2>
+
+<h3>Description</h3>
+
+<p>The built-in NMF algorithms described here minimise the
+Frobenius norm (Euclidean distance) between an NMF model
+and a target matrix. They use the updates for the basis
+and coefficient matrices (<i>W</i> and <i>H</i>) defined by
+<cite>Lee et al. (2001)</cite>.
+</p>
+<p><code>nmf_update.lee</code> implements in C++ an optimised
+version of the single update step.
+</p>
+<p>Algorithms &lsquo;lee&rsquo; and &lsquo;.R#lee&rsquo; provide the
+complete NMF algorithm from <cite>Lee et al. (2001)</cite>,
+using the C++-optimised and pure R updates
+<code><a href="Frobenius-nmf.html">nmf_update.lee</a></code> and
+<code><a href="Frobenius-nmf.html">nmf_update.lee_R</a></code> respectively.
+</p>
+<p>Algorithm &lsquo;Frobenius&rsquo; provides an NMF algorithm
+based on the C++-optimised version of the updates from
+<cite>Lee et al. (2001)</cite>, which uses the stationarity of
+the objective value as a stopping criterion
+<code><a href="stop-NMF.html">nmf.stop.stationary</a></code>, instead of the
+stationarity of the connectivity matrix
+<code><a href="stop-NMF.html">nmf.stop.connectivity</a></code> as used by
+&lsquo;lee&rsquo;.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  nmf_update.lee_R(i, v, x, rescale = TRUE, eps = 10^-9,
+    ...)
+
+  nmf_update.lee(i, v, x, rescale = TRUE, copy = FALSE,
+    eps = 10^-9, weight = NULL, ...)
+
+  nmfAlgorithm.lee_R(..., .stop = NULL,
+    maxIter = nmf.getOption("maxIter") %||% 2000,
+    rescale = TRUE, eps = 10^-9, stopconv = 40,
+    check.interval = 10)
+
+  nmfAlgorithm.lee(..., .stop = NULL,
+    maxIter = nmf.getOption("maxIter") %||% 2000,
+    rescale = TRUE, copy = FALSE, eps = 10^-9,
+    weight = NULL, stopconv = 40, check.interval = 10)
+
+  nmfAlgorithm.Frobenius(..., .stop = NULL,
+    maxIter = nmf.getOption("maxIter") %||% 2000,
+    rescale = TRUE, copy = FALSE, eps = 10^-9,
+    weight = NULL, stationary.th = .Machine$double.eps,
+    check.interval = 5 * check.niter, check.niter = 10L)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>rescale</code></td>
+<td>
+<p>logical that indicates if the basis matrix
+<i>W</i> should be rescaled so that its columns sum up to
+one.</p>
+</td></tr>
+<tr valign="top"><td><code>i</code></td>
+<td>
+<p>current iteration number.</p>
+</td></tr>
+<tr valign="top"><td><code>v</code></td>
+<td>
+<p>target matrix.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>current NMF model, as an
+<code><a href="NMF-class.html">NMF</a></code> object.</p>
+</td></tr>
+<tr valign="top"><td><code>eps</code></td>
+<td>
+<p>small numeric value used to ensure numeric
+stability, by shifting up entries from zero to this fixed
+value.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments. These are generally not used
+and present only to allow other arguments from the main
+call to be passed to the initialisation and stopping
+criterion functions (slots <code>onInit</code> and <code>Stop</code>
+respectively).</p>
+</td></tr>
+<tr valign="top"><td><code>copy</code></td>
+<td>
+<p>logical that indicates if the update should
+be made on the original matrix directly (<code>FALSE</code>) or
+on a copy (<code>TRUE</code> - default). With <code>copy=FALSE</code>
+the memory footprint is very small, and some speed-up may
+be achieved in the case of big matrices. However, greater
+care should be taken due the side effect. We recommend
+that only experienced users use <code>copy=TRUE</code>.</p>
+</td></tr>
+<tr valign="top"><td><code>.stop</code></td>
+<td>
+<p>specification of a stopping criterion, that
+is used instead of the one associated to the NMF
+algorithm. It may be specified as: </p>
+ <ul>
+<li><p> the
+access key of a registered stopping criterion; </p>
+</li>
+<li><p> a
+single integer that specifies the exact number of
+iterations to perform, which will be honoured unless a
+lower value is explicitly passed in argument
+<code>maxIter</code>. </p>
+</li>
+<li><p> a single numeric value that
+specifies the stationnarity threshold for the objective
+function, used in with <code><a href="stop-NMF.html">nmf.stop.stationary</a></code>;
+</p>
+</li>
+<li><p> a function with signature
+<code>(object="NMFStrategy", i="integer", y="matrix",
+  x="NMF", ...)</code>, where <code>object</code> is the
+<code>NMFStrategy</code> object that describes the algorithm
+being run, <code>i</code> is the current iteration, <code>y</code> is
+the target matrix and <code>x</code> is the current value of
+the NMF model. </p>
+</li></ul>
+</td></tr>
+<tr valign="top"><td><code>maxIter</code></td>
+<td>
+<p>maximum number of iterations to perform.</p>
+</td></tr>
+<tr valign="top"><td><code>stopconv</code></td>
+<td>
+<p>number of iterations intervals over which
+the connectivity matrix must not change for stationarity
+to be achieved.</p>
+</td></tr>
+<tr valign="top"><td><code>check.interval</code></td>
+<td>
+<p>interval (in number of iterations)
+on which the stopping criterion is computed.</p>
+</td></tr>
+<tr valign="top"><td><code>stationary.th</code></td>
+<td>
+<p>maximum absolute value of the
+gradient, for the objective function to be considered
+stationary.</p>
+</td></tr>
+<tr valign="top"><td><code>check.niter</code></td>
+<td>
+<p>number of successive iteration used to
+compute the stationnary criterion.</p>
+</td></tr>
+<tr valign="top"><td><code>weight</code></td>
+<td>
+<p>numeric vector of sample weights, e.g.,
+used to normalise samples coming from multiple datasets.
+It must be of the same length as the number of
+samples/columns in <code>v</code> &ndash; and <code>h</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>nmf_update.lee_R</code> implements in pure R a single
+update step, i.e. it updates both matrices.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Original update definition: D D Lee and HS Seung
+</p>
+<p>Port to R and optimisation in C++: Renaud Gaujoux
+</p>
+
+
+<h3>References</h3>
+
+<p>Lee DD and Seung H (2001). &quot;Algorithms for non-negative
+matrix factorization.&quot; _Advances in neural information
+processing systems_. &lt;URL:
+http://scholar.google.com/scholar?q=intitle:Algorithms+for+non-negative+matrix+factorization\#0&gt;.
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>NMF</em> version 0.20.6 <a href="00Index.html">Index</a>]</div>
+</body></html>

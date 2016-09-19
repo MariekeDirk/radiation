@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Convert a vector to an activation map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for vectorToActMap {RSNNS}"><tr><td>vectorToActMap {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Convert a vector to an activation map</h2>
+
+<h3>Description</h3>
+
+<p>Organize network activation as 2d map.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+vectorToActMap(v, nrow = 0, ncol = 0)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>v</code></td>
+<td>
+<p>the vector containing the activation pattern</p>
+</td></tr>
+<tr valign="top"><td><code>nrow</code></td>
+<td>
+<p>number of rows the resulting matrices will have</p>
+</td></tr>
+<tr valign="top"><td><code>ncol</code></td>
+<td>
+<p>number of columns the resulting matrices will have</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The input to this function is a vector containing in each row an activation
+pattern/output of a neural network. This function reorganizes the vector to
+a matrix. Normally, only the number of rows <code>nrow</code> will be used.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a matrix containing the 2d reorganized input
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="matrixToActMapList.html">matrixToActMapList</a> <a href="plotActMap.html">plotActMap</a>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

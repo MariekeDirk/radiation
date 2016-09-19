@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gdkPixbufSaveToCallbackv</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gdkPixbufSaveToCallbackv {RGtk2}"><tr><td>gdkPixbufSaveToCallbackv {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gdkPixbufSaveToCallbackv</h2>
+
+<h3>Description</h3>
+
+<p>Saves pixbuf to a callback in format <code>type</code>, which is currently &quot;jpeg&quot;,
+&quot;png&quot;, &quot;tiff&quot;, &quot;ico&quot; or &quot;bmp&quot;.  If <code>error</code> is set, <code>FALSE</code> will be returned. See
+<code><a href="gdkPixbufSaveToCallback.html">gdkPixbufSaveToCallback</a></code> for more details.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gdkPixbufSaveToCallbackv(object, save.func, user.data, type, 
+    option.keys, option.values, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="gdk-pixbuf-gdk-pixbuf.html">GdkPixbuf</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">save.func</code></code></td>
+<td>
+<p>a function that is called to save each block of data that
+the save routine generates.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">user.data</code></code></td>
+<td>
+<p>user data to pass to the save function.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">type</code></code></td>
+<td>
+<p>name of file format.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">option.keys</code></code></td>
+<td>
+<p>name of options to set, <code>NULL</code>-terminated</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">option.values</code></code></td>
+<td>
+<p>values for named options</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.4</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[logical] whether an error was set</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>return location for error, or <code>NULL</code>. <em>[  <acronym><span class="acronym">allow-none</span></acronym>  ]</em></p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

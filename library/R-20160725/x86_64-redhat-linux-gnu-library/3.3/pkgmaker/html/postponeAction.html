@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Postponing Actions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for postponeAction {pkgmaker}"><tr><td>postponeAction {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Postponing Actions</h2>
+
+<h3>Description</h3>
+
+<p>This function implement a mechanism to postpone actions,
+which can be executed at a later stage. This is useful
+when developing packages, where actions that need to be
+run in the <code>link{.onLoad}</code> function but can be
+defined close to their context.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  postponeAction(expr, key = digest(tempfile()),
+    group = NULL, envir = topns(strict = FALSE),
+    verbose = getOption("verbose"))
+
+  runPostponedAction(group = NULL,
+    verbose = getOption("verbose"))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>expr</code></td>
+<td>
+<p>expression that define the action to
+postpone. Currently only functions are supported.</p>
+</td></tr>
+<tr valign="top"><td><code>key</code></td>
+<td>
+<p>identifier for this specific action. It should
+be unique across the postponed actions from the same
+group.</p>
+</td></tr>
+<tr valign="top"><td><code>group</code></td>
+<td>
+<p>optional parent action group. This enables
+to define meaningful sets of actions that can be run all
+at once.</p>
+</td></tr>
+<tr valign="top"><td><code>envir</code></td>
+<td>
+<p>environment in which the action should be
+executed. Currently not used.</p>
+</td></tr>
+<tr valign="top"><td><code>verbose</code></td>
+<td>
+<p>logical that toggles verbose messages.</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+opt &lt;- options(verbose=2)
+
+# define actions
+postponeAction(function(){print(10)}, "print")
+postponeAction(function(){print(1:10)}, "more")
+postponeAction()
+# execute actions
+runPostponedAction()
+runPostponedAction()
+
+# restore options
+options(opt)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

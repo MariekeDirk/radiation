@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Create a Grid of Cell Areas or Perimeters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for grid.area {SDMTools}"><tr><td>grid.area {SDMTools}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Create a Grid of Cell Areas or Perimeters</h2>
+
+<h3>Description</h3>
+
+<p>Creates a grid of cell areas or perimeters for spatial
+grids in geographic (lat-lon) projections.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+grid.area(mat)
+
+grid.perimeter(mat)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mat</code></td>
+<td>
+<p>a matrix representing a raster of class 'asc'
+(this &amp; adehabitat package), 'RasterLayer' (raster
+package) or 'SpatialGridDataFrame' (sp package)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<table summary="R valueblock">
+<tr valign="top"><td><code>grid.area</code></td>
+<td>
+<p>Returns an ascii grid file which contains
+the values of the area in each cell.</p>
+</td></tr>
+<tr valign="top"><td><code>grid.perimter</code></td>
+<td>
+<p>Returns an ascii grid file which
+contains the values of the perimeter in each cell. </p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy VanDerWal <a href="mailto:jjvanderwal@gmail.com">jjvanderwal@gmail.com</a> &amp; Lorena
+Falconi <a href="mailto:lorefalconi@gmail.com">lorefalconi@gmail.com</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#Create an ascii file
+y=seq(10,50,0.5)
+x=seq(140,180,0.5)
+cellsize=0.5
+data1=sample(160,140)
+out1.asc=as.asc(matrix(data1,nc=y, nr=x), xll=min(x), yll=min(y), cellsize=cellsize)
+
+grid.area(out1.asc)[,]
+
+grid.perimeter(out1.asc)[,]
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>SDMTools</em> version 1.1-221 <a href="00Index.html">Index</a>]</div>
+</body></html>

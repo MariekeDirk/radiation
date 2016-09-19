@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Format Change Utility</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for ade4toR {ade4}"><tr><td>ade4toR {ade4}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Format Change Utility</h2>
+
+<h3>Description</h3>
+
+<p>Exchange objects between R and ADE4 (classic version) <br />
+<a href="http://pbil.univ-lyon1.fr/ADE-4">http://pbil.univ-lyon1.fr/ADE-4</a> 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+ade4toR (fictab, ficcolnames = NULL, ficrownames = NULL)
+Rtoade4 (x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>fictab</code></td>
+<td>
+<p>a name of ADE4 text file.  A data frame with the same name is created in the R environment.</p>
+</td></tr> 
+<tr valign="top"><td><code>ficcolnames</code></td>
+<td>
+<p>the column names label file</p>
+</td></tr>
+<tr valign="top"><td><code>ficrownames</code></td>
+<td>
+<p>the row names label file</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a data frame</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>&quot;xxx&quot; is the name of object x (<code>(deparse(substitute(x)))</code>)<br />
+For any table :<br />
+creates a file &quot;xxx.txt&quot;<br />
+creates a file &quot;xxx\_row\_lab.txt&quot; with row names<br />
+creates a file &quot;xxx\_col\_lab.txt&quot; with column names<br />
+</p>
+<p>if x has the 'col.blocks' attribute<br />
+creates a file &quot;xxx\_col\_bloc\_lab.txt&quot; with blocks names<br />
+creates a file &quot;xxx\_col\_bloc.txt&quot; with blocks sizes<br />
+</p>
+<p>For a table which all columns are factors : <br />
+creates a file &quot;xxx.txt&quot;<br />
+creates a file &quot;xxx\_var\_lab.txt&quot; with row names<br />
+creates a file &quot;xxx\_moda\_lab.txt&quot; with categories names<br />
+</p>
+<p>Files are created in the current working directory.
+</p>
+
+
+<h3>Value</h3>
+
+<p>'ade4toR' gives data frames.<br />
+'Rtoade4' gives text files.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: data(tarentaise)
+traits &lt;- tarentaise$traits
+ade4:::Rtoade4(traits)
+# File creation traits.txt 
+# File creation traits_col_lab.txt 
+# File creation traits_row_lab.txt 
+# File creation traits_col_bloc.txt 
+# File creation traits_col_bloc_lab.txt  
+
+mil &lt;- tarentaise$envir
+ade4:::Rtoade4(mil)
+#File creation mil.txt 
+#File creation mil_var_lab.txt 
+#File creation mil_moda_lab.txt
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ade4</em> version 1.7-4 <a href="00Index.html">Index</a>]</div>
+</body></html>

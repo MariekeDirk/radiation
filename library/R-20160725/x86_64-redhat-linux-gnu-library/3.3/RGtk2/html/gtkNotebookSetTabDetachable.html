@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkNotebookSetTabDetachable</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkNotebookSetTabDetachable {RGtk2}"><tr><td>gtkNotebookSetTabDetachable {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkNotebookSetTabDetachable</h2>
+
+<h3>Description</h3>
+
+<p>Sets whether the tab can be detached from <code>notebook</code> to another
+notebook or widget.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkNotebookSetTabDetachable(object, child, detachable)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkNotebook.html">GtkNotebook</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">child</code></code></td>
+<td>
+<p>a child <code><a href="GtkWidget.html">GtkWidget</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">detachable</code></code></td>
+<td>
+<p>whether the tab is detachable or not</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that 2 notebooks must share a common group identificator
+(see <code><a href="gtkNotebookSetGroupId.html">gtkNotebookSetGroupId</a></code>) to allow automatic tabs
+interchange between them.
+</p>
+<p>If you want a widget to interact with a notebook through DnD
+(i.e.: accept dragged tabs from it) it must be set as a drop
+destination and accept the target &quot;GTK_NOTEBOOK_TAB&quot;. The notebook
+will fill the selection with a GtkWidget** pointing to the child
+widget that corresponds to the dropped tab.
+</p>
+<pre>
+on_drop_zone_drag_data_received &lt;- function(widget, context, x, y,
+                                            selection_data, info, time,
+                                            user_data)
+{
+  notebook &lt;- context$getWidget()
+  child &lt;- selection_data$data
+  # unfortunately, it's not possible to actually use 'child' - there
+  # would need to be a way to derefernce it and make an externalptr
+  # if you need this functionality, please let the RGtk2 maintainer know.
+  # process_widget(child)
+  # notebook$remove(child)
+}
+</pre>
+<p>If you want a notebook to accept drags from other widgets,
+you will have to set your own DnD code to do it.
+Since 2.10</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

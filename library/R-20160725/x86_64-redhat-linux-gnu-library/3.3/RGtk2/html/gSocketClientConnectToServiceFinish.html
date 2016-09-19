@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gSocketClientConnectToServiceFinish</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gSocketClientConnectToServiceFinish {RGtk2}"><tr><td>gSocketClientConnectToServiceFinish {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gSocketClientConnectToServiceFinish</h2>
+
+<h3>Description</h3>
+
+<p>Finishes an async connect operation. See <code><a href="gSocketClientConnectToServiceAsync.html">gSocketClientConnectToServiceAsync</a></code></p>
+
+
+<h3>Usage</h3>
+
+<pre>gSocketClientConnectToServiceFinish(object, result, .errwarn = TRUE)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GSocketClient.html">GSocketClient</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">result</code></code></td>
+<td>
+<p>a <code><a href="GAsyncResult.html">GAsyncResult</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>.errwarn</code></td>
+<td>
+<p>Whether to issue a warning on error or fail silently</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Since 2.22</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>retval</code></td>
+<td>
+<p>[<code><a href="GSocketConnection.html">GSocketConnection</a></code>] a <code><a href="GSocketConnection.html">GSocketConnection</a></code> on success, <code>NULL</code> on error.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">error</code></code></td>
+<td>
+<p>a <code><a href="GError.html">GError</a></code> location to store the error occuring, or <code>NULL</code> to
+ignore.</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

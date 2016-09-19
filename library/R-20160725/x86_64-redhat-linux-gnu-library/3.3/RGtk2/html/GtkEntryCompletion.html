@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkEntryCompletion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkEntryCompletion {RGtk2}"><tr><td>GtkEntryCompletion {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkEntryCompletion</h2>
+
+<h3>Description</h3>
+
+<p>Completion functionality for GtkEntry</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkEntryCompletionNew.html">gtkEntryCompletionNew</a>()</code><br />
+<code><a href="gtkEntryCompletionGetEntry.html">gtkEntryCompletionGetEntry</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetModel.html">gtkEntryCompletionSetModel</a>(object, model = NULL)</code><br />
+<code><a href="gtkEntryCompletionGetModel.html">gtkEntryCompletionGetModel</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetMatchFunc.html">gtkEntryCompletionSetMatchFunc</a>(object, func, func.data = NULL)</code><br />
+<code><a href="gtkEntryCompletionSetMinimumKeyLength.html">gtkEntryCompletionSetMinimumKeyLength</a>(object, length)</code><br />
+<code><a href="gtkEntryCompletionGetMinimumKeyLength.html">gtkEntryCompletionGetMinimumKeyLength</a>(object)</code><br />
+<code><a href="gtkEntryCompletionComplete.html">gtkEntryCompletionComplete</a>(object)</code><br />
+<code><a href="gtkEntryCompletionGetCompletionPrefix.html">gtkEntryCompletionGetCompletionPrefix</a>(object)</code><br />
+<code><a href="gtkEntryCompletionInsertPrefix.html">gtkEntryCompletionInsertPrefix</a>(object)</code><br />
+<code><a href="gtkEntryCompletionInsertActionText.html">gtkEntryCompletionInsertActionText</a>(object, index, text)</code><br />
+<code><a href="gtkEntryCompletionInsertActionMarkup.html">gtkEntryCompletionInsertActionMarkup</a>(object, index, markup)</code><br />
+<code><a href="gtkEntryCompletionDeleteAction.html">gtkEntryCompletionDeleteAction</a>(object, index)</code><br />
+<code><a href="gtkEntryCompletionSetTextColumn.html">gtkEntryCompletionSetTextColumn</a>(object, column)</code><br />
+<code><a href="gtkEntryCompletionGetTextColumn.html">gtkEntryCompletionGetTextColumn</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetInlineCompletion.html">gtkEntryCompletionSetInlineCompletion</a>(object, inline.completion)</code><br />
+<code><a href="gtkEntryCompletionGetInlineCompletion.html">gtkEntryCompletionGetInlineCompletion</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetInlineSelection.html">gtkEntryCompletionSetInlineSelection</a>(object, inline.selection)</code><br />
+<code><a href="gtkEntryCompletionGetInlineSelection.html">gtkEntryCompletionGetInlineSelection</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetPopupCompletion.html">gtkEntryCompletionSetPopupCompletion</a>(object, popup.completion)</code><br />
+<code><a href="gtkEntryCompletionGetPopupCompletion.html">gtkEntryCompletionGetPopupCompletion</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetPopupSetWidth.html">gtkEntryCompletionSetPopupSetWidth</a>(object, popup.set.width)</code><br />
+<code><a href="gtkEntryCompletionGetPopupSetWidth.html">gtkEntryCompletionGetPopupSetWidth</a>(object)</code><br />
+<code><a href="gtkEntryCompletionSetPopupSingleMatch.html">gtkEntryCompletionSetPopupSingleMatch</a>(object, popup.single.match)</code><br />
+<code><a href="gtkEntryCompletionGetPopupSingleMatch.html">gtkEntryCompletionGetPopupSingleMatch</a>(object)</code><br />
+<code>gtkEntryCompletion()</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkEntryCompletion</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkEntryCompletion implements
+<code><a href="GtkCellLayout.html">GtkCellLayout</a></code> and  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p><code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code> is an auxiliary object to be used in conjunction with
+<code><a href="GtkEntry.html">GtkEntry</a></code> to provide the completion functionality. It implements the
+<code><a href="GtkCellLayout.html">GtkCellLayout</a></code> interface, to allow the user to add extra cells to the
+<code><a href="GtkTreeView.html">GtkTreeView</a></code> with completion matches.
+</p>
+<p>&quot;Completion functionality&quot; means that when the user modifies the text
+in the entry, <code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code> checks which rows in the model match
+the current content of the entry, and displays a list of matches.
+By default, the matching is done by comparing the entry text
+case-insensitively against the text column of the model (see
+<code><a href="gtkEntryCompletionSetTextColumn.html">gtkEntryCompletionSetTextColumn</a></code>), but this can be overridden with
+a custom match function (see <code><a href="gtkEntryCompletionSetMatchFunc.html">gtkEntryCompletionSetMatchFunc</a></code>).
+</p>
+<p>When the user selects a completion, the content of the entry is updated.
+By default, the content of the entry is replaced by the text column of the
+model, but this can be overridden by connecting to the ::match-selected signal
+and updating the entry in the signal handler. Note that you should return
+<code>TRUE</code> from the signal handler to suppress the default behaviour.
+</p>
+<p>To add completion functionality to an entry, use <code><a href="gtkEntrySetCompletion.html">gtkEntrySetCompletion</a></code>.
+</p>
+<p>In addition to regular completion matches, which will be inserted into the
+entry when they are selected, <code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code> also allows to display
+&quot;actions&quot; in the popup window. Their appearance is similar to menuitems,
+to differentiate them clearly from completion strings. When an action is
+selected, the ::action-activated signal is emitted.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkEntryCompletion</code></dt><dd>
+<p>The GtkEntryCompletion struct contains only private data.
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkEntryCompletion</code> is the equivalent of <code><a href="gtkEntryCompletionNew.html">gtkEntryCompletionNew</a></code>.</p>
+
+
+<h3>User Functions</h3>
+
+<dl>
+<dt><code>GtkEntryCompletionMatchFunc(completion, key, iter, user.data)</code></dt><dd>
+<p>A function which decides whether the row indicated by <code>iter</code> matches a given
+<code>key</code>, and should be displayed as a possible completion for <code>key</code>. Note that
+<code>key</code> is normalized and case-folded (see <code>gUtf8Normalize()</code> and
+<code>gUtf8Casefold()</code>). If this is not appropriate, match functions have access
+to the unmodified key via <code>gtk_entry_get_text (GTK_ENTRY (gtk_entry_completion_get_entry (    )))</code>.
+</p>
+
+<dl>
+<dt><code>completion</code></dt><dd><p>the <code><a href="GtkEntryCompletion.html">GtkEntryCompletion</a></code></p>
+</dd>
+<dt><code>key</code></dt><dd><p>the string to match, normalized and case-folded</p>
+</dd>
+<dt><code>iter</code></dt><dd><p>a <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> indicating the row to match</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data given to <code><a href="gtkEntryCompletionSetMatchFunc.html">gtkEntryCompletionSetMatchFunc</a></code></p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if <code>iter</code> should be displayed as a possible completion for <code>key</code>
+</p>
+</dd></dl>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>action-activated(widget, index, user.data)</code></dt><dd>
+<p>Gets emitted when an action is activated.
+Since 2.4
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>index</code></dt><dd><p>the index of the activated action</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>cursor-on-match(widget, model, iter, user.data)</code></dt><dd>
+<p>Gets emitted when a match from the cursor is on a match
+of the list.The default behaviour is to replace the contents
+of the entry with the contents of the text column in the row
+pointed to by <code>iter</code>.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>model</code></dt><dd><p>the <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> containing the matches</p>
+</dd>
+<dt><code>iter</code></dt><dd><p>a <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> positioned at the selected match</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal has been handled
+</p>
+</dd>
+<dt><code>insert-prefix(widget, prefix, user.data)</code></dt><dd>
+<p>Gets emitted when the inline autocompletion is triggered.
+The default behaviour is to make the entry display the
+whole prefix and select the newly inserted part.
+</p>
+<p>Applications may connect to this signal in order to insert only a
+smaller part of the <code>prefix</code> into the entry - e.g. the entry used in
+the <code><a href="GtkFileChooser.html">GtkFileChooser</a></code> inserts only the part of the prefix up to the
+next '/'.
+Since 2.6
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>prefix</code></dt><dd><p>the common prefix of all possible completions</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal has been handled
+</p>
+</dd>
+<dt><code>match-selected(widget, model, iter, user.data)</code></dt><dd>
+<p>Gets emitted when a match from the list is selected.
+The default behaviour is to replace the contents of the
+entry with the contents of the text column in the row
+pointed to by <code>iter</code>.
+Since 2.4
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>model</code></dt><dd><p>the <code><a href="GtkTreeModel.html">GtkTreeModel</a></code> containing the matches</p>
+</dd>
+<dt><code>iter</code></dt><dd><p>a <code><a href="GtkTreeModel.html">GtkTreeIter</a></code> positioned at the selected match</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+<p><em>Returns:</em> [logical] <code>TRUE</code> if the signal has been handled
+</p>
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">inline-completion</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the common prefix of the possible completions
+should be inserted automatically in the entry. Note that this
+requires text-column to be set, even if you are using a custom
+match function.
+Default value: FALSE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">inline-selection</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the possible completions on the popup
+will appear in the entry as you navigate through them.
+Default value: FALSE  Since 2.12
+</p>
+</dd>
+<dt><code style="white-space: pre;">minimum-key-length</code> [integer : Read / Write]</dt><dd>
+<p>Minimum length of the search key in order to look up matches.  Allowed values: &gt;= 0  Default value: 1
+</p>
+</dd>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write]</dt><dd>
+<p>The model to find matches in.
+</p>
+</dd>
+<dt><code style="white-space: pre;">popup-completion</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the possible completions should be
+shown in a popup window.
+Default value: TRUE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">popup-set-width</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the completions popup window will be
+resized to the width of the entry.
+Default value: TRUE  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">popup-single-match</code> [logical : Read / Write]</dt><dd>
+<p>Determines whether the completions popup window will shown
+for a single possible completion. You probably want to set
+this to <code>FALSE</code> if you are using
+inline
+completion.
+Default value: TRUE  Since 2.8
+</p>
+</dd>
+<dt><code style="white-space: pre;">text-column</code> [integer : Read / Write]</dt><dd>
+<p>The column of the model containing the strings.
+Note that the strings must be UTF-8.
+Allowed values: &gt;= -1  Default value: -1  Since 2.6
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkEntryCompletion.html">http://library.gnome.org/devel//gtk/GtkEntryCompletion.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

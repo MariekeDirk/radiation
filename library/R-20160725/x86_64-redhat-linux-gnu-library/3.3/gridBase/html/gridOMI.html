@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Set Base Plotting Regions from Grid Viewport</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Set Base Plot Regions {gridBase}"><tr><td>Set Base Plot Regions {gridBase}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2> Set Base Plotting Regions from Grid Viewport </h2>
+
+<h3>Description</h3>
+
+<p>These functions can be used to align base plotting regions
+with the current grid
+viewport.  This can be used to draw base plots within a grid viewport.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gridOMI()
+gridFIG()
+gridPLT()
+gridPAR()
+</pre>
+
+
+<h3>Details</h3>
+
+<p>For this to be useful, you will have to make liberal use of
+<code>par(new=TRUE)</code> to prevent base from moving to a new page.
+</p>
+<p>With care, these can even be used to draw multiple base plots within
+a grid viewport (see the examples below), but in general, base
+plotting functions that draw multiple panels (e.g., <code>coplot</code>)
+should not be
+expected to work.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>gridOMI</code> returns a value that can be used to set the
+<code>par(omi)</code> parameter.
+</p>
+<p><code>gridFIG</code> returns a value that can be used to set the
+<code>par(fig)</code> parameter.
+</p>
+<p><code>gridPLT</code> returns a value that can be used to set the
+<code>par(plt)</code> parameter.
+</p>
+<p><code>gridPAR</code> returns a value that can be used to set
+some graphical parameters (currently, <code>lwd</code>, <code>lty</code>,
+and <code>col</code>).
+</p>
+
+
+<h3>Warning</h3>
+
+<p> If you resize the device, all bets are off! </p>
+
+
+<h3>Author(s)</h3>
+
+<p> Paul Murrell </p>
+
+
+<h3>See Also</h3>
+
+ <p><a href="../../grid/html/Grid.html">Grid</a>, <code><a href="../../grid/html/viewport.html">viewport</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+library(grid)
+opar &lt;- par(no.readonly=TRUE)
+# gridFIG
+grid.newpage()
+pushViewport(viewport(width=0.5, height=0.5))
+grid.rect(gp=gpar(col="grey", lty="dashed"))
+par(fig=gridFIG())
+par(new=TRUE)
+plot(1:10)
+# multiple plots
+# NOTE the use of par(mfg)
+# gridOMI
+par(opar)
+grid.newpage()
+pushViewport(viewport(width=0.5, height=0.5))
+grid.rect(gp=gpar(col="grey", lty="dashed"))
+par(omi=gridOMI())
+par(mfrow=c(2, 2), mfg=c(1, 1), mar=c(3, 3, 1, 0))
+for (i in 1:4) {
+  plot(i)
+}
+# gridPLT
+par(opar)
+grid.newpage()
+pushViewport(viewport(width=0.5, height=0.5))
+grid.rect(gp=gpar(col="grey", lwd=5))
+par(plt=gridPLT())
+par(new=TRUE)
+plot(1:10)
+# gridFIG with par(omi) set
+par(opar)
+grid.newpage()
+par(omi=rep(1, 4))
+pushViewport(viewport(width=0.5, height=0.5))
+grid.rect(gp=gpar(col="grey", lwd=5))
+par(fig=gridFIG())
+par(new=TRUE)
+plot(1:10)
+# gridPLT with par(omi) set
+par(opar)
+grid.newpage()
+par(omi=rep(1, 4))
+pushViewport(viewport(width=0.5, height=0.5))
+grid.rect(gp=gpar(col="grey", lwd=5))
+par(plt=gridPLT())
+par(new=TRUE)
+plot(1:10)
+# gridPAR
+par(opar)
+grid.newpage()
+pushViewport(viewport(width=0.5, height=0.5,
+  gp=gpar(col="red", lwd=3, lty="dotted")))
+grid.rect(gp=gpar(col="grey", lwd=5))
+par(fig=gridFIG())
+par(gridPAR())
+par(new=TRUE)
+plot(1:10, type="b")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>gridBase</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

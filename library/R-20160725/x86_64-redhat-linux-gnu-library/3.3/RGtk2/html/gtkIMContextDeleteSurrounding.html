@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gtkIMContextDeleteSurrounding</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gtkIMContextDeleteSurrounding {RGtk2}"><tr><td>gtkIMContextDeleteSurrounding {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gtkIMContextDeleteSurrounding</h2>
+
+<h3>Description</h3>
+
+<p>Asks the widget that the input context is attached to to delete
+characters around the cursor position by emitting the
+GtkIMContext::delete_surrounding signal. Note that <code>offset</code> and <code>n.chars</code>
+are in characters not in bytes which differs from the usage other
+places in <code><a href="GtkIMContext.html">GtkIMContext</a></code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gtkIMContextDeleteSurrounding(object, offset, n.chars)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>a <code><a href="GtkIMContext.html">GtkIMContext</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">offset</code></code></td>
+<td>
+<p>offset from cursor position in chars;
+a negative value means start before the cursor.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">n.chars</code></code></td>
+<td>
+<p>number of characters to delete.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>In order to use this function, you should first call
+<code><a href="gtkIMContextGetSurrounding.html">gtkIMContextGetSurrounding</a></code> to get the current context, and
+call this function immediately afterwards to make sure that you
+know what you are deleting. You should also account for the fact
+that even if the signal was handled, the input context might not
+have deleted all the characters that were requested to be deleted.
+</p>
+<p>This function is used by an input method that wants to make
+subsitutions in the existing text in response to new input. It is
+not useful for applications.</p>
+
+
+<h3>Value</h3>
+
+<p>[logical] <code>TRUE</code> if the signal was handled.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

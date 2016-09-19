@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoLayoutIndexToLineX</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoLayoutIndexToLineX {RGtk2}"><tr><td>pangoLayoutIndexToLineX {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoLayoutIndexToLineX</h2>
+
+<h3>Description</h3>
+
+<p>Converts from byte <code>index.</code> within the <code>layout</code> to line and X position.
+(X position is measured from the left edge of the line)</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoLayoutIndexToLineX(object, index., trailing)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="pango-Layout-Objects.html">PangoLayout</a></code>]     a <code><a href="pango-Layout-Objects.html">PangoLayout</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">index.</code></code></td>
+<td>
+<p>[integer]     the byte index of a grapheme within the layout.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">trailing</code></code></td>
+<td>
+<p>[logical]   an integer indicating the edge of the grapheme to retrieve the
+position of. If 0, the trailing edge of the grapheme, if &gt; 0,
+the leading of the grapheme.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following elements:
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code style="white-space: pre;">line</code></code></td>
+<td>
+<p>[integer]       location to store resulting line index. (which will
+between 0 and pango_layout_get_line_count(layout) - 1)</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x.pos</code></code></td>
+<td>
+<p>[integer]      location to store resulting position within line
+(<code>PANGO_SCALE</code> units per device unit)</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

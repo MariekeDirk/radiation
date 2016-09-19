@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GUnixFDMessage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GUnixFDMessage {RGtk2}"><tr><td>GUnixFDMessage {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GUnixFDMessage</h2>
+
+<h3>Description</h3>
+
+<p>A GSocketControlMessage containing a list of
+file descriptors</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GSocketControlMessage
+         +----GUnixFDMessage</pre>
+
+<h3>Detailed Description</h3>
+
+<p>This <code style="white-space: pre;">\link{GSocketControlMessage}</code> contains a list of file descriptors.
+It may be sent using <code><a href="gSocketSendMessage.html">gSocketSendMessage</a></code> and received using
+<code><a href="gSocketReceiveMessage.html">gSocketReceiveMessage</a></code> over UNIX sockets (ie: sockets in the
+<code>G_SOCKET_ADDRESS_UNIX</code> family).
+</p>
+<p>For an easier way to send and receive file descriptors over
+stream-oriented UNIX sockets, see <code>gUnixConnectionSendFd()</code> and
+<code>gUnixConnectionReceiveFd()</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gio/GUnixFDMessage.html">http://library.gnome.org/devel//gio/GUnixFDMessage.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

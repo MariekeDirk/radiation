@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Library Files Utilities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for list.libs {pkgmaker}"><tr><td>list.libs {pkgmaker}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Library Files Utilities</h2>
+
+<h3>Description</h3>
+
+<p>Lists binary library files in a directory
+</p>
+<p><code>libname</code> extracts library names from a path,
+removing the directory part of the path, as well as the
+platform specific library extension.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+  list.libs(dir, ..., all.platforms = FALSE)
+
+  libname(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>dir</code></td>
+<td>
+<p>directory</p>
+</td></tr>
+<tr valign="top"><td><code>all.platforms</code></td>
+<td>
+<p>a logical that indicates whether to
+list library files for the current platform only
+(default) or all platforms (Unix, Windows, Mac).</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>extra arguments passed to
+<code><a href="../../base/html/list.files.html">list.files</a></code>.</p>
+</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>a filename</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a character vector
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+
+libname('mylib.so')
+libname('/some/path/somewhere/mylib.dll')
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>pkgmaker</em> version 0.22 <a href="00Index.html">Index</a>]</div>
+</body></html>

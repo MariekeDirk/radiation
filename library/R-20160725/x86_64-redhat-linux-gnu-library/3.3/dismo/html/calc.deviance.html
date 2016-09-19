@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Calculate deviance</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for calc.deviance {dismo}"><tr><td>calc.deviance {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Calculate deviance</h2>
+
+<h3>Description</h3>
+
+<p>Function to calculate deviance given two vectors of observed and predicted values.
+Requires a family argument which is set to binomial by default
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+calc.deviance(obs, pred, weights = rep(1,length(obs)), 
+                family="binomial", calc.mean = TRUE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obs</code></td>
+<td>
+<p>a vector with observed values</p>
+</td></tr>
+<tr valign="top"><td><code>pred</code></td>
+<td>
+<p>a vector with predicted values that correspond the the values in obs</p>
+</td></tr>
+<tr valign="top"><td><code>weights</code></td>
+<td>
+<p>a vector of weight values</p>
+</td></tr>
+<tr valign="top"><td><code>family</code></td>
+<td>
+<p>One of &quot;binomial&quot;, &quot;bernoulli&quot;, &quot;poisson&quot;, &quot;laplace&quot;, or &quot;gaussian&quot;</p>
+</td></tr>
+<tr valign="top"><td><code>calc.mean</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, the mean deviance is returned</p>
+</td></tr>
+</table>
+
+
+<h3>Author(s)</h3>
+
+<p>John R. Leathwick and Jane Elith
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.1-1 <a href="00Index.html">Index</a>]</div>
+</body></html>

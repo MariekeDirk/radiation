@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkComboBox</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkComboBox {RGtk2}"><tr><td>GtkComboBox {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkComboBox</h2>
+
+<h3>Description</h3>
+
+<p>A widget used to choose from a list of items</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkComboBoxNew.html">gtkComboBoxNew</a>(show = TRUE)</code><br />
+<code><a href="gtkComboBoxNewWithModel.html">gtkComboBoxNewWithModel</a>(model, show = TRUE)</code><br />
+<code><a href="gtkComboBoxGetWrapWidth.html">gtkComboBoxGetWrapWidth</a>(object)</code><br />
+<code><a href="gtkComboBoxSetWrapWidth.html">gtkComboBoxSetWrapWidth</a>(object, width)</code><br />
+<code><a href="gtkComboBoxGetRowSpanColumn.html">gtkComboBoxGetRowSpanColumn</a>(object)</code><br />
+<code><a href="gtkComboBoxSetRowSpanColumn.html">gtkComboBoxSetRowSpanColumn</a>(object, row.span)</code><br />
+<code><a href="gtkComboBoxGetColumnSpanColumn.html">gtkComboBoxGetColumnSpanColumn</a>(object)</code><br />
+<code><a href="gtkComboBoxSetColumnSpanColumn.html">gtkComboBoxSetColumnSpanColumn</a>(object, column.span)</code><br />
+<code><a href="gtkComboBoxGetActive.html">gtkComboBoxGetActive</a>(object)</code><br />
+<code><a href="gtkComboBoxSetActive.html">gtkComboBoxSetActive</a>(object, index)</code><br />
+<code><a href="gtkComboBoxGetActiveIter.html">gtkComboBoxGetActiveIter</a>(object)</code><br />
+<code><a href="gtkComboBoxSetActiveIter.html">gtkComboBoxSetActiveIter</a>(object, iter)</code><br />
+<code><a href="gtkComboBoxGetModel.html">gtkComboBoxGetModel</a>(object)</code><br />
+<code><a href="gtkComboBoxSetModel.html">gtkComboBoxSetModel</a>(object, model = NULL)</code><br />
+<code><a href="gtkComboBoxNewText.html">gtkComboBoxNewText</a>(show = TRUE)</code><br />
+<code><a href="gtkComboBoxAppendText.html">gtkComboBoxAppendText</a>(object, text)</code><br />
+<code><a href="gtkComboBoxInsertText.html">gtkComboBoxInsertText</a>(object, position, text)</code><br />
+<code><a href="gtkComboBoxPrependText.html">gtkComboBoxPrependText</a>(object, text)</code><br />
+<code><a href="gtkComboBoxRemoveText.html">gtkComboBoxRemoveText</a>(object, position)</code><br />
+<code><a href="gtkComboBoxGetActiveText.html">gtkComboBoxGetActiveText</a>(object)</code><br />
+<code><a href="gtkComboBoxPopup.html">gtkComboBoxPopup</a>(object)</code><br />
+<code><a href="gtkComboBoxPopdown.html">gtkComboBoxPopdown</a>(object)</code><br />
+<code><a href="gtkComboBoxGetPopupAccessible.html">gtkComboBoxGetPopupAccessible</a>(object)</code><br />
+<code><a href="gtkComboBoxGetRowSeparatorFunc.html">gtkComboBoxGetRowSeparatorFunc</a>(object)</code><br />
+<code><a href="gtkComboBoxSetRowSeparatorFunc.html">gtkComboBoxSetRowSeparatorFunc</a>(object, func, data = NULL)</code><br />
+<code><a href="gtkComboBoxSetAddTearoffs.html">gtkComboBoxSetAddTearoffs</a>(object, add.tearoffs)</code><br />
+<code><a href="gtkComboBoxGetAddTearoffs.html">gtkComboBoxGetAddTearoffs</a>(object)</code><br />
+<code><a href="gtkComboBoxSetTitle.html">gtkComboBoxSetTitle</a>(object, title)</code><br />
+<code><a href="gtkComboBoxGetTitle.html">gtkComboBoxGetTitle</a>(object)</code><br />
+<code><a href="gtkComboBoxSetFocusOnClick.html">gtkComboBoxSetFocusOnClick</a>(object, focus.on.click)</code><br />
+<code><a href="gtkComboBoxGetFocusOnClick.html">gtkComboBoxGetFocusOnClick</a>(object)</code><br />
+<code><a href="gtkComboBoxSetButtonSensitivity.html">gtkComboBoxSetButtonSensitivity</a>(object, sensitivity)</code><br />
+<code><a href="gtkComboBoxGetButtonSensitivity.html">gtkComboBoxGetButtonSensitivity</a>(object)</code><br />
+<code>gtkComboBox(model, show = TRUE)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkComboBox
+                                       +----GtkComboBoxEntry</pre>
+
+<h3>Interfaces</h3>
+
+<p>GtkComboBox implements
+AtkImplementorIface,  <code><a href="gtk-gtkbuildable.html">GtkBuildable</a></code>,  <code><a href="GtkCellLayout.html">GtkCellLayout</a></code> and  <code><a href="GtkCellEditable.html">GtkCellEditable</a></code>.</p>
+
+
+<h3>Detailed Description</h3>
+
+<p>A <code><a href="GtkComboBox.html">GtkComboBox</a></code> is a widget that allows the user to choose from a
+list of valid choices.  The <code><a href="GtkComboBox.html">GtkComboBox</a></code> displays the selected
+choice.  When activated, the <code><a href="GtkComboBox.html">GtkComboBox</a></code> displays a popup
+which allows the user to make a new choice. The style in which
+the selected value is displayed, and the style of the popup is
+determined by the current theme. It may be similar to a <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code>,
+or similar to a Windows-style combo box.
+</p>
+<p>Unlike its predecessors <code><a href="GtkCombo.html">GtkCombo</a></code> and <code><a href="GtkOptionMenu.html">GtkOptionMenu</a></code>, the <code><a href="GtkComboBox.html">GtkComboBox</a></code>
+uses the model-view pattern; the list of valid choices is specified in the
+form of a tree model, and the display of the choices can be adapted to
+the data in the model by using cell renderers, as you would in a tree view.
+This is possible since <code><a href="GtkComboBox.html">GtkComboBox</a></code> implements the <code><a href="GtkCellLayout.html">GtkCellLayout</a></code> interface.
+The tree model holding the valid choices is not restricted to a flat list,
+it can be a real tree, and the popup will reflect the tree structure.
+</p>
+<p>In addition to the model-view API, <code><a href="GtkComboBox.html">GtkComboBox</a></code> offers a simple API which
+is suitable for text-only combo boxes, and hides the complexity of managing
+the data in a model. It consists of the functions <code><a href="gtkComboBoxNewText.html">gtkComboBoxNewText</a></code>,
+<code><a href="gtkComboBoxAppendText.html">gtkComboBoxAppendText</a></code>, <code><a href="gtkComboBoxInsertText.html">gtkComboBoxInsertText</a></code>,
+<code><a href="gtkComboBoxPrependText.html">gtkComboBoxPrependText</a></code>, <code><a href="gtkComboBoxRemoveText.html">gtkComboBoxRemoveText</a></code> and
+<code><a href="gtkComboBoxGetActiveText.html">gtkComboBoxGetActiveText</a></code>.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkComboBox</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkComboBox</code> is the result of collapsing the constructors of <code>GtkComboBox</code> (<code><a href="gtkComboBoxNew.html">gtkComboBoxNew</a></code>, <code><a href="gtkComboBoxNewWithModel.html">gtkComboBoxNewWithModel</a></code>, <code><a href="gtkComboBoxNewText.html">gtkComboBoxNewText</a></code>) and accepts a subset of its arguments matching the required arguments of one of its delegate constructors.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>changed(widget, user.data)</code></dt><dd>
+<p>The changed signal is emitted when the active
+item is changed. The can be due to the user selecting
+a different item from the list, or due to a
+call to <code><a href="gtkComboBoxSetActiveIter.html">gtkComboBoxSetActiveIter</a></code>.
+It will also be emitted while typing into a GtkComboBoxEntry,
+as well as when selecting an item from the GtkComboBoxEntry's list.
+Since 2.4
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>move-active(widget, scroll.type, user.data)</code></dt><dd>
+<p>The ::move-active signal is a
+keybinding signal
+which gets emitted to move the active selection.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>scroll.type</code></dt><dd><p>a <code><a href="gtk-Standard-Enumerations.html">GtkScrollType</a></code></p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>popdown(button, user.data)</code></dt><dd>
+<p>The ::popdown signal is a
+keybinding signal
+which gets emitted to popdown the combo box list.
+</p>
+<p>The default bindings for this signal are Alt+Up and Escape.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>button</code></dt><dd><p>the object which received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>popup(widget, user.data)</code></dt><dd>
+<p>The ::popup signal is a
+keybinding signal
+which gets emitted to popup the combo box list.
+</p>
+<p>The default binding for this signal is Alt+Down.
+Since 2.12
+</p>
+
+<dl>
+<dt><code>widget</code></dt><dd><p>the object that received the signal</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">active</code> [integer : Read / Write]</dt><dd>
+<p>The item which is currently active. If the model is a non-flat treemodel,
+and the active item is not an immediate child of the root of the tree,
+this property has the value
+<code>gtk_tree_path_get_indices (path)[0]</code>,
+where <code>path</code> is the <code><a href="GtkTreeModel.html">GtkTreePath</a></code> of the active item.
+Allowed values: &gt;= -1  Default value: -1  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">add-tearoffs</code> [logical : Read / Write]</dt><dd>
+<p>The add-tearoffs property controls whether generated menus
+have tearoff menu items.
+</p>
+<p>Note that this only affects menu style combo boxes.
+Default value: FALSE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">button-sensitivity</code> [<code><a href="GtkRange.html">GtkSensitivityType</a></code> : Read / Write]</dt><dd>
+<p>Whether the dropdown button is sensitive when
+the model is empty.
+Default value: GTK_SENSITIVITY_AUTO  Since 2.14
+</p>
+</dd>
+<dt><code style="white-space: pre;">column-span-column</code> [integer : Read / Write]</dt><dd>
+<p>If this is set to a non-negative value, it must be the index of a column
+of type <code>G_TYPE_INT</code> in the model.
+</p>
+<p>The values of that column are used to determine how many columns a value
+in the list will span.
+Allowed values: &gt;= -1  Default value: -1  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">focus-on-click</code> [logical : Read / Write]</dt><dd>
+<p>Whether the combo box grabs focus when it is clicked with the mouse.  Default value: TRUE
+</p>
+</dd>
+<dt><code style="white-space: pre;">has-frame</code> [logical : Read / Write]</dt><dd>
+<p>The has-frame property controls whether a frame
+is drawn around the entry.
+Default value: TRUE  Since 2.6
+</p>
+</dd>
+<dt><code style="white-space: pre;">model</code> [<code><a href="GtkTreeModel.html">GtkTreeModel</a></code> : *         : Read / Write]</dt><dd>
+<p>The model from which the combo box takes the values shown
+in the list.
+Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">popup-shown</code> [logical : Read]</dt><dd>
+<p>Whether the combo boxes dropdown is popped up.
+Note that this property is mainly useful, because
+it allows you to connect to notify::popup-shown.
+Default value: FALSE  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">row-span-column</code> [integer : Read / Write]</dt><dd>
+<p>If this is set to a non-negative value, it must be the index of a column
+of type <code>G_TYPE_INT</code> in the model.
+</p>
+<p>The values of that column are used to determine how many rows a value in
+the list will span. Therefore, the values in the model column pointed to
+by this property must be greater than zero and not larger than wrap-width.
+Allowed values: &gt;= -1  Default value: -1  Since 2.4
+</p>
+</dd>
+<dt><code style="white-space: pre;">tearoff-title</code> [character : *                : Read / Write]</dt><dd>
+<p>A title that may be displayed by the window manager
+when the popup is torn-off.
+Default value: NULL  Since 2.10
+</p>
+</dd>
+<dt><code style="white-space: pre;">wrap-width</code> [integer : Read / Write]</dt><dd>
+<p>If wrap-width is set to a positive value, the list will be
+displayed in multiple columns, the number of columns is
+determined by wrap-width.
+Allowed values: &gt;= 0  Default value: 0  Since 2.4
+</p>
+</dd>
+</dl>
+
+
+<h3>Style Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">appears-as-list</code> [logical : Read]</dt><dd>
+<p>Whether dropdowns should look like lists rather than menus.  Default value: FALSE
+</p>
+</dd>
+<dt><code style="white-space: pre;">arrow-size</code> [integer : Read]</dt><dd>
+<p>Sets the minimum size of the arrow in the combo box.  Note
+that the arrow size is coupled to the font size, so in case
+a larger font is used, the arrow will be larger than set
+by arrow size.
+Allowed values: &gt;= 0  Default value: 15  Since 2.12
+</p>
+</dd>
+<dt><code style="white-space: pre;">shadow-type</code> [<code><a href="gtk-Standard-Enumerations.html">GtkShadowType</a></code> : Read]</dt><dd>
+<p>Which kind of shadow to draw around the combo box.
+Default value: GTK_SHADOW_NONE  Since 2.12
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkComboBox.html">http://library.gnome.org/devel//gtk/GtkComboBox.html</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="GtkComboBoxEntry.html">GtkComboBoxEntry</a></code>
+<code><a href="GtkTreeModel.html">GtkTreeModel</a></code>
+<code><a href="GtkCellRenderer.html">GtkCellRenderer</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

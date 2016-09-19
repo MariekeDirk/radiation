@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Voronoi hull model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for Voronoi Hull {dismo}"><tr><td>Voronoi Hull {dismo}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Voronoi hull model</h2>
+
+<h3>Description</h3>
+
+<p>Voronoi polygons for presence/absence data
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+voronoiHull(p, a, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>Presence points. Two column matrix, data.frame, or a SpatialPoints* object</p>
+</td></tr>
+<tr valign="top"><td><code>a</code></td>
+<td>
+<p>Absence points. Must be of the same class as p</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>Addtional arguments</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A VoronoiHull object (inherits from <code><a href="DistModel.html">DistModel-class</a></code>)
+</p>
+
+
+<h3>Note</h3>
+
+<p>This function is only correct when using a planar coordinate reference system (not longitude/latitude).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Robert J. Hijmans. Adapted from code by Carson Farmer: <a href="http://www.carsonfarmer.com/?p=455">http://www.carsonfarmer.com/?p=455</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="convexHull.html">convexHull</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+r &lt;- raster(system.file("external/rlogo.grd", package="raster"))
+# presence points
+p &lt;- matrix(c(17, 42, 85, 70, 19, 53, 26, 84, 84, 46, 48, 85, 4, 95, 48, 54, 66, 74, 50, 48, 
+      28, 73, 38, 56, 43, 29, 63, 22, 46, 45, 7, 60, 46, 34, 14, 51, 70, 31, 39, 26), ncol=2)
+
+# absence points
+a &lt;- matrix(c(30, 23, 5, 5, 31, 33, 91, 63, 60, 88, 93, 97, 65, 68, 85, 97, 35, 32, 29, 55,
+      3, 8, 19, 71, 49, 36, 69, 41, 20, 28, 18, 9, 5, 9, 25, 71, 8, 32, 46, 60), ncol=2)
+
+v &lt;- voronoiHull(p, a)
+	  
+x &lt;- predict(r, v)
+
+## Not run: 
+plot(x)
+points(p, col='black', pch=20, cex=2)
+points(a, col='red', pch=20, cex=2)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>dismo</em> version 1.0-15 <a href="00Index.html">Index</a>]</div>
+</body></html>

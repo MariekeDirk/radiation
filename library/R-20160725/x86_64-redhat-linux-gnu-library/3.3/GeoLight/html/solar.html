@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Solar Time and Declination</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for solar {GeoLight}"><tr><td>solar {GeoLight}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Solar Time and Declination</h2>
+
+<h3>Description</h3>
+
+<p>Calculate solar time, the equation of time and solar declination
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+solar(tm)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tm</code></td>
+<td>
+<p>a vector of POSIXct times.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>The solar time, the equation of time and the sine and cosine of
+the solar declination are calculted for the times specified by
+<code>tm</code> using the same methods as
+<a href="www.esrl.noaa.gov/gmd/grad/solcalc/">www.esrl.noaa.gov/gmd/grad/solcalc/</a>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list containing the following vectors.
+</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code><code>solarTime</code></code></td>
+<td>
+<p>the solar time (degrees)</p>
+</td></tr>
+<tr valign="top"><td><code><code>eqnTime</code></code></td>
+<td>
+<p>the equation of time (minutes of time)</p>
+</td></tr>
+<tr valign="top"><td><code><code>sinSolarDec</code></code></td>
+<td>
+<p>sine of the solar declination</p>
+</td></tr>
+<tr valign="top"><td><code><code>cosSolarDec</code></code></td>
+<td>
+<p>cosine of the solar declination</p>
+</td></tr>
+</table>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="zenith.html">zenith</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Current solar time
+solar(Sys.time())
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>GeoLight</em> version 2.0.0 <a href="00Index.html">Index</a>]</div>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Get a define of the SNNS kernel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for getSnnsRDefine {RSNNS}"><tr><td>getSnnsRDefine {RSNNS}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Get a define of the SNNS kernel</h2>
+
+<h3>Description</h3>
+
+<p>Get a define of the SNNS kernel from a defines-list.
+All defines-lists present can be shown with <code>RSNNS:::SnnsDefines</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+getSnnsRDefine(defList, defValue)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>defList</code></td>
+<td>
+<p>the defines-list from which to get the define from</p>
+</td></tr>
+<tr valign="top"><td><code>defValue</code></td>
+<td>
+<p>the value in the list</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>a string with the name of the define
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="resolveSnnsRDefine.html">resolveSnnsRDefine</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+getSnnsRDefine("topologicalUnitTypes",3)
+getSnnsRDefine("errorCodes",-50)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>RSNNS</em> version 0.4-7 <a href="00Index.html">Index</a>]</div>
+</body></html>

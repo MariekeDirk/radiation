@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: pangoRendererDrawGlyphItem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for pangoRendererDrawGlyphItem {RGtk2}"><tr><td>pangoRendererDrawGlyphItem {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>pangoRendererDrawGlyphItem</h2>
+
+<h3>Description</h3>
+
+<p>Draws the glyphs in <code>glyph.item</code> with the specified <code><a href="PangoRenderer.html">PangoRenderer</a></code>,
+embedding the text associated with the glyphs in the output if the
+output format supports it (PDF for example).</p>
+
+
+<h3>Usage</h3>
+
+<pre>pangoRendererDrawGlyphItem(object, text, glyph.item, x, y)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">object</code></code></td>
+<td>
+<p>[<code><a href="PangoRenderer.html">PangoRenderer</a></code>]  a <code><a href="PangoRenderer.html">PangoRenderer</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">text</code></code></td>
+<td>
+<p>[char]  the UTF-8 text that <code>glyph.item</code> refers to, or <code>NULL</code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">glyph.item</code></code></td>
+<td>
+<p>[<code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code>]  a <code><a href="pango-Glyph-Storage.html">PangoGlyphItem</a></code></p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">x</code></code></td>
+<td>
+<p>[integer]  X position of left edge of baseline, in user space coordinates
+in Pango units.</p>
+</td></tr>
+<tr valign="top"><td><code><code style="white-space: pre;">y</code></code></td>
+<td>
+<p>[integer]  Y position of left edge of baseline, in user space coordinates
+in Pango units.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>Note that <code>text</code> is the start of the text for layout, which is then
+indexed by <code>glyph_item-&gt;item-&gt;offset</code>.
+</p>
+<p>If <code>text</code> is <code>NULL</code>, this simply calls <code><a href="pangoRendererDrawGlyphs.html">pangoRendererDrawGlyphs</a></code>.
+</p>
+<p>The default implementation of this method simply falls back to
+<code><a href="pangoRendererDrawGlyphs.html">pangoRendererDrawGlyphs</a></code>.  
+Since 1.22</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

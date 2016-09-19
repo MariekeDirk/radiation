@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: cairoPushGroup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for cairoPushGroup {RGtk2}"><tr><td>cairoPushGroup {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>cairoPushGroup</h2>
+
+<h3>Description</h3>
+
+<p>Temporarily redirects drawing to an intermediate surface known as a
+group. The redirection lasts until the group is completed by a call
+to <code><a href="cairoPopGroup.html">cairoPopGroup</a></code> or <code><a href="cairoPopGroupToSource.html">cairoPopGroupToSource</a></code>. These calls
+provide the result of any drawing to the group as a pattern,
+(either as an explicit object, or set as the source pattern).</p>
+
+
+<h3>Usage</h3>
+
+<pre>cairoPushGroup(cr)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code><code style="white-space: pre;">cr</code></code></td>
+<td>
+<p>[<code><a href="cairo-context.html">Cairo</a></code>]  a cairo context</p>
+</td></tr></table>
+
+
+<h3>Details</h3>
+
+<p>This group functionality can be convenient for performing
+intermediate compositing. One common use of a group is to render
+objects as opaque within the group, (so that they occlude each
+other), and then blend the result with translucence onto the
+destination.
+</p>
+<p>Groups can be nested arbitrarily deep by making balanced calls to
+<code><a href="cairoPushGroup.html">cairoPushGroup</a></code>/<code><a href="cairoPopGroup.html">cairoPopGroup</a></code>. Each call pushes/pops the new
+target group onto/from a stack.
+</p>
+<p>The <code><a href="cairoPushGroup.html">cairoPushGroup</a></code> function calls <code><a href="cairoSave.html">cairoSave</a></code> so that any
+changes to the graphics state will not be visible outside the
+group, (the pop_group functions call <code><a href="cairoRestore.html">cairoRestore</a></code>).
+</p>
+<p>By default the intermediate group will have a content type of
+<code>CAIRO_CONTENT_COLOR_ALPHA</code>. Other content types can be chosen for
+the group by using <code><a href="cairoPushGroupWithContent.html">cairoPushGroupWithContent</a></code> instead.
+</p>
+<p>As an example, here is how one might fill and stroke a path with
+translucence, but without any portion of the fill being visible
+under the stroke:
+</p>
+<pre>
+cr$pushGroup()
+cr$setSource(fill_pattern)
+cr$fillPreserve()
+cr$setSource(stroke_pattern)
+cr$stroke()
+cr$popGroupToSource()
+cr$paintWithAlpha(alpha)
+</pre>  
+<p>Since 1.2</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

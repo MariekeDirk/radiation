@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: GtkEntryBuffer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for GtkEntryBuffer {RGtk2}"><tr><td>GtkEntryBuffer {RGtk2}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>GtkEntryBuffer</h2>
+
+<h3>Description</h3>
+
+<p>Text buffer for GtkEntry</p>
+
+
+<h3>Methods and Functions</h3>
+
+<p><code><a href="gtkEntryBufferNew.html">gtkEntryBufferNew</a>(initial.chars = NULL, n.initial.chars = -1)</code><br />
+<code><a href="gtkEntryBufferGetText.html">gtkEntryBufferGetText</a>(object)</code><br />
+<code><a href="gtkEntryBufferSetText.html">gtkEntryBufferSetText</a>(object, chars, n.chars)</code><br />
+<code><a href="gtkEntryBufferGetBytes.html">gtkEntryBufferGetBytes</a>(object)</code><br />
+<code><a href="gtkEntryBufferGetLength.html">gtkEntryBufferGetLength</a>(object)</code><br />
+<code><a href="gtkEntryBufferGetMaxLength.html">gtkEntryBufferGetMaxLength</a>(object)</code><br />
+<code><a href="gtkEntryBufferSetMaxLength.html">gtkEntryBufferSetMaxLength</a>(object, max.length)</code><br />
+<code><a href="gtkEntryBufferInsertText.html">gtkEntryBufferInsertText</a>(object, position, chars, n.chars)</code><br />
+<code><a href="gtkEntryBufferDeleteText.html">gtkEntryBufferDeleteText</a>(object, position, n.chars)</code><br />
+<code><a href="gtkEntryBufferEmitDeletedText.html">gtkEntryBufferEmitDeletedText</a>(object, position, n.chars)</code><br />
+<code><a href="gtkEntryBufferEmitInsertedText.html">gtkEntryBufferEmitInsertedText</a>(object, position, chars, n.chars)</code><br />
+<code>gtkEntryBuffer(initial.chars = NULL, n.initial.chars = -1)</code>
+</p>
+
+
+<h3>Hierarchy</h3>
+
+<pre>GObject
+   +----GtkEntryBuffer</pre>
+
+<h3>Detailed Description</h3>
+
+<p>The <code><a href="GtkEntryBuffer.html">GtkEntryBuffer</a></code> class contains the actual text displayed in a
+<code><a href="GtkEntry.html">GtkEntry</a></code> widget.
+</p>
+<p>A single <code><a href="GtkEntryBuffer.html">GtkEntryBuffer</a></code> object can be shared by multiple <code><a href="GtkEntry.html">GtkEntry</a></code>
+widgets which will then share the same text content, but not the cursor
+position, visibility attributes, icon etc.
+<code><a href="GtkEntryBuffer.html">GtkEntryBuffer</a></code> may be derived from. Such a derived class might allow
+text to be stored in an alternate location, such as non-pageable memory,
+useful in the case of important passwords. Or a derived class could 
+integrate with an application's concept of undo/redo.</p>
+
+
+<h3>Structures</h3>
+
+<dl>
+<dt><code style="white-space: pre;">GtkEntryBuffer</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+</dd></dl>
+
+
+<h3>Convenient Construction</h3>
+
+<p><code>gtkEntryBuffer</code> is the equivalent of <code><a href="gtkEntryBufferNew.html">gtkEntryBufferNew</a></code>.</p>
+
+
+<h3>Signals</h3>
+
+
+<dl>
+<dt><code>deleted-text(entrybuffer, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>entrybuffer</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>inserted-text(entrybuffer, user.data)</code></dt><dd>
+<p><em>undocumented
+</em>
+</p>
+
+<dl>
+<dt><code>entrybuffer</code></dt><dd><p>the object which received the signal.</p>
+</dd>
+<dt><code>user.data</code></dt><dd><p>user data set when the signal handler was connected.</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+<h3>Properties</h3>
+
+
+<dl>
+<dt><code style="white-space: pre;">length</code> [numeric : Read]</dt><dd>
+<p>The length (in characters) of the text in buffer.
+Allowed values: &lt;= 65535  Default value: 0  Since 2.18
+</p>
+</dd>
+<dt><code style="white-space: pre;">max-length</code> [integer : Read / Write]</dt><dd>
+<p>The maximum length (in characters) of the text in the buffer.
+Allowed values: [0,65535]  Default value: 0  Since 2.18
+</p>
+</dd>
+<dt><code style="white-space: pre;">text</code> [character : *                : Read / Write]</dt><dd>
+<p>The contents of the buffer.
+Default value: &quot;&quot;  Since 2.18
+</p>
+</dd>
+</dl>
+
+
+<h3>Author(s)</h3>
+
+<p>Derived by RGtkGen from GTK+ documentation</p>
+
+
+<h3>References</h3>
+
+<p><a href="http://library.gnome.org/devel//gtk/GtkEntryBuffer.html">http://library.gnome.org/devel//gtk/GtkEntryBuffer.html</a></p>
+
+<hr /><div style="text-align: center;">[Package <em>RGtk2</em> version 2.20.31 <a href="00Index.html">Index</a>]</div>
+</body></html>

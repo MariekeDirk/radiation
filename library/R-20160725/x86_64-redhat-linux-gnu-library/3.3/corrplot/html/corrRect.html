@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Draw rectangle(s) on the correlation matrix graph.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for corrRect {corrplot}"><tr><td>corrRect {corrplot}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Draw rectangle(s) on the correlation matrix graph.</h2>
+
+<h3>Description</h3>
+
+<p>Draw rectangle(s) around the chart of corrrlation matrix.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+corrRect(clus, col = "black", lwd = 2)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>clus</code></td>
+<td>
+<p>Vector, the number of each cluster's members.</p>
+</td></tr>
+<tr valign="top"><td><code>col</code></td>
+<td>
+<p>Color of rectangles.</p>
+</td></tr>
+<tr valign="top"><td><code>lwd</code></td>
+<td>
+<p>Line width of rectangles.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>corrRect</code> needs the number(parameter <code>clus</code>) of each cluster's
+members, while <code>corrRect.hclust</code>  can get the members in each cluster
+based on hierarchical clustering (<code><a href="../../stats/html/hclust.html">hclust</a></code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Taiyun Wei
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(mtcars)
+M &lt;- cor(mtcars)
+corrplot(M, method = "circle", order = "FPC")
+corrRect(c(5,6))
+
+(order.hc &lt;- corrMatOrder(M, order = "hclust"))
+(order.hc2 &lt;- corrMatOrder(M, order = "hclust", hclust.method = "ward"))
+M.hc  &lt;- M[order.hc, order.hc]
+M.hc2 &lt;- M[order.hc2, order.hc2]
+
+par(ask = TRUE)
+
+# same as: corrplot(M, order = "hclust", addrect = 2)
+corrplot(M.hc)
+corrRect.hclust(corr = M.hc, k = 2)
+
+# same as: corrplot(M, order = "hclust", addrect = 3)
+corrplot(M.hc)
+corrRect.hclust(corr = M.hc, k = 3)
+
+# same as: corrplot(M, order = "hclust", hclust.method = "ward", addrect = 2)
+corrplot(M.hc2)
+corrRect.hclust(M.hc2, k = 2, method = "ward")
+
+# same as: corrplot(M, order = "hclust", hclust.method = "ward", addrect = 3)
+corrplot(M.hc2)
+corrRect.hclust(M.hc2, k = 3, method = "ward")
+
+# same as: corrplot(M, order = "hclust", hclust.method = "ward", addrect = 4)
+corrplot(M.hc2)
+corrRect.hclust(M.hc2, k = 4, method = "ward")
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>corrplot</em> version 0.77 <a href="00Index.html">Index</a>]</div>
+</body></html>

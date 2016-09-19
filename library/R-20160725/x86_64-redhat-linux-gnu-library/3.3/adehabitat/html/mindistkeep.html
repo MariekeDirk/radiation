@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Detecting Absence of Movement in an Object of Class 'ltraj'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for mindistkeep {adehabitat}"><tr><td>mindistkeep {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Detecting Absence of Movement in an Object of Class 'ltraj'</h2>
+
+<h3>Description</h3>
+
+<p>Objects of class <code>ltraj</code> are often created with data collected
+using some form of telemetry (radio-tracking, G.P.S., etc.).  However,
+the relocations of the monitored animals are always somewhat
+imprecise.  The function mindistkeep considers that when
+the distance between two successive relocations is lower than a given
+threshold distance, the animal actually does not move.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+mindistkeep(x, threshold)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>An object of class <code>ltraj</code></p>
+</td></tr>
+<tr valign="top"><td><code>threshold</code></td>
+<td>
+<p>The minimum distance under which is is considered
+that the animal does not move</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>ltraj</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code><a href="as.ltraj.html">ltraj</a></code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechcirc)
+plot(puechcirc)
+
+i &lt;- mindistkeep(puechcirc, 10)
+plot(i)
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>

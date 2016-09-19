@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Methods to generate spatial metadata</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for spMetadata-methods {plotKML}"><tr><td>spMetadata-methods {plotKML}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Methods to generate spatial metadata</h2>
+
+<h3>Description</h3>
+
+<p>The <code>spMetadata</code> function will try to generate missing metadata (bounding box, location info, session info, metadata creator info and similar) for any <code>Spatial*</code> object (from the sp package) or <code>Raster*</code> object (from the raster package). The resulting object of class <code><a href="SpatialMetadata.html">SpatialMetadata-class</a></code> can be used e.g. to generate a Layer description documents (<code>&lt;description&gt;</code> tag).<br />
+The <code>read.metadata</code> function reads the formatted metadata (<code>.xml</code>), prepared following e.g. the <a href="http://www.fgdc.gov/metadata/csdgm/">Federal Geographic Data Committee (FGDC) Content Standard for Digital Geospatial Metadata</a> or <a href="http://inspire.ec.europa.eu/">INSPIRE</a> standard, and converts them to a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre> 
+## S4 method for signature 'RasterLayer'
+spMetadata(obj, bounds, color, ... )
+## S4 method for signature 'Spatial'
+spMetadata(obj, xml.file, out.xml.file, 
+    md.type = c("FGDC", "INSPIRE")[1],
+    generate.missing = TRUE, GoogleGeocode = FALSE,
+    signif.digit = 3, colour_scale, color = NULL, bounds,
+    legend_names, icons, validate.schema = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+<p>some <code>"Spatial"</code> or <code>"Raster"</code> class object with <code>"data"</code> slot</p>
+</td></tr>
+<tr valign="top"><td><code>xml.file</code></td>
+<td>
+<p>character; optional input XML metadata file</p>
+</td></tr>
+<tr valign="top"><td><code>out.xml.file</code></td>
+<td>
+<p>character; optional output XML metadata file</p>
+</td></tr>
+<tr valign="top"><td><code>md.type</code></td>
+<td>
+<p>character; metadata standard <a href="http://geology.usgs.gov/tools/metadata/">FGDC</a> or <a href="http://inspire.ec.europa.eu/">INSPIRE</a></p>
+</td></tr>
+<tr valign="top"><td><code>generate.missing</code></td>
+<td>
+<p>logical; specifies whether to automatically generate missing fields</p>
+</td></tr>
+<tr valign="top"><td><code>GoogleGeocode</code></td>
+<td>
+<p>logical; specifies whether the function should try to use GoogleGeocoding functionality to determine the location name</p>
+</td></tr>
+<tr valign="top"><td><code>signif.digit</code></td>
+<td>
+<p>integer; the default number of significant digits (in the case of rounding)</p>
+</td></tr>  
+<tr valign="top"><td><code>colour_scale</code></td>
+<td>
+<p>the color scheme used to visualize this data</p>
+</td></tr>
+<tr valign="top"><td><code>color</code></td>
+<td>
+<p>character; list of colors (<code>rgb()</code>) that can be passed instead of using the pallete</p>
+</td></tr>  
+<tr valign="top"><td><code>bounds</code></td>
+<td>
+<p>numeric vector; upper and lower bounds used for visualization</p>
+</td></tr>  
+<tr valign="top"><td><code>legend_names</code></td>
+<td>
+<p>character; legend names in the order of bounds</p>
+</td></tr>
+<tr valign="top"><td><code>icons</code></td>
+<td>
+<p>character; file name or URL used for icons (if applicable)</p>
+</td></tr>
+<tr valign="top"><td><code>validate.schema</code></td>
+<td>
+<p>logical; specifies whether to validate the schema using the <code>xmlSchemaValidate</code></p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>additional arguments to be passed e.g. via the <code>metadata.env()</code></p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p><code>spMetadata</code> tries to locate a metadata file in the working directory (it looks for a metadata file with the same name as the object name). If no <code>.xml</code> file exists, it will load the template xml file available in the system folder (e.g. <code>system.file("FGDC.xml", package="plotKML")</code> or <code>system.file("INSPIRE_ISO19139.xml", package="plotKML")</code>). The <code>FGDC.xml</code>/<code>INSPIRE_ISO19139.xml</code> files contain typical metadata entries with description and examples. For practical purposes, one metadata object in plotKML can be associated with only one variable i.e. one column in the <code>"data"</code> slot (the first column by default). To prepare a metadata xml file following the FGDC standard, consider using e.g. the <a href="http://geology.usgs.gov/tools/metadata/tools/doc/tkme.html">Tkme</a> software: Another editor for formal metadata, by Peter N. Schweitzer (U.S. Geological Survey). Before commiting the metadata file, try also running a <a href="http://geo-nsdi.er.usgs.gov/validation/">validation test</a>. Before committing the metadata file following the INSPIRE standard, try running the <a href="http://inspire-geoportal.ec.europa.eu/validator2/">INSPIRE Geoportal Metadata Validator</a>.<br />
+<code>spMetadata</code> tries to automatically generate the most usefull information, so that a user can easily find out about the input data and procedures followed to generate the visualization (KML). Typical metadata entries include e.g. (FGDC):
+</p>
+
+<ul>
+<li> <p><code>metadata[["idinfo"]][["native"]]</code> &mdash; Session info e.g.: Produced using R version 2.12.2 (2011-02-25) running on Windows 7 x64.
+</p>
+</li>
+<li> <p><code>metadata[["spdoinfo"]][["indspref"]]</code> &mdash; Indirect spatial reference estimated using the <a href="http://code.google.com/apis/maps/documentation/webservices/">Google Maps API Web Services</a>.
+</p>
+</li>
+<li> <p><code>metadata[["idinfo"]][["spdom"]][["bounding"]]</code> &mdash; Bounding box in the WGS84 geographical coordinates estimated by reprojecting the original bounding box.
+</p>
+</li></ul>
+
+<p>and for INSPIRE metadata:
+</p>
+
+<ul>
+<li> <p><code>metadata[["fileIdentifier"]][["CharacterString"]]</code> &mdash; Metadata file identifier (not mandatory for INSPIRE-compl.) created by UUIDgenerate from package UUID (version 4 UUID). 
+</p>
+</li>
+<li> <p><code>metadata[["dateStamp"]][["Date"]]</code> &mdash; Metadata date stamp created using Sys.Date().
+</p>
+</li>
+<li> <p><code>metadata[["identificationInfo"]][["MD_DataIdentification"]]
+[["extent"]][["EX_Extent"]][["geographicElement"]][["EX_GeographicBoundingBox"]]</code> &mdash; Bounding box in the WGS84 geographical coordinates estimated by reprojecting the original bounding box.
+</p>
+</li></ul>
+
+<p>By default, plotKML uses the Creative Commons license, but this can be adjusted by setting the <code>Use_Constraints</code> argument.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tomislav Hengl and Michael Blaschek</p>
+
+
+<h3>References</h3>
+
+
+<ul>
+<li><p> The Federal Geographic Data Committee, (2006) FGDC Don't Duck Metadata &mdash; A short reference guide for writing quality metadata. Vers. 1, <a href="http://www.fgdc.gov/metadata/documents/MetadataQuickGuide.pdf">http://www.fgdc.gov/metadata/documents/MetadataQuickGuide.pdf</a>
+</p>
+</li>
+<li><p> Content Standard for Digital Geospatial Metadata (<a href="http://www.fgdc.gov/metadata/csdgm/">http://www.fgdc.gov/metadata/csdgm/</a>)
+</p>
+</li>
+<li><p> Tkme metadata editor (<a href="http://geology.usgs.gov/tools/metadata/tools/doc/tkme.html">http://geology.usgs.gov/tools/metadata/tools/doc/tkme.html</a>)
+</p>
+</li>
+<li><p> INSPIRE, INS MD, Commission Regulation (EC) No 1205/2008 of 3 December 2008 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards metadata (Text with EEA relevance). See also Corrigendum to INSPIRE Metadata Regulation.
+</p>
+</li>
+<li><p> INSPIRE, INS MDTG, (2013) INSPIRE Metadata Implementing Rules: Technical Guidelines based on EN ISO 19115 and EN ISO 19119, v1.3
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="kml_metadata.html">kml_metadata</a></code>, <code><a href="SpatialMetadata.html">SpatialMetadata-class</a></code>, <code>sp::Spatial</code>, <code><a href="kml_open.html">kml_open</a></code> </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+library(sp)
+library(uuid)
+library(rjson)
+## read metadata from the system file:
+x &lt;- read.metadata(system.file("FGDC.xml", package="plotKML"))
+str(x)
+## generate missing metadata
+data(eberg)
+coordinates(eberg) &lt;- ~X+Y
+proj4string(eberg) &lt;- CRS("+init=epsg:31467")
+## no metadata file specified:
+eberg.md &lt;- spMetadata(eberg["SNDMHT_A"])
+## this generates some metadata automatically e.g.:
+xmlRoot(eberg.md@xml)[["eainfo"]][["detailed"]][["attr"]]
+## combine with localy prepared metadata file:
+eberg.md &lt;- spMetadata(eberg["SNDMHT_A"], 
+    xml.file=system.file("eberg.xml", package="plotKML"))
+## Additional metadat entries can be added by using e.g.:
+eberg.md &lt;- spMetadata(eberg["SNDMHT_A"], 
+  md.type="INSPIRE", 
+  CI_Citation_title = 'Ebergotzen data set',
+  CI_Online_resource_URL = 'http://geomorphometry.org/content/ebergotzen')
+## the same using the FGDC template:
+eberg.md &lt;- spMetadata(eberg["SNDMHT_A"], 
+  Citation_title = 'Ebergotzen data set',
+  Citation_URL = 'http://geomorphometry.org/content/ebergotzen')
+## Complete list of names:
+mdnames &lt;- read.csv(system.file("mdnames.csv", package="plotKML"))
+mdnames$field.names
+## these can be assigned to the "metadata" environment by using:
+metadata.env(CI_Citation_title = 'Ebergotzen data set')
+get("CI_Citation_title", metadata)
+
+## write data and metadata to a file:
+library(rgdal)
+writeOGR(eberg["SNDMHT_A"], "eberg_SAND.shp", ".", "ESRI Shapefile")
+saveXML(eberg.md@xml, "eberg_SAND.xml")
+## export to SLD format:
+metadata2SLD(eberg.md, "eberg.sld")
+## plot the layer with the metadata:
+kml(eberg, file.name = "eberg_md.kml", colour = SNDMHT_A, metadata = eberg.md, kmz = TRUE)
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>plotKML</em> version 0.5-6 <a href="00Index.html">Index</a>]</div>
+</body></html>

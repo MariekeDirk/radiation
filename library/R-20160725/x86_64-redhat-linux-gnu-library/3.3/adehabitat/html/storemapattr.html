@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Store Attributes of Maps of Class asc and kasc</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for storemapattr {adehabitat}"><tr><td>storemapattr {adehabitat}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Store Attributes of Maps of Class asc and kasc</h2>
+
+<h3>Description</h3>
+
+<p><code>storemapattr</code> stores attributes of maps of class <code>asc</code> and
+<code>kasc</code> in an object of class <code>mapattr</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+storemapattr(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>an object of class <code>asc</code> or <code>kasc</code> </p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This function is essentially used by programmers in functions dealing with
+maps of class <code>asc</code> or <code>kasc</code>.  The function
+<code>getXYcoords</code> is an example of function using <code>storemapattr</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns an object of class <code>mapattr</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Clement Calenge <a href="mailto:clement.calenge@oncfs.gouv.fr">clement.calenge@oncfs.gouv.fr</a> </p>
+
+
+<h3>See Also</h3>
+
+ <p><code><a href="as.kasc.html">kasc</a></code> and <code><a href="import.asc.html">asc</a></code> for
+additional information on the classes <code>kasc</code> and <code>asc</code>. </p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(puechabon)
+(kasc &lt;- puechabon$kasc)
+
+(toto &lt;- storemapattr(kasc))
+
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>adehabitat</em> version 1.8.18 <a href="00Index.html">Index</a>]</div>
+</body></html>
