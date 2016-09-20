@@ -17,10 +17,12 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
 library(adehabitat)
 library(automap)
 library(caret)
+library(caretEnsemble)
 library(data.table)
 library(doParallel)
 library(foreach)
 library(GSIF)
+library(kernlab)
 library(maptools)
 library(reshape)
 library(raster)
@@ -196,14 +198,29 @@ print(paste("R2=",round(ked_exp.r2,2)))
 print(head(ked_exp$krige_output))
 ```
 
-#Caret: Testing Machine Learning Models
+# Caret: Machine Learning Algorithms
 For grid predictions with the caret package a combination of the caret::train and raster::predict functions is used. The input for the raster::predict function is either a raster Stack or raster Brick. 
 
 * Methods [here](http://topepo.github.io/caret/train-models-by-tag.html#Two_Class_Only.html).
 * Some methods of the caret package run in parallel, background information can be found [here](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf).
 * Bug in Caret "Error in e$fun(obj, substitute(ex), parent.frame(), e$data) : 
   worker initialization failed: there is no package called ‘caret’" can be fixed like [this](http://stackoverflow.com/questions/21029019/parallel-execution-of-train-in-caret-fails-with-function-not-found)
-  
+
+The machine learning algorithms (MLA) used in this example are all regression based, as we have only 2 variables (ground-based measurements vs. satellite derived product). We compare: 2 linear models, a support vector machine, treebag and cubist. Below a short description of the models and their tuning methods. 
+
+### Linear Models
+Two linear models are compared: the linear model (lm) and gaussprLinear.
+
+### Support Vector Machines
+Sigma is depending on the predictor. The function "sigest" provides the value for sigma. 
+
+### Treebag
+The treebag model also has no tuneGrid. 
+
+### Cubist
+Cubist is a rule-based model but differs from other tree models. The final model combines models using a linear combination of two models. The different models are weighted based on their RMSE. The final model makes up the initial set of rules. The model tunes itself using committees and neighbors. 
+
+## Data preperation  
 ```{r,message=FALSE,warning=FALSE}
 #cl<-makeCluster(6)
 #registerDoParallel(cl)
@@ -215,20 +232,28 @@ ov<-over(obs.subset.Q,grid)
 ov<-cbind(data.frame(obs.subset.Q["REH1.Q"]),ov)
 ov<-rename(ov,c("DS_LON"="x"))
 ov<-rename(ov,c("DS_LAT"="y"))
+```
 
+## Train control settings and tuning parameters
+```{r}
 control<-trainControl(method="cv",number=10,repeats=3) #setting a 10 fold-cross validation (best performing)
 length<-10 #for the tuneLength of the models
 
-tune.svm<-data.frame(.sigma=100,.C=c(0.25,0.5,1)) #uncertainty measurements (calibration): 10W/m2, uncertainty sat: 30-50W/m2. 
+#uncertainty measurements (calibration): 10W/m2, uncertainty sat: 30-50W/m2. 
+sigmaRangeReduced<-sigest(as.matrix(ov$layer))[1]
+svmRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
 
+```
+
+```{r}
 set.seed(50)
-m1.svmRadial<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=tune.svm)
+m1.svmRadial<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmRGridReduced)
 
 set.seed(50)
 m2.treebag<-caret::train(REH1.Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
 
 set.seed(50)
-m3.rlm<-caret::train(REH1.Q~layer,data=ov,method="rlm",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+m3.lm<-caret::train(REH1.Q~layer,data=ov,method="lm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
 
 set.seed(50)
 m4.gaussprLinear<-caret::train(REH1.Q~layer,data=ov,method="gaussprLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
@@ -236,14 +261,14 @@ m4.gaussprLinear<-caret::train(REH1.Q~layer,data=ov,method="gaussprLinear",prePr
 set.seed(50)
 m5.cubist<-caret::train(REH1.Q~layer,data=ov,method="cubist",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
 
-results<-resamples(list(svmRadial=m1.svmRadial,treebag=m2.treebag,rlm=m3.rlm,gaussprLinear=m4.gaussprLinear,cubist=m5.cubist))
+results<-resamples(list(svmRadial=m1.svmRadial,treebag=m2.treebag,lm=m3.lm,gaussprLinear=m4.gaussprLinear,cubist=m5.cubist))
 summary(results)
 bwplot(results,scales=list(relation="free"),xlim=list(c(0,70),c(0,1)))
 modelDifferences<-diff(results)
 print(modelDifferences) #see str(modelDifferences) for values. Large p-values: the models fail to show any diference in performance (Kuhn&Johnson 2013, p.101 )
 ```
 
-##Model selection
+## Model selection
 In the previous section we found that differences between the models are too small to select the best performing model. What we don't want is an under- or over-predicting model. Comparing predictions, observations and residuals helps to find the best fit. 
 
 Comparing the models showed the following results:
@@ -295,4 +320,52 @@ pred.vs.res<-data.frame(predicted,p1.diff)
 axisRange <- extendrange(c(observed, predicted))
 ```
 
+## Comparing models
+```{r}
+st$svmRadial<-raster::predict(model=m1.svmRadial,object=st)
+st$treebag<-raster::predict(model=m2.treebag,object=st)
+st$lm<-raster::predict(model=m3.lm,object=st)
+st$gaussprLinear<-raster::predict(model=m4.gaussprLinear,object=st)
+st$cubist<-raster::predict(model=m5.cubist,object=st)
 
+print(st)
+
+spplot(st,col.regions=kleur.cols,at=kleur.breaks,
+       sp.layout=list(pts=list("sp.points",obs.subset,pch=21),mymap.pro,mymap.pro_lakes))
+
+```
+
+## Ensemble predictions with Caret
+As we saw, the previous predictions from the caret package are already nice. But, can we further improve the model by combining several models? Here we explore the caret Ensemble package ([online example](https://cran.r-project.org/web/packages/caretEnsemble/vignettes/caretEnsemble-intro.html)). As the differences between the models are small an ensemble prediction is not expected to improve the prediction. Though, lets try and make a code and see how the ensemble model performs:
+```{r}
+set.seed(50)
+model_list<-caretList(REH1.Q~layer,
+                      data=ov,
+                      trControl=control,
+                      methodList=c("lm","cubist","treebag"),
+                      preProcess=c("center","scale","BoxCox"),
+                      tuneLength=length)
+                      #tuneList=list(svm=caretModelSpec(method="svmRadial",
+                      #                                 tuneGrid=svmRGridReduced)))
+#NOTE: trControl not fine-tuned for caretEnsemble and caretStack!
+model_ensemble<-caretEnsemble(model_list)
+
+#not specified a rf ensemble is generated
+lm_ensemble<-caretStack(model_list,trControl=trainControl(method='cv'),tuneGrid = expand.grid(.mtry=2:5),tuneLength=length)
+
+print(lm_ensemble)
+#ens_pred<-predict(model_ensemble,newdata=grid)
+ens_pred<-predict(lm_ensemble,newdata=grid)
+# predictors<-names(st)[names(st) != "layer"]
+# final_ensemble<-caret::train(subset(st,predictors),subset(st,"layer"),method='treebag',trControl=control)
+```
+
+## Creating a raster from the prediction
+```{r}
+ens_raster<-raster(matrix(ens_pred,nrow=nrow(r.NED),ncol=ncol(r.NED)))
+ens_raster@extent<-extent(r.NED)
+proj4string(ens_raster)<-pro
+plot(ens_raster,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum =",time,"\n","Ensemble"),legend=F)
+plot(mymap.pro,add=TRUE)
+plot(mymap.pro_lakes,add=TRUE)
+```
