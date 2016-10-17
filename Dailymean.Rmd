@@ -12,15 +12,16 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
 
 ```
 
+#Loading Packages
+The data from the hdf5 files is loaded with the R package rhdf5. From the .h5 files a raster is created, filped and croped using the R's package raster. The data from the ground based observations is read with the data.table function fread. For the geostatistical analysis we need the automap package. The machine learning algorithms from the caret package are used. 
 ```{r}
-
 library(adehabitat)
 library(automap)
 library(caret)
-library(caretEnsemble)
+# library(caretEnsemble)
 library(data.table)
-library(doParallel)
-library(foreach)
+# library(doParallel)
+# library(foreach)
 library(GSIF)
 library(kernlab)
 library(maptools)
@@ -33,55 +34,45 @@ data(wrld_simpl)
 ```
 
 #Color settings for plotting routine
+For all the plotting routines we use the same color settings. 
 ```{r}
 kleur.breaks<-seq(0,500,by=10)
 kleur.cols<-terrain.colors(length(kleur.breaks-1))
 ```
 
-#Daily mean radiation from satellite
+#Functions
+Defining some basic functions. 
 ```{r,message=FALSE}
-#pathsat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/"
-#loc.grid<-"/net/pc150398/nobackup/users/meirink/msg_archive/geo/meteosat9.euro4m.angles.h5"
-#year.sat<-seq(from=2004,to=2016,by=1)
-#Y<-year.sat[11]
+rmse<-function(sim,obs){
+  rmse=sqrt(mean((sim-obs)^2,na.rm=TRUE))
+}
 
-#pathsat.year<-paste0(pathsat,Y)
-
-#selecting a test month
-#m<-"07"
-#files.sat<-list.files(path=paste0(pathsat.year,"/",m))
+r2<-function(residual,observed){
+  teller <- sum(residual^2)
+  noemer <- sum((observed-mean(observed))^2)
+  r2 <- 1 - teller/noemer
+  return(r2)
+}
 ```
 
 ## Surface irradiance
-Load the attributes "direct irradiance" and "diffuse irradiance" to calculate the total irradiance. 
+Loading the attributes "direct irradiance" and "diffuse irradiance" to calculate the total irradiance. Also the satellite grid coordinates "lat" and "lon" are loaded.
 ```{r,message=FALSE}
-# setwd(paste0(pathsat.year,"/","07"))
-# 
-# file<-files.sat[1]
-# d<-gsub("daymean","",file)
-# d<-gsub("EURO4M.hdf5","",d)
-# time<-as.POSIXct(paste0(Y,"-",m,"-",d))
-
-#time<-as.POSIXct("2014-07-01")
-time<-as.POSIXct("2008-05-10")
-#structure of the file
-file<-"Rdata/daymean10EURO4M.hdf5"
-
+time<-as.POSIXct("2014-07-04")
+file<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/daymean_reproj_20140704.h5"
 h5ls(file)
 data.direct.irradiance<-h5read(file,"direct irradiance")
 data.diffuse.irradiance<-h5read(file,"diffuse irradiance")
 data.total.irradiance<-data.direct.irradiance+data.diffuse.irradiance
 data.total.irradiance<-t(data.total.irradiance)
+
+data.lat<-h5read(file,"/lat") #Latitude
+data.lon<-h5read(file,"/lon") #Longitude
 ```
 
 ## Satellite grid
-The satellite grid coordinates "lat" and "lon" are loaded.
+Now we have all the satellite data we create a raster object. 
 ```{r,message=FALSE}
-loc.grid<-"Rdata/meteosat9.euro4m.angles.h5"
-h5ls(loc.grid)
-data.lat<-h5read(loc.grid,"/lat") #Latitude
-data.lon<-h5read(loc.grid,"/lon") #Longitude
-
 data.lat[which(data.lat==-999)]<-NA # replace no data value with NA (this case -999)
 data.lon[which(data.lon==-999)]<-NA # replace no data value with NA (this case -999)
 
@@ -90,7 +81,8 @@ r<-raster(data.total.irradiance,crs=CRS("+init=epsg:4326"),
       xmx=max(data.lon,na.rm=T),
       ymn=min(data.lat,na.rm=T),
       ymx=max(data.lat,na.rm=T))
-plot(r,main=paste("Datum=",time),col=kleur.cols,breaks=kleur.breaks,legend=F)
+rr<-flip(r,direction='y')
+plot(rr,main=paste("Datum=",time),col=kleur.cols,breaks=kleur.breaks,legend=F)
 plot(wrld_simpl,add=TRUE)
 ```
 
@@ -104,34 +96,42 @@ mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
 mymap.unpro_lakes=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_lakes',layer="ne_10m_lakes") # Read in (unprojected) map data
 mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
 
-r<-projectRaster(r,crs=pro)
-r.NED<-crop(r,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
+rr<-projectRaster(rr,crs=pro)
+r.NED<-crop(rr,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
 
 plot(r.NED,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum=",time),legend=F)
 plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
 ```
 
-From the [KNMI daily record](http://projects.knmi.nl/klimatologie/daggegevens/index.cgi) the following data is available from this day:
-![Figure](/nobackup/users/dirksen/radiation/figures/20140707.png)
+<!-- From the [KNMI daily record](http://projects.knmi.nl/klimatologie/daggegevens/index.cgi) the following data is available from this day: -->
+<!-- ![Figure](/nobackup/users/dirksen/radiation/figures/20140707.png) -->
 
 #Data from observations
+From the observations a subset is made (2014/07/04), coordinates are stored in a seperate file and merged with the dataset. 
 ```{r,message=FALSE}
-obs<-fread("Rdata/radiation_KNMI_day.csv")
-obs$IT_DATETIME<-as.POSIXct(obs$IT_DATETIME,format="%Y%m%d_%H%M%S_000000")
+# coords<-fread("Rdata/radiation_KNMI_day.csv")
+# coords<-subset(coords,select=c("DS_LAT","DS_LON","DS_CODE"))
+# coords<-unique(coords)
+#saveRDS(coords,file="Rdata/coordsKNMI.rda")
+coords<-readRDS("Rdata/coordsKNMI.rda")
+
+obs<-fread("Rdata/radiation_KNMI_day_v2.csv")
+obs$IT_DATETIME<-as.POSIXct(obs$IT_DATETIME,format="%Y%m%d_240000_000000")
 
 obs.subset<-obs[which(IT_DATETIME==time),]
-obs.subset<-na.omit(obs.subset,cols=c("DS_LAT","DS_LON"))
+obs.subset$Q<-obs.subset$REH1.Q24*10000/(24*3600)
+obs.subset<-merge(obs.subset,coords,by="DS_CODE")
+obs.subset<-na.omit(obs.subset,cols=c("DS_LAT","DS_LON","Q"))
 
 coordinates(obs.subset)<-~DS_LON+DS_LAT
 proj4string(obs.subset)<-CRS("+init=epsg:4326")
 obs.subset<-spTransform(obs.subset,pro)
-obs.subset$REH1.Q<-obs.subset$REH1.Q24/24
 
-kleur.data<-cut(obs.subset$REH1.Q,breaks=kleur.breaks,include.lowest=TRUE,labels=FALSE)
+kleur.data<-cut(obs.subset$Q,breaks=kleur.breaks,include.lowest=TRUE,labels=FALSE)
 plot(obs.subset,bg=(kleur.cols[kleur.data]),
      col="darkgrey",pch=21)
-text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$Q,0),pos=3,cex=0.7)
 plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
 ```
@@ -142,16 +142,16 @@ rASC<-asc.from.raster(r.NED)
 spdf<-asc2spixdf(rASC)
 proj4string(spdf)<-pro
 
-var.Q<-subset(obs.subset,select=REH1.Q)
+var.Q<-subset(obs.subset,select=Q)
 sat.var<-over(var.Q,spdf)
 
 n<-names(sat.var)
-diff<-sat.var[n]-var.Q$REH1.Q
+diff<-sat.var[n]-var.Q$Q
 
 plot(r.NED,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum=",time),legend=F)
 plot(obs.subset,bg=(kleur.cols[kleur.data]),
      col="darkgrey",pch=21,add=TRUE)
-text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$Q,0),pos=3,cex=0.7)
 text(obs.subset$DS_LON,obs.subset$DS_LAT,round(diff[[n]],0),pos=1,cex=0.7,col="red")
 plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
@@ -160,7 +160,6 @@ plot(mymap.pro_lakes,add=TRUE)
 #Geostatistical Approach: Kriging interpolation with trend
 ```{r,message=FALSE}
 # Kriging
-blocksize = 20000
 mxdkrige=Inf # maxdist Krige
 # over functions
 gridded(spdf)=FALSE;gridded(spdf)=TRUE;fullgrid(spdf) = TRUE
@@ -171,66 +170,66 @@ distshore.ov=over(obs.subset,spdf)
   var = obs.subset
   var$var=distshore.ov$var
 
-  #Prepare input  
+  #Prepare input
   field = spdf
   field@data = cbind(field@data, coordinates(field))
   names(field@data) = c("s","x","y")
-  var$x = over(var,field)$x 
+  var$x = over(var,field)$x
   var$y = over(var,field)$y
   var$s = over(var,field)$s
-  
+
   # Remove nodata from dataframe based on missing distshore
   var = var[!is.na(var$var),]
- 
-  
-    ked_exp <- autoKrige(REH1.Q~var, var, spdf,maxdist=mxdkrige, block=c(blocksize,blocksize), model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE))  #log(distshore)
+
+
+ked_exp <- autoKrige(Q~var, var, spdf,maxdist=mxdkrige, model = c("Exp"), na.action=na.pass, fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = FALSE))  #log(distshore)
 
 # Krige Cross validation
-ked_exp.cv <- autoKrige.cv(REH1.Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = TRUE),verbose=c(FALSE,FALSE))
+ked_exp.cv <- autoKrige.cv(Q~var, var, model = c("Exp"),maxdist=mxdkrige,fix.values=c(NA,NA,NA), miscFitOptions = list(merge.small.bins = FALSE),verbose=c(FALSE,FALSE))
 teller <- sum(ked_exp.cv$krige.cv_output$residual^2)
 noemer <- sum((var$var-mean(var$var))^2)
 ked_exp.r2 <- 1 - teller/noemer
 ked.zscoremean <- mean(ked_exp.cv$krige.cv_output$zscore)
 ked.zscore.var <- var(ked_exp.cv$krige.cv_output$zscore)
-
+ked_exp.rmse<-rmse(ked_exp.cv$krige.cv_output$var1.pred,ked_exp.cv$krige.cv_output$observed)
 plot(ked_exp,col=kleur.cols,breaks=kleur.breaks,sp.layout=list(pts=list("sp.points",obs.subset,pch=21),mymap.pro,mymap.pro_lakes))
 
-print(paste("R2=",round(ked_exp.r2,2)))
+print(paste("R2=",round(ked_exp.r2,2),"RMSE=",round(ked_exp.rmse,2)))
 print(head(ked_exp$krige_output))
 ```
 
 # Caret: Machine Learning Algorithms
-For grid predictions with the caret package a combination of the caret::train and raster::predict functions is used. The input for the raster::predict function is either a raster Stack or raster Brick. 
+For grid predictions with the caret package a combination of the caret::train and raster::predict functions is used. The input for the raster::predict function is either a raster Stack or raster Brick.
 
 * Methods [here](http://topepo.github.io/caret/train-models-by-tag.html#Two_Class_Only.html).
 * Some methods of the caret package run in parallel, background information can be found [here](https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf).
-* Bug in Caret "Error in e$fun(obj, substitute(ex), parent.frame(), e$data) : 
+* Bug in Caret "Error in e$fun(obj, substitute(ex), parent.frame(), e$data) :
   worker initialization failed: there is no package called ‘caret’" can be fixed like [this](http://stackoverflow.com/questions/21029019/parallel-execution-of-train-in-caret-fails-with-function-not-found)
 
-The machine learning algorithms (MLA) used in this example are all regression based, as we have only 2 variables (ground-based measurements vs. satellite derived product). We compare: 2 linear models, a support vector machine, treebag and cubist. Below a short description of the models and their tuning methods. 
+The machine learning algorithms (MLA) used in this example are all regression based, as we have only 2 variables (ground-based measurements vs. satellite derived product). We compare: 2 linear models, a support vector machine, treebag and cubist. Below a short description of the models and their tuning methods.
 
 ### Linear Models
 Two linear models are compared: the linear model (lm) and gaussprLinear.
 
 ### Support Vector Machines
-Sigma is depending on the predictor. The function "sigest" provides the value for sigma. 
+Sigma is depending on the predictor. The function "sigest" provides the value for sigma.
 
 ### Treebag
-The treebag model also has no tuneGrid. 
+The treebag model also has no tuneGrid.
 
 ### Cubist
-Cubist is a rule-based model but differs from other tree models. The final model combines models using a linear combination of two models. The different models are weighted based on their RMSE. The final model makes up the initial set of rules. The model tunes itself using committees and neighbors. 
+Cubist is a rule-based model but differs from other tree models. The final model combines models using a linear combination of two models. The different models are weighted based on their RMSE. The final model makes up the initial set of rules. The model tunes itself using committees and neighbors.
 
-## Data preperation  
+## Data preperation
 ```{r,message=FALSE,warning=FALSE}
 #cl<-makeCluster(6)
 #registerDoParallel(cl)
 
-obs.subset.Q<-subset(obs.subset,select="REH1.Q")
+obs.subset.Q<-subset(obs.subset,select="Q")
 grid<-as(r.NED,"SpatialPixelsDataFrame")
 
 ov<-over(obs.subset.Q,grid)
-ov<-cbind(data.frame(obs.subset.Q["REH1.Q"]),ov)
+ov<-cbind(data.frame(obs.subset.Q["Q"]),ov)
 ov<-rename(ov,c("DS_LON"="x"))
 ov<-rename(ov,c("DS_LAT"="y"))
 ```
@@ -240,54 +239,54 @@ ov<-rename(ov,c("DS_LAT"="y"))
 control<-trainControl(method="cv",number=10,repeats=3) #setting a 10 fold-cross validation (best performing)
 length<-10 #for the tuneLength of the models
 
-#uncertainty measurements (calibration): 10W/m2, uncertainty sat: 30-50W/m2. 
+#uncertainty measurements (calibration): 10W/m2, uncertainty sat: 30-50W/m2.
 sigmaRangeReduced<-sigest(as.matrix(ov$layer))[1]
 svmRadialRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
 svmLinearRGridReduced<-expand.grid(C=2^(seq(-4,4)))
 ctreeGridReduced<-expand.grid(mincriterion=seq(from=0.1,to=0.5,by=0.1))
 knnGridReduced<-expand.grid(.k=3:15)
-gbmGridReduced<-tuneGrid=expand.grid(.shrinkage=c(0.1),.n.trees=1:5,.interaction.depth=1:6,.n.minobsinnode=1:5)
+gbmGridReduced<-expand.grid(.shrinkage=c(0.1),.n.trees=1:5,.interaction.depth=1:6,.n.minobsinnode=1:5)
 earthGridReduced <- data.frame(.degree = 1, .nprune = (2:4)*2)
 ```
 
 ```{r}
 #Linear Models
 set.seed(50)
-m1.lm<-caret::train(REH1.Q~layer,data=ov,method="lm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
+m1.lm<-caret::train(Q~layer,data=ov,method="lm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
 
 set.seed(50)
-m2.glm<-caret::train(REH1.Q~layer,data=ov,method="glm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
+m2.glm<-caret::train(Q~layer,data=ov,method="glm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
 
 set.seed(50)
-m3.gaussprLinear<-caret::train(REH1.Q~layer,data=ov,method="gaussprLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+m3.gaussprLinear<-caret::train(Q~layer,data=ov,method="gaussprLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
 
 #Support Vector Models
 set.seed(50)
-m4.svmRadial<-caret::train(REH1.Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmRadialRGridReduced)
+m4.svmRadial<-caret::train(Q~layer,data=ov,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmRadialRGridReduced)
 
 set.seed(50)
-m5.svmLinear<-caret::train(REH1.Q~layer,data=ov,method="svmLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmLinearRGridReduced)
+m5.svmLinear<-caret::train(Q~layer,data=ov,method="svmLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmLinearRGridReduced)
 
 #Tree models
 set.seed(50)
-m6.treebag<-caret::train(REH1.Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+m6.treebag<-caret::train(Q~layer,data=ov,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
 
 set.seed(50)
-m7.cubist<-caret::train(REH1.Q~layer,data=ov,method="cubist",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+m7.cubist<-caret::train(Q~layer,data=ov,method="cubist",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
 
 set.seed(50)
-m8.ctree<-caret::train(REH1.Q~layer,data=ov,method="ctree",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=ctreeGridReduced)
+m8.ctree<-caret::train(Q~layer,data=ov,method="ctree",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=ctreeGridReduced)
 
 #K-nearest neighbors
 set.seed(50)
-m9.knn<-caret::train(REH1.Q~layer,data=ov,method="knn",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=knnGridReduced)
+m9.knn<-caret::train(Q~layer,data=ov,method="knn",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=knnGridReduced)
 
 # Others
 set.seed(50)
-m10.earth<-caret::train(REH1.Q~layer,data=ov,method="earth",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=earthGridReduced)
+m10.earth<-caret::train(Q~layer,data=ov,method="earth",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=earthGridReduced)
 
 set.seed(50)
-m11.gbm<-caret::train(REH1.Q~layer,data=ov,method="gbm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=gbmGridReduced,verbose=FALSE)
+m11.gbm<-caret::train(Q~layer,data=ov,method="gbm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=gbmGridReduced,verbose=FALSE)
 ```
 
 ```{r}
@@ -309,7 +308,7 @@ print(modelDifferences) #see str(modelDifferences) for values. Large p-values: t
 ```
 
 ## Model selection
-In the previous section we found that differences between the models are too small to select the best performing model. What we don't want is an under- or over-predicting model. Comparing predictions, observations and residuals helps to find the best fit. 
+In the previous section we found that differences between the models are too small to select the best performing model. What we don't want is an under- or over-predicting model. Comparing predictions, observations and residuals helps to find the best fit.
 
 Comparing the models showed the following results:
 
@@ -320,7 +319,7 @@ Comparing the models showed the following results:
 * Also after tuning (add tuneGrid) the svmRadial has a good performance
 
 ```{r}
-final.model<-m2.treebag
+final.model<-m5.svmLinear
 
 st<-stack(grid)
 p1.caret<-raster::predict(model=final.model,object=st)
@@ -332,9 +331,9 @@ proj4string(p1.spdf)<-pro
 p1.var<-over(var.Q,p1.spdf)
 
 n<-names(p1.var)
-p1.diff<-p1.var[n]-var.Q$REH1.Q
+p1.diff<-p1.var[n]-var.Q$Q
 
-observed<-data.frame(var.Q$REH1.Q)
+observed<-data.frame(var.Q$Q)
 predicted<-p1.var[n]
 
 axisRange<-extendrange(c(observed,predicted))
@@ -350,7 +349,7 @@ abline(h = 0, col = "darkgrey", lty = 2)
 plot(p1.caret,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum =",time,"\n","method = ",final.model$method),legend=F)
 plot(obs.subset,bg=(kleur.cols[kleur.data]),
      col="darkgrey",pch=21,add=TRUE)
-text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$REH1.Q,0),pos=3,cex=0.7)
+text(obs.subset$DS_LON,obs.subset$DS_LAT,round(obs.subset$Q,0),pos=3,cex=0.7)
 text(obs.subset$DS_LON,obs.subset$DS_LAT,round(p1.diff[[n]],0),pos=1,cex=0.7,col="red")
 plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
@@ -381,62 +380,115 @@ spplot(st,col.regions=kleur.cols,at=kleur.breaks,
 
 ```
 
-## Statistics from the first test run (2014)
-A first test run shows the Machine learnin algorithms have statistically mutch better correlations that the kriging model. Although the RMSE is low R2 values are dramatically low. 
-```{r}
-statistics_first_run<-fread("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/statistical_summary/RMSE_Rsquared.csv",header=T)
-statistics_first_run<-subset(statistics_first_run,select=-c(1:4))
+<!-- ## Statistics from the first test run (2014) -->
+<!-- A first test run shows the Machine learnin algorithms have statistically mutch better correlations that the kriging model. Although the RMSE is low R2 values are dramatically low. -->
 
-I.RMSE<-statistics_first_run[,grep(".rmse",colnames(statistics_first_run),value=TRUE)]
-I.Rsquared<-statistics_first_run[,grep(".r2",colnames(statistics_first_run),value=TRUE)]
+<!-- ```{r} -->
+<!-- statistics_first_run<-fread("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/statistical_summary/RMSE_Rsquared.csv",header=T) -->
+<!-- statistics_first_run<-subset(statistics_first_run,select=-c(1:3)) -->
 
-RMSE<-subset(statistics_first_run,select=I.RMSE)
-Rsquared<-subset(statistics_first_run,select=I.Rsquared)
+<!-- I.RMSE<-statistics_first_run[,grep(".rmse",colnames(statistics_first_run),value=TRUE)] -->
+<!-- I.Rsquared<-statistics_first_run[,grep(".r2",colnames(statistics_first_run),value=TRUE)] -->
 
-summary.RMSE<-as.data.frame( t(sapply(RMSE, function(cl) list(mean=mean(cl,na.rm=TRUE),
-                                                                        sd=sd(cl,na.rm=TRUE),
-                                                                        min=min(cl,na.rm = TRUE),
-                                                                        max=max(cl,na.rm=TRUE)))))
+<!-- RMSE<-subset(statistics_first_run,select=I.RMSE) -->
+<!-- Rsquared<-subset(statistics_first_run,select=I.Rsquared) -->
 
-summary.Rsquared<-as.data.frame( t(sapply(Rsquared, function(cl) list(mean=mean(cl,na.rm=TRUE),
-                                                                        sd=sd(cl,na.rm=TRUE),
-                                                                        min=min(cl,na.rm = TRUE),
-                                                                        max=max(cl,na.rm=TRUE)))))
-print(summary.RMSE)
-print(summary.Rsquared)
-```
+<!-- summary.RMSE<-as.data.frame( t(sapply(RMSE, function(cl) list(mean=mean(cl,na.rm=TRUE), -->
+<!--                                                                         sd=sd(cl,na.rm=TRUE), -->
+<!--                                                                         min=min(cl,na.rm = TRUE), -->
+<!--                                                                         max=max(cl,na.rm=TRUE))))) -->
 
-## Ensemble predictions with Caret
-As we saw, the previous predictions from the caret package are already nice. But, can we further improve the model by combining several models? Here we explore the caret Ensemble package ([online example](https://cran.r-project.org/web/packages/caretEnsemble/vignettes/caretEnsemble-intro.html)). As the differences between the models are small an ensemble prediction is not expected to improve the prediction. Though, lets try and make a code and see how the ensemble model performs:
-```{r}
-set.seed(50)
-model_list<-caretList(REH1.Q~layer,
-                      data=ov,
-                      trControl=control,
-                      methodList=c("lm","cubist","treebag"),
-                      preProcess=c("center","scale","BoxCox"),
-                      tuneLength=length)
-                      #tuneList=list(svm=caretModelSpec(method="svmRadial",
-                      #                                 tuneGrid=svmRGridReduced)))
-#NOTE: trControl not fine-tuned for caretEnsemble and caretStack!
-model_ensemble<-caretEnsemble(model_list)
+<!-- summary.Rsquared<-as.data.frame( t(sapply(Rsquared, function(cl) list(mean=mean(cl,na.rm=TRUE), -->
+<!--                                                                         sd=sd(cl,na.rm=TRUE), -->
+<!--                                                                         min=min(cl,na.rm = TRUE), -->
+<!--                                                                         max=max(cl,na.rm=TRUE))))) -->
+<!-- print(summary.RMSE) -->
+<!-- print(summary.Rsquared) -->
+<!-- ``` -->
 
-#not specified a rf ensemble is generated
-lm_ensemble<-caretStack(model_list,trControl=trainControl(method='cv'),tuneGrid = expand.grid(.mtry=2:5),tuneLength=length)
 
-print(lm_ensemble)
-#ens_pred<-predict(model_ensemble,newdata=grid)
-ens_pred<-predict(lm_ensemble,newdata=grid)
-# predictors<-names(st)[names(st) != "layer"]
-# final_ensemble<-caret::train(subset(st,predictors),subset(st,"layer"),method='treebag',trControl=control)
-```
+<!-- ```{r} -->
+<!-- SICCS_vs_obs<-fread("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/summary_differences/SICCS.csv",header=T) -->
+<!-- SICCS_vs_obs<-subset(SICCS_vs_obs,select=-c(1:3)) -->
 
-## Creating a raster from the prediction
-```{r}
-ens_raster<-raster(matrix(ens_pred,nrow=nrow(r.NED),ncol=ncol(r.NED)))
-ens_raster@extent<-extent(r.NED)
-proj4string(ens_raster)<-pro
-plot(ens_raster,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum =",time,"\n","Ensemble"),legend=F)
-plot(mymap.pro,add=TRUE)
-plot(mymap.pro_lakes,add=TRUE)
-```
+<!-- difference<-SICCS_vs_obs[,grep(".rmse",colnames(statistics_first_run),value=TRUE)] -->
+<!-- I.Rsquared<-statistics_first_run[,grep(".r2",colnames(statistics_first_run),value=TRUE)] -->
+
+<!-- difference<-subset(SICCS_vs_obs,select="difference") -->
+
+<!-- summary.diff<-as.data.frame( t(sapply(difference, function(cl) list(mean=mean(cl,na.rm=TRUE), -->
+<!--                                                                         sd=sd(cl,na.rm=TRUE), -->
+<!--                                                                         min=min(cl,na.rm = TRUE), -->
+<!--                                                                         max=max(cl,na.rm=TRUE))))) -->
+
+<!-- print(summary.diff) -->
+<!-- ``` -->
+
+
+<!-- ## Differences for the grids on a clear sky day and others -->
+<!-- A spatial comparisson between the grids and observations is made. 4 clear sky days 2008-05-07 until 2008-05-10 are selected. Also 3 other days from the report of van Tiggelen 2014 are selected. -->
+<!-- ```{r} -->
+<!-- fun<-function() { -->
+<!--   plot(mymap.pro,add=TRUE) -->
+<!--   plot(mymap.pro_lakes,add=TRUE) -->
+<!-- } -->
+<!-- # For the 4 clearsky reference days there are very small differences with observations -->
+<!-- clearsky_ref1<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2008-05-07_st.rds") -->
+<!-- clearsky_ref2<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2008-05-08_st.rds") -->
+<!-- clearsky_ref3<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2008-05-09_st.rds") -->
+<!-- clearsky_ref4<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2008-05-10_st.rds") -->
+
+<!-- #Jurgen van Tiggelen used from 2010 the following days in his report: May12, June 21 and July 31 -->
+<!-- #From all these days and the surrounding days differences are huge -->
+<!-- #Is something wrong with the dataset? -->
+<!-- May12<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2010-05-12_st.rds") -->
+<!-- June21<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2010-06-21_st.rds") -->
+<!-- July31<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2010-07-31_st.rds") -->
+<!-- July30<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2010-07-30_st.rds") -->
+<!-- Aug1<-readRDS("/nobackup/users/dirksen/Radiation_Obs_Satellite/output/predictions/2010-08-01_st.rds") -->
+
+<!-- stacklayer<-June21 -->
+<!-- kleur.min<-min(minValue(stacklayer)) -->
+<!-- kleur.max<-max(maxValue(stacklayer))+10 -->
+<!-- kleur.breaks<-seq(kleur.min,kleur.max,by=10) -->
+<!-- kleur.cols<-colorRampPalette(c("green","yellow","red"))(length(kleur.breaks-1)) -->
+
+<!-- arg<-list(at=range(kleur.breaks),labels=round(range(kleur.breaks),0)) -->
+<!-- plot(stacklayer,col=kleur.cols,breaks=kleur.breaks,axis.arg=arg,addfun=fun) -->
+
+
+<!-- ``` -->
+<!-- ## Ensemble predictions with Caret -->
+<!-- As we saw, the previous predictions from the caret package are already nice. But, can we further improve the model by combining several models? Here we explore the caret Ensemble package ([online example](https://cran.r-project.org/web/packages/caretEnsemble/vignettes/caretEnsemble-intro.html)). As the differences between the models are small an ensemble prediction is not expected to improve the prediction. Though, lets try and make a code and see how the ensemble model performs: -->
+<!-- ```{r} -->
+<!-- set.seed(50) -->
+<!-- model_list<-caretList(REH1.Q~layer, -->
+<!--                       data=ov, -->
+<!--                       trControl=control, -->
+<!--                       methodList=c("lm","cubist","treebag"), -->
+<!--                       preProcess=c("center","scale","BoxCox"), -->
+<!--                       tuneLength=length) -->
+<!--                       #tuneList=list(svm=caretModelSpec(method="svmRadial", -->
+<!--                       #                                 tuneGrid=svmRGridReduced))) -->
+<!-- #NOTE: trControl not fine-tuned for caretEnsemble and caretStack! -->
+<!-- model_ensemble<-caretEnsemble(model_list) -->
+
+<!-- #not specified a rf ensemble is generated -->
+<!-- lm_ensemble<-caretStack(model_list,trControl=trainControl(method='cv'),tuneGrid = expand.grid(.mtry=2:5),tuneLength=length) -->
+
+<!-- print(lm_ensemble) -->
+<!-- #ens_pred<-predict(model_ensemble,newdata=grid) -->
+<!-- ens_pred<-predict(lm_ensemble,newdata=grid) -->
+<!-- # predictors<-names(st)[names(st) != "layer"] -->
+<!-- # final_ensemble<-caret::train(subset(st,predictors),subset(st,"layer"),method='treebag',trControl=control) -->
+<!-- ``` -->
+
+<!-- ## Creating a raster from the prediction -->
+<!-- ```{r} -->
+<!-- ens_raster<-raster(matrix(ens_pred,nrow=nrow(r.NED),ncol=ncol(r.NED))) -->
+<!-- ens_raster@extent<-extent(r.NED) -->
+<!-- proj4string(ens_raster)<-pro -->
+<!-- plot(ens_raster,col=kleur.cols,breaks=kleur.breaks,main=paste("Datum =",time,"\n","Ensemble"),legend=F) -->
+<!-- plot(mymap.pro,add=TRUE) -->
+<!-- plot(mymap.pro_lakes,add=TRUE) -->
+<!-- ``` -->
