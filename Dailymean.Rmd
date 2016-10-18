@@ -136,6 +136,48 @@ plot(mymap.pro,add=TRUE)
 plot(mymap.pro_lakes,add=TRUE)
 ```
 
+##Test and Train set
+For the splitting of the train and test set we want all the data from 1 day, as we only have 33 observations. A post on splitting with timeslices can be found [here](http://stackoverflow.com/questions/24758218/time-series-data-spliting-and-model-evaluation). Also on Github some more background information can be [found](http://topepo.github.io/caret/data-splitting.html). 
+
+> Note that these methods can also be included in the trainControl function (see stackoverflow link). The trainControl would look something like: trainControl(method='cv', index=createFolds(obs,list = TRUE)). Here we explore how the functions work for subsetting the data. Another important discussion on cross-validation and data splitting can be found [here](http://stats.stackexchange.com/questions/188955/is-it-necessary-to-split-dataset-for-cross-validation). 
+
+```{r}
+obs<-obs[complete.cases(obs$REH1.Q24),]
+timestamps<-unique(obs$IT_DATETIME)
+
+#Create Folds
+time.folds<-createFolds(timestamps,2)
+
+time.trainFolds<-time.folds[[1]]
+time.testFolds<-time.folds[[2]]
+
+time.trainSet<-timestamps[time.trainFolds]
+time.testSet<-timestamps[time.testFolds]
+
+print(head(time.trainSet))
+print(head(time.testSet))
+
+#Time slices
+I.Sub.TimeSlices<-createTimeSlices(y=as.vector(timestamps),initialWindow = 32,horizon=32,fixedWindow = FALSE)
+
+str(I.Sub.TimeSlices,max.level=1)
+
+
+time.trainSlices<-I.Sub.TimeSlices[[1]]
+time.testSlices<-I.Sub.TimeSlices[[2]]
+
+time.trainSet<-timestamps[time.trainSlices[[1]]]
+time.testSet<-timestamps[time.testSlices[[1]]]
+
+print(time.trainSet)
+print(time.testSet)
+
+#create Data Partition
+I.Sub<-createDataPartition(obs$REH1.Q24,p=0.05,list=FALSE)
+
+
+```
+
 #Compare the two products
 ```{r,message=FALSE}
 rASC<-asc.from.raster(r.NED)
@@ -235,6 +277,8 @@ ov<-rename(ov,c("DS_LAT"="y"))
 ```
 
 ## Train control settings and tuning parameters
+* The github post on [model training and tuning](http://topepo.github.io/caret/model-training-and-tuning.html).
+* A list with all the available regression models can be found [online](http://topepo.github.io/caret/available-models.html), search for regression.
 ```{r}
 control<-trainControl(method="cv",number=10,repeats=3) #setting a 10 fold-cross validation (best performing)
 length<-10 #for the tuneLength of the models
