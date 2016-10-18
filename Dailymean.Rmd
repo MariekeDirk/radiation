@@ -143,34 +143,34 @@ For the splitting of the train and test set we want all the data from 1 day, as 
 
 ```{r}
 obs<-obs[complete.cases(obs$REH1.Q24),]
-timestamps<-unique(obs$IT_DATETIME)
+#timestamps<-unique(obs$IT_DATETIME)
 
 #Create Folds
-time.folds<-createFolds(timestamps,2)
+folds<-createFolds(obs,2)
 
-time.trainFolds<-time.folds[[1]]
-time.testFolds<-time.folds[[2]]
+trainFolds<-folds[[1]]
+testFolds<-folds[[2]]
 
-time.trainSet<-timestamps[time.trainFolds]
-time.testSet<-timestamps[time.testFolds]
+trainSet<-obs[trainFolds]
+testSet<-obs[testFolds]
 
-print(head(time.trainSet))
-print(head(time.testSet))
+print(head(trainSet))
+print(head(testSet))
 
-#Time slices
-I.Sub.TimeSlices<-createTimeSlices(y=as.vector(timestamps),initialWindow = 32,horizon=32,fixedWindow = FALSE)
-
-str(I.Sub.TimeSlices,max.level=1)
-
-
-time.trainSlices<-I.Sub.TimeSlices[[1]]
-time.testSlices<-I.Sub.TimeSlices[[2]]
-
-time.trainSet<-timestamps[time.trainSlices[[1]]]
-time.testSet<-timestamps[time.testSlices[[1]]]
-
-print(time.trainSet)
-print(time.testSet)
+#Time slices: slow
+# I.Sub.TimeSlices<-createTimeSlices(1:nrow(obs),initialWindow = 32,horizon=32,fixedWindow = TRUE)
+# 
+# str(I.Sub.TimeSlices,max.level=1)
+# 
+# 
+# trainSlices<-I.Sub.TimeSlices[[1]]
+# testSlices<-I.Sub.TimeSlices[[2]]
+# 
+# trainSet<-obs[trainSlices[[1]]]
+# testSet<-obs[testSlices[[1]]]
+# 
+# print(trainSet)
+# print(testSet)
 
 #create Data Partition
 I.Sub<-createDataPartition(obs$REH1.Q24,p=0.05,list=FALSE)
