@@ -28,4 +28,17 @@ plot(summary_by_month$month,summary_by_month$difference)
 
 #http://www.statmethods.net/advgraphs/ggplot2.html
 qplot(day,difference,data=summary_by_yday,geom=c("point","smooth")) #beginnen bij -2 einde bij 0
+
+
+setkey(summary_by_yday, day)
+
+summary_by_year_month <- data.obs[, mean(DIFF), by = .(year = year(IT_DATETIME), month)]
+
+
+library(mgcv)
+fit2 <- gam(V1 ~ s(year) + s(month, bs = "cc"), data = summary_by_year_month)
+plot(fit2)
+
+fit <- gam(difference ~ s(day, bs="cc"), data = summary_by_yday)
+
 qplot(month,difference,data=summary_by_stationmonth,geom=c("boxplot","jitter"),group=month,color=DS_CODE)
