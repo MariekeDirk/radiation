@@ -59,7 +59,7 @@ r2<-function(residual,observed){
 Loading the attributes "direct irradiance" and "diffuse irradiance" to calculate the total irradiance. Also the satellite grid coordinates "lat" and "lon" are loaded.
 ```{r,message=FALSE}
 time<-as.POSIXct("2014-07-04")
-file<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/daymean_reproj_20140704.h5"
+file<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/2014/daymean_reproj_20140704.h5"
 h5ls(file)
 data.direct.irradiance<-h5read(file,"direct irradiance")
 data.diffuse.irradiance<-h5read(file,"diffuse irradiance")
