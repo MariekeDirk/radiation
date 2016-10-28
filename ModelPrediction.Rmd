@@ -1,0 +1,133 @@
+---
+title: "Model Prediction"
+author: "Marieke"
+date: "October 28, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+```
+
+## Loading Library
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+library(adehabitat)
+library(lubridate)
+library(data.table)
+library(raster)
+library(rgdal)
+library(rhdf5)
+
+pro=CRS("+init=epsg:28992")
+WGS84<-CRS("+init=epsg:4326")
+
+starttime<-as.POSIXct("2016-09-27")
+stoptime<-as.POSIXct("2016-09-30")
+
+time.seq<-seq(from=starttime,to=stoptime,by="day")
+```
+
+## Models
+```{r}
+list.files("Rdata/MLmodels/")
+
+#ctree <- readRDS("Rdata/MLmodels/ctree.rds")
+# cubist <- readRDS("Rdata/MLmodels/cubist.rds")
+earth <- readRDS("Rdata/MLmodels/earth.rds")
+# fuzzy <- readRDS("Rdata/MLmodels/fuzzy.rds")
+gbm <- readRDS("Rdata/MLmodels/gbm.rds")
+glm <- readRDS("Rdata/MLmodels/glm.rds")
+knn <- readRDS("Rdata/MLmodels/knn.rds")
+lm <- readRDS("Rdata/MLmodels/lm.rds")
+# treebag <- readRDS("Rdata/MLmodels/treebag.rds")
+
+```
+
+## Data Processing and Analysis
+
+```{r pressure, echo=FALSE}
+for (i in 1:length(time.seq)){
+t<-time.seq[i]
+Y<-year(t)
+M<-month(t)
+
+if (M<=9) {
+  M<-paste0(0,M)
+} else {print(M)}
+
+D<-mday(t)
+
+if (D<=9) {
+  D<-paste0(0,D)
+} else {print(D)}
+
+file.loc<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/year"
+file.loc<-gsub("year",Y,file.loc)
+files.in.loc<-list.files(file.loc,pattern=".h5")
+
+d.sat<-gsub("daymean_reproj_","",files.in.loc)
+d.sat<-gsub(".h5","",d.sat)
+I=which(d.sat==paste0(Y,M,D))
+if (length(I)==0){
+  print("NO FILE")
+  # out<-data.frame(time,"no file")
+  # names(out)<-NULL
+  # write.table(out,file="/nobackup/users/dirksen/Radiation_Obs_Satellite/output/statistical_summary/NOdata_days.csv",
+  #             append=TRUE,sep=",",row.names=FALSE)
+} else {
+file.sat<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/year/daymean_reproj_yyyymmdd.h5"
+file.sat<-gsub("year",Y,file.sat)
+file.sat<-gsub("yyyymmdd",paste0(Y,M,D),file.sat)
+
+h5ls(file.sat)
+data.direct.irradiance<-h5read(file.sat,"direct irradiance")
+data.diffuse.irradiance<-h5read(file.sat,"diffuse irradiance")
+data.total.irradiance<-data.direct.irradiance+data.diffuse.irradiance
+data.total.irradiance<-t(data.total.irradiance)
+
+data.lat<-h5read(file.sat,"/lat") #Latitude
+data.lon<-h5read(file.sat,"/lon") #Longitude
+
+data.lat[which(data.lat==-999)]<-NA # replace no data value with NA (this case -999)
+data.lon[which(data.lon==-999)]<-NA # replace no data value with NA (this case -999)
+
+r<-raster(data.total.irradiance,crs=WGS84,
+xmn=min(data.lon,na.rm=T),
+xmx=max(data.lon,na.rm=T),
+ymn=min(data.lat,na.rm=T),
+ymx=max(data.lat,na.rm=T))
+rr<-flip(r,direction='y')
+rr<-projectRaster(rr,crs=pro)
+
+r.NED<-crop(rr,extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
+names(r.NED)<-"SAT"
+r.NED.matrix<-as.matrix(r.NED)
+if (length(which(is.na(r.NED.matrix)))>2000) {
+  print("NO data")
+  # out<-data.frame(time,"no data NL")
+  # names(out)<-NULL
+  # write.table(out,file="/nobackup/users/dirksen/Radiation_Obs_Satellite/output/statistical_summary/NOdata_days.csv",
+  #             append=TRUE,sep=",",row.names=FALSE)
+} else {
+
+st<-stack(r.NED)
+st$day<-yday(t)
+st$knn<-raster::predict(model=knn,object=st)
+st$earth<-raster::predict(model=earth,object=st)
+st$gbm<-raster::predict(model=gbm,object=st)
+st$glm<-raster::predict(model=glm,object=st)
+st$lm<-raster::predict(model=lm,object=st)
+
+st<-dropLayer(st,2)
+plot(st)
+}
+}
+}
+```
+
+
