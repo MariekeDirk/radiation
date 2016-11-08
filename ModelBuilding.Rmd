@@ -14,7 +14,7 @@ This code is built using the online github documentation of the caret package of
 Here we use the caret package to built machine learning models to create a solar irradiance model. As input we use satellite data and ground based observations. We found that there is a small sinus yearly trend in the differences between the two products. Therefore also the day of the year is included as an additional explanatory variable for the differences between the two products. 
 
 ## Loading library
-```{r}
+```{r library}
 library(data.table)
 library(lubridate)
 library(mgcv)
@@ -28,19 +28,20 @@ library(raster)
 library(rgdal)
 library(SDMTools)
 pro=CRS("+init=epsg:28992")
+save_dir<-"/nobackup/users/dirksen/radiation/Rdata/MLmodels/finalModels/"
 ```
 
 ## Comparing the 2 products
 To compare the satellite data with the point measurements the R function over is used. The data was stored in the file "sat_over_obs.csv". Using the data.table package and mgcv package we made a summary of the results. We find that the differences between the two products are small. There is a yearly pattern in the data: during winter months the satellite derived products has slightly higher values (max around 3W/m2) while in summer the opposit is true. 
-```{r}
-obs.df<-fread("Rdata/sat_over_obs.csv")
-names(obs.df)<-c("IT_DATETIME","DS_CODE","Q","x","y","SAT","DIFF")
-obs.df$IT_DATETIME<-as.Date(obs.df$IT_DATETIME)
-obs.df$day<-yday(obs.df$IT_DATETIME)
-obs.df$month<-month(obs.df$IT_DATETIME)
+```{r observations}
+obs.df <- fread("Rdata/sat_over_obs.csv")
+names(obs.df) <- c("IT_DATETIME","DS_CODE","Q","x","y","SAT","DIFF")
+obs.df$IT_DATETIME <- as.Date(obs.df$IT_DATETIME)
+obs.df$day <- yday(obs.df$IT_DATETIME)
+obs.df$month <- month(obs.df$IT_DATETIME)
 
 setkey(obs.df, day)
-
+obs.df <- obs.df[complete.cases(obs.df),]
 # summary_by_stationday <-data.obs[, mean(DIFF), by = .(year = year(IT_DATETIME),day=day,DS_CODE)]
 summary_by_year_day <- obs.df[, mean(DIFF), by = .(year = year(IT_DATETIME), day)]
 summary_by_year_month <- obs.df[, mean(DIFF), by = .(year = year(IT_DATETIME), month)]
@@ -54,9 +55,19 @@ fit2 <- gam(V1 ~ s(year) + s(month, bs = "cc"), data = summary_by_year_month)
 plot(fit2)
 ```
 
+## Training and test set
+```{r test/train}
+set.seed(999)
+trainIndex<-createDataPartition(obs.df$Q,p=0.80,list=FALSE)
+train<-obs.df[trainIndex,]
+setkey(train, day)
+test<-obs.df[-trainIndex,]  
+setkey(test, day)
+```
+
 ## Parallel cluster
 The caret models allow parallel computations. In the trainControl function it states: allowParallel=TRUE. So, therefore we only need to make a cluster with the doParallel packages using 2 lines of code. 
-```{r}
+```{r parallel}
 cl<-makeCluster(6)
 registerDoParallel(cl)
 ```
@@ -71,23 +82,27 @@ As we run in parallel and we want the results to be fully reproducable we have t
 * A list with all the available regression models can be found [online](http://topepo.github.io/caret/available-models.html), search for regression.
 * [parallel](http://stackoverflow.com/questions/13403427/fully-reproducible-parallel-models-using-caret)
 
-```{r}
+```{r train control}
 set.seed(123)
 seeds <- vector(mode = "list", length = 11)#length is = (n_repeats*nresampling)+1
-for(i in 1:30) seeds[[i]]<- sample.int(n=1000, 30) #(30 is the number of tuning parameter, mtry for rf, here equal to ncol(iris)-2)
+for(i in 1:30) seeds[[i]] <- sample.int(n=1000, 30) #(30 is the number of tuning parameter, mtry for rf, here equal to ncol(iris)-2)
 seeds[[31]]<-sample.int(1000, 1)
-#control list
-control<-trainControl(method="repeatedcv",repeats=3,index=createFolds(obs.df$Q),seeds=seeds) 
-length<-10 #for the tuneLength of the models
 
-sigmaRangeReduced<-sigest(as.matrix(obs.df$Q))[1]
-# svmRadialRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
-# svmLinearRGridReduced<-expand.grid(C=2^(seq(-4,4)))
-ctreeGridReduced<-expand.grid(mincriterion=seq(from=0.1,to=0.5,by=0.1))
-knnGridReduced<-expand.grid(.k=3:15)
-gbmGridReduced<-expand.grid(.shrinkage=c(0.1),.n.trees=3:5,.interaction.depth=4:6,.n.minobsinnode=3:5)
-earthGridReduced <- data.frame(.degree = 1, .nprune = (2:4)*2)
-fuzzyGridReduced <- expand.grid(num.labels=4,max.iter=4) #num.labels=3:10,max.iter=4:6
+
+indx <- createFolds(train , returnTrain = TRUE)
+# control<-trainControl(method="repeatedcv",repeats=3,index=createFolds(obs.df$Q),seeds=seeds) 
+control<-trainControl(method = "repeatedcv",
+                      repeats = 3,
+                      number = 10,
+                      index = train,
+                      seeds = seeds) 
+length <- 15 #for the tuneLength of the models
+
+controlObject <- trainControl(method = "repeatedcv",
+                              repeats = 3,
+                              number = 10,
+                              index = createFolds(train$Q),
+                              seeds = seeds)
 ```
 
 ### Train models
@@ -96,76 +111,312 @@ As we saw in the first section there is a relation between the ground based obse
 The best way of saving your models is by using the saveRDS command. This compressed data format can be read into R very fast, compared to the older commands in R you're also able to provide your loaded data with a name (thus not only the name you used to save the data). The stored models will be used to predict radiation for a larger area where no measurements are available. 
 
 One should note that not the "normal" train function is used but caret::train. The addition of caret:: alows to predict spatial data. For spatial predictions we then use a line like: raster::predict(model=final.model,object=satellite.grid)
-```{r}
-#Linear Models
-m1.lm <- caret::train(Q~SAT+day,data=obs.df,method="lm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
 
-m2.glm <- caret::train(Q~SAT+day,data=obs.df,method="glm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control)
+#### Linear Models
+```{r linear models}
+m1.lm <- caret::train(Q ~ SAT + day,
+                      data = train,
+                      method = "lm",
+                      preProcess = c("center","scale","BoxCox"),
+                      tuneLength = length,
+                      trControl = controlObject)
+saveRDS(m1.lm,file=paste0(save_dir,"lm.rds"))
 
-#Tree models
-m7.cubist <- caret::train(Q~SAT+day,data=obs.df,method="cubist",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+m2.glm <- caret::train(Q ~ SAT + day,
+                       data = train,
+                       method = "glm",
+                       preProcess = c("center","scale","BoxCox"),
+                       tuneLength = length,
+                       trControl = controlObject)
+saveRDS(m2.glm,file=paste0(save_dir,"glm.rds"))
 
-m10.earth <- caret::train(Q~SAT+day,data=obs.df,method="earth",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=earthGridReduced)
+# m3.gaussprLinear <- caret::train(Q ~ SAT + day,
+#                                  data = obs.df, 
+#                                  method = "gaussprLinear", 
+#                                  preProcess = c("center","scale","BoxCox"), 
+#                                  verbose = FALSE, 
+#                                  tuneLength = length, 
+#                                  trControl = controlObject)
+# saveRDS(m3.gaussprlinear,file=paste0(save_dir,"gaussprlinear.rds"))
+```
+
+#### Support Vector Machines
+```{r support vector machines, cache=TRUE}
+
+sigmaRangeReduced<-sigest(as.matrix(obs.df$Q))[1]
+svmRadialRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
+
+m4.svmRadial<-caret::train(Q ~ SAT + day,
+                           data = train,
+                           method = "svmRadial",
+                           preProcess = c("center","scale","BoxCox"),
+                           verbose = FALSE,
+                           tuneLength = length,
+                           trControl = controlObject,
+                           tuneGrid = svmRadialRGridReduced)
+saveRDS(m4.svmRadial,file=paste0(save_dir,"svmRadial.rds"))
+
+svmLinearRGridReduced<-expand.grid(C=2^(seq(-4,4)))
+
+m5.svmLinear<-caret::train(Q ~ SAT + day,
+                           data = train,
+                           method = "svmLinear",
+                           preProcess = c("center","scale","BoxCox"),
+                           verbose = FALSE,
+                           tuneLength = length,
+                           trControl = controlObject,
+                           tuneGrid = svmLinearRGridReduced)
+saveRDS(m5.svmLinear,file=paste0(save_dir,"svmLinear.rds"))
+```
+
+#### Tree models
+```{r tree models}
+m7.cubist <- caret::train(Q ~ SAT + day,
+                          data = train,
+                          method = "cubist",
+                          preProcess = c("center","scale","BoxCox"),
+                          verbose = FALSE,
+                          tuneLength = length,
+                          trControl = controlObject)
+saveRDS(m7.cubist,file=paste0(save_dir,"cubist.rds"))
+
+earthGridReduced <- data.frame(.degree = 1,
+                               .nprune = 2:25)
+
+m10.earth <- caret::train(Q ~ SAT + day,
+                          data = train,
+                          method = "earth",
+                          preProcess = c("center","scale","BoxCox"),
+                          tuneLength = length,
+                          trControl = controlObject,
+                          tuneGrid = earthGridReduced)
+saveRDS(m10.earth,file=paste0(save_dir,"earth.rds"))
 
 #Long runtime for the following tree based models 
 # m6.treebag <- caret::train(Q~SAT+day,data=obs.df,method="treebag",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
+# saveRDS(m6.treebag,file=paste0(save_dir,"treebag.rds"))
+# ctreeGridReduced<-expand.grid(mincriterion=seq(from=0.1,to=0.5,by=0.1))
 # m8.ctree <- caret::train(Q~SAT+day,data=obs.df,method="ctree",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=ctreeGridReduced)
+# saveRDS(m8.ctree,file=paste0(save_dir,"ctree.rds"))
 
-#K-nearest neighbors
-m9.knn <- caret::train(Q~SAT+day,data=obs.df,method="knn",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=knnGridReduced)
+```
 
-#Boosting
-m11.gbm <- caret::train(Q~SAT+day,data=obs.df,method="gbm",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=gbmGridReduced,verbose=FALSE)
+#### K-nearest neighbors
+```{r knn}
+knnGridReduced<-expand.grid(.k=3:15)
 
-#Fuzzy 
-m12.fuzzy <- caret::train(Q~SAT+day,data=obs.df,method="FIR.DM",preProcess=c("center","scale","BoxCox"),tuneLength=length,trControl=control,tuneGrid=fuzzyGridReduced)
+m9.knn <- caret::train(Q ~ SAT + day,
+                       data = train,
+                       method = "knn",
+                       preProcess = c("center","scale","BoxCox"),
+                       verbose = FALSE,
+                       tuneLength = length,
+                       trControl = controlObject,
+                       tuneGrid = knnGridReduced)
+saveRDS(m9.knn,file=paste0(save_dir,"knn.rds"))
+```
 
-#######
-#######NOT WORKING WITH A SMALL MEMORY
-#######
-# m3.gaussprLinear<-caret::train(Q~SAT+day,data=obs.df,method="gaussprLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control)
-# 
-# #Support Vector Models
-# m4.svmRadial<-caret::train(Q~SAT+day,data=obs.df,method="svmRadial",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmRadialRGridReduced)
-#  
-# m5.svmLinear<-caret::train(Q~SAT+day,data=obs.df,method="svmLinear",preProcess=c("center","scale","BoxCox"),verbose=FALSE,tuneLength=length,trControl=control,tuneGrid=svmLinearRGridReduced)
+#### Boosting
+```{r boosting}
+gbmGridReduced<-expand.grid(.shrinkage = c(0.1),
+                            .n.trees = 3:5,
+                            .interaction.depth = 4:6,
+                            .n.minobsinnode = 3:5)
 
-#save functions (uncomment to run)
-# saveRDS(m1.lm,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/lm.rds")
-# saveRDS(m2.glm,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/glm.rds")
-# saveRDS(m3.gaussprlinear,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/gaussprlinear.rds")
-# saveRDS(m4.svmRadial,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/svmRadial.rds")
-# saveRDS(m12.fuzzy,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/fuzzy.rds")
-# saveRDS(m6.treebag,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/treebag.rds")
-# 
-# saveRDS(m7.cubist,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/cubist.rds")
-# saveRDS(m8.ctree,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/ctree.rds")
-# saveRDS(m9.knn,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/knn.rds")
-# saveRDS(m10.earth,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/earth.rds")
-# saveRDS(m11.gbm,file="/nobackup/users/dirksen/radiation/Rdata/MLmodels/gbm.rds")
+m11.gbm <- caret::train(Q ~ SAT + day,
+                        data = train,
+                        method = "gbm",
+                        preProcess = c("center","scale","BoxCox"),
+                        tuneLength = length,
+                        trControl = controlObject,
+                        tuneGrid = gbmGridReduced,
+                        verbose = FALSE)
+saveRDS(m11.gbm,file=paste0(save_dir,"gbm.rds"))
+```
+
+<!-- #### Random Forest -->
+<!-- ```{r random forest} -->
+<!-- rfGridReduced <- expand.grid(mtry=2) -->
+
+<!-- m12.rf <- caret::train(Q ~ SAT + day, -->
+<!--                         data = train, -->
+<!--                         method = "rf", -->
+<!--                         preProcess = c("center","scale","BoxCox"), -->
+<!--                         tuneLength = length, -->
+<!--                         trControl = controlObject, -->
+<!--                         tuneGrid = rfGridReduced, -->
+<!--                         verbose = FALSE) -->
+<!-- # saveRDS(m12.rf,file=paste0(save_dir,"rf.rds")) -->
+<!-- ``` -->
+
+<!-- #### Fuzzy  -->
+<!-- ```{r fuzzy} -->
+<!-- fuzzyGridReduced <- expand.grid(num.labels=4,max.iter=4) #num.labels=3:10,max.iter=4:6 -->
+
+<!-- m12.fuzzy <- caret::train(Q ~ SAT + day, -->
+<!--                           data = train, -->
+<!--                           method = "FIR.DM", -->
+<!--                           #metric = "ROC", -->
+<!--                           preProcess = c("center","scale","BoxCox"), -->
+<!--                           tuneLength = length, -->
+<!--                           trControl = controlObject, -->
+<!--                           tuneGrid = fuzzyGridReduced) -->
+<!-- # saveRDS(m12.fuzzy,file=paste0(save_dir,"fuzzy.rds")) -->
+<!-- ``` -->
+
+#### Neural networks
+```{r neural networks}
+#adapted after page 366 Kuhn 2013
 
 
-# rm(cl)
+nnetGrid <- expand.grid(.size = 1:10, .decay = c(0.01 , .1))
+maxSize <- max(nnetGrid$.size)
+numWts <- 1*(maxSize * (length(obs.df) + 1) + maxSize + 1)
 
+m13.nnet <- caret::train(Q ~ SAT + day,
+                         data = train,
+                         method = "nnet",
+                         #metric = "ROC",
+                         preProcess = c("center","scale","spatialSign"),
+                         tuneGrid = nnetGrid,
+                         trace = FALSE,
+                         maxit = 2000 ,
+                         MaxNWts = numWts,
+                         linout = TRUE,            #For regression = TRUE
+                         trControl = controlObject)
+saveRDS(m13.nnet,file=paste0(save_dir,"nnet.rds"))
 ```
 
 ### The Results
 The caret package provides some easy to use commands for summarizing your results. With resamples we list all the models and are able to plot them with bwplot. Also, model difference can be seen with one line of code. 
-```{r}
-results<-resamples(list(lm=m1.lm,
-                        glm=m2.glm,
+```{r results}
+results<-resamples(list(lm = m1.lm,
+                        glm = m2.glm,
                         #gaussprLinear=m3.gaussprLinear,
-                        #svmRadial=m4.svmRadial,
-                        #svmLinear=m5.svmLinear,
+                        svmRadial=m4.svmRadial,
+                        svmLinear=m5.svmLinear,
                         #treebag=m6.treebag,
-                        cubist=m7.cubist,
+                        cubist = m7.cubist,
                         #ctreer=m8.ctree,
-                        knn=m9.knn,
-                        earth=m10.earth,
-                        gbm=m11.gbm,
-                        fuzzy=m12.fuzzy))
+                        knn = m9.knn,
+                        earth = m10.earth,
+                        gbm = m11.gbm,
+                        # rf = m12.rf,
+                        #fuzzy = m12.fuzzy,
+                        # rf = m12.rf
+                        nnet = m13.nnet))
 summary(results)
 bwplot(results,scales=list(relation="free"),xlim=list(c(0,90),c(0,1)))
 modelDifferences<-diff(results)
 print(modelDifferences)
+```
+
+## Predictions
+```{r predictions}
+lm.predict        <- raster::predict(m1.lm, newdata = test)
+glm.predict       <- raster::predict(m2.glm, newdata = test)
+svmRadial.predict <- raster::predict(m4.svmRadial, newdata = test)
+svmLinear.predict <- raster::predict(m5.svmLinear, newdata = test)
+cubist.predict    <- raster::predict(m7.cubist, newdata = test)
+knn.predict       <- raster::predict(m9.knn, newdata = test)
+earth.predict     <- raster::predict(m10.earth, newdata = test)
+gbm.predict       <- raster::predict(m11.gbm, newdata = test)
+#fuzzy.predict     <- raster::predict(m12.fuzzy, newdata = test)
+# rf.predict     <- raster::predict(m12.rf, newdata = test)
+nnet.predict      <- raster::predict(m13.nnet, newdata = test)
+
+```
+
+## Model evaluation
+```{r evaluation}
+#glm
+glm.diff<-glm.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,glm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,glm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("glm", outer = TRUE, cex = 1.5)
+
+#lm
+lm.diff<-lm.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,lm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,lm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("svmRadial", outer = TRUE, cex = 1.5)
+
+#svmRadial
+svmRadial.diff<-svmRadial.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,svmRadial.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,svmRadial.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("svmRadial", outer = TRUE, cex = 1.5)
+
+#svmLinear
+svmLinear.diff<-svmLinear.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,svmLinear.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,svmLinear.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("svmLinear", outer = TRUE, cex = 1.5)
+
+#cubist
+cubist.diff<-cubist.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,cubist.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,cubist.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("cubist", outer = TRUE, cex = 1.5)
+
+
+#knn
+knn.diff<-knn.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,knn.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,knn.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("knn", outer = TRUE, cex = 1.5)
+
+#earth
+earth.diff<-earth.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,earth.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,earth.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("earth", outer = TRUE, cex = 1.5)
+
+#gbm
+gbm.diff<-gbm.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,gbm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,gbm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("gbm", outer = TRUE, cex = 1.5)
+
+# #rf
+# rf.diff<-rf.predict-test$Q
+# 
+# par(mfrow=c(1,2))
+# plot(test$Q,rf.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+# plot(test$Q,rf.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+# abline(0,0)
+# mtext("rf", outer = TRUE, cex = 1.5)
+
+#nnet
+nnet.diff<-nnet.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,nnet.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,nnet.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("nnet", outer = TRUE, cex = 1.5)
 ```

@@ -76,6 +76,7 @@ if (length(which(is.na(r.NED.matrix)))>2000) {
   #             append=TRUE,sep=",",row.names=FALSE)
 } else {
   
+st<-stack(r.NED)  
 coords<-readRDS("Rdata/coordsKNMI.rda")
 
 obs<-fread("Rdata/radiation_KNMI_day_v2.csv")

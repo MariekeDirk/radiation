@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE,message=FALSE)
 
 ## Loading Library
 
-```{r}
+```{r library}
 library(adehabitat)
 library(lubridate)
 library(data.table)
@@ -22,20 +22,22 @@ library(rhdf5)
 pro=CRS("+init=epsg:28992")
 WGS84<-CRS("+init=epsg:4326")
 
-starttime<-as.POSIXct("2016-06-27")
-stoptime<-as.POSIXct("2016-06-30")
+starttime<-as.POSIXct("2016-05-27")
+stoptime<-as.POSIXct("2016-05-30")
 
 time.seq<-seq(from=starttime,to=stoptime,by="day")
 
-kleur.breaks<-seq(0,500,by=10)
+kleur.breaks<-seq(0,500,by=5)
 kleur.cols<-terrain.colors(length(kleur.breaks-1))
 
 savedir<-"/nobackup/users/dirksen/radiation/Rdata/MLPredictions/"
+
+
 ```
 
 ## Natural earth data for plotting
-Natural earth data is open source data, these small files are easilly projected. We create the object "fun" which will be used for the plotting routine of the raster stack. 
-```{r}
+Natural earth data is open source data, these small files are easilly projected. We create the object "fun" which will be used for the plotting routine of the raster stack. To create a file with all the figures lets try to make a [.ps file](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/postscript.html)
+```{r plottingdata}
 #Natural Earth dataset: unprojected shape files
 mymap.unpro=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_admin_0_countries',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
 mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
@@ -47,28 +49,43 @@ fun <- function() {
   plot(mymap.pro,add=TRUE)
   plot(mymap.pro_lakes,add=TRUE)
 }
+
+TestChars <- function(encoding = "ISOLatin1", family = "URWHelvetica")
+{
+postscript(file="/nobackup/users/dirksen/radiation/Rdata/MLPredictions/ps/test.ps",
+           #encoding = encoding, 
+           #family = family,
+           onefile = FALSE)
+plot(st,col=kleur.cols,breaks=kleur.breaks,legend=FALSE,addfun=fun)
+dev.off()
+}
+
 ```
 
 ## Models
 Here we load or models stored in the folder Rdata/MLmodels. ctree and treebag are large models and take a long time to run, if you want to add these models uncomment the lines. 
-```{r}
-list.files("Rdata/MLmodels/")
+```{r models}
+modelsdir<-"Rdata/MLmodels/finalModels/"
+list.files(modelsdir)
 
 #ctree <- readRDS("Rdata/MLmodels/ctree.rds")
-cubist <- readRDS("Rdata/MLmodels/cubist.rds")
-earth <- readRDS("Rdata/MLmodels/earth.rds")
+cubist <- readRDS(paste0(modelsdir,"cubist.rds"))
+nnet <- readRDS(paste0(modelsdir,"nnet.rds"))
+earth <- readRDS(paste0(modelsdir,"earth.rds"))
 #fuzzy <- readRDS("Rdata/MLmodels/fuzzy.rds")
-gbm <- readRDS("Rdata/MLmodels/gbm.rds")
-glm <- readRDS("Rdata/MLmodels/glm.rds")
-knn <- readRDS("Rdata/MLmodels/knn.rds")
-lm <- readRDS("Rdata/MLmodels/lm.rds")
+gbm <- readRDS(paste0(modelsdir,"gbm.rds"))
+glm <- readRDS(paste0(modelsdir,"glm.rds"))
+knn <- readRDS(paste0(modelsdir,"knn.rds"))
+lm <- readRDS(paste0(modelsdir,"lm.rds"))
+svmLinear <- readRDS(paste0(modelsdir,"svmLinear.rds"))
+svmRadial <- readRDS(paste0(modelsdir,"svmRadial.rds"))
 # treebag <- readRDS("Rdata/MLmodels/treebag.rds")
 
 ```
 
 ## Data Processing and Analysis
 Based on the time period that was selected the script searches for the satellite grids from that specific date. The satellite grid is created from the hdf5 file and then, note that due to the scan direction of the satellite we transpose the irradiance and flip the grid. The satellite grid is cropped to the extent of the Netherlands. To the raster stack we add the layers of the different predictions and the object as .rds.  
-```{r pressure, echo=FALSE}
+```{r analysis}
 for (i in 1:length(time.seq)){
 t<-time.seq[i]
 Y<-year(t)
@@ -141,14 +158,16 @@ st$gbm<-raster::predict(model=gbm,object=st)
 st$glm<-raster::predict(model=glm,object=st)
 st$lm<-raster::predict(model=lm,object=st)
 st$cubist<-raster::predict(model=cubist,object=st)
+st$nnet<-raster::predict(model=nnet,object=st)
+st$svmLinear<-raster::predict(model=svmLinear,object=st)
+st$svmRadial<-raster::predict(model=svmRadial,object=st)
 
 st<-dropLayer(st,2)
 
 savefile <- paste0(savedir,paste0(Y,M,D),".rds")
 saveRDS(st,savefile)
 
-
-plot(st,col=kleur.cols,breaks=kleur.breaks,legend=FALSE,addfun=fun)
+TestChars()
 }
 }
 }
