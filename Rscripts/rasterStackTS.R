@@ -117,58 +117,79 @@ fun <- function() {
   plot(mymap.pro_lakes,add=TRUE)
 }
 
-# list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
-list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
+# #########rts analysis
+
+# # list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
+# list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
+# # 
+# time.vector<-gsub(".grd","",list2)
+# time.vector<-as.POSIXct(time.vector,format="%Y%m%d")
+# # st<-stack(list)
+# # saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+# st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+# stts<-rts(st,time.vector)
 # 
-time.vector<-gsub(".grd","",list2)
-time.vector<-as.POSIXct(time.vector,format="%Y%m%d")
-# st<-stack(list)
-# saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-stts<-rts(st,time.vector)
-
-plot(stts[[1]],addfun=fun)
-#drawExtent()
-
-#########rts analysis
-# grd.ts<-rts(grd.test,time.vector)
-
-#MEAN values
-ends<-endpoints(stts,on='quarters')
-out<-period.apply(stts,ends,mean)
-
-ends2<-endpoints(out,on='months',13)
-out2<-period.apply(out,ends2,mean)
-
-#standard deviation
+# plot(stts[[1]],addfun=fun)
+# #drawExtent()
+# # grd.ts<-rts(grd.test,time.vector)
+# 
+# #MEAN values
 # ends<-endpoints(stts,on='quarters')
 # out<-period.apply(stts,ends,sd)
-
+# 
 # ends2<-endpoints(out,on='months',13)
 # out2<-period.apply(out,ends2,sd)
+# 
+# #standard deviation
+# # ends<-endpoints(stts,on='quarters')
+# # out<-period.apply(stts,ends,sd)
+# 
+# ends2<-endpoints(stts,on='months',13)
+# out2<-period.apply(stts,ends2,mean)
+# 
+# ends3<-endpoints(stts,'years',13)
+# out2<-period.apply(stts,ends3,sd)
+# ###################
+# ###################
+setwd("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/")
 
-ends3<-endpoints(stts,'years',13)
-out3<-period.apply(stts,ends3,sd)
+#read all the climatology data
+months_mean<-readRDS("months_mean.rds")
+months_sd<-readRDS("months_sd.rds")
+quarters_mean<-readRDS("quarters_mean.rds")
+quarters_sd<-readRDS("quarters_sd.rds")
+yearly_mean<-readRDS("yearly_mean.rds")
+yearly_sd<-readRDS("yearly_sd.rds")
+yearly12_mean<-readRDS("yearly12_mean.rds")
+yearly12_sd<-readRDS("yearly12_sd.rds")
 
-
+st<-yearly_sd
 ##Plotting routine
 #http://stackoverflow.com/questions/29828821/r-raster-avoid-white-space-when-plotting
-w <- ncol(out2)/max(dim(out2))
-h <- nrow(out2)/max(dim(out2))
-ext<-extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758)
-## Set up appropriately sized device with no borders and required coordinate system    
-## png("eg.png", width=480*w, height=480*h)
-dev.new(width=5*w, height=5*h)
 plot.new()
 par(mar=c(0,0,0,0), oma=c(0,0,0,0))
-plot.window(xlim=ext[1:2], ylim=ext[3:4], xaxs="i",yaxs="i")
+#plot.window(xlim=ext[1:2], ylim=ext[3:4], xaxs="i",yaxs="i")
+plot(st,addfun=fun,col=kleur.cols,legend=T)
 
+r<-months_mean
+r.range <- c(minValue(r), maxValue(r))
+r.range <- c(18, 145)
+plot(r, legend.only=TRUE, col=topo.colors(100),
+     legend.width=1, legend.shrink=0.75,
+     axis.args=list(at=seq(r.range[1], r.range[2],50),
+                    labels=seq(r.range[1], r.range[2],50), 
+                    cex.axis=0.6),
+     legend.args=list(text='W/m2', side=4, font=2, line=4.5, cex=0.8))
 ## Finally, plot the (sub-)raster to it
-st<-stack(out2@raster)
-names(st)<-c("Spring","Summer","Autumn","Winter")
+# st<-stack(out2@raster)
+# names(st)<-c("Spring","Summer","Autumn","Winter")
+# names(st)<-c("Jan","Feb","March","Apr","May","June","July","Aug","Sept","Okt","Nov","Dec")
 
-plot(st,addfun=fun,col=kleur.cols,legend=TRUE)
+#st<-dropLayer(st,"layer")
+# names(st)<-c("2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015")
+# plot(st,addfun=fun,col=kleur.cols,legend=TRUE)
 
+# saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/yearly12_sd.rds")
 ###############TREND ANALYSIS
 #information on grids
 plot(stts[[1]],addfun=fun)

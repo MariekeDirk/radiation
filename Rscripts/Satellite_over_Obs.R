@@ -4,6 +4,7 @@ library(data.table)
 library(raster)
 library(rgdal)
 library(rhdf5)
+library(SDMTools)
 
 pro=CRS("+init=epsg:28992")
 WGS84<-CRS("+init=epsg:4326")
@@ -107,7 +108,7 @@ if (i==1) {
   print(sat_over_obs)
 } else {names(sat_over_obs)<-NULL}
 
-write.table(sat_over_obs,file="/nobackup/users/dirksen/radiation/Rdata/sat_over_obs.csv",append=TRUE,sep=",",row.names = FALSE)
+write.table(sat_over_obs,file="/nobackup/users/dirksen/radiation/Rdata/sat_over_obs2.csv",append=TRUE,sep=",",row.names = FALSE)
 print(t)
 }
 }

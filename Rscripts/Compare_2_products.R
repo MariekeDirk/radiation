@@ -3,7 +3,8 @@ library(lubridate)
 library(ggplot2)
 library(mgcv)
 
-data.obs<-fread("Rdata/sat_over_obs.csv")
+
+data.obs<-fread("Rdata/sat_over_obs2.csv")
 names(data.obs)<-c("IT_DATETIME","DS_CODE","Q","DS_LON","DS_LAT","SAT","DIFF")
 data.obs$IT_DATETIME<-as.Date(data.obs$IT_DATETIME)
 data.obs$day<-yday(data.obs$IT_DATETIME)
@@ -60,4 +61,11 @@ points(data.obs$IT_DATETIME,fit$fitted.values,col="yellow",lwd=0.5,pch='.')
 # qplot(day,difference,data=summary_by_yday,geom=c("point","smooth")) #beginnen bij -2 einde bij 0
 # qplot(month,difference,data=summary_by_stationmonth,geom=c("boxplot","jitter"),group=month,color=DS_CODE)
 
+##HOW mutch data is available?
+nr.Sat<-length(time.vector)
 
+time.total<-seq(from=time.vector[1],to=time.vector[nr.Sat],by="days")
+
+nr.Tot<-length(time.total)
+
+available.data<-(nr.Sat/nr.Tot)*100
