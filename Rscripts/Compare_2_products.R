@@ -26,7 +26,17 @@ plot(fit1)
 fit2 <- gam(V1 ~ s(year) + s(month, bs = "cc"), data = summary_by_year_month)
 plot(fit2)
 
-fit <- gam(difference ~ s(day, bs="cc"), data = summary_by_yday)
+fit <- gam(DIFF ~ s(day, bs="cc"), data = data.obs)
+#95% interval
+p<-predict(fit,data.obs,se.fit=TRUE)
+upr<-p$fit+(2*p$se.fit)
+lwr<-p$fit-(2*p$se.fit)
+
+plot(data.obs$IT_DATETIME,data.obs$DIFF,pch=".",xlab="time [years]",ylab="difference solar irradiance [W/m2]")
+points(data.obs$IT_DATETIME,fit$fitted.values,col="yellow",lwd=0.5,pch='.')
+
+#points(data.obs$IT_DATETIME,upr,col="yellow",lwd=0.3,pch='-')
+#points(data.obs$IT_DATETIME,lwr,col="yellow",lwd=0.3,pch='-')
 
 # cols<-c("Q","SAT","DIFF")
 # #look at .SDcols<-cols
