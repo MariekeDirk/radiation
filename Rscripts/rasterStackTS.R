@@ -163,13 +163,14 @@ yearly_sd<-readRDS("yearly_sd.rds")
 yearly12_mean<-readRDS("yearly12_mean.rds")
 yearly12_sd<-readRDS("yearly12_sd.rds")
 
-st<-yearly_sd
+st<-quarters_mean
 ##Plotting routine
 #http://stackoverflow.com/questions/29828821/r-raster-avoid-white-space-when-plotting
 plot.new()
 par(mar=c(0,0,0,0), oma=c(0,0,0,0))
 #plot.window(xlim=ext[1:2], ylim=ext[3:4], xaxs="i",yaxs="i")
-plot(st,addfun=fun,col=kleur.cols,legend=T)
+plot(st,addfun=fun,col=kleur.cols,legend=T,
+     ext=extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
 
 r<-months_mean
 r.range <- c(minValue(r), maxValue(r))
