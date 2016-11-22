@@ -1,0 +1,43 @@
+---
+title: "Sunspot Data"
+author: "Marieke"
+date: "November 22, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+```
+
+## Sunspot data from NASA
+The sunspot data was downloaded [from the nasa website](http://solarscience.msfc.nasa.gov/greenwch.shtml). Files are up to date. Another link for sunspot data [is here](http://www.sidc.be/silso/datafiles). 
+
+Information [from nasa](http://solarscience.msfc.nasa.gov/greenwch.shtml):
+
+> In producing my butterfly diagram (142 kb GIF image) (184 kb pdf-file) (showing total sunspot area as a function of time and latitude) I have retained the RGO Spot Areas prior to 1977 as reported but increased the USAF/NOAA Spot Areas by a factor of 1.4 after 1976. The data plotted in the Butterfly Diagram is contained in a 453KB ASCII text file with a single record containing the Carrington rotation number followed by five records containing 10 values each of the total sunspot area (in units of millionths of a hemisphere) found in 50 latitude bins distributed uniformly in Sine(latitude). Text files containing the monthly averages of the daily sunspot areas (again in units of millionths of a hemisphere) are also available for the [full sun](http://solarscience.msfc.nasa.gov/greenwch/sunspot_area.txt), the [northern hemisphere](http://solarscience.msfc.nasa.gov/greenwch/sunspot_area_north.txt), and the [southern hemisphere](http://solarscience.msfc.nasa.gov/greenwch/sunspot_area_south.txt). Another [text file](http://solarscience.msfc.nasa.gov/greenwch/daily_area.txt) contains daily sunspot areas (1.51 Mb). These derived data include the correction factor of 1.4 for data after 1976. The missing days within the dataset are indicated by sunspot area values of -1 in the daily sunspot area file.
+
+### Daily greenwich 
+```{r}
+library(data.table)
+
+#solar.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/g2004.txt",sep="\t",sep2=" ",colClasses = "character")
+
+#solar.meta<-fread("http://services.swpc.noaa.gov/text/srs.txt",header=TRUE)
+
+sunspot.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/daily_area.txt",header=T,na.strings= "-1")
+
+sunspot.data$date<-as.POSIXct(paste0(sunspot.data$YYYY,"-",sunspot.data$MM,"-",sunspot.data$DD))
+
+plot(sunspot.data$date,sunspot.data$Total,pch=".",xlab="datum",ylab="daily averaged sunspot number")
+
+```
+
+### Montly greenwich 
+```{r}
+library(lubridate)
+sunspot.month.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/sunspot_area.txt",header=TRUE)
+
+sunspot.month.data$date<-as.POSIXct(paste0(sunspot.month.data$Year,"-",sunspot.month.data$Mon,"-01"),format="%Y-%m-%d")
+
+plot(sunspot.month.data$date,sunspot.month.data$Area,pch="o",xlab="datum",ylab="monthly averaged sunspot number")
+```
