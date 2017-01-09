@@ -119,16 +119,45 @@ fun <- function() {
 
 # #########rts analysis
 
-# # list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
-# list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
+# list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
+list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
 # # 
-# time.vector<-gsub(".grd","",list2)
-# time.vector<-as.POSIXct(time.vector,format="%Y%m%d")
-# # st<-stack(list)
-# # saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-# st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-# stts<-rts(st,time.vector)
-# 
+time.vector<-gsub(".grd","",list2)
+time.vector<-as.POSIXct(time.vector,format="%Y%m%d")
+# st<-stack(list)
+# saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+stts<-rts(st,time.vector)
+
+#mean for all quarters
+yq<-as.yearqtr(time.vector)
+indices<-format(yq,format="%q")
+mean.quarter <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
+names(mean.quarter)<-c("Q1","Q2","Q3","Q4")
+plot(mean.quarter)
+
+# saveRDS(mean.quarter,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_sd.rds")
+
+#mean for all months
+indices<-format(time.vector,format="%m")
+indices<-as.numeric(indices)
+
+mean.month <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
+names(mean.month)<-c("Jan","Feb","March","Apr","May","June","July","Aug","Sept","Okt","Nov","Dec")
+plot(mean.month)
+
+saveRDS(mean.month,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/months_sd.rds")
+
+#mean for all years
+indices<-format(time.vector,format="%Y")
+indices<-as.numeric(indices)
+
+mean.year <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
+#names(mean.month)<-c("Jan","Feb","March","Apr","May","June","July","Aug","Sept","Okt","Nov","Dec")
+plot(mean.year)
+
+saveRDS(mean.year,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/months_sd.rds")
+
 # plot(stts[[1]],addfun=fun)
 # #drawExtent()
 # # grd.ts<-rts(grd.test,time.vector)
@@ -163,7 +192,7 @@ yearly_sd<-readRDS("yearly_sd.rds")
 yearly12_mean<-readRDS("yearly12_mean.rds")
 yearly12_sd<-readRDS("yearly12_sd.rds")
 
-st<-quarters_mean
+st<-months_sd
 ##Plotting routine
 #http://stackoverflow.com/questions/29828821/r-raster-avoid-white-space-when-plotting
 plot.new()

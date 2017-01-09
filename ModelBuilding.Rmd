@@ -27,24 +27,46 @@ library(reshape)
 library(raster)
 library(rgdal)
 library(SDMTools)
+library(plyr)
+library(corrplot)
 pro=CRS("+init=epsg:28992")
 save_dir<-"/nobackup/users/dirksen/radiation/Rdata/MLmodels/finalModels/"
 ```
 
+## Additional data: sunspots
+```{r}
+sunspots_daily<-readRDS("/nobackup/users/dirksen/radiation/Rdata/sunspot_daily.rda")
+sunspots_daily$date<-as.Date(sunspots_daily$date)
+tail(sunspots_daily,n=50)
+
+sunspots_daily<-subset(sunspots_daily,select=c("Total","date"))
+names(sunspots_daily)<-c("spots","date")
+```
 ## Comparing the 2 products
 To compare the satellite data with the point measurements the R function over is used. The data was stored in the file "sat_over_obs.csv". Using the data.table package and mgcv package we made a summary of the results. We find that the differences between the two products are small. There is a yearly pattern in the data: during winter months the satellite derived products has slightly higher values (max around 3W/m2) while in summer the opposit is true. 
 ```{r observations}
 obs.df <- fread("Rdata/sat_over_obs.csv")
-names(obs.df) <- c("IT_DATETIME","DS_CODE","Q","x","y","SAT","DIFF")
-obs.df$IT_DATETIME <- as.Date(obs.df$IT_DATETIME)
-obs.df$day <- yday(obs.df$IT_DATETIME)
-obs.df$month <- month(obs.df$IT_DATETIME)
-
-setkey(obs.df, day)
+names(obs.df) <- c("date","DS_CODE","Q","x","y","SAT","DIFF")
+obs.df$date <- as.Date(obs.df$date)
+obs.df$day <- as.numeric(yday(obs.df$date))
+obs.df$month <- month(obs.df$date)
+obs.df$year <- year(obs.df$date)
+setkey(obs.df,date)
 obs.df <- obs.df[complete.cases(obs.df),]
+
+####################
+####################
+#Merging 2 datasets
+obs.df<-join(obs.df,sunspots_daily,by="date")
+####################
+####################
+modelpar<-subset(obs.df,select=c("Q","day","month","year","spots","SAT"))
+M<-cor(modelpar)
+corrplot(M,method="color")
+
 # summary_by_stationday <-data.obs[, mean(DIFF), by = .(year = year(IT_DATETIME),day=day,DS_CODE)]
-summary_by_year_day <- obs.df[, mean(DIFF), by = .(year = year(IT_DATETIME), day)]
-summary_by_year_month <- obs.df[, mean(DIFF), by = .(year = year(IT_DATETIME), month)]
+summary_by_year_day <- obs.df[, mean(DIFF), by = .(year = year(date), day)]
+summary_by_year_month <- obs.df[, mean(DIFF), by = .(year = year(date), month)]
 
 
 #fitting routines
@@ -58,11 +80,14 @@ plot(fit2)
 ## Training and test set
 ```{r test/train}
 set.seed(999)
-trainIndex<-createDataPartition(obs.df$Q,p=0.80,list=FALSE)
+trainIndex<-createDataPartition(modelpar$Q,p=0.80,list=FALSE)
 train<-obs.df[trainIndex,]
 setkey(train, day)
 test<-obs.df[-trainIndex,]  
 setkey(test, day)
+
+train<-data.frame(train)
+test<-data.frame(test)
 ```
 
 ## Parallel cluster
@@ -92,17 +117,19 @@ seeds[[31]]<-sample.int(1000, 1)
 indx <- createFolds(train , returnTrain = TRUE)
 # control<-trainControl(method="repeatedcv",repeats=3,index=createFolds(obs.df$Q),seeds=seeds) 
 control<-trainControl(method = "repeatedcv",
-                      repeats = 3,
-                      number = 10,
+                      repeats = 10,
+                      number = 2,
                       index = train,
-                      seeds = seeds) 
+                      seeds = seeds,
+                      returnData = FALSE) 
 length <- 15 #for the tuneLength of the models
 
 controlObject <- trainControl(method = "repeatedcv",
-                              repeats = 3,
-                              number = 10,
+                              repeats = 10,
+                              number = 2,
                               index = createFolds(train$Q),
-                              seeds = seeds)
+                              seeds = seeds,
+                              returnData = FALSE)
 ```
 
 ### Train models
@@ -114,16 +141,16 @@ One should note that not the "normal" train function is used but caret::train. T
 
 #### Linear Models
 ```{r linear models}
-m1.lm <- caret::train(Q ~ SAT + day,
-                      data = train,
+m1.lm <- caret::train(x=train[,4:length(train)],
+                      y=train[,3],
                       method = "lm",
                       preProcess = c("center","scale","BoxCox"),
                       tuneLength = length,
                       trControl = controlObject)
 saveRDS(m1.lm,file=paste0(save_dir,"lm.rds"))
 
-m2.glm <- caret::train(Q ~ SAT + day,
-                       data = train,
+m2.glm <- caret::train(x=train[,4:length(train)],
+                       y=train[,3],
                        method = "glm",
                        preProcess = c("center","scale","BoxCox"),
                        tuneLength = length,
@@ -146,8 +173,8 @@ saveRDS(m2.glm,file=paste0(save_dir,"glm.rds"))
 sigmaRangeReduced<-sigest(as.matrix(obs.df$Q))[1]
 svmRadialRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
 
-m4.svmRadial<-caret::train(Q ~ SAT + day,
-                           data = train,
+m4.svmRadial<-caret::train(x=train[,4:length(train)],
+                           y=train[,3],
                            method = "svmRadial",
                            preProcess = c("center","scale","BoxCox"),
                            verbose = FALSE,
@@ -158,8 +185,8 @@ saveRDS(m4.svmRadial,file=paste0(save_dir,"svmRadial.rds"))
 
 svmLinearRGridReduced<-expand.grid(C=2^(seq(-4,4)))
 
-m5.svmLinear<-caret::train(Q ~ SAT + day,
-                           data = train,
+m5.svmLinear<-caret::train(x=train[,4:length(train)],
+                           y=train[,3],
                            method = "svmLinear",
                            preProcess = c("center","scale","BoxCox"),
                            verbose = FALSE,
@@ -171,8 +198,8 @@ saveRDS(m5.svmLinear,file=paste0(save_dir,"svmLinear.rds"))
 
 #### Tree models
 ```{r tree models}
-m7.cubist <- caret::train(Q ~ SAT + day,
-                          data = train,
+m7.cubist <- caret::train(x=train[,4:length(train)],
+                          y=train[,3],
                           method = "cubist",
                           preProcess = c("center","scale","BoxCox"),
                           verbose = FALSE,
@@ -183,8 +210,8 @@ saveRDS(m7.cubist,file=paste0(save_dir,"cubist.rds"))
 earthGridReduced <- data.frame(.degree = 1,
                                .nprune = 2:25)
 
-m10.earth <- caret::train(Q ~ SAT + day,
-                          data = train,
+m10.earth <- caret::train(x=train[,4:length(train)],
+                          y=train[,3],
                           method = "earth",
                           preProcess = c("center","scale","BoxCox"),
                           tuneLength = length,
@@ -205,8 +232,8 @@ saveRDS(m10.earth,file=paste0(save_dir,"earth.rds"))
 ```{r knn}
 knnGridReduced<-expand.grid(.k=3:15)
 
-m9.knn <- caret::train(Q ~ SAT + day,
-                       data = train,
+m9.knn <- caret::train(x=train[,4:length(train)],
+                       y=train[,3],
                        method = "knn",
                        preProcess = c("center","scale","BoxCox"),
                        verbose = FALSE,
@@ -223,8 +250,8 @@ gbmGridReduced<-expand.grid(.shrinkage = c(0.1),
                             .interaction.depth = 4:6,
                             .n.minobsinnode = 3:5)
 
-m11.gbm <- caret::train(Q ~ SAT + day,
-                        data = train,
+m11.gbm <- caret::train(x=train[,4:length(train)],
+                        y=train[,3],
                         method = "gbm",
                         preProcess = c("center","scale","BoxCox"),
                         tuneLength = length,
@@ -273,8 +300,8 @@ nnetGrid <- expand.grid(.size = 1:10, .decay = c(0.01 , .1))
 maxSize <- max(nnetGrid$.size)
 numWts <- 1*(maxSize * (length(obs.df) + 1) + maxSize + 1)
 
-m13.nnet <- caret::train(Q ~ SAT + day,
-                         data = train,
+m13.nnet <- caret::train(x=train[,4:length(train)],
+                         y=train[,3],
                          method = "nnet",
                          #metric = "ROC",
                          preProcess = c("center","scale","spatialSign"),
@@ -345,7 +372,7 @@ par(mfrow=c(1,2))
 plot(test$Q,lm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
 plot(test$Q,lm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
 abline(0,0)
-mtext("svmRadial", outer = TRUE, cex = 1.5)
+mtext("lm", outer = TRUE, cex = 1.5)
 
 #svmRadial
 svmRadial.diff<-svmRadial.predict-test$Q

@@ -20,16 +20,19 @@ Information [from nasa](http://solarscience.msfc.nasa.gov/greenwch.shtml):
 ```{r}
 library(data.table)
 
-#solar.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/g2004.txt",sep="\t",sep2=" ",colClasses = "character")
+# solar.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/g2004.txt",sep="\t",sep2=" ",colClasses = "character")
 
 #solar.meta<-fread("http://services.swpc.noaa.gov/text/srs.txt",header=TRUE)
 
-sunspot.data<-fread("http://solarscience.msfc.nasa.gov/greenwch/daily_area.txt",header=T,na.strings= "-1")
+sunspot.data<-fread("/nobackup/users/dirksen/radiation/Rdata/sunspot_daily.txt",header=T,na.strings= "-1")
 
 sunspot.data$date<-as.POSIXct(paste0(sunspot.data$YYYY,"-",sunspot.data$MM,"-",sunspot.data$DD))
 
+sunspot.data[sunspot.data==-1]<-NA
+
 plot(sunspot.data$date,sunspot.data$Total,pch=".",xlab="datum",ylab="daily averaged sunspot number")
 
+saveRDS(sunspot.data,"/nobackup/users/dirksen/radiation/Rdata/sunspot_daily.rda")
 ```
 
 ### Montly greenwich 

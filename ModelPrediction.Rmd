@@ -18,6 +18,8 @@ library(data.table)
 library(raster)
 library(rgdal)
 library(rhdf5)
+library(doParallel)
+library(foreach)
 
 pro=CRS("+init=epsg:28992")
 WGS84<-CRS("+init=epsg:4326")
@@ -32,7 +34,7 @@ kleur.cols<-terrain.colors(length(kleur.breaks-1))
 
 savedir<-"/nobackup/users/dirksen/radiation/Rdata/MLPredictions/"
 
-
+registerDoParallel(6)
 ```
 
 ## Natural earth data for plotting
@@ -86,7 +88,7 @@ svmRadial <- readRDS(paste0(modelsdir,"svmRadial.rds"))
 ## Data Processing and Analysis
 Based on the time period that was selected the script searches for the satellite grids from that specific date. The satellite grid is created from the hdf5 file and then, note that due to the scan direction of the satellite we transpose the irradiance and flip the grid. The satellite grid is cropped to the extent of the Netherlands. To the raster stack we add the layers of the different predictions and the object as .rds.  
 ```{r analysis}
-for (i in 1:length(time.seq)){
+foreach(i=1:length(time.seq),.packages = c("rhdf5","raster","rgdal","data.table","lubridate","adehabitat")) %dopar% {
 t<-time.seq[i]
 Y<-year(t)
 M<-month(t)
@@ -152,6 +154,10 @@ if (length(which(is.na(r.NED.matrix)))>2000) {
 
 st<-stack(r.NED)
 st$day<-yday(t)
+st$month<-month(t)
+st$year<-year(t)
+
+
 st$knn<-raster::predict(model=knn,object=st)
 st$earth<-raster::predict(model=earth,object=st)
 st$gbm<-raster::predict(model=gbm,object=st)
