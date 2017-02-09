@@ -15,6 +15,7 @@ Here we use the caret package to built machine learning models to create a solar
 
 ## Loading library
 ```{r library}
+.libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
 library(data.table)
 library(lubridate)
 library(mgcv)
@@ -60,7 +61,7 @@ obs.df <- obs.df[complete.cases(obs.df),]
 obs.df<-join(obs.df,sunspots_daily,by="date")
 ####################
 ####################
-modelpar<-subset(obs.df,select=c("Q","day","month","year","spots","SAT"))
+modelpar<-subset(obs.df,select=c("Q","day","month","year","spots","SAT","x","y"))
 M<-cor(modelpar)
 corrplot(M,method="color")
 
@@ -93,8 +94,11 @@ test<-data.frame(test)
 ## Parallel cluster
 The caret models allow parallel computations. In the trainControl function it states: allowParallel=TRUE. So, therefore we only need to make a cluster with the doParallel packages using 2 lines of code. 
 ```{r parallel}
-cl<-makeCluster(6)
-registerDoParallel(cl)
+# cl<-makeCluster(8)
+# registerDoParallel(cl)
+
+library(doMC)
+registerDoMC(cores = 8)
 ```
 
 ## Building Machine Learning Algorithms
@@ -168,9 +172,9 @@ saveRDS(m2.glm,file=paste0(save_dir,"glm.rds"))
 ```
 
 #### Support Vector Machines
-```{r support vector machines, cache=TRUE}
+```{r support vector machines}
 
-sigmaRangeReduced<-sigest(as.matrix(obs.df$Q))[1]
+sigmaRangeReduced<-sigest(as.matrix(modelpar$Q))[1]
 svmRadialRGridReduced<-expand.grid(.sigma=sigmaRangeReduced,.C=2^(seq(-4,4)))
 
 m4.svmRadial<-caret::train(x=train[,4:length(train)],
@@ -206,6 +210,15 @@ m7.cubist <- caret::train(x=train[,4:length(train)],
                           tuneLength = length,
                           trControl = controlObject)
 saveRDS(m7.cubist,file=paste0(save_dir,"cubist.rds"))
+
+m8.rpart <- caret::train(x=train[,4:length(train)],
+                          y=train[,3],
+                          method = "rpart",
+                          preProcess = c("center","scale","BoxCox"),
+                          verbose = FALSE,
+                          tuneLength = length,
+                          trControl = controlObject)
+saveRDS(m8.rpart,file=paste0(save_dir,"rpart.rds"))
 
 earthGridReduced <- data.frame(.degree = 1,
                                .nprune = 2:25)

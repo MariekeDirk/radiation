@@ -1,0 +1,180 @@
+---
+title: "ModelBuilding"
+author: "Marieke"
+date: "October 27, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+```
+## Introduction
+This code is built using the online github documentation of the caret package of Max Kuhn, [The caret Package](http://topepo.github.io/caret/index.html). Also the book [Applied predictive modeling by Max Kuhn and Kjel Johnson, 2013](http://www.amazon.com/Applied-Predictive-Modeling-Max-Kuhn/dp/1461468485/ref=pd_bxgy_b_img_z) was used. [Previous studies](http://www.sciencedirect.com/science/article/pii/S2211675315000482) also used the same the same approache.
+
+Here we use the caret package to built machine learning models to create a solar irradiance model. As input we use satellite data and ground based observations. We found that there is a small sinus yearly trend in the differences between the two products. Therefore also the day of the year is included as an additional explanatory variable for the differences between the two products. 
+
+## Loading library
+```{r library}
+.libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+library(data.table)
+library(lubridate)
+library(mgcv)
+library(adehabitat)
+library(automap)
+library(caret)
+library(doParallel)
+library(kernlab)
+library(reshape)
+library(raster)
+library(rgdal)
+library(SDMTools)
+library(plyr)
+library(corrplot)
+library(ggplot2)
+pro=CRS("+init=epsg:28992")
+save_dir<-"/nobackup/users/dirksen/radiation/Rdata/MLmodels/Linear_models/"
+```
+
+
+## Comparing the 2 products
+To compare the satellite data with the point measurements the R function over is used. The data was stored in the file "sat_over_obs.csv". Using the data.table package and mgcv package we made a summary of the results. We find that the differences between the two products are small. There is a yearly pattern in the data: during winter months the satellite derived products has slightly higher values (max around 3W/m2) while in summer the opposit is true. 
+
+To start with, a simple linear model is built using the ground based measurements of solar irradiance to predict the satellite radiation product. 
+```{r observations}
+obs.df <- fread("Rdata/sat_over_obs2.csv")
+names(obs.df) <- c("date","DS_CODE","Q","x","y","SAT","DIFF")
+obs.df$date <- as.Date(obs.df$date)
+obs.df$day <- yday(obs.df$date)
+setkey(obs.df,date)
+
+#plot for each individual station
+ggplot(data=obs.df,aes(x=date,y=DIFF)) +
+  geom_point(size=1) +
+  facet_wrap(~DS_CODE)
+
+#Q(1) What is the mean difference/bias for each station?
+#Q(2) Are station 215 and 323 the same stations?
+#Q(3) How does the model deal with different biasses? 
+
+#Subquestion: do the "outliers" influence our fit?
+obs.df.smalldiff<-obs.df[which(obs.df$DIFF<60 & obs.df$DIFF>-60)]
+obs.df.smalldiff<-subset(obs.df.smalldiff,select=c("Q","SAT"))
+
+obs.df<-subset(obs.df,select=c("Q","SAT"))
+obs.df <- obs.df[complete.cases(obs.df),]
+
+
+ggplot(data=obs.df,aes(x=Q,y=SAT))+
+  geom_point()
+
+
+```
+
+## Training and test set
+For an independent validation set the data is split into a train and test set. 
+
+```{r test/train}
+set.seed(999)
+trainIndex<-createDataPartition(obs.df$Q,p=0.80,list=FALSE)
+train<-obs.df[trainIndex,]
+# setkey(train, day)
+test<-obs.df[-trainIndex,]  
+# setkey(test, day)
+
+train<-data.frame(train)
+test<-data.frame(test)
+```
+
+```{r smalldiff test/train}
+trainIndex.smalldiff<-createDataPartition(obs.df.smalldiff$Q,p=0.80,list=FALSE)
+train.smalldiff<-obs.df.smalldiff[trainIndex.smalldiff,]
+# setkey(train, day)
+test.smalldiff<-obs.df.smalldiff[-trainIndex.smalldiff,]  
+# setkey(test, day)
+
+train.smalldiff<-data.frame(train.smalldiff)
+test.smalldiff<-data.frame(test.smalldiff)
+
+```
+## Online example
+lets first try to reproduce the [online](https://www.r-bloggers.com/a-quick-introduction-to-machine-learning-in-r-with-caret/) example with our dataset.
+
+```{r online}
+model.obs_lm <- train(Q~SAT,
+                      data=train,
+                      method="lm")
+# saveRDS(model.obs_lm,file=paste0(save_dir,"lm.rds"))
+
+coef.icept <- coef(model.obs_lm$finalModel)[1]
+coef.slope <- coef(model.obs_lm$finalModel)[2]
+formula_lm<-as.character(as.expression(paste0("y = ",round(coef.slope,2),"x ",round(coef.icept,2))))
+# dftext <- data.frame(x=50,y=300,eq=formula_lm)
+
+ggplot(data=train,aes(x=Q,y=SAT)) +
+  geom_point() +
+  geom_abline(slope=coef.slope,intercept=coef.icept,color="red")  
+```
+
+## What's in the model?
+The model we built used a linear regression. The model uses a bootstrapped method. Here the data is resampled, in this case 25 times, based on statistics. 
+```{r the model}
+formula_lm
+model.obs_lm
+```
+## Testing if everything is ok
+
+```{r test}
+lm.predict<-predict(model.obs_lm,newdata=test)
+lm.diff<-lm.predict-test$Q
+
+par(mfrow=c(1,2))
+plot(test$Q,lm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test$Q,lm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("lm", outer = TRUE, cex = 1.5)
+
+
+```
+
+## Data subset with differences between +60W/m2 and -60W/m2
+Analysing the data subset without extreme outliers shows the fit is barely influenenced. 
+```{r smalldiff}
+model.obs_lm_2 <- train(Q~SAT,
+                      data=train.smalldiff,
+                      method="lm")
+# saveRDS(model.obs_lm,file=paste0(save_dir,"lm.rds"))
+
+coef.icept <- coef(model.obs_lm_2$finalModel)[1]
+coef.slope <- coef(model.obs_lm_2$finalModel)[2]
+formula_lm_2<-as.character(as.expression(paste0("y = ",round(coef.slope,2),"x ",round(coef.icept,2))))
+# dftext <- data.frame(x=50,y=300,eq=formula_lm)
+
+ggplot(data=train.smalldiff,aes(x=Q,y=SAT)) +
+  geom_point() +
+  geom_abline(slope=coef.slope,intercept=coef.icept,color="red")  
+
+```
+
+```{r}
+formula_lm_2
+model.obs_lm_2
+```
+
+```{r}
+lm.predict<-predict(model.obs_lm_2,newdata=test.smalldiff)
+lm.diff<-lm.predict-test.smalldiff$Q
+
+par(mfrow=c(1,2))
+plot(test.smalldiff$Q,lm.predict,type="p",col="blue",pch=20,xlab="observed",ylab="predicted")
+plot(test.smalldiff$Q,lm.diff,type="p",col="blue",pch=20,xlab="observed",ylab="difference")
+abline(0,0)
+mtext("lm", outer = TRUE, cex = 1.5)
+```
+
+## To be continued
+This analysis resulted in a fit (`r formula_lm`) which has a RMSE value of `r round(model.obs_lm$results$RMSE,2)` and a `r round(model.obs_lm$results$Rsquared,2)`. This already is a good result, but some things can be improved. 
+
+> With this analysis we ignored the time component. One posibility is to create multiple test and train sets within time with createTimeSlices. This would assume the previous days are correlated to the next, which is some sort of forecasting technique. But, as the differences between the datasets seem to differ with specific meteorological conditions (snow and cirrus) this would be, in my opinion a mistake. First, a more detailed analysis with the specific circomstances under which these differences occur would be in place. Next, with this knowlegde the models can be improved. 
+
+### Some notes
+To include the previous day(s) see function ?lag. Or this [online post](http://stats.stackexchange.com/questions/108417/how-to-perform-proper-data-mining-on-time-series-data). 

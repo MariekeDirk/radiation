@@ -84,7 +84,12 @@ svmRadial <- readRDS(paste0(modelsdir,"svmRadial.rds"))
 # treebag <- readRDS("Rdata/MLmodels/treebag.rds")
 
 ```
-
+```{r additionaldata}
+sunspots_daily<-readRDS("/nobackup/users/dirksen/radiation/Rdata/sunspot_daily.rda")
+sunspots_daily$date<-as.Date(sunspots_daily$date)
+sunspots_daily<-subset(sunspots_daily,select=c("Total","date"))
+names(sunspots_daily)<-c("spots","date")
+```
 ## Data Processing and Analysis
 Based on the time period that was selected the script searches for the satellite grids from that specific date. The satellite grid is created from the hdf5 file and then, note that due to the scan direction of the satellite we transpose the irradiance and flip the grid. The satellite grid is cropped to the extent of the Netherlands. To the raster stack we add the layers of the different predictions and the object as .rds.  
 ```{r analysis}
@@ -152,11 +157,15 @@ if (length(which(is.na(r.NED.matrix)))>2000) {
   #             append=TRUE,sep=",",row.names=FALSE)
 } else {
 
+#additional data for the models
+spots<-sunspots_daily[which(sunspots_daily$date==t),]
+
 st<-stack(r.NED)
 st$day<-yday(t)
 st$month<-month(t)
 st$year<-year(t)
-
+st$spots<-spots$spots
+#are st$x and st$y included???
 
 st$knn<-raster::predict(model=knn,object=st)
 st$earth<-raster::predict(model=earth,object=st)
