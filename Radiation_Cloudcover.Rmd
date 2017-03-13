@@ -1,0 +1,136 @@
+---
+title: "Radiation and cloud cover"
+author: "Marieke"
+date: "February 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+```
+## Introduction
+Does cloud cover change the differences between the solar radiation products for the ground based measurements and the satellite measurements?
+
+## Loading library
+```{r library}
+.libPaths("/usr/people/dirksen/R-20160725/x86_64-redhat-linux-gnu-library/3.3/")
+library(data.table)
+library(lubridate)
+library(mgcv)
+library(adehabitat)
+library(automap)
+library(caret)
+library(doParallel)
+library(kernlab)
+library(reshape)
+library(raster)
+library(rgdal)
+library(SDMTools)
+library(plyr)
+library(corrplot)
+library(ggplot2)
+pro=CRS("+init=epsg:28992")
+save_dir<-"/nobackup/users/dirksen/radiation/Rdata/MLmodels/Linear_models/"
+```
+
+
+## Comparing the 2 products
+To compare the satellite data with the point measurements the R function over is used. The data was stored in the file "sat_over_obs.csv". Using the data.table package and mgcv package we made a summary of the results. We find that the differences between the two products are small. There is a yearly pattern in the data: during winter months the satellite derived products has slightly higher values (max around 3W/m2) while in summer the opposit is true. 
+
+To start with, a simple linear model is built using the ground based measurements of solar irradiance to predict the satellite radiation product. 
+```{r observations}
+obs.df <- fread("Rdata/sat_over_obs2.csv")
+names(obs.df) <- c("date","DS_CODE","Q","x","y","SAT","DIFF")
+obs.df$date <- as.Date(obs.df$date)
+obs.df$day <- yday(obs.df$date)
+obs.df$STN<-gsub("_H","",obs.df$DS_CODE)
+setkey(obs.df,date)
+
+#plot for each individual station
+ggplot(data=obs.df,aes(x=date,y=DIFF)) +
+  geom_point(size=1) +
+  facet_wrap(~DS_CODE)
+
+#Q(1) What is the mean difference/bias for each station?
+#Q(2) Are station 215 and 323 the same stations?
+
+# obs.df<-subset(obs.df,select=c("Q","SAT"))
+obs.df <- obs.df[complete.cases(obs.df),]
+
+
+ggplot(data=obs.df,aes(x=Q,y=SAT))+
+  geom_point()
+
+
+```
+
+```{r cloud cover}
+cloudcover<-readRDS("Rdata/cloudcover.rda")
+cloudcover$DATE<-as.Date(cloudcover$DATE)
+
+obs.Q.NG<-merge(obs.df,cloudcover,by.x=c("STN","date"),by.y=c("STN","DATE"))
+
+ggplot(data=obs.Q.NG,aes(x=Q,y=SAT))+
+  geom_point(aes(colour=factor(NG)))
+
+q50<-aggregate(DIFF~NG,obs.Q.NG,FUN='quantile',probs=0.5)
+q50$DIFF<-round(q50$DIFF,2)
+
+ggplot(data=obs.Q.NG,aes(NG,DIFF)) +
+  geom_boxplot() +
+  coord_cartesian(ylim=c(-10,10)) +
+  # ylim(-10,10) + # fit does change! Also boxplots do change!
+  geom_smooth(method="loess",se=FALSE,color="blue",aes(group=1)) +
+  geom_text(data=q50,aes(label=DIFF,y=DIFF-0.85)) +
+  xlab("cloud cover [octa]") +
+  ylab("difference [W/m2]") 
+  
+  
+
+
+```
+
+
+```{r sun}
+sunshine<-readRDS("Rdata/sunshine.rda")
+
+obs.Q.S<-merge(obs.df,sunshine,by.x=c("STN","date"),by.y=c("DS_CODE","IT_DATETIME"))
+
+ggplot(data=obs.Q.S,aes(x=Q,y=SAT))+
+  geom_point(aes(colour=factor(REH1.SQ24)))
+
+ggplot(data=obs.Q.S,aes(REH1.SQ24,DIFF)) +
+  geom_boxplot() +
+  coord_cartesian(ylim=c(-10,10)) +
+  # ylim(-10,10) + # fit does change! Also boxplots do change!
+  geom_smooth(method="loess",se=FALSE,color="blue",aes(group=1)) +
+  # geom_text(data=q50,aes(label=DIFF,y=DIFF-0.85)) +
+  xlab("sunshine duration [hours]") +
+  ylab("difference [W/m2]") 
+```
+```{r snow}
+snow<-readRDS("/nobackup/users/dirksen/radiation/Rdata/snow.rda")
+snow$DATE<-as.Date(snow$DATE,format="%Y%m%d")
+
+snowobs<-merge(obs.df,snow,by.x=c("STN","date"),by.y=c("DS_CODE","DATE"))
+
+snowobs<-snowobs[which(snowobs$SNOW!= "997" & snowobs$SNOW!= "998" & snowobs$SNOW!= "999"),]
+snowobs$SNOW.num<-as.numeric(snowobs$SNOW)
+setkey(snowobs,SNOW.num)
+
+q50<-aggregate(DIFF~SNOW,snowobs,FUN='quantile',probs=0.5)
+q50$DIFF<-round(q50$DIFF,2)
+
+ggplot(data=snowobs,aes(SNOW.num,DIFF)) +
+  geom_point() +
+  # coord_cartesian(ylim=c(-10,10)) +
+  # ylim(-10,10) + # fit does change! Also boxplots do change!
+  # geom_smooth(method="glm",se=FALSE,color="blue",aes(group=1)) +
+  # geom_text(data=q50,aes(label=DIFF,y=DIFF-2),size=2.5) +
+  stat_smooth() +
+  xlab("snow [cm]") +
+  ylab("difference [W/m2]") 
+```
+
+
+

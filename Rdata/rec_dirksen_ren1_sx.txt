@@ -1,0 +1,33 @@
+
+
+Recordbeschrijving van file: 
+
+Positie: 01-05, stationsnummer.          
+            06, komma   
+         07-14, datum (jjjjmmdd jjjj=jaar, mm=maand, dd=dag).
+            15, komma
+         16-21, de hoogte van het sneeuwdek(SX) om 800 UT in cm.
+ 
+Indien een gegeven ontbreekt dan spaties op de betreffende posities.
+
+
+geen sneeuw             = 0
+
+gebroken dek < 1 cm     = 997
+
+gebroken dek > 1 cm     = 998
+
+gesloten gem <1 cm      = 1
+
+1-2 cm                  = 2
+
+3-5 cm                  = 4
+
+6-10 cm                 = 8
+
+11-20 cm                = 15
+
+> 20 cm                 = 23
+
+Opgewaaid tot sneeuwhopen = 999       
+

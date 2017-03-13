@@ -108,7 +108,7 @@ if (D<=9) {
   D<-paste0(0,D)
 } else {print(D)}
 
-file.loc<-"/net/pc150398/nobackup_1/users/meirink/siccs_wouter/SICCS/daymean/harmonie_proj/year"
+file.loc<-"/net/pc150398/nobackup_1/users/meirink/wouter_greuell/SICCS/daymean/harmonie_proj/year"
 file.loc<-gsub("year",Y,file.loc)
 files.in.loc<-list.files(file.loc,pattern=".h5")
 

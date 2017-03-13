@@ -65,7 +65,9 @@ obs.df <- obs.df[complete.cases(obs.df),]
 
 
 ggplot(data=obs.df,aes(x=Q,y=SAT))+
-  geom_point()
+  geom_point() +
+  stat_density_2d(aes(fill=..level..),geom="polygon") 
+  
 
 
 ```
@@ -151,6 +153,7 @@ formula_lm_2<-as.character(as.expression(paste0("y = ",round(coef.slope,2),"x ",
 
 ggplot(data=train.smalldiff,aes(x=Q,y=SAT)) +
   geom_point() +
+  stat_density_2d(aes(fill=..level..),geom="polygon") +
   geom_abline(slope=coef.slope,intercept=coef.icept,color="red")  
 
 ```
