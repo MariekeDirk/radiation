@@ -5,3 +5,5 @@ Rdata/MLmodels
 Rdata/MLPredictions
 functions
 Rdata/Satellite_data/temp
+Rdata/Kriging
+Rdata/SNOW
