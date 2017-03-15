@@ -11,8 +11,10 @@ library(rgdal)
 library(sp)
 library(rgeos)
 library(graphics)
-
-mainpath<-"/nobackup/users/dirksen/radiation/Rdata"
+library(automap)
+##################################################
+# Loading the maps
+##################################################
 pro=CRS("+init=epsg:28992")
 mymap.unpro=readOGR(dsn='/nobackup/users/dirksen/radiation/Rdata/NaturalEarthData/ne_10m_admin_0_countries/',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
 mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
@@ -20,29 +22,49 @@ mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
 mymap.unpro_lakes=readOGR(dsn='/nobackup/users/dirksen/radiation/Rdata/NaturalEarthData/ne_10m_lakes/',layer="ne_10m_lakes") # Read in (unprojected) map data
 
 mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
+##################################################
+##################################################
 
-output.sum<-list.files("/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/",pattern = ".txt",full.names = T)
-r.kriging<-list.files("/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/",pattern = ".rda",full.names = T)
-r.kriging.predictions<-list.files("/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/",pattern = ".grd",full.names = T)
-r.kriging.dates<-list.files("/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/",pattern = ".rda")
+##################################################
+# Folders were the data from radiation is stored
+##################################################
+mainpath<-"/nobackup/users/dirksen/radiation/Rdata"
+
+output.sum<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".txt",full.names = T)
+r.kriging<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".rda",full.names = T)
+r.kriging.predictions<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".grd",full.names = T)
+r.kriging.dates<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".rda")
 r.kriging.dates<-as.Date(r.kriging.dates,format="ked_exp_model_%Y-%m-%d.rda")
-satellitegrids<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = T)
+satellitegrids<-list.files(paste0(mainpath,"/Satellite_data/temp/"),pattern=".grd",full.names = T)
 # coords.knmi<-readRDS("/nobackup/users/dirksen/radiation/Rdata/coordsKNMI.rda")
 
 output.sum<-fread(output.sum)
 
-coordsRD<-readRDS("/nobackup/users/dirksen/radiation/Rdata/coordsRDknmi.rda")
+coordsRD<-readRDS(paste0(mainpath,"/coordsRDknmi.rda"))
 
 output.sum<-merge(output.sum,coordsRD,by.x=c("x","y"),by.y=c("x","y"))
 
 output.sum<-subset(output.sum,select=c("date","SAT","DS_CODE","x","y","observed","residual","var1.pred","r2","rmse","rmse_sd","me"))
+##################################################
+##################################################
 
+##################################################
+# Locations were the Temperature data is stored
+
+#To do: rerun the analysis and store in the same way as radiation!
+r.kriging<-list.files("/run/media/dirksen/Elements/Final_R_scripts/R_scripts_HARMONIE/output_HARMONIE/output_int_day/ked_exp_prediction/",pattern=".asc")
+
+r.harmonie<-list.files("/nobackup/users/dirksen/Temperature/Temperature/Data/HARMONIE/",pattern=".grd",full.names = T)
+
+
+r.harmonie.dates<-list.files("/nobackup/users/dirksen/Temperature/Temperature/Data/HARMONIE/",pattern=".grd",full.names = F)
+r.harmonie.dates<-as.Date(r.harmonie.dates,format="file%Y%m%dT123000Z.grd")
 #Test case
-t<-r.kriging.dates[2]
-out.sum<-output.sum[which(output.sum$date==t)]
-r.k<-readRDS(r.kriging[which(r.kriging.dates==t)])
-r.p<-raster(r.kriging.predictions[which(r.kriging.dates==t)])
-r.s<-raster(satellitegrids[which(r.kriging.dates==t)])
+# t<-r.kriging.dates[2]
+# out.sum<-output.sum[which(output.sum$date==t)]
+# r.k<-readRDS(r.kriging[which(r.kriging.dates==t)])
+# r.p<-raster(r.kriging.predictions[which(r.kriging.dates==t)])
+# r.s<-raster(satellitegrids[which(r.kriging.dates==t)])
 # 
 # coordinates(out.sum)<-~x+y
 # proj4string(out.sum)<-pro
@@ -110,7 +132,7 @@ function(input, output) {
   output$krigeplot <- renderPlot({
     par(mar = c(5.1, 4.1, 0, 1))
     plot(kriging.raster(),xlim=ranges$x, ylim = ranges$y,
-         col=do.call(input$color,list(n=50)),sp.layout<-list(mymap.pro[mymap.pro$NAME_SORT  %in% c('Netherlands'),]))
+         col=do.call(input$color,list(n=50)))
   })
   
   #

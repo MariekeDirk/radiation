@@ -1,10 +1,6 @@
 library(shiny)
 coordsRD<-readRDS("/nobackup/users/dirksen/radiation/Rdata/coordsRDknmi.rda")
 
-output.sum<-list.files("/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/",pattern = ".txt",full.names = T)
-output.sum<-fread(output.sum)
-output.sum<-subset(output.sum,select=c("SAT","observed","residual","var1.pred","r2","rmse","rmse_sd","me"))
-
 #Up next: change the page into different tabs
 #example: https://shiny.rstudio.com/gallery/datatables-options.html 
 #navbarPage("Solar Radiation explorer",
@@ -23,7 +19,12 @@ navbarPage("Solar Radiation explorer",
 ##############################################     
 ############################################## 
 ############################################## 
-           tabPanel("Interactive Maps",          
+      # tabPanel("Select Data",
+      #          wellPanel(selectInput('directory','Main Path',choices = c('Radiation'="/nobackup/users/dirksen/radiation/Rdata",
+      #                                                                    'Temperature'="/here/comes/path/to/temperature"))
+      #                    )
+               # ),     
+      tabPanel("Interactive Maps",          
   fluidRow(
   column(4,
          #dateInput('date', 'date', min=as.Date("2004-01-19"),max=as.Date("2016-08-08"),value=as.Date("2015-07-07"))
