@@ -3,7 +3,7 @@
 
 #REMOVE ALL OBJECTS
 rm(list=ls(all=TRUE))
-system("rm /nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/*")
+# system("rm /nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/*")
 #LOAD PACKAGES
 library(methods)
 library(sp)
@@ -17,6 +17,7 @@ library(raster)
 library(data.table)
 
 source ("/nobackup/users/dirksen/Temperature/Temperature/Data/KNMIstations/crossvalidate.r")
+coordsRD<-readRDS("/nobackup/users/dirksen/radiation/Rdata/coordsRDknmi.rda")
 inputdata_all<-fread("/nobackup/users/dirksen/radiation/Rdata/sat_over_obs2.csv")
 names(inputdata_all) <- c("date","DS_CODE","Q","x","y","SAT","DIFF")
 inputdata_all$date <- as.Date(inputdata_all$date)
@@ -51,18 +52,27 @@ sd.quarter <- aggregate(in.aggregate.fun,list(inputdata_all$quarters,inputdata_a
 names(mean.quarter)<-c("quarters","DS_CODE","Q","SAT","DIFF")
 names(sd.quarter)<-c("quarters","DS_CODE","Q","SAT","DIFF")
 
+mean.quarter<-merge(mean.quarter,coordsRD,by="DS_CODE")
+sd.quarter<-merge(sd.quarter,coordsRD,by="DS_CODE")
 
+# saveRDS(mean.quarter,"/nobackup/users/dirksen/radiation/Rdata/mean_quarter_obs.rds")
+# saveRDS(sd.quarter,"/nobackup/users/dirksen/radiation/Rdata/sd_quarter_obs.rds")
 
+satellite_data_SICCS.quarters.mean<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_mean.rds")
+satellite_data_SICCS.quarters.sd<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_sd.rds")
+
+satellite_data_SICCS.12year.mean<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_mean.rds")
+satellite_data_SICCS.12year.sd
 system.time(
 for (i in 1:4)({
-  Y=year[i]
-  SICCS_loc_new<-satellite_data_SICCS[i]
-  SICCS_datum<-time[i]
-  t=time[i]
-  distshore.grd<-raster(SICCS_loc_new,colname="distshore")
-  distshore.grd<-as(distshore.grd,"SpatialGridDataFrame")
+
+  SICCS_loc_new<-satellite_data_SICCS.quarters.mean[[i]]
+  t=i
   
-  inputdata = inputdata_all[inputdata_all$date==SICCS_datum,] #The datum of the inputdata equals the RACMO_datum
+  distshore.grd<-as(SICCS_loc_new,"SpatialGridDataFrame")
+  names(distshore.grd)<-"SAT"
+  
+  inputdata = mean.quarter[mean.quarter$quarters==i,] #The datum of the inputdata equals the RACMO_datum
   inputdata[] <- lapply(inputdata, function(x) type.convert(as.character(x)))
   #This is to avoid "Factor" problems with the .txt file
   
@@ -96,6 +106,7 @@ for (i in 1:4)({
   ked_exp.cv$krige.cv_output$rmse_sd<-ked_exp.cv$krige.cv_output$rmse/sqrt(noemer)
   ked_exp.cv$krige.cv_output$me<-(ked_exp.cv$krige.cv_output$var1.pred-ked_exp.cv$krige.cv_output$observed)/mean(ked_exp.cv$krige.cv_output$observed)
   ked_exp.cv$krige.cv_output$date<-t
+  ked_exp.cv$krige.cv_output$quarter<-i
   ked_exp.cv$krige.cv_output$SAT<-inputdata$SAT
   #save functions
   if(i==1){
@@ -104,10 +115,10 @@ for (i in 1:4)({
     write.table(data.frame(ked_exp.cv$krige.cv_output), output_dir_kedexp, row.names=FALSE, col.names=FALSE,sep=",",append=TRUE)
   }
   ### KED output
-  ked_output_new<-gsub("datum",SICCS_datum,ked_output)
+  ked_output_new<-gsub("datum",i,ked_output)
   saveRDS(ked_exp,ked_output_new)
   
-  ked_output_prediction_new<-gsub("datum",SICCS_datum,ked_output_prediction)
+  ked_output_prediction_new<-gsub("datum",i,ked_output_prediction)
   writeRaster(ked_prediction,ked_output_prediction_new,overwrite=T)
   
 })  

@@ -57,3 +57,7 @@ saveRDS(sun.df,"Rdata/sunshine.rda")
 #function: daylength
 library(insol)
 ?daylength
+
+
+
+

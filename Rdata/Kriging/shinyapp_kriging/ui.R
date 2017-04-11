@@ -19,11 +19,51 @@ navbarPage("Solar Radiation explorer",
 ##############################################     
 ############################################## 
 ############################################## 
-      # tabPanel("Select Data",
-      #          wellPanel(selectInput('directory','Main Path',choices = c('Radiation'="/nobackup/users/dirksen/radiation/Rdata",
-      #                                                                    'Temperature'="/here/comes/path/to/temperature"))
-      #                    )
-               # ),     
+tabPanel("Climatology grids",
+         fluidRow(
+           actionButton('saveclim',"save all figures")
+         ),
+         fluidRow(
+           column(6,plotOutput("clim12yearmean_ked_siccs")),
+           column(6,plotOutput("clim12yearsd_ked_siccs"))
+         ),
+         fluidRow(
+           column(6,plotOutput("clim12yearmean_siccs")),
+           column(6,plotOutput("clim12yearsd_siccs"))
+         ),
+         fluidRow(
+           column(6,plotOutput("clim12year_distsea_mean")),
+           column(6,plotOutput("clim12year_distsea_sd"))
+         )
+         ),      
+
+tabPanel("Climatology Quarters",
+               fluidRow(
+                 column(4,
+               selectInput('season','Season',choices = c('Q1'="1",
+                                                          'Q2'="2",
+                                                          'Q3'="3",
+                                                          'Q4'="4"))
+                 ),
+               column(4,
+                      actionButton('savemean',"save all figures")
+                    
+                      )),
+                         
+              fluidRow(
+                  column(6,plotOutput("seasons")),
+                  column(6,plotOutput("seasons.sd"))
+                      ),
+              fluidRow(
+                column(6,plotOutput("seasons.siccs")),
+                column(6,plotOutput("seasons.sd.siccs"))
+              ),
+              fluidRow(
+                column(6,plotOutput("seasons.mean.dist")),
+                column(6,plotOutput("seasons.sd.dist"))
+              )
+               
+      ),
       tabPanel("Interactive Maps",          
   fluidRow(
   column(4,
@@ -36,12 +76,15 @@ navbarPage("Solar Radiation explorer",
           
   column(4,       
   selectInput('color','Color Palette',
-                        choices = c('Topo'="topo.colors",
-                                    'Terrain'="terrain.colors",
+                        choices = c('Terrain'="terrain.colors",
+                                    'Topo'="topo.colors",
                                     'Heat'="heat.colors",
                                     'Rainbow'="rainbow",
                                     'cm'="cm.colors"))
-  )
+  ),
+  column(4,
+         actionButton('saveday',"save the day")
+         )
 
          ),
 
@@ -140,7 +183,27 @@ navbarPage("Solar Radiation explorer",
 ############################################## 
 ############################################## 
 ############################################## 
-
+tabPanel("Data time explorer",
+         fluidRow(
+           actionButton("savetimediff","save plot")
+         ),
+         fluidRow(
+           column(12,
+                  h4("Difference between two products with time"),
+                  plotOutput("timediff",dblclick = 'zoomplot_dblclick2',brush = brushOpts(
+                    id = "plot3_brush",
+                    resetOnNew = TRUE)),
+                  verbatimTextOutput("infobrush2")
+                  ),
+           column(12,
+                  h4("Difference between two products with time"),
+                  plotOutput("statistics",dblclick = 'zoomplot_dblclick3',brush = brushOpts(
+                    id = "plot4_brush",
+                    resetOnNew = TRUE))
+                  #verbatimTextOutput("infobrush2")
+           )
+         )
+         ),
 tabPanel("Variogram fit",
          fluidRow(
            column(6,
