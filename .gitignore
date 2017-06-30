@@ -1,9 +1,4 @@
 .Rproj.user
 .Rhistory
 .Ruserdata
-Rdata/MLmodels
-Rdata/MLPredictions
-functions
-Rdata/Satellite_data/temp
-Rdata/Kriging/Daily
-Rdata/SNOW
+data

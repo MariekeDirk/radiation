@@ -3,6 +3,7 @@
 # 
 # rm(list=ls(all=TRUE)) # clear the working space
 # 
+.libPaths("/nobackup/users/dirksen/R/x86_64-redhat-linux-gnu-library/3.3/")
 library(sp)
 library(adehabitat)
 library(lubridate)
@@ -10,6 +11,82 @@ library(data.table)
 library(raster)
 library(rgdal)
 library(rhdf5)
+library(xts)
+library(raster)
+library(rts)
+library(rgdal)
+library(RColorBrewer)
+pro <- CRS("+init=epsg:28992")
+#kleur.breaks<-seq(115,200,by=1)
+#kleur.cols<-colorRampPalette(c("green","yellow","orange"))(length(kleur.breaks-1))
+# # kleur.cols<-terrain.colors(length(kleur.breaks-1))
+# 
+#Natural Earth dataset: unprojected shape files
+mymap.unpro=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_admin_0_countries',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
+mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
+
+mymap.unpro_lakes=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_lakes',layer="ne_10m_lakes") # Read in (unprojected) map data
+mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
+
+fun <- function() {
+  plot(mymap.pro,add=TRUE)
+  plot(mymap.pro_lakes,add=TRUE)
+}
+
+# #########rts analysis
+
+# list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
+#list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
+
+path.grid<-"/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily_distsea/" #kriging with distsea
+#path.grid<-"/nobackup/users/dirksen/radiation/Rdata/Kriging/Daily/" #kriging with satellite
+
+#Kriging daily files
+list<-list.files(path.grid,pattern=".grd",full.names = TRUE)
+list2<-list.files(path.grid,pattern=".grd")
+# # 
+time.vector<-gsub(".grd","",list2)
+time.vector<-gsub("ked_exp_prediction_","",time.vector)
+time.vector<-as.POSIXct(time.vector,format="%Y-%m-%d")
+st<-stack(list)
+st.names<-names(st)
+I.pred<-as.numeric(grep("var1.pred.",st.names))
+#seq(1,13050,by=3)
+st.pred<-subset(x=st,subset=I.pred)
+# saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+#st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
+stts<-rts(st.pred,time.vector)
+
+#mean for all quarters
+yq<-as.yearqtr(time.vector)
+indices<-format(yq,format="%q")
+mean.quarter <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
+names(mean.quarter)<-c("Q1","Q2","Q3","Q4")
+plot(mean.quarter)
+
+# saveRDS(mean.quarter,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_sd.rds")
+
+#mean for all months
+indices<-format(time.vector,format="%m")
+indices<-as.numeric(indices)
+
+mean.month <- stackApply(st.pred,indices,fun=mean) # Calculating the mean for each month
+names(mean.month)<-c("Jan","Feb","March","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec")
+
+kleur.breaks<-seq(18,245,by=0.5)
+kleur.cols<-colorRampPalette(c("green","yellow","orange"))(length(kleur.breaks-1))
+plot.new()
+par(mar=c(0,0,0,0), oma=c(0,0,0,0))
+#png(filename="/usr/people/dirksen/reports/EGU2017_proceedings/fig/monthly_mean_distsea.png", width = 3200, height = 2500, units = "px",res=300)
+
+plot(mean.month,addfun=fun,col=kleur.cols,
+     ext=extent(11766.11,279946.1,305137.7 ,618857.7 ),
+     legend.args=list(text='W/m2', side=3, cex=0.5
+     ))
+#dev.off()
+###################################################################
+###################################################################
+###################################################################
 # 
 # pro=CRS("+init=epsg:28992")
 # WGS84<-CRS("+init=epsg:4326")
@@ -96,58 +173,9 @@ library(rhdf5)
 # }
 # }
 
-library(xts)
-library(rts)
-
-library(RColorBrewer)
-pro <- CRS("+init=epsg:28992")
-kleur.breaks<-seq(115,200,by=1)
-kleur.cols<-colorRampPalette(c("green","yellow","orange"))(length(kleur.breaks-1))
-# # kleur.cols<-terrain.colors(length(kleur.breaks-1))
-# 
-#Natural Earth dataset: unprojected shape files
-mymap.unpro=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_admin_0_countries',layer="ne_10m_admin_0_countries") # Read in (unprojected) map data
-mymap.pro=spTransform(mymap.unpro, pro) # Reproject the map
-
-mymap.unpro_lakes=readOGR(dsn='Rdata/NaturalEarthData/ne_10m_lakes',layer="ne_10m_lakes") # Read in (unprojected) map data
-mymap.pro_lakes=spTransform(mymap.unpro_lakes, pro) # Reproject the map
-
-fun <- function() {
-  plot(mymap.pro,add=TRUE)
-  plot(mymap.pro_lakes,add=TRUE)
-}
-
-# #########rts analysis
-
-# list<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd",full.names = TRUE)
-list2<-list.files("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/temp/",pattern=".grd")
-# # 
-time.vector<-gsub(".grd","",list2)
-time.vector<-as.POSIXct(time.vector,format="%Y%m%d")
-# st<-stack(list)
-# saveRDS(st,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-st<-readRDS("/nobackup/users/dirksen/radiation/Rdata/Satellite_data/stack/st.rds")
-stts<-rts(st,time.vector)
-
-#mean for all quarters
-yq<-as.yearqtr(time.vector)
-indices<-format(yq,format="%q")
-mean.quarter <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
-names(mean.quarter)<-c("Q1","Q2","Q3","Q4")
-plot(mean.quarter)
-
-# saveRDS(mean.quarter,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/quarters_sd.rds")
-
-#mean for all months
-indices<-format(time.vector,format="%m")
-indices<-as.numeric(indices)
-
-mean.month <- stackApply(st,indices,fun=sd) # Calculating the mean for each month
-names(mean.month)<-c("Jan","Feb","March","Apr","May","June","July","Aug","Sept","Okt","Nov","Dec")
-plot(mean.month)
-
-saveRDS(mean.month,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/months_sd.rds")
-
+#saveRDS(mean.month,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/months_sd.rds")
+##################################################
+##################################################
 #mean for all years
 indices<-format(time.vector,format="%Y")
 indices<-as.numeric(indices)
@@ -158,6 +186,21 @@ plot(mean.year)
 
 saveRDS(mean.year,"/nobackup/users/dirksen/radiation/Rdata/Satellite_data/climatology/months_sd.rds")
 
+#####################################################
+#Time series R2 and RMSE
+mean.solar.irradiance<-summary(mean.month)
+mean.solar.irradiance<-mean.solar.irradiance[3,]
+library(data.table)
+library(adehabitat)
+time.series<-fread("/nobackup/users/dirksen/radiation/Rdata/Kriging/statistics_daily.txt")
+time.series$t<-month(as.Date(time.series$t))
+time.series<-as.data.frame(time.series)
+mean.per.month<-aggregate(time.series[-1],list(time.series$t),mean)
+
+test<-cbind(mean.per.month,mean.solar.irradiance)
+test<-test/test$mean.solar.irradiance*100
+#####################################################
+#####################################################
 # plot(stts[[1]],addfun=fun)
 # #drawExtent()
 # # grd.ts<-rts(grd.test,time.vector)
@@ -201,7 +244,7 @@ par(mar=c(0,0,0,0), oma=c(0,0,0,0))
 plot(st,addfun=fun,col=kleur.cols,legend=T,
      ext=extent(12621.630033977,278621.630033977,305583.0457758,620583.0457758))
 
-r<-months_mean
+r<-mean.month
 r.range <- c(minValue(r), maxValue(r))
 r.range <- c(18, 145)
 plot(r, legend.only=TRUE, col=topo.colors(100),
