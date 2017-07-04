@@ -1,0 +1,15 @@
+---
+title: "Example"
+output: html_document
+runtime: shiny
+---
+
+## R Markdown
+
+This is an R Markdown document. 
+
+include items like this:
+* item 1
+* item 2
+* ...
+* For more details click on [this link](http://rmarkdown.rstudio.com/authoring_shiny.html)
