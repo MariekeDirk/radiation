@@ -18,12 +18,13 @@ ymax<-53.737374
 mainpath<-"/nobackup/users/dirksen/radiation/data"
 
 output.sum<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".txt",full.names = T)
-output.distshore.sum<-list.files(paste0(mainpath,"/Kriging/Daily_distsea/"),pattern = ".txt",full.names = T)
-r.kriging<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".rda",full.names = T)
+# output.distshore.sum<-list.files(paste0(mainpath,"/Kriging/Daily_distsea/"),pattern = ".txt",full.names = T)
+# r.kriging<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".rda",full.names = T)
 r.kriging.predictions<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".grd",full.names = T)
+
 r.kriging.dates<-list.files(paste0(mainpath,"/Kriging/Daily/"),pattern = ".rda")
 r.kriging.dates<-as.Date(r.kriging.dates,format="ked_exp_model_%Y-%m-%d.rda")
-satellitegrids<-list.files(paste0(mainpath,"/Satellite_data/temp/"),pattern=".grd",full.names = T)
+# satellitegrids<-list.files(paste0(mainpath,"/Satellite_data/temp/"),pattern=".grd",full.names = T)
 
 output.sum<-fread(output.sum)
 
@@ -43,9 +44,9 @@ server<-function(input,output,server){
   })
   
   #Kriging model output for input date
-  kriging.raster <- reactive({
-    r.k<-readRDS(r.kriging[which(r.kriging.dates==input$date)])
-  })
+  # kriging.raster <- reactive({
+  #   r.k<-readRDS(r.kriging[which(r.kriging.dates==input$date)])
+  # })
   
   #Kriging prediction for input date
   kriging.prediction<-reactive({
@@ -53,9 +54,9 @@ server<-function(input,output,server){
   })
   
   #Satellite grid for input date
-  satellite.grid<-reactive({
-    r.s<-raster(satellitegrids[which(r.kriging.dates==input$date)])
-  })
+  # satellite.grid<-reactive({
+  #   r.s<-raster(satellitegrids[which(r.kriging.dates==input$date)])
+  # })
   
   spatialpoints.data<- reactive({
     out.sum.sp<-output.sum[which(output.sum$date==input$date)]
