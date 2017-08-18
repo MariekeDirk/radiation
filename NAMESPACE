@@ -1,0 +1,11 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("methods", "slot", "slot<-")
+importFrom("stats", "na.omit", "na.pass", "predict", "sd","var","complete.cases")
+importFrom("utils", "setTxtProgressBar", "txtProgressBar")
+importFrom("sp","coordinates")
+importFrom("automap","autoKrige")
+importFrom("gstat","krige","krige.cv","idw")
+importFrom("fields","Tps")
+importFrom("raster", "stack","crop","stackApply","writeRaster","extent","raster","extract")
+importFrom("ncdf4","nc_open","nc_close","ncvar_get")
+
