@@ -1,0 +1,225 @@
+---
+title: "Proceedings"
+author: "Marieke Dirksen"
+date: "June 27, 2017"
+output: word_document
+---
+\dochead{European Geosciences Union General Assembly 2017, EGU\\ Division Energy, Resources \& Environment, ERE}%
+
+\title{Quality assessment of high-resolution climate records  of satellite derived solar irradiance}
+\author[a]{Marieke Dirksen\corref{cor1}} 
+\author[a]{Jan Fokke Meirink}
+\author[a]{Raymond Sluiter}
+
+\address[a]{KNMI, Address, De Bilt 3730AE, The Netherlands}
+%\address[b]{Second affiliation, Address, City and Postcode, Country}
+
+\begin{abstract}
+%% Text of abstract
+Measurements from geostationary satellites allow the retrieval of surface solar irradiance homogeneously over large areas, thereby providing essential information for the solar energy sector. Here, the SICCS solar irradiance data record derived from 12 years of MSG satellite measurements is analysed with a focus on the Netherlands. Daily SICCS data is validated with pyranometer observations, indicating a bias of approximately 3W/m$^2$. Next, the data record is optimized using surface observations and kriging interpolation with satellite observations as trend. Long term averages, seasonal variations and inter-annual variability of solar irradiance show regional patterns related to the surface type. 
+%98/100 words
+
+%To optimize the data record kriging interpolation is used to merge satellite and surface observations. 
+\end{abstract}
+
+\begin{keyword}
+Solar Irradiance; Satellite measurements; pyranometer; kriging; climatology  
+\end{keyword}
+\cortext[cor1]{Corresponding author. Tel.: +0316-152-400-99}
+
+
+%\correspondingauthor[*]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+\email{dirksen@knmi.nl}
+
+\section{Introduction}
+
+\label{intro}
+There is a need to understand climate variability at local scale. Local and global problems are linked, therefore an improved understanding of the local climate potentially leads to a deeper understanding of global climate \cite{Wilbanks1999}. High resolution solar irradiance is important in many fields such as meteorology (e.g. \cite{Bristow1984}) and climatology (e.g. \cite{IPCC2014}, \cite{Thornton1999}). Previous studies used a satellite-based irradiance product to derive long term averages and climatologies \cite{Huld2012}. 
+
+If we interpolate the average solar irradiation for the Netherlands based on 32 observation stations \cite{Noordhoffuitgevers2011}, it results in a smooth pattern for the Netherlands (Fig. \ref{fig:keddistsea}). Local spatial patterns are lacking. Enhanced spatial detail can be provided by satellite observations (e.g. \cite{Journee2010}, \cite{Tiggelen2014a}). 
+
+Previously, ground-based measurements have been interpolated with a satellite product (CM-SAF, \cite{Mueller2009}), using a data set of two years over Belgium. From the different interpolation techniques kriging with external drift showed the best performance. Spatially patterns were improved and station errors were lower \cite{Journee2010}. Compared with \cite{Journee2010} this research uses a time series from 2004/01/19 until 2016/01/19 with daily data of the Meteosat Second Generation (MSG) product Surface Insolation under Clear and Cloudy Skies (SICCS) \cite{Greuell2013} and 32 ground based observations over the Netherlands. First, an assessment of the quality of the satellite observations is made using the ground-based observations. Secondly, ground-based measurements are integrated with the satellite product SICCS to create an optimized high resolution solar irradiance data set. Finally, climatologies are calculated from the new data set.  
+
+\vspace{20pt plus 10pt minus 5pt}
+
+\begin{figure}[b]
+\begin{minipage}[t]{\columnwidth}
+	\begin{center}
+		
+		\begin{minipage}[t]{0.45\columnwidth}
+			\centering
+			\subfloat[a]{
+			\includegraphics[width=0.9\textwidth]{GroundStationsKNMI}
+			\label{fig:stations}
+			}
+			%\captionof{figure}{Road Temperature sensor. The sensors are on the car lanes.}
+			
+		\end{minipage}
+		\hspace{0.5cm}
+		\begin{minipage}[t]{0.45\columnwidth}
+			\centering
+			\subfloat[b]{
+			\includegraphics[width=1\textwidth]{ked_distshore_clim12year_mean}
+			\label{fig:keddistsea}
+			}
+			%\captionof{figure}{Air Temperature sensor, next to the road.}
+			
+
+		\end{minipage}
+	\end{center} 
+			\captionof{figure}{(a) Overview of the KNMI stations. At all locations except Vlieland pyranometers measure the solar irradiance.; (b) Kriging interpolation using the 32 ground-based observations and with distance to the sea as trend.}
+\end{minipage}
+\end{figure}
+
+
+
+\section{Methods}
+\label{methods}
+Ground based observations have a limited spatial coverage with high accuracy while SICCS provide continuous spatial information with lower accuracy. In this chapter we describe the differences between both data sets and the algorithm to combine the data sets. Data with a daily time resolution is used to analyze differences and preform a Kriging with External Drift (KED) analysis.   
+%Raymond:
+%Bijvoorbeeld zeggen dat het gebasserd is op MSG en hoe de verhouding is met CM-SAF
+%Ground based observations provide locally supported information, while SICCS provides spatial information. In this chapter the different methods to observe solar irradiance are discussed. The algorithm to combine both data sets is described and the validation method. 
+
+\subsection{Ground-based Observations}
+The ground based solar irradiance observations originate from Automatic Weather Stations (AWS), having a time resolution of 10 minutes. Currently a total of 32 stations measure radiation (Fig. \ref{fig:stations}) using a Pyranometer. The 12 second measurements are averaged over 1 minute as well as 10 minutes. The instruments can have a calibration uncertainty up to 10 W/m$^2$ \cite{Henzing2001}. For the daily measurements an error of $3\%$ is expected \cite{KippZonen2000}.
+
+\subsection{Satellite Observations}
+\label{subsec:satellitealgorithm}
+The Spinning Enhanced Visible and Infrared Imager (SEVIRI) on-board MSG measures reflected and emitted radiation from the earth in 12 spectral channels with a sub-satellite spatial resolution of 3x3 km2 and a repeat frequency of 15 minutes \cite{Schmetz2002}. The SICCS algorithm \cite{Greuell2013} to derive surface solar irradiance for every SEVIRI pixel works in three steps. First a distinction is made between clear and cloudy pixels. Second, for cloudy pixels a range of cloud properties is retrieved, including thermodynamic phase, optical thickness, and particle size. Third, broad-band shortwave radiative transfer calculations are employed to determine surface irradiance using as main inputs the retrieved cloud properties for cloudy pixels and modeled aerosol properties from the MACC reanalysis \cite{Innes2013} for cloud-free pixels. In addition, ancillary data sets of surface albedo, surface elevation, integrated water vapor, and total ozone column are utilized. The retrieval algorithm is currently limited to a solar zenith angle of 78 degrees. Beyond this angle the atmospheric transmissivity is linearly extrapolated to obtain total daily surface irradiance.
+
+\subsection{Kriging}
+Ground observations are interpolated using KED with satellite observations as external drift. Kriging is an interpolation method which uses auto-correlation to determine a relationships among measurement points. Kriging allows an error, so differences between the interpolation values and stations are allowed. The data analysis is preformed in R \cite{Rcoreteam2011}, for KED the R package \textit{gstat} is used \cite{Pebesma2004}. According to \cite{Hengl2004} , \cite{Hengl2007} the ground observations can be defined as $z_{(s_1)}, z_{(s_1)}, ...,z_{(s_n)}$, here $s_i = (x_i,y_i)$ are the coordinates and $n$ are the number of observations. At a new location the prediction is defined as:
+
+\begin{equation}
+\hat{z}_{(s_0)} = \hat{m}_{(s_0)} + \hat{e}_{(s_0)}
+\end{equation}
+
+Here $\hat{m}$ is fitted using linear regression and $\hat{e}$ is the residual interpolated from ordinary kriging:
+
+\begin{equation}
+\hat{z}_{(s_0)} = \sum_{k=o}^{p}\hat{\beta}_k \cdot q_k(s_0) + \sum_{i=1}^{n}w_i(s_0) \cdot e(s_i)
+\end{equation}
+
+Here $\hat{\beta}_k$ are the estimated drif model coefficients, $\hat{w}_i$ are the kriging weights and $e(s_i)$ is the residual at $s_i$. KED was preformed for each day. As validation method Leave One Out Cross Validation (LOOCV) is used (e.g. \cite{Baumann2003}, \cite{Allen1974}). This interpolation is compared with two others: SICCS is directly compared with the ground-based observations and the ground-based observations are interpolated using kriging with external drift and the distance to the sea as a trend. From the resulting grids climatological data is calculated. 
+
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=0.7\linewidth]{../fig/difference_time2004-02-08_2006-12-13}
+	\caption{Differences between the ground-based observations and SICCS. The black dots are the differences for each station on each day. In yellow the annual trend is shown, fitted according to \cite{Wood2017}.}
+	\label{fig:differencetime}
+\end{figure}
+
+\section{Results}
+
+\subsection{Differences between SICCS and ground-based observations}
+In Fig. \ref{fig:differencetime} three years of data is plotted. The mean difference between the SICCS and ground-based observations is 2.7W/m$^2$. The standard deviation of the difference equals 11.3W/m$^2$. During the winter months the differences between the two products are smaller, while occasionally larger differences arise in the summer months. In some cases differences of more than 60W/m$^2$ are observed. Fig. \ref{fig:differencetime} also shows a small seasonal trend. During the winter months the mean difference is around zero while in summer months a small positive bias is observed. 
+
+\subsection{Interpolation statistics}
+During the winter months the lowest correlations and largest RMSE\%  values are found in all cases (Table \ref{tab:summary}). In the summer months higher correlations and lowest RMSE\% values are found. Using a kriging interpolation with the distance to the sea as trend shows the largest errors. A direct comparison between the ground-based observations and SICCS shows a better correlation.  Kriging interpolation with SICCS as trend shows the best results; compared with the previous method mainly the winter months have improved. 
+
+\subsection{Spatial patterns}
+Interpolating with the ground-based observations results in a smooth pattern over the Netherlands (Fig. \ref{fig:monthly_mean_distsea}). In general these patterns match Fig. \ref{fig:monthly_mean}, showing the results of KED with SICCS as trend. However, the spatial resolution of Fig. \ref{fig:monthly_mean} is much higher. In the summer months the  main pattern shows an increase in solar irradiance towards the coast. In the winter months a north-south pattern develops, with higher solar irradiance in the south. 
+
+The solar irradiance above the sea varies more throughout the seasons than above land. In the autumn and winter values are relatively low while they are relatively high in spring and summer. This mimics variation in cloud cover. Besides these large scale patterns we can also observe small scale patterns. The slightly elevated forest area in the middle of the country and large cities and the slightly elevated northeastern part all have less solar irradiance compared with the rest of the country.
+ 
+
+
+
+\begin{table}[b]
+	\centering
+	\caption{Comparing the SICCS, kriging with SICCS as trend and kriging with the distance to the sea with the ground-based observations. The statistical summary for each month including $R^2$ and RMSE (in absolute values and percentage [\%]).}
+	\label{tab:summary}
+	\begin{tabular}{lll|ll|ll}
+		\hline
+		& \multicolumn{2}{l|}{SICCS}                       & \multicolumn{2}{|l|}{Kriging SICCS}               & \multicolumn{2}{|l}{Kriging Sea}                     \\ \hline
+		\multicolumn{1}{l|}{} & \multicolumn{1}{l}{R2} & \multicolumn{1}{l|}{RMSE} & \multicolumn{1}{l}{R2} & \multicolumn{1}{l|}{RMSE} & \multicolumn{1}{l}{R2} & \multicolumn{1}{l}{RMSE} \\ \hline
+		\multicolumn{1}{l|}{Jan} &0.63&5.86 (20.91\%)&0.73&3.27 (11.64\%)&0.65&3.95 (14.10\%)\\ \hline 
+		\multicolumn{1}{l|}{Feb} &0.71&7.61 (15.00\%)&0.76&4.53 (8.93\%)& 0.64 & 6.03 (11.88\%)     \\ \hline
+		\multicolumn{1}{l|}{March}&0.78&10.03 (9.37\%)&0.79&6.39 (5.98\%)&0.62&10.00 (9.34\%)     \\ \hline
+		\multicolumn{1}{l|}{Apr}&0.78&11.97 (6.82\%)&0.78&8.41 (4.79\%)&0.59&13.70 (7.81\%)     \\ \hline
+		\multicolumn{1}{l|}{May}&0.79&14.15 (6.91\%)&0.80&10.58 (5.17\%)&0.58&17.36 (8.48\%)		\\ \hline
+		\multicolumn{1}{l|}{June}&0.78&14.76 (6.54\%)&0.78&11.54 (5.12\%)&0.58&18.41 (8.16\%)     \\ \hline
+		\multicolumn{1}{l|}{July}&0.75&14.57 (6.84\%)&0.75&11.45 (5.37\%)&0.55&17.18 (8.06\%)     \\ \hline
+		\multicolumn{1}{l|}{Aug}&0.79&12.77 (7.30\%)&0.78&10.00 (5.71\%)&0.56&15.18 (8.68\%)     \\ \hline
+		\multicolumn{1}{l|}{Sept}    &   0.77   & 10.06 (7.86\%)    &  0.78   &    7.12 (5.56\%)  &    0.58   &    11.07 (8.64\%)     \\ \hline
+		\multicolumn{1}{l|}{Oct}     &   0.79   &  6.74 (9.29\%)    &  0.80   &     4.62 (6.37\%)  &    0.63   &     7.07 (9.75\%)     \\ \hline
+		\multicolumn{1}{l|}{Nov}     &   0.74   &  4.90 (15.24\%)    &  0.79   &     3.04 (9.46\%)  &    0.65   &     4.22 (13.12\%)     \\ \hline
+		\multicolumn{1}{l|}{Dec}     &   0.61   &  4.88 (23.27\%)    &  0.72   &     2.68 (12.78\%)  &    0.64   &     3.19 (15.25\%)     \\ \hline
+	\end{tabular}
+\end{table}
+\FloatBarrier
+
+\begin{sidewaysfigure}[ht]\vspace*{4pt}
+	\includegraphics[width=0.9\textwidth]{monthly_mean_distsea}
+	\caption{Monthly mean radiation climatology using KED and a distance to the sea trend. The axis of each month set to the minimum and maximum value of the representative month to highlight local differences in solar irradiance. }
+	\label{fig:monthly_mean_distsea}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}[ht]\vspace*{4pt}
+	\includegraphics[width=0.9\textwidth]{monthly_mean}
+	\caption{Monthly mean radiation climatology using KED and SICCS as trend. The axis of each month set to the minimum and maximum value of the representative month to highlight local differences in solar irradiance. }
+	\label{fig:monthly_mean}
+\end{sidewaysfigure}
+
+
+\FloatBarrier
+
+
+\vspace{20pt plus 10pt minus 5pt}
+\begin{figure}
+\begin{minipage}[t]{\columnwidth}
+	\begin{center}
+		
+		\begin{minipage}[b]{0.26\columnwidth}
+			\centering
+			\subfloat[a]{
+			\includegraphics[width=1\textwidth]{snowcover20050306}
+			\label{fig:snow}
+			}
+			%\captionof{figure}{Snow cover on 2005-03-06 (source \cite{KNMIdag}).}
+			
+		\end{minipage}
+		\hspace{0.5cm}
+		\begin{minipage}[b]{0.3\columnwidth}
+			\centering
+			\subfloat[b]{
+			\includegraphics[width=1\textwidth]{siccs2005-03-06}
+			\label{fig:SICCSsnow}
+			}
+			%\captionof{figure}{SICCS compared with the ground-based observations on 2005-03-06.}
+			
+		\end{minipage}
+		\hspace{0.5cm}
+		\begin{minipage}[b]{0.3\columnwidth}
+			\centering
+			\subfloat[c]{
+			\includegraphics[width=1\textwidth]{kriging_prediction2005-03-06}
+			\label{fig:KEDsnow}
+			}
+			%\captionof{figure}{Kriging with external drift interpolation on 2005-03-06.}
+			
+		\end{minipage}
+	\end{center}
+			\captionof{figure}{Highlighting the interpolation and ground conditions on 2005-03-06. (a) Snow cover (source: \url{www.knmi.nl/nederland-nu/klimatologie/geografische-overzichten} ; (b) SICCS compared with the ground-based observations.;(c) Kriging with external drift interpolation.}
+\end{minipage}
+\end{figure}
+
+\section{Discussion} 
+In some cases the differences between SICCS and the ground-based observations are large. This is caused by e.g. snow cover. As an example Fig. \ref{fig:snow} shows the snow cover on 2005/03/06, when only the southern part of the Netherlands was snow free. The satellite image (Fig. \ref{fig:SICCSsnow}) estimate a much lower solar irradiance in the snow covered area compared with the ground-based observations. Using a kriging interpolation with external drift for this day results in a correction of the spatial pattern from SICCS (Fig. \ref{fig:KEDsnow}). Besides these occasionally large differences a seasonal trend is observed (Fig. \ref{fig:differencetime}). The cause of this trend is unclear.  
+
+There is a large variation in solar irradiance monthly climatology above the sea (Fig. \ref{fig:monthly_mean}). While there are 32 stations on land to verify the interpolation method, above sea there are none. 
+
+\section{Conclusion}
+While, ground-based observations have a limited spatial coverage, solar irradiance products from satellites provide additional information. The ground-based observations have been interpolated using Kriging with External Drift (KED) and SICCS as trend. Yielding both spatial and statistical improvements. For the 12 year period 2004-2016 we found that: 
+
+\begin{itemize}
+\item The solar irradiance from ground observations and SICCS is comparable. SICCS is on average 2.7W/m$^2$ higher and the standard deviation of the difference equals 11W/m$^2$ (Fig. \ref{fig:differencetime}). 
+
+\item In winter differences are smaller compared to the summer months. This can be explained by the variation in solar angle. With a low solar angle there is less variation in solar irradiance.
+
+\item  KED with SICCS as trend out-preforms kriging with a distance to the sea trend and SICCS only. This is in agreement with \cite{Journee2010}. Mainly in the winter months $R^2$ and RMSE values improve. A small statistical improvement during the summer months is observed (Table \ref{tab:summary}). 
+
+\item The monthly climatology, derived from the daily interpolated solar irradiances (Fig. \ref{fig:monthly_mean_distsea}), using KED with a distance to the sea trend captures the large scale pattern for each month.  
+
+\item A higher spatial resolution is observed using KED with SICCS as trend. Local variations for each month can be observed (Fig. \ref{fig:monthly_mean}). 
+
